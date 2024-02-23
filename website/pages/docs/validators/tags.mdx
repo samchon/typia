@@ -19,53 +19,54 @@ Therefore, don't be afraid `typia` uses only pure TypeScript types for type vali
     - A2: Comment Tag is designed for legacy JSDoc styled projects
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="is.tag.ts" showLineNumbers {3}
 import typia, { tags } from "typia";
 
 export const checkCustomTag = typia.createIs<CustomTag>();
 
 interface CustomTag {
-    /**
-     * @type uint32
-     */
-    type: number;
+  /**
+   * @type uint32
+   */
+  type: number;
 
-    number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
+  number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
 
-    /**
-     * @minLength 3
-     */
-    string: string;
+  /**
+   * @minLength 3
+   */
+  string: string;
 
-    pattern: string & tags.Pattern<"^[a-z]+$">;
+  pattern: string & tags.Pattern<"^[a-z]+$">;
 
-    /**
-     * Type tag can perform union type.
-     * 
-     * In here case, format can be oneof `ipv4` or `ipv6` format.
-     */
-    format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
+  /**
+   * Type tag can perform union type.
+   *
+   * In here case, format can be oneof `ipv4` or `ipv6` format.
+   */
+  format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
 
-    /**
-     * In the Array case, only type tag can restrict element type.
-     */
-    array: Array<string & tags.Format<"uuid">> 
-        & tags.MinItems<3> 
-        & tags.MaxItems<100>;
+  /**
+   * In the Array case, only type tag can restrict element type.
+   */
+  array: Array<string & tags.Format<"uuid">> &
+    tags.MinItems<3> &
+    tags.MaxItems<100>;
 
-    /**
-     * Also, only type tag can handle map type.
-     */
-    map: Map<
-        number & tags.Type<"uint32">, 
-        Array<string & tags.Format<"uuid">> & tags.MinItems<1>
-    >;
+  /**
+   * Also, only type tag can handle map type.
+   */
+  map: Map<
+    number & tags.Type<"uint32">,
+    Array<string & tags.Format<"uuid">> & tags.MinItems<1>
+  >;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="is.tag.js" showLineNumbers
+----------------------------------------------------------- */
 "use strict";
 var __importDefault =
   (this && this.__importDefault) ||
@@ -88,20 +89,22 @@ const checkCustomTag = (input) => {
     "string" === typeof input.string &&
     3 <= input.string.length &&
     "string" === typeof input.pattern &&
-    !isNaN(new Date(input.pattern).getTime()) &&
+    /^[a-z]+$/.test(input.pattern) &&
     (null === input.format ||
       ("string" === typeof input.format &&
-        (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+        (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
           input.format,
         ) ||
-          !isNaN(new Date(input.format).getTime())))) &&
+          /^((([0-9a-f]{1,4}:){7}([0-9a-f]{1,4}|:))|(([0-9a-f]{1,4}:){6}(:[0-9a-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){5}(((:[0-9a-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){4}(((:[0-9a-f]{1,4}){1,3})|((:[0-9a-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){3}(((:[0-9a-f]{1,4}){1,4})|((:[0-9a-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){2}(((:[0-9a-f]{1,4}){1,5})|((:[0-9a-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){1}(((:[0-9a-f]{1,4}){1,6})|((:[0-9a-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9a-f]{1,4}){1,7})|((:[0-9a-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))$/i.test(
+            input.format,
+          )))) &&
     Array.isArray(input.array) &&
     3 <= input.array.length &&
     input.array.length <= 100 &&
     input.array.every(
       (elem) =>
         "string" === typeof elem &&
-        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
           elem,
         ),
     ) &&
@@ -120,7 +123,7 @@ const checkCustomTag = (input) => {
           elem[1].every(
             (elem) =>
               "string" === typeof elem &&
-              /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
+              /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                 elem,
               ),
           ),
@@ -129,7 +132,7 @@ const checkCustomTag = (input) => {
 };
 exports.checkCustomTag = checkCustomTag;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -206,111 +209,113 @@ For reference, when you take a mistake that choosing different target type, Type
 Also, if you need custom validation logic, just make it by yourself referencing [Customization](#customzation) section. It is easy to define. For such type safety and generous use case reasons even customization supporting, I recommend you to use type tags instead of [comment tags](#comment-tags), unless you are maintaining a legacy JSDoc styled project.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="is.tag.ts" showLineNumbers {3}
 import typia, { tags } from "typia";
 
 export const checkCustomTag = typia.createIs<CustomTag>();
 
 interface CustomTag {
-    type: number & tags.Type<"uint32">;
+  type: number & tags.Type<"uint32">;
 
-    number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
+  number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
 
-    string: string & tags.MinLength<3>;
+  string: string & tags.MinLength<3>;
 
-    pattern: string & tags.Pattern<"^[a-z]+$">;
+  pattern: string & tags.Pattern<"^[a-z]+$">;
 
-    /**
-     * Type tag can perform union type.
-     * 
-     * In here case, format can be oneof `ipv4` or `ipv6` format.
-     */
-    format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
+  /**
+   * Type tag can perform union type.
+   *
+   * In here case, format can be oneof `ipv4` or `ipv6` format.
+   */
+  format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
 
-    /**
-     * In the Array case, only type tag can restrict element type.
-     */
-    array: Array<string & tags.Format<"uuid">> 
-        & tags.MinItems<3> 
-        & tags.MaxItems<100>;
+  /**
+   * In the Array case, only type tag can restrict element type.
+   */
+  array: Array<string & tags.Format<"uuid">> &
+    tags.MinItems<3> &
+    tags.MaxItems<100>;
 
-    /**
-     * Also, only type tag can handle map type.
-     */
-    map: Map<
-        number & tags.Type<"uint32">, 
-        Array<string & tags.Format<"uuid">> & tags.MinItems<1>
-    >;
+  /**
+   * Also, only type tag can handle map type.
+   */
+  map: Map<
+    number & tags.Type<"uint32">,
+    Array<string & tags.Format<"uuid">> & tags.MinItems<1>
+  >;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="is.tag.js" showLineNumbers
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkCustomTag = void 0;
 const typia_1 = __importDefault(require("typia"));
 const checkCustomTag = (input) => {
-    const $io0 = (input) =>
-        "number" === typeof input.type &&
-        Math.floor(input.type) === input.type &&
-        0 <= input.type &&
-        input.type <= 4294967295 &&
-        (undefined === input.number ||
-            ("number" === typeof input.number &&
-                19 < input.number &&
-                input.number <= 100)) &&
-        "string" === typeof input.string &&
-        3 <= input.string.length &&
-        "string" === typeof input.pattern &&
-        !isNaN(new Date(input.pattern).getTime()) &&
-        (null === input.format ||
-            ("string" === typeof input.format &&
-                (/^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-                    input.format,
-                ) ||
-                    !isNaN(new Date(input.format).getTime())))) &&
-        Array.isArray(input.array) &&
-        3 <= input.array.length &&
-        input.array.length <= 100 &&
-        input.array.every(
+  const $io0 = (input) =>
+    "number" === typeof input.type &&
+    Math.floor(input.type) === input.type &&
+    0 <= input.type &&
+    input.type <= 4294967295 &&
+    (undefined === input.number ||
+      ("number" === typeof input.number &&
+        19 < input.number &&
+        input.number <= 100)) &&
+    "string" === typeof input.string &&
+    3 <= input.string.length &&
+    "string" === typeof input.pattern &&
+    /^[a-z]+$/.test(input.pattern) &&
+    (null === input.format ||
+      ("string" === typeof input.format &&
+        (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
+          input.format,
+        ) ||
+          /^((([0-9a-f]{1,4}:){7}([0-9a-f]{1,4}|:))|(([0-9a-f]{1,4}:){6}(:[0-9a-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){5}(((:[0-9a-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){4}(((:[0-9a-f]{1,4}){1,3})|((:[0-9a-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){3}(((:[0-9a-f]{1,4}){1,4})|((:[0-9a-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){2}(((:[0-9a-f]{1,4}){1,5})|((:[0-9a-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){1}(((:[0-9a-f]{1,4}){1,6})|((:[0-9a-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9a-f]{1,4}){1,7})|((:[0-9a-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))$/i.test(
+            input.format,
+          )))) &&
+    Array.isArray(input.array) &&
+    3 <= input.array.length &&
+    input.array.length <= 100 &&
+    input.array.every(
+      (elem) =>
+        "string" === typeof elem &&
+        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+          elem,
+        ),
+    ) &&
+    input.map instanceof Map &&
+    (() =>
+      [...input.map].every(
+        (elem) =>
+          Array.isArray(elem) &&
+          elem.length === 2 &&
+          "number" === typeof elem[0] &&
+          Math.floor(elem[0]) === elem[0] &&
+          0 <= elem[0] &&
+          elem[0] <= 4294967295 &&
+          Array.isArray(elem[1]) &&
+          1 <= elem[1].length &&
+          elem[1].every(
             (elem) =>
-                "string" === typeof elem &&
-                /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                    elem,
-                ),
-        ) &&
-        input.map instanceof Map &&
-        (() =>
-            [...input.map].every(
-                (elem) =>
-                    Array.isArray(elem) &&
-                    elem.length === 2 &&
-                    "number" === typeof elem[0] &&
-                    Math.floor(elem[0]) === elem[0] &&
-                    0 <= elem[0] &&
-                    elem[0] <= 4294967295 &&
-                    Array.isArray(elem[1]) &&
-                    1 <= elem[1].length &&
-                    elem[1].every(
-                        (elem) =>
-                            "string" === typeof elem &&
-                            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                                elem,
-                            ),
-                    ),
-            ))();
-    return "object" === typeof input && null !== input && $io0(input);
+              "string" === typeof elem &&
+              /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+                elem,
+              ),
+          ),
+      ))();
+  return "object" === typeof input && null !== input && $io0(input);
 };
 exports.checkCustomTag = checkCustomTag;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -389,90 +394,90 @@ Second, to support [Prisma](../utilization/prisma). If a comment is created in t
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="is.tag.ts" showLineNumbers {3}
 import typia from "typia";
 
 export const checkCustomTag = typia.createIs<CustomTag>();
 
 interface CustomTag {
-    /**
-     * @type uint32
-     */
-    type: number;
+  /**
+   * @type uint32
+   */
+  type: number;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    number?: number;
+  /**
+   * @exclusiveMinimum 19
+   * @maximum 100
+   */
+  number?: number;
 
-    /**
-     * @minLength 3
-     */
-    string: string;
+  /**
+   * @minLength 3
+   */
+  string: string;
 
-    /**
-     * @Pattern /^[a-z]+$/
-     */
-    pattern: string;
+  /**
+   * @Pattern /^[a-z]+$/
+   */
+  pattern: string;
 
-    // NO WAY WHEN COMMENT TAG
-    // /**
-    //  * Type tag can perform union type.
-    //  * 
-    //  * In here case, format can be oneof `ipv4` or `ipv6` format.
-    //  */
-    // format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
+  // NO WAY WHEN COMMENT TAG
+  // /**
+  //  * Type tag can perform union type.
+  //  *
+  //  * In here case, format can be oneof `ipv4` or `ipv6` format.
+  //  */
+  // format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
 
-    // NO WAY WHEN COMMENT TAG
-    // /**
-    //  * In the Array case, only type tag can restrict element type.
-    //  */
-    // array: Array<string & tags.Format<"uuid">> 
-    //     & tags.MinItems<3> 
-    //     & tags.MaxItems<100>;
+  // NO WAY WHEN COMMENT TAG
+  // /**
+  //  * In the Array case, only type tag can restrict element type.
+  //  */
+  // array: Array<string & tags.Format<"uuid">>
+  //     & tags.MinItems<3>
+  //     & tags.MaxItems<100>;
 
-    // NO WAY WHEN COMMENT TAG
-    // /**
-    //  * Also, only type tag can handle map type.
-    //  */
-    // map: Map<
-    //     number & tags.Type<"uint32">, 
-    //     Array<string & tags.Format<"uuid">> & tags.MinItems<1>
-    // >;
+  // NO WAY WHEN COMMENT TAG
+  // /**
+  //  * Also, only type tag can handle map type.
+  //  */
+  // map: Map<
+  //     number & tags.Type<"uint32">,
+  //     Array<string & tags.Format<"uuid">> & tags.MinItems<1>
+  // >;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="is.tag.js" showLineNumbers
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkCustomTag = void 0;
 const typia_1 = __importDefault(require("typia"));
 const checkCustomTag = (input) => {
-    const $io0 = (input) =>
-        "number" === typeof input.type &&
-        Math.floor(input.type) === input.type &&
-        0 <= input.type &&
-        input.type <= 4294967295 &&
-        (undefined === input.number ||
-            ("number" === typeof input.number &&
-                19 < input.number &&
-                input.number <= 100)) &&
-        "string" === typeof input.string &&
-        3 <= input.string.length &&
-        "string" === typeof input.pattern;
-    return "object" === typeof input && null !== input && $io0(input);
+  const $io0 = (input) =>
+    "number" === typeof input.type &&
+    Math.floor(input.type) === input.type &&
+    0 <= input.type &&
+    input.type <= 4294967295 &&
+    (undefined === input.number ||
+      ("number" === typeof input.number &&
+        19 < input.number &&
+        input.number <= 100)) &&
+    "string" === typeof input.string &&
+    3 <= input.string.length &&
+    "string" === typeof input.pattern;
+  return "object" === typeof input && null !== input && $io0(input);
 };
 exports.checkCustomTag = checkCustomTag;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -485,138 +490,138 @@ exports.checkCustomTag = checkCustomTag;
     <code>Type.ts</code>,
     <code>Pattern.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript filename="TagBase.ts" showLineNumbers copy
 export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
-    /**
-     * This is a dummy property for compilation.
-     * 
-     * It does not mean anything in runtime.
-     */
-    "typia.tag"?: Props;
+  /**
+   * This is a dummy property for compilation.
+   *
+   * It does not mean anything in runtime.
+   */
+  "typia.tag"?: Props;
 };
 export namespace TagBase {
-    export interface IProps<
-        Target extends "bigint" | "number" | "string" | "array",
-        Kind extends string,
-        Value extends boolean | bigint | number | string | undefined,
-        Validate extends
-            | string
-            | {
-                  [key in Target]?: string;
-              },
-        Exclusive extends boolean | string[],
-    > {
-        /**
-         * Target type.
-         *
-         * If user tries to adapt this tag to a different type, it would be a compile
-         * error.
-         *
-         * For example, you've configured target type as `string`, but user adapted it
-         * onto a `number` type (`number & YourCustomTag<Value>`), then it would be
-         * blocked by TypeScript compiler.
-         */
-        target: Target;
+  export interface IProps<
+    Target extends "bigint" | "number" | "string" | "array",
+    Kind extends string,
+    Value extends boolean | bigint | number | string | undefined,
+    Validate extends
+      | string
+      | {
+          [key in Target]?: string;
+        },
+    Exclusive extends boolean | string[],
+  > {
+    /**
+     * Target type.
+     *
+     * If user tries to adapt this tag to a different type, it would be a compile
+     * error.
+     *
+     * For example, you've configured target type as `string`, but user adapted it
+     * onto a `number` type (`number & YourCustomTag<Value>`), then it would be
+     * blocked by TypeScript compiler.
+     */
+    target: Target;
 
-        /**
-         * What kind of tag is this?
-         */
-        kind: Kind;
+    /**
+     * What kind of tag is this?
+     */
+    kind: Kind;
 
-        /**
-         * Value to be configured by user.
-         */
-        value: Value;
+    /**
+     * Value to be configured by user.
+     */
+    value: Value;
 
-        /**
-         * Validation code.
-         *
-         * This code would be inserted into the generated validation function.
-         * In here script, target variable name must be `$input`. The variable name
-         * `$input` would be transformed to the suitable when compilation.
-         *
-         * Also, If you've take a mistake on this script, compile error would be
-         * occured. So, define it with confidence. Compiler will block all your
-         * mistakes.
-         */
-        validate: Validate;
+    /**
+     * Validation code.
+     *
+     * This code would be inserted into the generated validation function.
+     * In here script, target variable name must be `$input`. The variable name
+     * `$input` would be transformed to the suitable when compilation.
+     *
+     * Also, If you've take a mistake on this script, compile error would be
+     * occured. So, define it with confidence. Compiler will block all your
+     * mistakes.
+     */
+    validate: Validate;
 
-        /**
-         * Exclusive option.
-         *
-         * If this property configured as `true`, same {@link kind} tag cannot be
-         * duplicated in the target type. Otherwise, if you've configured this property
-         * as string array, all of the {@link kind} value assigned tag cannot be
-         * compatible in the target type.
-         * 
-         * @default false
-         */
-        exclusive?: Exclusive | string[];
-    }
+    /**
+     * Exclusive option.
+     *
+     * If this property configured as `true`, same {@link kind} tag cannot be
+     * duplicated in the target type. Otherwise, if you've configured this property
+     * as string array, all of the {@link kind} value assigned tag cannot be
+     * compatible in the target type.
+     *
+     * @default false
+     */
+    exclusive?: Exclusive | string[];
+  }
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript filename="Minimum.ts" showLineNumbers copy
 import { TagBase } from "./TagBase";
 
 export type Minimum<Value extends number | bigint> = TagBase<{
-    target: Value extends number ? "number" : "bigint";
-    kind: "minimum";
-    value: Value;
-    validate: `${Numeric<Value>} <= $input`;
-    exclusive: ["minimum", "exclusiveMinimum"];
+  target: Value extends number ? "number" : "bigint";
+  kind: "minimum";
+  value: Value;
+  validate: `${Numeric<Value>} <= $input`;
+  exclusive: ["minimum", "exclusiveMinimum"];
 }>;
 
 type Numeric<Value extends number | bigint> = Value extends number
-    ? Value
-    : `BigInt(${Value})`;
+  ? Value
+  : `BigInt(${Value})`;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript filename="Type.ts" showLineNumbers copy
 import { TagBase } from "./TagBase";
 
 export type Type<
-    Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",
+  Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",
 > = TagBase<{
-    target: Value extends "int64" | "uint64" ? "bigint" | "number" : "number";
-    kind: "type";
-    value: Value;
-    validate: Value extends "int32"
-        ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
-        : Value extends "uint32"
-        ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
-        : Value extends "int64"
-        ? {
-              number: `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`;
-              bigint: `true`;
-          }
-        : Value extends "uint64"
-        ? {
-              number: `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`;
-              bigint: `BigInt(0) <= $input`;
-          }
-        : Value extends "float"
-        ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
-        : `true`;
-    exclusive: true;
+  target: Value extends "int64" | "uint64" ? "bigint" | "number" : "number";
+  kind: "type";
+  value: Value;
+  validate: Value extends "int32"
+    ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
+    : Value extends "uint32"
+    ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
+    : Value extends "int64"
+    ? {
+        number: `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`;
+        bigint: `true`;
+      }
+    : Value extends "uint64"
+    ? {
+        number: `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`;
+        bigint: `BigInt(0) <= $input`;
+      }
+    : Value extends "float"
+    ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
+    : `true`;
+  exclusive: true;
 }>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript filename="Pattern.ts" showLineNumbers copy
 import { TagBase } from "./TagBase";
 
 export type Pattern<Value extends string> = TagBase<{
-    target: "string";
-    kind: "pattern";
-    value: Value;
-    validate: `/${Value}/.test($input)`;
+  target: "string";
+  kind: "pattern";
+  value: Value;
+  validate: `/${Value}/.test($input)`;
 }>;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Above types are supported by `typia` basically. 
@@ -630,78 +635,78 @@ In the Korean proverb, there's a word that, "it is much better to do it once tha
 Here is the example code, and I think that it may easy to understand.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript showLineNumbers copy filename="is.tag.custom.ts"
 import typia from "typia";
 
 export const checkTagCustom = typia.createIs<TagCustom>();
- 
+
 interface TagCustom {
-    id: string & typia.tags.Format<"uuid">;
-    dollar: string & Dolloar;
-    postfix: string & Postfix<"abcd">;
-    powerOf: number & PowerOf<2>;
+  id: string & typia.tags.Format<"uuid">;
+  dollar: string & Dolloar;
+  postfix: string & Postfix<"abcd">;
+  powerOf: number & PowerOf<2>;
 }
- 
+
 type Dolloar = typia.tags.TagBase<{
-    kind: "dollar";
-    target: "string";
-    value: undefined;
-    validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+  kind: "dollar";
+  target: "string";
+  value: undefined;
+  validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
 }>;
- 
+
 type Postfix<Value extends string> = typia.tags.TagBase<{
-    kind: "postfix";
-    target: "string";
-    value: Value;
-    validate: `$input.endsWith("${Value}")`;
+  kind: "postfix";
+  target: "string";
+  value: Value;
+  validate: `$input.endsWith("${Value}")`;
 }>;
- 
+
 type PowerOf<Value extends number> = typia.tags.TagBase<{
-    kind: "powerOf";
-    target: "number";
-    value: Value;
-    validate: `(() => {
+  kind: "powerOf";
+  target: "number";
+  value: Value;
+  validate: `(() => {
         const denominator: number = Math.log(${Value});
         const value: number = Math.log($input) / denominator;
         return Math.abs(value - Math.round(value)) < 0.00000001;
     })()`;
 }>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript showLineNumbers filename="is.tag.custom.js"
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkTagCustom = void 0;
 const typia_1 = __importDefault(require("typia"));
 const checkTagCustom = (input) => {
-    return (
-        "object" === typeof input &&
-        null !== input &&
-        "string" === typeof input.id &&
-        /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-            input.id,
-        ) &&
-        "string" === typeof input.dollar &&
-        input.dollar[0] === "$" &&
-        !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
-        "string" === typeof input.postfix &&
-        input.postfix.endsWith("abcd") &&
-        "number" === typeof input.powerOf &&
-        (() => {
-            const denominator = Math.log(2);
-            const value = Math.log(input.powerOf) / denominator;
-            return Math.abs(value - Math.round(value)) < 1e-8;
-        })()
-    );
+  return (
+    "object" === typeof input &&
+    null !== input &&
+    "string" === typeof input.id &&
+    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+      input.id,
+    ) &&
+    "string" === typeof input.dollar &&
+    input.dollar[0] === "$" &&
+    !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
+    "string" === typeof input.postfix &&
+    input.postfix.endsWith("abcd") &&
+    "number" === typeof input.powerOf &&
+    (() => {
+      const denominator = Math.log(2);
+      const value = Math.log(input.powerOf) / denominator;
+      return Math.abs(value - Math.round(value)) < 1e-8;
+    })()
+  );
 };
 exports.checkTagCustom = checkTagCustom;
 ```
-    </Tab>
+  </Tab>
 </Tabs>

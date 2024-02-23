@@ -4,25 +4,25 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 ## `assert()` function
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>,
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export function assert<T>(input: T): T;
 export function assert<T>(input: unknown): T;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Asserts a value type.
@@ -38,9 +38,9 @@ The `TypeGuardError` instance has only the first type error info, with access pa
 
 <br/>
 <Alert severity="success">
-    <AlertTitle> 
-        **AOT compliation** 
-    </AlertTitle>
+  <AlertTitle> 
+    **AOT compliation** 
+  </AlertTitle>
 
 If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
 
@@ -52,141 +52,141 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/assert.ts" showLineNumbers
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
 
 typia.assert<IMember>({
-    id: v4(),
-    email: "samchon.github@gmail.com",
-    age: 18, // wrong, must be greater than 19
+  id: v4(),
+  email: "samchon.github@gmail.com",
+  age: 18, // wrong, must be greater than 19
 });
 
 interface IMember {
-    id: string & tags.Format<"uuid">;
-    email: string & tags.Format<"email">;
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.ExclusiveMinimum<19> 
-        & tags.Maximum<100>;
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number &
+    tags.Type<"uint32"> &
+    tags.ExclusiveMinimum<19> &
+    tags.Maximum<100>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/assert.js" showLineNumbers
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 const uuid_1 = require("uuid");
 ((input) => {
-    const __is = (input) => {
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            "string" === typeof input.id &&
-            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                input.id,
-            ) &&
-            "string" === typeof input.email &&
-            /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
-                input.email,
-            ) &&
-            "number" === typeof input.age &&
-            Math.floor(input.age) === input.age &&
+  const __is = (input) => {
+    return (
+      "object" === typeof input &&
+      null !== input &&
+      "string" === typeof input.id &&
+      /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+        input.id,
+      ) &&
+      "string" === typeof input.email &&
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+        input.email,
+      ) &&
+      "number" === typeof input.age &&
+      Math.floor(input.age) === input.age &&
+      0 <= input.age &&
+      input.age <= 4294967295 &&
+      19 < input.age &&
+      input.age <= 100
+    );
+  };
+  if (false === __is(input))
+    ((input, _path, _exceptionable = true) => {
+      const $guard = typia_1.default.assert.guard;
+      const $ao0 = (input, _path, _exceptionable = true) =>
+        (("string" === typeof input.id &&
+          (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+            input.id,
+          ) ||
+            $guard(_exceptionable, {
+              path: _path + ".id",
+              expected: 'string & Format<"uuid">',
+              value: input.id,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".id",
+            expected: '(string & Format<"uuid">)',
+            value: input.id,
+          })) &&
+        (("string" === typeof input.email &&
+          (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+            input.email,
+          ) ||
+            $guard(_exceptionable, {
+              path: _path + ".email",
+              expected: 'string & Format<"email">',
+              value: input.email,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".email",
+            expected: '(string & Format<"email">)',
+            value: input.email,
+          })) &&
+        (("number" === typeof input.age &&
+          ((Math.floor(input.age) === input.age &&
             0 <= input.age &&
-            input.age <= 4294967295 &&
-            19 < input.age &&
-            input.age <= 100
-        );
-    };
-    if (false === __is(input))
-        ((input, _path, _exceptionable = true) => {
-            const $guard = typia_1.default.assert.guard;
-            const $ao0 = (input, _path, _exceptionable = true) =>
-                (("string" === typeof input.id &&
-                    (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                        input.id,
-                    ) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".id",
-                            expected: 'string & Format<"uuid">',
-                            value: input.id,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".id",
-                        expected: '(string & Format<"uuid">)',
-                        value: input.id,
-                    })) &&
-                (("string" === typeof input.email &&
-                    (/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
-                        input.email,
-                    ) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".email",
-                            expected: 'string & Format<"email">',
-                            value: input.email,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".email",
-                        expected: '(string & Format<"email">)',
-                        value: input.email,
-                    })) &&
-                (("number" === typeof input.age &&
-                    ((Math.floor(input.age) === input.age &&
-                        0 <= input.age &&
-                        input.age <= 4294967295) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: 'number & Type<"uint32">',
-                            value: input.age,
-                        })) &&
-                    (19 < input.age ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: "number & ExclusiveMinimum<19>",
-                            value: input.age,
-                        })) &&
-                    (input.age <= 100 ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: "number & Maximum<100>",
-                            value: input.age,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".age",
-                        expected:
-                            '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
-                        value: input.age,
-                    }));
-            return (
-                ((("object" === typeof input && null !== input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "IMember",
-                        value: input,
-                    })) &&
-                    $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                    path: _path + "",
-                    expected: "IMember",
-                    value: input,
-                })
-            );
-        })(input, "$input", true);
-    return input;
+            input.age <= 4294967295) ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: 'number & Type<"uint32">',
+              value: input.age,
+            })) &&
+          (19 < input.age ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "number & ExclusiveMinimum<19>",
+              value: input.age,
+            })) &&
+          (input.age <= 100 ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "number & Maximum<100>",
+              value: input.age,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".age",
+            expected:
+              '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
+            value: input.age,
+          }));
+      return (
+        ((("object" === typeof input && null !== input) ||
+          $guard(true, {
+            path: _path + "",
+            expected: "IMember",
+            value: input,
+          })) &&
+          $ao0(input, _path + "", true)) ||
+        $guard(true, {
+          path: _path + "",
+          expected: "IMember",
+          value: input,
+        })
+      );
+    })(input, "$input", true);
+  return input;
 })({
-    id: (0, uuid_1.v4)(),
-    email: "samchon.github@gmail.com",
-    age: 18, // wrong, must be greater than 19
+  id: (0, uuid_1.v4)(),
+  email: "samchon.github@gmail.com",
+  age: 18, // wrong, must be greater than 19
 });
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -194,25 +194,25 @@ const uuid_1 = require("uuid");
 
 ## `assertEquals()` function
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>,
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export function assertEquals<T>(input: T): T;
 export function assertEquals<T>(input: unknown): T;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 More strict assert function prohibiting superfluous properties.
@@ -227,143 +227,143 @@ In the below example case, as `sex` property is not defined in the `IMember` typ
   ` expected`: `undefined`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/assert.ts" showLineNumbers
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
 
 typia.assert<IMember>({
-    id: v4(),
-    email: "samchon.github@gmail.com",
-    age: 30,
-    sex: 1, // extra
+  id: v4(),
+  email: "samchon.github@gmail.com",
+  age: 30,
+  sex: 1, // extra
 });
 
 interface IMember {
-    id: string & tags.Format<"uuid">;
-    email: string & tags.Format<"email">;
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.ExclusiveMinimum<19> 
-        & tags.Maximum<100>;
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number &
+    tags.Type<"uint32"> &
+    tags.ExclusiveMinimum<19> &
+    tags.Maximum<100>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/assertEquals.js" showLineNumbers
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 const uuid_1 = require("uuid");
 ((input) => {
-    const __is = (input) => {
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            "string" === typeof input.id &&
-            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                input.id,
-            ) &&
-            "string" === typeof input.email &&
-            /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
-                input.email,
-            ) &&
-            "number" === typeof input.age &&
-            Math.floor(input.age) === input.age &&
+  const __is = (input) => {
+    return (
+      "object" === typeof input &&
+      null !== input &&
+      "string" === typeof input.id &&
+      /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+        input.id,
+      ) &&
+      "string" === typeof input.email &&
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+        input.email,
+      ) &&
+      "number" === typeof input.age &&
+      Math.floor(input.age) === input.age &&
+      0 <= input.age &&
+      input.age <= 4294967295 &&
+      19 < input.age &&
+      input.age <= 100
+    );
+  };
+  if (false === __is(input))
+    ((input, _path, _exceptionable = true) => {
+      const $guard = typia_1.default.assert.guard;
+      const $ao0 = (input, _path, _exceptionable = true) =>
+        (("string" === typeof input.id &&
+          (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+            input.id,
+          ) ||
+            $guard(_exceptionable, {
+              path: _path + ".id",
+              expected: 'string & Format<"uuid">',
+              value: input.id,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".id",
+            expected: '(string & Format<"uuid">)',
+            value: input.id,
+          })) &&
+        (("string" === typeof input.email &&
+          (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+            input.email,
+          ) ||
+            $guard(_exceptionable, {
+              path: _path + ".email",
+              expected: 'string & Format<"email">',
+              value: input.email,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".email",
+            expected: '(string & Format<"email">)',
+            value: input.email,
+          })) &&
+        (("number" === typeof input.age &&
+          ((Math.floor(input.age) === input.age &&
             0 <= input.age &&
-            input.age <= 4294967295 &&
-            19 < input.age &&
-            input.age <= 100
-        );
-    };
-    if (false === __is(input))
-        ((input, _path, _exceptionable = true) => {
-            const $guard = typia_1.default.assert.guard;
-            const $ao0 = (input, _path, _exceptionable = true) =>
-                (("string" === typeof input.id &&
-                    (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                        input.id,
-                    ) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".id",
-                            expected: 'string & Format<"uuid">',
-                            value: input.id,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".id",
-                        expected: '(string & Format<"uuid">)',
-                        value: input.id,
-                    })) &&
-                (("string" === typeof input.email &&
-                    (/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
-                        input.email,
-                    ) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".email",
-                            expected: 'string & Format<"email">',
-                            value: input.email,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".email",
-                        expected: '(string & Format<"email">)',
-                        value: input.email,
-                    })) &&
-                (("number" === typeof input.age &&
-                    ((Math.floor(input.age) === input.age &&
-                        0 <= input.age &&
-                        input.age <= 4294967295) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: 'number & Type<"uint32">',
-                            value: input.age,
-                        })) &&
-                    (19 < input.age ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: "number & ExclusiveMinimum<19>",
-                            value: input.age,
-                        })) &&
-                    (input.age <= 100 ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: "number & Maximum<100>",
-                            value: input.age,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".age",
-                        expected:
-                            '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
-                        value: input.age,
-                    }));
-            return (
-                ((("object" === typeof input && null !== input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "IMember",
-                        value: input,
-                    })) &&
-                    $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                    path: _path + "",
-                    expected: "IMember",
-                    value: input,
-                })
-            );
-        })(input, "$input", true);
-    return input;
+            input.age <= 4294967295) ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: 'number & Type<"uint32">',
+              value: input.age,
+            })) &&
+          (19 < input.age ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "number & ExclusiveMinimum<19>",
+              value: input.age,
+            })) &&
+          (input.age <= 100 ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "number & Maximum<100>",
+              value: input.age,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".age",
+            expected:
+              '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
+            value: input.age,
+          }));
+      return (
+        ((("object" === typeof input && null !== input) ||
+          $guard(true, {
+            path: _path + "",
+            expected: "IMember",
+            value: input,
+          })) &&
+          $ao0(input, _path + "", true)) ||
+        $guard(true, {
+          path: _path + "",
+          expected: "IMember",
+          value: input,
+        })
+      );
+    })(input, "$input", true);
+  return input;
 })({
-    id: (0, uuid_1.v4)(),
-    email: "samchon.github@gmail.com",
-    age: 30,
-    sex: 1, // extra
-});
+  id: (0, uuid_1.v4)(),
+  email: "samchon.github@gmail.com",
+  age: 30,
+  sex: 1, // extra
+})
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -374,7 +374,7 @@ const uuid_1 = require("uuid");
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export function assertGurad<T>(input: T): asserts inut is T;
 export function assertGuard<T>(input: unknown): asserts input is T;
@@ -382,17 +382,17 @@ export function assertGuard<T>(input: unknown): asserts input is T;
 export function assertGuardEquals<T>(input: T): asserts inut is T;
 export function assertGuardEquals<T>(input: unknown): asserts input is T;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Assertion guard of a value type.
@@ -409,8 +409,8 @@ Look at the below code, then you may understand what the "Assertion Guard" means
 import typia from "typia";
 
 interface IPoint {
-    x: number;
-    y: number;
+  x: number;
+  y: number;
 }
 const input: unknown = { x: 1, y: 2 };
 
@@ -427,11 +427,11 @@ input.y; // OK
 
 ## Reusable functions
 <Tabs items={[
-    <code>typia</code>, 
-    <code>TypeGuardError.ts</code>,
-    <code>AssertionGuard.ts</code>,
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>,
+  <code>AssertionGuard.ts</code>,
 ]}>
-    <Tab>
+  <Tab>
 ```typescript
 export function createAssert<T>(): (input: unknown) => T;
 export function createAssertEquals<T>(): (input: unknown) => T;
@@ -439,22 +439,22 @@ export function createAssertEquals<T>(): (input: unknown) => T;
 export function createAssertGuard<T>(): AssertionGuard<T>;
 export function createAssertGuardEquals<T>(): AssertionGuard<T>;
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export class TypeGuardError extends Error {
-    public readonly method: string;
-    public readonly path: string | undefined;
-    public readonly expected: string;
-    public readonly value: any;
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```typescript
 export type AssertionGuard<T> = (input: unknown) => asserts input is T;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 Reusable `typia.assert<T>()` function generators.
@@ -464,139 +464,139 @@ If you repeat to call `typia.assert<T>()` function on the same type, size of Jav
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/createAssert.ts" showLineNumbers
 import typia, { tags } from "typia";
 
 export const assertMember = typia.createAssert<IMember>();
 
 interface IMember {
-    id: string & tags.Format<"uuid">;
-    email: string & tags.Format<"email">;
-    age: number 
-        & tags.Type<"uint32"> 
-        & tags.ExclusiveMinimum<19> 
-        & tags.Maximum<100>;
+  id: string & tags.Format<"uuid">;
+  email: string & tags.Format<"email">;
+  age: number &
+    tags.Type<"uint32"> &
+    tags.ExclusiveMinimum<19> &
+    tags.Maximum<100>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/createAssert.js" showLineNumbers
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.assertMember = void 0;
 const typia_1 = __importDefault(require("typia"));
 const assertMember = (input) => {
-    const __is = (input) => {
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            "string" === typeof input.id &&
-            /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                input.id,
-            ) &&
-            "string" === typeof input.email &&
-            /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
-                input.email,
-            ) &&
-            "number" === typeof input.age &&
-            Math.floor(input.age) === input.age &&
+  const __is = (input) => {
+    return (
+      "object" === typeof input &&
+      null !== input &&
+      "string" === typeof input.id &&
+      /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+        input.id,
+      ) &&
+      "string" === typeof input.email &&
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+        input.email,
+      ) &&
+      "number" === typeof input.age &&
+      Math.floor(input.age) === input.age &&
+      0 <= input.age &&
+      input.age <= 4294967295 &&
+      19 < input.age &&
+      input.age <= 100
+    );
+  };
+  if (false === __is(input))
+    ((input, _path, _exceptionable = true) => {
+      const $guard = typia_1.default.createAssert.guard;
+      const $ao0 = (input, _path, _exceptionable = true) =>
+        (("string" === typeof input.id &&
+          (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+            input.id,
+          ) ||
+            $guard(_exceptionable, {
+              path: _path + ".id",
+              expected: 'string & Format<"uuid">',
+              value: input.id,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".id",
+            expected: '(string & Format<"uuid">)',
+            value: input.id,
+          })) &&
+        (("string" === typeof input.email &&
+          (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
+            input.email,
+          ) ||
+            $guard(_exceptionable, {
+              path: _path + ".email",
+              expected: 'string & Format<"email">',
+              value: input.email,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".email",
+            expected: '(string & Format<"email">)',
+            value: input.email,
+          })) &&
+        (("number" === typeof input.age &&
+          ((Math.floor(input.age) === input.age &&
             0 <= input.age &&
-            input.age <= 4294967295 &&
-            19 < input.age &&
-            input.age <= 100
-        );
-    };
-    if (false === __is(input))
-        ((input, _path, _exceptionable = true) => {
-            const $guard = typia_1.default.createAssert.guard;
-            const $ao0 = (input, _path, _exceptionable = true) =>
-                (("string" === typeof input.id &&
-                    (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(
-                        input.id,
-                    ) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".id",
-                            expected: 'string & Format<"uuid">',
-                            value: input.id,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".id",
-                        expected: '(string & Format<"uuid">)',
-                        value: input.id,
-                    })) &&
-                (("string" === typeof input.email &&
-                    (/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i.test(
-                        input.email,
-                    ) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".email",
-                            expected: 'string & Format<"email">',
-                            value: input.email,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".email",
-                        expected: '(string & Format<"email">)',
-                        value: input.email,
-                    })) &&
-                (("number" === typeof input.age &&
-                    ((Math.floor(input.age) === input.age &&
-                        0 <= input.age &&
-                        input.age <= 4294967295) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: 'number & Type<"uint32">',
-                            value: input.age,
-                        })) &&
-                    (19 < input.age ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: "number & ExclusiveMinimum<19>",
-                            value: input.age,
-                        })) &&
-                    (input.age <= 100 ||
-                        $guard(_exceptionable, {
-                            path: _path + ".age",
-                            expected: "number & Maximum<100>",
-                            value: input.age,
-                        }))) ||
-                    $guard(_exceptionable, {
-                        path: _path + ".age",
-                        expected:
-                            '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
-                        value: input.age,
-                    }));
-            return (
-                ((("object" === typeof input && null !== input) ||
-                    $guard(true, {
-                        path: _path + "",
-                        expected: "IMember",
-                        value: input,
-                    })) &&
-                    $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                    path: _path + "",
-                    expected: "IMember",
-                    value: input,
-                })
-            );
-        })(input, "$input", true);
-    return input;
+            input.age <= 4294967295) ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: 'number & Type<"uint32">',
+              value: input.age,
+            })) &&
+          (19 < input.age ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "number & ExclusiveMinimum<19>",
+              value: input.age,
+            })) &&
+          (input.age <= 100 ||
+            $guard(_exceptionable, {
+              path: _path + ".age",
+              expected: "number & Maximum<100>",
+              value: input.age,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".age",
+            expected:
+              '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
+            value: input.age,
+          }));
+      return (
+        ((("object" === typeof input && null !== input) ||
+          $guard(true, {
+            path: _path + "",
+            expected: "IMember",
+            value: input,
+          })) &&
+          $ao0(input, _path + "", true)) ||
+        $guard(true, {
+          path: _path + "",
+          expected: "IMember",
+          value: input,
+        })
+      );
+    })(input, "$input", true);
+  return input;
 };
 exports.assertMember = assertMember;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 <Alert severity="warning">
-    <AlertTitle>
-        **Explicity of Assertion Guard** 
-    </AlertTitle>
+  <AlertTitle>
+    **Explicity of Assertion Guard** 
+  </AlertTitle>
 
 Be careful when using `typia.createAssertGuard<T>()` or `typia.createAssertGuardEquals<T>()` functions. 
 
@@ -646,40 +646,40 @@ If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utiliz
 Therefore, the `instanceof` statement does not be used only for the user-defined classes.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/is-map.ts" showLineNumbers
 import typia from "typia";
 
 typia.createIs<Map<string, boolean | number | string>>();
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/is-map.js" showLineNumbers
 "use strict";
 var __importDefault =
-    (this && this.__importDefault) ||
-    function (mod) {
-        return mod && mod.__esModule ? mod : { default: mod };
-    };
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 (input) => {
-    return (
-        input instanceof Map &&
-        (() =>
-            [...input].every(
-                (elem) =>
-                    Array.isArray(elem) &&
-                    elem.length === 2 &&
-                    "string" === typeof elem[0] &&
-                    ("string" === typeof elem[1] ||
-                        "number" === typeof elem[1] ||
-                        "boolean" === typeof elem[1]),
-            ))()
-    );
+  return (
+    input instanceof Map &&
+    (() =>
+      [...input].every(
+        (elem) =>
+          Array.isArray(elem) &&
+          elem.length === 2 &&
+          "string" === typeof elem[0] &&
+          ("string" === typeof elem[1] ||
+            "number" === typeof elem[1] ||
+            "boolean" === typeof elem[1]),
+      ))()
+  );
 };
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
@@ -699,7 +699,7 @@ If you want to know about such special tags detaily, read below article:
     - [Customization](./tags/#customization)
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-    <Tab>
+  <Tab>
 ```typescript copy filename="examples/src/assert-custom-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -709,96 +709,126 @@ export const assertSomething = typia.createAssert<Something>();
 // DEFINE CUSTOM TYPE TAGS
 //----
 type Dollar = tags.TagBase<{
-    kind: "dollar";
-    target: "string";
-    value: undefined;
-    validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+  kind: "dollar";
+  target: "string";
+  value: undefined;
+  validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
 }>;
 
 type Postfix<Value extends string> = tags.TagBase<{
-    kind: "postfix";
-    target: "string";
-    value: Value;
-    validate: `$input.endsWith("${Value}")`;
+  kind: "postfix";
+  target: "string";
+  value: Value;
+  validate: `$input.endsWith("${Value}")`;
 }>;
 
 type IsEven<Value extends number | bigint> = tags.TagBase<{
-    kind: "isEven";
-    target: Value extends number ? "number" : "bigint";
-    value: undefined;
-    validate: `$input % ${Numeric<2>} === ${Numeric<0>}`;
+  kind: "isEven";
+  target: Value extends number ? "number" : "bigint";
+  value: undefined;
+  validate: `$input % ${Numeric<2>} === ${Numeric<0>}`;
 }>;
 
 type Numeric<Value extends number | bigint> = Value extends number
-    ? Value
-    : `BigInt(${Value})`;
+  ? Value
+  : `BigInt(${Value})`;
 
 //----
 // VALIDATION
 //----
 interface Something {
-    dollar: string & Dollar;
-    postfix: string & Postfix<"!!!">;
-    isEven: number & IsEven<number>;
+  dollar: string & Dollar;
+  postfix: string & Postfix<"!!!">;
+  isEven: number & IsEven<number>;
 }
 ```
-    </Tab>
-    <Tab>
+  </Tab>
+  <Tab>
 ```javascript filename="examples/bin/assert-custom-tags.js" showLineNumbers
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.assertSomething = void 0;
 const typia_1 = __importDefault(require("typia"));
-const assertSomething = input => {
-    const __is = input => {
-        return "object" === typeof input && null !== input && ("string" === typeof input.dollar && (input.dollar[0] === "$" && !isNaN(Number(input.dollar.substring(1).split(",").join("")))) && ("string" === typeof input.postfix && input.postfix.endsWith("!!!")) && ("number" === typeof input.isEven && input.isEven % 2 === 0));
-    };
-    if (false === __is(input))
-        ((input, _path, _exceptionable = true) => {
-            const $guard = typia_1.default.createAssert.guard;
-            const $ao0 = (input, _path, _exceptionable = true) => ("string" === typeof input.dollar && (input.dollar[0] === "$" && !isNaN(Number(input.dollar.substring(1).split(",").join(""))) || $guard(_exceptionable, {
-                path: _path + ".dollar",
-                expected: "string & Dollar",
-                value: input.dollar
-            })) || $guard(_exceptionable, {
-                path: _path + ".dollar",
-                expected: "(string & Dollar)",
-                value: input.dollar
-            })) && ("string" === typeof input.postfix && (input.postfix.endsWith("!!!") || $guard(_exceptionable, {
-                path: _path + ".postfix",
-                expected: "string & Postfix<\"!!!\">",
-                value: input.postfix
-            })) || $guard(_exceptionable, {
-                path: _path + ".postfix",
-                expected: "(string & Postfix<\"!!!\">)",
-                value: input.postfix
-            })) && ("number" === typeof input.isEven && (input.isEven % 2 === 0 || $guard(_exceptionable, {
-                path: _path + ".isEven",
-                expected: "number & IsEven<number>",
-                value: input.isEven
-            })) || $guard(_exceptionable, {
-                path: _path + ".isEven",
-                expected: "(number & IsEven<number>)",
-                value: input.isEven
-            }));
-            return ("object" === typeof input && null !== input || $guard(true, {
-                path: _path + "",
-                expected: "Something",
-                value: input
-            })) && $ao0(input, _path + "", true) || $guard(true, {
-                path: _path + "",
-                expected: "Something",
-                value: input
-            });
-        })(input, "$input", true);
-    return input;
+const assertSomething = (input) => {
+  const __is = (input) => {
+    return (
+      "object" === typeof input &&
+      null !== input &&
+      "string" === typeof input.dollar &&
+      input.dollar[0] === "$" &&
+      !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
+      "string" === typeof input.postfix &&
+      input.postfix.endsWith("!!!") &&
+      "number" === typeof input.isEven &&
+      input.isEven % 2 === 0
+    );
+  };
+  if (false === __is(input))
+    ((input, _path, _exceptionable = true) => {
+      const $guard = typia_1.default.createAssert.guard;
+      const $ao0 = (input, _path, _exceptionable = true) =>
+        (("string" === typeof input.dollar &&
+          ((input.dollar[0] === "$" &&
+            !isNaN(Number(input.dollar.substring(1).split(",").join("")))) ||
+            $guard(_exceptionable, {
+              path: _path + ".dollar",
+              expected: "string & Dollar",
+              value: input.dollar,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".dollar",
+            expected: "(string & Dollar)",
+            value: input.dollar,
+          })) &&
+        (("string" === typeof input.postfix &&
+          (input.postfix.endsWith("!!!") ||
+            $guard(_exceptionable, {
+              path: _path + ".postfix",
+              expected: 'string & Postfix<"!!!">',
+              value: input.postfix,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".postfix",
+            expected: '(string & Postfix<"!!!">)',
+            value: input.postfix,
+          })) &&
+        (("number" === typeof input.isEven &&
+          (input.isEven % 2 === 0 ||
+            $guard(_exceptionable, {
+              path: _path + ".isEven",
+              expected: "number & IsEven<number>",
+              value: input.isEven,
+            }))) ||
+          $guard(_exceptionable, {
+            path: _path + ".isEven",
+            expected: "(number & IsEven<number>)",
+            value: input.isEven,
+          }));
+      return (
+        ((("object" === typeof input && null !== input) ||
+          $guard(true, {
+            path: _path + "",
+            expected: "Something",
+            value: input,
+          })) &&
+          $ao0(input, _path + "", true)) ||
+        $guard(true, {
+          path: _path + "",
+          expected: "Something",
+          value: input,
+        })
+      );
+    })(input, "$input", true);
+  return input;
 };
 exports.assertSomething = assertSomething;
 ```
-    </Tab>
+  </Tab>
 </Tabs>
 
 
