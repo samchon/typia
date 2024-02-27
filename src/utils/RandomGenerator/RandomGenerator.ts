@@ -28,7 +28,14 @@ export const array = <T>(closure: (index: number) => T, count?: number): T[] =>
   new Array(count ?? length()).fill(0).map((_e, index) => closure(index));
 export const pick = <T>(array: T[]): T => array[integer(0, array.length - 1)]!;
 export const length = () => integer(0, 3);
-export const pattern = (regex: RegExp): string => new RandExp(regex).gen();
+export const pattern = (regex: RegExp): string => {
+  const r: RandExp = new RandExp(regex);
+  for (let i: number = 0; i < 10; ++i) {
+    const str: string = r.gen();
+    if (regex.test(str)) return str;
+  }
+  return r.gen();
+};
 
 /* -----------------------------------------------------------
   SECIAL FORMATS
