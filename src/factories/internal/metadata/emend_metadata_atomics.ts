@@ -6,6 +6,7 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 export const emend_metadata_atomics = (meta: Metadata) => {
   // ATOMICS
   for (const a of meta.atomics) {
+    if (is_not_pure(a)) continue;
     const index: number = meta.constants.findIndex((c) => c.type === a.type);
     if (index !== -1) meta.constants.splice(index, 1);
   }
@@ -29,9 +30,17 @@ export const emend_metadata_atomics = (meta: Metadata) => {
   }
 
   // TEMPLATE
-  if (
-    meta.templates.length &&
-    meta.atomics.find((a) => a.type === "string") !== undefined
-  )
-    meta.templates.splice(0, meta.templates.length);
+  if (meta.templates.length) {
+    const atomic: MetadataAtomic | undefined = meta.atomics.find(
+      (a) => a.type === "string",
+    );
+    if (atomic !== undefined && false === is_not_pure(atomic))
+      meta.templates.splice(0, meta.templates.length);
+  }
 };
+
+const is_not_pure = (atomic: MetadataAtomic): boolean =>
+  atomic.tags.length !== 0 &&
+  atomic.tags.every(
+    (row) => row.length !== 0 && row.every((c) => !!c.validate?.length),
+  );
