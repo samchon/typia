@@ -8,7 +8,6 @@ export namespace AtomicPredicator {
   export const constant =
     (meta: Metadata) =>
     (name: Atomic.Literal): boolean =>
-      !ArrayUtil.has(meta.atomics, (a) => a.type === name) &&
       !ArrayUtil.has(meta.natives, (native) => native.toLowerCase() === name);
 
   export const atomic =
@@ -19,7 +18,7 @@ export namespace AtomicPredicator {
   export const native = (name: string) => LIKE.has(name.toLowerCase());
 
   export const template = (meta: Metadata): boolean =>
-    !ArrayUtil.has(meta.atomics, (a) => a.type === "string");
+    !ArrayUtil.has(meta.natives, (native) => native.toLowerCase() === "string");
 }
 
 const LIKE = new Set(["boolean", "bigint", "number", "string"]);

@@ -1,0 +1,31 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantAtomicAbsorbed": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "default": "something"
+          },
+          "age": {
+            "type": "number",
+            "default": 20
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "age"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "surplus": false
+}

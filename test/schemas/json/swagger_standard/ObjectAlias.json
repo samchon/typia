@@ -30,8 +30,8 @@
               {
                 "type": "number",
                 "enum": [
-                  2,
-                  1
+                  1,
+                  2
                 ],
                 "nullable": true
               },
