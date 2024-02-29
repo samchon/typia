@@ -107,11 +107,11 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
               enum: ["boolean"],
             },
-            title: {
-              type: "string",
-            },
             default: {
               type: "boolean",
+            },
+            title: {
+              type: "string",
             },
             nullable: {
               type: "boolean",
@@ -185,11 +185,11 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
               enum: ["number"],
             },
-            title: {
-              type: "string",
-            },
             default: {
               type: "number",
+            },
+            title: {
+              type: "string",
             },
             nullable: {
               type: "boolean",
@@ -234,10 +234,10 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
               enum: ["string"],
             },
-            title: {
+            default: {
               type: "string",
             },
-            default: {
+            title: {
               type: "string",
             },
             nullable: {
@@ -1022,11 +1022,11 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
               enum: ["boolean"],
             },
-            title: {
-              type: "string",
-            },
             default: {
               type: "boolean",
+            },
+            title: {
+              type: "string",
             },
             nullable: {
               type: "boolean",
@@ -1077,11 +1077,11 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
               enum: ["number"],
             },
-            title: {
-              type: "string",
-            },
             default: {
               type: "number",
+            },
+            title: {
+              type: "string",
             },
             nullable: {
               type: "boolean",
@@ -1132,10 +1132,10 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
               enum: ["string"],
             },
-            title: {
+            default: {
               type: "string",
             },
-            default: {
+            title: {
               type: "string",
             },
             nullable: {

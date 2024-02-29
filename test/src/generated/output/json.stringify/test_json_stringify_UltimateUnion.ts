@@ -11,9 +11,9 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "boolean" === typeof elem) &&
       "boolean" === input.type &&
-      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input["default"] ||
         "boolean" === typeof input["default"]) &&
+      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input.nullable || "boolean" === typeof input.nullable) &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -45,9 +45,9 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "number" === typeof elem) &&
       "number" === input.type &&
-      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input["default"] ||
         "number" === typeof input["default"]) &&
+      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input.nullable || "boolean" === typeof input.nullable) &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -69,9 +69,9 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "string" === typeof elem) &&
       "string" === input.type &&
-      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input["default"] ||
         "string" === typeof input["default"]) &&
+      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input.nullable || "boolean" === typeof input.nullable) &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -499,9 +499,9 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "boolean" === typeof elem) &&
       "boolean" === input.type &&
-      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input["default"] ||
         "boolean" === typeof input["default"]) &&
+      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input.nullable || "boolean" === typeof input.nullable) &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -526,9 +526,9 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "number" === typeof elem) &&
       "number" === input.type &&
-      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input["default"] ||
         "number" === typeof input["default"]) &&
+      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input.nullable || "boolean" === typeof input.nullable) &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -553,9 +553,9 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "string" === typeof elem) &&
       "string" === input.type &&
-      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input["default"] ||
         "string" === typeof input["default"]) &&
+      (undefined === input.title || "string" === typeof input.title) &&
       (undefined === input.nullable || "boolean" === typeof input.nullable) &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -1063,16 +1063,16 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       })()},"surplus":${input.surplus}}`;
     const $so1 = (input: any): any =>
       `{${
-        undefined === input.title
-          ? ""
-          : `"title":${
-              undefined !== input.title ? $string(input.title) : undefined
-            },`
-      }${
         undefined === input["default"]
           ? ""
           : `"default":${
               undefined !== input["default"] ? input["default"] : undefined
+            },`
+      }${
+        undefined === input.title
+          ? ""
+          : `"title":${
+              undefined !== input.title ? $string(input.title) : undefined
             },`
       }${
         undefined === input.nullable
@@ -1157,18 +1157,18 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       }"name":${$string(input.name)}}`;
     const $so4 = (input: any): any =>
       `{${
-        undefined === input.title
-          ? ""
-          : `"title":${
-              undefined !== input.title ? $string(input.title) : undefined
-            },`
-      }${
         undefined === input["default"]
           ? ""
           : `"default":${
               undefined !== input["default"]
                 ? $number(input["default"])
                 : undefined
+            },`
+      }${
+        undefined === input.title
+          ? ""
+          : `"title":${
+              undefined !== input.title ? $string(input.title) : undefined
             },`
       }${
         undefined === input.nullable
@@ -1236,18 +1236,18 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       })()}}`;
     const $so5 = (input: any): any =>
       `{${
-        undefined === input.title
-          ? ""
-          : `"title":${
-              undefined !== input.title ? $string(input.title) : undefined
-            },`
-      }${
         undefined === input["default"]
           ? ""
           : `"default":${
               undefined !== input["default"]
                 ? $string(input["default"])
                 : undefined
+            },`
+      }${
+        undefined === input.title
+          ? ""
+          : `"title":${
+              undefined !== input.title ? $string(input.title) : undefined
             },`
       }${
         undefined === input.nullable
@@ -2342,16 +2342,16 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
         .join(",")}}`;
     const $so21 = (input: any): any =>
       `{${
-        undefined === input.title
-          ? ""
-          : `"title":${
-              undefined !== input.title ? $string(input.title) : undefined
-            },`
-      }${
         undefined === input["default"]
           ? ""
           : `"default":${
               undefined !== input["default"] ? input["default"] : undefined
+            },`
+      }${
+        undefined === input.title
+          ? ""
+          : `"title":${
+              undefined !== input.title ? $string(input.title) : undefined
             },`
       }${
         undefined === input.nullable
@@ -2431,18 +2431,18 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       })()}}`;
     const $so22 = (input: any): any =>
       `{${
-        undefined === input.title
-          ? ""
-          : `"title":${
-              undefined !== input.title ? $string(input.title) : undefined
-            },`
-      }${
         undefined === input["default"]
           ? ""
           : `"default":${
               undefined !== input["default"]
                 ? $number(input["default"])
                 : undefined
+            },`
+      }${
+        undefined === input.title
+          ? ""
+          : `"title":${
+              undefined !== input.title ? $string(input.title) : undefined
             },`
       }${
         undefined === input.nullable
@@ -2522,18 +2522,18 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
       })()}}`;
     const $so23 = (input: any): any =>
       `{${
-        undefined === input.title
-          ? ""
-          : `"title":${
-              undefined !== input.title ? $string(input.title) : undefined
-            },`
-      }${
         undefined === input["default"]
           ? ""
           : `"default":${
               undefined !== input["default"]
                 ? $string(input["default"])
                 : undefined
+            },`
+      }${
+        undefined === input.title
+          ? ""
+          : `"title":${
+              undefined !== input.title ? $string(input.title) : undefined
             },`
       }${
         undefined === input.nullable

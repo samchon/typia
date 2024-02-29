@@ -364,7 +364,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: ["default"],
                 },
               ],
               templates: [],
@@ -386,7 +386,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "string",
+                  type: "boolean",
                   tags: [],
                 },
               ],
@@ -416,7 +416,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["default"],
+                  values: ["title"],
                 },
               ],
               templates: [],
@@ -438,7 +438,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "boolean",
+                  type: "string",
                   tags: [],
                 },
               ],
@@ -1171,7 +1171,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: ["default"],
                 },
               ],
               templates: [],
@@ -1193,7 +1193,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "string",
+                  type: "number",
                   tags: [],
                 },
               ],
@@ -1223,7 +1223,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["default"],
+                  values: ["title"],
                 },
               ],
               templates: [],
@@ -1245,7 +1245,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "number",
+                  type: "string",
                   tags: [],
                 },
               ],
@@ -1752,7 +1752,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: ["default"],
                 },
               ],
               templates: [],
@@ -1804,7 +1804,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["default"],
+                  values: ["title"],
                 },
               ],
               templates: [],
@@ -9878,7 +9878,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: ["default"],
                 },
               ],
               templates: [],
@@ -9900,7 +9900,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "string",
+                  type: "boolean",
                   tags: [],
                 },
               ],
@@ -9930,7 +9930,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["default"],
+                  values: ["title"],
                 },
               ],
               templates: [],
@@ -9952,7 +9952,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "boolean",
+                  type: "string",
                   tags: [],
                 },
               ],
@@ -10563,7 +10563,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: ["default"],
                 },
               ],
               templates: [],
@@ -10585,7 +10585,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "string",
+                  type: "number",
                   tags: [],
                 },
               ],
@@ -10615,7 +10615,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["default"],
+                  values: ["title"],
                 },
               ],
               templates: [],
@@ -10637,7 +10637,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               functional: false,
               atomics: [
                 {
-                  type: "number",
+                  type: "string",
                   tags: [],
                 },
               ],
@@ -11248,7 +11248,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: ["default"],
                 },
               ],
               templates: [],
@@ -11300,7 +11300,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["default"],
+                  values: ["title"],
                 },
               ],
               templates: [],

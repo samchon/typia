@@ -117,13 +117,13 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": true,
               "x-typia-optional": false,
             },
-            title: {
-              type: "string",
+            default: {
+              type: "boolean",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
-            default: {
-              type: "boolean",
+            title: {
+              type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
@@ -228,13 +228,13 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": true,
               "x-typia-optional": false,
             },
-            title: {
-              type: "string",
+            default: {
+              type: "number",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
-            default: {
-              type: "number",
+            title: {
+              type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
@@ -300,12 +300,12 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": true,
               "x-typia-optional": false,
             },
-            title: {
+            default: {
               type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
-            default: {
+            title: {
               type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
@@ -1513,13 +1513,13 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": true,
               "x-typia-optional": false,
             },
-            title: {
-              type: "string",
+            default: {
+              type: "boolean",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
-            default: {
-              type: "boolean",
+            title: {
+              type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
@@ -1595,13 +1595,13 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": true,
               "x-typia-optional": false,
             },
-            title: {
-              type: "string",
+            default: {
+              type: "number",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
-            default: {
-              type: "number",
+            title: {
+              type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
@@ -1677,12 +1677,12 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": true,
               "x-typia-optional": false,
             },
-            title: {
+            default: {
               type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,
             },
-            default: {
+            title: {
               type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,

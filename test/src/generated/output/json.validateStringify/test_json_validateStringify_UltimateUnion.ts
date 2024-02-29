@@ -29,9 +29,9 @@ export const test_json_validateStringify_UltimateUnion =
               Array.isArray(input["enum"]) &&
               input["enum"].every((elem: any) => "boolean" === typeof elem) &&
               "boolean" === input.type &&
-              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
+              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
               (undefined === input.deprecated ||
@@ -67,10 +67,10 @@ export const test_json_validateStringify_UltimateUnion =
                   "number" === typeof elem && Number.isFinite(elem),
               ) &&
               "number" === input.type &&
-              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                   Number.isFinite(input["default"]))) &&
+              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
               (undefined === input.deprecated ||
@@ -93,9 +93,9 @@ export const test_json_validateStringify_UltimateUnion =
               Array.isArray(input["enum"]) &&
               input["enum"].every((elem: any) => "string" === typeof elem) &&
               "string" === input.type &&
-              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
+              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
               (undefined === input.deprecated ||
@@ -546,9 +546,9 @@ export const test_json_validateStringify_UltimateUnion =
               Array.isArray(input["enum"]) &&
               input["enum"].every((elem: any) => "boolean" === typeof elem) &&
               "boolean" === input.type &&
-              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
+              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
               (undefined === input.deprecated ||
@@ -577,10 +577,10 @@ export const test_json_validateStringify_UltimateUnion =
                   "number" === typeof elem && Number.isFinite(elem),
               ) &&
               "number" === input.type &&
-              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input["default"] ||
                 ("number" === typeof input["default"] &&
                   Number.isFinite(input["default"]))) &&
+              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
               (undefined === input.deprecated ||
@@ -606,9 +606,9 @@ export const test_json_validateStringify_UltimateUnion =
               Array.isArray(input["enum"]) &&
               input["enum"].every((elem: any) => "string" === typeof elem) &&
               "string" === input.type &&
-              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input["default"] ||
                 "string" === typeof input["default"]) &&
+              (undefined === input.title || "string" === typeof input.title) &&
               (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
               (undefined === input.deprecated ||
@@ -1245,19 +1245,19 @@ export const test_json_validateStringify_UltimateUnion =
                       expected: '"boolean"',
                       value: input.type,
                     }),
-                  undefined === input.title ||
-                    "string" === typeof input.title ||
-                    $report(_exceptionable, {
-                      path: _path + ".title",
-                      expected: "(string | undefined)",
-                      value: input.title,
-                    }),
                   undefined === input["default"] ||
                     "boolean" === typeof input["default"] ||
                     $report(_exceptionable, {
                       path: _path + '["default"]',
                       expected: "(boolean | undefined)",
                       value: input["default"],
+                    }),
+                  undefined === input.title ||
+                    "string" === typeof input.title ||
+                    $report(_exceptionable, {
+                      path: _path + ".title",
+                      expected: "(string | undefined)",
+                      value: input.title,
                     }),
                   undefined === input.nullable ||
                     "boolean" === typeof input.nullable ||
@@ -1445,13 +1445,6 @@ export const test_json_validateStringify_UltimateUnion =
                       expected: '"number"',
                       value: input.type,
                     }),
-                  undefined === input.title ||
-                    "string" === typeof input.title ||
-                    $report(_exceptionable, {
-                      path: _path + ".title",
-                      expected: "(string | undefined)",
-                      value: input.title,
-                    }),
                   undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
                       Number.isFinite(input["default"])) ||
@@ -1459,6 +1452,13 @@ export const test_json_validateStringify_UltimateUnion =
                       path: _path + '["default"]',
                       expected: "(number | undefined)",
                       value: input["default"],
+                    }),
+                  undefined === input.title ||
+                    "string" === typeof input.title ||
+                    $report(_exceptionable, {
+                      path: _path + ".title",
+                      expected: "(string | undefined)",
+                      value: input.title,
                     }),
                   undefined === input.nullable ||
                     "boolean" === typeof input.nullable ||
@@ -1581,19 +1581,19 @@ export const test_json_validateStringify_UltimateUnion =
                       expected: '"string"',
                       value: input.type,
                     }),
-                  undefined === input.title ||
-                    "string" === typeof input.title ||
-                    $report(_exceptionable, {
-                      path: _path + ".title",
-                      expected: "(string | undefined)",
-                      value: input.title,
-                    }),
                   undefined === input["default"] ||
                     "string" === typeof input["default"] ||
                     $report(_exceptionable, {
                       path: _path + '["default"]',
                       expected: "(string | undefined)",
                       value: input["default"],
+                    }),
+                  undefined === input.title ||
+                    "string" === typeof input.title ||
+                    $report(_exceptionable, {
+                      path: _path + ".title",
+                      expected: "(string | undefined)",
+                      value: input.title,
                     }),
                   undefined === input.nullable ||
                     "boolean" === typeof input.nullable ||
@@ -3711,19 +3711,19 @@ export const test_json_validateStringify_UltimateUnion =
                       expected: '"boolean"',
                       value: input.type,
                     }),
-                  undefined === input.title ||
-                    "string" === typeof input.title ||
-                    $report(_exceptionable, {
-                      path: _path + ".title",
-                      expected: "(string | undefined)",
-                      value: input.title,
-                    }),
                   undefined === input["default"] ||
                     "boolean" === typeof input["default"] ||
                     $report(_exceptionable, {
                       path: _path + '["default"]',
                       expected: "(boolean | undefined)",
                       value: input["default"],
+                    }),
+                  undefined === input.title ||
+                    "string" === typeof input.title ||
+                    $report(_exceptionable, {
+                      path: _path + ".title",
+                      expected: "(string | undefined)",
+                      value: input.title,
                     }),
                   undefined === input.nullable ||
                     "boolean" === typeof input.nullable ||
@@ -3860,13 +3860,6 @@ export const test_json_validateStringify_UltimateUnion =
                       expected: '"number"',
                       value: input.type,
                     }),
-                  undefined === input.title ||
-                    "string" === typeof input.title ||
-                    $report(_exceptionable, {
-                      path: _path + ".title",
-                      expected: "(string | undefined)",
-                      value: input.title,
-                    }),
                   undefined === input["default"] ||
                     ("number" === typeof input["default"] &&
                       Number.isFinite(input["default"])) ||
@@ -3874,6 +3867,13 @@ export const test_json_validateStringify_UltimateUnion =
                       path: _path + '["default"]',
                       expected: "(number | undefined)",
                       value: input["default"],
+                    }),
+                  undefined === input.title ||
+                    "string" === typeof input.title ||
+                    $report(_exceptionable, {
+                      path: _path + ".title",
+                      expected: "(string | undefined)",
+                      value: input.title,
                     }),
                   undefined === input.nullable ||
                     "boolean" === typeof input.nullable ||
@@ -4010,19 +4010,19 @@ export const test_json_validateStringify_UltimateUnion =
                       expected: '"string"',
                       value: input.type,
                     }),
-                  undefined === input.title ||
-                    "string" === typeof input.title ||
-                    $report(_exceptionable, {
-                      path: _path + ".title",
-                      expected: "(string | undefined)",
-                      value: input.title,
-                    }),
                   undefined === input["default"] ||
                     "string" === typeof input["default"] ||
                     $report(_exceptionable, {
                       path: _path + '["default"]',
                       expected: "(string | undefined)",
                       value: input["default"],
+                    }),
+                  undefined === input.title ||
+                    "string" === typeof input.title ||
+                    $report(_exceptionable, {
+                      path: _path + ".title",
+                      expected: "(string | undefined)",
+                      value: input.title,
                     }),
                   undefined === input.nullable ||
                     "boolean" === typeof input.nullable ||
@@ -6247,9 +6247,9 @@ export const test_json_validateStringify_UltimateUnion =
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
             "boolean" === input.type &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
               "boolean" === typeof input["default"]) &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.nullable ||
               "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -6282,9 +6282,9 @@ export const test_json_validateStringify_UltimateUnion =
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "number" === typeof elem) &&
             "number" === input.type &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
               "number" === typeof input["default"]) &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.nullable ||
               "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -6307,9 +6307,9 @@ export const test_json_validateStringify_UltimateUnion =
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
             "string" === input.type &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
               "string" === typeof input["default"]) &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.nullable ||
               "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -6754,9 +6754,9 @@ export const test_json_validateStringify_UltimateUnion =
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
             "boolean" === input.type &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
               "boolean" === typeof input["default"]) &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.nullable ||
               "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -6782,9 +6782,9 @@ export const test_json_validateStringify_UltimateUnion =
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "number" === typeof elem) &&
             "number" === input.type &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
               "number" === typeof input["default"]) &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.nullable ||
               "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -6810,9 +6810,9 @@ export const test_json_validateStringify_UltimateUnion =
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
             "string" === input.type &&
-            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input["default"] ||
               "string" === typeof input["default"]) &&
+            (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.nullable ||
               "boolean" === typeof input.nullable) &&
             (undefined === input.deprecated ||
@@ -7336,18 +7336,18 @@ export const test_json_validateStringify_UltimateUnion =
             })()},"surplus":${input.surplus}}`;
           const $so1 = (input: any): any =>
             `{${
-              undefined === input.title
-                ? ""
-                : `"title":${
-                    undefined !== input.title ? $string(input.title) : undefined
-                  },`
-            }${
               undefined === input["default"]
                 ? ""
                 : `"default":${
                     undefined !== input["default"]
                       ? input["default"]
                       : undefined
+                  },`
+            }${
+              undefined === input.title
+                ? ""
+                : `"title":${
+                    undefined !== input.title ? $string(input.title) : undefined
                   },`
             }${
               undefined === input.nullable
@@ -7434,18 +7434,18 @@ export const test_json_validateStringify_UltimateUnion =
             }"name":${$string(input.name)}}`;
           const $so4 = (input: any): any =>
             `{${
-              undefined === input.title
-                ? ""
-                : `"title":${
-                    undefined !== input.title ? $string(input.title) : undefined
-                  },`
-            }${
               undefined === input["default"]
                 ? ""
                 : `"default":${
                     undefined !== input["default"]
                       ? $number(input["default"])
                       : undefined
+                  },`
+            }${
+              undefined === input.title
+                ? ""
+                : `"title":${
+                    undefined !== input.title ? $string(input.title) : undefined
                   },`
             }${
               undefined === input.nullable
@@ -7515,18 +7515,18 @@ export const test_json_validateStringify_UltimateUnion =
             })()}}`;
           const $so5 = (input: any): any =>
             `{${
-              undefined === input.title
-                ? ""
-                : `"title":${
-                    undefined !== input.title ? $string(input.title) : undefined
-                  },`
-            }${
               undefined === input["default"]
                 ? ""
                 : `"default":${
                     undefined !== input["default"]
                       ? $string(input["default"])
                       : undefined
+                  },`
+            }${
+              undefined === input.title
+                ? ""
+                : `"title":${
+                    undefined !== input.title ? $string(input.title) : undefined
                   },`
             }${
               undefined === input.nullable
@@ -8678,18 +8678,18 @@ export const test_json_validateStringify_UltimateUnion =
               .join(",")}}`;
           const $so21 = (input: any): any =>
             `{${
-              undefined === input.title
-                ? ""
-                : `"title":${
-                    undefined !== input.title ? $string(input.title) : undefined
-                  },`
-            }${
               undefined === input["default"]
                 ? ""
                 : `"default":${
                     undefined !== input["default"]
                       ? input["default"]
                       : undefined
+                  },`
+            }${
+              undefined === input.title
+                ? ""
+                : `"title":${
+                    undefined !== input.title ? $string(input.title) : undefined
                   },`
             }${
               undefined === input.nullable
@@ -8773,18 +8773,18 @@ export const test_json_validateStringify_UltimateUnion =
             })()}}`;
           const $so22 = (input: any): any =>
             `{${
-              undefined === input.title
-                ? ""
-                : `"title":${
-                    undefined !== input.title ? $string(input.title) : undefined
-                  },`
-            }${
               undefined === input["default"]
                 ? ""
                 : `"default":${
                     undefined !== input["default"]
                       ? $number(input["default"])
                       : undefined
+                  },`
+            }${
+              undefined === input.title
+                ? ""
+                : `"title":${
+                    undefined !== input.title ? $string(input.title) : undefined
                   },`
             }${
               undefined === input.nullable
@@ -8868,18 +8868,18 @@ export const test_json_validateStringify_UltimateUnion =
             })()}}`;
           const $so23 = (input: any): any =>
             `{${
-              undefined === input.title
-                ? ""
-                : `"title":${
-                    undefined !== input.title ? $string(input.title) : undefined
-                  },`
-            }${
               undefined === input["default"]
                 ? ""
                 : `"default":${
                     undefined !== input["default"]
                       ? $string(input["default"])
                       : undefined
+                  },`
+            }${
+              undefined === input.title
+                ? ""
+                : `"title":${
+                    undefined !== input.title ? $string(input.title) : undefined
                   },`
             }${
               undefined === input.nullable
