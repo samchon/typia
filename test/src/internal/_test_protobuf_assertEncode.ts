@@ -29,16 +29,16 @@ export const _test_protobuf_assertEncode =
         if (
           (exp as Function).constructor?.name === ErrorClass.name &&
           typia.is<TypeGuardError.IProps>(exp)
-        )
+        ) {
           if (exp.path && expected.includes(exp.path) === true) continue;
-          else
-            console.log({
-              expected,
-              actual: exp.path,
-            });
+        } else
+          console.log({
+            actualClassName: (exp as any).constructor.name,
+            expectedClassName: ErrorClass.name,
+          });
+        throw new Error(
+          `Bug on typia.json.assertEncode(): failed to detect error on the ${name} type.`,
+        );
       }
-      throw new Error(
-        `Bug on typia.json.assertEncode(): failed to detect error on the ${name} type.`,
-      );
     }
   };

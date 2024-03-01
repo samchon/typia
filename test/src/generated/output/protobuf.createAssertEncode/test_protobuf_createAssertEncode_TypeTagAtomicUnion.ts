@@ -8,7 +8,10 @@ export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
   _test_protobuf_assertEncode(TypeGuardError)(
     "TypeTagAtomicUnion",
   )<TypeTagAtomicUnion>(TypeTagAtomicUnion)({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -172,7 +175,7 @@ export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<TypeTagAtomicUnion> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

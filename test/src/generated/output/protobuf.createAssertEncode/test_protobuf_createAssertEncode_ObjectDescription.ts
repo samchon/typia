@@ -8,7 +8,10 @@ export const test_protobuf_createAssertEncode_ObjectDescription =
   _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectDescription",
   )<ObjectDescription>(ObjectDescription)({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -144,7 +147,7 @@ export const test_protobuf_createAssertEncode_ObjectDescription =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<ObjectDescription> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

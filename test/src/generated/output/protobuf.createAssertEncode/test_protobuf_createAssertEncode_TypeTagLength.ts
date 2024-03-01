@@ -8,7 +8,10 @@ export const test_protobuf_createAssertEncode_TypeTagLength =
   _test_protobuf_assertEncode(TypeGuardError)("TypeTagLength")<TypeTagLength>(
     TypeTagLength,
   )({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -235,7 +238,7 @@ export const test_protobuf_createAssertEncode_TypeTagLength =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<TypeTagLength> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

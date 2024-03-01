@@ -8,7 +8,10 @@ export const test_protobuf_createAssertEncode_CommentTagType =
   _test_protobuf_assertEncode(TypeGuardError)("CommentTagType")<CommentTagType>(
     CommentTagType,
   )({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -288,7 +291,7 @@ export const test_protobuf_createAssertEncode_CommentTagType =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<CommentTagType> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

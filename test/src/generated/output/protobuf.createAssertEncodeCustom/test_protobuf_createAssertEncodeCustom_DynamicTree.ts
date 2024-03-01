@@ -8,7 +8,11 @@ export const test_protobuf_createAssertEncodeCustom_DynamicTree =
   _test_protobuf_assertEncode(CustomGuardError)("DynamicTree")<DynamicTree>(
     DynamicTree,
   )({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+        new CustomGuardError(p),
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -163,7 +167,7 @@ export const test_protobuf_createAssertEncodeCustom_DynamicTree =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<DynamicTree> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

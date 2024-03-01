@@ -9,7 +9,10 @@ export const test_protobuf_assertEncodeCustom_CommentTagDefault =
     "CommentTagDefault",
   )<CommentTagDefault>(CommentTagDefault)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
+      ((
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): Uint8Array => {
         const assert = (
           input: any,
           errorFactory?: import("typia").TypeGuardError.IProps,
@@ -298,7 +301,7 @@ export const test_protobuf_assertEncodeCustom_CommentTagDefault =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input, (p) => new CustomGuardError(p)),
     decode: (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

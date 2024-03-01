@@ -8,7 +8,11 @@ export const test_protobuf_createAssertEncodeCustom_CommentTagRange =
   _test_protobuf_assertEncode(CustomGuardError)(
     "CommentTagRange",
   )<CommentTagRange>(CommentTagRange)({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+        new CustomGuardError(p),
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -463,7 +467,7 @@ export const test_protobuf_createAssertEncodeCustom_CommentTagRange =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<CommentTagRange> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

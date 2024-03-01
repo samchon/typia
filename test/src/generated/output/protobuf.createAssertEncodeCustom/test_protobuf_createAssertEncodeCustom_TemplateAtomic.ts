@@ -8,7 +8,11 @@ export const test_protobuf_createAssertEncodeCustom_TemplateAtomic =
   _test_protobuf_assertEncode(CustomGuardError)(
     "TemplateAtomic",
   )<TemplateAtomic>(TemplateAtomic)({
-    encode: (input: any): Uint8Array => {
+    encode: (
+      input: any,
+      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+        new CustomGuardError(p),
+    ): Uint8Array => {
       const assert = (
         input: any,
         errorFactory?: import("typia").TypeGuardError.IProps,
@@ -166,7 +170,7 @@ export const test_protobuf_createAssertEncodeCustom_TemplateAtomic =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<TemplateAtomic> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

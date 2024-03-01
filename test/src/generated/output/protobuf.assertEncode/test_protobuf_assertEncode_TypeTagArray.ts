@@ -9,7 +9,10 @@ export const test_protobuf_assertEncode_TypeTagArray =
     TypeTagArray,
   )({
     encode: (input) =>
-      ((input: any): Uint8Array => {
+      ((
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): Uint8Array => {
         const assert = (
           input: any,
           errorFactory?: import("typia").TypeGuardError.IProps,
@@ -384,7 +387,7 @@ export const test_protobuf_assertEncode_TypeTagArray =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<TypeTagArray> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
