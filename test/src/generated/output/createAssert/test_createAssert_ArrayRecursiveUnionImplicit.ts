@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_createAssert_ArrayRecursiveUnionImplicit = _test_assert(
-  "ArrayRecursiveUnionImplicit",
-)<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
-  (input: any): ArrayRecursiveUnionImplicit => {
+  TypeGuardError,
+)("ArrayRecursiveUnionImplicit")<ArrayRecursiveUnionImplicit>(
+  ArrayRecursiveUnionImplicit,
+)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayRecursiveUnionImplicit => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRecursiveUnionImplicit => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -89,7 +96,6 @@ export const test_createAssert_ArrayRecursiveUnionImplicit = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRecursiveUnionImplicit => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

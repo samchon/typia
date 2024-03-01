@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
 export const test_protobuf_createAssertDecode_ObjectHttpArray =
-  _test_protobuf_assertDecode("ObjectHttpArray")<ObjectHttpArray>(
-    ObjectHttpArray,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectHttpArray",
+  )<ObjectHttpArray>(ObjectHttpArray)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectHttpArray> => {
       const decode = (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -64,7 +68,13 @@ export const test_protobuf_createAssertDecode_ObjectHttpArray =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectHttpArray => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpArray => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpArray => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.booleans) &&
@@ -91,7 +101,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpArray => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -216,7 +225,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpArray =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectHttpArray): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

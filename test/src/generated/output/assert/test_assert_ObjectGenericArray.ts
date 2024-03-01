@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_assert_ObjectGenericArray = _test_assert(
+export const test_assert_ObjectGenericArray = _test_assert(TypeGuardError)(
   "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)((input) =>
-  ((input: any): ObjectGenericArray => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGenericArray => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectGenericArray => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.pagination &&
@@ -36,7 +41,6 @@ export const test_assert_ObjectGenericArray = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGenericArray => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

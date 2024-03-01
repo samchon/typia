@@ -33,7 +33,11 @@ export const test_createRandom_ObjectDynamic = _test_random(
     };
     return $ro0();
   },
-  assert: (input: any): ObjectDynamic => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectDynamic => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDynamic => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -58,7 +62,6 @@ export const test_createRandom_ObjectDynamic = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDynamic => {
-        const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const $ao0 = (
           input: any,

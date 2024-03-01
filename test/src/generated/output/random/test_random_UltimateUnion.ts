@@ -2142,7 +2142,11 @@ export const test_random_UltimateUnion = _test_random(
       });
       return (generator?.array ?? $generator.array)(() => $ro0());
     })((UltimateUnion as any).RANDOM),
-  assert: (input: any): UltimateUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): UltimateUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is UltimateUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.schemas) &&
@@ -3232,7 +3236,6 @@ export const test_random_UltimateUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is UltimateUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const $ao0 = (
           input: any,

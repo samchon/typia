@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_assertStringify_TemplateConstant =
-  _test_json_assertStringify("TemplateConstant")<TemplateConstant>(
-    TemplateConstant,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): TemplateConstant => {
+  _test_json_assertStringify(TypeGuardError)(
+    "TemplateConstant",
+  )<TemplateConstant>(TemplateConstant)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TemplateConstant => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is TemplateConstant => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -40,7 +48,6 @@ export const test_json_assertStringify_TemplateConstant =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TemplateConstant => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -183,6 +190,6 @@ export const test_json_assertStringify_TemplateConstant =
           })()}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

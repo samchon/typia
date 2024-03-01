@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_protobuf_createAssertDecode_ObjectPrimitive =
-  _test_protobuf_assertDecode("ObjectPrimitive")<ObjectPrimitive>(
-    ObjectPrimitive,
-  )({
+export const test_protobuf_assertDecode_ObjectPrimitive =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectPrimitive",
+  )<ObjectPrimitive>(ObjectPrimitive)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectPrimitive> => {
         const decode = (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -102,7 +106,13 @@ export const test_protobuf_createAssertDecode_ObjectPrimitive =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectPrimitive => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectPrimitive => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
@@ -132,7 +142,6 @@ export const test_protobuf_createAssertDecode_ObjectPrimitive =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectPrimitive => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -259,7 +268,7 @@ export const test_protobuf_createAssertDecode_ObjectPrimitive =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectPrimitive): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

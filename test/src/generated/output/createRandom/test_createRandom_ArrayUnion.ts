@@ -32,7 +32,11 @@ export const test_createRandom_ArrayUnion = _test_random(
       ])(),
     );
   },
-  assert: (input: any): ArrayUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -78,7 +82,6 @@ export const test_createRandom_ArrayUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

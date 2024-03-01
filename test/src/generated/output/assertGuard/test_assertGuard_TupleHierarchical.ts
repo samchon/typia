@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_assertGuard_TupleHierarchical = _test_assertGuard(
-  "TupleHierarchical",
-)<TupleHierarchical>(TupleHierarchical)((input) =>
-  ((input: any): asserts input is TupleHierarchical => {
+  TypeGuardError,
+)("TupleHierarchical")<TupleHierarchical>(TupleHierarchical)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TupleHierarchical => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TupleHierarchical => {
       return (
         Array.isArray(input) &&
@@ -63,7 +68,6 @@ export const test_assertGuard_TupleHierarchical = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleHierarchical => {
-        const $guard = (typia.assertGuard as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

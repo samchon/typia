@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_assertEquals_ToJsonUnion = _test_assertEquals(
+export const test_assertEquals_ToJsonUnion = _test_assertEquals(TypeGuardError)(
   "ToJsonUnion",
 )<ToJsonUnion>(ToJsonUnion)((input) =>
-  ((input: any): ToJsonUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ToJsonUnion => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -84,7 +89,6 @@ export const test_assertEquals_ToJsonUnion = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonUnion => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

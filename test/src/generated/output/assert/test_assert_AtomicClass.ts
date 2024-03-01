@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_assert_AtomicClass = _test_assert("AtomicClass")<AtomicClass>(
-  AtomicClass,
-)((input) =>
-  ((input: any): AtomicClass => {
+export const test_assert_AtomicClass = _test_assert(TypeGuardError)(
+  "AtomicClass",
+)<AtomicClass>(AtomicClass)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicClass => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is AtomicClass => {
       return (
         Array.isArray(input) &&
@@ -40,7 +45,6 @@ export const test_assert_AtomicClass = _test_assert("AtomicClass")<AtomicClass>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicClass => {
-        const $guard = (typia.assert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

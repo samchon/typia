@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
 
 export const test_protobuf_createAssertDecode_ObjectHttpTypeTag =
-  _test_protobuf_assertDecode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
-    ObjectHttpTypeTag,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectHttpTypeTag",
+  )<ObjectHttpTypeTag>(ObjectHttpTypeTag)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectHttpTypeTag> => {
       const decode = (input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -56,7 +60,13 @@ export const test_protobuf_createAssertDecode_ObjectHttpTypeTag =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectHttpTypeTag => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpTypeTag => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpTypeTag => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int32 &&
@@ -92,7 +102,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpTypeTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpTypeTag => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -248,7 +257,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpTypeTag =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectHttpTypeTag): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

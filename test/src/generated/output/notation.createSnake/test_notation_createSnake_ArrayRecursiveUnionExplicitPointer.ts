@@ -665,7 +665,9 @@ export const test_notation_createValidateSnake_ArrayRecursiveUnionExplicitPointe
     },
     assert: (
       input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.SnakeCase<ArrayRecursiveUnionExplicitPointer> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ArrayRecursiveUnionExplicitPointer> => {
@@ -752,7 +754,6 @@ export const test_notation_createValidateSnake_ArrayRecursiveUnionExplicitPointe
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayRecursiveUnionExplicitPointer> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

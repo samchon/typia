@@ -71,7 +71,11 @@ export const test_random_ObjectUnionComposite = _test_random(
         ])(),
       );
     })((ObjectUnionComposite as any).RANDOM),
-  assert: (input: any): ObjectUnionComposite => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionComposite => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionComposite => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
@@ -211,7 +215,6 @@ export const test_random_ObjectUnionComposite = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionComposite => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

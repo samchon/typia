@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
 export const test_assertGuard_ObjectPartialAndRequired = _test_assertGuard(
-  "ObjectPartialAndRequired",
-)<ObjectPartialAndRequired>(ObjectPartialAndRequired)((input) =>
-  ((input: any): asserts input is ObjectPartialAndRequired => {
+  TypeGuardError,
+)("ObjectPartialAndRequired")<ObjectPartialAndRequired>(
+  ObjectPartialAndRequired,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectPartialAndRequired => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectPartialAndRequired => {
       const $io0 = (input: any): boolean =>
         (undefined === input.string || "string" === typeof input.string) &&
@@ -30,7 +37,6 @@ export const test_assertGuard_ObjectPartialAndRequired = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPartialAndRequired => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

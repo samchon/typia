@@ -106,7 +106,11 @@ export const test_notation_createValidateSnake_DynamicNever =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<DynamicNever> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<DynamicNever> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<DynamicNever> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -127,7 +131,6 @@ export const test_notation_createValidateSnake_DynamicNever =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<DynamicNever> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

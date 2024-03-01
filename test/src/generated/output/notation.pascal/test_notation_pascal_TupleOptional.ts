@@ -159,7 +159,11 @@ export const test_notation_validatePascal_TupleOptional =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<TupleOptional> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<TupleOptional> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<TupleOptional> => {
         return (
           Array.isArray(input) &&
@@ -187,7 +191,6 @@ export const test_notation_validatePascal_TupleOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<TupleOptional> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

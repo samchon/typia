@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_misc_assertClone_ClassPropertyAssignment =
-  _test_misc_assertClone("ClassPropertyAssignment")<ClassPropertyAssignment>(
-    ClassPropertyAssignment,
-  )((input) =>
-    ((input: any): typia.Resolved<ClassPropertyAssignment> => {
-      const assert = (input: any): ClassPropertyAssignment => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ClassPropertyAssignment",
+  )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ClassPropertyAssignment> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ClassPropertyAssignment => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ClassPropertyAssignment => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -25,7 +33,6 @@ export const test_misc_assertClone_ClassPropertyAssignment =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassPropertyAssignment => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -92,7 +99,7 @@ export const test_misc_assertClone_ClassPropertyAssignment =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

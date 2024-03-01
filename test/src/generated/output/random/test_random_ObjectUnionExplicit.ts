@@ -84,7 +84,11 @@ export const test_random_ObjectUnionExplicit = _test_random(
         ])(),
       );
     })((ObjectUnionExplicit as any).RANDOM),
-  assert: (input: any): ObjectUnionExplicit => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionExplicit => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionExplicit => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
@@ -215,7 +219,6 @@ export const test_random_ObjectUnionExplicit = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionExplicit => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

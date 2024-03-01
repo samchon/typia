@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_assertGuardEquals_ArrayRecursive = _test_assertGuardEquals(
-  "ArrayRecursive",
-)<ArrayRecursive>(ArrayRecursive)((input) =>
-  ((input: any): asserts input is ArrayRecursive => {
+  TypeGuardError,
+)("ArrayRecursive")<ArrayRecursive>(ArrayRecursive)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ArrayRecursive => {
+    const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -59,7 +64,6 @@ export const test_assertGuardEquals_ArrayRecursive = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRecursive => {
-        const $guard = (typia.assertGuardEquals as any).guard;
         const $join = (typia.assertGuardEquals as any).join;
         const $ao0 = (
           input: any,

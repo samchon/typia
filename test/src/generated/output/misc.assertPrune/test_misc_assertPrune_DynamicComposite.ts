@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
-  "DynamicComposite",
-)<DynamicComposite>(DynamicComposite)((input) =>
-  ((input: any): DynamicComposite => {
-    const assert = (input: any): DynamicComposite => {
+  TypeGuardError,
+)("DynamicComposite")<DynamicComposite>(DynamicComposite)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicComposite => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicComposite => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is DynamicComposite => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -48,7 +56,6 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicComposite => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $join = (typia.misc.assertPrune as any).join;
           const $ao0 = (
             input: any,
@@ -196,7 +203,7 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

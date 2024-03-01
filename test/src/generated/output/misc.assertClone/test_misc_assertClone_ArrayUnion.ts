@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
-  "ArrayUnion",
-)<ArrayUnion>(ArrayUnion)((input) =>
-  ((input: any): typia.Resolved<ArrayUnion> => {
-    const assert = (input: any): ArrayUnion => {
+  TypeGuardError,
+)("ArrayUnion")<ArrayUnion>(ArrayUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ArrayUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayUnion => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ArrayUnion => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -55,7 +63,6 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayUnion => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ap0 = (
             input: any,
             _path: string,
@@ -198,7 +205,7 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
         );
       return Array.isArray(input) ? $cp1(input) : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

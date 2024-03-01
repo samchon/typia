@@ -1,14 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_misc_createAssertPrune_ObjectUnionNonPredictable =
-  _test_misc_assertPrune(
+  _test_misc_assertPrune(TypeGuardError)(
     "ObjectUnionNonPredictable",
   )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    (input: any): ObjectUnionNonPredictable => {
-      const assert = (input: any): ObjectUnionNonPredictable => {
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectUnionNonPredictable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionNonPredictable => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUnionNonPredictable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -52,7 +62,6 @@ export const test_misc_createAssertPrune_ObjectUnionNonPredictable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionNonPredictable => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -353,7 +362,7 @@ export const test_misc_createAssertPrune_ObjectUnionNonPredictable =
           })();
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

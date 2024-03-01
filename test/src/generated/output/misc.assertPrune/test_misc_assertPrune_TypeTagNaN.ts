@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 
 export const test_misc_assertPrune_TypeTagNaN = _test_misc_assertPrune(
-  "TypeTagNaN",
-)<TypeTagNaN>(TypeTagNaN)((input) =>
-  ((input: any): TypeTagNaN => {
-    const assert = (input: any): TypeTagNaN => {
+  TypeGuardError,
+)("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagNaN => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagNaN => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagNaN => {
         return (
           "object" === typeof input &&
@@ -37,7 +45,6 @@ export const test_misc_assertPrune_TypeTagNaN = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagNaN => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -164,7 +171,7 @@ export const test_misc_assertPrune_TypeTagNaN = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

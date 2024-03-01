@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_json_assertStringify_ObjectHierarchical =
-  _test_json_assertStringify("ObjectHierarchical")<ObjectHierarchical>(
-    ObjectHierarchical,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectHierarchical => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectHierarchical",
+  )<ObjectHierarchical>(ObjectHierarchical)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHierarchical => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHierarchical => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -110,7 +118,6 @@ export const test_json_assertStringify_ObjectHierarchical =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHierarchical => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -623,6 +630,6 @@ export const test_json_assertStringify_ObjectHierarchical =
           )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

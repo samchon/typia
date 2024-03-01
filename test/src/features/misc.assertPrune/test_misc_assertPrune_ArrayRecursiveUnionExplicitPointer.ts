@@ -1,10 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ArrayRecursiveUnionExplicitPointer } from "../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_misc_assertPrune_ArrayRecursiveUnionExplicitPointer =
-  _test_misc_assertPrune(
+  _test_misc_assertPrune(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
     (input) =>

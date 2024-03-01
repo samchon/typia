@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
-  "ObjectJsonTag",
-)<ObjectJsonTag>(ObjectJsonTag)((input) =>
-  ((input: any): typia.Resolved<ObjectJsonTag> => {
-    const assert = (input: any): ObjectJsonTag => {
+  TypeGuardError,
+)("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ObjectJsonTag> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectJsonTag => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ObjectJsonTag => {
         return (
           "object" === typeof input &&
@@ -24,7 +32,6 @@ export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectJsonTag => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -82,7 +89,7 @@ export const test_misc_assertClone_ObjectJsonTag = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

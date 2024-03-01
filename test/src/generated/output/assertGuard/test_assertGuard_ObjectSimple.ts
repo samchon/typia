@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_assertGuard_ObjectSimple = _test_assertGuard(
+export const test_assertGuard_ObjectSimple = _test_assertGuard(TypeGuardError)(
   "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)((input) =>
-  ((input: any): asserts input is ObjectSimple => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectSimple => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectSimple => {
       return (
         "object" === typeof input &&
@@ -51,7 +56,6 @@ export const test_assertGuard_ObjectSimple = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimple => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

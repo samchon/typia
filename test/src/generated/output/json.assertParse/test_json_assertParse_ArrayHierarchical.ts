@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_json_assertParse_ArrayHierarchical = _test_json_assertParse(
-  "ArrayHierarchical",
-)<ArrayHierarchical>(ArrayHierarchical)((input) =>
-  ((input: string): typia.Primitive<ArrayHierarchical> => {
-    const assert = (input: any): ArrayHierarchical => {
+  TypeGuardError,
+)("ArrayHierarchical")<ArrayHierarchical>(ArrayHierarchical)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArrayHierarchical> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayHierarchical => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArrayHierarchical => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.id &&
@@ -71,7 +79,6 @@ export const test_json_assertParse_ArrayHierarchical = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayHierarchical => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -310,6 +317,6 @@ export const test_json_assertParse_ArrayHierarchical = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

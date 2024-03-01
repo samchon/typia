@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_misc_assertClone_ConstantConstEnumeration =
-  _test_misc_assertClone("ConstantConstEnumeration")<ConstantConstEnumeration>(
-    ConstantConstEnumeration,
-  )((input) =>
-    ((input: any): typia.Resolved<ConstantConstEnumeration> => {
-      const assert = (input: any): ConstantConstEnumeration => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ConstantConstEnumeration",
+  )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ConstantConstEnumeration> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantConstEnumeration => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ConstantConstEnumeration => {
           return (
             Array.isArray(input) &&
@@ -28,7 +36,6 @@ export const test_misc_assertClone_ConstantConstEnumeration =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantConstEnumeration => {
-            const $guard = (typia.misc.assertClone as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -64,7 +71,7 @@ export const test_misc_assertClone_ConstantConstEnumeration =
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         return Array.isArray(input) ? $cp0(input) : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

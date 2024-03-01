@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
 
-export const test_assert_ObjectPartial = _test_assert(
+export const test_assert_ObjectPartial = _test_assert(TypeGuardError)(
   "ObjectPartial",
 )<ObjectPartial>(ObjectPartial)((input) =>
-  ((input: any): ObjectPartial => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectPartial => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectPartial => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -50,7 +55,6 @@ export const test_assert_ObjectPartial = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPartial => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

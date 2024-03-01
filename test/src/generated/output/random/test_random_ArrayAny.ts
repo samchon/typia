@@ -56,7 +56,11 @@ export const test_random_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
       });
       return $ro0();
     })((ArrayAny as any).RANDOM),
-  assert: (input: any): ArrayAny => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayAny => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayAny => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.anys) &&
@@ -84,7 +88,6 @@ export const test_random_ArrayAny = _test_random("ArrayAny")<ArrayAny>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayAny => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

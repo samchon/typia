@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
 
 export const test_createAssertGuard_CommentTagRangeBigInt = _test_assertGuard(
-  "CommentTagRangeBigInt",
-)<CommentTagRangeBigInt>(CommentTagRangeBigInt)(
-  (input: any): asserts input is CommentTagRangeBigInt => {
+  TypeGuardError,
+)("CommentTagRangeBigInt")<CommentTagRangeBigInt>(CommentTagRangeBigInt)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is CommentTagRangeBigInt => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagRangeBigInt => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -46,7 +51,6 @@ export const test_createAssertGuard_CommentTagRangeBigInt = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagRangeBigInt => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertHeaders } from "../../../internal/_test_http_assertHeaders";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
 export const test_http_createAssertHeaders_ObjectHttpUndefindable =
-  _test_http_assertHeaders("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-    ObjectHttpUndefindable,
-  )(
+  _test_http_assertHeaders(TypeGuardError)(
+    "ObjectHttpUndefindable",
+  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
     (
       input: Record<string, string | string[] | undefined>,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpUndefindable> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
@@ -28,7 +30,13 @@ export const test_http_createAssertHeaders_ObjectHttpUndefindable =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpUndefindable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpUndefindable => {
+        const $guard = (typia.http.createAssertHeaders as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpUndefindable => {
           const $io0 = (input: any): boolean =>
             (undefined === input.boolean ||
@@ -65,7 +73,6 @@ export const test_http_createAssertHeaders_ObjectHttpUndefindable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpUndefindable => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -154,6 +161,6 @@ export const test_http_createAssertHeaders_ObjectHttpUndefindable =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
   );

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { InstanceUnion } from "../../../structures/InstanceUnion";
 
-export const test_assert_InstanceUnion = _test_assert(
+export const test_assert_InstanceUnion = _test_assert(TypeGuardError)(
   "InstanceUnion",
 )<InstanceUnion>(InstanceUnion)((input) =>
-  ((input: any): InstanceUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): InstanceUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is InstanceUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -252,7 +257,6 @@ export const test_assert_InstanceUnion = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is InstanceUnion => {
-        const $guard = (typia.assert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

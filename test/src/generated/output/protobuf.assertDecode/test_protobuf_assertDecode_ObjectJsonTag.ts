@@ -1,12 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_protobuf_createAssertDecode_ObjectJsonTag =
-  _test_protobuf_assertDecode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
+export const test_protobuf_assertDecode_ObjectJsonTag =
+  _test_protobuf_assertDecode(TypeGuardError)("ObjectJsonTag")<ObjectJsonTag>(
+    ObjectJsonTag,
+  )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectJsonTag> => {
         const decode = (input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -46,7 +52,13 @@ export const test_protobuf_createAssertDecode_ObjectJsonTag =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectJsonTag => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectJsonTag => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectJsonTag => {
             return (
               "object" === typeof input &&
@@ -63,7 +75,6 @@ export const test_protobuf_createAssertDecode_ObjectJsonTag =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectJsonTag => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -111,7 +122,7 @@ export const test_protobuf_createAssertDecode_ObjectJsonTag =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectJsonTag): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

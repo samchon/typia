@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_json_assertParse_ArrayAtomicAlias = _test_json_assertParse(
-  "ArrayAtomicAlias",
-)<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-  ((input: string): typia.Primitive<ArrayAtomicAlias> => {
-    const assert = (input: any): ArrayAtomicAlias => {
+  TypeGuardError,
+)("ArrayAtomicAlias")<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArrayAtomicAlias> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayAtomicAlias => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArrayAtomicAlias => {
         return (
           Array.isArray(input) &&
@@ -28,7 +36,6 @@ export const test_json_assertParse_ArrayAtomicAlias = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAtomicAlias => {
-          const $guard = (typia.json.assertParse as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -113,6 +120,6 @@ export const test_json_assertParse_ArrayAtomicAlias = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

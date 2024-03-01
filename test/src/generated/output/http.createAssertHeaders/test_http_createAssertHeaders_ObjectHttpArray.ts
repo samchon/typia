@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertHeaders } from "../../../internal/_test_http_assertHeaders";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
 export const test_http_createAssertHeaders_ObjectHttpArray =
-  _test_http_assertHeaders("ObjectHttpArray")<ObjectHttpArray>(ObjectHttpArray)(
+  _test_http_assertHeaders(TypeGuardError)("ObjectHttpArray")<ObjectHttpArray>(
+    ObjectHttpArray,
+  )(
     (
       input: Record<string, string | string[] | undefined>,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpArray> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
@@ -34,7 +38,13 @@ export const test_http_createAssertHeaders_ObjectHttpArray =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpArray => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpArray => {
+        const $guard = (typia.http.createAssertHeaders as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpArray => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.booleans) &&
@@ -61,7 +71,6 @@ export const test_http_createAssertHeaders_ObjectHttpArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpArray => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -186,6 +195,6 @@ export const test_http_createAssertHeaders_ObjectHttpArray =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
   );

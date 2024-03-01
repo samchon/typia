@@ -21,7 +21,11 @@ export const test_random_ObjectLiteralProperty = _test_random(
       });
       return $ro0();
     })((ObjectLiteralProperty as any).RANDOM),
-  assert: (input: any): ObjectLiteralProperty => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectLiteralProperty => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectLiteralProperty => {
       return (
         "object" === typeof input &&
@@ -37,7 +41,6 @@ export const test_random_ObjectLiteralProperty = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectLiteralProperty => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

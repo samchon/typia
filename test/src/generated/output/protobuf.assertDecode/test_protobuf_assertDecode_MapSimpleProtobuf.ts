@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
 
-export const test_protobuf_createAssertDecode_MapSimpleProtobuf =
-  _test_protobuf_assertDecode("MapSimpleProtobuf")<MapSimpleProtobuf>(
-    MapSimpleProtobuf,
-  )({
+export const test_protobuf_assertDecode_MapSimpleProtobuf =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "MapSimpleProtobuf",
+  )<MapSimpleProtobuf>(MapSimpleProtobuf)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<MapSimpleProtobuf> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<MapSimpleProtobuf> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<MapSimpleProtobuf> => {
@@ -226,7 +230,13 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobuf =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): MapSimpleProtobuf => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): MapSimpleProtobuf => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is MapSimpleProtobuf => {
             const $io0 = (input: any): boolean =>
               input.boolean instanceof Map &&
@@ -307,7 +317,6 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobuf =
               _path: string,
               _exceptionable: boolean = true,
             ): input is MapSimpleProtobuf => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -665,7 +674,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobuf =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: MapSimpleProtobuf): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_json_assertParse_ConstantEnumeration = _test_json_assertParse(
-  "ConstantEnumeration",
-)<ConstantEnumeration>(ConstantEnumeration)((input) =>
-  ((input: string): typia.Primitive<ConstantEnumeration> => {
-    const assert = (input: any): ConstantEnumeration => {
+  TypeGuardError,
+)("ConstantEnumeration")<ConstantEnumeration>(ConstantEnumeration)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ConstantEnumeration> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ConstantEnumeration => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ConstantEnumeration => {
         return (
           Array.isArray(input) &&
@@ -27,7 +35,6 @@ export const test_json_assertParse_ConstantEnumeration = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ConstantEnumeration => {
-          const $guard = (typia.json.assertParse as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -58,6 +65,6 @@ export const test_json_assertParse_ConstantEnumeration = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

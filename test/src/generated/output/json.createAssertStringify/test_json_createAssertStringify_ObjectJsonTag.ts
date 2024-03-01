@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_json_createAssertStringify_ObjectJsonTag =
-  _test_json_assertStringify("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)(
-    (input: any): string => {
-      const assert = (input: any): ObjectJsonTag => {
+  _test_json_assertStringify(TypeGuardError)("ObjectJsonTag")<ObjectJsonTag>(
+    ObjectJsonTag,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectJsonTag => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectJsonTag => {
           return (
             "object" === typeof input &&
@@ -23,7 +35,6 @@ export const test_json_createAssertStringify_ObjectJsonTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectJsonTag => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -80,6 +91,6 @@ export const test_json_createAssertStringify_ObjectJsonTag =
           (input as any).title,
         )},"complicate_title":${$string((input as any).complicate_title)}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

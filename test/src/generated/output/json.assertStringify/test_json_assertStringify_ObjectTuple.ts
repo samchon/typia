@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_json_assertStringify_ObjectTuple = _test_json_assertStringify(
-  "ObjectTuple",
-)<ObjectTuple>(ObjectTuple)((input) =>
-  ((input: any): string => {
-    const assert = (input: any): ObjectTuple => {
+  TypeGuardError,
+)("ObjectTuple")<ObjectTuple>(ObjectTuple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): string => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectTuple => {
+      const $guard = (typia.json.assertStringify as any).guard(errorFactory);
       const __is = (input: any): input is ObjectTuple => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -34,7 +42,6 @@ export const test_json_assertStringify_ObjectTuple = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectTuple => {
-          const $guard = (typia.json.assertStringify as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -137,6 +144,6 @@ export const test_json_assertStringify_ObjectTuple = _test_json_assertStringify(
         (input[1] as any).name,
       )}}`}]`;
     };
-    return stringify(assert(input));
+    return stringify(assert(input, errorFactory));
   })(input),
 );

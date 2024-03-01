@@ -62,7 +62,11 @@ export const test_createRandom_TemplateAtomic = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): TemplateAtomic => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TemplateAtomic => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TemplateAtomic => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.prefix &&
@@ -93,7 +97,6 @@ export const test_createRandom_TemplateAtomic = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateAtomic => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

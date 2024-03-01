@@ -59,7 +59,11 @@ export const test_random_CommentTagBigInt = _test_random(
       });
       return $ro0();
     })((CommentTagBigInt as any).RANDOM),
-  assert: (input: any): CommentTagBigInt => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagBigInt => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagBigInt => {
       return (
         "object" === typeof input &&
@@ -82,7 +86,6 @@ export const test_random_CommentTagBigInt = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagBigInt => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

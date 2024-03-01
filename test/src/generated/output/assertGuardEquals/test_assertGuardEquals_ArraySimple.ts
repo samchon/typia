@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_assertGuardEquals_ArraySimple = _test_assertGuardEquals(
-  "ArraySimple",
-)<ArraySimple>(ArraySimple)((input) =>
-  ((input: any): asserts input is ArraySimple => {
+  TypeGuardError,
+)("ArraySimple")<ArraySimple>(ArraySimple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ArraySimple => {
+    const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -56,7 +61,6 @@ export const test_assertGuardEquals_ArraySimple = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimple => {
-        const $guard = (typia.assertGuardEquals as any).guard;
         const $join = (typia.assertGuardEquals as any).join;
         const $ao0 = (
           input: any,

@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
-export const test_protobuf_createAssertEncode_ObjectHttpNullable =
-  _test_protobuf_assertEncode("ObjectHttpNullable")<ObjectHttpNullable>(
-    ObjectHttpNullable,
-  )({
+export const test_protobuf_assertEncode_ObjectHttpNullable =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpNullable",
+  )<ObjectHttpNullable>(ObjectHttpNullable)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectHttpNullable => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectHttpNullable => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectHttpNullable => {
             const $io0 = (input: any): boolean =>
               (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -47,7 +54,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectHttpNullable => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

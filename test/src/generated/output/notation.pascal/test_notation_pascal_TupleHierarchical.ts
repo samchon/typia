@@ -631,7 +631,11 @@ export const test_notation_validatePascal_TupleHierarchical =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<TupleHierarchical> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<TupleHierarchical> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.PascalCase<TupleHierarchical> => {
@@ -690,7 +694,6 @@ export const test_notation_validatePascal_TupleHierarchical =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<TupleHierarchical> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

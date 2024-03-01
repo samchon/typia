@@ -5,6 +5,7 @@ import { create_form_data } from "../helpers/create_form_data";
 import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_http_assertFormData =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
   (decode: (input: FormData) => typia.Resolved<T>) =>
@@ -26,7 +27,10 @@ export const _test_http_assertFormData =
       try {
         decode(create_form_data(elem));
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

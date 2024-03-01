@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_protobuf_createAssertEncode_ObjectUnionExplicitPointer =
-  _test_protobuf_assertEncode(
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectUnionExplicitPointer",
   )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectUnionExplicitPointer => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionExplicitPointer => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUnionExplicitPointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -143,7 +150,6 @@ export const test_protobuf_createAssertEncode_ObjectUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicitPointer => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

@@ -150,7 +150,11 @@ export const test_notation_validatePascal_TupleRestArray =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<TupleRestArray> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<TupleRestArray> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<TupleRestArray> => {
         return (
           Array.isArray(input) &&
@@ -171,7 +175,6 @@ export const test_notation_validatePascal_TupleRestArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<TupleRestArray> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

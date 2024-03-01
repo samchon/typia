@@ -535,7 +535,11 @@ export const test_notation_validateCamel_MapAlias =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<MapAlias> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<MapAlias> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<MapAlias> => {
         const $io0 = (input: any): boolean =>
           input.boolean instanceof Map &&
@@ -608,7 +612,6 @@ export const test_notation_validateCamel_MapAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<MapAlias> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_json_assertStringify_ArrayAtomicAlias =
-  _test_json_assertStringify("ArrayAtomicAlias")<ArrayAtomicAlias>(
-    ArrayAtomicAlias,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ArrayAtomicAlias => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ArrayAtomicAlias",
+  )<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayAtomicAlias => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ArrayAtomicAlias => {
           return (
             Array.isArray(input) &&
@@ -29,7 +37,6 @@ export const test_json_assertStringify_ArrayAtomicAlias =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayAtomicAlias => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -124,6 +131,6 @@ export const test_json_assertStringify_ArrayAtomicAlias =
           .map((elem: any) => $string(elem))
           .join(",")}]`}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

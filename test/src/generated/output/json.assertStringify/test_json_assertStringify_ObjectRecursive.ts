@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_json_assertStringify_ObjectRecursive =
-  _test_json_assertStringify("ObjectRecursive")<ObjectRecursive>(
-    ObjectRecursive,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectRecursive => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectRecursive",
+  )<ObjectRecursive>(ObjectRecursive)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectRecursive => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectRecursive => {
           const $io0 = (input: any): boolean =>
             (null === input.parent ||
@@ -35,7 +43,6 @@ export const test_json_assertStringify_ObjectRecursive =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectRecursive => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -165,6 +172,6 @@ export const test_json_assertStringify_ObjectRecursive =
           )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

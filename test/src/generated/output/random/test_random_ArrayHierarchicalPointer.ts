@@ -71,7 +71,11 @@ export const test_random_ArrayHierarchicalPointer = _test_random(
       });
       return $ro0();
     })((ArrayHierarchicalPointer as any).RANDOM),
-  assert: (input: any): ArrayHierarchicalPointer => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayHierarchicalPointer => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayHierarchicalPointer => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -135,7 +139,6 @@ export const test_random_ArrayHierarchicalPointer = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayHierarchicalPointer => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

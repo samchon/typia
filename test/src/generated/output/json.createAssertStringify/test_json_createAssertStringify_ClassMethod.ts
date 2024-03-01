@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_json_createAssertStringify_ClassMethod =
-  _test_json_assertStringify("ClassMethod")<ClassMethod>(ClassMethod)(
-    (input: any): string => {
-      const assert = (input: any): ClassMethod => {
+  _test_json_assertStringify(TypeGuardError)("ClassMethod")<ClassMethod>(
+    ClassMethod,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ClassMethod => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ClassMethod => {
           return (
             "object" === typeof input &&
@@ -22,7 +34,6 @@ export const test_json_createAssertStringify_ClassMethod =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassMethod => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -64,6 +75,6 @@ export const test_json_createAssertStringify_ClassMethod =
           (input as any).age,
         )}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

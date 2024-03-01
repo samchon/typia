@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
 export const test_misc_createAssertClone_ObjectRequired =
-  _test_misc_assertClone("ObjectRequired")<ObjectRequired>(ObjectRequired)(
-    (input: any): typia.Resolved<ObjectRequired> => {
-      const assert = (input: any): ObjectRequired => {
+  _test_misc_assertClone(TypeGuardError)("ObjectRequired")<ObjectRequired>(
+    ObjectRequired,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectRequired> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectRequired => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectRequired => {
           const $io0 = (input: any): boolean =>
             "boolean" === typeof input.boolean &&
@@ -49,7 +61,6 @@ export const test_misc_createAssertClone_ObjectRequired =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectRequired => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -241,7 +252,7 @@ export const test_misc_createAssertClone_ObjectRequired =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

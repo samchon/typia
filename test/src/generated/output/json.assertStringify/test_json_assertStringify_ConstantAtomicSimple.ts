@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_json_assertStringify_ConstantAtomicSimple =
-  _test_json_assertStringify("ConstantAtomicSimple")<ConstantAtomicSimple>(
-    ConstantAtomicSimple,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ConstantAtomicSimple => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ConstantAtomicSimple",
+  )<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicSimple => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicSimple => {
           return (
             Array.isArray(input) &&
@@ -25,7 +33,6 @@ export const test_json_assertStringify_ConstantAtomicSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicSimple => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -85,6 +92,6 @@ export const test_json_assertStringify_ConstantAtomicSimple =
           });
         })()}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

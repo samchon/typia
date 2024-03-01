@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
-  "ArrayAtomicSimple",
-)<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
-  ((input: any): typia.Resolved<ArrayAtomicSimple> => {
-    const assert = (input: any): ArrayAtomicSimple => {
+  TypeGuardError,
+)("ArrayAtomicSimple")<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ArrayAtomicSimple> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayAtomicSimple => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ArrayAtomicSimple => {
         return (
           Array.isArray(input) &&
@@ -28,7 +36,6 @@ export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAtomicSimple => {
-          const $guard = (typia.misc.assertClone as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -132,7 +139,7 @@ export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
           ] as any)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

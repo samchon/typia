@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
-  "ArrayUnion",
-)<ArrayUnion>(ArrayUnion)((input) =>
-  ((input: any): ArrayUnion => {
-    const assert = (input: any): ArrayUnion => {
+  TypeGuardError,
+)("ArrayUnion")<ArrayUnion>(ArrayUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayUnion => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayUnion => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is ArrayUnion => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -55,7 +63,6 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayUnion => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ap0 = (
             input: any,
             _path: string,
@@ -162,7 +169,7 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
       return input;
     };
     const prune = (input: ArrayUnion): void => {};
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
 export const test_misc_assertClone_TypeTagMatrix = _test_misc_assertClone(
-  "TypeTagMatrix",
-)<TypeTagMatrix>(TypeTagMatrix)((input) =>
-  ((input: any): typia.Resolved<TypeTagMatrix> => {
-    const assert = (input: any): TypeTagMatrix => {
+  TypeGuardError,
+)("TypeTagMatrix")<TypeTagMatrix>(TypeTagMatrix)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<TypeTagMatrix> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagMatrix => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagMatrix => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.matrix) &&
@@ -34,7 +42,6 @@ export const test_misc_assertClone_TypeTagMatrix = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagMatrix => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -149,7 +156,7 @@ export const test_misc_assertClone_TypeTagMatrix = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

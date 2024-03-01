@@ -51,7 +51,11 @@ export const test_random_TupleHierarchical = _test_random(
         ],
       ];
     })((TupleHierarchical as any).RANDOM),
-  assert: (input: any): TupleHierarchical => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleHierarchical => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TupleHierarchical => {
       return (
         Array.isArray(input) &&
@@ -108,7 +112,6 @@ export const test_random_TupleHierarchical = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleHierarchical => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

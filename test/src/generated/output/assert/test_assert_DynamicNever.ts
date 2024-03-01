@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_assert_DynamicNever = _test_assert(
+export const test_assert_DynamicNever = _test_assert(TypeGuardError)(
   "DynamicNever",
 )<DynamicNever>(DynamicNever)((input) =>
-  ((input: any): DynamicNever => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicNever => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is DynamicNever => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -27,7 +32,6 @@ export const test_assert_DynamicNever = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicNever => {
-        const $guard = (typia.assert as any).guard;
         const $join = (typia.assert as any).join;
         const $ao0 = (
           input: any,

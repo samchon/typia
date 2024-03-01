@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_createAssertGuard_ObjectRecursive = _test_assertGuard(
-  "ObjectRecursive",
-)<ObjectRecursive>(ObjectRecursive)(
-  (input: any): asserts input is ObjectRecursive => {
+  TypeGuardError,
+)("ObjectRecursive")<ObjectRecursive>(ObjectRecursive)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectRecursive => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectRecursive => {
       const $io0 = (input: any): boolean =>
         (null === input.parent ||
@@ -33,7 +38,6 @@ export const test_createAssertGuard_ObjectRecursive = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectRecursive => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

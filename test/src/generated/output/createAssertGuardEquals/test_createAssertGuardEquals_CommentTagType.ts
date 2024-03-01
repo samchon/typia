@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
 export const test_createAssertGuardEquals_CommentTagType =
-  _test_assertGuardEquals("CommentTagType")<CommentTagType>(CommentTagType)(
-    (input: any): asserts input is CommentTagType => {
+  _test_assertGuardEquals(TypeGuardError)("CommentTagType")<CommentTagType>(
+    CommentTagType,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is CommentTagType => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -79,7 +86,6 @@ export const test_createAssertGuardEquals_CommentTagType =
           _path: string,
           _exceptionable: boolean = true,
         ): input is CommentTagType => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,

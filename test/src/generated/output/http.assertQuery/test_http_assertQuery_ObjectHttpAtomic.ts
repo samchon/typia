@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertQuery } from "../../../internal/_test_http_assertQuery";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
 export const test_http_assertQuery_ObjectHttpAtomic = _test_http_assertQuery(
-  "ObjectHttpAtomic",
-)<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
-  ((input: string | URLSearchParams): typia.Resolved<ObjectHttpAtomic> => {
+  TypeGuardError,
+)("ObjectHttpAtomic")<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
+  ((
+    input: string | URLSearchParams,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ObjectHttpAtomic> => {
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpAtomic> => {
@@ -24,7 +28,11 @@ export const test_http_assertQuery_ObjectHttpAtomic = _test_http_assertQuery(
       };
       return output as any;
     };
-    const assert = (input: any): ObjectHttpAtomic => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpAtomic => {
+      const $guard = (typia.http.assertQuery as any).guard(errorFactory);
       const __is = (input: any): input is ObjectHttpAtomic => {
         return (
           "object" === typeof input &&
@@ -42,7 +50,6 @@ export const test_http_assertQuery_ObjectHttpAtomic = _test_http_assertQuery(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpAtomic => {
-          const $guard = (typia.http.assertQuery as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -91,6 +98,6 @@ export const test_http_assertQuery_ObjectHttpAtomic = _test_http_assertQuery(
       return input;
     };
     const output = decode(input);
-    return assert(output) as any;
+    return assert(output, errorFactory) as any;
   })(input),
 );

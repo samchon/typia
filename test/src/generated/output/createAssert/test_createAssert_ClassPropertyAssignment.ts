@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_createAssert_ClassPropertyAssignment = _test_assert(
-  "ClassPropertyAssignment",
-)<ClassPropertyAssignment>(ClassPropertyAssignment)(
-  (input: any): ClassPropertyAssignment => {
+  TypeGuardError,
+)("ClassPropertyAssignment")<ClassPropertyAssignment>(ClassPropertyAssignment)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ClassPropertyAssignment => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ClassPropertyAssignment => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -23,7 +28,6 @@ export const test_createAssert_ClassPropertyAssignment = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassPropertyAssignment => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

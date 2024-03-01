@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_assertGuard_ClassMethod = _test_assertGuard(
+export const test_assertGuard_ClassMethod = _test_assertGuard(TypeGuardError)(
   "ClassMethod",
 )<ClassMethod>(ClassMethod)((input) =>
-  ((input: any): asserts input is ClassMethod => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ClassMethod => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ClassMethod => {
       return (
         "object" === typeof input &&
@@ -22,7 +27,6 @@ export const test_assertGuard_ClassMethod = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassMethod => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

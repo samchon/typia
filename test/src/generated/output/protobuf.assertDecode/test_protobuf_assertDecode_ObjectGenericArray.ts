@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_protobuf_createAssertDecode_ObjectGenericArray =
-  _test_protobuf_assertDecode("ObjectGenericArray")<ObjectGenericArray>(
-    ObjectGenericArray,
-  )({
+export const test_protobuf_assertDecode_ObjectGenericArray =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectGenericArray",
+  )<ObjectGenericArray>(ObjectGenericArray)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectGenericArray> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectGenericArray> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<ObjectGenericArray> => {
@@ -98,7 +102,13 @@ export const test_protobuf_createAssertDecode_ObjectGenericArray =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectGenericArray => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectGenericArray => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
               "object" === typeof input.pagination &&
@@ -128,7 +138,6 @@ export const test_protobuf_createAssertDecode_ObjectGenericArray =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectGenericArray => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -250,7 +259,7 @@ export const test_protobuf_createAssertDecode_ObjectGenericArray =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectGenericArray): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
 
-export const test_protobuf_createAssertEncode_CommentTagInfinite =
-  _test_protobuf_assertEncode("CommentTagInfinite")<CommentTagInfinite>(
-    CommentTagInfinite,
-  )({
+export const test_protobuf_assertEncode_CommentTagInfinite =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagInfinite",
+  )<CommentTagInfinite>(CommentTagInfinite)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): CommentTagInfinite => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): CommentTagInfinite => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is CommentTagInfinite => {
             return (
               "object" === typeof input &&
@@ -39,7 +46,6 @@ export const test_protobuf_createAssertEncode_CommentTagInfinite =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagInfinite => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

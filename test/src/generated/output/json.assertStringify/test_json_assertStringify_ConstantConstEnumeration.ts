@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_json_assertStringify_ConstantConstEnumeration =
-  _test_json_assertStringify(
+  _test_json_assertStringify(TypeGuardError)(
     "ConstantConstEnumeration",
   )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ConstantConstEnumeration => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantConstEnumeration => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ConstantConstEnumeration => {
           return (
             Array.isArray(input) &&
@@ -28,7 +36,6 @@ export const test_json_assertStringify_ConstantConstEnumeration =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantConstEnumeration => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -76,6 +83,6 @@ export const test_json_assertStringify_ConstantConstEnumeration =
           )
           .join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

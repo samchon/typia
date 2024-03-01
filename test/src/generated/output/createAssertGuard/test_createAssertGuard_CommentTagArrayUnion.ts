@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 
 export const test_createAssertGuard_CommentTagArrayUnion = _test_assertGuard(
-  "CommentTagArrayUnion",
-)<CommentTagArrayUnion>(CommentTagArrayUnion)(
-  (input: any): asserts input is CommentTagArrayUnion => {
+  TypeGuardError,
+)("CommentTagArrayUnion")<CommentTagArrayUnion>(CommentTagArrayUnion)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is CommentTagArrayUnion => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&
@@ -43,7 +48,6 @@ export const test_createAssertGuard_CommentTagArrayUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagArrayUnion => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

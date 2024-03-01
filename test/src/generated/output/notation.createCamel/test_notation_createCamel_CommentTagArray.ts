@@ -303,7 +303,11 @@ export const test_notation_createValidateCamel_CommentTagArray =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<CommentTagArray> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<CommentTagArray> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<CommentTagArray> => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -339,7 +343,6 @@ export const test_notation_createValidateCamel_CommentTagArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<CommentTagArray> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

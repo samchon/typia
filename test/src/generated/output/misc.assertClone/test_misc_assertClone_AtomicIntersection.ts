@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
-  "AtomicIntersection",
-)<AtomicIntersection>(AtomicIntersection)((input) =>
-  ((input: any): typia.Resolved<AtomicIntersection> => {
-    const assert = (input: any): AtomicIntersection => {
+  TypeGuardError,
+)("AtomicIntersection")<AtomicIntersection>(AtomicIntersection)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<AtomicIntersection> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): AtomicIntersection => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is AtomicIntersection => {
         return (
           Array.isArray(input) &&
@@ -24,7 +32,6 @@ export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is AtomicIntersection => {
-          const $guard = (typia.misc.assertClone as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -76,7 +83,7 @@ export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
         ? ([input[0] as any, input[1] as any, input[2] as any] as any)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

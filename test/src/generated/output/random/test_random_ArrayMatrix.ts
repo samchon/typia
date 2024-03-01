@@ -21,7 +21,11 @@ export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
         ),
       );
     })((ArrayMatrix as any).RANDOM),
-  assert: (input: any): ArrayMatrix => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayMatrix => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayMatrix => {
       return (
         Array.isArray(input) &&
@@ -45,7 +49,6 @@ export const test_random_ArrayMatrix = _test_random("ArrayMatrix")<ArrayMatrix>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayMatrix => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

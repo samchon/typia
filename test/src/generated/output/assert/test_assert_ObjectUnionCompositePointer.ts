@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_assert_ObjectUnionCompositePointer = _test_assert(
-  "ObjectUnionCompositePointer",
-)<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
-  ((input: any): ObjectUnionCompositePointer => {
+  TypeGuardError,
+)("ObjectUnionCompositePointer")<ObjectUnionCompositePointer>(
+  ObjectUnionCompositePointer,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionCompositePointer => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionCompositePointer => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -150,7 +157,6 @@ export const test_assert_ObjectUnionCompositePointer = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionCompositePointer => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

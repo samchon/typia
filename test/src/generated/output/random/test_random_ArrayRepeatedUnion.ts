@@ -87,7 +87,11 @@ export const test_random_ArrayRepeatedUnion = _test_random(
         () => (generator?.array ?? $generator.array)(() => $ro0()),
       ])();
     })((ArrayRepeatedUnion as any).RANDOM),
-  assert: (input: any): ArrayRepeatedUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayRepeatedUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -182,7 +186,6 @@ export const test_random_ArrayRepeatedUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

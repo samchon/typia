@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_assertGuard_ToJsonArray = _test_assertGuard(
+export const test_assertGuard_ToJsonArray = _test_assertGuard(TypeGuardError)(
   "ToJsonArray",
 )<ToJsonArray>(ToJsonArray)((input) =>
-  ((input: any): asserts input is ToJsonArray => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ToJsonArray => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ToJsonArray => {
       const $io0 = (input: any): boolean => "function" === typeof input.toJSON;
       const $io1 = (input: any): boolean => "function" === typeof input.toJSON;
@@ -35,7 +40,6 @@ export const test_assertGuard_ToJsonArray = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonArray => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

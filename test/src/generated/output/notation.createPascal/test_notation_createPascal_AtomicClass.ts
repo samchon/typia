@@ -271,7 +271,11 @@ export const test_notation_createValidatePascal_AtomicClass =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.PascalCase<AtomicClass> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<AtomicClass> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<AtomicClass> => {
         return (
           Array.isArray(input) &&
@@ -296,7 +300,6 @@ export const test_notation_createValidatePascal_AtomicClass =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<AtomicClass> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

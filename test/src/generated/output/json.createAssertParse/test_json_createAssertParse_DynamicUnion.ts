@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
 export const test_json_createAssertParse_DynamicUnion = _test_json_assertParse(
-  "DynamicUnion",
-)<DynamicUnion>(DynamicUnion)(
-  (input: string): typia.Primitive<DynamicUnion> => {
-    const assert = (input: any): DynamicUnion => {
+  TypeGuardError,
+)("DynamicUnion")<DynamicUnion>(DynamicUnion)(
+  (
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<DynamicUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicUnion => {
+      const $guard = (typia.json.createAssertParse as any).guard(errorFactory);
       const __is = (input: any): input is DynamicUnion => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -41,7 +49,6 @@ export const test_json_createAssertParse_DynamicUnion = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicUnion => {
-          const $guard = (typia.json.createAssertParse as any).guard;
           const $join = (typia.json.createAssertParse as any).join;
           const $ao0 = (
             input: any,
@@ -118,6 +125,6 @@ export const test_json_createAssertParse_DynamicUnion = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   },
 );

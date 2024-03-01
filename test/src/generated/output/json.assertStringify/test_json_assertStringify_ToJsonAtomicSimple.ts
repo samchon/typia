@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
 export const test_json_assertStringify_ToJsonAtomicSimple =
-  _test_json_assertStringify("ToJsonAtomicSimple")<ToJsonAtomicSimple>(
-    ToJsonAtomicSimple,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ToJsonAtomicSimple => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ToJsonAtomicSimple",
+  )<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ToJsonAtomicSimple => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ToJsonAtomicSimple => {
           const $io0 = (input: any): boolean => true;
           const $io1 = (input: any): boolean => true;
@@ -33,7 +41,6 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonAtomicSimple => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -133,6 +140,6 @@ export const test_json_assertStringify_ToJsonAtomicSimple =
           input[2].toJSON(),
         )}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

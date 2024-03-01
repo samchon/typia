@@ -192,7 +192,11 @@ export const test_createRandom_CommentTagFormat = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): CommentTagFormat => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagFormat => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&
@@ -289,7 +293,6 @@ export const test_createRandom_CommentTagFormat = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagFormat => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

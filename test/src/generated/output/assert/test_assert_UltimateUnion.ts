@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_assert_UltimateUnion = _test_assert(
+export const test_assert_UltimateUnion = _test_assert(TypeGuardError)(
   "UltimateUnion",
 )<UltimateUnion>(UltimateUnion)((input) =>
-  ((input: any): UltimateUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): UltimateUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is UltimateUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.schemas) &&
@@ -1096,7 +1101,6 @@ export const test_assert_UltimateUnion = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is UltimateUnion => {
-        const $guard = (typia.assert as any).guard;
         const $join = (typia.assert as any).join;
         const $ao0 = (
           input: any,

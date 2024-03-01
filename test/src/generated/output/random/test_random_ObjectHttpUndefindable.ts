@@ -52,7 +52,11 @@ export const test_random_ObjectHttpUndefindable = _test_random(
       });
       return $ro0();
     })((ObjectHttpUndefindable as any).RANDOM),
-  assert: (input: any): ObjectHttpUndefindable => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpUndefindable => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpUndefindable => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -88,7 +92,6 @@ export const test_random_ObjectHttpUndefindable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpUndefindable => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

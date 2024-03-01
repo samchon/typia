@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 
 export const test_json_createAssertParse_TypeTagTuple = _test_json_assertParse(
-  "TypeTagTuple",
-)<TypeTagTuple>(TypeTagTuple)(
-  (input: string): typia.Primitive<TypeTagTuple> => {
-    const assert = (input: any): TypeTagTuple => {
+  TypeGuardError,
+)("TypeTagTuple")<TypeTagTuple>(TypeTagTuple)(
+  (
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<TypeTagTuple> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagTuple => {
+      const $guard = (typia.json.createAssertParse as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagTuple => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.tuple) &&
@@ -39,7 +47,6 @@ export const test_json_createAssertParse_TypeTagTuple = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagTuple => {
-          const $guard = (typia.json.createAssertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -211,6 +218,6 @@ export const test_json_createAssertParse_TypeTagTuple = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   },
 );

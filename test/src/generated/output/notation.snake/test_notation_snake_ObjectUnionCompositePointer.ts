@@ -858,7 +858,11 @@ export const test_notation_validateSnake_ObjectUnionCompositePointer =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectUnionCompositePointer> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ObjectUnionCompositePointer> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ObjectUnionCompositePointer> => {
@@ -1004,7 +1008,6 @@ export const test_notation_validateSnake_ObjectUnionCompositePointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectUnionCompositePointer> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

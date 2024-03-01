@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertFormData } from "../../../internal/_test_http_assertFormData";
 import { ObjectHttpFormData } from "../../../structures/ObjectHttpFormData";
 
 export const test_http_assertFormData_ObjectHttpFormData =
-  _test_http_assertFormData("ObjectHttpFormData")<ObjectHttpFormData>(
-    ObjectHttpFormData,
-  )((input) =>
-    ((input: FormData): typia.Resolved<ObjectHttpFormData> => {
+  _test_http_assertFormData(TypeGuardError)(
+    "ObjectHttpFormData",
+  )<ObjectHttpFormData>(ObjectHttpFormData)((input) =>
+    ((
+      input: FormData,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectHttpFormData> => {
       const decode = (input: FormData): typia.Resolved<ObjectHttpFormData> => {
         const $string = (typia.http.assertFormData as any).string;
         const $number = (typia.http.assertFormData as any).number;
@@ -24,7 +28,11 @@ export const test_http_assertFormData_ObjectHttpFormData =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpFormData => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpFormData => {
+        const $guard = (typia.http.assertFormData as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHttpFormData => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -55,7 +63,6 @@ export const test_http_assertFormData_ObjectHttpFormData =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpFormData => {
-            const $guard = (typia.http.assertFormData as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -180,6 +187,6 @@ export const test_http_assertFormData_ObjectHttpFormData =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     })(input),
   );

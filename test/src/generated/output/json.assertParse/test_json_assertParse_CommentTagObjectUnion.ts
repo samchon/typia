@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
 
 export const test_json_assertParse_CommentTagObjectUnion =
-  _test_json_assertParse("CommentTagObjectUnion")<CommentTagObjectUnion>(
-    CommentTagObjectUnion,
-  )((input) =>
-    ((input: string): typia.Primitive<CommentTagObjectUnion> => {
-      const assert = (input: any): CommentTagObjectUnion => {
+  _test_json_assertParse(TypeGuardError)(
+    "CommentTagObjectUnion",
+  )<CommentTagObjectUnion>(CommentTagObjectUnion)((input) =>
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<CommentTagObjectUnion> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagObjectUnion => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is CommentTagObjectUnion => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.value &&
@@ -48,7 +56,6 @@ export const test_json_assertParse_CommentTagObjectUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagObjectUnion => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -169,6 +176,6 @@ export const test_json_assertParse_CommentTagObjectUnion =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

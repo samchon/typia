@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_protobuf_createAssertEncode_ObjectGenericArray =
-  _test_protobuf_assertEncode("ObjectGenericArray")<ObjectGenericArray>(
-    ObjectGenericArray,
-  )({
+export const test_protobuf_assertEncode_ObjectGenericArray =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectGenericArray",
+  )<ObjectGenericArray>(ObjectGenericArray)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectGenericArray => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectGenericArray => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
               "object" === typeof input.pagination &&
@@ -39,7 +46,6 @@ export const test_protobuf_createAssertEncode_ObjectGenericArray =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectGenericArray => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

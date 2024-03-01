@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_misc_createAssertClone_ObjectUndefined =
-  _test_misc_assertClone("ObjectUndefined")<ObjectUndefined>(ObjectUndefined)(
-    (input: any): typia.Resolved<ObjectUndefined> => {
-      const assert = (input: any): ObjectUndefined => {
+  _test_misc_assertClone(TypeGuardError)("ObjectUndefined")<ObjectUndefined>(
+    ObjectUndefined,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectUndefined> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUndefined => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUndefined => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
@@ -42,7 +54,6 @@ export const test_misc_createAssertClone_ObjectUndefined =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUndefined => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -192,7 +203,7 @@ export const test_misc_createAssertClone_ObjectUndefined =
         });
         return Array.isArray(input) ? $cp0(input) : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

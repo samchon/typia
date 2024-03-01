@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
-export const test_protobuf_createAssertDecode_ObjectDescription =
-  _test_protobuf_assertDecode("ObjectDescription")<ObjectDescription>(
-    ObjectDescription,
-  )({
+export const test_protobuf_assertDecode_ObjectDescription =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectDescription",
+  )<ObjectDescription>(ObjectDescription)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectDescription> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectDescription> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<ObjectDescription> => {
@@ -55,7 +59,13 @@ export const test_protobuf_createAssertDecode_ObjectDescription =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectDescription => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectDescription => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectDescription => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
@@ -78,7 +88,6 @@ export const test_protobuf_createAssertDecode_ObjectDescription =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectDescription => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -155,7 +164,7 @@ export const test_protobuf_createAssertDecode_ObjectDescription =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectDescription): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

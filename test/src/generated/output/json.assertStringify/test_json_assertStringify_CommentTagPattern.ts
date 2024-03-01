@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 
 export const test_json_assertStringify_CommentTagPattern =
-  _test_json_assertStringify("CommentTagPattern")<CommentTagPattern>(
-    CommentTagPattern,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): CommentTagPattern => {
+  _test_json_assertStringify(TypeGuardError)(
+    "CommentTagPattern",
+  )<CommentTagPattern>(CommentTagPattern)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagPattern => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is CommentTagPattern => {
           return (
             "object" === typeof input &&
@@ -37,7 +45,6 @@ export const test_json_assertStringify_CommentTagPattern =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagPattern => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -132,6 +139,6 @@ export const test_json_assertStringify_CommentTagPattern =
           (input as any).ipv6,
         )}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

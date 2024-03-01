@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 
-export const test_assertGuard_TypeTagTuple = _test_assertGuard(
+export const test_assertGuard_TypeTagTuple = _test_assertGuard(TypeGuardError)(
   "TypeTagTuple",
 )<TypeTagTuple>(TypeTagTuple)((input) =>
-  ((input: any): asserts input is TypeTagTuple => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TypeTagTuple => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagTuple => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.tuple) &&
@@ -38,7 +43,6 @@ export const test_assertGuard_TypeTagTuple = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTuple => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

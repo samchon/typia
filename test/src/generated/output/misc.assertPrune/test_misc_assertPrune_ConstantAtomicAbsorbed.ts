@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
 export const test_misc_assertPrune_ConstantAtomicAbsorbed =
-  _test_misc_assertPrune("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
-    ConstantAtomicAbsorbed,
-  )((input) =>
-    ((input: any): ConstantAtomicAbsorbed => {
-      const assert = (input: any): ConstantAtomicAbsorbed => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ConstantAtomicAbsorbed",
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ConstantAtomicAbsorbed => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicAbsorbed => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicAbsorbed => {
           return (
             "object" === typeof input &&
@@ -24,7 +32,6 @@ export const test_misc_assertPrune_ConstantAtomicAbsorbed =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicAbsorbed => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -68,7 +75,7 @@ export const test_misc_assertPrune_ConstantAtomicAbsorbed =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassClosure } from "../../../structures/ClassClosure";
 
-export const test_assert_ClassClosure = _test_assert(
+export const test_assert_ClassClosure = _test_assert(TypeGuardError)(
   "ClassClosure",
 )<ClassClosure>(ClassClosure)((input) =>
-  ((input: any): ClassClosure => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ClassClosure => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ClassClosure => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -20,7 +25,6 @@ export const test_assert_ClassClosure = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassClosure => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

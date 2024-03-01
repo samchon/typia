@@ -133,7 +133,11 @@ export const test_notation_createValidateCamel_ArrayMatrix =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ArrayMatrix> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ArrayMatrix> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<ArrayMatrix> => {
         return (
           Array.isArray(input) &&
@@ -157,7 +161,6 @@ export const test_notation_createValidateCamel_ArrayMatrix =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArrayMatrix> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

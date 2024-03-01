@@ -28,7 +28,11 @@ export const test_random_ObjectHttpConstant = _test_random(
       });
       return $ro0();
     })((ObjectHttpConstant as any).RANDOM),
-  assert: (input: any): ObjectHttpConstant => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpConstant => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpConstant => {
       const $io0 = (input: any): boolean =>
         false === input.boolean &&
@@ -47,7 +51,6 @@ export const test_random_ObjectHttpConstant = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpConstant => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

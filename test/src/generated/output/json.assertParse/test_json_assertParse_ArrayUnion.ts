@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
-  "ArrayUnion",
-)<ArrayUnion>(ArrayUnion)((input) =>
-  ((input: string): typia.Primitive<ArrayUnion> => {
-    const assert = (input: any): ArrayUnion => {
+  TypeGuardError,
+)("ArrayUnion")<ArrayUnion>(ArrayUnion)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArrayUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayUnion => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArrayUnion => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -55,7 +63,6 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayUnion => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ap0 = (
             input: any,
             _path: string,
@@ -162,6 +169,6 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

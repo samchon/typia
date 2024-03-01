@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_assertEquals_ArrayMatrix = _test_assertEquals(
+export const test_assertEquals_ArrayMatrix = _test_assertEquals(TypeGuardError)(
   "ArrayMatrix",
 )<ArrayMatrix>(ArrayMatrix)((input) =>
-  ((input: any): ArrayMatrix => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayMatrix => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -33,7 +38,6 @@ export const test_assertEquals_ArrayMatrix = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayMatrix => {
-        const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

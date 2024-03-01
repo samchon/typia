@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_assert_ObjectNullable = _test_assert(
+export const test_assert_ObjectNullable = _test_assert(TypeGuardError)(
   "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)((input) =>
-  ((input: any): ObjectNullable => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectNullable => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectNullable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -45,7 +50,6 @@ export const test_assert_ObjectNullable = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectNullable => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

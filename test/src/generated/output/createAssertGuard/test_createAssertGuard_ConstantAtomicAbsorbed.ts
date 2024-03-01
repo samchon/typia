@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
 export const test_createAssertGuard_ConstantAtomicAbsorbed = _test_assertGuard(
-  "ConstantAtomicAbsorbed",
-)<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)(
-  (input: any): asserts input is ConstantAtomicAbsorbed => {
+  TypeGuardError,
+)("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ConstantAtomicAbsorbed => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ConstantAtomicAbsorbed => {
       return (
         "object" === typeof input &&
@@ -22,7 +27,6 @@ export const test_createAssertGuard_ConstantAtomicAbsorbed = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantAtomicAbsorbed => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -127,7 +127,11 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectGenericUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGenericUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectGenericUnion => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -213,7 +217,6 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGenericUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

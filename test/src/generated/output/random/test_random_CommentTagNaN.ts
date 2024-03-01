@@ -63,7 +63,11 @@ export const test_random_CommentTagNaN = _test_random(
       });
       return $ro0();
     })((CommentTagNaN as any).RANDOM),
-  assert: (input: any): CommentTagNaN => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagNaN => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagNaN => {
       return (
         "object" === typeof input &&
@@ -93,7 +97,6 @@ export const test_random_CommentTagNaN = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagNaN => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

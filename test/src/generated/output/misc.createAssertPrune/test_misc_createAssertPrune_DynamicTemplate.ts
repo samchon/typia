@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_misc_createAssertPrune_DynamicTemplate =
-  _test_misc_assertPrune("DynamicTemplate")<DynamicTemplate>(DynamicTemplate)(
-    (input: any): DynamicTemplate => {
-      const assert = (input: any): DynamicTemplate => {
+  _test_misc_assertPrune(TypeGuardError)("DynamicTemplate")<DynamicTemplate>(
+    DynamicTemplate,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicTemplate => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): DynamicTemplate => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is DynamicTemplate => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -43,7 +55,6 @@ export const test_misc_createAssertPrune_DynamicTemplate =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTemplate => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $join = (typia.misc.createAssertPrune as any).join;
             const $ao0 = (
               input: any,
@@ -160,7 +171,7 @@ export const test_misc_createAssertPrune_DynamicTemplate =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

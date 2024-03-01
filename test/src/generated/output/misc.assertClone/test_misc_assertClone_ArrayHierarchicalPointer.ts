@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_misc_assertClone_ArrayHierarchicalPointer =
-  _test_misc_assertClone("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
-    ArrayHierarchicalPointer,
-  )((input) =>
-    ((input: any): typia.Resolved<ArrayHierarchicalPointer> => {
-      const assert = (input: any): ArrayHierarchicalPointer => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ArrayHierarchicalPointer",
+  )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ArrayHierarchicalPointer> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayHierarchicalPointer => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ArrayHierarchicalPointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -72,7 +80,6 @@ export const test_misc_assertClone_ArrayHierarchicalPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayHierarchicalPointer => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -437,7 +444,7 @@ export const test_misc_assertClone_ArrayHierarchicalPointer =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

@@ -152,7 +152,11 @@ export const test_random_ArrayRecursiveUnionImplicit = _test_random(
         ])(),
       );
     })((ArrayRecursiveUnionImplicit as any).RANDOM),
-  assert: (input: any): ArrayRecursiveUnionImplicit => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayRecursiveUnionImplicit => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRecursiveUnionImplicit => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -235,7 +239,6 @@ export const test_random_ArrayRecursiveUnionImplicit = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRecursiveUnionImplicit => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

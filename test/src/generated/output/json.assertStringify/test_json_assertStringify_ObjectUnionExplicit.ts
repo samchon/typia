@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
 export const test_json_assertStringify_ObjectUnionExplicit =
-  _test_json_assertStringify("ObjectUnionExplicit")<ObjectUnionExplicit>(
-    ObjectUnionExplicit,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectUnionExplicit => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectUnionExplicit",
+  )<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionExplicit => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionExplicit => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
@@ -139,7 +147,6 @@ export const test_json_assertStringify_ObjectUnionExplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicit => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -739,6 +746,6 @@ export const test_json_assertStringify_ObjectUnionExplicit =
           })();
         return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

@@ -1,13 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_createAssert_ArrayRecursiveUnionExplicitPointer =
-  _test_assert(
+  _test_assert(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
-    (input: any): ArrayRecursiveUnionExplicitPointer => {
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayRecursiveUnionExplicitPointer => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -94,7 +99,6 @@ export const test_createAssert_ArrayRecursiveUnionExplicitPointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionExplicitPointer => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

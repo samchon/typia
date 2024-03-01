@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_assertEquals_AtomicIntersection = _test_assertEquals(
-  "AtomicIntersection",
-)<AtomicIntersection>(AtomicIntersection)((input) =>
-  ((input: any): AtomicIntersection => {
+  TypeGuardError,
+)("AtomicIntersection")<AtomicIntersection>(AtomicIntersection)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicIntersection => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -26,7 +31,6 @@ export const test_assertEquals_AtomicIntersection = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicIntersection => {
-        const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

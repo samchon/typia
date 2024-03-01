@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
 export const test_json_assertParse_ArrayMatrix = _test_json_assertParse(
-  "ArrayMatrix",
-)<ArrayMatrix>(ArrayMatrix)((input) =>
-  ((input: string): typia.Primitive<ArrayMatrix> => {
-    const assert = (input: any): ArrayMatrix => {
+  TypeGuardError,
+)("ArrayMatrix")<ArrayMatrix>(ArrayMatrix)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArrayMatrix> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayMatrix => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArrayMatrix => {
         return (
           Array.isArray(input) &&
@@ -31,7 +39,6 @@ export const test_json_assertParse_ArrayMatrix = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayMatrix => {
-          const $guard = (typia.json.assertParse as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -95,6 +102,6 @@ export const test_json_assertParse_ArrayMatrix = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

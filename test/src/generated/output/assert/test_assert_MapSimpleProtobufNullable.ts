@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
 
 export const test_assert_MapSimpleProtobufNullable = _test_assert(
-  "MapSimpleProtobufNullable",
-)<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)((input) =>
-  ((input: any): MapSimpleProtobufNullable => {
+  TypeGuardError,
+)("MapSimpleProtobufNullable")<MapSimpleProtobufNullable>(
+  MapSimpleProtobufNullable,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapSimpleProtobufNullable => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is MapSimpleProtobufNullable => {
       const $io0 = (input: any): boolean =>
         (null === input.boolean ||
@@ -94,7 +101,6 @@ export const test_assert_MapSimpleProtobufNullable = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobufNullable => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

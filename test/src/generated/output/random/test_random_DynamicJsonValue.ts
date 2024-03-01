@@ -84,7 +84,11 @@ export const test_random_DynamicJsonValue = _test_random(
         () => $ro0(),
       ])();
     })((DynamicJsonValue as any).RANDOM),
-  assert: (input: any): DynamicJsonValue => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicJsonValue => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is DynamicJsonValue => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -136,7 +140,6 @@ export const test_random_DynamicJsonValue = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicJsonValue => {
-        const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const $ao0 = (
           input: any,

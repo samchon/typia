@@ -1,11 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
 
 export const test_protobuf_createAssertDecode_ObjectPartial =
-  _test_protobuf_assertDecode("ObjectPartial")<ObjectPartial>(ObjectPartial)({
-    decode: (input: Uint8Array): typia.Resolved<ObjectPartial> => {
+  _test_protobuf_assertDecode(TypeGuardError)("ObjectPartial")<ObjectPartial>(
+    ObjectPartial,
+  )({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectPartial> => {
       const decode = (input: Uint8Array): typia.Resolved<ObjectPartial> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -92,7 +98,13 @@ export const test_protobuf_createAssertDecode_ObjectPartial =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectPartial => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectPartial => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectPartial => {
           const $io0 = (input: any): boolean =>
             (undefined === input.boolean ||
@@ -138,7 +150,6 @@ export const test_protobuf_createAssertDecode_ObjectPartial =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPartial => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -286,7 +297,7 @@ export const test_protobuf_createAssertDecode_ObjectPartial =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectPartial): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

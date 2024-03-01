@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
 export const test_createAssertGuard_ToJsonAtomicSimple = _test_assertGuard(
-  "ToJsonAtomicSimple",
-)<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
-  (input: any): asserts input is ToJsonAtomicSimple => {
+  TypeGuardError,
+)("ToJsonAtomicSimple")<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ToJsonAtomicSimple => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ToJsonAtomicSimple => {
       const $io0 = (input: any): boolean => "function" === typeof input.toJSON;
       const $io1 = (input: any): boolean => "function" === typeof input.toJSON;
@@ -31,7 +36,6 @@ export const test_createAssertGuard_ToJsonAtomicSimple = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonAtomicSimple => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

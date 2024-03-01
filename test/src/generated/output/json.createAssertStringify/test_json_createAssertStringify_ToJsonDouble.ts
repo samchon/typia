@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_json_createAssertStringify_ToJsonDouble =
-  _test_json_assertStringify("ToJsonDouble")<ToJsonDouble>(ToJsonDouble)(
-    (input: any): string => {
-      const assert = (input: any): ToJsonDouble => {
+  _test_json_assertStringify(TypeGuardError)("ToJsonDouble")<ToJsonDouble>(
+    ToJsonDouble,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ToJsonDouble => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ToJsonDouble => {
           return "object" === typeof input && null !== input && true;
         };
@@ -16,7 +28,6 @@ export const test_json_createAssertStringify_ToJsonDouble =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonDouble => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -47,6 +58,6 @@ export const test_json_createAssertStringify_ToJsonDouble =
           (input.toJSON() as any).flag
         }}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

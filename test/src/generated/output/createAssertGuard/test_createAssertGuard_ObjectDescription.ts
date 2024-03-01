@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
 export const test_createAssertGuard_ObjectDescription = _test_assertGuard(
-  "ObjectDescription",
-)<ObjectDescription>(ObjectDescription)(
-  (input: any): asserts input is ObjectDescription => {
+  TypeGuardError,
+)("ObjectDescription")<ObjectDescription>(ObjectDescription)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectDescription => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDescription => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -27,7 +32,6 @@ export const test_createAssertGuard_ObjectDescription = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDescription => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

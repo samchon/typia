@@ -235,7 +235,11 @@ export const test_notation_validateCamel_CommentTagObjectUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<CommentTagObjectUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<CommentTagObjectUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<CommentTagObjectUnion> => {
@@ -277,7 +281,6 @@ export const test_notation_validateCamel_CommentTagObjectUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<CommentTagObjectUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArraySimpleProtobuf } from "../../../structures/ArraySimpleProtobuf";
 
 export const test_createAssert_ArraySimpleProtobuf = _test_assert(
-  "ArraySimpleProtobuf",
-)<ArraySimpleProtobuf>(ArraySimpleProtobuf)(
-  (input: any): ArraySimpleProtobuf => {
+  TypeGuardError,
+)("ArraySimpleProtobuf")<ArraySimpleProtobuf>(ArraySimpleProtobuf)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArraySimpleProtobuf => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArraySimpleProtobuf => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.boolean) &&
@@ -62,7 +67,6 @@ export const test_createAssert_ArraySimpleProtobuf = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimpleProtobuf => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

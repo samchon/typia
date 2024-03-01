@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
 export const test_json_assertParse_ObjectRequired = _test_json_assertParse(
-  "ObjectRequired",
-)<ObjectRequired>(ObjectRequired)((input) =>
-  ((input: string): typia.Primitive<ObjectRequired> => {
-    const assert = (input: any): ObjectRequired => {
+  TypeGuardError,
+)("ObjectRequired")<ObjectRequired>(ObjectRequired)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ObjectRequired> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectRequired => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ObjectRequired => {
         const $io0 = (input: any): boolean =>
           "boolean" === typeof input.boolean &&
@@ -49,7 +57,6 @@ export const test_json_assertParse_ObjectRequired = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectRequired => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -199,6 +206,6 @@ export const test_json_assertParse_ObjectRequired = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

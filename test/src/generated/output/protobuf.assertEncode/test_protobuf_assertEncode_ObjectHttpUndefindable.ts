@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
-export const test_protobuf_createAssertEncode_ObjectHttpUndefindable =
-  _test_protobuf_assertEncode("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-    ObjectHttpUndefindable,
-  )({
+export const test_protobuf_assertEncode_ObjectHttpUndefindable =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpUndefindable",
+  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectHttpUndefindable => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectHttpUndefindable => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectHttpUndefindable => {
             const $io0 = (input: any): boolean =>
               (undefined === input.boolean ||
@@ -48,7 +55,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpUndefindable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectHttpUndefindable => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

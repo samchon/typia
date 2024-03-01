@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_assertGuardEquals_DynamicTemplate = _test_assertGuardEquals(
-  "DynamicTemplate",
-)<DynamicTemplate>(DynamicTemplate)((input) =>
-  ((input: any): asserts input is DynamicTemplate => {
+  TypeGuardError,
+)("DynamicTemplate")<DynamicTemplate>(DynamicTemplate)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is DynamicTemplate => {
+    const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -47,7 +52,6 @@ export const test_assertGuardEquals_DynamicTemplate = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTemplate => {
-        const $guard = (typia.assertGuardEquals as any).guard;
         const $join = (typia.assertGuardEquals as any).join;
         const $ao0 = (
           input: any,

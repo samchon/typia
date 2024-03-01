@@ -20,7 +20,11 @@ export const test_createRandom_ClassMethod = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ClassMethod => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ClassMethod => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ClassMethod => {
       return (
         "object" === typeof input &&
@@ -36,7 +40,6 @@ export const test_createRandom_ClassMethod = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassMethod => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

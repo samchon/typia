@@ -1,14 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_json_createAssertStringify_ArrayHierarchicalPointer =
-  _test_json_assertStringify(
+  _test_json_assertStringify(TypeGuardError)(
     "ArrayHierarchicalPointer",
   )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)(
-    (input: any): string => {
-      const assert = (input: any): ArrayHierarchicalPointer => {
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayHierarchicalPointer => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ArrayHierarchicalPointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -72,7 +82,6 @@ export const test_json_createAssertStringify_ArrayHierarchicalPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayHierarchicalPointer => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -406,6 +415,6 @@ export const test_json_createAssertStringify_ArrayHierarchicalPointer =
           )},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

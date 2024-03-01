@@ -17,15 +17,14 @@ export namespace AssertProgrammer {
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (props: boolean | { equals: boolean; guard: boolean }) =>
-    (type: ts.Type, name?: string) => {
+    (type: ts.Type, name?: string, init?: ts.Expression) => {
       // TO SUPPORT LEGACY FEATURE
       if (typeof props === "boolean") props = { equals: props, guard: false };
 
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const is = IsProgrammer.write(project)(modulo, true)(props.equals)(
-        type,
-        name ?? TypeFactory.getFullName(project.checker)(type),
-      );
+      const is: ts.ArrowFunction = IsProgrammer.write(project)(modulo, true)(
+        props.equals,
+      )(type, name ?? TypeFactory.getFullName(project.checker)(type));
       const assert: ts.ArrowFunction = CheckerProgrammer.write(project)({
         prefix: "$a",
         path: true,
@@ -41,7 +40,7 @@ export namespace AssertProgrammer {
               ? entry.conditions[0]!.map((cond) =>
                   ts.factory.createLogicalOr(
                     cond.expression,
-                    create_guard_call(importer)(
+                    create_guard_call(
                       explore.from === "top"
                         ? ts.factory.createTrue()
                         : ts.factory.createIdentifier("_exceptionable"),
@@ -65,7 +64,7 @@ export namespace AssertProgrammer {
                           .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
                       )
                       .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-                    create_guard_call(importer)(
+                    create_guard_call(
                       explore.from === "top"
                         ? ts.factory.createTrue()
                         : ts.factory.createIdentifier("_exceptionable"),
@@ -90,7 +89,10 @@ export namespace AssertProgrammer {
       return ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        [
+          IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
+          Guardian.parameter(init),
+        ],
         props.guard
           ? ts.factory.createTypePredicateNode(
               ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
@@ -105,6 +107,21 @@ export namespace AssertProgrammer {
         undefined,
         ts.factory.createBlock(
           [
+            StatementFactory.constant(
+              "$guard",
+              ts.factory.createCallExpression(
+                IdentifierFactory.access(
+                  ts.factory.createParenthesizedExpression(
+                    ts.factory.createAsExpression(
+                      modulo,
+                      TypeFactory.keyword("any"),
+                    ),
+                  ),
+                )("guard"),
+                undefined,
+                [Guardian.identifier()],
+              ),
+            ),
             StatementFactory.constant("__is", is),
             ts.factory.createIfStatement(
               ts.factory.createStrictEquality(
@@ -159,7 +176,7 @@ export namespace AssertProgrammer {
                   ? binary.expression
                   : ts.factory.createLogicalOr(
                       binary.expression,
-                      create_guard_call(importer)(
+                      create_guard_call(
                         explore.source === "top"
                           ? ts.factory.createTrue()
                           : ts.factory.createIdentifier("_exceptionable"),
@@ -171,7 +188,7 @@ export namespace AssertProgrammer {
               binaries
                 .map((binary) => binary.expression)
                 .reduce(ts.factory.createLogicalOr),
-              create_guard_call(importer)(
+              create_guard_call(
                 explore.source === "top"
                   ? ts.factory.createTrue()
                   : ts.factory.createIdentifier("_exceptionable"),
@@ -184,7 +201,7 @@ export namespace AssertProgrammer {
       //       ) {
       //           addicted.push({
       //               combined: true,
-      //               expression: create_guard_call(importer)(
+      //               expression: create_guard_call(
       //                   explore.source === "top"
       //                       ? ts.factory.createTrue()
       //                       : ts.factory.createIdentifier(
@@ -212,7 +229,7 @@ export namespace AssertProgrammer {
         reduce: ts.factory.createLogicalAnd,
         positive: ts.factory.createTrue(),
         superfluous: (value) =>
-          create_guard_call(importer)()(
+          create_guard_call()(
             ts.factory.createAdd(
               ts.factory.createIdentifier("_path"),
               ts.factory.createCallExpression(importer.use("join"), undefined, [
@@ -244,7 +261,7 @@ export namespace AssertProgrammer {
           [arrow],
         ),
       failure: (value, expected, explore) =>
-        create_guard_call(importer)(
+        create_guard_call(
           explore?.from === "top"
             ? ts.factory.createTrue()
             : ts.factory.createIdentifier("_exceptionable"),
@@ -260,7 +277,7 @@ export namespace AssertProgrammer {
         : (condition) => (input, expected, explore) =>
             ts.factory.createLogicalOr(
               condition,
-              create_guard_call(importer)(
+              create_guard_call(
                 explore.from === "top"
                   ? ts.factory.createTrue()
                   : ts.factory.createIdentifier("_exceptionable"),
@@ -269,25 +286,49 @@ export namespace AssertProgrammer {
     });
 
   const create_guard_call =
-    (importer: FunctionImporter) =>
     (exceptionable?: ts.Expression) =>
     (
       path: ts.Expression,
       expected: string,
       value: ts.Expression,
     ): ts.Expression =>
-      ts.factory.createCallExpression(importer.use("guard"), undefined, [
-        exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
-        ts.factory.createObjectLiteralExpression(
-          [
-            ts.factory.createPropertyAssignment("path", path),
-            ts.factory.createPropertyAssignment(
-              "expected",
-              ts.factory.createStringLiteral(expected),
-            ),
-            ts.factory.createPropertyAssignment("value", value),
-          ],
-          true,
+      ts.factory.createCallExpression(
+        ts.factory.createIdentifier("$guard"),
+        undefined,
+        [
+          exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
+          ts.factory.createObjectLiteralExpression(
+            [
+              ts.factory.createPropertyAssignment("path", path),
+              ts.factory.createPropertyAssignment(
+                "expected",
+                ts.factory.createStringLiteral(expected),
+              ),
+              ts.factory.createPropertyAssignment("value", value),
+            ],
+            true,
+          ),
+        ],
+      );
+
+  export namespace Guardian {
+    export const identifier = () => ts.factory.createIdentifier("errorFactory");
+    export const parameter = (init: ts.Expression | undefined) =>
+      IdentifierFactory.parameter(
+        "errorFactory",
+        ts.factory.createImportTypeNode(
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral("typia"),
+          ),
+          undefined,
+          ts.factory.createQualifiedName(
+            ts.factory.createIdentifier("TypeGuardError"),
+            ts.factory.createIdentifier("IProps"),
+          ),
+          undefined,
+          false,
         ),
-      ]);
+        init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+      );
+  }
 }

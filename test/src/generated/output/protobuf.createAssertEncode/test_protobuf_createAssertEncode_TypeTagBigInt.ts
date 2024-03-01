@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagBigInt } from "../../../structures/TypeTagBigInt";
 
 export const test_protobuf_createAssertEncode_TypeTagBigInt =
-  _test_protobuf_assertEncode("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)({
+  _test_protobuf_assertEncode(TypeGuardError)("TypeTagBigInt")<TypeTagBigInt>(
+    TypeTagBigInt,
+  )({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): TypeTagBigInt => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TypeTagBigInt => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TypeTagBigInt => {
           return (
             "object" === typeof input &&
@@ -29,7 +38,6 @@ export const test_protobuf_createAssertEncode_TypeTagBigInt =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagBigInt => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

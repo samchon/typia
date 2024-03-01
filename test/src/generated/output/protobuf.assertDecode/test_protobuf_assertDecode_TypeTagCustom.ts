@@ -1,12 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
-export const test_protobuf_createAssertDecode_TypeTagCustom =
-  _test_protobuf_assertDecode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
+export const test_protobuf_assertDecode_TypeTagCustom =
+  _test_protobuf_assertDecode(TypeGuardError)("TypeTagCustom")<TypeTagCustom>(
+    TypeTagCustom,
+  )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<TypeTagCustom> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<TypeTagCustom> => {
         const decode = (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -46,7 +52,13 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): TypeTagCustom => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): TypeTagCustom => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is TypeTagCustom => {
             return (
               "object" === typeof input &&
@@ -78,7 +90,6 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagCustom => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -165,7 +176,7 @@ export const test_protobuf_createAssertDecode_TypeTagCustom =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: TypeTagCustom): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

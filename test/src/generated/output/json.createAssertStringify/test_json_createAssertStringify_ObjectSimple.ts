@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_json_createAssertStringify_ObjectSimple =
-  _test_json_assertStringify("ObjectSimple")<ObjectSimple>(ObjectSimple)(
-    (input: any): string => {
-      const assert = (input: any): ObjectSimple => {
+  _test_json_assertStringify(TypeGuardError)("ObjectSimple")<ObjectSimple>(
+    ObjectSimple,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectSimple => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectSimple => {
           return (
             "object" === typeof input &&
@@ -51,7 +63,6 @@ export const test_json_createAssertStringify_ObjectSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectSimple => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -178,6 +189,6 @@ export const test_json_createAssertStringify_ObjectSimple =
           ((input as any).pivot as any).z,
         )}}`}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

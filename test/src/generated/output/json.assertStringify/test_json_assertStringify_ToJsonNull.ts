@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
 export const test_json_assertStringify_ToJsonNull = _test_json_assertStringify(
-  "ToJsonNull",
-)<ToJsonNull>(ToJsonNull)((input) =>
-  ((input: any): string => {
-    const assert = (input: any): ToJsonNull => {
+  TypeGuardError,
+)("ToJsonNull")<ToJsonNull>(ToJsonNull)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): string => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ToJsonNull => {
+      const $guard = (typia.json.assertStringify as any).guard(errorFactory);
       const __is = (input: any): input is ToJsonNull => {
         const $io0 = (input: any): boolean => true;
         return "object" === typeof input && null !== input && $io0(input);
@@ -18,7 +26,6 @@ export const test_json_assertStringify_ToJsonNull = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ToJsonNull => {
-          const $guard = (typia.json.assertStringify as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -50,6 +57,6 @@ export const test_json_assertStringify_ToJsonNull = _test_json_assertStringify(
     const stringify = (input: ToJsonNull): string => {
       return "null";
     };
-    return stringify(assert(input));
+    return stringify(assert(input, errorFactory));
   })(input),
 );

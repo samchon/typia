@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_assert_ObjectPrimitive = _test_assert(
+export const test_assert_ObjectPrimitive = _test_assert(TypeGuardError)(
   "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)((input) =>
-  ((input: any): ObjectPrimitive => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectPrimitive => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -36,7 +41,6 @@ export const test_assert_ObjectPrimitive = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPrimitive => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

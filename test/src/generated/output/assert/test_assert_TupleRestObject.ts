@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_assert_TupleRestObject = _test_assert(
+export const test_assert_TupleRestObject = _test_assert(TypeGuardError)(
   "TupleRestObject",
 )<TupleRestObject>(TupleRestObject)((input) =>
-  ((input: any): TupleRestObject => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestObject => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is TupleRestObject => {
       const $io0 = (input: any): boolean => "string" === typeof input.value;
       return (
@@ -29,7 +34,6 @@ export const test_assert_TupleRestObject = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleRestObject => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

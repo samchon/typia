@@ -117,7 +117,11 @@ export const test_notation_validateCamel_ObjectHttpConstant =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<ObjectHttpConstant> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectHttpConstant> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectHttpConstant> => {
@@ -138,7 +142,6 @@ export const test_notation_validateCamel_ObjectHttpConstant =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectHttpConstant> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

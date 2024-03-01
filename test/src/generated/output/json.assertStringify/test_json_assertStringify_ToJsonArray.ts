@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
 export const test_json_assertStringify_ToJsonArray = _test_json_assertStringify(
-  "ToJsonArray",
-)<ToJsonArray>(ToJsonArray)((input) =>
-  ((input: any): string => {
-    const assert = (input: any): ToJsonArray => {
+  TypeGuardError,
+)("ToJsonArray")<ToJsonArray>(ToJsonArray)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): string => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ToJsonArray => {
+      const $guard = (typia.json.assertStringify as any).guard(errorFactory);
       const __is = (input: any): input is ToJsonArray => {
         const $io0 = (input: any): boolean => true;
         const $io1 = (input: any): boolean => true;
@@ -36,7 +44,6 @@ export const test_json_assertStringify_ToJsonArray = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ToJsonArray => {
-          const $guard = (typia.json.assertStringify as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -169,6 +176,6 @@ export const test_json_assertStringify_ToJsonArray = _test_json_assertStringify(
         .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
         .join(",")}]`}]`;
     };
-    return stringify(assert(input));
+    return stringify(assert(input, errorFactory));
   })(input),
 );

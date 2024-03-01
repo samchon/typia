@@ -782,7 +782,11 @@ export const test_notation_createValidateCamel_ObjectUnionExplicit =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectUnionExplicit> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectUnionExplicit> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectUnionExplicit> => {
@@ -915,7 +919,6 @@ export const test_notation_createValidateCamel_ObjectUnionExplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectUnionExplicit> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

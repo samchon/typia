@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertHeaders } from "../../../internal/_test_http_assertHeaders";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
 export const test_http_assertHeaders_ObjectHttpAtomic =
-  _test_http_assertHeaders("ObjectHttpAtomic")<ObjectHttpAtomic>(
-    ObjectHttpAtomic,
-  )((input) =>
+  _test_http_assertHeaders(TypeGuardError)(
+    "ObjectHttpAtomic",
+  )<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
     ((
       input: Record<string, string | string[] | undefined>,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpAtomic> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
@@ -24,7 +26,11 @@ export const test_http_assertHeaders_ObjectHttpAtomic =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpAtomic => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpAtomic => {
+        const $guard = (typia.http.assertHeaders as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHttpAtomic => {
           return (
             "object" === typeof input &&
@@ -42,7 +48,6 @@ export const test_http_assertHeaders_ObjectHttpAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpAtomic => {
-            const $guard = (typia.http.assertHeaders as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -91,6 +96,6 @@ export const test_http_assertHeaders_ObjectHttpAtomic =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     })(input),
   );

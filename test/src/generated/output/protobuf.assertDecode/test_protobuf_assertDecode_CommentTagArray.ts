@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_protobuf_createAssertDecode_CommentTagArray =
-  _test_protobuf_assertDecode("CommentTagArray")<CommentTagArray>(
-    CommentTagArray,
-  )({
+export const test_protobuf_assertDecode_CommentTagArray =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "CommentTagArray",
+  )<CommentTagArray>(CommentTagArray)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<CommentTagArray> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<CommentTagArray> => {
         const decode = (input: Uint8Array): typia.Resolved<CommentTagArray> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -75,7 +79,13 @@ export const test_protobuf_createAssertDecode_CommentTagArray =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): CommentTagArray => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): CommentTagArray => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is CommentTagArray => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.value) &&
@@ -113,7 +123,6 @@ export const test_protobuf_createAssertDecode_CommentTagArray =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagArray => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -294,7 +303,7 @@ export const test_protobuf_createAssertDecode_CommentTagArray =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: CommentTagArray): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

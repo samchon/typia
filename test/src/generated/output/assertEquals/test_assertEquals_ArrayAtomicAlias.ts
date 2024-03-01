@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_assertEquals_ArrayAtomicAlias = _test_assertEquals(
-  "ArrayAtomicAlias",
-)<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-  ((input: any): ArrayAtomicAlias => {
+  TypeGuardError,
+)("ArrayAtomicAlias")<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayAtomicAlias => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -33,7 +38,6 @@ export const test_assertEquals_ArrayAtomicAlias = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayAtomicAlias => {
-        const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

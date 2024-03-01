@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_assertEquals_ObjectGenericAlias = _test_assertEquals(
-  "ObjectGenericAlias",
-)<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-  ((input: any): ObjectGenericAlias => {
+  TypeGuardError,
+)("ObjectGenericAlias")<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGenericAlias => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -28,7 +33,6 @@ export const test_assertEquals_ObjectGenericAlias = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGenericAlias => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

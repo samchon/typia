@@ -1,9 +1,10 @@
-import typia from "typia";
+import typia, { TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { _test_notation_general } from "./_test_notation_general";
 
 export const _test_notation_assertGeneral =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   <U>(functor: { convert: (input: T) => U; assert: (input: U) => U }) =>
@@ -17,7 +18,10 @@ export const _test_notation_assertGeneral =
       try {
         functor.convert(elem);
       } catch (exp) {
-        if (exp instanceof typia.TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

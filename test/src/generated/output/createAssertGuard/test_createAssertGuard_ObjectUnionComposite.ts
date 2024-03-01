@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_createAssertGuard_ObjectUnionComposite = _test_assertGuard(
-  "ObjectUnionComposite",
-)<ObjectUnionComposite>(ObjectUnionComposite)(
-  (input: any): asserts input is ObjectUnionComposite => {
+  TypeGuardError,
+)("ObjectUnionComposite")<ObjectUnionComposite>(ObjectUnionComposite)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectUnionComposite => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionComposite => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
@@ -146,7 +151,6 @@ export const test_createAssertGuard_ObjectUnionComposite = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionComposite => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

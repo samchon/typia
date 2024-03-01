@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_json_createAssertStringify_ObjectGeneric =
-  _test_json_assertStringify("ObjectGeneric")<ObjectGeneric>(ObjectGeneric)(
-    (input: any): string => {
-      const assert = (input: any): ObjectGeneric => {
+  _test_json_assertStringify(TypeGuardError)("ObjectGeneric")<ObjectGeneric>(
+    ObjectGeneric,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectGeneric => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectGeneric => {
           const $io0 = (input: any): boolean =>
             "boolean" === typeof input.value &&
@@ -75,7 +87,6 @@ export const test_json_createAssertStringify_ObjectGeneric =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectGeneric => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -401,6 +412,6 @@ export const test_json_createAssertStringify_ObjectGeneric =
             .join(",")}]`}}`;
         return `[${$so0(input[0])},${$so2(input[1])},${$so4(input[2])}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

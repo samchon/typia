@@ -94,7 +94,11 @@ export const test_notation_createValidateCamel_AtomicIntersection =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<AtomicIntersection> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<AtomicIntersection> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<AtomicIntersection> => {
@@ -113,7 +117,6 @@ export const test_notation_createValidateCamel_AtomicIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<AtomicIntersection> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

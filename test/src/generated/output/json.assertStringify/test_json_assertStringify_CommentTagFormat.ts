@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 
 export const test_json_assertStringify_CommentTagFormat =
-  _test_json_assertStringify("CommentTagFormat")<CommentTagFormat>(
-    CommentTagFormat,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): CommentTagFormat => {
+  _test_json_assertStringify(TypeGuardError)(
+    "CommentTagFormat",
+  )<CommentTagFormat>(CommentTagFormat)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagFormat => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is CommentTagFormat => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.byte &&
@@ -105,7 +113,6 @@ export const test_json_assertStringify_CommentTagFormat =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagFormat => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -462,6 +469,6 @@ export const test_json_assertStringify_CommentTagFormat =
           )},"relativeJsonPointer":${$string(input.relativeJsonPointer)}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

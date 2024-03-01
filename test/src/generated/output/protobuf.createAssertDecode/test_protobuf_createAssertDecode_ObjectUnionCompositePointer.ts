@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_protobuf_createAssertDecode_ObjectUnionCompositePointer =
-  _test_protobuf_assertDecode(
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
     decode: (
       input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectUnionCompositePointer> => {
       const decode = (
         input: Uint8Array,
@@ -285,7 +287,13 @@ export const test_protobuf_createAssertDecode_ObjectUnionCompositePointer =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectUnionCompositePointer => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionCompositePointer => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUnionCompositePointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -429,7 +437,6 @@ export const test_protobuf_createAssertDecode_ObjectUnionCompositePointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionCompositePointer => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -845,7 +852,7 @@ export const test_protobuf_createAssertDecode_ObjectUnionCompositePointer =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectUnionCompositePointer): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

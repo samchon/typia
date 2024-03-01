@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
 
 export const test_assertEquals_TypeTagObjectUnion = _test_assertEquals(
-  "TypeTagObjectUnion",
-)<TypeTagObjectUnion>(TypeTagObjectUnion)((input) =>
-  ((input: any): TypeTagObjectUnion => {
+  TypeGuardError,
+)("TypeTagObjectUnion")<TypeTagObjectUnion>(TypeTagObjectUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagObjectUnion => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -63,7 +68,6 @@ export const test_assertEquals_TypeTagObjectUnion = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagObjectUnion => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

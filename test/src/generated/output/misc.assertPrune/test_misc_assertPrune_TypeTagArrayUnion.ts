@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
 export const test_misc_assertPrune_TypeTagArrayUnion = _test_misc_assertPrune(
-  "TypeTagArrayUnion",
-)<TypeTagArrayUnion>(TypeTagArrayUnion)((input) =>
-  ((input: any): TypeTagArrayUnion => {
-    const assert = (input: any): TypeTagArrayUnion => {
+  TypeGuardError,
+)("TypeTagArrayUnion")<TypeTagArrayUnion>(TypeTagArrayUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagArrayUnion => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagArrayUnion => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagArrayUnion => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.items) &&
@@ -57,7 +65,6 @@ export const test_misc_assertPrune_TypeTagArrayUnion = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagArrayUnion => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -283,7 +290,7 @@ export const test_misc_assertPrune_TypeTagArrayUnion = _test_misc_assertPrune(
       };
       if (Array.isArray(input)) $pp0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

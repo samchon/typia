@@ -1,14 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
-  _test_misc_assertClone(
+  _test_misc_assertClone(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
-    (input: any): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
-      const assert = (input: any): ArrayRecursiveUnionExplicitPointer => {
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRecursiveUnionExplicitPointer => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (
           input: any,
         ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -95,7 +105,6 @@ export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionExplicitPointer => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -614,7 +623,7 @@ export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

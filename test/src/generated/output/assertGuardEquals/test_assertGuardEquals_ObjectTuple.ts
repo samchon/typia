@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_assertGuardEquals_ObjectTuple = _test_assertGuardEquals(
-  "ObjectTuple",
-)<ObjectTuple>(ObjectTuple)((input) =>
-  ((input: any): asserts input is ObjectTuple => {
+  TypeGuardError,
+)("ObjectTuple")<ObjectTuple>(ObjectTuple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectTuple => {
+    const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -52,7 +57,6 @@ export const test_assertGuardEquals_ObjectTuple = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectTuple => {
-        const $guard = (typia.assertGuardEquals as any).guard;
         const $join = (typia.assertGuardEquals as any).join;
         const $ao0 = (
           input: any,

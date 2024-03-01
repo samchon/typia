@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
 export const test_assertEquals_ObjectRequired = _test_assertEquals(
-  "ObjectRequired",
-)<ObjectRequired>(ObjectRequired)((input) =>
-  ((input: any): ObjectRequired => {
+  TypeGuardError,
+)("ObjectRequired")<ObjectRequired>(ObjectRequired)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectRequired => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -76,7 +81,6 @@ export const test_assertEquals_ObjectRequired = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectRequired => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

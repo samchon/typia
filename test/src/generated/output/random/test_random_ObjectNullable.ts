@@ -46,7 +46,11 @@ export const test_random_ObjectNullable = _test_random(
       });
       return $ro0();
     })((ObjectNullable as any).RANDOM),
-  assert: (input: any): ObjectNullable => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectNullable => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectNullable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -85,7 +89,6 @@ export const test_random_ObjectNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectNullable => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

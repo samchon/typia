@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
-  _test_protobuf_assertDecode(
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectUnionNonPredictable",
   )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-    decode: (input: Uint8Array): typia.Resolved<ObjectUnionNonPredictable> => {
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectUnionNonPredictable> => {
       const decode = (
         input: Uint8Array,
       ): typia.Resolved<ObjectUnionNonPredictable> => {
@@ -194,7 +198,13 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectUnionNonPredictable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionNonPredictable => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUnionNonPredictable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -238,7 +248,6 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionNonPredictable => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -431,7 +440,7 @@ export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectUnionNonPredictable): Uint8Array => {
       const $throws = (typia.protobuf.createEncode as any).throws;

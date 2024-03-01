@@ -43,7 +43,11 @@ export const test_random_ConstantAtomicTagged = _test_random(
       });
       return $ro0();
     })((ConstantAtomicTagged as any).RANDOM),
-  assert: (input: any): ConstantAtomicTagged => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantAtomicTagged => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ConstantAtomicTagged => {
       const $io0 = (input: any): boolean =>
         ("latest" === input.id ||
@@ -65,7 +69,6 @@ export const test_random_ConstantAtomicTagged = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantAtomicTagged => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

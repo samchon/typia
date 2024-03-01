@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_misc_createAssertPrune_ObjectPrimitive =
-  _test_misc_assertPrune("ObjectPrimitive")<ObjectPrimitive>(ObjectPrimitive)(
-    (input: any): ObjectPrimitive => {
-      const assert = (input: any): ObjectPrimitive => {
+  _test_misc_assertPrune(TypeGuardError)("ObjectPrimitive")<ObjectPrimitive>(
+    ObjectPrimitive,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectPrimitive => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectPrimitive => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectPrimitive => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -36,7 +48,6 @@ export const test_misc_createAssertPrune_ObjectPrimitive =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPrimitive => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -204,7 +215,7 @@ export const test_misc_createAssertPrune_ObjectPrimitive =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

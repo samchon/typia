@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
 export const test_misc_createAssertPrune_CommentTagType =
-  _test_misc_assertPrune("CommentTagType")<CommentTagType>(CommentTagType)(
-    (input: any): CommentTagType => {
-      const assert = (input: any): CommentTagType => {
+  _test_misc_assertPrune(TypeGuardError)("CommentTagType")<CommentTagType>(
+    CommentTagType,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): CommentTagType => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagType => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagType => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -50,7 +62,6 @@ export const test_misc_createAssertPrune_CommentTagType =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagType => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -262,7 +273,7 @@ export const test_misc_createAssertPrune_CommentTagType =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

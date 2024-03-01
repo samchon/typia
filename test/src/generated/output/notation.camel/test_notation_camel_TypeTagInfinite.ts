@@ -179,7 +179,11 @@ export const test_notation_validateCamel_TypeTagInfinite =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<TypeTagInfinite> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<TypeTagInfinite> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<TypeTagInfinite> => {
         return (
           "object" === typeof input &&
@@ -209,7 +213,6 @@ export const test_notation_validateCamel_TypeTagInfinite =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TypeTagInfinite> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

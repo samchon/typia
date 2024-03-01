@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
 export const test_misc_assertPrune_ObjectTuple = _test_misc_assertPrune(
-  "ObjectTuple",
-)<ObjectTuple>(ObjectTuple)((input) =>
-  ((input: any): ObjectTuple => {
-    const assert = (input: any): ObjectTuple => {
+  TypeGuardError,
+)("ObjectTuple")<ObjectTuple>(ObjectTuple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectTuple => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectTuple => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is ObjectTuple => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -34,7 +42,6 @@ export const test_misc_assertPrune_ObjectTuple = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectTuple => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -162,7 +169,7 @@ export const test_misc_assertPrune_ObjectTuple = _test_misc_assertPrune(
         if ("object" === typeof input[1] && null !== input[1]) $po1(input[1]);
       }
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

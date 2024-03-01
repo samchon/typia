@@ -149,7 +149,11 @@ export const test_notation_createValidatePascal_ArrayRepeatedNullable =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.PascalCase<ArrayRepeatedNullable> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<ArrayRepeatedNullable> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.PascalCase<ArrayRepeatedNullable> => {
@@ -176,7 +180,6 @@ export const test_notation_createValidatePascal_ArrayRepeatedNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayRepeatedNullable> => {
-          const $guard = (typia.createAssert as any).guard;
           const $aa0 = (
             input: any,
             _path: string,

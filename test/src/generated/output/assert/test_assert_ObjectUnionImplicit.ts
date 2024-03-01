@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_assert_ObjectUnionImplicit = _test_assert(
+export const test_assert_ObjectUnionImplicit = _test_assert(TypeGuardError)(
   "ObjectUnionImplicit",
 )<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
-  ((input: any): ObjectUnionImplicit => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionImplicit => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionImplicit => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
@@ -132,7 +137,6 @@ export const test_assert_ObjectUnionImplicit = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionImplicit => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

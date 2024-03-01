@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { NativeSimple } from "../../../structures/NativeSimple";
 
-export const test_assert_NativeSimple = _test_assert(
+export const test_assert_NativeSimple = _test_assert(TypeGuardError)(
   "NativeSimple",
 )<NativeSimple>(NativeSimple)((input) =>
-  ((input: any): NativeSimple => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): NativeSimple => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is NativeSimple => {
       const $io0 = (input: any): boolean =>
         input.date instanceof Date &&
@@ -32,7 +37,6 @@ export const test_assert_NativeSimple = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeSimple => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

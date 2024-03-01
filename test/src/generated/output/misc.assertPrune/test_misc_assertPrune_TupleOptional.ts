@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
 export const test_misc_assertPrune_TupleOptional = _test_misc_assertPrune(
-  "TupleOptional",
-)<TupleOptional>(TupleOptional)((input) =>
-  ((input: any): TupleOptional => {
-    const assert = (input: any): TupleOptional => {
+  TypeGuardError,
+)("TupleOptional")<TupleOptional>(TupleOptional)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleOptional => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TupleOptional => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TupleOptional => {
         return (
           Array.isArray(input) &&
@@ -35,7 +43,6 @@ export const test_misc_assertPrune_TupleOptional = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleOptional => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -112,7 +119,7 @@ export const test_misc_assertPrune_TupleOptional = _test_misc_assertPrune(
       return input;
     };
     const prune = (input: TupleOptional): void => {};
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
 export const test_protobuf_createAssertDecode_CommentTagDefault =
-  _test_protobuf_assertDecode("CommentTagDefault")<CommentTagDefault>(
-    CommentTagDefault,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "CommentTagDefault",
+  )<CommentTagDefault>(CommentTagDefault)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<CommentTagDefault> => {
       const decode = (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -117,7 +121,13 @@ export const test_protobuf_createAssertDecode_CommentTagDefault =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): CommentTagDefault => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagDefault => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagDefault => {
           const $io0 = (input: any): boolean =>
             "boolean" === typeof input.boolean &&
@@ -161,7 +171,6 @@ export const test_protobuf_createAssertDecode_CommentTagDefault =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagDefault => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -288,7 +297,7 @@ export const test_protobuf_createAssertDecode_CommentTagDefault =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: CommentTagDefault): Uint8Array => {
       const $throws = (typia.protobuf.createEncode as any).throws;

@@ -79,7 +79,11 @@ export const test_random_TypeTagTuple = _test_random(
       });
       return $ro0();
     })((TypeTagTuple as any).RANDOM),
-  assert: (input: any): TypeTagTuple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagTuple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagTuple => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.tuple) &&
@@ -111,7 +115,6 @@ export const test_random_TypeTagTuple = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTuple => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

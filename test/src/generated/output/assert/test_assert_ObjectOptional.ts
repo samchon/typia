@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_assert_ObjectOptional = _test_assert(
+export const test_assert_ObjectOptional = _test_assert(TypeGuardError)(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)((input) =>
-  ((input: any): ObjectOptional => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectOptional => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectOptional => {
       const $io0 = (input: any): boolean =>
         (undefined === input.id || "string" === typeof input.id) &&
@@ -28,7 +33,6 @@ export const test_assert_ObjectOptional = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectOptional => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

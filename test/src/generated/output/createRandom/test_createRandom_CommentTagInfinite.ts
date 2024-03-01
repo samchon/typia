@@ -63,7 +63,11 @@ export const test_createRandom_CommentTagInfinite = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): CommentTagInfinite => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagInfinite => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagInfinite => {
       return (
         "object" === typeof input &&
@@ -93,7 +97,6 @@ export const test_createRandom_CommentTagInfinite = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagInfinite => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

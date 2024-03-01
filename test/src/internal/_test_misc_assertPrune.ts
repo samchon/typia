@@ -1,8 +1,9 @@
-import { TypeGuardError } from "typia";
+import typia, { TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_misc_assertPrune =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (prune: (input: T) => T) =>
@@ -38,7 +39,10 @@ export const _test_misc_assertPrune =
       try {
         prune(elem);
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

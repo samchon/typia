@@ -176,7 +176,11 @@ export const test_notation_validateCamel_DynamicTree =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<DynamicTree> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<DynamicTree> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<DynamicTree> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -200,7 +204,6 @@ export const test_notation_validateCamel_DynamicTree =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<DynamicTree> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

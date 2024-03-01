@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_json_createAssertStringify_ObjectOptional =
-  _test_json_assertStringify("ObjectOptional")<ObjectOptional>(ObjectOptional)(
-    (input: any): string => {
-      const assert = (input: any): ObjectOptional => {
+  _test_json_assertStringify(TypeGuardError)("ObjectOptional")<ObjectOptional>(
+    ObjectOptional,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectOptional => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectOptional => {
           const $io0 = (input: any): boolean =>
             (undefined === input.id || "string" === typeof input.id) &&
@@ -28,7 +40,6 @@ export const test_json_createAssertStringify_ObjectOptional =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectOptional => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -118,6 +129,6 @@ export const test_json_createAssertStringify_ObjectOptional =
           )}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

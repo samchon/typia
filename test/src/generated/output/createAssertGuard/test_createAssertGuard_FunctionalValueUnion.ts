@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { FunctionalValueUnion } from "../../../structures/FunctionalValueUnion";
 
 export const test_createAssertGuard_FunctionalValueUnion = _test_assertGuard(
-  "FunctionalValueUnion",
-)<FunctionalValueUnion>(FunctionalValueUnion)(
-  (input: any): asserts input is FunctionalValueUnion => {
+  TypeGuardError,
+)("FunctionalValueUnion")<FunctionalValueUnion>(FunctionalValueUnion)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is FunctionalValueUnion => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is FunctionalValueUnion => {
       return (
         Array.isArray(input) &&
@@ -26,7 +31,6 @@ export const test_createAssertGuard_FunctionalValueUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalValueUnion => {
-        const $guard = (typia.createAssertGuard as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

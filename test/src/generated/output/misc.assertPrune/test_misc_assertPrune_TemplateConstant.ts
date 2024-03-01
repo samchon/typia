@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_assertPrune_TemplateConstant = _test_misc_assertPrune(
-  "TemplateConstant",
-)<TemplateConstant>(TemplateConstant)((input) =>
-  ((input: any): TemplateConstant => {
-    const assert = (input: any): TemplateConstant => {
+  TypeGuardError,
+)("TemplateConstant")<TemplateConstant>(TemplateConstant)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TemplateConstant => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TemplateConstant => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TemplateConstant => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -39,7 +47,6 @@ export const test_misc_assertPrune_TemplateConstant = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TemplateConstant => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -165,7 +172,7 @@ export const test_misc_assertPrune_TemplateConstant = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
 export const test_json_assertStringify_ObjectPartialAndRequired =
-  _test_json_assertStringify(
+  _test_json_assertStringify(TypeGuardError)(
     "ObjectPartialAndRequired",
   )<ObjectPartialAndRequired>(ObjectPartialAndRequired)((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectPartialAndRequired => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectPartialAndRequired => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectPartialAndRequired => {
           const $io0 = (input: any): boolean =>
             (undefined === input.string || "string" === typeof input.string) &&
@@ -33,7 +41,6 @@ export const test_json_assertStringify_ObjectPartialAndRequired =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPartialAndRequired => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -154,6 +161,6 @@ export const test_json_assertStringify_ObjectPartialAndRequired =
             .join(",")}]`}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

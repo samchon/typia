@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
 
 export const test_protobuf_createAssertDecode_ArraySimpleProtobufNullable =
-  _test_protobuf_assertDecode(
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ArraySimpleProtobufNullable",
   )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
     decode: (
       input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ArraySimpleProtobufNullable> => {
       const decode = (
         input: Uint8Array,
@@ -119,7 +121,13 @@ export const test_protobuf_createAssertDecode_ArraySimpleProtobufNullable =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ArraySimpleProtobufNullable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArraySimpleProtobufNullable => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ArraySimpleProtobufNullable => {
           const $io0 = (input: any): boolean =>
             (null === input.boolean ||
@@ -191,7 +199,6 @@ export const test_protobuf_createAssertDecode_ArraySimpleProtobufNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArraySimpleProtobufNullable => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -481,7 +488,7 @@ export const test_protobuf_createAssertDecode_ArraySimpleProtobufNullable =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ArraySimpleProtobufNullable): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

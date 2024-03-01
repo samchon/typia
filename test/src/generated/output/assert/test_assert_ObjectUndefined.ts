@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_assert_ObjectUndefined = _test_assert(
+export const test_assert_ObjectUndefined = _test_assert(TypeGuardError)(
   "ObjectUndefined",
 )<ObjectUndefined>(ObjectUndefined)((input) =>
-  ((input: any): ObjectUndefined => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUndefined => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUndefined => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.name &&
@@ -41,7 +46,6 @@ export const test_assert_ObjectUndefined = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUndefined => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

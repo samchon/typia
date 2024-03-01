@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_assertClone_TupleHierarchical = _test_misc_assertClone(
-  "TupleHierarchical",
-)<TupleHierarchical>(TupleHierarchical)((input) =>
-  ((input: any): typia.Resolved<TupleHierarchical> => {
-    const assert = (input: any): TupleHierarchical => {
+  TypeGuardError,
+)("TupleHierarchical")<TupleHierarchical>(TupleHierarchical)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<TupleHierarchical> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TupleHierarchical => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is TupleHierarchical => {
         return (
           Array.isArray(input) &&
@@ -64,7 +72,6 @@ export const test_misc_assertClone_TupleHierarchical = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleHierarchical => {
-          const $guard = (typia.misc.assertClone as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -578,7 +585,7 @@ export const test_misc_assertClone_TupleHierarchical = _test_misc_assertClone(
           ] as any)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

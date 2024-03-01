@@ -129,7 +129,11 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
       });
       return (generator?.array ?? $generator.array)(() => $ro0());
     })((NativeUnion as any).RANDOM),
-  assert: (input: any): NativeUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): NativeUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is NativeUnion => {
       const $io0 = (input: any): boolean =>
         (null === input.date || input.date instanceof Date) &&
@@ -160,7 +164,6 @@ export const test_random_NativeUnion = _test_random("NativeUnion")<NativeUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

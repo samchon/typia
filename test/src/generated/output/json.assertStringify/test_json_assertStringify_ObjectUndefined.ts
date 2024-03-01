@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_json_assertStringify_ObjectUndefined =
-  _test_json_assertStringify("ObjectUndefined")<ObjectUndefined>(
-    ObjectUndefined,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectUndefined => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectUndefined",
+  )<ObjectUndefined>(ObjectUndefined)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUndefined => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUndefined => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
@@ -44,7 +52,6 @@ export const test_json_assertStringify_ObjectUndefined =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUndefined => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -215,6 +222,6 @@ export const test_json_assertStringify_ObjectUndefined =
           }"name":${$string(input.name)}}`;
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

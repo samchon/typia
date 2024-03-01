@@ -46,7 +46,11 @@ export const test_createRandom_CommentTagArrayUnion = _test_random(
     });
     return (generator?.array ?? $generator.array)(() => $ro0());
   },
-  assert: (input: any): CommentTagArrayUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagArrayUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&
@@ -83,7 +87,6 @@ export const test_createRandom_CommentTagArrayUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagArrayUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

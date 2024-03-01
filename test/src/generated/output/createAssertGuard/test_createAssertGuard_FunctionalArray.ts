@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { FunctionalArray } from "../../../structures/FunctionalArray";
 
 export const test_createAssertGuard_FunctionalArray = _test_assertGuard(
-  "FunctionalArray",
-)<FunctionalArray>(FunctionalArray)(
-  (input: any): asserts input is FunctionalArray => {
+  TypeGuardError,
+)("FunctionalArray")<FunctionalArray>(FunctionalArray)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is FunctionalArray => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is FunctionalArray => {
       return (
         Array.isArray(input) &&
@@ -19,7 +24,6 @@ export const test_createAssertGuard_FunctionalArray = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalArray => {
-        const $guard = (typia.createAssertGuard as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

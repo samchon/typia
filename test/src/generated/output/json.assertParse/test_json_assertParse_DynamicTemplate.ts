@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
-  "DynamicTemplate",
-)<DynamicTemplate>(DynamicTemplate)((input) =>
-  ((input: string): typia.Primitive<DynamicTemplate> => {
-    const assert = (input: any): DynamicTemplate => {
+  TypeGuardError,
+)("DynamicTemplate")<DynamicTemplate>(DynamicTemplate)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<DynamicTemplate> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicTemplate => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is DynamicTemplate => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -44,7 +52,6 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTemplate => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $join = (typia.json.assertParse as any).join;
           const $ao0 = (
             input: any,
@@ -121,6 +128,6 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

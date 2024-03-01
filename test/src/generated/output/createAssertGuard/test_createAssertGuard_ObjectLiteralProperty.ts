@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_createAssertGuard_ObjectLiteralProperty = _test_assertGuard(
-  "ObjectLiteralProperty",
-)<ObjectLiteralProperty>(ObjectLiteralProperty)(
-  (input: any): asserts input is ObjectLiteralProperty => {
+  TypeGuardError,
+)("ObjectLiteralProperty")<ObjectLiteralProperty>(ObjectLiteralProperty)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectLiteralProperty => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectLiteralProperty => {
       return (
         "object" === typeof input &&
@@ -22,7 +27,6 @@ export const test_createAssertGuard_ObjectLiteralProperty = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectLiteralProperty => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

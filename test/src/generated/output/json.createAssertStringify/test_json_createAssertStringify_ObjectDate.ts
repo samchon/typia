@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectDate } from "../../../structures/ObjectDate";
 
 export const test_json_createAssertStringify_ObjectDate =
-  _test_json_assertStringify("ObjectDate")<ObjectDate>(ObjectDate)(
-    (input: any): string => {
-      const assert = (input: any): ObjectDate => {
+  _test_json_assertStringify(TypeGuardError)("ObjectDate")<ObjectDate>(
+    ObjectDate,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectDate => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectDate => {
           const $io0 = (input: any): boolean =>
             (null === input.classDate ||
@@ -36,7 +48,6 @@ export const test_json_createAssertStringify_ObjectDate =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectDate => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -147,6 +158,6 @@ export const test_json_createAssertStringify_ObjectDate =
           }}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_misc_assertPrune_ConstantAtomicTagged =
-  _test_misc_assertPrune("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )((input) =>
-    ((input: any): ConstantAtomicTagged => {
-      const assert = (input: any): ConstantAtomicTagged => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ConstantAtomicTagged",
+  )<ConstantAtomicTagged>(ConstantAtomicTagged)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ConstantAtomicTagged => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicTagged => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicTagged => {
           const $io0 = (input: any): boolean =>
             ("latest" === input.id ||
@@ -30,7 +38,6 @@ export const test_misc_assertPrune_ConstantAtomicTagged =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicTagged => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -98,7 +105,7 @@ export const test_misc_assertPrune_ConstantAtomicTagged =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

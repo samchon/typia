@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_createAssertGuard_ConstantAtomicTagged = _test_assertGuard(
-  "ConstantAtomicTagged",
-)<ConstantAtomicTagged>(ConstantAtomicTagged)(
-  (input: any): asserts input is ConstantAtomicTagged => {
+  TypeGuardError,
+)("ConstantAtomicTagged")<ConstantAtomicTagged>(ConstantAtomicTagged)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ConstantAtomicTagged => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ConstantAtomicTagged => {
       const $io0 = (input: any): boolean =>
         ("latest" === input.id ||
@@ -28,7 +33,6 @@ export const test_createAssertGuard_ConstantAtomicTagged = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantAtomicTagged => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

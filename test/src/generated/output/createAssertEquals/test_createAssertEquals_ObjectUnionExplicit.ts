@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
 export const test_createAssertEquals_ObjectUnionExplicit = _test_assertEquals(
-  "ObjectUnionExplicit",
-)<ObjectUnionExplicit>(ObjectUnionExplicit)(
-  (input: any): ObjectUnionExplicit => {
+  TypeGuardError,
+)("ObjectUnionExplicit")<ObjectUnionExplicit>(ObjectUnionExplicit)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionExplicit => {
+    const $guard = (typia.createAssertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -197,7 +202,6 @@ export const test_createAssertEquals_ObjectUnionExplicit = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionExplicit => {
-        const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         const $ao0 = (
           input: any,

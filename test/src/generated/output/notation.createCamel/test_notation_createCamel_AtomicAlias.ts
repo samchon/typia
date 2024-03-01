@@ -90,7 +90,11 @@ export const test_notation_createValidateCamel_AtomicAlias =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<AtomicAlias> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<AtomicAlias> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<AtomicAlias> => {
         return (
           Array.isArray(input) &&
@@ -107,7 +111,6 @@ export const test_notation_createValidateCamel_AtomicAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<AtomicAlias> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_misc_createAssertPrune_ObjectUndefined =
-  _test_misc_assertPrune("ObjectUndefined")<ObjectUndefined>(ObjectUndefined)(
-    (input: any): ObjectUndefined => {
-      const assert = (input: any): ObjectUndefined => {
+  _test_misc_assertPrune(TypeGuardError)("ObjectUndefined")<ObjectUndefined>(
+    ObjectUndefined,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectUndefined => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUndefined => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUndefined => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
@@ -42,7 +54,6 @@ export const test_misc_createAssertPrune_ObjectUndefined =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUndefined => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -194,7 +205,7 @@ export const test_misc_createAssertPrune_ObjectUndefined =
         };
         if (Array.isArray(input)) $pp0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
 export const test_createAssertGuard_TypeTagLength = _test_assertGuard(
-  "TypeTagLength",
-)<TypeTagLength>(TypeTagLength)(
-  (input: any): asserts input is TypeTagLength => {
+  TypeGuardError,
+)("TypeTagLength")<TypeTagLength>(TypeTagLength)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TypeTagLength => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagLength => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -36,7 +41,6 @@ export const test_createAssertGuard_TypeTagLength = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagLength => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

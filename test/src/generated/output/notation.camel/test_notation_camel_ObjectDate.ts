@@ -156,7 +156,11 @@ export const test_notation_validateCamel_ObjectDate =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<ObjectDate> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectDate> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<ObjectDate> => {
         const $io0 = (input: any): boolean =>
           (null === input.classDate ||
@@ -186,7 +190,6 @@ export const test_notation_validateCamel_ObjectDate =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectDate> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

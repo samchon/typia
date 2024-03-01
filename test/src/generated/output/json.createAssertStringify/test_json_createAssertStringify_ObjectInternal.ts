@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
 export const test_json_createAssertStringify_ObjectInternal =
-  _test_json_assertStringify("ObjectInternal")<ObjectInternal>(ObjectInternal)(
-    (input: any): string => {
-      const assert = (input: any): ObjectInternal => {
+  _test_json_assertStringify(TypeGuardError)("ObjectInternal")<ObjectInternal>(
+    ObjectInternal,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectInternal => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectInternal => {
           return (
             "object" === typeof input &&
@@ -21,7 +33,6 @@ export const test_json_createAssertStringify_ObjectInternal =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectInternal => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -62,6 +73,6 @@ export const test_json_createAssertStringify_ObjectInternal =
           (input as any).name,
         )}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

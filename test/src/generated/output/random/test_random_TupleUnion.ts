@@ -30,7 +30,11 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
         ])(),
       );
     })((TupleUnion as any).RANDOM),
-  assert: (input: any): TupleUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TupleUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -81,7 +85,6 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

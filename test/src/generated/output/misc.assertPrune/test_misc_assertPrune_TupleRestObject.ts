@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_misc_assertPrune_TupleRestObject = _test_misc_assertPrune(
-  "TupleRestObject",
-)<TupleRestObject>(TupleRestObject)((input) =>
-  ((input: any): TupleRestObject => {
-    const assert = (input: any): TupleRestObject => {
+  TypeGuardError,
+)("TupleRestObject")<TupleRestObject>(TupleRestObject)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestObject => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TupleRestObject => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TupleRestObject => {
         const $io0 = (input: any): boolean => "string" === typeof input.value;
         return (
@@ -30,7 +38,6 @@ export const test_misc_assertPrune_TupleRestObject = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleRestObject => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -123,7 +130,7 @@ export const test_misc_assertPrune_TupleRestObject = _test_misc_assertPrune(
         if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
       }
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

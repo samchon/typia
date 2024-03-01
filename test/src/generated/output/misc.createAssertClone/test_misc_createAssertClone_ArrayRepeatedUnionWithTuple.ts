@@ -1,14 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_misc_createAssertClone_ArrayRepeatedUnionWithTuple =
-  _test_misc_assertClone(
+  _test_misc_assertClone(TypeGuardError)(
     "ArrayRepeatedUnionWithTuple",
   )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
-    (input: any): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
-      const assert = (input: any): ArrayRepeatedUnionWithTuple => {
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRepeatedUnionWithTuple => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ArrayRepeatedUnionWithTuple => {
           const $ip0 = (input: any) => {
             const array = input;
@@ -146,7 +156,6 @@ export const test_misc_createAssertClone_ArrayRepeatedUnionWithTuple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedUnionWithTuple => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ap0 = (
               input: any,
               _path: string,
@@ -706,7 +715,7 @@ export const test_misc_createAssertClone_ArrayRepeatedUnionWithTuple =
           ? $cp0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

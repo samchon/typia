@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagRange } from "../../../structures/CommentTagRange";
 
 export const test_protobuf_createAssertEncode_CommentTagRange =
-  _test_protobuf_assertEncode("CommentTagRange")<CommentTagRange>(
-    CommentTagRange,
-  )({
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagRange",
+  )<CommentTagRange>(CommentTagRange)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): CommentTagRange => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagRange => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagRange => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -76,7 +83,6 @@ export const test_protobuf_createAssertEncode_CommentTagRange =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagRange => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

@@ -1,13 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_assertGuardEquals_ObjectPropertyNullable =
-  _test_assertGuardEquals("ObjectPropertyNullable")<ObjectPropertyNullable>(
-    ObjectPropertyNullable,
-  )((input) =>
-    ((input: any): asserts input is ObjectPropertyNullable => {
+  _test_assertGuardEquals(TypeGuardError)(
+    "ObjectPropertyNullable",
+  )<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is ObjectPropertyNullable => {
+      const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -107,7 +112,6 @@ export const test_assertGuardEquals_ObjectPropertyNullable =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectPropertyNullable => {
-          const $guard = (typia.assertGuardEquals as any).guard;
           const $join = (typia.assertGuardEquals as any).join;
           const $ao0 = (
             input: any,

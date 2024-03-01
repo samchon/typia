@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
 export const test_misc_assertPrune_ObjectHttpUndefindable =
-  _test_misc_assertPrune("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-    ObjectHttpUndefindable,
-  )((input) =>
-    ((input: any): ObjectHttpUndefindable => {
-      const assert = (input: any): ObjectHttpUndefindable => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ObjectHttpUndefindable",
+  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpUndefindable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpUndefindable => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHttpUndefindable => {
           const $io0 = (input: any): boolean =>
             (undefined === input.boolean ||
@@ -45,7 +53,6 @@ export const test_misc_assertPrune_ObjectHttpUndefindable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpUndefindable => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -152,7 +159,7 @@ export const test_misc_assertPrune_ObjectHttpUndefindable =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

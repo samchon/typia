@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_json_assertParse_ObjectUnionComposite =
-  _test_json_assertParse("ObjectUnionComposite")<ObjectUnionComposite>(
-    ObjectUnionComposite,
-  )((input) =>
-    ((input: string): typia.Primitive<ObjectUnionComposite> => {
-      const assert = (input: any): ObjectUnionComposite => {
+  _test_json_assertParse(TypeGuardError)(
+    "ObjectUnionComposite",
+  )<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ObjectUnionComposite> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionComposite => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionComposite => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
@@ -148,7 +156,6 @@ export const test_json_assertParse_ObjectUnionComposite =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionComposite => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -522,6 +529,6 @@ export const test_json_assertParse_ObjectUnionComposite =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

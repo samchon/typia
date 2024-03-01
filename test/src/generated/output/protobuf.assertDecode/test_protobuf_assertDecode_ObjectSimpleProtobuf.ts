@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectSimpleProtobuf } from "../../../structures/ObjectSimpleProtobuf";
 
-export const test_protobuf_createAssertDecode_ObjectSimpleProtobuf =
-  _test_protobuf_assertDecode("ObjectSimpleProtobuf")<ObjectSimpleProtobuf>(
-    ObjectSimpleProtobuf,
-  )({
+export const test_protobuf_assertDecode_ObjectSimpleProtobuf =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectSimpleProtobuf",
+  )<ObjectSimpleProtobuf>(ObjectSimpleProtobuf)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectSimpleProtobuf> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectSimpleProtobuf> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<ObjectSimpleProtobuf> => {
@@ -75,7 +79,13 @@ export const test_protobuf_createAssertDecode_ObjectSimpleProtobuf =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectSimpleProtobuf => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectSimpleProtobuf => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectSimpleProtobuf => {
             const $io0 = (input: any): boolean =>
               "boolean" === typeof input.bool &&
@@ -106,7 +116,6 @@ export const test_protobuf_createAssertDecode_ObjectSimpleProtobuf =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectSimpleProtobuf => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -225,7 +234,7 @@ export const test_protobuf_createAssertDecode_ObjectSimpleProtobuf =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectSimpleProtobuf): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

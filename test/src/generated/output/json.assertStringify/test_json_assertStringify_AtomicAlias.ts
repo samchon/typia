@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
 export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
-  "AtomicAlias",
-)<AtomicAlias>(AtomicAlias)((input) =>
-  ((input: any): string => {
-    const assert = (input: any): AtomicAlias => {
+  TypeGuardError,
+)("AtomicAlias")<AtomicAlias>(AtomicAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): string => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): AtomicAlias => {
+      const $guard = (typia.json.assertStringify as any).guard(errorFactory);
       const __is = (input: any): input is AtomicAlias => {
         return (
           Array.isArray(input) &&
@@ -24,7 +32,6 @@ export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is AtomicAlias => {
-          const $guard = (typia.json.assertStringify as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -70,6 +77,6 @@ export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
       const $string = (typia.json.assertStringify as any).string;
       return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
     };
-    return stringify(assert(input));
+    return stringify(assert(input, errorFactory));
   })(input),
 );

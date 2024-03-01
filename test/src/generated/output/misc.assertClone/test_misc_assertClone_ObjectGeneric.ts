@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_misc_assertClone_ObjectGeneric = _test_misc_assertClone(
-  "ObjectGeneric",
-)<ObjectGeneric>(ObjectGeneric)((input) =>
-  ((input: any): typia.Resolved<ObjectGeneric> => {
-    const assert = (input: any): ObjectGeneric => {
+  TypeGuardError,
+)("ObjectGeneric")<ObjectGeneric>(ObjectGeneric)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ObjectGeneric> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectGeneric => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ObjectGeneric => {
         const $io0 = (input: any): boolean =>
           "boolean" === typeof input.value &&
@@ -76,7 +84,6 @@ export const test_misc_assertClone_ObjectGeneric = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectGeneric => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -473,7 +480,7 @@ export const test_misc_assertClone_ObjectGeneric = _test_misc_assertClone(
           ] as any)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

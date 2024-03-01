@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_json_assertStringify_ObjectUnionExplicitPointer =
-  _test_json_assertStringify(
+  _test_json_assertStringify(TypeGuardError)(
     "ObjectUnionExplicitPointer",
   )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectUnionExplicitPointer => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionExplicitPointer => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionExplicitPointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -143,7 +151,6 @@ export const test_json_assertStringify_ObjectUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicitPointer => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -801,6 +808,6 @@ export const test_json_assertStringify_ObjectUnionExplicitPointer =
           })();
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

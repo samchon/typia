@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
 export const test_createAssertEquals_ObjectHttpCommentTag = _test_assertEquals(
-  "ObjectHttpCommentTag",
-)<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
-  (input: any): ObjectHttpCommentTag => {
+  TypeGuardError,
+)("ObjectHttpCommentTag")<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpCommentTag => {
+    const $guard = (typia.createAssertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -49,7 +54,6 @@ export const test_createAssertEquals_ObjectHttpCommentTag = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpCommentTag => {
-        const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         const $ao0 = (
           input: any,

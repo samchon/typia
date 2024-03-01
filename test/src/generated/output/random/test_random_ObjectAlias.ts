@@ -45,7 +45,11 @@ export const test_random_ObjectAlias = _test_random("ObjectAlias")<ObjectAlias>(
       });
       return (generator?.array ?? $generator.array)(() => $ro0());
     })((ObjectAlias as any).RANDOM),
-  assert: (input: any): ObjectAlias => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectAlias => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectAlias => {
       const $io0 = (input: any): boolean =>
         (null === input.id || "string" === typeof input.id) &&
@@ -73,7 +77,6 @@ export const test_random_ObjectAlias = _test_random("ObjectAlias")<ObjectAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectAlias => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

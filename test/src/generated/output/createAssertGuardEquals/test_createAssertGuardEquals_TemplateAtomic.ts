@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_createAssertGuardEquals_TemplateAtomic =
-  _test_assertGuardEquals("TemplateAtomic")<TemplateAtomic>(TemplateAtomic)(
-    (input: any): asserts input is TemplateAtomic => {
+  _test_assertGuardEquals(TypeGuardError)("TemplateAtomic")<TemplateAtomic>(
+    TemplateAtomic,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is TemplateAtomic => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -58,7 +65,6 @@ export const test_createAssertGuardEquals_TemplateAtomic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TemplateAtomic => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,

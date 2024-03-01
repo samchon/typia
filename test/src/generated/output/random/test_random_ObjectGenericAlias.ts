@@ -18,7 +18,11 @@ export const test_random_ObjectGenericAlias = _test_random(
       });
       return $ro0();
     })((ObjectGenericAlias as any).RANDOM),
-  assert: (input: any): ObjectGenericAlias => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGenericAlias => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectGenericAlias => {
       return (
         "object" === typeof input &&
@@ -32,7 +36,6 @@ export const test_random_ObjectGenericAlias = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGenericAlias => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

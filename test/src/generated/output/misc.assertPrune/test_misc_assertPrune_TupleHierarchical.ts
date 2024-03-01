@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_assertPrune_TupleHierarchical = _test_misc_assertPrune(
-  "TupleHierarchical",
-)<TupleHierarchical>(TupleHierarchical)((input) =>
-  ((input: any): TupleHierarchical => {
-    const assert = (input: any): TupleHierarchical => {
+  TypeGuardError,
+)("TupleHierarchical")<TupleHierarchical>(TupleHierarchical)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleHierarchical => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TupleHierarchical => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TupleHierarchical => {
         return (
           Array.isArray(input) &&
@@ -64,7 +72,6 @@ export const test_misc_assertPrune_TupleHierarchical = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleHierarchical => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -414,7 +421,7 @@ export const test_misc_assertPrune_TupleHierarchical = _test_misc_assertPrune(
       return input;
     };
     const prune = (input: TupleHierarchical): void => {};
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

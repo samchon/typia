@@ -4,6 +4,7 @@ import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
+import { TypeGuardError } from "./TypeGuardError";
 
 export * as http from "./http";
 export * as json from "./json";
@@ -54,7 +55,10 @@ export * from "./SnakeCase";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assert<T>(input: T): T;
+function assert<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
 
 /**
  * Asserts a value type.
@@ -77,7 +81,10 @@ function assert<T>(input: T): T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assert<T>(input: unknown): T;
+function assert<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
 
 /**
  * @internal
@@ -115,7 +122,10 @@ export { assertPure as assert };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuard<T>(input: T): asserts input is T;
+function assertGuard<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): asserts input is T;
 
 /**
  * Assertion guard of a value type.
@@ -141,7 +151,10 @@ function assertGuard<T>(input: T): asserts input is T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuard<T>(input: unknown): asserts input is T;
+function assertGuard<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): asserts input is T;
 
 /**
  * @internal
@@ -303,7 +316,10 @@ export { validatePure as validate };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEquals<T>(input: T): T;
+function assertEquals<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
 
 /**
  * Asserts equality between a value and its type.
@@ -328,7 +344,10 @@ function assertEquals<T>(input: T): T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEquals<T>(input: unknown): T;
+function assertEquals<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
 
 /**
  * @internal
@@ -369,7 +388,10 @@ export { assertEqualsPure as assertEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuardEquals<T>(input: T): asserts input is T;
+function assertGuardEquals<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): asserts input is T;
 
 /**
  * Assertion guard of a type with equality.
@@ -398,7 +420,10 @@ function assertGuardEquals<T>(input: T): asserts input is T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuardEquals<T>(input: unknown): asserts input is T;
+function assertGuardEquals<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): asserts input is T;
 
 /**
  * @internal
@@ -603,7 +628,9 @@ export { randomPure as random };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssert(): never;
+function createAssert(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assert} function.
@@ -613,7 +640,9 @@ function createAssert(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssert<T>(): (input: unknown) => T;
+function createAssert<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => T;
 
 /**
  * @internal
@@ -651,7 +680,9 @@ export { createAssertPure as createAssert };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuard(): never;
+function createAssertGuard(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertGuard} function.
@@ -676,7 +707,9 @@ function createAssertGuard(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T>;
+function createAssertGuard<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => AssertionGuard<T>;
 
 /**
  * @internal
@@ -765,7 +798,9 @@ export { createValidatePure as createValidate };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEquals(): never;
+function createAssertEquals(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertEquals} function.
@@ -775,7 +810,9 @@ function createAssertEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEquals<T>(): (input: unknown) => T;
+function createAssertEquals<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => T;
 
 /**
  * @internal
@@ -813,7 +850,9 @@ export { createAssertEqualsPure as createAssertEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuardEquals(): never;
+function createAssertGuardEquals(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertGuardEquals} function.
@@ -838,7 +877,9 @@ function createAssertGuardEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuardEquals<T>(): (input: unknown) => AssertionGuard<T>;
+function createAssertGuardEquals<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => AssertionGuard<T>;
 
 /**
  * @internal

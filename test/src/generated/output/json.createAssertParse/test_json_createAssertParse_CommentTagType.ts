@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
 export const test_json_createAssertParse_CommentTagType =
-  _test_json_assertParse("CommentTagType")<CommentTagType>(CommentTagType)(
-    (input: string): typia.Primitive<CommentTagType> => {
-      const assert = (input: any): CommentTagType => {
+  _test_json_assertParse(TypeGuardError)("CommentTagType")<CommentTagType>(
+    CommentTagType,
+  )(
+    (
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<CommentTagType> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagType => {
+        const $guard = (typia.json.createAssertParse as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagType => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -50,7 +62,6 @@ export const test_json_createAssertParse_CommentTagType =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagType => {
-            const $guard = (typia.json.createAssertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -206,6 +217,6 @@ export const test_json_createAssertParse_CommentTagType =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     },
   );

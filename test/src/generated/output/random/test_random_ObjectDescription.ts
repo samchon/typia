@@ -35,7 +35,11 @@ export const test_random_ObjectDescription = _test_random(
       });
       return $ro0();
     })((ObjectDescription as any).RANDOM),
-  assert: (input: any): ObjectDescription => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectDescription => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDescription => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -56,7 +60,6 @@ export const test_random_ObjectDescription = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDescription => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

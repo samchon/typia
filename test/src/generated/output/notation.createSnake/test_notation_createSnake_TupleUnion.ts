@@ -236,7 +236,11 @@ export const test_notation_createValidateSnake_TupleUnion =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<TupleUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<TupleUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<TupleUnion> => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -289,7 +293,6 @@ export const test_notation_createValidateSnake_TupleUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<TupleUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ap0 = (
             input: any,
             _path: string,

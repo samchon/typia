@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
 export const test_json_assertStringify_TupleRestAtomic =
-  _test_json_assertStringify("TupleRestAtomic")<TupleRestAtomic>(
-    TupleRestAtomic,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): TupleRestAtomic => {
+  _test_json_assertStringify(TypeGuardError)(
+    "TupleRestAtomic",
+  )<TupleRestAtomic>(TupleRestAtomic)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TupleRestAtomic => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is TupleRestAtomic => {
           return (
             Array.isArray(input) &&
@@ -25,7 +33,6 @@ export const test_json_assertStringify_TupleRestAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestAtomic => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -85,6 +92,6 @@ export const test_json_assertStringify_TupleRestAtomic =
             .join(",")}]`,
         )}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

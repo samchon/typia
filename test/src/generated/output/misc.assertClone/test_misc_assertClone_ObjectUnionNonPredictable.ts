@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_misc_assertClone_ObjectUnionNonPredictable =
-  _test_misc_assertClone(
+  _test_misc_assertClone(TypeGuardError)(
     "ObjectUnionNonPredictable",
   )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
-    ((input: any): typia.Resolved<ObjectUnionNonPredictable> => {
-      const assert = (input: any): ObjectUnionNonPredictable => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectUnionNonPredictable> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionNonPredictable => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionNonPredictable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -52,7 +60,6 @@ export const test_misc_assertClone_ObjectUnionNonPredictable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionNonPredictable => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -338,7 +345,7 @@ export const test_misc_assertClone_ObjectUnionNonPredictable =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

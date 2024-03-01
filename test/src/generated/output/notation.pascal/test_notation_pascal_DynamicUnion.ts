@@ -182,7 +182,11 @@ export const test_notation_validatePascal_DynamicUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<DynamicUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<DynamicUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<DynamicUnion> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -216,7 +220,6 @@ export const test_notation_validatePascal_DynamicUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<DynamicUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

@@ -60,7 +60,11 @@ export const test_createRandom_SetUnion = _test_random("SetUnion")<SetUnion>(
       ])(),
     );
   },
-  assert: (input: any): SetUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): SetUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is SetUnion => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -142,7 +146,6 @@ export const test_createRandom_SetUnion = _test_random("SetUnion")<SetUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

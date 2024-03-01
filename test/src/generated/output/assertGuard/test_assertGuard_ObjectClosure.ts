@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectClosure } from "../../../structures/ObjectClosure";
 
-export const test_assertGuard_ObjectClosure = _test_assertGuard(
+export const test_assertGuard_ObjectClosure = _test_assertGuard(TypeGuardError)(
   "ObjectClosure",
 )<ObjectClosure>(ObjectClosure)((input) =>
-  ((input: any): asserts input is ObjectClosure => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectClosure => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectClosure => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id && "function" === typeof input.open;
@@ -18,7 +23,6 @@ export const test_assertGuard_ObjectClosure = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectClosure => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

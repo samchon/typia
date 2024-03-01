@@ -283,7 +283,11 @@ export const test_notation_createValidateSnake_CommentTagType =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<CommentTagType> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<CommentTagType> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<CommentTagType> => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -327,7 +331,6 @@ export const test_notation_createValidateSnake_CommentTagType =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<CommentTagType> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

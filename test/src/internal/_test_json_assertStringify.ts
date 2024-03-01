@@ -1,9 +1,10 @@
-import { TypeGuardError } from "typia";
+import typia, { TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_assertStringify =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (stringify: (input: T) => string) =>
@@ -24,7 +25,10 @@ export const _test_json_assertStringify =
       try {
         stringify(elem);
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

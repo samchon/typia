@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_misc_assertPrune_ObjectUnionComposite =
-  _test_misc_assertPrune("ObjectUnionComposite")<ObjectUnionComposite>(
-    ObjectUnionComposite,
-  )((input) =>
-    ((input: any): ObjectUnionComposite => {
-      const assert = (input: any): ObjectUnionComposite => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ObjectUnionComposite",
+  )<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectUnionComposite => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionComposite => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionComposite => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
@@ -148,7 +156,6 @@ export const test_misc_assertPrune_ObjectUnionComposite =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionComposite => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -690,7 +697,7 @@ export const test_misc_assertPrune_ObjectUnionComposite =
           })();
         if (Array.isArray(input)) $pp0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

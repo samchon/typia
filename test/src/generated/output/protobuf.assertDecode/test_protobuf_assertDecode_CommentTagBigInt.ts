@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
 
-export const test_protobuf_createAssertDecode_CommentTagBigInt =
-  _test_protobuf_assertDecode("CommentTagBigInt")<CommentTagBigInt>(
-    CommentTagBigInt,
-  )({
+export const test_protobuf_assertDecode_CommentTagBigInt =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "CommentTagBigInt",
+  )<CommentTagBigInt>(CommentTagBigInt)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<CommentTagBigInt> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<CommentTagBigInt> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<CommentTagBigInt> => {
@@ -55,7 +59,13 @@ export const test_protobuf_createAssertDecode_CommentTagBigInt =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): CommentTagBigInt => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): CommentTagBigInt => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is CommentTagBigInt => {
             return (
               "object" === typeof input &&
@@ -78,7 +88,6 @@ export const test_protobuf_createAssertDecode_CommentTagBigInt =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagBigInt => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -162,7 +171,7 @@ export const test_protobuf_createAssertDecode_CommentTagBigInt =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: CommentTagBigInt): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

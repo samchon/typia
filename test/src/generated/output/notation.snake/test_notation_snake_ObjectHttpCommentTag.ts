@@ -171,7 +171,11 @@ export const test_notation_validateSnake_ObjectHttpCommentTag =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectHttpCommentTag> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ObjectHttpCommentTag> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ObjectHttpCommentTag> => {
@@ -200,7 +204,6 @@ export const test_notation_validateSnake_ObjectHttpCommentTag =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectHttpCommentTag> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

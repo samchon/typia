@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
-  _test_protobuf_assertEncode("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
-    TypeTagAtomicUnion,
-  )({
+export const test_protobuf_assertEncode_TypeTagAtomicUnion =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "TypeTagAtomicUnion",
+  )<TypeTagAtomicUnion>(TypeTagAtomicUnion)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): TypeTagAtomicUnion => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): TypeTagAtomicUnion => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is TypeTagAtomicUnion => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.value) &&
@@ -32,7 +39,6 @@ export const test_protobuf_createAssertEncode_TypeTagAtomicUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagAtomicUnion => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

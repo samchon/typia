@@ -112,7 +112,11 @@ export const test_createRandom_TypeTagDefault = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): TypeTagDefault => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagDefault => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagDefault => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&
@@ -153,7 +157,6 @@ export const test_createRandom_TypeTagDefault = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagDefault => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

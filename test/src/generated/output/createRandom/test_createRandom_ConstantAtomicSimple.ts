@@ -12,7 +12,11 @@ export const test_createRandom_ConstantAtomicSimple = _test_random(
   ): typia.Resolved<ConstantAtomicSimple> => {
     return [false, true, 2, "three"];
   },
-  assert: (input: any): ConstantAtomicSimple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantAtomicSimple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ConstantAtomicSimple => {
       return (
         Array.isArray(input) &&
@@ -29,7 +33,6 @@ export const test_createRandom_ConstantAtomicSimple = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantAtomicSimple => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

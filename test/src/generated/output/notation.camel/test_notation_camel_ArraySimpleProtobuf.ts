@@ -490,7 +490,11 @@ export const test_notation_validateCamel_ArraySimpleProtobuf =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<ArraySimpleProtobuf> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ArraySimpleProtobuf> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ArraySimpleProtobuf> => {
@@ -548,7 +552,6 @@ export const test_notation_validateCamel_ArraySimpleProtobuf =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArraySimpleProtobuf> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

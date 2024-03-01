@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 
 export const test_createAssertGuard_ObjectHttpConstant = _test_assertGuard(
-  "ObjectHttpConstant",
-)<ObjectHttpConstant>(ObjectHttpConstant)(
-  (input: any): asserts input is ObjectHttpConstant => {
+  TypeGuardError,
+)("ObjectHttpConstant")<ObjectHttpConstant>(ObjectHttpConstant)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectHttpConstant => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpConstant => {
       const $io0 = (input: any): boolean =>
         false === input.boolean &&
@@ -25,7 +30,6 @@ export const test_createAssertGuard_ObjectHttpConstant = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpConstant => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

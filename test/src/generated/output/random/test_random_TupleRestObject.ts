@@ -23,7 +23,11 @@ export const test_random_TupleRestObject = _test_random(
         $ro0(),
       ];
     })((TupleRestObject as any).RANDOM),
-  assert: (input: any): TupleRestObject => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestObject => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TupleRestObject => {
       const $io0 = (input: any): boolean => "string" === typeof input.value;
       return (
@@ -46,7 +50,6 @@ export const test_random_TupleRestObject = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleRestObject => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

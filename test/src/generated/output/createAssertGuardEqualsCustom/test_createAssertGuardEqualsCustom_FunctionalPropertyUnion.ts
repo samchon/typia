@@ -1,0 +1,117 @@
+import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
+import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
+import { FunctionalPropertyUnion } from "../../../structures/FunctionalPropertyUnion";
+
+export const test_createAssertGuardEqualsCustom_FunctionalPropertyUnion =
+  _test_assertGuardEquals(CustomGuardError)(
+    "FunctionalPropertyUnion",
+  )<FunctionalPropertyUnion>(FunctionalPropertyUnion)(
+    (
+      input: any,
+      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+        new CustomGuardError(p),
+    ): asserts input is FunctionalPropertyUnion => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
+      const __is = (
+        input: any,
+        _exceptionable: boolean = true,
+      ): input is FunctionalPropertyUnion => {
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
+          "string" === typeof input.name &&
+          (null === input.closure ||
+            undefined === input.closure ||
+            "function" === typeof input.closure ||
+            "string" === typeof input.closure ||
+            ("number" === typeof input.closure &&
+              Number.isFinite(input.closure))) &&
+          (1 === Object.keys(input).length ||
+            Object.keys(input).every((key: any) => {
+              if (["name", "closure"].some((prop: any) => key === prop))
+                return true;
+              const value = input[key];
+              if (undefined === value) return true;
+              return false;
+            }));
+        return (
+          Array.isArray(input) &&
+          input.every(
+            (elem: any, _index1: number) =>
+              "object" === typeof elem && null !== elem && $io0(elem, true),
+          )
+        );
+      };
+      if (false === __is(input))
+        ((
+          input: any,
+          _path: string,
+          _exceptionable: boolean = true,
+        ): input is FunctionalPropertyUnion => {
+          const $join = (typia.createAssertGuardEquals as any).join;
+          const $ao0 = (
+            input: any,
+            _path: string,
+            _exceptionable: boolean = true,
+          ): boolean =>
+            ("string" === typeof input.name ||
+              $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              })) &&
+            (null === input.closure ||
+              undefined === input.closure ||
+              "function" === typeof input.closure ||
+              "string" === typeof input.closure ||
+              ("number" === typeof input.closure &&
+                Number.isFinite(input.closure)) ||
+              $guard(_exceptionable, {
+                path: _path + ".closure",
+                expected: "(null | number | string | undefined)",
+                value: input.closure,
+              })) &&
+            (1 === Object.keys(input).length ||
+              false === _exceptionable ||
+              Object.keys(input).every((key: any) => {
+                if (["name", "closure"].some((prop: any) => key === prop))
+                  return true;
+                const value = input[key];
+                if (undefined === value) return true;
+                return $guard(_exceptionable, {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                });
+              }));
+          return (
+            ((Array.isArray(input) ||
+              $guard(true, {
+                path: _path + "",
+                expected: "FunctionalPropertyUnion",
+                value: input,
+              })) &&
+              input.every(
+                (elem: any, _index1: number) =>
+                  ((("object" === typeof elem && null !== elem) ||
+                    $guard(true, {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "FunctionalPropertyUnion.IUnion",
+                      value: elem,
+                    })) &&
+                    $ao0(elem, _path + "[" + _index1 + "]", true)) ||
+                  $guard(true, {
+                    path: _path + "[" + _index1 + "]",
+                    expected: "FunctionalPropertyUnion.IUnion",
+                    value: elem,
+                  }),
+              )) ||
+            $guard(true, {
+              path: _path + "",
+              expected: "FunctionalPropertyUnion",
+              value: input,
+            })
+          );
+        })(input, "$input", true);
+    },
+  );

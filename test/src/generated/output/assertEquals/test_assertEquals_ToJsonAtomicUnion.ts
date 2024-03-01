@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_assertEquals_ToJsonAtomicUnion = _test_assertEquals(
-  "ToJsonAtomicUnion",
-)<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
-  ((input: any): ToJsonAtomicUnion => {
+  TypeGuardError,
+)("ToJsonAtomicUnion")<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ToJsonAtomicUnion => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -34,7 +39,6 @@ export const test_assertEquals_ToJsonAtomicUnion = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonAtomicUnion => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

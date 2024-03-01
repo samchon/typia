@@ -74,7 +74,11 @@ export const test_random_TypeTagArrayUnion = _test_random(
       });
       return (generator?.array ?? $generator.array)(() => $ro0());
     })((TypeTagArrayUnion as any).RANDOM),
-  assert: (input: any): TypeTagArrayUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagArrayUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&
@@ -124,7 +128,6 @@ export const test_random_TypeTagArrayUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagArrayUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

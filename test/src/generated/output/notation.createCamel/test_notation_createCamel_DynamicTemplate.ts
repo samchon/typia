@@ -184,7 +184,11 @@ export const test_notation_createValidateCamel_DynamicTemplate =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<DynamicTemplate> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<DynamicTemplate> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<DynamicTemplate> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -221,7 +225,6 @@ export const test_notation_createValidateCamel_DynamicTemplate =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<DynamicTemplate> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

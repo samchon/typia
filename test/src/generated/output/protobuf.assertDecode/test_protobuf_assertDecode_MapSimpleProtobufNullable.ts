@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
 
-export const test_protobuf_createAssertDecode_MapSimpleProtobufNullable =
-  _test_protobuf_assertDecode(
+export const test_protobuf_assertDecode_MapSimpleProtobufNullable =
+  _test_protobuf_assertDecode(TypeGuardError)(
     "MapSimpleProtobufNullable",
   )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<MapSimpleProtobufNullable> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<MapSimpleProtobufNullable> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<MapSimpleProtobufNullable> => {
@@ -233,7 +237,13 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufNullable =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): MapSimpleProtobufNullable => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): MapSimpleProtobufNullable => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is MapSimpleProtobufNullable => {
             const $io0 = (input: any): boolean =>
               (null === input.boolean ||
@@ -321,7 +331,6 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is MapSimpleProtobufNullable => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -688,7 +697,7 @@ export const test_protobuf_createAssertDecode_MapSimpleProtobufNullable =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: MapSimpleProtobufNullable): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

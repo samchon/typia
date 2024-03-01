@@ -328,7 +328,11 @@ export const test_notation_validateSnake_SetAlias =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<SetAlias> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<SetAlias> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<SetAlias> => {
         const $io0 = (input: any): boolean =>
           input.booleans instanceof Set &&
@@ -375,7 +379,6 @@ export const test_notation_validateSnake_SetAlias =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<SetAlias> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

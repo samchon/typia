@@ -25,7 +25,11 @@ export const test_random_AtomicUnion = _test_random("AtomicUnion")<AtomicUnion>(
         ])(),
       );
     })((AtomicUnion as any).RANDOM),
-  assert: (input: any): AtomicUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is AtomicUnion => {
       return (
         Array.isArray(input) &&
@@ -44,7 +48,6 @@ export const test_random_AtomicUnion = _test_random("AtomicUnion")<AtomicUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicUnion => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

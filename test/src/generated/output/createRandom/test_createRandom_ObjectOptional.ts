@@ -39,7 +39,11 @@ export const test_createRandom_ObjectOptional = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectOptional => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectOptional => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectOptional => {
       const $io0 = (input: any): boolean =>
         (undefined === input.id || "string" === typeof input.id) &&
@@ -61,7 +65,6 @@ export const test_createRandom_ObjectOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectOptional => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

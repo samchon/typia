@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_assertGuard_ObjectJsonTag = _test_assertGuard(
+export const test_assertGuard_ObjectJsonTag = _test_assertGuard(TypeGuardError)(
   "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input) =>
-  ((input: any): asserts input is ObjectJsonTag => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectJsonTag => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectJsonTag => {
       return (
         "object" === typeof input &&
@@ -23,7 +28,6 @@ export const test_assertGuard_ObjectJsonTag = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectJsonTag => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

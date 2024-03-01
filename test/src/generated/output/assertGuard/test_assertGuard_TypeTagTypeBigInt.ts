@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TypeTagTypeBigInt } from "../../../structures/TypeTagTypeBigInt";
 
 export const test_assertGuard_TypeTagTypeBigInt = _test_assertGuard(
-  "TypeTagTypeBigInt",
-)<TypeTagTypeBigInt>(TypeTagTypeBigInt)((input) =>
-  ((input: any): asserts input is TypeTagTypeBigInt => {
+  TypeGuardError,
+)("TypeTagTypeBigInt")<TypeTagTypeBigInt>(TypeTagTypeBigInt)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TypeTagTypeBigInt => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagTypeBigInt => {
       return (
         "object" === typeof input &&
@@ -22,7 +27,6 @@ export const test_assertGuard_TypeTagTypeBigInt = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTypeBigInt => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

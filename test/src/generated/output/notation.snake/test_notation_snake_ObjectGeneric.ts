@@ -523,7 +523,11 @@ export const test_notation_validateSnake_ObjectGeneric =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectGeneric> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ObjectGeneric> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<ObjectGeneric> => {
         const $io0 = (input: any): boolean =>
           "boolean" === typeof input.value &&
@@ -592,7 +596,6 @@ export const test_notation_validateSnake_ObjectGeneric =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectGeneric> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

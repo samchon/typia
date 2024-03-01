@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_json_assertParse_ArraySimple = _test_json_assertParse(
-  "ArraySimple",
-)<ArraySimple>(ArraySimple)((input) =>
-  ((input: string): typia.Primitive<ArraySimple> => {
-    const assert = (input: any): ArraySimple => {
+  TypeGuardError,
+)("ArraySimple")<ArraySimple>(ArraySimple)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArraySimple> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArraySimple => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArraySimple => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.name &&
@@ -36,7 +44,6 @@ export const test_json_assertParse_ArraySimple = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArraySimple => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -139,6 +146,6 @@ export const test_json_assertParse_ArraySimple = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

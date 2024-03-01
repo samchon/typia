@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
 export const test_misc_assertPrune_ObjectHttpNullable = _test_misc_assertPrune(
-  "ObjectHttpNullable",
-)<ObjectHttpNullable>(ObjectHttpNullable)((input) =>
-  ((input: any): ObjectHttpNullable => {
-    const assert = (input: any): ObjectHttpNullable => {
+  TypeGuardError,
+)("ObjectHttpNullable")<ObjectHttpNullable>(ObjectHttpNullable)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpNullable => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpNullable => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is ObjectHttpNullable => {
         const $io0 = (input: any): boolean =>
           (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -44,7 +52,6 @@ export const test_misc_assertPrune_ObjectHttpNullable = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpNullable => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -182,7 +189,7 @@ export const test_misc_assertPrune_ObjectHttpNullable = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

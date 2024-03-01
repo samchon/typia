@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
 
 export const test_json_assertStringify_CommentTagObjectUnion =
-  _test_json_assertStringify("CommentTagObjectUnion")<CommentTagObjectUnion>(
-    CommentTagObjectUnion,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): CommentTagObjectUnion => {
+  _test_json_assertStringify(TypeGuardError)(
+    "CommentTagObjectUnion",
+  )<CommentTagObjectUnion>(CommentTagObjectUnion)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagObjectUnion => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is CommentTagObjectUnion => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.value &&
@@ -48,7 +56,6 @@ export const test_json_assertStringify_CommentTagObjectUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagObjectUnion => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -199,6 +206,6 @@ export const test_json_assertStringify_CommentTagObjectUnion =
           })();
         return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

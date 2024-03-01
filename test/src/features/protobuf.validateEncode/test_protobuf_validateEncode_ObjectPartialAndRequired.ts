@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_validateEncode";
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
-export const test_protobuf_createValidateEncode_ObjectPartialAndRequired =
+export const test_protobuf_validateEncode_ObjectPartialAndRequired =
   _test_protobuf_validateEncode(
     "ObjectPartialAndRequired",
   )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({

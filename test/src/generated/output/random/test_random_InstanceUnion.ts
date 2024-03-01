@@ -153,7 +153,11 @@ export const test_random_InstanceUnion = _test_random(
         ])(),
       );
     })((InstanceUnion as any).RANDOM),
-  assert: (input: any): InstanceUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): InstanceUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is InstanceUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -399,7 +403,6 @@ export const test_random_InstanceUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is InstanceUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

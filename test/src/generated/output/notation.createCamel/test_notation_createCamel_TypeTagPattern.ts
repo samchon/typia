@@ -154,7 +154,11 @@ export const test_notation_createValidateCamel_TypeTagPattern =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<TypeTagPattern> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<TypeTagPattern> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<TypeTagPattern> => {
         return (
           "object" === typeof input &&
@@ -183,7 +187,6 @@ export const test_notation_createValidateCamel_TypeTagPattern =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TypeTagPattern> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

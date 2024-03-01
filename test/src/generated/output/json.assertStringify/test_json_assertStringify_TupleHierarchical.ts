@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_json_assertStringify_TupleHierarchical =
-  _test_json_assertStringify("TupleHierarchical")<TupleHierarchical>(
-    TupleHierarchical,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): TupleHierarchical => {
+  _test_json_assertStringify(TypeGuardError)(
+    "TupleHierarchical",
+  )<TupleHierarchical>(TupleHierarchical)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TupleHierarchical => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is TupleHierarchical => {
           return (
             Array.isArray(input) &&
@@ -65,7 +73,6 @@ export const test_json_assertStringify_TupleHierarchical =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleHierarchical => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -438,6 +445,6 @@ export const test_json_assertStringify_TupleHierarchical =
           )
           .join(",")}]`}]`}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

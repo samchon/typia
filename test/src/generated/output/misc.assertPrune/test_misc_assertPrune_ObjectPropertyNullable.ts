@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_misc_assertPrune_ObjectPropertyNullable =
-  _test_misc_assertPrune("ObjectPropertyNullable")<ObjectPropertyNullable>(
-    ObjectPropertyNullable,
-  )((input) =>
-    ((input: any): ObjectPropertyNullable => {
-      const assert = (input: any): ObjectPropertyNullable => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ObjectPropertyNullable",
+  )<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectPropertyNullable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectPropertyNullable => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ObjectPropertyNullable => {
           const $io0 = (input: any): boolean =>
             null === input.value || "boolean" === typeof input.value;
@@ -64,7 +72,6 @@ export const test_misc_assertPrune_ObjectPropertyNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPropertyNullable => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -398,7 +405,7 @@ export const test_misc_assertPrune_ObjectPropertyNullable =
           if (Array.isArray(input[3])) $pp3(input[3]);
         }
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

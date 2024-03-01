@@ -111,7 +111,11 @@ export const test_random_ObjectHierarchical = _test_random(
       });
       return $ro0();
     })((ObjectHierarchical as any).RANDOM),
-  assert: (input: any): ObjectHierarchical => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHierarchical => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHierarchical => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -213,7 +217,6 @@ export const test_random_ObjectHierarchical = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHierarchical => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

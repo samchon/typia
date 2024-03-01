@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_json_assertStringify_DynamicTree = _test_json_assertStringify(
-  "DynamicTree",
-)<DynamicTree>(DynamicTree)((input) =>
-  ((input: any): string => {
-    const assert = (input: any): DynamicTree => {
+  TypeGuardError,
+)("DynamicTree")<DynamicTree>(DynamicTree)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): string => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicTree => {
+      const $guard = (typia.json.assertStringify as any).guard(errorFactory);
       const __is = (input: any): input is DynamicTree => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -31,7 +39,6 @@ export const test_json_assertStringify_DynamicTree = _test_json_assertStringify(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTree => {
-          const $guard = (typia.json.assertStringify as any).guard;
           const $join = (typia.json.assertStringify as any).join;
           const $ao0 = (
             input: any,
@@ -140,6 +147,6 @@ export const test_json_assertStringify_DynamicTree = _test_json_assertStringify(
           .join(",")}}`;
       return $so0(input);
     };
-    return stringify(assert(input));
+    return stringify(assert(input, errorFactory));
   })(input),
 );

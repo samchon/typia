@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
 export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
-  "ObjectUnionImplicit",
-)<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
-  ((input: any): ObjectUnionImplicit => {
-    const assert = (input: any): ObjectUnionImplicit => {
+  TypeGuardError,
+)("ObjectUnionImplicit")<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionImplicit => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectUnionImplicit => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is ObjectUnionImplicit => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.x &&
@@ -137,7 +145,6 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUnionImplicit => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -752,7 +759,7 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
         })();
       if (Array.isArray(input)) $pp0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

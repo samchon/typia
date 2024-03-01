@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { MapSimpleProtobufOptional } from "../../../structures/MapSimpleProtobufOptional";
 
 export const test_assert_MapSimpleProtobufOptional = _test_assert(
-  "MapSimpleProtobufOptional",
-)<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)((input) =>
-  ((input: any): MapSimpleProtobufOptional => {
+  TypeGuardError,
+)("MapSimpleProtobufOptional")<MapSimpleProtobufOptional>(
+  MapSimpleProtobufOptional,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapSimpleProtobufOptional => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is MapSimpleProtobufOptional => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean ||
@@ -100,7 +107,6 @@ export const test_assert_MapSimpleProtobufOptional = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobufOptional => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

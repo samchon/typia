@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_protobuf_createAssertEncode_ArrayRecursiveUnionExplicitPointer =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_ArrayRecursiveUnionExplicitPointer =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ArrayRecursiveUnionExplicitPointer => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ArrayRecursiveUnionExplicitPointer => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (
             input: any,
           ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -96,7 +103,6 @@ export const test_protobuf_createAssertEncode_ArrayRecursiveUnionExplicitPointer
               _path: string,
               _exceptionable: boolean = true,
             ): input is ArrayRecursiveUnionExplicitPointer => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

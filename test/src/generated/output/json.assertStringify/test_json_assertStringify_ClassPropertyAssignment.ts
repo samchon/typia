@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_json_assertStringify_ClassPropertyAssignment =
-  _test_json_assertStringify(
+  _test_json_assertStringify(TypeGuardError)(
     "ClassPropertyAssignment",
   )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ClassPropertyAssignment => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ClassPropertyAssignment => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ClassPropertyAssignment => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -25,7 +33,6 @@ export const test_json_assertStringify_ClassPropertyAssignment =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassPropertyAssignment => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -97,6 +104,6 @@ export const test_json_assertStringify_ClassPropertyAssignment =
           }}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

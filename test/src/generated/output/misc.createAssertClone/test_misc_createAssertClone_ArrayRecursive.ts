@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
 export const test_misc_createAssertClone_ArrayRecursive =
-  _test_misc_assertClone("ArrayRecursive")<ArrayRecursive>(ArrayRecursive)(
-    (input: any): typia.Resolved<ArrayRecursive> => {
-      const assert = (input: any): ArrayRecursive => {
+  _test_misc_assertClone(TypeGuardError)("ArrayRecursive")<ArrayRecursive>(
+    ArrayRecursive,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ArrayRecursive> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRecursive => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ArrayRecursive => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.children) &&
@@ -33,7 +45,6 @@ export const test_misc_createAssertClone_ArrayRecursive =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursive => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -182,7 +193,7 @@ export const test_misc_createAssertClone_ArrayRecursive =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

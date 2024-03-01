@@ -86,7 +86,11 @@ export const test_random_CommentTagDefault = _test_random(
       });
       return $ro0();
     })((CommentTagDefault as any).RANDOM),
-  assert: (input: any): CommentTagDefault => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagDefault => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagDefault => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&
@@ -130,7 +134,6 @@ export const test_random_CommentTagDefault = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagDefault => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

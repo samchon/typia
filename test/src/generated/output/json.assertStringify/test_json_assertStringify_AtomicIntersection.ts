@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_json_assertStringify_AtomicIntersection =
-  _test_json_assertStringify("AtomicIntersection")<AtomicIntersection>(
-    AtomicIntersection,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): AtomicIntersection => {
+  _test_json_assertStringify(TypeGuardError)(
+    "AtomicIntersection",
+  )<AtomicIntersection>(AtomicIntersection)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): AtomicIntersection => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is AtomicIntersection => {
           return (
             Array.isArray(input) &&
@@ -25,7 +33,6 @@ export const test_json_assertStringify_AtomicIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is AtomicIntersection => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -71,6 +78,6 @@ export const test_json_assertStringify_AtomicIntersection =
         const $string = (typia.json.assertStringify as any).string;
         return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

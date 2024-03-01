@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
 export const test_misc_createAssertClone_CommentTagType =
-  _test_misc_assertClone("CommentTagType")<CommentTagType>(CommentTagType)(
-    (input: any): typia.Resolved<CommentTagType> => {
-      const assert = (input: any): CommentTagType => {
+  _test_misc_assertClone(TypeGuardError)("CommentTagType")<CommentTagType>(
+    CommentTagType,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<CommentTagType> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagType => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagType => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -50,7 +62,6 @@ export const test_misc_createAssertClone_CommentTagType =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagType => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -258,7 +269,7 @@ export const test_misc_createAssertClone_CommentTagType =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

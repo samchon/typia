@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_assert_TypeTagInfinite = _test_assert(
+export const test_assert_TypeTagInfinite = _test_assert(TypeGuardError)(
   "TypeTagInfinite",
 )<TypeTagInfinite>(TypeTagInfinite)((input) =>
-  ((input: any): TypeTagInfinite => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagInfinite => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagInfinite => {
       return (
         "object" === typeof input &&
@@ -36,7 +41,6 @@ export const test_assert_TypeTagInfinite = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagInfinite => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

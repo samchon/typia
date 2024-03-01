@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_assertPrune_ConstantIntersection =
-  _test_misc_assertPrune("ConstantIntersection")<ConstantIntersection>(
-    ConstantIntersection,
-  )((input) =>
-    ((input: any): ConstantIntersection => {
-      const assert = (input: any): ConstantIntersection => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ConstantIntersection",
+  )<ConstantIntersection>(ConstantIntersection)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ConstantIntersection => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantIntersection => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ConstantIntersection => {
           return (
             Array.isArray(input) &&
@@ -24,7 +32,6 @@ export const test_misc_assertPrune_ConstantIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantIntersection => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -66,7 +73,7 @@ export const test_misc_assertPrune_ConstantIntersection =
         return input;
       };
       const prune = (input: ConstantIntersection): void => {};
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

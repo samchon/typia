@@ -66,7 +66,11 @@ export const test_random_DynamicUnion = _test_random(
       };
       return $ro0();
     })((DynamicUnion as any).RANDOM),
-  assert: (input: any): DynamicUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is DynamicUnion => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -100,7 +104,6 @@ export const test_random_DynamicUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const $ao0 = (
           input: any,

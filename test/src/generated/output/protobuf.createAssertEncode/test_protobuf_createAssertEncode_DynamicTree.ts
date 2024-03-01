@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_protobuf_createAssertEncode_DynamicTree =
-  _test_protobuf_assertEncode("DynamicTree")<DynamicTree>(DynamicTree)({
+  _test_protobuf_assertEncode(TypeGuardError)("DynamicTree")<DynamicTree>(
+    DynamicTree,
+  )({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): DynamicTree => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): DynamicTree => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is DynamicTree => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -30,7 +39,6 @@ export const test_protobuf_createAssertEncode_DynamicTree =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTree => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $join = (typia.protobuf.createAssertEncode as any).join;
             const $ao0 = (
               input: any,

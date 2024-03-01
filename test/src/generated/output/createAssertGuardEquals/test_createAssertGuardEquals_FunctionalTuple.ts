@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { FunctionalTuple } from "../../../structures/FunctionalTuple";
 
 export const test_createAssertGuardEquals_FunctionalTuple =
-  _test_assertGuardEquals("FunctionalTuple")<FunctionalTuple>(FunctionalTuple)(
-    (input: any): asserts input is FunctionalTuple => {
+  _test_assertGuardEquals(TypeGuardError)("FunctionalTuple")<FunctionalTuple>(
+    FunctionalTuple,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is FunctionalTuple => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -24,7 +31,6 @@ export const test_createAssertGuardEquals_FunctionalTuple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is FunctionalTuple => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

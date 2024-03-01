@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 
 export const test_misc_assertPrune_ObjectHttpConstant = _test_misc_assertPrune(
-  "ObjectHttpConstant",
-)<ObjectHttpConstant>(ObjectHttpConstant)((input) =>
-  ((input: any): ObjectHttpConstant => {
-    const assert = (input: any): ObjectHttpConstant => {
+  TypeGuardError,
+)("ObjectHttpConstant")<ObjectHttpConstant>(ObjectHttpConstant)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpConstant => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpConstant => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is ObjectHttpConstant => {
         const $io0 = (input: any): boolean =>
           false === input.boolean &&
@@ -26,7 +34,6 @@ export const test_misc_assertPrune_ObjectHttpConstant = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpConstant => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -100,7 +107,7 @@ export const test_misc_assertPrune_ObjectHttpConstant = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

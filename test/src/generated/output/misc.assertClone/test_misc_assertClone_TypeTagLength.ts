@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
 export const test_misc_assertClone_TypeTagLength = _test_misc_assertClone(
-  "TypeTagLength",
-)<TypeTagLength>(TypeTagLength)((input) =>
-  ((input: any): typia.Resolved<TypeTagLength> => {
-    const assert = (input: any): TypeTagLength => {
+  TypeGuardError,
+)("TypeTagLength")<TypeTagLength>(TypeTagLength)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<TypeTagLength> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagLength => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagLength => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -37,7 +45,6 @@ export const test_misc_assertClone_TypeTagLength = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagLength => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -210,7 +217,7 @@ export const test_misc_assertClone_TypeTagLength = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

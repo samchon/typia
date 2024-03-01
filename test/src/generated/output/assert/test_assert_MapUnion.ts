@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_assert_MapUnion = _test_assert("MapUnion")<MapUnion>(
-  MapUnion,
-)((input) =>
-  ((input: any): MapUnion => {
+export const test_assert_MapUnion = _test_assert(TypeGuardError)(
+  "MapUnion",
+)<MapUnion>(MapUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is MapUnion => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -132,7 +137,6 @@ export const test_assert_MapUnion = _test_assert("MapUnion")<MapUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapUnion => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

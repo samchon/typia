@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
 
 export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
-  _test_protobuf_assertEncode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
-    ObjectHttpTypeTag,
-  )({
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpTypeTag",
+  )<ObjectHttpTypeTag>(ObjectHttpTypeTag)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectHttpTypeTag => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpTypeTag => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpTypeTag => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int32 &&
@@ -44,7 +51,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpTypeTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpTypeTag => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

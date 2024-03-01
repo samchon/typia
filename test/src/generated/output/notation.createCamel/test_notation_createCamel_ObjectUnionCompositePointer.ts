@@ -857,7 +857,11 @@ export const test_notation_createValidateCamel_ObjectUnionCompositePointer =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectUnionCompositePointer> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectUnionCompositePointer> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectUnionCompositePointer> => {
@@ -1003,7 +1007,6 @@ export const test_notation_createValidateCamel_ObjectUnionCompositePointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectUnionCompositePointer> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

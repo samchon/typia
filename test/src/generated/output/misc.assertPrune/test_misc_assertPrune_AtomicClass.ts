@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
 export const test_misc_assertPrune_AtomicClass = _test_misc_assertPrune(
-  "AtomicClass",
-)<AtomicClass>(AtomicClass)((input) =>
-  ((input: any): AtomicClass => {
-    const assert = (input: any): AtomicClass => {
+  TypeGuardError,
+)("AtomicClass")<AtomicClass>(AtomicClass)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicClass => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): AtomicClass => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is AtomicClass => {
         return (
           Array.isArray(input) &&
@@ -41,7 +49,6 @@ export const test_misc_assertPrune_AtomicClass = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is AtomicClass => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -201,7 +208,7 @@ export const test_misc_assertPrune_AtomicClass = _test_misc_assertPrune(
       return input;
     };
     const prune = (input: AtomicClass): void => {};
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

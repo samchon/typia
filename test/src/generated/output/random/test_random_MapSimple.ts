@@ -67,7 +67,11 @@ export const test_random_MapSimple = _test_random("MapSimple")<MapSimple>(
       });
       return $ro0();
     })((MapSimple as any).RANDOM),
-  assert: (input: any): MapSimple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapSimple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is MapSimple => {
       const $io0 = (input: any): boolean =>
         input.boolean instanceof Map &&
@@ -140,7 +144,6 @@ export const test_random_MapSimple = _test_random("MapSimple")<MapSimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimple => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

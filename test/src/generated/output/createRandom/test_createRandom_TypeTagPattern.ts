@@ -62,7 +62,11 @@ export const test_createRandom_TypeTagPattern = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): TypeTagPattern => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagPattern => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagPattern => {
       return (
         "object" === typeof input &&
@@ -91,7 +95,6 @@ export const test_createRandom_TypeTagPattern = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagPattern => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

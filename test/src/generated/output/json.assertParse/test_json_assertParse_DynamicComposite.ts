@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_json_assertParse_DynamicComposite = _test_json_assertParse(
-  "DynamicComposite",
-)<DynamicComposite>(DynamicComposite)((input) =>
-  ((input: string): typia.Primitive<DynamicComposite> => {
-    const assert = (input: any): DynamicComposite => {
+  TypeGuardError,
+)("DynamicComposite")<DynamicComposite>(DynamicComposite)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<DynamicComposite> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicComposite => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is DynamicComposite => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -48,7 +56,6 @@ export const test_json_assertParse_DynamicComposite = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicComposite => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $join = (typia.json.assertParse as any).join;
           const $ao0 = (
             input: any,
@@ -156,6 +163,6 @@ export const test_json_assertParse_DynamicComposite = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

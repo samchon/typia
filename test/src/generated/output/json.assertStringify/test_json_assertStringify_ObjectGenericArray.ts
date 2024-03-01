@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_json_assertStringify_ObjectGenericArray =
-  _test_json_assertStringify("ObjectGenericArray")<ObjectGenericArray>(
-    ObjectGenericArray,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectGenericArray => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectGenericArray",
+  )<ObjectGenericArray>(ObjectGenericArray)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectGenericArray => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectGenericArray => {
           const $io0 = (input: any): boolean =>
             "object" === typeof input.pagination &&
@@ -38,7 +46,6 @@ export const test_json_assertStringify_ObjectGenericArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectGenericArray => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -187,6 +194,6 @@ export const test_json_assertStringify_ObjectGenericArray =
             .join(",")}]`}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicTag } from "../../../structures/DynamicTag";
 
-export const test_assert_DynamicTag = _test_assert("DynamicTag")<DynamicTag>(
-  DynamicTag,
-)((input) =>
-  ((input: any): DynamicTag => {
+export const test_assert_DynamicTag = _test_assert(TypeGuardError)(
+  "DynamicTag",
+)<DynamicTag>(DynamicTag)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicTag => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is DynamicTag => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -45,7 +50,6 @@ export const test_assert_DynamicTag = _test_assert("DynamicTag")<DynamicTag>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTag => {
-        const $guard = (typia.assert as any).guard;
         const $join = (typia.assert as any).join;
         const $ao0 = (
           input: any,

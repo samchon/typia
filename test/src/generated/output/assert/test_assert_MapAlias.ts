@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_assert_MapAlias = _test_assert("MapAlias")<MapAlias>(
-  MapAlias,
-)((input) =>
-  ((input: any): MapAlias => {
+export const test_assert_MapAlias = _test_assert(TypeGuardError)(
+  "MapAlias",
+)<MapAlias>(MapAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapAlias => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is MapAlias => {
       const $io0 = (input: any): boolean =>
         input.boolean instanceof Map &&
@@ -79,7 +84,6 @@ export const test_assert_MapAlias = _test_assert("MapAlias")<MapAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapAlias => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -40,7 +40,11 @@ export const test_random_ObjectHttpArray = _test_random(
       });
       return $ro0();
     })((ObjectHttpArray as any).RANDOM),
-  assert: (input: any): ObjectHttpArray => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpArray => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpArray => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.booleans) &&
@@ -66,7 +70,6 @@ export const test_random_ObjectHttpArray = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpArray => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

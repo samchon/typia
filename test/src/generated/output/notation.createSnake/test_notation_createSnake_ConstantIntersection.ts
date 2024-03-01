@@ -95,7 +95,11 @@ export const test_notation_createValidateSnake_ConstantIntersection =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<ConstantIntersection> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ConstantIntersection> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ConstantIntersection> => {
@@ -113,7 +117,6 @@ export const test_notation_createValidateSnake_ConstantIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ConstantIntersection> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

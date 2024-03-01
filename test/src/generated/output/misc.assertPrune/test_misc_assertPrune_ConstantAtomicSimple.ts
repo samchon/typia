@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_assertPrune_ConstantAtomicSimple =
-  _test_misc_assertPrune("ConstantAtomicSimple")<ConstantAtomicSimple>(
-    ConstantAtomicSimple,
-  )((input) =>
-    ((input: any): ConstantAtomicSimple => {
-      const assert = (input: any): ConstantAtomicSimple => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ConstantAtomicSimple",
+  )<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ConstantAtomicSimple => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicSimple => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicSimple => {
           return (
             Array.isArray(input) &&
@@ -25,7 +33,6 @@ export const test_misc_assertPrune_ConstantAtomicSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicSimple => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -73,7 +80,7 @@ export const test_misc_assertPrune_ConstantAtomicSimple =
         return input;
       };
       const prune = (input: ConstantAtomicSimple): void => {};
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

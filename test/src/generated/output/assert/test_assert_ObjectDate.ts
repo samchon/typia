@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectDate } from "../../../structures/ObjectDate";
 
-export const test_assert_ObjectDate = _test_assert("ObjectDate")<ObjectDate>(
-  ObjectDate,
-)((input) =>
-  ((input: any): ObjectDate => {
+export const test_assert_ObjectDate = _test_assert(TypeGuardError)(
+  "ObjectDate",
+)<ObjectDate>(ObjectDate)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectDate => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDate => {
       const $io0 = (input: any): boolean =>
         (null === input.classDate ||
@@ -36,7 +41,6 @@ export const test_assert_ObjectDate = _test_assert("ObjectDate")<ObjectDate>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDate => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,13 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TypeTagRangeBigInt } from "../../../structures/TypeTagRangeBigInt";
 
 export const test_assertGuardEquals_TypeTagRangeBigInt =
-  _test_assertGuardEquals("TypeTagRangeBigInt")<TypeTagRangeBigInt>(
-    TypeTagRangeBigInt,
-  )((input) =>
-    ((input: any): asserts input is TypeTagRangeBigInt => {
+  _test_assertGuardEquals(TypeGuardError)(
+    "TypeTagRangeBigInt",
+  )<TypeTagRangeBigInt>(TypeTagRangeBigInt)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is TypeTagRangeBigInt => {
+      const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -79,7 +84,6 @@ export const test_assertGuardEquals_TypeTagRangeBigInt =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagRangeBigInt => {
-          const $guard = (typia.assertGuardEquals as any).guard;
           const $join = (typia.assertGuardEquals as any).join;
           const $ao0 = (
             input: any,

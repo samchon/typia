@@ -59,7 +59,11 @@ export const test_random_SetSimple = _test_random("SetSimple")<SetSimple>(
       });
       return $ro0();
     })((SetSimple as any).RANDOM),
-  assert: (input: any): SetSimple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): SetSimple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is SetSimple => {
       const $io0 = (input: any): boolean =>
         input.booleans instanceof Set &&
@@ -106,7 +110,6 @@ export const test_random_SetSimple = _test_random("SetSimple")<SetSimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetSimple => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

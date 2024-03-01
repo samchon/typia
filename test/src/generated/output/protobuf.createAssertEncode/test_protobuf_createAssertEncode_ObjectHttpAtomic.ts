@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
 export const test_protobuf_createAssertEncode_ObjectHttpAtomic =
-  _test_protobuf_assertEncode("ObjectHttpAtomic")<ObjectHttpAtomic>(
-    ObjectHttpAtomic,
-  )({
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpAtomic",
+  )<ObjectHttpAtomic>(ObjectHttpAtomic)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectHttpAtomic => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpAtomic => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpAtomic => {
           return (
             "object" === typeof input &&
@@ -26,7 +33,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpAtomic => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

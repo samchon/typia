@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { FunctionalObjectUnion } from "../../../structures/FunctionalObjectUnion";
 
 export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
-  "FunctionalObjectUnion",
-)<FunctionalObjectUnion>(FunctionalObjectUnion)(
-  (input: any): FunctionalObjectUnion => {
+  TypeGuardError,
+)("FunctionalObjectUnion")<FunctionalObjectUnion>(FunctionalObjectUnion)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): FunctionalObjectUnion => {
+    const $guard = (typia.createAssertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -99,7 +104,6 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalObjectUnion => {
-        const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         const $ao0 = (
           input: any,

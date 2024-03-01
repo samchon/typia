@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
 export const test_protobuf_createAssertEncode_TypeTagRange =
-  _test_protobuf_assertEncode("TypeTagRange")<TypeTagRange>(TypeTagRange)({
+  _test_protobuf_assertEncode(TypeGuardError)("TypeTagRange")<TypeTagRange>(
+    TypeTagRange,
+  )({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): TypeTagRange => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TypeTagRange => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TypeTagRange => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -74,7 +83,6 @@ export const test_protobuf_createAssertEncode_TypeTagRange =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagRange => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

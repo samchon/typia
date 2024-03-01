@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
 export const test_json_assertStringify_TypeTagAtomicUnion =
-  _test_json_assertStringify("TypeTagAtomicUnion")<TypeTagAtomicUnion>(
-    TypeTagAtomicUnion,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): TypeTagAtomicUnion => {
+  _test_json_assertStringify(TypeGuardError)(
+    "TypeTagAtomicUnion",
+  )<TypeTagAtomicUnion>(TypeTagAtomicUnion)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TypeTagAtomicUnion => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is TypeTagAtomicUnion => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -31,7 +39,6 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagAtomicUnion => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -152,6 +159,6 @@ export const test_json_assertStringify_TypeTagAtomicUnion =
           })()}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

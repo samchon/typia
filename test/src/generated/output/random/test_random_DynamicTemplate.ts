@@ -66,7 +66,11 @@ export const test_random_DynamicTemplate = _test_random(
       };
       return $ro0();
     })((DynamicTemplate as any).RANDOM),
-  assert: (input: any): DynamicTemplate => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicTemplate => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is DynamicTemplate => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -103,7 +107,6 @@ export const test_random_DynamicTemplate = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTemplate => {
-        const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const $ao0 = (
           input: any,

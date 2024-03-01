@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_misc_createAssertClone_TupleRestObject =
-  _test_misc_assertClone("TupleRestObject")<TupleRestObject>(TupleRestObject)(
-    (input: any): typia.Resolved<TupleRestObject> => {
-      const assert = (input: any): TupleRestObject => {
+  _test_misc_assertClone(TypeGuardError)("TupleRestObject")<TupleRestObject>(
+    TupleRestObject,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<TupleRestObject> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TupleRestObject => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TupleRestObject => {
           const $io0 = (input: any): boolean => "string" === typeof input.value;
           return (
@@ -29,7 +41,6 @@ export const test_misc_createAssertClone_TupleRestObject =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestObject => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -127,7 +138,7 @@ export const test_misc_createAssertClone_TupleRestObject =
             ] as any)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

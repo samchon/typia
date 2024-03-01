@@ -108,7 +108,11 @@ export const test_random_NativeSimple = _test_random(
       });
       return $ro0();
     })((NativeSimple as any).RANDOM),
-  assert: (input: any): NativeSimple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): NativeSimple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is NativeSimple => {
       const $io0 = (input: any): boolean =>
         input.date instanceof Date &&
@@ -134,7 +138,6 @@ export const test_random_NativeSimple = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeSimple => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

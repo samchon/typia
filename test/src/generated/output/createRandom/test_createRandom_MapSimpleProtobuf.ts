@@ -116,7 +116,11 @@ export const test_createRandom_MapSimpleProtobuf = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): MapSimpleProtobuf => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapSimpleProtobuf => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is MapSimpleProtobuf => {
       const $io0 = (input: any): boolean =>
         input.boolean instanceof Map &&
@@ -197,7 +201,6 @@ export const test_createRandom_MapSimpleProtobuf = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapSimpleProtobuf => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

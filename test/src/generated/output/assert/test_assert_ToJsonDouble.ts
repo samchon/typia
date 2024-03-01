@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_assert_ToJsonDouble = _test_assert(
+export const test_assert_ToJsonDouble = _test_assert(TypeGuardError)(
   "ToJsonDouble",
 )<ToJsonDouble>(ToJsonDouble)((input) =>
-  ((input: any): ToJsonDouble => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ToJsonDouble => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ToJsonDouble => {
       return "object" === typeof input && null !== input && true;
     };
@@ -16,7 +21,6 @@ export const test_assert_ToJsonDouble = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonDouble => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

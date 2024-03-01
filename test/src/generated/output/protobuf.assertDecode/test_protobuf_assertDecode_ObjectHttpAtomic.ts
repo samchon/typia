@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
-export const test_protobuf_createAssertDecode_ObjectHttpAtomic =
-  _test_protobuf_assertDecode("ObjectHttpAtomic")<ObjectHttpAtomic>(
-    ObjectHttpAtomic,
-  )({
+export const test_protobuf_assertDecode_ObjectHttpAtomic =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectHttpAtomic",
+  )<ObjectHttpAtomic>(ObjectHttpAtomic)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectHttpAtomic> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<ObjectHttpAtomic> => {
@@ -50,7 +54,13 @@ export const test_protobuf_createAssertDecode_ObjectHttpAtomic =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectHttpAtomic => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectHttpAtomic => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectHttpAtomic => {
             return (
               "object" === typeof input &&
@@ -68,7 +78,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpAtomic =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectHttpAtomic => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -117,7 +126,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpAtomic =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectHttpAtomic): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

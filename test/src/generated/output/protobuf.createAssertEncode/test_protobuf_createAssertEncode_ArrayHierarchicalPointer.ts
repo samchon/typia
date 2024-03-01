@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_protobuf_createAssertEncode_ArrayHierarchicalPointer =
-  _test_protobuf_assertEncode(
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ArrayHierarchicalPointer",
   )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ArrayHierarchicalPointer => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayHierarchicalPointer => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ArrayHierarchicalPointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -72,7 +79,6 @@ export const test_protobuf_createAssertEncode_ArrayHierarchicalPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayHierarchicalPointer => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

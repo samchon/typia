@@ -439,7 +439,11 @@ export const test_notation_createValidateSnake_SetUnion =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<SetUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<SetUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<SetUnion> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -523,7 +527,6 @@ export const test_notation_createValidateSnake_SetUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<SetUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

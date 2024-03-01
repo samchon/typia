@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
 export const test_json_assertParse_ObjectUnionImplicit = _test_json_assertParse(
-  "ObjectUnionImplicit",
-)<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
-  ((input: string): typia.Primitive<ObjectUnionImplicit> => {
-    const assert = (input: any): ObjectUnionImplicit => {
+  TypeGuardError,
+)("ObjectUnionImplicit")<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ObjectUnionImplicit> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectUnionImplicit => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ObjectUnionImplicit => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.x &&
@@ -137,7 +145,6 @@ export const test_json_assertParse_ObjectUnionImplicit = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectUnionImplicit => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -553,6 +560,6 @@ export const test_json_assertParse_ObjectUnionImplicit = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

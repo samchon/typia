@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_misc_assertClone_ConstantAtomicWrapper =
-  _test_misc_assertClone("ConstantAtomicWrapper")<ConstantAtomicWrapper>(
-    ConstantAtomicWrapper,
-  )((input) =>
-    ((input: any): typia.Resolved<ConstantAtomicWrapper> => {
-      const assert = (input: any): ConstantAtomicWrapper => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ConstantAtomicWrapper",
+  )<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ConstantAtomicWrapper> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicWrapper => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicWrapper => {
           const $io0 = (input: any): boolean =>
             "boolean" === typeof input.value;
@@ -35,7 +43,6 @@ export const test_misc_assertClone_ConstantAtomicWrapper =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicWrapper => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -168,7 +175,7 @@ export const test_misc_assertClone_ConstantAtomicWrapper =
             ] as any)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

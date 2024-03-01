@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertQuery } from "../../../internal/_test_http_assertQuery";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
 export const test_http_assertQuery_ObjectHttpArray = _test_http_assertQuery(
-  "ObjectHttpArray",
-)<ObjectHttpArray>(ObjectHttpArray)((input) =>
-  ((input: string | URLSearchParams): typia.Resolved<ObjectHttpArray> => {
+  TypeGuardError,
+)("ObjectHttpArray")<ObjectHttpArray>(ObjectHttpArray)((input) =>
+  ((
+    input: string | URLSearchParams,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ObjectHttpArray> => {
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpArray> => {
@@ -25,7 +29,11 @@ export const test_http_assertQuery_ObjectHttpArray = _test_http_assertQuery(
       };
       return output as any;
     };
-    const assert = (input: any): ObjectHttpArray => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpArray => {
+      const $guard = (typia.http.assertQuery as any).guard(errorFactory);
       const __is = (input: any): input is ObjectHttpArray => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.booleans) &&
@@ -51,7 +59,6 @@ export const test_http_assertQuery_ObjectHttpArray = _test_http_assertQuery(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpArray => {
-          const $guard = (typia.http.assertQuery as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -176,6 +183,6 @@ export const test_http_assertQuery_ObjectHttpArray = _test_http_assertQuery(
       return input;
     };
     const output = decode(input);
-    return assert(output) as any;
+    return assert(output, errorFactory) as any;
   })(input),
 );

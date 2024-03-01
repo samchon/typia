@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_assert_ObjectInternal = _test_assert(
+export const test_assert_ObjectInternal = _test_assert(TypeGuardError)(
   "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)((input) =>
-  ((input: any): ObjectInternal => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectInternal => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectInternal => {
       return (
         "object" === typeof input &&
@@ -21,7 +26,6 @@ export const test_assert_ObjectInternal = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectInternal => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

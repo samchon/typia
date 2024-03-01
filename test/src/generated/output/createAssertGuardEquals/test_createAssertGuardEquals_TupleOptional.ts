@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
 export const test_createAssertGuardEquals_TupleOptional =
-  _test_assertGuardEquals("TupleOptional")<TupleOptional>(TupleOptional)(
-    (input: any): asserts input is TupleOptional => {
+  _test_assertGuardEquals(TypeGuardError)("TupleOptional")<TupleOptional>(
+    TupleOptional,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is TupleOptional => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -36,7 +43,6 @@ export const test_createAssertGuardEquals_TupleOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleOptional => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertHeaders } from "../../../internal/_test_http_assertHeaders";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 
 export const test_http_assertHeaders_ObjectHttpConstant =
-  _test_http_assertHeaders("ObjectHttpConstant")<ObjectHttpConstant>(
-    ObjectHttpConstant,
-  )((input) =>
+  _test_http_assertHeaders(TypeGuardError)(
+    "ObjectHttpConstant",
+  )<ObjectHttpConstant>(ObjectHttpConstant)((input) =>
     ((
       input: Record<string, string | string[] | undefined>,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpConstant> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
@@ -25,7 +27,11 @@ export const test_http_assertHeaders_ObjectHttpConstant =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpConstant => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpConstant => {
+        const $guard = (typia.http.assertHeaders as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHttpConstant => {
           const $io0 = (input: any): boolean =>
             false === input.boolean &&
@@ -44,7 +50,6 @@ export const test_http_assertHeaders_ObjectHttpConstant =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpConstant => {
-            const $guard = (typia.http.assertHeaders as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -103,6 +108,6 @@ export const test_http_assertHeaders_ObjectHttpConstant =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     })(input),
   );

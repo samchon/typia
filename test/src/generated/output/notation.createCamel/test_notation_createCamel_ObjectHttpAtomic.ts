@@ -104,7 +104,11 @@ export const test_notation_createValidateCamel_ObjectHttpAtomic =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectHttpAtomic> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectHttpAtomic> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<ObjectHttpAtomic> => {
         return (
           "object" === typeof input &&
@@ -122,7 +126,6 @@ export const test_notation_createValidateCamel_ObjectHttpAtomic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectHttpAtomic> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

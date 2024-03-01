@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_protobuf_createAssertEncode_TypeTagInfinite =
-  _test_protobuf_assertEncode("TypeTagInfinite")<TypeTagInfinite>(
-    TypeTagInfinite,
-  )({
+export const test_protobuf_assertEncode_TypeTagInfinite =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "TypeTagInfinite",
+  )<TypeTagInfinite>(TypeTagInfinite)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): TypeTagInfinite => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): TypeTagInfinite => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is TypeTagInfinite => {
             return (
               "object" === typeof input &&
@@ -39,7 +46,6 @@ export const test_protobuf_createAssertEncode_TypeTagInfinite =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagInfinite => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

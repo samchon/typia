@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_createAssertEquals_ConstantAtomicSimple = _test_assertEquals(
-  "ConstantAtomicSimple",
-)<ConstantAtomicSimple>(ConstantAtomicSimple)(
-  (input: any): ConstantAtomicSimple => {
+  TypeGuardError,
+)("ConstantAtomicSimple")<ConstantAtomicSimple>(ConstantAtomicSimple)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantAtomicSimple => {
+    const $guard = (typia.createAssertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -26,7 +31,6 @@ export const test_createAssertEquals_ConstantAtomicSimple = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantAtomicSimple => {
-        const $guard = (typia.createAssertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

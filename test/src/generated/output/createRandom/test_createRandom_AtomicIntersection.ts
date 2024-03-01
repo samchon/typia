@@ -19,7 +19,11 @@ export const test_createRandom_AtomicIntersection = _test_random(
         (generator?.string ?? $generator.string)(),
     ];
   },
-  assert: (input: any): AtomicIntersection => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicIntersection => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is AtomicIntersection => {
       return (
         Array.isArray(input) &&
@@ -36,7 +40,6 @@ export const test_createRandom_AtomicIntersection = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicIntersection => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

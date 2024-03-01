@@ -90,7 +90,11 @@ export const test_random_DynamicComposite = _test_random(
       };
       return $ro0();
     })((DynamicComposite as any).RANDOM),
-  assert: (input: any): DynamicComposite => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): DynamicComposite => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is DynamicComposite => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -131,7 +135,6 @@ export const test_random_DynamicComposite = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicComposite => {
-        const $guard = (typia.createAssert as any).guard;
         const $join = (typia.createAssert as any).join;
         const $ao0 = (
           input: any,

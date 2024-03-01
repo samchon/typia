@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_assert_ToJsonTuple = _test_assert("ToJsonTuple")<ToJsonTuple>(
-  ToJsonTuple,
-)((input) =>
-  ((input: any): ToJsonTuple => {
+export const test_assert_ToJsonTuple = _test_assert(TypeGuardError)(
+  "ToJsonTuple",
+)<ToJsonTuple>(ToJsonTuple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ToJsonTuple => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ToJsonTuple => {
       const $io0 = (input: any): boolean => "function" === typeof input.toJSON;
       const $io1 = (input: any): boolean => "function" === typeof input.toJSON;
@@ -35,7 +40,6 @@ export const test_assert_ToJsonTuple = _test_assert("ToJsonTuple")<ToJsonTuple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonTuple => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

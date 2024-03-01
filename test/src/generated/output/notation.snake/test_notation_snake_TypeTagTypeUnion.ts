@@ -331,7 +331,11 @@ export const test_notation_validateSnake_TypeTagTypeUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<TypeTagTypeUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<TypeTagTypeUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<TypeTagTypeUnion> => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.int32_or_uint32 &&
@@ -412,7 +416,6 @@ export const test_notation_validateSnake_TypeTagTypeUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<TypeTagTypeUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

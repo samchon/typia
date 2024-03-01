@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_json_assertStringify_ConstantIntersection =
-  _test_json_assertStringify("ConstantIntersection")<ConstantIntersection>(
-    ConstantIntersection,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ConstantIntersection => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ConstantIntersection",
+  )<ConstantIntersection>(ConstantIntersection)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantIntersection => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ConstantIntersection => {
           return (
             Array.isArray(input) &&
@@ -24,7 +32,6 @@ export const test_json_assertStringify_ConstantIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantIntersection => {
-            const $guard = (typia.json.assertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -78,6 +85,6 @@ export const test_json_assertStringify_ConstantIntersection =
           });
         })()}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
 export const test_json_assertParse_ArrayAny = _test_json_assertParse(
-  "ArrayAny",
-)<ArrayAny>(ArrayAny)((input) =>
-  ((input: string): typia.Primitive<ArrayAny> => {
-    const assert = (input: any): ArrayAny => {
+  TypeGuardError,
+)("ArrayAny")<ArrayAny>(ArrayAny)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArrayAny> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayAny => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArrayAny => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.anys) &&
@@ -35,7 +43,6 @@ export const test_json_assertParse_ArrayAny = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAny => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -123,6 +130,6 @@ export const test_json_assertParse_ArrayAny = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

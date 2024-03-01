@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
-  "UltimateUnion",
-)<UltimateUnion>(UltimateUnion)((input) =>
-  ((input: string): typia.Primitive<UltimateUnion> => {
-    const assert = (input: any): UltimateUnion => {
+  TypeGuardError,
+)("UltimateUnion")<UltimateUnion>(UltimateUnion)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<UltimateUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): UltimateUnion => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is UltimateUnion => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.schemas) &&
@@ -1119,7 +1127,6 @@ export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is UltimateUnion => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $join = (typia.json.assertParse as any).join;
           const $ao0 = (
             input: any,
@@ -5608,6 +5615,6 @@ export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

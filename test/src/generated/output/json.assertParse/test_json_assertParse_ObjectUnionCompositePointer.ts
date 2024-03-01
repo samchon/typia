@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_json_assertParse_ObjectUnionCompositePointer =
-  _test_json_assertParse(
+  _test_json_assertParse(TypeGuardError)(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
-    ((input: string): typia.Primitive<ObjectUnionCompositePointer> => {
-      const assert = (input: any): ObjectUnionCompositePointer => {
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ObjectUnionCompositePointer> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionCompositePointer => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionCompositePointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -152,7 +160,6 @@ export const test_json_assertParse_ObjectUnionCompositePointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionCompositePointer => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -568,6 +575,6 @@ export const test_json_assertParse_ObjectUnionCompositePointer =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

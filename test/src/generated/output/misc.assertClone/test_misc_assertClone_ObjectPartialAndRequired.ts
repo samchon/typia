@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
 export const test_misc_assertClone_ObjectPartialAndRequired =
-  _test_misc_assertClone("ObjectPartialAndRequired")<ObjectPartialAndRequired>(
-    ObjectPartialAndRequired,
-  )((input) =>
-    ((input: any): typia.Resolved<ObjectPartialAndRequired> => {
-      const assert = (input: any): ObjectPartialAndRequired => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ObjectPartialAndRequired",
+  )<ObjectPartialAndRequired>(ObjectPartialAndRequired)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectPartialAndRequired> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectPartialAndRequired => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ObjectPartialAndRequired => {
           const $io0 = (input: any): boolean =>
             (undefined === input.string || "string" === typeof input.string) &&
@@ -33,7 +41,6 @@ export const test_misc_assertClone_ObjectPartialAndRequired =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPartialAndRequired => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -145,7 +152,7 @@ export const test_misc_assertClone_ObjectPartialAndRequired =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

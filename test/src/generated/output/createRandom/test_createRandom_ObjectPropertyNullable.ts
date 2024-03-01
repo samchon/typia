@@ -75,7 +75,11 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
       (generator?.array ?? $generator.array)(() => $ro3()),
     ];
   },
-  assert: (input: any): ObjectPropertyNullable => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectPropertyNullable => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectPropertyNullable => {
       const $io0 = (input: any): boolean =>
         null === input.value || "boolean" === typeof input.value;
@@ -130,7 +134,6 @@ export const test_createRandom_ObjectPropertyNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPropertyNullable => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

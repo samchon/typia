@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_json_assertParse_ClassPropertyAssignment =
-  _test_json_assertParse("ClassPropertyAssignment")<ClassPropertyAssignment>(
-    ClassPropertyAssignment,
-  )((input) =>
-    ((input: string): typia.Primitive<ClassPropertyAssignment> => {
-      const assert = (input: any): ClassPropertyAssignment => {
+  _test_json_assertParse(TypeGuardError)(
+    "ClassPropertyAssignment",
+  )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ClassPropertyAssignment> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ClassPropertyAssignment => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is ClassPropertyAssignment => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -25,7 +33,6 @@ export const test_json_assertParse_ClassPropertyAssignment =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassPropertyAssignment => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -79,6 +86,6 @@ export const test_json_assertParse_ClassPropertyAssignment =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

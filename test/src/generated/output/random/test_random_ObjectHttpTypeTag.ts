@@ -74,7 +74,11 @@ export const test_random_ObjectHttpTypeTag = _test_random(
       });
       return $ro0();
     })((ObjectHttpTypeTag as any).RANDOM),
-  assert: (input: any): ObjectHttpTypeTag => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpTypeTag => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpTypeTag => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int32 &&
@@ -108,7 +112,6 @@ export const test_random_ObjectHttpTypeTag = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpTypeTag => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

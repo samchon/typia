@@ -90,7 +90,11 @@ export const test_random_ObjectUnionExplicitPointer = _test_random(
       });
       return $ro0();
     })((ObjectUnionExplicitPointer as any).RANDOM),
-  assert: (input: any): ObjectUnionExplicitPointer => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionExplicitPointer => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionExplicitPointer => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -225,7 +229,6 @@ export const test_random_ObjectUnionExplicitPointer = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionExplicitPointer => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

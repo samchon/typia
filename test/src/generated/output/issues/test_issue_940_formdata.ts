@@ -29,7 +29,11 @@ export const test_issue_940_formdata = () => {
     purpose: "swagger",
     surplus: false,
   };
-  ((input: any): Expected => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): Expected => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is Expected => {
       const $io0 = (input: any): boolean =>
         "string" === input.type && "binary" === input.format;
@@ -41,7 +45,6 @@ export const test_issue_940_formdata = () => {
         _path: string,
         _exceptionable: boolean = true,
       ): input is Expected => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
@@ -76,7 +79,11 @@ export const test_issue_940_formdata = () => {
       })(input, "$input", true);
     return input;
   })(x.schemas[0]);
-  ((input: any): Expected => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): Expected => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is Expected => {
       const $io0 = (input: any): boolean =>
         "string" === input.type && "binary" === input.format;
@@ -88,7 +95,6 @@ export const test_issue_940_formdata = () => {
         _path: string,
         _exceptionable: boolean = true,
       ): input is Expected => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

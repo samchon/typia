@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
 
-export const test_assert_ObjectHttpTypeTag = _test_assert(
+export const test_assert_ObjectHttpTypeTag = _test_assert(TypeGuardError)(
   "ObjectHttpTypeTag",
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)((input) =>
-  ((input: any): ObjectHttpTypeTag => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpTypeTag => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpTypeTag => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int32 &&
@@ -40,7 +45,6 @@ export const test_assert_ObjectHttpTypeTag = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpTypeTag => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

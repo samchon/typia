@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
-  _test_protobuf_assertDecode("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<ConstantAtomicTagged> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ConstantAtomicTagged",
+  )<ConstantAtomicTagged>(ConstantAtomicTagged)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ConstantAtomicTagged> => {
       const decode = (
         input: Uint8Array,
       ): typia.Resolved<ConstantAtomicTagged> => {
@@ -43,7 +47,13 @@ export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ConstantAtomicTagged => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicTagged => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ConstantAtomicTagged => {
           const $io0 = (input: any): boolean =>
             ("latest" === input.id ||
@@ -65,7 +75,6 @@ export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicTagged => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -125,7 +134,7 @@ export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ConstantAtomicTagged): Uint8Array => {
       const $throws = (typia.protobuf.createEncode as any).throws;

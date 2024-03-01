@@ -85,7 +85,11 @@ export const test_notation_createValidateCamel_ConstantConstEnumeration =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ConstantConstEnumeration> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ConstantConstEnumeration> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ConstantConstEnumeration> => {
@@ -107,7 +111,6 @@ export const test_notation_createValidateCamel_ConstantConstEnumeration =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ConstantConstEnumeration> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

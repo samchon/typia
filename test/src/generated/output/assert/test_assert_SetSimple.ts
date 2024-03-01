@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { SetSimple } from "../../../structures/SetSimple";
 
-export const test_assert_SetSimple = _test_assert("SetSimple")<SetSimple>(
-  SetSimple,
-)((input) =>
-  ((input: any): SetSimple => {
+export const test_assert_SetSimple = _test_assert(TypeGuardError)(
+  "SetSimple",
+)<SetSimple>(SetSimple)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): SetSimple => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is SetSimple => {
       const $io0 = (input: any): boolean =>
         input.booleans instanceof Set &&
@@ -53,7 +58,6 @@ export const test_assert_SetSimple = _test_assert("SetSimple")<SetSimple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetSimple => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

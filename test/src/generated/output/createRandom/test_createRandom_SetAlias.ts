@@ -58,7 +58,11 @@ export const test_createRandom_SetAlias = _test_random("SetAlias")<SetAlias>(
     });
     return $ro0();
   },
-  assert: (input: any): SetAlias => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): SetAlias => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is SetAlias => {
       const $io0 = (input: any): boolean =>
         input.booleans instanceof Set &&
@@ -105,7 +109,6 @@ export const test_createRandom_SetAlias = _test_random("SetAlias")<SetAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetAlias => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

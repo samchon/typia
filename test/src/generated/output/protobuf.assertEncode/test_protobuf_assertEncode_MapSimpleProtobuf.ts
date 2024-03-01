@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
 
-export const test_protobuf_createAssertEncode_MapSimpleProtobuf =
-  _test_protobuf_assertEncode("MapSimpleProtobuf")<MapSimpleProtobuf>(
-    MapSimpleProtobuf,
-  )({
+export const test_protobuf_assertEncode_MapSimpleProtobuf =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "MapSimpleProtobuf",
+  )<MapSimpleProtobuf>(MapSimpleProtobuf)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): MapSimpleProtobuf => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): MapSimpleProtobuf => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is MapSimpleProtobuf => {
             const $io0 = (input: any): boolean =>
               input.boolean instanceof Map &&
@@ -90,7 +97,6 @@ export const test_protobuf_createAssertEncode_MapSimpleProtobuf =
               _path: string,
               _exceptionable: boolean = true,
             ): input is MapSimpleProtobuf => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

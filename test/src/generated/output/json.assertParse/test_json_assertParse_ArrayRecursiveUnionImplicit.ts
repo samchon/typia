@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_json_assertParse_ArrayRecursiveUnionImplicit =
-  _test_json_assertParse(
+  _test_json_assertParse(TypeGuardError)(
     "ArrayRecursiveUnionImplicit",
   )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)((input) =>
-    ((input: string): typia.Primitive<ArrayRecursiveUnionImplicit> => {
-      const assert = (input: any): ArrayRecursiveUnionImplicit => {
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRecursiveUnionImplicit => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is ArrayRecursiveUnionImplicit => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -91,7 +99,6 @@ export const test_json_assertParse_ArrayRecursiveUnionImplicit =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionImplicit => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -425,6 +432,6 @@ export const test_json_assertParse_ArrayRecursiveUnionImplicit =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

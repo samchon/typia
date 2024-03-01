@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
 export const test_assertEquals_TupleRestAtomic = _test_assertEquals(
-  "TupleRestAtomic",
-)<TupleRestAtomic>(TupleRestAtomic)((input) =>
-  ((input: any): TupleRestAtomic => {
+  TypeGuardError,
+)("TupleRestAtomic")<TupleRestAtomic>(TupleRestAtomic)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestAtomic => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -28,7 +33,6 @@ export const test_assertEquals_TupleRestAtomic = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleRestAtomic => {
-        const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

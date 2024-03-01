@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_assert_SetUnion = _test_assert("SetUnion")<SetUnion>(
-  SetUnion,
-)((input) =>
-  ((input: any): SetUnion => {
+export const test_assert_SetUnion = _test_assert(TypeGuardError)(
+  "SetUnion",
+)<SetUnion>(SetUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): SetUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is SetUnion => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -88,7 +93,6 @@ export const test_assert_SetUnion = _test_assert("SetUnion")<SetUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetUnion => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

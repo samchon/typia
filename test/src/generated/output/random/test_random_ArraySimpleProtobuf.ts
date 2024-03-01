@@ -152,7 +152,11 @@ export const test_random_ArraySimpleProtobuf = _test_random(
       });
       return $ro0();
     })((ArraySimpleProtobuf as any).RANDOM),
-  assert: (input: any): ArraySimpleProtobuf => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArraySimpleProtobuf => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArraySimpleProtobuf => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.boolean) &&
@@ -208,7 +212,6 @@ export const test_random_ArraySimpleProtobuf = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimpleProtobuf => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

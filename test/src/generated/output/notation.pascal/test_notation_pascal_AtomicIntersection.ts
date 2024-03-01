@@ -98,7 +98,11 @@ export const test_notation_validatePascal_AtomicIntersection =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<AtomicIntersection> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<AtomicIntersection> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.PascalCase<AtomicIntersection> => {
@@ -117,7 +121,6 @@ export const test_notation_validatePascal_AtomicIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<AtomicIntersection> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

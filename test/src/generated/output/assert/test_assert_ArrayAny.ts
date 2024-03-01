@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_assert_ArrayAny = _test_assert("ArrayAny")<ArrayAny>(
-  ArrayAny,
-)((input) =>
-  ((input: any): ArrayAny => {
+export const test_assert_ArrayAny = _test_assert(TypeGuardError)(
+  "ArrayAny",
+)<ArrayAny>(ArrayAny)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayAny => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayAny => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.anys) &&
@@ -34,7 +39,6 @@ export const test_assert_ArrayAny = _test_assert("ArrayAny")<ArrayAny>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayAny => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

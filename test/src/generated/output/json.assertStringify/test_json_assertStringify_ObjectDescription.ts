@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
 export const test_json_assertStringify_ObjectDescription =
-  _test_json_assertStringify("ObjectDescription")<ObjectDescription>(
-    ObjectDescription,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectDescription => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectDescription",
+  )<ObjectDescription>(ObjectDescription)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectDescription => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectDescription => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -29,7 +37,6 @@ export const test_json_assertStringify_ObjectDescription =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectDescription => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -118,6 +125,6 @@ export const test_json_assertStringify_ObjectDescription =
             .join(",")}]`},"newLine":${$number(input.newLine)}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { CommentTagRange } from "../../../structures/CommentTagRange";
 
 export const test_misc_createAssertPrune_CommentTagRange =
-  _test_misc_assertPrune("CommentTagRange")<CommentTagRange>(CommentTagRange)(
-    (input: any): CommentTagRange => {
-      const assert = (input: any): CommentTagRange => {
+  _test_misc_assertPrune(TypeGuardError)("CommentTagRange")<CommentTagRange>(
+    CommentTagRange,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): CommentTagRange => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagRange => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagRange => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -74,7 +86,6 @@ export const test_misc_createAssertPrune_CommentTagRange =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagRange => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -433,7 +444,7 @@ export const test_misc_createAssertPrune_CommentTagRange =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

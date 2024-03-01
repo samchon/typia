@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
 export const test_assertGuard_ClassNonPublic = _test_assertGuard(
-  "ClassNonPublic",
-)<ClassNonPublic>(ClassNonPublic)((input) =>
-  ((input: any): asserts input is ClassNonPublic => {
+  TypeGuardError,
+)("ClassNonPublic")<ClassNonPublic>(ClassNonPublic)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ClassNonPublic => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ClassNonPublic => {
       return (
         "object" === typeof input &&
@@ -21,7 +26,6 @@ export const test_assertGuard_ClassNonPublic = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassNonPublic => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

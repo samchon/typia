@@ -19,7 +19,11 @@ export const test_createRandom_TupleRestAtomic = _test_random(
         (generator?.string ?? $generator.string)(),
     ];
   },
-  assert: (input: any): TupleRestAtomic => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestAtomic => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TupleRestAtomic => {
       return (
         Array.isArray(input) &&
@@ -36,7 +40,6 @@ export const test_createRandom_TupleRestAtomic = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleRestAtomic => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

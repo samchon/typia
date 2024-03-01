@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
-export const test_assert_ObjectHttpAtomic = _test_assert(
+export const test_assert_ObjectHttpAtomic = _test_assert(TypeGuardError)(
   "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
-  ((input: any): ObjectHttpAtomic => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpAtomic => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpAtomic => {
       return (
         "object" === typeof input &&
@@ -24,7 +29,6 @@ export const test_assert_ObjectHttpAtomic = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpAtomic => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

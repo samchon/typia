@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
 export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
-  "ObjectAlias",
-)<ObjectAlias>(ObjectAlias)((input) =>
-  ((input: any): ObjectAlias => {
-    const assert = (input: any): ObjectAlias => {
+  TypeGuardError,
+)("ObjectAlias")<ObjectAlias>(ObjectAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectAlias => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectAlias => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is ObjectAlias => {
         const $io0 = (input: any): boolean =>
           (null === input.id || "string" === typeof input.id) &&
@@ -35,7 +43,6 @@ export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectAlias => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -136,7 +143,7 @@ export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
       };
       if (Array.isArray(input)) $pp0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

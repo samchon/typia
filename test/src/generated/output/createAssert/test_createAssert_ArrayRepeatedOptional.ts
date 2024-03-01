@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional";
 
 export const test_createAssert_ArrayRepeatedOptional = _test_assert(
-  "ArrayRepeatedOptional",
-)<ArrayRepeatedOptional>(ArrayRepeatedOptional)(
-  (input: any): ArrayRepeatedOptional => {
+  TypeGuardError,
+)("ArrayRepeatedOptional")<ArrayRepeatedOptional>(ArrayRepeatedOptional)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayRepeatedOptional => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedOptional => {
       const $ia0 = (input: any): any =>
         input.every(
@@ -31,7 +36,6 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedOptional => {
-        const $guard = (typia.createAssert as any).guard;
         const $aa0 = (
           input: any,
           _path: string,

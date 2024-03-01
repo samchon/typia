@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_assertEquals_ArrayHierarchicalPointer = _test_assertEquals(
-  "ArrayHierarchicalPointer",
-)<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
-  ((input: any): ArrayHierarchicalPointer => {
+  TypeGuardError,
+)("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
+  ArrayHierarchicalPointer,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayHierarchicalPointer => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -125,7 +132,6 @@ export const test_assertEquals_ArrayHierarchicalPointer = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayHierarchicalPointer => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

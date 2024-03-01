@@ -222,7 +222,11 @@ export const test_notation_createValidateSnake_ArrayUnion =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<ArrayUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ArrayUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<ArrayUnion> => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -270,7 +274,6 @@ export const test_notation_createValidateSnake_ArrayUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ap0 = (
             input: any,
             _path: string,

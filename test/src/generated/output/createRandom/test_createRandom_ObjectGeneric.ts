@@ -57,7 +57,11 @@ export const test_createRandom_ObjectGeneric = _test_random(
     });
     return [$ro0(), $ro2(), $ro4()];
   },
-  assert: (input: any): ObjectGeneric => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGeneric => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectGeneric => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.value &&
@@ -126,7 +130,6 @@ export const test_createRandom_ObjectGeneric = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGeneric => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

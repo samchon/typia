@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
 
 export const test_json_createAssertStringify_TypeTagArray =
-  _test_json_assertStringify("TypeTagArray")<TypeTagArray>(TypeTagArray)(
-    (input: any): string => {
-      const assert = (input: any): TypeTagArray => {
+  _test_json_assertStringify(TypeGuardError)("TypeTagArray")<TypeTagArray>(
+    TypeTagArray,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TypeTagArray => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TypeTagArray => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -56,7 +68,6 @@ export const test_json_createAssertStringify_TypeTagArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagArray => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -333,6 +344,6 @@ export const test_json_createAssertStringify_TypeTagArray =
             .join(",")}]`}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

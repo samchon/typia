@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_assertGuard_DynamicUnion = _test_assertGuard(
+export const test_assertGuard_DynamicUnion = _test_assertGuard(TypeGuardError)(
   "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input) =>
-  ((input: any): asserts input is DynamicUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is DynamicUnion => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is DynamicUnion => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -40,7 +45,6 @@ export const test_assertGuard_DynamicUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicUnion => {
-        const $guard = (typia.assertGuard as any).guard;
         const $join = (typia.assertGuard as any).join;
         const $ao0 = (
           input: any,

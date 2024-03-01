@@ -66,7 +66,11 @@ export const test_random_ArrayHierarchical = _test_random(
       });
       return (generator?.array ?? $generator.array)(() => $ro0());
     })((ArrayHierarchical as any).RANDOM),
-  assert: (input: any): ArrayHierarchical => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayHierarchical => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayHierarchical => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -130,7 +134,6 @@ export const test_random_ArrayHierarchical = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayHierarchical => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

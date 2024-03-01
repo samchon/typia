@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectSimpleProtobufOptional } from "../../../structures/ObjectSimpleProtobufOptional";
 
 export const test_assert_ObjectSimpleProtobufOptional = _test_assert(
-  "ObjectSimpleProtobufOptional",
-)<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)((input) =>
-  ((input: any): ObjectSimpleProtobufOptional => {
+  TypeGuardError,
+)("ObjectSimpleProtobufOptional")<ObjectSimpleProtobufOptional>(
+  ObjectSimpleProtobufOptional,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectSimpleProtobufOptional => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectSimpleProtobufOptional => {
       const $io0 = (input: any): boolean =>
         (undefined === input.bool || "boolean" === typeof input.bool) &&
@@ -46,7 +53,6 @@ export const test_assert_ObjectSimpleProtobufOptional = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimpleProtobufOptional => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
 export const test_assertEquals_ObjectHttpArray = _test_assertEquals(
-  "ObjectHttpArray",
-)<ObjectHttpArray>(ObjectHttpArray)((input) =>
-  ((input: any): ObjectHttpArray => {
+  TypeGuardError,
+)("ObjectHttpArray")<ObjectHttpArray>(ObjectHttpArray)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpArray => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -54,7 +59,6 @@ export const test_assertEquals_ObjectHttpArray = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpArray => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

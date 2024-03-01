@@ -107,7 +107,11 @@ export const test_createRandom_NativeAlias = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): NativeAlias => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): NativeAlias => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is NativeAlias => {
       const $io0 = (input: any): boolean =>
         input.date instanceof Date &&
@@ -133,7 +137,6 @@ export const test_createRandom_NativeAlias = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeAlias => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

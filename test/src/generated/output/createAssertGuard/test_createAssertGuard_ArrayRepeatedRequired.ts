@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_createAssertGuard_ArrayRepeatedRequired = _test_assertGuard(
-  "ArrayRepeatedRequired",
-)<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
-  (input: any): asserts input is ArrayRepeatedRequired => {
+  TypeGuardError,
+)("ArrayRepeatedRequired")<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ArrayRepeatedRequired => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedRequired => {
       const $ia0 = (input: any): any =>
         input.every(
@@ -31,7 +36,6 @@ export const test_createAssertGuard_ArrayRepeatedRequired = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedRequired => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $aa0 = (
           input: any,
           _path: string,

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_createAssertGuard_DynamicConstant = _test_assertGuard(
-  "DynamicConstant",
-)<DynamicConstant>(DynamicConstant)(
-  (input: any): asserts input is DynamicConstant => {
+  TypeGuardError,
+)("DynamicConstant")<DynamicConstant>(DynamicConstant)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is DynamicConstant => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is DynamicConstant => {
       return (
         "object" === typeof input &&
@@ -29,7 +34,6 @@ export const test_createAssertGuard_DynamicConstant = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicConstant => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

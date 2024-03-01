@@ -110,7 +110,11 @@ export const test_notation_createValidatePascal_ObjectDynamic =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.PascalCase<ObjectDynamic> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<ObjectDynamic> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<ObjectDynamic> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -135,7 +139,6 @@ export const test_notation_createValidatePascal_ObjectDynamic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ObjectDynamic> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
 
-export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_ArraySimpleProtobufNullable =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ArraySimpleProtobufNullable",
   )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ArraySimpleProtobufNullable => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ArraySimpleProtobufNullable => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ArraySimpleProtobufNullable => {
             const $io0 = (input: any): boolean =>
               (null === input.boolean ||
@@ -84,7 +91,6 @@ export const test_protobuf_createAssertEncode_ArraySimpleProtobufNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ArraySimpleProtobufNullable => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

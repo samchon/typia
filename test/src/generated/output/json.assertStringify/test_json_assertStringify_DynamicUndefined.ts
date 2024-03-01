@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_json_assertStringify_DynamicUndefined =
-  _test_json_assertStringify("DynamicUndefined")<DynamicUndefined>(
-    DynamicUndefined,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): DynamicUndefined => {
+  _test_json_assertStringify(TypeGuardError)(
+    "DynamicUndefined",
+  )<DynamicUndefined>(DynamicUndefined)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): DynamicUndefined => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is DynamicUndefined => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -29,7 +37,6 @@ export const test_json_assertStringify_DynamicUndefined =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicUndefined => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $join = (typia.json.assertStringify as any).join;
             const $ao0 = (
               input: any,
@@ -85,6 +92,6 @@ export const test_json_assertStringify_DynamicUndefined =
             .join(",")}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

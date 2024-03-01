@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 
-export const test_assert_TypeTagPattern = _test_assert(
+export const test_assert_TypeTagPattern = _test_assert(TypeGuardError)(
   "TypeTagPattern",
 )<TypeTagPattern>(TypeTagPattern)((input) =>
-  ((input: any): TypeTagPattern => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagPattern => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagPattern => {
       return (
         "object" === typeof input &&
@@ -35,7 +40,6 @@ export const test_assert_TypeTagPattern = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagPattern => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

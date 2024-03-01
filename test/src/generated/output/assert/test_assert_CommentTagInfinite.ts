@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
 
-export const test_assert_CommentTagInfinite = _test_assert(
+export const test_assert_CommentTagInfinite = _test_assert(TypeGuardError)(
   "CommentTagInfinite",
 )<CommentTagInfinite>(CommentTagInfinite)((input) =>
-  ((input: any): CommentTagInfinite => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagInfinite => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagInfinite => {
       return (
         "object" === typeof input &&
@@ -36,7 +41,6 @@ export const test_assert_CommentTagInfinite = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagInfinite => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

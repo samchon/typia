@@ -220,7 +220,11 @@ export const test_notation_createValidateCamel_ObjectSimpleProtobufOptional =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectSimpleProtobufOptional> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectSimpleProtobufOptional> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectSimpleProtobufOptional> => {
@@ -262,7 +266,6 @@ export const test_notation_createValidateCamel_ObjectSimpleProtobufOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectSimpleProtobufOptional> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

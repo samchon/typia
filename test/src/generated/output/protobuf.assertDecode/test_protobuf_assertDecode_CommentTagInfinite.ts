@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
 
-export const test_protobuf_createAssertDecode_CommentTagInfinite =
-  _test_protobuf_assertDecode("CommentTagInfinite")<CommentTagInfinite>(
-    CommentTagInfinite,
-  )({
+export const test_protobuf_assertDecode_CommentTagInfinite =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "CommentTagInfinite",
+  )<CommentTagInfinite>(CommentTagInfinite)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<CommentTagInfinite> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<CommentTagInfinite> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<CommentTagInfinite> => {
@@ -60,7 +64,13 @@ export const test_protobuf_createAssertDecode_CommentTagInfinite =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): CommentTagInfinite => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): CommentTagInfinite => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is CommentTagInfinite => {
             return (
               "object" === typeof input &&
@@ -90,7 +100,6 @@ export const test_protobuf_createAssertDecode_CommentTagInfinite =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagInfinite => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -201,7 +210,7 @@ export const test_protobuf_createAssertDecode_CommentTagInfinite =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: CommentTagInfinite): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

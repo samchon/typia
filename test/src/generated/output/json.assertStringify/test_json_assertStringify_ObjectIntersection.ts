@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_json_assertStringify_ObjectIntersection =
-  _test_json_assertStringify("ObjectIntersection")<ObjectIntersection>(
-    ObjectIntersection,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectIntersection => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectIntersection",
+  )<ObjectIntersection>(ObjectIntersection)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectIntersection => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectIntersection => {
           return (
             "object" === typeof input &&
@@ -24,7 +32,6 @@ export const test_json_assertStringify_ObjectIntersection =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectIntersection => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -71,6 +78,6 @@ export const test_json_assertStringify_ObjectIntersection =
           (input as any).name,
         )},"vulnerable":${(input as any).vulnerable}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

@@ -118,7 +118,11 @@ export const test_random_CommentTagRangeBigInt = _test_random(
       });
       return $ro0();
     })((CommentTagRangeBigInt as any).RANDOM),
-  assert: (input: any): CommentTagRangeBigInt => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagRangeBigInt => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagRangeBigInt => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -158,7 +162,6 @@ export const test_random_CommentTagRangeBigInt = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagRangeBigInt => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

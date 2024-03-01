@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicJsonValue } from "../../../structures/DynamicJsonValue";
 
 export const test_assertGuard_DynamicJsonValue = _test_assertGuard(
-  "DynamicJsonValue",
-)<DynamicJsonValue>(DynamicJsonValue)((input) =>
-  ((input: any): asserts input is DynamicJsonValue => {
+  TypeGuardError,
+)("DynamicJsonValue")<DynamicJsonValue>(DynamicJsonValue)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is DynamicJsonValue => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is DynamicJsonValue => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -58,7 +63,6 @@ export const test_assertGuard_DynamicJsonValue = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicJsonValue => {
-        const $guard = (typia.assertGuard as any).guard;
         const $join = (typia.assertGuard as any).join;
         const $ao0 = (
           input: any,

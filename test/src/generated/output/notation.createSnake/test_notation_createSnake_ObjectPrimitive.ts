@@ -222,7 +222,11 @@ export const test_notation_createValidateSnake_ObjectPrimitive =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<ObjectPrimitive> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ObjectPrimitive> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<ObjectPrimitive> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -252,7 +256,6 @@ export const test_notation_createValidateSnake_ObjectPrimitive =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectPrimitive> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

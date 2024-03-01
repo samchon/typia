@@ -29,7 +29,11 @@ export const test_createRandom_ObjectSimple = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectSimple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectSimple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectSimple => {
       return (
         "object" === typeof input &&
@@ -74,7 +78,6 @@ export const test_createRandom_ObjectSimple = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectSimple => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

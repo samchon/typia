@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_protobuf_createAssertEncode_ObjectPrimitive =
-  _test_protobuf_assertEncode("ObjectPrimitive")<ObjectPrimitive>(
-    ObjectPrimitive,
-  )({
+export const test_protobuf_assertEncode_ObjectPrimitive =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectPrimitive",
+  )<ObjectPrimitive>(ObjectPrimitive)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectPrimitive => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectPrimitive => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
@@ -39,7 +46,6 @@ export const test_protobuf_createAssertEncode_ObjectPrimitive =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectPrimitive => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertHeaders } from "../../../internal/_test_http_assertHeaders";
 import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
 
 export const test_http_createAssertHeaders_ObjectHttpTypeTag =
-  _test_http_assertHeaders("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
-    ObjectHttpTypeTag,
-  )(
+  _test_http_assertHeaders(TypeGuardError)(
+    "ObjectHttpTypeTag",
+  )<ObjectHttpTypeTag>(ObjectHttpTypeTag)(
     (
       input: Record<string, string | string[] | undefined>,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpTypeTag> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
@@ -29,7 +31,13 @@ export const test_http_createAssertHeaders_ObjectHttpTypeTag =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpTypeTag => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpTypeTag => {
+        const $guard = (typia.http.createAssertHeaders as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpTypeTag => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int32 &&
@@ -65,7 +73,6 @@ export const test_http_createAssertHeaders_ObjectHttpTypeTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpTypeTag => {
-            const $guard = (typia.http.createAssertHeaders as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -221,6 +228,6 @@ export const test_http_createAssertHeaders_ObjectHttpTypeTag =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
   );

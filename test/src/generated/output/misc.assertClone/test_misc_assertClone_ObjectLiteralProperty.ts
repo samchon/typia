@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_assertClone_ObjectLiteralProperty =
-  _test_misc_assertClone("ObjectLiteralProperty")<ObjectLiteralProperty>(
-    ObjectLiteralProperty,
-  )((input) =>
-    ((input: any): typia.Resolved<ObjectLiteralProperty> => {
-      const assert = (input: any): ObjectLiteralProperty => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ObjectLiteralProperty",
+  )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectLiteralProperty> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectLiteralProperty => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ObjectLiteralProperty => {
           return (
             "object" === typeof input &&
@@ -25,7 +33,6 @@ export const test_misc_assertClone_ObjectLiteralProperty =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectLiteralProperty => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -76,7 +83,7 @@ export const test_misc_assertClone_ObjectLiteralProperty =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

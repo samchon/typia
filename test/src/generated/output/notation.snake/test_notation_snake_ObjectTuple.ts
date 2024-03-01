@@ -185,7 +185,11 @@ export const test_notation_validateSnake_ObjectTuple =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectTuple> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ObjectTuple> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<ObjectTuple> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -212,7 +216,6 @@ export const test_notation_validateSnake_ObjectTuple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectTuple> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

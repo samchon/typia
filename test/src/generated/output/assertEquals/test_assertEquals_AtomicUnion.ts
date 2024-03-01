@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_assertEquals_AtomicUnion = _test_assertEquals(
+export const test_assertEquals_AtomicUnion = _test_assertEquals(TypeGuardError)(
   "AtomicUnion",
 )<AtomicUnion>(AtomicUnion)((input) =>
-  ((input: any): AtomicUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicUnion => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -28,7 +33,6 @@ export const test_assertEquals_AtomicUnion = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicUnion => {
-        const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_assert_ObjectDynamic = _test_assert(
+export const test_assert_ObjectDynamic = _test_assert(TypeGuardError)(
   "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
-  ((input: any): ObjectDynamic => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectDynamic => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDynamic => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -31,7 +36,6 @@ export const test_assert_ObjectDynamic = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDynamic => {
-        const $guard = (typia.assert as any).guard;
         const $join = (typia.assert as any).join;
         const $ao0 = (
           input: any,

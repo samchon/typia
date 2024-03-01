@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_protobuf_createAssertDecode_ArrayRecursiveUnionExplicitPointer =
-  _test_protobuf_assertDecode(
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)({
     decode: (
       input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
       const decode = (
         input: Uint8Array,
@@ -311,7 +313,13 @@ export const test_protobuf_createAssertDecode_ArrayRecursiveUnionExplicitPointer
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ArrayRecursiveUnionExplicitPointer => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRecursiveUnionExplicitPointer => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (
           input: any,
         ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -398,7 +406,6 @@ export const test_protobuf_createAssertDecode_ArrayRecursiveUnionExplicitPointer
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionExplicitPointer => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -766,7 +773,7 @@ export const test_protobuf_createAssertDecode_ArrayRecursiveUnionExplicitPointer
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ArrayRecursiveUnionExplicitPointer): Uint8Array => {
       const $throws = (typia.protobuf.createEncode as any).throws;

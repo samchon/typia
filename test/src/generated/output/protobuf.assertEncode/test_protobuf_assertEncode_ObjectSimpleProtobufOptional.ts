@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectSimpleProtobufOptional } from "../../../structures/ObjectSimpleProtobufOptional";
 
-export const test_protobuf_createAssertEncode_ObjectSimpleProtobufOptional =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_ObjectSimpleProtobufOptional =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectSimpleProtobufOptional",
   )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectSimpleProtobufOptional => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectSimpleProtobufOptional => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectSimpleProtobufOptional => {
             const $io0 = (input: any): boolean =>
               (undefined === input.bool || "boolean" === typeof input.bool) &&
@@ -51,7 +58,6 @@ export const test_protobuf_createAssertEncode_ObjectSimpleProtobufOptional =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectSimpleProtobufOptional => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

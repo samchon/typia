@@ -1,31 +1,45 @@
 import { TypeGuardError } from "../TypeGuardError";
 
-/* -----------------------------------------------------------
-    ASSERT V2 -> USE (NULL OR ERROR) CONDITION
------------------------------------------------------------ */
-// /**
-//  * @internal
-//  */
-// export const $guardV2 =
-//     (method: string) => (props: Omit<TypeGuardError.IProps, "method">) =>
-//         new TypeGuardError({
-//             method,
-//             path: props.path,
-//             expected: props.expected,
-//             value: props.value,
-//         });
-
-/* -----------------------------------------------------------
-    ASSERT V3 -> (CONDITION OR THROW(exceptable): FALSE)
------------------------------------------------------------ */
 /**
  * @internal
  */
-export const $guard =
+export function $guard(
+  method: string,
+): (
+  factory?: (props: TypeGuardError.IProps) => Error,
+) => (
+  exceptionable: boolean,
+  props: Omit<TypeGuardError.IProps, "method">,
+) => boolean;
+
+/**
+ * @internal
+ */
+export function $guard(
+  method: string,
+): (
+  exceptionable: boolean,
+  props: Omit<TypeGuardError.IProps, "method">,
+) => boolean;
+
+/**
+ * @internal
+ */
+export function $guard(method: string) {
+  return (...args: any[]) =>
+    args.length === 2
+      ? throws(method)((props) => new TypeGuardError(props))(
+          ...(args as [boolean, Omit<TypeGuardError.IProps, "method">]),
+        )
+      : throws(method)(args[0] ?? ((props) => new TypeGuardError(props)));
+}
+
+const throws =
   (method: string) =>
+  (factory: (props: TypeGuardError.IProps) => Error) =>
   (exceptionable: boolean, props: Omit<TypeGuardError.IProps, "method">) => {
     if (exceptionable === true)
-      throw new TypeGuardError({
+      throw factory!({
         method,
         path: props.path,
         expected: props.expected,

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_assert_ArrayRepeatedUnion = _test_assert(
+export const test_assert_ArrayRepeatedUnion = _test_assert(TypeGuardError)(
   "ArrayRepeatedUnion",
 )<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-  ((input: any): ArrayRepeatedUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayRepeatedUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -101,7 +106,6 @@ export const test_assert_ArrayRepeatedUnion = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedUnion => {
-        const $guard = (typia.assert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

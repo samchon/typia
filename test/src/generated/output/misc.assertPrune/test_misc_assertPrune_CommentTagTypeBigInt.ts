@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { CommentTagTypeBigInt } from "../../../structures/CommentTagTypeBigInt";
 
 export const test_misc_assertPrune_CommentTagTypeBigInt =
-  _test_misc_assertPrune("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
-    CommentTagTypeBigInt,
-  )((input) =>
-    ((input: any): CommentTagTypeBigInt => {
-      const assert = (input: any): CommentTagTypeBigInt => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "CommentTagTypeBigInt",
+  )<CommentTagTypeBigInt>(CommentTagTypeBigInt)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): CommentTagTypeBigInt => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagTypeBigInt => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is CommentTagTypeBigInt => {
           return (
             "object" === typeof input &&
@@ -24,7 +32,6 @@ export const test_misc_assertPrune_CommentTagTypeBigInt =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagTypeBigInt => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -74,7 +81,7 @@ export const test_misc_assertPrune_CommentTagTypeBigInt =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
 export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
-  "ArrayAny",
-)<ArrayAny>(ArrayAny)((input) =>
-  ((input: any): typia.Resolved<ArrayAny> => {
-    const assert = (input: any): ArrayAny => {
+  TypeGuardError,
+)("ArrayAny")<ArrayAny>(ArrayAny)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ArrayAny> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayAny => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ArrayAny => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.anys) &&
@@ -35,7 +43,6 @@ export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayAny => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -139,7 +146,7 @@ export const test_misc_assertClone_ArrayAny = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

@@ -1,14 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
-export const test_protobuf_createAssertDecode_ObjectHttpNullable =
-  _test_protobuf_assertDecode("ObjectHttpNullable")<ObjectHttpNullable>(
-    ObjectHttpNullable,
-  )({
+export const test_protobuf_assertDecode_ObjectHttpNullable =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectHttpNullable",
+  )<ObjectHttpNullable>(ObjectHttpNullable)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpNullable> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): typia.Resolved<ObjectHttpNullable> => {
         const decode = (
           input: Uint8Array,
         ): typia.Resolved<ObjectHttpNullable> => {
@@ -80,7 +84,13 @@ export const test_protobuf_createAssertDecode_ObjectHttpNullable =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectHttpNullable => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectHttpNullable => {
+          const $guard = (typia.protobuf.assertDecode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectHttpNullable => {
             const $io0 = (input: any): boolean =>
               (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -118,7 +128,6 @@ export const test_protobuf_createAssertDecode_ObjectHttpNullable =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectHttpNullable => {
-              const $guard = (typia.protobuf.assertDecode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,
@@ -237,7 +246,7 @@ export const test_protobuf_createAssertDecode_ObjectHttpNullable =
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectHttpNullable): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

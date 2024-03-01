@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_createAssertEncode_ClassMethod =
-  _test_protobuf_assertEncode("ClassMethod")<ClassMethod>(ClassMethod)({
+  _test_protobuf_assertEncode(TypeGuardError)("ClassMethod")<ClassMethod>(
+    ClassMethod,
+  )({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ClassMethod => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ClassMethod => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ClassMethod => {
           return (
             "object" === typeof input &&
@@ -22,7 +31,6 @@ export const test_protobuf_createAssertEncode_ClassMethod =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassMethod => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

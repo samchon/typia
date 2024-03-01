@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_json_assertStringify_DynamicComposite =
-  _test_json_assertStringify("DynamicComposite")<DynamicComposite>(
-    DynamicComposite,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): DynamicComposite => {
+  _test_json_assertStringify(TypeGuardError)(
+    "DynamicComposite",
+  )<DynamicComposite>(DynamicComposite)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): DynamicComposite => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is DynamicComposite => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -52,7 +60,6 @@ export const test_json_assertStringify_DynamicComposite =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicComposite => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $join = (typia.json.assertStringify as any).join;
             const $ao0 = (
               input: any,
@@ -209,6 +216,6 @@ export const test_json_assertStringify_DynamicComposite =
           )}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

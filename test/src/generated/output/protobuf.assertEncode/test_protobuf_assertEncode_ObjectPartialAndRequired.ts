@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
-export const test_protobuf_createAssertEncode_ObjectPartialAndRequired =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_ObjectPartialAndRequired =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectPartialAndRequired",
   )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectPartialAndRequired => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectPartialAndRequired => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectPartialAndRequired => {
             const $io0 = (input: any): boolean =>
               (undefined === input.string ||
@@ -36,7 +43,6 @@ export const test_protobuf_createAssertEncode_ObjectPartialAndRequired =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectPartialAndRequired => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

@@ -22,7 +22,11 @@ export const test_random_TupleRestArray = _test_random(
         ),
       ];
     })((TupleRestArray as any).RANDOM),
-  assert: (input: any): TupleRestArray => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestArray => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TupleRestArray => {
       return (
         Array.isArray(input) &&
@@ -45,7 +49,6 @@ export const test_random_TupleRestArray = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleRestArray => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

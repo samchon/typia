@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_misc_assertClone_DynamicUndefined = _test_misc_assertClone(
-  "DynamicUndefined",
-)<DynamicUndefined>(DynamicUndefined)((input) =>
-  ((input: any): typia.Resolved<DynamicUndefined> => {
-    const assert = (input: any): DynamicUndefined => {
+  TypeGuardError,
+)("DynamicUndefined")<DynamicUndefined>(DynamicUndefined)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<DynamicUndefined> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicUndefined => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is DynamicUndefined => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -28,7 +36,6 @@ export const test_misc_assertClone_DynamicUndefined = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicUndefined => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $join = (typia.misc.assertClone as any).join;
           const $ao0 = (
             input: any,
@@ -90,7 +97,7 @@ export const test_misc_assertClone_DynamicUndefined = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

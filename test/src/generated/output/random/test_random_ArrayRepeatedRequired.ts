@@ -47,7 +47,11 @@ export const test_random_ArrayRepeatedRequired = _test_random(
         () => $ra0(generator?.length ?? $generator.length, true, 0),
       ])();
     })((ArrayRepeatedRequired as any).RANDOM),
-  assert: (input: any): ArrayRepeatedRequired => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayRepeatedRequired => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedRequired => {
       const $ia0 = (input: any): any =>
         input.every(
@@ -72,7 +76,6 @@ export const test_random_ArrayRepeatedRequired = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedRequired => {
-        const $guard = (typia.createAssert as any).guard;
         const $aa0 = (
           input: any,
           _path: string,

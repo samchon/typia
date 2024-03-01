@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
-  "UltimateUnion",
-)<UltimateUnion>(UltimateUnion)((input) =>
-  ((input: any): typia.Resolved<UltimateUnion> => {
-    const assert = (input: any): UltimateUnion => {
+  TypeGuardError,
+)("UltimateUnion")<UltimateUnion>(UltimateUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<UltimateUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): UltimateUnion => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is UltimateUnion => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.schemas) &&
@@ -1119,7 +1127,6 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is UltimateUnion => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $join = (typia.misc.assertClone as any).join;
           const $ao0 = (
             input: any,
@@ -7391,7 +7398,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
         })();
       return Array.isArray(input) ? $cp0(input) : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

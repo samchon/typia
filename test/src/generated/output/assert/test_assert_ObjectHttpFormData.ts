@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectHttpFormData } from "../../../structures/ObjectHttpFormData";
 
-export const test_assert_ObjectHttpFormData = _test_assert(
+export const test_assert_ObjectHttpFormData = _test_assert(TypeGuardError)(
   "ObjectHttpFormData",
 )<ObjectHttpFormData>(ObjectHttpFormData)((input) =>
-  ((input: any): ObjectHttpFormData => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpFormData => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpFormData => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -37,7 +42,6 @@ export const test_assert_ObjectHttpFormData = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpFormData => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -66,7 +66,11 @@ export const test_createRandom_ObjectHttpNullable = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectHttpNullable => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpNullable => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpNullable => {
       const $io0 = (input: any): boolean =>
         (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -102,7 +106,6 @@ export const test_createRandom_ObjectHttpNullable = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpNullable => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

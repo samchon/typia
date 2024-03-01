@@ -1,13 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_assertGuardEquals_ObjectIntersection =
-  _test_assertGuardEquals("ObjectIntersection")<ObjectIntersection>(
-    ObjectIntersection,
-  )((input) =>
-    ((input: any): asserts input is ObjectIntersection => {
+  _test_assertGuardEquals(TypeGuardError)(
+    "ObjectIntersection",
+  )<ObjectIntersection>(ObjectIntersection)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is ObjectIntersection => {
+      const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -36,7 +41,6 @@ export const test_assertGuardEquals_ObjectIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectIntersection => {
-          const $guard = (typia.assertGuardEquals as any).guard;
           const $join = (typia.assertGuardEquals as any).join;
           const $ao0 = (
             input: any,

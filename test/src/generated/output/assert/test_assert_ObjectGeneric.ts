@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_assert_ObjectGeneric = _test_assert(
+export const test_assert_ObjectGeneric = _test_assert(TypeGuardError)(
   "ObjectGeneric",
 )<ObjectGeneric>(ObjectGeneric)((input) =>
-  ((input: any): ObjectGeneric => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGeneric => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectGeneric => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.value &&
@@ -75,7 +80,6 @@ export const test_assert_ObjectGeneric = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGeneric => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

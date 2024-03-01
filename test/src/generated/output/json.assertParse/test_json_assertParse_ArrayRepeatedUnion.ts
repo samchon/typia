@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_json_assertParse_ArrayRepeatedUnion = _test_json_assertParse(
-  "ArrayRepeatedUnion",
-)<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
-  ((input: string): typia.Primitive<ArrayRepeatedUnion> => {
-    const assert = (input: any): ArrayRepeatedUnion => {
+  TypeGuardError,
+)("ArrayRepeatedUnion")<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<ArrayRepeatedUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayRepeatedUnion => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ArrayRepeatedUnion => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -102,7 +110,6 @@ export const test_json_assertParse_ArrayRepeatedUnion = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedUnion => {
-          const $guard = (typia.json.assertParse as any).guard;
           const $ap0 = (
             input: any,
             _path: string,
@@ -358,6 +365,6 @@ export const test_json_assertParse_ArrayRepeatedUnion = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

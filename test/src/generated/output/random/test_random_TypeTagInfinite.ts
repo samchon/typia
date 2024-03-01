@@ -63,7 +63,11 @@ export const test_random_TypeTagInfinite = _test_random(
       });
       return $ro0();
     })((TypeTagInfinite as any).RANDOM),
-  assert: (input: any): TypeTagInfinite => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagInfinite => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagInfinite => {
       return (
         "object" === typeof input &&
@@ -93,7 +97,6 @@ export const test_random_TypeTagInfinite = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagInfinite => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

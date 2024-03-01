@@ -13,6 +13,7 @@ import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
+import { TypeGuardError } from "./TypeGuardError";
 
 /**
  * > You must configure the generic argument `T`.
@@ -107,7 +108,10 @@ export { clonePure as clone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertClone<T>(input: T): Resolved<T>;
+function assertClone<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Resolved<T>;
 
 /**
  * Clone a data with type assertion.
@@ -126,7 +130,10 @@ function assertClone<T>(input: T): Resolved<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertClone<T>(input: unknown): Resolved<T>;
+function assertClone<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Resolved<T>;
 
 /**
  * @internal
@@ -303,7 +310,10 @@ export { prunePure as prune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPrune<T>(input: T): T;
+function assertPrune<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -321,7 +331,10 @@ function assertPrune<T>(input: T): T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPrune<T>(input: unknown): T;
+function assertPrune<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
 
 /**
  * @internal
@@ -494,7 +507,9 @@ export { createClonePure as createClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertClone(): never;
+function createAssertClone(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a resuable {@link assertClone} function.
@@ -504,7 +519,9 @@ function createAssertClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertClone<T>(): (input: unknown) => Resolved<T>;
+function createAssertClone<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => Resolved<T>;
 
 /**
  * @internal
@@ -626,7 +643,9 @@ export { createPrunePure as createPrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPrune(): never;
+function createAssertPrune(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a resuable {@link assertPrune} function.
@@ -636,7 +655,9 @@ function createAssertPrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPrune<T extends object>(): (input: T) => T;
+function createAssertPrune<T extends object>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => T;
 
 /**
  * @internal

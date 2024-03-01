@@ -55,7 +55,11 @@ export const test_createRandom_AtomicClass = _test_random(
       ])(),
     ];
   },
-  assert: (input: any): AtomicClass => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicClass => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is AtomicClass => {
       return (
         Array.isArray(input) &&
@@ -89,7 +93,6 @@ export const test_createRandom_AtomicClass = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicClass => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

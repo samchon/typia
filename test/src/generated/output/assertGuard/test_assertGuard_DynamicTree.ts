@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_assertGuard_DynamicTree = _test_assertGuard(
+export const test_assertGuard_DynamicTree = _test_assertGuard(TypeGuardError)(
   "DynamicTree",
 )<DynamicTree>(DynamicTree)((input) =>
-  ((input: any): asserts input is DynamicTree => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is DynamicTree => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is DynamicTree => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -30,7 +35,6 @@ export const test_assertGuard_DynamicTree = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTree => {
-        const $guard = (typia.assertGuard as any).guard;
         const $join = (typia.assertGuard as any).join;
         const $ao0 = (
           input: any,

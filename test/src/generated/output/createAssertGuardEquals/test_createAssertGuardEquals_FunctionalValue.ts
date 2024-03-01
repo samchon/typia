@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { FunctionalValue } from "../../../structures/FunctionalValue";
 
 export const test_createAssertGuardEquals_FunctionalValue =
-  _test_assertGuardEquals("FunctionalValue")<FunctionalValue>(FunctionalValue)(
-    (input: any): asserts input is FunctionalValue => {
+  _test_assertGuardEquals(TypeGuardError)("FunctionalValue")<FunctionalValue>(
+    FunctionalValue,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is FunctionalValue => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -18,7 +25,6 @@ export const test_createAssertGuardEquals_FunctionalValue =
           _path: string,
           _exceptionable: boolean = true,
         ): input is FunctionalValue => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           return (
             "function" === typeof input ||
             $guard(true, {

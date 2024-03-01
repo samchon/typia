@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { CommentTagTypeBigInt } from "../../../structures/CommentTagTypeBigInt";
 
 export const test_assertEquals_CommentTagTypeBigInt = _test_assertEquals(
-  "CommentTagTypeBigInt",
-)<CommentTagTypeBigInt>(CommentTagTypeBigInt)((input) =>
-  ((input: any): CommentTagTypeBigInt => {
+  TypeGuardError,
+)("CommentTagTypeBigInt")<CommentTagTypeBigInt>(CommentTagTypeBigInt)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): CommentTagTypeBigInt => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -31,7 +36,6 @@ export const test_assertEquals_CommentTagTypeBigInt = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagTypeBigInt => {
-        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,

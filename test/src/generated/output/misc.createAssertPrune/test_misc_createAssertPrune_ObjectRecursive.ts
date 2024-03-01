@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_misc_createAssertPrune_ObjectRecursive =
-  _test_misc_assertPrune("ObjectRecursive")<ObjectRecursive>(ObjectRecursive)(
-    (input: any): ObjectRecursive => {
-      const assert = (input: any): ObjectRecursive => {
+  _test_misc_assertPrune(TypeGuardError)("ObjectRecursive")<ObjectRecursive>(
+    ObjectRecursive,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectRecursive => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectRecursive => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectRecursive => {
           const $io0 = (input: any): boolean =>
             (null === input.parent ||
@@ -33,7 +45,6 @@ export const test_misc_createAssertPrune_ObjectRecursive =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectRecursive => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -175,7 +186,7 @@ export const test_misc_createAssertPrune_ObjectRecursive =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
 export const test_createAssertGuardEquals_TypeTagCustom =
-  _test_assertGuardEquals("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)(
-    (input: any): asserts input is TypeTagCustom => {
+  _test_assertGuardEquals(TypeGuardError)("TypeTagCustom")<TypeTagCustom>(
+    TypeTagCustom,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is TypeTagCustom => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -47,7 +54,6 @@ export const test_createAssertGuardEquals_TypeTagCustom =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagCustom => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,

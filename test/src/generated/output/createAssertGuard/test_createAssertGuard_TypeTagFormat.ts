@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
 export const test_createAssertGuard_TypeTagFormat = _test_assertGuard(
-  "TypeTagFormat",
-)<TypeTagFormat>(TypeTagFormat)(
-  (input: any): asserts input is TypeTagFormat => {
+  TypeGuardError,
+)("TypeTagFormat")<TypeTagFormat>(TypeTagFormat)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TypeTagFormat => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&
@@ -103,7 +108,6 @@ export const test_createAssertGuard_TypeTagFormat = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagFormat => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 
 export const test_misc_createAssertPrune_TypeTagDefault =
-  _test_misc_assertPrune("TypeTagDefault")<TypeTagDefault>(TypeTagDefault)(
-    (input: any): TypeTagDefault => {
-      const assert = (input: any): TypeTagDefault => {
+  _test_misc_assertPrune(TypeGuardError)("TypeTagDefault")<TypeTagDefault>(
+    TypeTagDefault,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagDefault => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TypeTagDefault => {
+        const $guard = (typia.misc.createAssertPrune as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TypeTagDefault => {
           const $io0 = (input: any): boolean =>
             "boolean" === typeof input.boolean &&
@@ -47,7 +59,6 @@ export const test_misc_createAssertPrune_TypeTagDefault =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagDefault => {
-            const $guard = (typia.misc.createAssertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -180,7 +191,7 @@ export const test_misc_createAssertPrune_TypeTagDefault =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

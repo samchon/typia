@@ -808,7 +808,11 @@ export const test_notation_createValidateCamel_MapUnion =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<MapUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<MapUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<MapUnion> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -934,7 +938,6 @@ export const test_notation_createValidateCamel_MapUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<MapUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

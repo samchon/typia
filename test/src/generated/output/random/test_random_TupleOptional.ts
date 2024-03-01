@@ -34,7 +34,11 @@ export const test_random_TupleOptional = _test_random(
         ])(),
       ]);
     })((TupleOptional as any).RANDOM),
-  assert: (input: any): TupleOptional => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleOptional => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TupleOptional => {
       return (
         Array.isArray(input) &&
@@ -62,7 +66,6 @@ export const test_random_TupleOptional = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleOptional => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

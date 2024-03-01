@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_createAssertStringify_UltimateUnion =
-  _test_json_assertStringify("UltimateUnion")<UltimateUnion>(UltimateUnion)(
-    (input: any): string => {
-      const assert = (input: any): UltimateUnion => {
+  _test_json_assertStringify(TypeGuardError)("UltimateUnion")<UltimateUnion>(
+    UltimateUnion,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): UltimateUnion => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is UltimateUnion => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.schemas) &&
@@ -1127,7 +1139,6 @@ export const test_json_createAssertStringify_UltimateUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is UltimateUnion => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $join = (typia.json.createAssertStringify as any).join;
             const $ao0 = (
               input: any,
@@ -9545,6 +9556,6 @@ export const test_json_createAssertStringify_UltimateUnion =
           })();
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

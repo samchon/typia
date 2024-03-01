@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_assertGuard_TupleUnion = _test_assertGuard(
+export const test_assertGuard_TupleUnion = _test_assertGuard(TypeGuardError)(
   "TupleUnion",
 )<TupleUnion>(TupleUnion)((input) =>
-  ((input: any): asserts input is TupleUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TupleUnion => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TupleUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -57,7 +62,6 @@ export const test_assertGuard_TupleUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleUnion => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

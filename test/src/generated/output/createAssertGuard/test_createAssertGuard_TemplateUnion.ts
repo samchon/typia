@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
 export const test_createAssertGuard_TemplateUnion = _test_assertGuard(
-  "TemplateUnion",
-)<TemplateUnion>(TemplateUnion)(
-  (input: any): asserts input is TemplateUnion => {
+  TypeGuardError,
+)("TemplateUnion")<TemplateUnion>(TemplateUnion)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TemplateUnion => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TemplateUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -55,7 +60,6 @@ export const test_createAssertGuard_TemplateUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TemplateUnion => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

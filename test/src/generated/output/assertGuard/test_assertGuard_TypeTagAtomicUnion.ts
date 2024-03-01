@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
 export const test_assertGuard_TypeTagAtomicUnion = _test_assertGuard(
-  "TypeTagAtomicUnion",
-)<TypeTagAtomicUnion>(TypeTagAtomicUnion)((input) =>
-  ((input: any): asserts input is TypeTagAtomicUnion => {
+  TypeGuardError,
+)("TypeTagAtomicUnion")<TypeTagAtomicUnion>(TypeTagAtomicUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is TypeTagAtomicUnion => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagAtomicUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -29,7 +34,6 @@ export const test_assertGuard_TypeTagAtomicUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagAtomicUnion => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

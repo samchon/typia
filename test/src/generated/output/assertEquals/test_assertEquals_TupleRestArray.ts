@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_assertEquals_TupleRestArray = _test_assertEquals(
-  "TupleRestArray",
-)<TupleRestArray>(TupleRestArray)((input) =>
-  ((input: any): TupleRestArray => {
+  TypeGuardError,
+)("TupleRestArray")<TupleRestArray>(TupleRestArray)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TupleRestArray => {
+    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -34,7 +39,6 @@ export const test_assertEquals_TupleRestArray = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TupleRestArray => {
-        const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

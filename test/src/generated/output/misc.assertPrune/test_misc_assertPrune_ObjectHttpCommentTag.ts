@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
 export const test_misc_assertPrune_ObjectHttpCommentTag =
-  _test_misc_assertPrune("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-    ObjectHttpCommentTag,
-  )((input) =>
-    ((input: any): ObjectHttpCommentTag => {
-      const assert = (input: any): ObjectHttpCommentTag => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ObjectHttpCommentTag",
+  )<ObjectHttpCommentTag>(ObjectHttpCommentTag)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpCommentTag => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpCommentTag => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHttpCommentTag => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int &&
@@ -35,7 +43,6 @@ export const test_misc_assertPrune_ObjectHttpCommentTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpCommentTag => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -145,7 +152,7 @@ export const test_misc_assertPrune_ObjectHttpCommentTag =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

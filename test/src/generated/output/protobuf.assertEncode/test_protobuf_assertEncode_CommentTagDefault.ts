@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_protobuf_createAssertEncode_CommentTagDefault =
-  _test_protobuf_assertEncode("CommentTagDefault")<CommentTagDefault>(
-    CommentTagDefault,
-  )({
+export const test_protobuf_assertEncode_CommentTagDefault =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagDefault",
+  )<CommentTagDefault>(CommentTagDefault)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): CommentTagDefault => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): CommentTagDefault => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is CommentTagDefault => {
             const $io0 = (input: any): boolean =>
               "boolean" === typeof input.boolean &&
@@ -53,7 +60,6 @@ export const test_protobuf_createAssertEncode_CommentTagDefault =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagDefault => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

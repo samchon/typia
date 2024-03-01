@@ -16,7 +16,11 @@ export const test_createRandom_ConstantEnumeration = _test_random(
       $pick([() => 0, () => 1, () => 2, () => "Three", () => "Four"])(),
     );
   },
-  assert: (input: any): ConstantEnumeration => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantEnumeration => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ConstantEnumeration => {
       return (
         Array.isArray(input) &&
@@ -36,7 +40,6 @@ export const test_createRandom_ConstantEnumeration = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantEnumeration => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

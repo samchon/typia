@@ -150,7 +150,11 @@ export const test_notation_createValidateCamel_TupleRestArray =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<TupleRestArray> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<TupleRestArray> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<TupleRestArray> => {
         return (
           Array.isArray(input) &&
@@ -171,7 +175,6 @@ export const test_notation_createValidateCamel_TupleRestArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TupleRestArray> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

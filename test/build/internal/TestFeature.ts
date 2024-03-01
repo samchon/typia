@@ -9,6 +9,7 @@ export interface TestFeature {
   creatable: boolean;
   spoilable: boolean;
   formData?: boolean;
+  custom?: true;
   query?: true;
   headers?: true;
   jsonable?: true;

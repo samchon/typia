@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
-export const test_protobuf_createAssertEncode_ObjectUnionCompositePointer =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_ObjectUnionCompositePointer =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectUnionCompositePointer => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): ObjectUnionCompositePointer => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is ObjectUnionCompositePointer => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.value) &&
@@ -153,7 +160,6 @@ export const test_protobuf_createAssertEncode_ObjectUnionCompositePointer =
               _path: string,
               _exceptionable: boolean = true,
             ): input is ObjectUnionCompositePointer => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

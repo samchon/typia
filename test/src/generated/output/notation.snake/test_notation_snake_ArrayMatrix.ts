@@ -139,7 +139,11 @@ export const test_notation_validateSnake_ArrayMatrix =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ArrayMatrix> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ArrayMatrix> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<ArrayMatrix> => {
         return (
           Array.isArray(input) &&
@@ -163,7 +167,6 @@ export const test_notation_validateSnake_ArrayMatrix =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayMatrix> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

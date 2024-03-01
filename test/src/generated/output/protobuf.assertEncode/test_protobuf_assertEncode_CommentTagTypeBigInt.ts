@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagTypeBigInt } from "../../../structures/CommentTagTypeBigInt";
 
-export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
-  _test_protobuf_assertEncode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
-    CommentTagTypeBigInt,
-  )({
+export const test_protobuf_assertEncode_CommentTagTypeBigInt =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagTypeBigInt",
+  )<CommentTagTypeBigInt>(CommentTagTypeBigInt)({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): CommentTagTypeBigInt => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): CommentTagTypeBigInt => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is CommentTagTypeBigInt => {
             return (
               "object" === typeof input &&
@@ -25,7 +32,6 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
               _path: string,
               _exceptionable: boolean = true,
             ): input is CommentTagTypeBigInt => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

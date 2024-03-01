@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
 export const test_createAssert_ConstantAtomicUnion = _test_assert(
-  "ConstantAtomicUnion",
-)<ConstantAtomicUnion>(ConstantAtomicUnion)(
-  (input: any): ConstantAtomicUnion => {
+  TypeGuardError,
+)("ConstantAtomicUnion")<ConstantAtomicUnion>(ConstantAtomicUnion)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantAtomicUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ConstantAtomicUnion => {
       const $io0 = (input: any): boolean => "key" === input.key;
       return (
@@ -30,7 +35,6 @@ export const test_createAssert_ConstantAtomicUnion = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantAtomicUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
 export const test_misc_assertPrune_TypeTagMatrix = _test_misc_assertPrune(
-  "TypeTagMatrix",
-)<TypeTagMatrix>(TypeTagMatrix)((input) =>
-  ((input: any): TypeTagMatrix => {
-    const assert = (input: any): TypeTagMatrix => {
+  TypeGuardError,
+)("TypeTagMatrix")<TypeTagMatrix>(TypeTagMatrix)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagMatrix => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagMatrix => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagMatrix => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.matrix) &&
@@ -34,7 +42,6 @@ export const test_misc_assertPrune_TypeTagMatrix = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagMatrix => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -143,7 +150,7 @@ export const test_misc_assertPrune_TypeTagMatrix = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

@@ -1315,7 +1315,11 @@ export const test_notation_validateCamel_InstanceUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<InstanceUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<InstanceUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<InstanceUnion> => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -1561,7 +1565,6 @@ export const test_notation_validateCamel_InstanceUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<InstanceUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ap0 = (
             input: any,
             _path: string,

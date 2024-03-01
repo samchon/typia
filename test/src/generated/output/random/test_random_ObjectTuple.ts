@@ -35,7 +35,11 @@ export const test_random_ObjectTuple = _test_random("ObjectTuple")<ObjectTuple>(
       });
       return [$ro0(), $ro1()];
     })((ObjectTuple as any).RANDOM),
-  assert: (input: any): ObjectTuple => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectTuple => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectTuple => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -62,7 +66,6 @@ export const test_random_ObjectTuple = _test_random("ObjectTuple")<ObjectTuple>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectTuple => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

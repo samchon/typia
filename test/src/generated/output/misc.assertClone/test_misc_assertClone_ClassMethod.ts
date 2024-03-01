@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
-  "ClassMethod",
-)<ClassMethod>(ClassMethod)((input) =>
-  ((input: any): typia.Resolved<ClassMethod> => {
-    const assert = (input: any): ClassMethod => {
+  TypeGuardError,
+)("ClassMethod")<ClassMethod>(ClassMethod)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ClassMethod> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ClassMethod => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ClassMethod => {
         return (
           "object" === typeof input &&
@@ -23,7 +31,6 @@ export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ClassMethod => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -67,7 +74,7 @@ export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

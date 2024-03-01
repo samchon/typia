@@ -80,7 +80,11 @@ export const test_random_ObjectHttpFormData = _test_random(
       });
       return $ro0();
     })((ObjectHttpFormData as any).RANDOM),
-  assert: (input: any): ObjectHttpFormData => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectHttpFormData => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpFormData => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -111,7 +115,6 @@ export const test_random_ObjectHttpFormData = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpFormData => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

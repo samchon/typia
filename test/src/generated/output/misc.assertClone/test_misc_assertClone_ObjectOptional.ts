@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_misc_assertClone_ObjectOptional = _test_misc_assertClone(
-  "ObjectOptional",
-)<ObjectOptional>(ObjectOptional)((input) =>
-  ((input: any): typia.Resolved<ObjectOptional> => {
-    const assert = (input: any): ObjectOptional => {
+  TypeGuardError,
+)("ObjectOptional")<ObjectOptional>(ObjectOptional)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ObjectOptional> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectOptional => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is ObjectOptional => {
         const $io0 = (input: any): boolean =>
           (undefined === input.id || "string" === typeof input.id) &&
@@ -29,7 +37,6 @@ export const test_misc_assertClone_ObjectOptional = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectOptional => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -94,7 +101,7 @@ export const test_misc_assertClone_ObjectOptional = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

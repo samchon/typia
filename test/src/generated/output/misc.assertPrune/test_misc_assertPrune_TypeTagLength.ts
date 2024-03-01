@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
 export const test_misc_assertPrune_TypeTagLength = _test_misc_assertPrune(
-  "TypeTagLength",
-)<TypeTagLength>(TypeTagLength)((input) =>
-  ((input: any): TypeTagLength => {
-    const assert = (input: any): TypeTagLength => {
+  TypeGuardError,
+)("TypeTagLength")<TypeTagLength>(TypeTagLength)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagLength => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagLength => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagLength => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -37,7 +45,6 @@ export const test_misc_assertPrune_TypeTagLength = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagLength => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -214,7 +221,7 @@ export const test_misc_assertPrune_TypeTagLength = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

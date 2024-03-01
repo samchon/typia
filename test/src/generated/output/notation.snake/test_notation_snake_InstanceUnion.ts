@@ -1315,7 +1315,11 @@ export const test_notation_validateSnake_InstanceUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<InstanceUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<InstanceUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<InstanceUnion> => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -1561,7 +1565,6 @@ export const test_notation_validateSnake_InstanceUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<InstanceUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ap0 = (
             input: any,
             _path: string,

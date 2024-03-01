@@ -114,7 +114,11 @@ export const test_notation_createValidateCamel_ObjectOptional =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectOptional> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectOptional> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<ObjectOptional> => {
         const $io0 = (input: any): boolean =>
           (undefined === input.id || "string" === typeof input.id) &&
@@ -136,7 +140,6 @@ export const test_notation_createValidateCamel_ObjectOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectOptional> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

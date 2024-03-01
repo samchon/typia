@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertQuery } from "../../../internal/_test_http_assertQuery";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
 export const test_http_assertQuery_ObjectHttpCommentTag =
-  _test_http_assertQuery("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-    ObjectHttpCommentTag,
-  )((input) =>
+  _test_http_assertQuery(TypeGuardError)(
+    "ObjectHttpCommentTag",
+  )<ObjectHttpCommentTag>(ObjectHttpCommentTag)((input) =>
     ((
       input: string | URLSearchParams,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpCommentTag> => {
       const decode = (
         input: string | URLSearchParams,
@@ -26,7 +28,11 @@ export const test_http_assertQuery_ObjectHttpCommentTag =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpCommentTag => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpCommentTag => {
+        const $guard = (typia.http.assertQuery as any).guard(errorFactory);
         const __is = (input: any): input is ObjectHttpCommentTag => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int &&
@@ -53,7 +59,6 @@ export const test_http_assertQuery_ObjectHttpCommentTag =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpCommentTag => {
-            const $guard = (typia.http.assertQuery as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -149,6 +154,6 @@ export const test_http_assertQuery_ObjectHttpCommentTag =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     })(input),
   );

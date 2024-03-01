@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 
 export const test_misc_assertPrune_CommentTagArrayUnion =
-  _test_misc_assertPrune("CommentTagArrayUnion")<CommentTagArrayUnion>(
-    CommentTagArrayUnion,
-  )((input) =>
-    ((input: any): CommentTagArrayUnion => {
-      const assert = (input: any): CommentTagArrayUnion => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "CommentTagArrayUnion",
+  )<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): CommentTagArrayUnion => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagArrayUnion => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is CommentTagArrayUnion => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.items) &&
@@ -45,7 +53,6 @@ export const test_misc_assertPrune_CommentTagArrayUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagArrayUnion => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -218,7 +225,7 @@ export const test_misc_assertPrune_CommentTagArrayUnion =
         };
         if (Array.isArray(input)) $pp0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

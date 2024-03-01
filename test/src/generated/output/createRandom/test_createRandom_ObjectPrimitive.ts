@@ -50,7 +50,11 @@ export const test_createRandom_ObjectPrimitive = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectPrimitive => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectPrimitive => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -80,7 +84,6 @@ export const test_createRandom_ObjectPrimitive = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPrimitive => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_json_createAssertParse_ObjectNullable =
-  _test_json_assertParse("ObjectNullable")<ObjectNullable>(ObjectNullable)(
-    (input: string): typia.Primitive<ObjectNullable> => {
-      const assert = (input: any): ObjectNullable => {
+  _test_json_assertParse(TypeGuardError)("ObjectNullable")<ObjectNullable>(
+    ObjectNullable,
+  )(
+    (
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ObjectNullable> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectNullable => {
+        const $guard = (typia.json.createAssertParse as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectNullable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -45,7 +57,6 @@ export const test_json_createAssertParse_ObjectNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectNullable => {
-            const $guard = (typia.json.createAssertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -216,6 +227,6 @@ export const test_json_createAssertParse_ObjectNullable =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     },
   );

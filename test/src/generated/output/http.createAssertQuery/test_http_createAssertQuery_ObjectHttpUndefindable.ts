@@ -1,14 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertQuery } from "../../../internal/_test_http_assertQuery";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
 export const test_http_createAssertQuery_ObjectHttpUndefindable =
-  _test_http_assertQuery("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
-    ObjectHttpUndefindable,
-  )(
+  _test_http_assertQuery(TypeGuardError)(
+    "ObjectHttpUndefindable",
+  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
     (
       input: string | URLSearchParams,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.Resolved<ObjectHttpUndefindable> => {
       const decode = (
         input: string | URLSearchParams,
@@ -31,7 +33,13 @@ export const test_http_createAssertQuery_ObjectHttpUndefindable =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpUndefindable => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpUndefindable => {
+        const $guard = (typia.http.createAssertQuery as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpUndefindable => {
           const $io0 = (input: any): boolean =>
             (undefined === input.boolean ||
@@ -68,7 +76,6 @@ export const test_http_createAssertQuery_ObjectHttpUndefindable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpUndefindable => {
-            const $guard = (typia.http.createAssertQuery as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -157,6 +164,6 @@ export const test_http_createAssertQuery_ObjectHttpUndefindable =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
   );

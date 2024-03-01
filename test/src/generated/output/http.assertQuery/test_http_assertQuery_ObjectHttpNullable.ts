@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertQuery } from "../../../internal/_test_http_assertQuery";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
 export const test_http_assertQuery_ObjectHttpNullable = _test_http_assertQuery(
-  "ObjectHttpNullable",
-)<ObjectHttpNullable>(ObjectHttpNullable)((input) =>
-  ((input: string | URLSearchParams): typia.Resolved<ObjectHttpNullable> => {
+  TypeGuardError,
+)("ObjectHttpNullable")<ObjectHttpNullable>(ObjectHttpNullable)((input) =>
+  ((
+    input: string | URLSearchParams,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<ObjectHttpNullable> => {
     const decode = (
       input: string | URLSearchParams,
     ): typia.Resolved<ObjectHttpNullable> => {
@@ -33,7 +37,11 @@ export const test_http_assertQuery_ObjectHttpNullable = _test_http_assertQuery(
       };
       return output as any;
     };
-    const assert = (input: any): ObjectHttpNullable => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectHttpNullable => {
+      const $guard = (typia.http.assertQuery as any).guard(errorFactory);
       const __is = (input: any): input is ObjectHttpNullable => {
         const $io0 = (input: any): boolean =>
           (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -70,7 +78,6 @@ export const test_http_assertQuery_ObjectHttpNullable = _test_http_assertQuery(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpNullable => {
-          const $guard = (typia.http.assertQuery as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -189,6 +196,6 @@ export const test_http_assertQuery_ObjectHttpNullable = _test_http_assertQuery(
       return input;
     };
     const output = decode(input);
-    return assert(output) as any;
+    return assert(output, errorFactory) as any;
   })(input),
 );

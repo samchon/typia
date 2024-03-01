@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_json_createAssertStringify_ArraySimple =
-  _test_json_assertStringify("ArraySimple")<ArraySimple>(ArraySimple)(
-    (input: any): string => {
-      const assert = (input: any): ArraySimple => {
+  _test_json_assertStringify(TypeGuardError)("ArraySimple")<ArraySimple>(
+    ArraySimple,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArraySimple => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ArraySimple => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
@@ -35,7 +47,6 @@ export const test_json_createAssertStringify_ArraySimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArraySimple => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -158,6 +169,6 @@ export const test_json_createAssertStringify_ArraySimple =
             .join(",")}]`}}`;
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

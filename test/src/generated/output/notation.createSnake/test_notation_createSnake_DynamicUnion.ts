@@ -176,7 +176,11 @@ export const test_notation_createValidateSnake_DynamicUnion =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<DynamicUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<DynamicUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<DynamicUnion> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -210,7 +214,6 @@ export const test_notation_createValidateSnake_DynamicUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<DynamicUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

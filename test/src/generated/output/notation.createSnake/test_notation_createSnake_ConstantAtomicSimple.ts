@@ -108,7 +108,11 @@ export const test_notation_createValidateSnake_ConstantAtomicSimple =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<ConstantAtomicSimple> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ConstantAtomicSimple> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ConstantAtomicSimple> => {
@@ -127,7 +131,6 @@ export const test_notation_createValidateSnake_ConstantAtomicSimple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ConstantAtomicSimple> => {
-          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {

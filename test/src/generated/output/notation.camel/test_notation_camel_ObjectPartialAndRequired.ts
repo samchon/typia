@@ -173,7 +173,11 @@ export const test_notation_validateCamel_ObjectPartialAndRequired =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<ObjectPartialAndRequired> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectPartialAndRequired> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectPartialAndRequired> => {
@@ -199,7 +203,6 @@ export const test_notation_validateCamel_ObjectPartialAndRequired =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectPartialAndRequired> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

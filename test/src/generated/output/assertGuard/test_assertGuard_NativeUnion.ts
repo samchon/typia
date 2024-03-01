@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_assertGuard_NativeUnion = _test_assertGuard(
+export const test_assertGuard_NativeUnion = _test_assertGuard(TypeGuardError)(
   "NativeUnion",
 )<NativeUnion>(NativeUnion)((input) =>
-  ((input: any): asserts input is NativeUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is NativeUnion => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is NativeUnion => {
       const $io0 = (input: any): boolean =>
         (null === input.date || input.date instanceof Date) &&
@@ -37,7 +42,6 @@ export const test_assertGuard_NativeUnion = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeUnion => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
 export const test_json_createAssertParse_DynamicNever = _test_json_assertParse(
-  "DynamicNever",
-)<DynamicNever>(DynamicNever)(
-  (input: string): typia.Primitive<DynamicNever> => {
-    const assert = (input: any): DynamicNever => {
+  TypeGuardError,
+)("DynamicNever")<DynamicNever>(DynamicNever)(
+  (
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<DynamicNever> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicNever => {
+      const $guard = (typia.json.createAssertParse as any).guard(errorFactory);
       const __is = (input: any): input is DynamicNever => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -28,7 +36,6 @@ export const test_json_createAssertParse_DynamicNever = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicNever => {
-          const $guard = (typia.json.createAssertParse as any).guard;
           const $join = (typia.json.createAssertParse as any).join;
           const $ao0 = (
             input: any,
@@ -74,6 +81,6 @@ export const test_json_createAssertParse_DynamicNever = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   },
 );

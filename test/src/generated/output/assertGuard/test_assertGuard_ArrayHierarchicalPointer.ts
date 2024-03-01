@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
 export const test_assertGuard_ArrayHierarchicalPointer = _test_assertGuard(
-  "ArrayHierarchicalPointer",
-)<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>
-  ((input: any): asserts input is ArrayHierarchicalPointer => {
+  TypeGuardError,
+)("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
+  ArrayHierarchicalPointer,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ArrayHierarchicalPointer => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ArrayHierarchicalPointer => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -70,7 +77,6 @@ export const test_assertGuard_ArrayHierarchicalPointer = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayHierarchicalPointer => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -47,7 +47,11 @@ export const test_createRandom_ObjectPartialAndRequired = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectPartialAndRequired => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectPartialAndRequired => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectPartialAndRequired => {
       const $io0 = (input: any): boolean =>
         (undefined === input.string || "string" === typeof input.string) &&
@@ -71,7 +75,6 @@ export const test_createRandom_ObjectPartialAndRequired = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectPartialAndRequired => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

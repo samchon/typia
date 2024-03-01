@@ -41,7 +41,11 @@ export const test_createRandom_ObjectGenericArray = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectGenericArray => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectGenericArray => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectGenericArray => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.pagination &&
@@ -71,7 +75,6 @@ export const test_createRandom_ObjectGenericArray = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectGenericArray => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

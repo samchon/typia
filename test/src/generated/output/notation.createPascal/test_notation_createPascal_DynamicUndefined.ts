@@ -110,7 +110,11 @@ export const test_notation_createValidatePascal_DynamicUndefined =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.PascalCase<DynamicUndefined> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<DynamicUndefined> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.PascalCase<DynamicUndefined> => {
@@ -133,7 +137,6 @@ export const test_notation_createValidatePascal_DynamicUndefined =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<DynamicUndefined> => {
-          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,

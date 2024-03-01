@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_json_assertParse_ConstantAtomicTagged =
-  _test_json_assertParse("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )((input) =>
-    ((input: string): typia.Primitive<ConstantAtomicTagged> => {
-      const assert = (input: any): ConstantAtomicTagged => {
+  _test_json_assertParse(TypeGuardError)(
+    "ConstantAtomicTagged",
+  )<ConstantAtomicTagged>(ConstantAtomicTagged)((input) =>
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ConstantAtomicTagged> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicTagged => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicTagged => {
           const $io0 = (input: any): boolean =>
             ("latest" === input.id ||
@@ -30,7 +38,6 @@ export const test_json_assertParse_ConstantAtomicTagged =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicTagged => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -90,6 +97,6 @@ export const test_json_assertParse_ConstantAtomicTagged =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

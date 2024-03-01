@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
 
 export const test_assertGuard_ArraySimpleProtobufNullable = _test_assertGuard(
-  "ArraySimpleProtobufNullable",
-)<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)((input) =>
-  ((input: any): asserts input is ArraySimpleProtobufNullable => {
+  TypeGuardError,
+)("ArraySimpleProtobufNullable")<ArraySimpleProtobufNullable>(
+  ArraySimpleProtobufNullable,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ArraySimpleProtobufNullable => {
+    const $guard = (typia.assertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ArraySimpleProtobufNullable => {
       const $io0 = (input: any): boolean =>
         (null === input.boolean ||
@@ -74,7 +81,6 @@ export const test_assertGuard_ArraySimpleProtobufNullable = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArraySimpleProtobufNullable => {
-        const $guard = (typia.assertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

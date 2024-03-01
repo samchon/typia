@@ -73,7 +73,11 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
       ])(),
     );
   },
-  assert: (input: any): MapUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): MapUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is MapUnion => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -199,7 +203,6 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

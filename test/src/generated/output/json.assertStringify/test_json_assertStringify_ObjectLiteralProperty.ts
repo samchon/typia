@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_json_assertStringify_ObjectLiteralProperty =
-  _test_json_assertStringify("ObjectLiteralProperty")<ObjectLiteralProperty>(
-    ObjectLiteralProperty,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ObjectLiteralProperty => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ObjectLiteralProperty",
+  )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectLiteralProperty => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ObjectLiteralProperty => {
           return (
             "object" === typeof input &&
@@ -25,7 +33,6 @@ export const test_json_assertStringify_ObjectLiteralProperty =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectLiteralProperty => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -69,6 +76,6 @@ export const test_json_assertStringify_ObjectLiteralProperty =
           (input as any)["or-something-crazy-do-you-want?"],
         )}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

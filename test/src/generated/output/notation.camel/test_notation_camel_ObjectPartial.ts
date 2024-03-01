@@ -270,7 +270,11 @@ export const test_notation_validateCamel_ObjectPartial =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<ObjectPartial> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectPartial> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<ObjectPartial> => {
         const $io0 = (input: any): boolean =>
           (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -315,7 +319,6 @@ export const test_notation_validateCamel_ObjectPartial =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectPartial> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

@@ -667,7 +667,9 @@ export const test_notation_validateCamel_ArrayRecursiveUnionExplicitPointer =
       })(input),
     assert: (
       input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
     ): typia.CamelCase<ArrayRecursiveUnionExplicitPointer> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ArrayRecursiveUnionExplicitPointer> => {
@@ -754,7 +756,6 @@ export const test_notation_validateCamel_ArrayRecursiveUnionExplicitPointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArrayRecursiveUnionExplicitPointer> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

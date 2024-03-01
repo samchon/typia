@@ -30,7 +30,11 @@ export const test_random_TypeTagMatrix = _test_random(
       });
       return $ro0();
     })((TypeTagMatrix as any).RANDOM),
-  assert: (input: any): TypeTagMatrix => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagMatrix => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagMatrix => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.matrix) &&
@@ -57,7 +61,6 @@ export const test_random_TypeTagMatrix = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagMatrix => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

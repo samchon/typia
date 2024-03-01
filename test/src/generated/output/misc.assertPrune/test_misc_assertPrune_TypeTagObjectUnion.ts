@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
 
 export const test_misc_assertPrune_TypeTagObjectUnion = _test_misc_assertPrune(
-  "TypeTagObjectUnion",
-)<TypeTagObjectUnion>(TypeTagObjectUnion)((input) =>
-  ((input: any): TypeTagObjectUnion => {
-    const assert = (input: any): TypeTagObjectUnion => {
+  TypeGuardError,
+)("TypeTagObjectUnion")<TypeTagObjectUnion>(TypeTagObjectUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagObjectUnion => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagObjectUnion => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagObjectUnion => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.value &&
@@ -47,7 +55,6 @@ export const test_misc_assertPrune_TypeTagObjectUnion = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagObjectUnion => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -210,7 +217,7 @@ export const test_misc_assertPrune_TypeTagObjectUnion = _test_misc_assertPrune(
         })();
       if (Array.isArray(input)) $pp0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

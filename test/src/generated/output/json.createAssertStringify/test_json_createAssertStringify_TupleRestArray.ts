@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_json_createAssertStringify_TupleRestArray =
-  _test_json_assertStringify("TupleRestArray")<TupleRestArray>(TupleRestArray)(
-    (input: any): string => {
-      const assert = (input: any): TupleRestArray => {
+  _test_json_assertStringify(TypeGuardError)("TupleRestArray")<TupleRestArray>(
+    TupleRestArray,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TupleRestArray => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TupleRestArray => {
           return (
             Array.isArray(input) &&
@@ -29,7 +41,6 @@ export const test_json_createAssertStringify_TupleRestArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TupleRestArray => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             return (
               ((Array.isArray(input) ||
                 $guard(true, {
@@ -112,6 +123,6 @@ export const test_json_createAssertStringify_TupleRestArray =
             .join(",")}]`,
         )}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

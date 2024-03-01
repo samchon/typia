@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { FunctionalTupleUnion } from "../../../structures/FunctionalTupleUnion";
 
 export const test_createAssert_FunctionalTupleUnion = _test_assert(
-  "FunctionalTupleUnion",
-)<FunctionalTupleUnion>(FunctionalTupleUnion)(
-  (input: any): FunctionalTupleUnion => {
+  TypeGuardError,
+)("FunctionalTupleUnion")<FunctionalTupleUnion>(FunctionalTupleUnion)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): FunctionalTupleUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is FunctionalTupleUnion => {
       return (
         Array.isArray(input) &&
@@ -39,7 +44,6 @@ export const test_createAssert_FunctionalTupleUnion = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is FunctionalTupleUnion => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

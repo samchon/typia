@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
 export const test_protobuf_createAssertEncode_ConstantAtomicAbsorbed =
-  _test_protobuf_assertEncode("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
-    ConstantAtomicAbsorbed,
-  )({
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ConstantAtomicAbsorbed",
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ConstantAtomicAbsorbed => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicAbsorbed => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ConstantAtomicAbsorbed => {
           return (
             "object" === typeof input &&
@@ -24,7 +31,6 @@ export const test_protobuf_createAssertEncode_ConstantAtomicAbsorbed =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicAbsorbed => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

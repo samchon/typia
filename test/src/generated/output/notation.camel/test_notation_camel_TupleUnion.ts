@@ -237,7 +237,11 @@ export const test_notation_validateCamel_TupleUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<TupleUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<TupleUnion> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<TupleUnion> => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -290,7 +294,6 @@ export const test_notation_validateCamel_TupleUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TupleUnion> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ap0 = (
             input: any,
             _path: string,

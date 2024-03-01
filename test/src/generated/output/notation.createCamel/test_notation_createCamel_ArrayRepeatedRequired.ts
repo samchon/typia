@@ -158,7 +158,11 @@ export const test_notation_createValidateCamel_ArrayRepeatedRequired =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ArrayRepeatedRequired> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ArrayRepeatedRequired> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ArrayRepeatedRequired> => {
@@ -185,7 +189,6 @@ export const test_notation_createValidateCamel_ArrayRepeatedRequired =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArrayRepeatedRequired> => {
-          const $guard = (typia.createAssert as any).guard;
           const $aa0 = (
             input: any,
             _path: string,

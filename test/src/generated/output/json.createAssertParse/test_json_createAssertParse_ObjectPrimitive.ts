@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_createAssertParse_ObjectPrimitive =
-  _test_json_assertParse("ObjectPrimitive")<ObjectPrimitive>(ObjectPrimitive)(
-    (input: string): typia.Primitive<ObjectPrimitive> => {
-      const assert = (input: any): ObjectPrimitive => {
+  _test_json_assertParse(TypeGuardError)("ObjectPrimitive")<ObjectPrimitive>(
+    ObjectPrimitive,
+  )(
+    (
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ObjectPrimitive> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectPrimitive => {
+        const $guard = (typia.json.createAssertParse as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectPrimitive => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -36,7 +48,6 @@ export const test_json_createAssertParse_ObjectPrimitive =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectPrimitive => {
-            const $guard = (typia.json.createAssertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -163,6 +174,6 @@ export const test_json_createAssertParse_ObjectPrimitive =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     },
   );

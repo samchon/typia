@@ -114,7 +114,11 @@ export const test_notation_validateCamel_ClassPropertyAssignment =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<ClassPropertyAssignment> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ClassPropertyAssignment> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ClassPropertyAssignment> => {
@@ -133,7 +137,6 @@ export const test_notation_validateCamel_ClassPropertyAssignment =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ClassPropertyAssignment> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_protobuf_createAssertEncode_ObjectSimple =
-  _test_protobuf_assertEncode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
+  _test_protobuf_assertEncode(TypeGuardError)("ObjectSimple")<ObjectSimple>(
+    ObjectSimple,
+  )({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectSimple => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectSimple => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectSimple => {
           return (
             "object" === typeof input &&
@@ -51,7 +60,6 @@ export const test_protobuf_createAssertEncode_ObjectSimple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectSimple => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

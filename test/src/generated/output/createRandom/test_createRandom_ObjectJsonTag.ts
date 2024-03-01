@@ -26,7 +26,11 @@ export const test_createRandom_ObjectJsonTag = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectJsonTag => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectJsonTag => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectJsonTag => {
       return (
         "object" === typeof input &&
@@ -43,7 +47,6 @@ export const test_createRandom_ObjectJsonTag = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectJsonTag => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

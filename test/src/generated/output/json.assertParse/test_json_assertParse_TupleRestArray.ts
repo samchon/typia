@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_json_assertParse_TupleRestArray = _test_json_assertParse(
-  "TupleRestArray",
-)<TupleRestArray>(TupleRestArray)((input) =>
-  ((input: string): typia.Primitive<TupleRestArray> => {
-    const assert = (input: any): TupleRestArray => {
+  TypeGuardError,
+)("TupleRestArray")<TupleRestArray>(TupleRestArray)((input) =>
+  ((
+    input: string,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Primitive<TupleRestArray> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TupleRestArray => {
+      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is TupleRestArray => {
         return (
           Array.isArray(input) &&
@@ -30,7 +38,6 @@ export const test_json_assertParse_TupleRestArray = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TupleRestArray => {
-          const $guard = (typia.json.assertParse as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -100,6 +107,6 @@ export const test_json_assertParse_TupleRestArray = _test_json_assertParse(
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   })(input),
 );

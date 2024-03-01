@@ -150,7 +150,11 @@ export const test_notation_validatePascal_ArrayRepeatedOptional =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<ArrayRepeatedOptional> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.PascalCase<ArrayRepeatedOptional> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.PascalCase<ArrayRepeatedOptional> => {
@@ -177,7 +181,6 @@ export const test_notation_validatePascal_ArrayRepeatedOptional =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<ArrayRepeatedOptional> => {
-          const $guard = (typia.createAssert as any).guard;
           const $aa0 = (
             input: any,
             _path: string,

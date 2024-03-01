@@ -240,7 +240,11 @@ export const test_notation_createValidateCamel_ObjectHttpTypeTag =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectHttpTypeTag> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.CamelCase<ObjectHttpTypeTag> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectHttpTypeTag> => {
@@ -276,7 +280,6 @@ export const test_notation_createValidateCamel_ObjectHttpTypeTag =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ObjectHttpTypeTag> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

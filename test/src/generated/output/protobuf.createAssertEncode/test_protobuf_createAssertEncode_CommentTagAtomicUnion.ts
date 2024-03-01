@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
 export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
-  _test_protobuf_assertEncode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
-    CommentTagAtomicUnion,
-  )({
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagAtomicUnion",
+  )<CommentTagAtomicUnion>(CommentTagAtomicUnion)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): CommentTagAtomicUnion => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): CommentTagAtomicUnion => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is CommentTagAtomicUnion => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -31,7 +38,6 @@ export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is CommentTagAtomicUnion => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

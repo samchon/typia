@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_assertStringify_ArrayRepeatedNullable =
-  _test_json_assertStringify("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
-    ArrayRepeatedNullable,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ArrayRepeatedNullable => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ArrayRepeatedNullable",
+  )<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRepeatedNullable => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ArrayRepeatedNullable => {
           const $ia0 = (input: any): any =>
             input.every(
@@ -33,7 +41,6 @@ export const test_json_assertStringify_ArrayRepeatedNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedNullable => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $aa0 = (
               input: any,
               _path: string,
@@ -152,6 +159,6 @@ export const test_json_assertStringify_ArrayRepeatedNullable =
             })()
           : "null";
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

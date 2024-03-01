@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TypeTagBigInt } from "../../../structures/TypeTagBigInt";
 
 export const test_misc_assertPrune_TypeTagBigInt = _test_misc_assertPrune(
-  "TypeTagBigInt",
-)<TypeTagBigInt>(TypeTagBigInt)((input) =>
-  ((input: any): TypeTagBigInt => {
-    const assert = (input: any): TypeTagBigInt => {
+  TypeGuardError,
+)("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagBigInt => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): TypeTagBigInt => {
+      const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
       const __is = (input: any): input is TypeTagBigInt => {
         return (
           "object" === typeof input &&
@@ -30,7 +38,6 @@ export const test_misc_assertPrune_TypeTagBigInt = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagBigInt => {
-          const $guard = (typia.misc.assertPrune as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -129,7 +136,7 @@ export const test_misc_assertPrune_TypeTagBigInt = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

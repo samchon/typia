@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_assertClone_AtomicUnion = _test_misc_assertClone(
-  "AtomicUnion",
-)<AtomicUnion>(AtomicUnion)((input) =>
-  ((input: any): typia.Resolved<AtomicUnion> => {
-    const assert = (input: any): AtomicUnion => {
+  TypeGuardError,
+)("AtomicUnion")<AtomicUnion>(AtomicUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<AtomicUnion> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): AtomicUnion => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is AtomicUnion => {
         return (
           Array.isArray(input) &&
@@ -26,7 +34,6 @@ export const test_misc_assertClone_AtomicUnion = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is AtomicUnion => {
-          const $guard = (typia.misc.assertClone as any).guard;
           return (
             ((Array.isArray(input) ||
               $guard(true, {
@@ -59,7 +66,7 @@ export const test_misc_assertClone_AtomicUnion = _test_misc_assertClone(
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       return Array.isArray(input) ? $cp0(input) : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

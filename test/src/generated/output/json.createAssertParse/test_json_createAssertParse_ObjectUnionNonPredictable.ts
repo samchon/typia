@@ -1,14 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_json_createAssertParse_ObjectUnionNonPredictable =
-  _test_json_assertParse(
+  _test_json_assertParse(TypeGuardError)(
     "ObjectUnionNonPredictable",
   )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    (input: string): typia.Primitive<ObjectUnionNonPredictable> => {
-      const assert = (input: any): ObjectUnionNonPredictable => {
+    (
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ObjectUnionNonPredictable> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionNonPredictable => {
+        const $guard = (typia.json.createAssertParse as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectUnionNonPredictable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -52,7 +62,6 @@ export const test_json_createAssertParse_ObjectUnionNonPredictable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionNonPredictable => {
-            const $guard = (typia.json.createAssertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -245,6 +254,6 @@ export const test_json_createAssertParse_ObjectUnionNonPredictable =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     },
   );

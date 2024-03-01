@@ -1,13 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
-export const test_protobuf_createAssertEncode_TypeTagCustom =
-  _test_protobuf_assertEncode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
+export const test_protobuf_assertEncode_TypeTagCustom =
+  _test_protobuf_assertEncode(TypeGuardError)("TypeTagCustom")<TypeTagCustom>(
+    TypeTagCustom,
+  )({
     encode: (input) =>
       ((input: any): Uint8Array => {
-        const assert = (input: any): TypeTagCustom => {
+        const assert = (
+          input: any,
+          errorFactory?: import("typia").TypeGuardError.IProps,
+        ): TypeTagCustom => {
+          const $guard = (typia.protobuf.assertEncode as any).guard(
+            errorFactory,
+          );
           const __is = (input: any): input is TypeTagCustom => {
             return (
               "object" === typeof input &&
@@ -39,7 +48,6 @@ export const test_protobuf_createAssertEncode_TypeTagCustom =
               _path: string,
               _exceptionable: boolean = true,
             ): input is TypeTagCustom => {
-              const $guard = (typia.protobuf.assertEncode as any).guard;
               const $ao0 = (
                 input: any,
                 _path: string,

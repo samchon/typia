@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
 export const test_createAssertGuard_ObjectHttpCommentTag = _test_assertGuard(
-  "ObjectHttpCommentTag",
-)<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
-  (input: any): asserts input is ObjectHttpCommentTag => {
+  TypeGuardError,
+)("ObjectHttpCommentTag")<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ObjectHttpCommentTag => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectHttpCommentTag => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int &&
@@ -33,7 +38,6 @@ export const test_createAssertGuard_ObjectHttpCommentTag = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectHttpCommentTag => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

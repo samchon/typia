@@ -65,7 +65,11 @@ export const test_random_ObjectDate = _test_random("ObjectDate")<ObjectDate>(
       });
       return $ro0();
     })((ObjectDate as any).RANDOM),
-  assert: (input: any): ObjectDate => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectDate => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDate => {
       const $io0 = (input: any): boolean =>
         (null === input.classDate ||
@@ -95,7 +99,6 @@ export const test_random_ObjectDate = _test_random("ObjectDate")<ObjectDate>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDate => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

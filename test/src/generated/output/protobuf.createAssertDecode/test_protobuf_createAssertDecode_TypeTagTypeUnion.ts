@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { TypeTagTypeUnion } from "../../../structures/TypeTagTypeUnion";
 
 export const test_protobuf_createAssertDecode_TypeTagTypeUnion =
-  _test_protobuf_assertDecode("TypeTagTypeUnion")<TypeTagTypeUnion>(
-    TypeTagTypeUnion,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<TypeTagTypeUnion> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "TypeTagTypeUnion",
+  )<TypeTagTypeUnion>(TypeTagTypeUnion)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<TypeTagTypeUnion> => {
       const decode = (input: Uint8Array): typia.Resolved<TypeTagTypeUnion> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -133,7 +137,13 @@ export const test_protobuf_createAssertDecode_TypeTagTypeUnion =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): TypeTagTypeUnion => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TypeTagTypeUnion => {
+        const $guard = (typia.protobuf.createAssertDecode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TypeTagTypeUnion => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int32_or_uint32 &&
@@ -214,7 +224,6 @@ export const test_protobuf_createAssertDecode_TypeTagTypeUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TypeTagTypeUnion => {
-            const $guard = (typia.protobuf.createAssertDecode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -414,7 +423,7 @@ export const test_protobuf_createAssertDecode_TypeTagTypeUnion =
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: TypeTagTypeUnion): Uint8Array => {
       const $throws = (typia.protobuf.createEncode as any).throws;

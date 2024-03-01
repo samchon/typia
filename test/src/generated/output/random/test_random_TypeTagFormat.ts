@@ -192,7 +192,11 @@ export const test_random_TypeTagFormat = _test_random(
       });
       return $ro0();
     })((TypeTagFormat as any).RANDOM),
-  assert: (input: any): TypeTagFormat => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagFormat => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&
@@ -289,7 +293,6 @@ export const test_random_TypeTagFormat = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagFormat => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

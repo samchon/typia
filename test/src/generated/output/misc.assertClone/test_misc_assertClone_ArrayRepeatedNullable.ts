@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_misc_assertClone_ArrayRepeatedNullable =
-  _test_misc_assertClone("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
-    ArrayRepeatedNullable,
-  )((input) =>
-    ((input: any): typia.Resolved<ArrayRepeatedNullable> => {
-      const assert = (input: any): ArrayRepeatedNullable => {
+  _test_misc_assertClone(TypeGuardError)(
+    "ArrayRepeatedNullable",
+  )<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ArrayRepeatedNullable> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRepeatedNullable => {
+        const $guard = (typia.misc.assertClone as any).guard(errorFactory);
         const __is = (input: any): input is ArrayRepeatedNullable => {
           const $ia0 = (input: any): any =>
             input.every(
@@ -33,7 +41,6 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedNullable => {
-            const $guard = (typia.misc.assertClone as any).guard;
             const $aa0 = (
               input: any,
               _path: string,
@@ -128,7 +135,7 @@ export const test_misc_assertClone_ArrayRepeatedNullable =
           );
         return Array.isArray(input) ? $cp0(input) : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     })(input),

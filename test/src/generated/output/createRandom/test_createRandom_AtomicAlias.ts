@@ -18,7 +18,11 @@ export const test_createRandom_AtomicAlias = _test_random(
         (generator?.string ?? $generator.string)(),
     ];
   },
-  assert: (input: any): AtomicAlias => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): AtomicAlias => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is AtomicAlias => {
       return (
         Array.isArray(input) &&
@@ -35,7 +39,6 @@ export const test_createRandom_AtomicAlias = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is AtomicAlias => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

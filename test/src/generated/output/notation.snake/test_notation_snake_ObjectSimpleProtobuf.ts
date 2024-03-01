@@ -198,7 +198,11 @@ export const test_notation_validateSnake_ObjectSimpleProtobuf =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectSimpleProtobuf> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ObjectSimpleProtobuf> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ObjectSimpleProtobuf> => {
@@ -231,7 +235,6 @@ export const test_notation_validateSnake_ObjectSimpleProtobuf =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ObjectSimpleProtobuf> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

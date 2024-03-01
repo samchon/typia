@@ -593,7 +593,11 @@ export const test_notation_validateSnake_ArrayRecursiveUnionImplicit =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ArrayRecursiveUnionImplicit> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ArrayRecursiveUnionImplicit> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ArrayRecursiveUnionImplicit> => {
@@ -678,7 +682,6 @@ export const test_notation_validateSnake_ArrayRecursiveUnionImplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayRecursiveUnionImplicit> => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

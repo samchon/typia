@@ -1,13 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
-  "DynamicTree",
-)<DynamicTree>(DynamicTree)((input) =>
-  ((input: any): typia.Resolved<DynamicTree> => {
-    const assert = (input: any): DynamicTree => {
+  TypeGuardError,
+)("DynamicTree")<DynamicTree>(DynamicTree)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): typia.Resolved<DynamicTree> => {
+    const assert = (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): DynamicTree => {
+      const $guard = (typia.misc.assertClone as any).guard(errorFactory);
       const __is = (input: any): input is DynamicTree => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -31,7 +39,6 @@ export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTree => {
-          const $guard = (typia.misc.assertClone as any).guard;
           const $join = (typia.misc.assertClone as any).join;
           const $ao0 = (
             input: any,
@@ -149,7 +156,7 @@ export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

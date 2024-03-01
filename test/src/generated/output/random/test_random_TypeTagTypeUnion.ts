@@ -228,7 +228,11 @@ export const test_random_TypeTagTypeUnion = _test_random(
       });
       return $ro0();
     })((TypeTagTypeUnion as any).RANDOM),
-  assert: (input: any): TypeTagTypeUnion => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagTypeUnion => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagTypeUnion => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int32_or_uint32 &&
@@ -309,7 +313,6 @@ export const test_random_TypeTagTypeUnion = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTypeUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

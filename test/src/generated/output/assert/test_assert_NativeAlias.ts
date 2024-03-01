@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { NativeAlias } from "../../../structures/NativeAlias";
 
-export const test_assert_NativeAlias = _test_assert("NativeAlias")<NativeAlias>(
-  NativeAlias,
-)((input) =>
-  ((input: any): NativeAlias => {
+export const test_assert_NativeAlias = _test_assert(TypeGuardError)(
+  "NativeAlias",
+)<NativeAlias>(NativeAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): NativeAlias => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is NativeAlias => {
       const $io0 = (input: any): boolean =>
         input.date instanceof Date &&
@@ -32,7 +37,6 @@ export const test_assert_NativeAlias = _test_assert("NativeAlias")<NativeAlias>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is NativeAlias => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

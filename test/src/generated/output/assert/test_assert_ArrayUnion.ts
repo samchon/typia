@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_assert_ArrayUnion = _test_assert("ArrayUnion")<ArrayUnion>(
-  ArrayUnion,
-)((input) =>
-  ((input: any): ArrayUnion => {
+export const test_assert_ArrayUnion = _test_assert(TypeGuardError)(
+  "ArrayUnion",
+)<ArrayUnion>(ArrayUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ArrayUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -52,7 +57,6 @@ export const test_assert_ArrayUnion = _test_assert("ArrayUnion")<ArrayUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayUnion => {
-        const $guard = (typia.assert as any).guard;
         const $ap0 = (
           input: any,
           _path: string,

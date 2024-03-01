@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_createAssertGuard_DynamicSimple = _test_assertGuard(
-  "DynamicSimple",
-)<DynamicSimple>(DynamicSimple)(
-  (input: any): asserts input is DynamicSimple => {
+  TypeGuardError,
+)("DynamicSimple")<DynamicSimple>(DynamicSimple)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is DynamicSimple => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is DynamicSimple => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -27,7 +32,6 @@ export const test_createAssertGuard_DynamicSimple = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicSimple => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $join = (typia.createAssertGuard as any).join;
         const $ao0 = (
           input: any,

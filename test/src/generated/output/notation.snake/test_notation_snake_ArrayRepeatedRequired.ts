@@ -162,7 +162,11 @@ export const test_notation_validateSnake_ArrayRepeatedRequired =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ArrayRepeatedRequired> => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.SnakeCase<ArrayRepeatedRequired> => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ArrayRepeatedRequired> => {
@@ -189,7 +193,6 @@ export const test_notation_validateSnake_ArrayRepeatedRequired =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ArrayRepeatedRequired> => {
-          const $guard = (typia.createAssert as any).guard;
           const $aa0 = (
             input: any,
             _path: string,

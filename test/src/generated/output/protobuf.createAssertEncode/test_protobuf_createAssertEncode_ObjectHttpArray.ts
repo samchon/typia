@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
 export const test_protobuf_createAssertEncode_ObjectHttpArray =
-  _test_protobuf_assertEncode("ObjectHttpArray")<ObjectHttpArray>(
-    ObjectHttpArray,
-  )({
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpArray",
+  )<ObjectHttpArray>(ObjectHttpArray)({
     encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectHttpArray => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectHttpArray => {
+        const $guard = (typia.protobuf.createAssertEncode as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectHttpArray => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.booleans) &&
@@ -35,7 +42,6 @@ export const test_protobuf_createAssertEncode_ObjectHttpArray =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectHttpArray => {
-            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,

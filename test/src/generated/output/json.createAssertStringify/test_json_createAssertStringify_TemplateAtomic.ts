@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_json_createAssertStringify_TemplateAtomic =
-  _test_json_assertStringify("TemplateAtomic")<TemplateAtomic>(TemplateAtomic)(
-    (input: any): string => {
-      const assert = (input: any): TemplateAtomic => {
+  _test_json_assertStringify(TypeGuardError)("TemplateAtomic")<TemplateAtomic>(
+    TemplateAtomic,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): TemplateAtomic => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is TemplateAtomic => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.prefix &&
@@ -37,7 +49,6 @@ export const test_json_createAssertStringify_TemplateAtomic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is TemplateAtomic => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -144,6 +155,6 @@ export const test_json_createAssertStringify_TemplateAtomic =
           })()},"ipv4":${$string(input.ipv4)},"email":${$string(input.email)}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

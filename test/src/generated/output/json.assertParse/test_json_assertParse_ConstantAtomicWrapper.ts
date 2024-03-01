@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_assertParse_ConstantAtomicWrapper =
-  _test_json_assertParse("ConstantAtomicWrapper")<ConstantAtomicWrapper>(
-    ConstantAtomicWrapper,
-  )((input) =>
-    ((input: string): typia.Primitive<ConstantAtomicWrapper> => {
-      const assert = (input: any): ConstantAtomicWrapper => {
+  _test_json_assertParse(TypeGuardError)(
+    "ConstantAtomicWrapper",
+  )<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
+    ((
+      input: string,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Primitive<ConstantAtomicWrapper> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ConstantAtomicWrapper => {
+        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicWrapper => {
           const $io0 = (input: any): boolean =>
             "boolean" === typeof input.value;
@@ -35,7 +43,6 @@ export const test_json_assertParse_ConstantAtomicWrapper =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicWrapper => {
-            const $guard = (typia.json.assertParse as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -130,6 +137,6 @@ export const test_json_assertParse_ConstantAtomicWrapper =
         return input;
       };
       input = JSON.parse(input);
-      return assert(input) as any;
+      return assert(input, errorFactory) as any;
     })(input),
   );

@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_assertStringify_ArrayRepeatedRequired =
-  _test_json_assertStringify("ArrayRepeatedRequired")<ArrayRepeatedRequired>(
-    ArrayRepeatedRequired,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ArrayRepeatedRequired => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ArrayRepeatedRequired",
+  )<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRepeatedRequired => {
+        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ArrayRepeatedRequired => {
           const $ia0 = (input: any): any =>
             input.every(
@@ -33,7 +41,6 @@ export const test_json_assertStringify_ArrayRepeatedRequired =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedRequired => {
-            const $guard = (typia.json.assertStringify as any).guard;
             const $aa0 = (
               input: any,
               _path: string,
@@ -155,6 +162,6 @@ export const test_json_assertStringify_ArrayRepeatedRequired =
           });
         })();
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

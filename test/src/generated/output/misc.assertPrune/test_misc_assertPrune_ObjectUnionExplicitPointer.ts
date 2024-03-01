@@ -1,14 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
 export const test_misc_assertPrune_ObjectUnionExplicitPointer =
-  _test_misc_assertPrune(
+  _test_misc_assertPrune(TypeGuardError)(
     "ObjectUnionExplicitPointer",
   )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
-    ((input: any): ObjectUnionExplicitPointer => {
-      const assert = (input: any): ObjectUnionExplicitPointer => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ObjectUnionExplicitPointer => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectUnionExplicitPointer => {
+        const $guard = (typia.misc.assertPrune as any).guard(errorFactory);
         const __is = (input: any): input is ObjectUnionExplicitPointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -143,7 +151,6 @@ export const test_misc_assertPrune_ObjectUnionExplicitPointer =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectUnionExplicitPointer => {
-            const $guard = (typia.misc.assertPrune as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -797,7 +804,7 @@ export const test_misc_assertPrune_ObjectUnionExplicitPointer =
           })();
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

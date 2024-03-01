@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_assert_ToJsonAtomicUnion = _test_assert(
+export const test_assert_ToJsonAtomicUnion = _test_assert(TypeGuardError)(
   "ToJsonAtomicUnion",
 )<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
-  ((input: any): ToJsonAtomicUnion => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ToJsonAtomicUnion => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ToJsonAtomicUnion => {
       const $io0 = (input: any): boolean => "function" === typeof input.toJSON;
       return (
@@ -23,7 +28,6 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonAtomicUnion => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

@@ -1,12 +1,19 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_assert_ObjectUnionNonPredictable = _test_assert(
-  "ObjectUnionNonPredictable",
-)<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
-  ((input: any): ObjectUnionNonPredictable => {
+  TypeGuardError,
+)("ObjectUnionNonPredictable")<ObjectUnionNonPredictable>(
+  ObjectUnionNonPredictable,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ObjectUnionNonPredictable => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectUnionNonPredictable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -50,7 +57,6 @@ export const test_assert_ObjectUnionNonPredictable = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectUnionNonPredictable => {
-        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

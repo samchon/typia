@@ -1,12 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_misc_createAssertClone_ObjectNullable =
-  _test_misc_assertClone("ObjectNullable")<ObjectNullable>(ObjectNullable)(
-    (input: any): typia.Resolved<ObjectNullable> => {
-      const assert = (input: any): ObjectNullable => {
+  _test_misc_assertClone(TypeGuardError)("ObjectNullable")<ObjectNullable>(
+    ObjectNullable,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): typia.Resolved<ObjectNullable> => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ObjectNullable => {
+        const $guard = (typia.misc.createAssertClone as any).guard(
+          errorFactory,
+        );
         const __is = (input: any): input is ObjectNullable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -45,7 +57,6 @@ export const test_misc_createAssertClone_ObjectNullable =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectNullable => {
-            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -290,7 +301,7 @@ export const test_misc_createAssertClone_ObjectNullable =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

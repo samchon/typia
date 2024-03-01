@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_createAssertGuard_ArrayRepeatedNullable = _test_assertGuard(
-  "ArrayRepeatedNullable",
-)<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-  (input: any): asserts input is ArrayRepeatedNullable => {
+  TypeGuardError,
+)("ArrayRepeatedNullable")<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
+  (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): asserts input is ArrayRepeatedNullable => {
+    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedNullable => {
       const $ia0 = (input: any): any =>
         input.every(
@@ -31,7 +36,6 @@ export const test_createAssertGuard_ArrayRepeatedNullable = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedNullable => {
-        const $guard = (typia.createAssertGuard as any).guard;
         const $aa0 = (
           input: any,
           _path: string,

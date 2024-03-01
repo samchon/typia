@@ -1,13 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_assertGuardEquals_ArrayRecursiveUnionExplicit =
-  _test_assertGuardEquals(
+  _test_assertGuardEquals(TypeGuardError)(
     "ArrayRecursiveUnionExplicit",
   )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)((input) =>
-    ((input: any): asserts input is ArrayRecursiveUnionExplicit => {
+    ((
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is ArrayRecursiveUnionExplicit => {
+      const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -178,7 +183,6 @@ export const test_assertGuardEquals_ArrayRecursiveUnionExplicit =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionExplicit => {
-          const $guard = (typia.assertGuardEquals as any).guard;
           const $join = (typia.assertGuardEquals as any).join;
           const $ao0 = (
             input: any,

@@ -1,12 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_assert_ConstantIntersection = _test_assert(
+export const test_assert_ConstantIntersection = _test_assert(TypeGuardError)(
   "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)((input) =>
-  ((input: any): ConstantIntersection => {
+  ((
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantIntersection => {
+    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ConstantIntersection => {
       return (
         Array.isArray(input) &&
@@ -22,7 +27,6 @@ export const test_assert_ConstantIntersection = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantIntersection => {
-        const $guard = (typia.assert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

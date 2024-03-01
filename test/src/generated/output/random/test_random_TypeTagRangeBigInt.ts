@@ -118,7 +118,11 @@ export const test_random_TypeTagRangeBigInt = _test_random(
       });
       return $ro0();
     })((TypeTagRangeBigInt as any).RANDOM),
-  assert: (input: any): TypeTagRangeBigInt => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): TypeTagRangeBigInt => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagRangeBigInt => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -158,7 +162,6 @@ export const test_random_TypeTagRangeBigInt = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagRangeBigInt => {
-        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,

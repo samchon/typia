@@ -1,14 +1,24 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_json_createAssertStringify_ArrayRecursiveUnionExplicitPointer =
-  _test_json_assertStringify(
+  _test_json_assertStringify(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
-    (input: any): string => {
-      const assert = (input: any): ArrayRecursiveUnionExplicitPointer => {
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: import("typia").TypeGuardError.IProps,
+      ): ArrayRecursiveUnionExplicitPointer => {
+        const $guard = (typia.json.createAssertStringify as any).guard(
+          errorFactory,
+        );
         const __is = (
           input: any,
         ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -95,7 +105,6 @@ export const test_json_createAssertStringify_ArrayRecursiveUnionExplicitPointer 
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRecursiveUnionExplicitPointer => {
-            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -648,6 +657,6 @@ export const test_json_createAssertStringify_ArrayRecursiveUnionExplicitPointer 
           })();
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

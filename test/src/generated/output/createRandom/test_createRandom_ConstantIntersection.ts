@@ -12,7 +12,11 @@ export const test_createRandom_ConstantIntersection = _test_random(
   ): typia.Resolved<ConstantIntersection> => {
     return [false, 1, "two"];
   },
-  assert: (input: any): ConstantIntersection => {
+  assert: (
+    input: any,
+    errorFactory?: import("typia").TypeGuardError.IProps,
+  ): ConstantIntersection => {
+    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ConstantIntersection => {
       return (
         Array.isArray(input) &&
@@ -28,7 +32,6 @@ export const test_createRandom_ConstantIntersection = _test_random(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ConstantIntersection => {
-        const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
             $guard(true, {

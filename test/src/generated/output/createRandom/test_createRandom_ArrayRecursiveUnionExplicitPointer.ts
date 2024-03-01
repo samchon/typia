@@ -127,7 +127,11 @@ export const test_createRandom_ArrayRecursiveUnionExplicitPointer =
       });
       return $ro0();
     },
-    assert: (input: any): ArrayRecursiveUnionExplicitPointer => {
+    assert: (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): ArrayRecursiveUnionExplicitPointer => {
+      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -214,7 +218,6 @@ export const test_createRandom_ArrayRecursiveUnionExplicitPointer =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRecursiveUnionExplicitPointer => {
-          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,

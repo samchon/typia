@@ -1,11 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
 export const test_createAssertGuardEquals_TypeTagLength =
-  _test_assertGuardEquals("TypeTagLength")<TypeTagLength>(TypeTagLength)(
-    (input: any): asserts input is TypeTagLength => {
+  _test_assertGuardEquals(TypeGuardError)("TypeTagLength")<TypeTagLength>(
+    TypeTagLength,
+  )(
+    (
+      input: any,
+      errorFactory?: import("typia").TypeGuardError.IProps,
+    ): asserts input is TypeTagLength => {
+      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -63,7 +70,6 @@ export const test_createAssertGuardEquals_TypeTagLength =
           _path: string,
           _exceptionable: boolean = true,
         ): input is TypeTagLength => {
-          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,
