@@ -4,6 +4,7 @@ import { CamelCase } from "./CamelCase";
 import { IValidation } from "./IValidation";
 import { PascalCase } from "./PascalCase";
 import { SnakeCase } from "./SnakeCase";
+import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     NOTATIONS (NAMING CONVENTIONS)
@@ -59,7 +60,10 @@ export { camelPure as camel };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertCamel<T>(input: T): CamelCase<T>;
+function assertCamel<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): CamelCase<T>;
 
 /**
  * Converts to camel case with type assertion.
@@ -73,7 +77,10 @@ function assertCamel<T>(input: T): CamelCase<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertCamel<T>(input: unknown): CamelCase<T>;
+function assertCamel<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): CamelCase<T>;
 
 /**
  * @internal
@@ -230,7 +237,10 @@ export { pascalPure as pascal };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPascal<T>(input: T): PascalCase<T>;
+function assertPascal<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): PascalCase<T>;
 
 /**
  * Converts to pascal case with type assertion.
@@ -244,7 +254,10 @@ function assertPascal<T>(input: T): PascalCase<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPascal<T>(input: unknown): PascalCase<T>;
+function assertPascal<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): PascalCase<T>;
 
 /**
  * @internal
@@ -401,7 +414,10 @@ export { snakePure as snake };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertSnake<T>(input: T): SnakeCase<T>;
+function assertSnake<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): SnakeCase<T>;
 
 /**
  * Converts to snake case with type assertion.
@@ -415,7 +431,10 @@ function assertSnake<T>(input: T): SnakeCase<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertSnake<T>(input: unknown): SnakeCase<T>;
+function assertSnake<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): SnakeCase<T>;
 
 /**
  * @internal
@@ -568,7 +587,9 @@ export { createCamelPure as createCamel };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertCamel(): never;
+function createAssertCamel(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertCamel} function.
@@ -578,7 +599,9 @@ function createAssertCamel(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertCamel<T>(): (input: T) => CamelCase<T>;
+function createAssertCamel<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => CamelCase<T>;
 
 /**
  * @internal
@@ -715,7 +738,9 @@ export { createPascalPure as createPascal };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPascal(): never;
+function createAssertPascal(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertPascal} function.
@@ -725,7 +750,9 @@ function createAssertPascal(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPascal<T>(): (input: T) => PascalCase<T>;
+function createAssertPascal<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => PascalCase<T>;
 
 /**
  * @internal
@@ -862,7 +889,9 @@ export { createSnakePure as createSnake };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertSnake(): never;
+function createAssertSnake(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertSnake} function.
@@ -872,7 +901,9 @@ function createAssertSnake(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertSnake<T>(): (input: T) => SnakeCase<T>;
+function createAssertSnake<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => SnakeCase<T>;
 
 /**
  * @internal

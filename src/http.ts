@@ -4,6 +4,7 @@ import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
+import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     HTTP
@@ -15,41 +16,6 @@ import { Resolved } from "./Resolved";
 ==============================================================
     FORM-DATA
 ----------------------------------------------------------- */
-/**
- * > You must configure the generic argument `T`.
- *
- * Form data decoder.
- *
- * `typia.http.formData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When roperty type be defined
- * as `boolean` or `Blob` type, `typia.http.formData()` will cast the value to
- * the expected type when decoding.
- *
- * By the way, as `FormData` is not enough to express complex data structures,
- * `typia.http.formData()` function has some limitations. If target type `T` is
- * not following those restrictions, compilation errors would be occured.
- *
- * 1. Type `T` must be an object type
- * 2. Do not allow dynamic property
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
- *
- * Also, `typia.http.formData()` function does not perform validation about the
- * decoded value. Therefore, if you can't sure that input data is following the
- * `T` type, it would better to call one of below functions intead.
- *
- * - {@link assertFormData}
- * - {@link isFormData}
- * - {@link validateFormData}
- *
- * @template T Expected type of decoded value
- * @param input FormData instance
- * @returns Decoded form FormData
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function formData(): never;
-
 /**
  * Form data decoder.
  *
@@ -92,8 +58,6 @@ const formDataPure = /** @__PURE__ */ Object.assign<typeof formData, {}>(
 export { formDataPure as formData };
 
 /**
- * > You must configure the generic argument `T`.
- *
  * Form data decoder with type assertion.
  *
  * `typia.http.assertFormData()` is a function decoding `FormData` instance, with
@@ -121,37 +85,10 @@ export { formDataPure as formData };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertFormData(): never;
-
-/**
- * Form data decoder with type assertion.
- *
- * `typia.http.assertFormData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When roperty type be defined
- * as `boolean` or `Blob` type, `typia.http.assertFormData()` will cast the value
- * to the expected type when decoding.
- *
- * Also, after decoding, `typia.http.assertFormData()` performs type assertion to
- * the decoded value by combining with {@link assert} function. Therefore, when
- * the decoded value is not following the `T` type, {@link TypeGuardError} would
- * be thrown.
- *
- * By the way, as `FormData` is not enough to express complex data structures,
- * `typia.http.assertFormData()` function has some limitations. If target type `T`
- * is not following those restrictions, compilation errors would be occured.
- *
- * 1. Type `T` must be an object type
- * 2. Do not allow dynamic property
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
- *
- * @template T Expected type of decoded value
- * @param input FormData instance
- * @returns Decoded form FormData
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function assertFormData<T extends object>(input: FormData): Resolved<T>;
+function assertFormData<T extends object>(
+  input: FormData,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Resolved<T>;
 
 /**
  * @internal
@@ -169,37 +106,6 @@ const assertFormDataPure = /** @__PURE__ */ Object.assign<
   /** @__PURE__ */ Namespace.assert("http.assertFormData"),
 );
 export { assertFormDataPure as assertFormData };
-
-/**
- * > You must configure the generic argument `T`.
- *
- * Form data decoder with type checking.
- *
- * `typia.http.isFormData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When roperty type be defined
- * as `boolean` or `Blob` type, `typia.http.isFormData()` will cast the value
- * to the expected type when decoding.
- *
- * Also, after decoding, `typia.http.isFormData()` performs type checking to the
- * decoded value by combining with {@link is} function. Therefore, when the
- * decoded value is not following the `T` type, `null` value would be returned.
- *
- * By the way, as `FormData` is not enough to express complex data structures,
- * `typia.http.isFormData()` function has some limitations. If target type `T` is
- * not following those restrictions, compilation errors would be occured.
- *
- * 1. Type `T` must be an object type
- * 2. Do not allow dynamic property
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
- *
- * @template T Expected type of decoded value
- * @param input FormData instance
- * @returns Decoded form FormData or `null` value
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function isFormData(): never;
 
 /**
  * Form data decoder with type checking.
@@ -246,39 +152,6 @@ const isFormDataPure = /** @__PURE__ */ Object.assign<
   /** @__PURE__ */ Namespace.is(),
 );
 export { isFormDataPure as isFormData };
-
-/**
- * > You must configure the generic argument `T`.
- *
- * Form data decoder with type validation.
- *
- * `typia.http.validateFormData()` is a function decoding `FormData` instance,
- * with automatic type casting to the expected type. When roperty type be defined
- * as `boolean` or `Blob` type, `typia.http.validateFormData()` will cast the
- * value to the expected type when decoding.
- *
- * Also, after decoding, `typia.http.validateFormData()` performs type validation
- * to the decoded value by combining with {@link validate} function. Therefore,
- * when the decoded value is not following the `T` type,
- * {@link IValidation.IFailure} would be returned. Otherwise,
- * x@xxxx IValidation.ISuccess} would be returned.
- *
- * By the way, as `FormData` is not enough to express complex data structures,
- * `typia.http.validateFormData()` function has some limitations. If target type
- * `T` is not following those restrictions, compilation errors would be occured.
- *
- * 1. Type `T` must be an object type
- * 2. Do not allow dynamic property
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
- *
- * @template T Expected type of decoded value
- * @param input FormData instance
- * @returns Validation result with decoded form FormData
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function validateFormData(): never;
 
 /**
  * Form data decoder with type validation.
@@ -334,41 +207,6 @@ export { validateFormDataPure as validateFormData };
     QUERY
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
- *
- * URL query decoder.
- *
- * `typia.http.query()` is a function decoding a query string or an `URLSearchParams`
- * instance, with automatic type casting to the expected type. When property type be
- * defined as `boolean` or `number` type, `typia.http.query()` will cast the value to
- * the expected type when decoding.
- *
- * By the way, as URL query is not enough to express complex data structures,
- * `typia.http.query()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
- *
- * Also, `typia.http.query()` function does not perform validation about the decoded
- * value. Therefore, if you can't sure that input data is following the `T` type,
- * it would better to call one of below functions intead.
- *
- *  - {@link assertQuery}
- *  - {@link isQuery}
- *  - {@link validateQuery}
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded query object
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function query(): never;
-
-/**
  * URL query decoder.
  *
  * `typia.http.query()` is a function decoding a query string or an `URLSearchParams`
@@ -414,38 +252,6 @@ const queryPure = /** @__PURE__ */ Object.assign<typeof query, {}>(
 export { queryPure as query };
 
 /**
- * > You must configure the generic argument `T`.
- *
- * URL query decoder with type assertion.
- *
- * `typia.http.assertQuery()` is a function decoding a query string or an
- * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When property type be defined as `boolean` or `number` type,
- * `typia.http.assertQuery()` will cast the value to the expected type when decoding.
- *
- * Also, after decoding, `typia.http.assertQuery()` performs type assertion to the
- * decoded value by combining with {@link assert} function. Therefore, when the
- * decoded value is not following the `T` type, {@link TypeGuardError} would be
- * thrown.
- *
- * By the way, as URL query is not enough to express complex data structures,
- * `typia.http.assertQuery()` function has some limitations. If target type `T` is
- * notfollowing those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded query object
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function assertQuery(): never;
-
-/**
  * URL query decoder with type assertion.
  *
  * `typia.http.assertQuery()` is a function decoding a query string or an
@@ -475,6 +281,7 @@ function assertQuery(): never;
  */
 function assertQuery<T extends object>(
   input: string | URLSearchParams,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -493,37 +300,6 @@ const assertQueryPure = /** @__PURE__ */ Object.assign<
   /** @__PURE__ */ Namespace.assert("http.assertQuery"),
 );
 export { assertQueryPure as assertQuery };
-
-/**
- * > You must configure the generic argument `T`.
- *
- * URL query decoder with type checking.
- *
- * `typia.http.isQuery()` is a function decoding a query string or an
- * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When property type be defined as `boolean` or `number` type,
- * `typia.http.isQuery()` will cast the value to the expected type when decoding.
- *
- * Also, after decoding, `typia.http.isQuery()` performs type checking to the
- * decoded value by combining with {@link is} function. Therefore, when the
- * decoded value is not following the `T` type, `null` value would be returned.
- *
- * By the way, as URL query is not enough to express complex data structures,
- * `typia.http.isQuery()` function has some limitations. If target type `T` is
- * notfollowing those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded query object or `null` value
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function isQuery(): never;
 
 /**
  * URL query decoder with type checking.
@@ -569,38 +345,6 @@ const isQueryPure = /** @__PURE__ */ Object.assign<typeof isQuery, {}, {}>(
   /** @__PURE__ */ Namespace.is(),
 );
 export { isQueryPure as isQuery };
-
-/**
- * > You must configure the generic argument `T`.
- *
- * URL query decoder with type validation.
- *
- * `typia.http.validateQuery()` is a function decoding a query string or an
- * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When property type be defined as `boolean` or `number` type,
- * `typia.http.validateQuery()` will cast the value to the expected type when decoding.
- *
- * Also, after decoding, `typia.http.validateQuery()` performs type validation to the
- * decoded value by combining with {@link validate} function. Therefore, when the
- * decoded value is not following the `T` type, {@link IValidation.IFailure} would
- * be returned. Otherwise, {@link IValidation.ISuccess} would be returned.
- *
- * By the way, as URL query is not enough to express complex data structures,
- * `typia.http.validateQuery()` function has some limitations. If target type `T` is
- * notfollowing those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Validation result with decoded query object
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function validateQuery(): never;
 
 /**
  * URL query decoder with type validation.
@@ -654,62 +398,6 @@ export { validateQueryPure as validateQuery };
 /* -----------------------------------------------------------
     HEADERS
 ----------------------------------------------------------- */
-/**
- * > You must configure the generic argument `T`.
- *
- * Headers decoder (for express and fastify).
- *
- * `typia.http.headers()` is a function decoding an header instance, with automatic
- * type casting to the expected type. When property type be defined as `boolean` or
- * `number` type, `typia.http.headers()` will cast the value to the expected type.
- *
- * By the way, as HTTP headers are not enough to express complex data structures,
- * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Property key must be lower case
- *  4. Property value cannot be `null`, but `undefined` is possible
- *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
- *  7. Property `set-cookie` must be array type
- *  8. Those properties cannot be array type
- *    - age
- *    - authorization
- *    - content-length
- *    - content-type
- *    - etag
- *    - expires
- *    - from
- *    - host
- *    - if-modified-since
- *    - if-unmodified-since
- *    - last-modified
- *    - location
- *    - max-forwards
- *    - proxy-authorization
- *    - referer
- *    - retry-after
- *    - server
- *    - user-agent
- *
- * Also, `typia.http.headers()` function does not perform validation about the decoded
- * value. Therefore, if you can't sure that input data is following the `T` type,
- * it would better to call one of below functions intead.
- *
- *  - {@link assertHeaders}
- *  - {@link isHeaders}
- *  - {@link validateHeaders}
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded headers object
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function headers(): never;
-
 /**
  * Headers decoder (for express and fastify).
  *
@@ -780,60 +468,6 @@ const headersPure = /** @__PURE__ */ Object.assign<typeof headers, {}>(
 export { headersPure as headers };
 
 /**
- * > You must configure the generic argument `T`.
- *
- * Headers decoder with type assertion (for express and fastify).
- *
- * `typia.http.assertHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When property type be defined as
- * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
- * expected type.
- *
- * Also, after decoding, `typia.http.assertHeaders()` performs type assertion to the
- * decoded value by combining with {@link assert} function. Therefore, when the
- * decoded value is not following the `T` type, {@link TypeGuardError} would be
- * thrown.
- *
- * By the way, as HTTP headers are not enough to express complex data structures,
- * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Property key must be lower case
- *  4. Property value cannot be `null`, but `undefined` is possible
- *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
- *  7. Property `set-cookie` must be array type
- *  8. Those properties cannot be array type
- *    - age
- *    - authorization
- *    - content-length
- *    - content-type
- *    - etag
- *    - expires
- *    - from
- *    - host
- *    - if-modified-since
- *    - if-unmodified-since
- *    - last-modified
- *    - location
- *    - max-forwards
- *    - proxy-authorization
- *    - referer
- *    - retry-after
- *    - server
- *    - user-agent
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded headers object
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function assertHeaders(): never;
-
-/**
  * Headers decoder with type assertion (for express and fastify).
  *
  * `typia.http.assertHeaders()` is a function decoding an header instance, with
@@ -885,6 +519,7 @@ function assertHeaders(): never;
  */
 function assertHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -956,59 +591,6 @@ export { assertHeadersPure as assertHeaders };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isHeaders(): never;
-
-/**
- * > You must configure the generic argument `T`.
- *
- * Headers decoder with type checking (for express and fastify).
- *
- * `typia.http.isHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When property type be defined as
- * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
- * expected type.
- *
- * Also, after decoding, `typia.http.isHeaders()` performs type checking to the
- * decoded value by combining with {@link is} function. Therefore, when the
- * decoded value is not following the `T` type, `null` value would be returned.
- *
- * By the way, as HTTP headers are not enough to express complex data structures,
- * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Property key must be lower case
- *  4. Property value cannot be `null`, but `undefined` is possible
- *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
- *  7. Property `set-cookie` must be array type
- *  8. Those properties cannot be array type
- *    - age
- *    - authorization
- *    - content-length
- *    - content-type
- *    - etag
- *    - expires
- *    - from
- *    - host
- *    - if-modified-since
- *    - if-unmodified-since
- *    - last-modified
- *    - location
- *    - max-forwards
- *    - proxy-authorization
- *    - referer
- *    - retry-after
- *    - server
- *    - user-agent
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded headers object or `null` value
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
 function isHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
 ): Resolved<T> | null;
@@ -1025,60 +607,6 @@ const isHeadersPure = /** @__PURE__ */ Object.assign<typeof isHeaders, {}, {}>(
   /** @__PURE__ */ Namespace.is(),
 );
 export { isHeadersPure as isHeaders };
-
-/**
- * > You must configure the generic argument `T`.
- *
- * Headers decoder with type validation (for express and fastify).
- *
- * `typia.http.validateHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When property type be defined as
- * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
- * expected type.
- *
- * Also, after decoding, `typia.http.validateHeaders()` performs type assertion to the
- * decoded value by combining with {@link validate} function. Therefore, when the
- * decoded value is not following the `T` type, {@link IValidation.IError} would be
- * returned. Otherwise, {@link IValidation.ISuccess} be returned.
- *
- * By the way, as HTTP headers are not enough to express complex data structures,
- * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
- *
- *  1. Type `T` must be an object type
- *  2. Do not allow dynamic property
- *  3. Property key must be lower case
- *  4. Property value cannot be `null`, but `undefined` is possible
- *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
- *  7. Property `set-cookie` must be array type
- *  8. Those properties cannot be array type
- *    - age
- *    - authorization
- *    - content-length
- *    - content-type
- *    - etag
- *    - expires
- *    - from
- *    - host
- *    - if-modified-since
- *    - if-unmodified-since
- *    - last-modified
- *    - location
- *    - max-forwards
- *    - proxy-authorization
- *    - referer
- *    - retry-after
- *    - server
- *    - user-agent
- *
- * @template T Expected type of decoded value
- * @param input Query string or URLSearchParams instance
- * @returns Decoded headers object
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function validateHeaders(): never;
 
 /**
  * Headers decoder with type validation (for express and fastify).
@@ -1156,25 +684,6 @@ export { validateHeadersPure as validateHeaders };
     PARAMETER
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `T`.
- *
- * URL path parameter decoder.
- *
- * `typia.http.parameter()` is a function decoding a path parameter, with automatic
- * type casting to the expected type. When type `T` has beeen defined as `boolean` or
- * `number` type, `typia.http.parameter()` will cast the value to the expected type.
- *
- * Also, `typia.http.parameter()` performs type assertion to the decoded value by
- * combining with {@link assert} function. Therefore, when the decoded value is not
- * following the `T` type, {@link TypeGuardError} would be thrown.
- *
- * @template T Expected type of decoded value
- * @param input Path parameter string
- * @returns Decoded path parameter value
- */
-function parameter(): never;
-
-/**
  * URL path parameter decoder.
  *
  * `typia.http.parameter()` is a function decoding a path parameter, with automatic
@@ -1251,7 +760,9 @@ export { createFormDataPure as createFormData };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertFormData(): never;
+function createAssertFormData(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertFormData} function.
@@ -1261,7 +772,9 @@ function createAssertFormData(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertFormData<T extends object>(): (input: FormData) => T;
+function createAssertFormData<T extends object>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: FormData) => T;
 
 /**
  * @internal
@@ -1408,7 +921,9 @@ export { createQueryPure as createQuery };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertQuery(): never;
+function createAssertQuery(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertQuery} function.
@@ -1418,9 +933,9 @@ function createAssertQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertQuery<T extends object>(): (
-  input: string | URLSearchParams,
-) => T;
+function createAssertQuery<T extends object>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: string | URLSearchParams) => T;
 
 /**
  * @internal
@@ -1571,7 +1086,9 @@ export { createHeadersPure as createHeaders };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertHeaders(): never;
+function createAssertHeaders(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertHeaders} function.
@@ -1581,9 +1098,9 @@ function createAssertHeaders(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertHeaders<T extends object>(): (
-  input: Record<string, string | string[] | undefined>,
-) => T;
+function createAssertHeaders<T extends object>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: Record<string, string | string[] | undefined>) => T;
 
 /**
  * @internal

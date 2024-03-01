@@ -2,6 +2,7 @@ import * as Namespace from "./functional/Namespace";
 
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
+import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     PROTOCOL BUFFER
@@ -167,7 +168,10 @@ export { decodePure as decode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertDecode(input: Uint8Array): never;
+function assertDecode(
+  input: Uint8Array,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Protocol Buffer Decoder wity type assertion, but not safe.
@@ -196,7 +200,10 @@ function assertDecode(input: Uint8Array): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertDecode<T>(input: Uint8Array): Resolved<T>;
+function assertDecode<T>(
+  input: Uint8Array,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Resolved<T>;
 
 /**
  * @internal
@@ -443,7 +450,10 @@ export { encodePure as encode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEncode<T>(input: T): Uint8Array;
+function assertEncode<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Uint8Array;
 
 /**
  * Protocol Buffer Encoder with type assertion.
@@ -476,7 +486,10 @@ function assertEncode<T>(input: T): Uint8Array;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEncode<T>(input: unknown): Uint8Array;
+function assertEncode<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Uint8Array;
 
 /**
  * @internal
@@ -742,7 +755,9 @@ export { createIsDecodePure as createIsDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertDecode(): never;
+function createAssertDecode(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertDecode} function.
@@ -752,7 +767,9 @@ function createAssertDecode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T>;
+function createAssertDecode<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: Uint8Array) => Resolved<T>;
 
 /**
  * @internal
@@ -893,7 +910,9 @@ export { createIsEncodePure as createIsEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEncode(): never;
+function createAssertEncode(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertEncode} function.
@@ -903,7 +922,9 @@ function createAssertEncode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEncode<T>(): (input: T) => Uint8Array;
+function createAssertEncode<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => Uint8Array;
 
 /**
  * @internal
