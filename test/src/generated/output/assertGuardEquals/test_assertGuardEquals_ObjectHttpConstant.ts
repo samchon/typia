@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 
 export const test_assertGuardEquals_ObjectHttpConstant =
-  _test_assertGuardEquals("ObjectHttpConstant")<ObjectHttpConstant>(
-    ObjectHttpConstant,
-  )((input) =>
-    ((input: any): asserts input is ObjectHttpConstant => {
+  _test_assertGuardEquals(TypeGuardError)(
+    "ObjectHttpConstant",
+  )<ObjectHttpConstant>(ObjectHttpConstant)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): asserts input is ObjectHttpConstant => {
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -49,40 +53,60 @@ export const test_assertGuardEquals_ObjectHttpConstant =
             _exceptionable: boolean = true,
           ): boolean =>
             (false === input.boolean ||
-              $guard(_exceptionable, {
-                path: _path + ".boolean",
-                expected: "false",
-                value: input.boolean,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".boolean",
+                  expected: "false",
+                  value: input.boolean,
+                },
+                errorFactory,
+              )) &&
             (BigInt(1) === input.bigint ||
               BigInt(99) === input.bigint ||
-              $guard(_exceptionable, {
-                path: _path + ".bigint",
-                expected: "(1 | 99)",
-                value: input.bigint,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".bigint",
+                  expected: "(1 | 99)",
+                  value: input.bigint,
+                },
+                errorFactory,
+              )) &&
             (2 === input.number ||
               98 === input.number ||
-              $guard(_exceptionable, {
-                path: _path + ".number",
-                expected: "(2 | 98)",
-                value: input.number,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".number",
+                  expected: "(2 | 98)",
+                  value: input.number,
+                },
+                errorFactory,
+              )) &&
             ("something" === input.string ||
               "three" === input.string ||
               "ninety-seven" === input.string ||
-              $guard(_exceptionable, {
-                path: _path + ".string",
-                expected: '("ninety-seven" | "something" | "three")',
-                value: input.string,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".string",
+                  expected: '("ninety-seven" | "something" | "three")',
+                  value: input.string,
+                },
+                errorFactory,
+              )) &&
             (("string" === typeof input.template &&
               RegExp(/^abcd_(.*)/).test(input.template)) ||
-              $guard(_exceptionable, {
-                path: _path + ".template",
-                expected: "`abcd_${string}`",
-                value: input.template,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".template",
+                  expected: "`abcd_${string}`",
+                  value: input.template,
+                },
+                errorFactory,
+              )) &&
             (5 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -94,25 +118,37 @@ export const test_assertGuardEquals_ObjectHttpConstant =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectHttpConstant",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectHttpConstant",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectHttpConstant",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     })(input),

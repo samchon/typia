@@ -30,7 +30,10 @@ export const test_createRandom_DynamicConstant = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): DynamicConstant => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicConstant => {
     const __is = (input: any): input is DynamicConstant => {
       return (
         "object" === typeof input &&
@@ -60,59 +63,91 @@ export const test_createRandom_DynamicConstant = _test_random(
           _exceptionable: boolean = true,
         ): boolean =>
           ((("object" === typeof input.value && null !== input.value) ||
-            $guard(_exceptionable, {
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "__type",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
+            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
+          $guard(
+            _exceptionable,
+            {
               path: _path + ".value",
               expected: "__type",
               value: input.value,
-            })) &&
-            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
-          $guard(_exceptionable, {
-            path: _path + ".value",
-            expected: "__type",
-            value: input.value,
-          });
+            },
+            errorFactory,
+          );
         const $ao1 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           (("number" === typeof input.a && Number.isFinite(input.a)) ||
-            $guard(_exceptionable, {
-              path: _path + ".a",
-              expected: "number",
-              value: input.a,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".a",
+                expected: "number",
+                value: input.a,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.b && Number.isFinite(input.b)) ||
-            $guard(_exceptionable, {
-              path: _path + ".b",
-              expected: "number",
-              value: input.b,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".b",
+                expected: "number",
+                value: input.b,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.c && Number.isFinite(input.c)) ||
-            $guard(_exceptionable, {
-              path: _path + ".c",
-              expected: "number",
-              value: input.c,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".c",
+                expected: "number",
+                value: input.c,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.d && Number.isFinite(input.d)) ||
-            $guard(_exceptionable, {
-              path: _path + ".d",
-              expected: "number",
-              value: input.d,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".d",
+                expected: "number",
+                value: input.d,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicConstant",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicConstant",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicConstant",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

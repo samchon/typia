@@ -26,7 +26,10 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
       ])(),
     );
   },
-  assert: (input: any): ConstantAtomicUnion => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ConstantAtomicUnion => {
     const __is = (input: any): input is ConstantAtomicUnion => {
       const $io0 = (input: any): boolean => "key" === input.key;
       return (
@@ -57,55 +60,83 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
           _exceptionable: boolean = true,
         ): boolean =>
           "key" === input.key ||
-          $guard(_exceptionable, {
-            path: _path + ".key",
-            expected: '"key"',
-            value: input.key,
-          });
+          $guard(
+            _exceptionable,
+            {
+              path: _path + ".key",
+              expected: '"key"',
+              value: input.key,
+            },
+            errorFactory,
+          );
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantAtomicUnion",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantAtomicUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 (null !== elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: '("four" | "three" | 1 | 2 | __type | false)',
-                    value: elem,
-                  })) &&
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: '("four" | "three" | 1 | 2 | __type | false)',
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                 (undefined !== elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: '("four" | "three" | 1 | 2 | __type | false)',
-                    value: elem,
-                  })) &&
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: '("four" | "three" | 1 | 2 | __type | false)',
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                 (false === elem ||
                   2 === elem ||
                   1 === elem ||
                   "three" === elem ||
                   "four" === elem ||
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(true, {
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: '("four" | "three" | 1 | 2 | __type | false)',
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
+                    $ao0(elem, _path + "[" + _index1 + "]", true)) ||
+                  $guard(
+                    true,
+                    {
                       path: _path + "[" + _index1 + "]",
                       expected: '("four" | "three" | 1 | 2 | __type | false)',
                       value: elem,
-                    })) &&
-                    $ao0(elem, _path + "[" + _index1 + "]", true)) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: '("four" | "three" | 1 | 2 | __type | false)',
-                    value: elem,
-                  })),
+                    },
+                    errorFactory,
+                  )),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ConstantAtomicUnion",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "ConstantAtomicUnion",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

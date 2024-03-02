@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
 export const test_protobuf_createAssertEncode_ObjectHttpNullable =
-  _test_protobuf_assertEncode("ObjectHttpNullable")<ObjectHttpNullable>(
-    ObjectHttpNullable,
-  )({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectHttpNullable => {
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpNullable",
+  )<ObjectHttpNullable>(ObjectHttpNullable)({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectHttpNullable => {
         const __is = (input: any): input is ObjectHttpNullable => {
           const $io0 = (input: any): boolean =>
             (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -54,112 +61,172 @@ export const test_protobuf_createAssertEncode_ObjectHttpNullable =
             ): boolean =>
               (null === input.boolean ||
                 "boolean" === typeof input.boolean ||
-                $guard(_exceptionable, {
-                  path: _path + ".boolean",
-                  expected: "(boolean | null)",
-                  value: input.boolean,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".boolean",
+                    expected: "(boolean | null)",
+                    value: input.boolean,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.bigint ||
                 "bigint" === typeof input.bigint ||
-                $guard(_exceptionable, {
-                  path: _path + ".bigint",
-                  expected: "(bigint | null)",
-                  value: input.bigint,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".bigint",
+                    expected: "(bigint | null)",
+                    value: input.bigint,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.number ||
                 ("number" === typeof input.number &&
                   (Number.isFinite(input.number) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".number",
-                      expected: "number",
-                      value: input.number,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".number",
+                        expected: "number",
+                        value: input.number,
+                      },
+                      errorFactory,
+                    )) &&
                   (1 <= input.number ||
-                    $guard(_exceptionable, {
-                      path: _path + ".number",
-                      expected: "number & Minimum<1>",
-                      value: input.number,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".number",
-                  expected: "((number & Minimum<1>) | null)",
-                  value: input.number,
-                })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".number",
+                        expected: "number & Minimum<1>",
+                        value: input.number,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".number",
+                    expected: "((number & Minimum<1>) | null)",
+                    value: input.number,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.string ||
                 "string" === typeof input.string ||
-                $guard(_exceptionable, {
-                  path: _path + ".string",
-                  expected: "(null | string)",
-                  value: input.string,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".string",
+                    expected: "(null | string)",
+                    value: input.string,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.constantBoolean ||
                 true === input.constantBoolean ||
-                $guard(_exceptionable, {
-                  path: _path + ".constantBoolean",
-                  expected: "(null | true)",
-                  value: input.constantBoolean,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".constantBoolean",
+                    expected: "(null | true)",
+                    value: input.constantBoolean,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.constantBigint ||
                 BigInt(1) === input.constantBigint ||
                 BigInt(2) === input.constantBigint ||
                 BigInt(3) === input.constantBigint ||
-                $guard(_exceptionable, {
-                  path: _path + ".constantBigint",
-                  expected: "(1 | 2 | 3 | null)",
-                  value: input.constantBigint,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".constantBigint",
+                    expected: "(1 | 2 | 3 | null)",
+                    value: input.constantBigint,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.constantNumber ||
                 3 === input.constantNumber ||
                 2 === input.constantNumber ||
                 1 === input.constantNumber ||
-                $guard(_exceptionable, {
-                  path: _path + ".constantNumber",
-                  expected: "(1 | 2 | 3 | null)",
-                  value: input.constantNumber,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".constantNumber",
+                    expected: "(1 | 2 | 3 | null)",
+                    value: input.constantNumber,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.constantString ||
                 "three" === input.constantString ||
                 "two" === input.constantString ||
                 "one" === input.constantString ||
-                $guard(_exceptionable, {
-                  path: _path + ".constantString",
-                  expected: '("one" | "three" | "two" | null)',
-                  value: input.constantString,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".constantString",
+                    expected: '("one" | "three" | "two" | null)',
+                    value: input.constantString,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.nullableArray ||
                 ((Array.isArray(input.nullableArray) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".nullableArray",
-                    expected: "(Array<number> | null)",
-                    value: input.nullableArray,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".nullableArray",
+                      expected: "(Array<number> | null)",
+                      value: input.nullableArray,
+                    },
+                    errorFactory,
+                  )) &&
                   input.nullableArray.every(
                     (elem: any, _index1: number) =>
                       ("number" === typeof elem && Number.isFinite(elem)) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".nullableArray[" + _index1 + "]",
-                        expected: "number",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".nullableArray[" + _index1 + "]",
+                          expected: "number",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".nullableArray",
-                  expected: "(Array<number> | null)",
-                  value: input.nullableArray,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".nullableArray",
+                    expected: "(Array<number> | null)",
+                    value: input.nullableArray,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectHttpNullable",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectHttpNullable",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectHttpNullable",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -229,7 +296,7 @@ export const test_protobuf_createAssertEncode_ObjectHttpNullable =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<ObjectHttpNullable> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { ObjectSimpleProtobufNullable } from "../../../structures/ObjectSimpleProtobufNullable";
 
-export const test_protobuf_createDecode_ObjectSimpleProtobufNullable =
+export const test_protobuf_decode_ObjectSimpleProtobufNullable =
   _test_protobuf_decode(
     "ObjectSimpleProtobufNullable",
   )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({

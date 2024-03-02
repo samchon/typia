@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_misc_assertPrune_ObjectIntersection = _test_misc_assertPrune(
-  "ObjectIntersection",
-)<ObjectIntersection>(ObjectIntersection)((input) =>
-  ((input: any): ObjectIntersection => {
-    const assert = (input: any): ObjectIntersection => {
+  TypeGuardError,
+)("ObjectIntersection")<ObjectIntersection>(ObjectIntersection)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectIntersection => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ObjectIntersection => {
       const __is = (input: any): input is ObjectIntersection => {
         return (
           "object" === typeof input &&
@@ -30,36 +37,56 @@ export const test_misc_assertPrune_ObjectIntersection = _test_misc_assertPrune(
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.email ||
-              $guard(_exceptionable, {
-                path: _path + ".email",
-                expected: "string",
-                value: input.email,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".email",
+                  expected: "string",
+                  value: input.email,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("boolean" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "boolean",
-                value: input.vulnerable,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "boolean",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectIntersection",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectIntersection",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectIntersection",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
@@ -74,7 +101,7 @@ export const test_misc_assertPrune_ObjectIntersection = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

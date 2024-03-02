@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
-  _test_protobuf_assertDecode("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<ConstantAtomicTagged> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ConstantAtomicTagged",
+  )<ConstantAtomicTagged>(ConstantAtomicTagged)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.Resolved<ConstantAtomicTagged> => {
       const decode = (
         input: Uint8Array,
       ): typia.Resolved<ConstantAtomicTagged> => {
@@ -43,7 +47,10 @@ export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ConstantAtomicTagged => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ConstantAtomicTagged => {
         const __is = (input: any): input is ConstantAtomicTagged => {
           const $io0 = (input: any): boolean =>
             ("latest" === input.id ||
@@ -76,56 +83,84 @@ export const test_protobuf_createAssertDecode_ConstantAtomicTagged =
                   (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                     input.id,
                   ) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".id",
-                      expected: 'string & Format<"uuid">',
-                      value: input.id,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: '("latest" | (string & Format<"uuid">))',
-                  value: input.id,
-                })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".id",
+                        expected: 'string & Format<"uuid">',
+                        value: input.id,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: '("latest" | (string & Format<"uuid">))',
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               (-1 === input.age ||
                 ("number" === typeof input.age &&
                   ((Math.floor(input.age) === input.age &&
                     0 <= input.age &&
                     input.age <= 4294967295) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".age",
-                      expected: 'number & Type<"uint32">',
-                      value: input.age,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".age",
+                        expected: 'number & Type<"uint32">',
+                        value: input.age,
+                      },
+                      errorFactory,
+                    )) &&
                   (input.age <= 100 ||
-                    $guard(_exceptionable, {
-                      path: _path + ".age",
-                      expected: "number & Maximum<100>",
-                      value: input.age,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: '((number & Type<"uint32"> & Maximum<100>) | -1)',
-                  value: input.age,
-                }));
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".age",
+                        expected: "number & Maximum<100>",
+                        value: input.age,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: '((number & Type<"uint32"> & Maximum<100>) | -1)',
+                    value: input.age,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ConstantAtomicTagged",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ConstantAtomicTagged",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantAtomicTagged",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ConstantAtomicTagged): Uint8Array => {
       const $throws = (typia.protobuf.createEncode as any).throws;

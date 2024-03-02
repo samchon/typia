@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_protobuf_createIsEncode_ClassPropertyAssignment =
+export const test_protobuf_isEncode_ClassPropertyAssignment =
   _test_protobuf_isEncode("ClassPropertyAssignment")<ClassPropertyAssignment>(
     ClassPropertyAssignment,
   )({

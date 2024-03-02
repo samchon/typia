@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
-  "DynamicComposite",
-)<DynamicComposite>(DynamicComposite)((input) =>
-  ((input: any): DynamicComposite => {
-    const assert = (input: any): DynamicComposite => {
+  TypeGuardError,
+)("DynamicComposite")<DynamicComposite>(DynamicComposite)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicComposite => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): DynamicComposite => {
       const __is = (input: any): input is DynamicComposite => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -56,17 +63,25 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.id ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "string",
-                value: input.id,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: "string",
+                  value: input.id,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             (false === _exceptionable ||
               Object.keys(input).every((key: any) => {
                 if (["id", "name"].some((prop: any) => key === prop))
@@ -79,20 +94,28 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
                 )
                   return (
                     ("number" === typeof value && Number.isFinite(value)) ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "number",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "number",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                   return (
                     "string" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "string",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "string",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -100,11 +123,15 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
                 )
                   return (
                     "string" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "string",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "string",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -116,11 +143,15 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
                     "string" === typeof value ||
                     ("number" === typeof value && Number.isFinite(value)) ||
                     "boolean" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "(boolean | number | string)",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "(boolean | number | string)",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -130,27 +161,39 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
                 )
                   return (
                     "boolean" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "boolean",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "boolean",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 return true;
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicComposite",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicComposite",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicComposite",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
@@ -196,7 +239,7 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

@@ -1,10 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_createAssertGuard_ArrayRepeatedNullable = _test_assertGuard(
-  "ArrayRepeatedNullable",
-)<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
+  TypeGuardError,
+)("ArrayRepeatedNullable")<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
   typia.createAssertGuard<ArrayRepeatedNullable>(),
 );

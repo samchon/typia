@@ -80,7 +80,10 @@ export const test_createRandom_DynamicJsonValue = _test_random(
       () => $ro0(),
     ])();
   },
-  assert: (input: any): DynamicJsonValue => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicJsonValue => {
     const __is = (input: any): input is DynamicJsonValue => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -151,27 +154,39 @@ export const test_createRandom_DynamicJsonValue = _test_random(
               "boolean" === typeof value ||
               (Array.isArray(value) &&
                 ($aa0(value, _path + $join(key), true && _exceptionable) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "DynamicJsonValue.JsonArray",
-                    value: value,
-                  }))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "DynamicJsonValue.JsonArray",
+                      value: value,
+                    },
+                    errorFactory,
+                  ))) ||
               ("object" === typeof value &&
                 null !== value &&
                 false === Array.isArray(value) &&
                 $ao0(value, _path + $join(key), true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected:
-                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
-                value: value,
-              }) ||
-              $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected:
-                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
-                value: value,
-              })
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected:
+                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
+                  value: value,
+                },
+                errorFactory,
+              ) ||
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected:
+                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
+                  value: value,
+                },
+                errorFactory,
+              )
             );
           });
         const $aa0 = (
@@ -182,12 +197,16 @@ export const test_createRandom_DynamicJsonValue = _test_random(
           input.every(
             (elem: any, _index1: number) =>
               (undefined !== elem ||
-                $guard(_exceptionable, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
-                  value: elem,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected:
+                      "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                    value: elem,
+                  },
+                  errorFactory,
+                )) &&
               (null === elem ||
                 "string" === typeof elem ||
                 ("number" === typeof elem && Number.isFinite(elem)) ||
@@ -198,11 +217,15 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                     _path + "[" + _index1 + "]",
                     true && _exceptionable,
                   ) ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "DynamicJsonValue.JsonArray",
-                      value: elem,
-                    }))) ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: "DynamicJsonValue.JsonArray",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ))) ||
                 ("object" === typeof elem &&
                   null !== elem &&
                   false === Array.isArray(elem) &&
@@ -211,54 +234,78 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                     _path + "[" + _index1 + "]",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
-                  value: elem,
-                }) ||
-                $guard(_exceptionable, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
-                  value: elem,
-                })),
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected:
+                      "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                    value: elem,
+                  },
+                  errorFactory,
+                ) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected:
+                      "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                    value: elem,
+                  },
+                  errorFactory,
+                )),
           );
         return (
           (undefined !== input ||
-            $guard(true, {
-              path: _path + "",
-              expected:
-                "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected:
+                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                value: input,
+              },
+              errorFactory,
+            )) &&
           (null === input ||
             "string" === typeof input ||
             ("number" === typeof input && Number.isFinite(input)) ||
             "boolean" === typeof input ||
             (Array.isArray(input) &&
               ($aa0(input, _path + "", true && _exceptionable) ||
-                $guard(_exceptionable, {
-                  path: _path + "",
-                  expected: "DynamicJsonValue.JsonArray",
-                  value: input,
-                }))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + "",
+                    expected: "DynamicJsonValue.JsonArray",
+                    value: input,
+                  },
+                  errorFactory,
+                ))) ||
             ("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input) &&
               $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected:
-                "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
-              value: input,
-            }) ||
-            $guard(true, {
-              path: _path + "",
-              expected:
-                "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
-              value: input,
-            }))
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected:
+                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                value: input,
+              },
+              errorFactory,
+            ) ||
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected:
+                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                value: input,
+              },
+              errorFactory,
+            ))
         );
       })(input, "$input", true);
     return input;

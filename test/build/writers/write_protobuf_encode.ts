@@ -9,7 +9,9 @@ import { _test_protobuf_${getMethod(method)(
     )} } from "../../internal/_test_protobuf_${getMethod(method)(false)}";
 import { ${structure} } from "../../structures/${structure}";
 
-export const ${getFile(method)(true)}_${structure} = _${getFile(method)(false)}(
+export const ${getFile(method)(create)}_${structure} = _${getFile(method)(
+      false,
+    )}(
   "${structure}",
 )<${structure}>(${structure})({
   encode: ${getFunctor(method)(create)(structure)},
@@ -24,8 +26,7 @@ const getMethod = (name: string) => (create: boolean) =>
   [create ? `create${StringUtil.capitalize(name)}` : name]
     .filter((str) => !!str)
     .join(".");
-const getFunctor =
-  (name: string) => (create: boolean) => (structure: string) =>
-    create
-      ? `typia.protobuf.${getMethod(name)(create)}<${structure}>()`
-      : `(input) => typia.protobuf.${name}<${structure}>(input)`;
+const getFunctor = (name: string) => (create: boolean) => (structure: string) =>
+  create
+    ? `typia.protobuf.${getMethod(name)(create)}<${structure}>()`
+    : `(input) => typia.protobuf.${name}<${structure}>(input)`;

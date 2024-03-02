@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
 export const test_protobuf_createAssertDecode_ObjectPartialAndRequired =
-  _test_protobuf_assertDecode(
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectPartialAndRequired",
   )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
-    decode: (input: Uint8Array): typia.Resolved<ObjectPartialAndRequired> => {
+    decode: (
+      input: Uint8Array,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.Resolved<ObjectPartialAndRequired> => {
       const decode = (
         input: Uint8Array,
       ): typia.Resolved<ObjectPartialAndRequired> => {
@@ -55,7 +59,10 @@ export const test_protobuf_createAssertDecode_ObjectPartialAndRequired =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectPartialAndRequired => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectPartialAndRequired => {
         const __is = (input: any): input is ObjectPartialAndRequired => {
           const $io0 = (input: any): boolean =>
             (undefined === input.string || "string" === typeof input.string) &&
@@ -88,82 +95,122 @@ export const test_protobuf_createAssertDecode_ObjectPartialAndRequired =
             ): boolean =>
               (undefined === input.string ||
                 "string" === typeof input.string ||
-                $guard(_exceptionable, {
-                  path: _path + ".string",
-                  expected: "(string | undefined)",
-                  value: input.string,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".string",
+                    expected: "(string | undefined)",
+                    value: input.string,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input.number ||
                 ("number" === typeof input.number &&
                   Number.isFinite(input.number)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".number",
-                  expected: "(number | undefined)",
-                  value: input.number,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".number",
+                    expected: "(number | undefined)",
+                    value: input.number,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input.boolean ||
                 "boolean" === typeof input.boolean ||
-                $guard(_exceptionable, {
-                  path: _path + ".boolean",
-                  expected: "(boolean | undefined)",
-                  value: input.boolean,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".boolean",
+                    expected: "(boolean | undefined)",
+                    value: input.boolean,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.object ||
                 ((("object" === typeof input.object && null !== input.object) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".object",
-                    expected: "(ObjectPartialAndRequired | null)",
-                    value: input.object,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".object",
+                      expected: "(ObjectPartialAndRequired | null)",
+                      value: input.object,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao0(
                     input.object,
                     _path + ".object",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".object",
-                  expected: "(ObjectPartialAndRequired | null)",
-                  value: input.object,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".object",
+                    expected: "(ObjectPartialAndRequired | null)",
+                    value: input.object,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.array) ||
-                $guard(_exceptionable, {
-                  path: _path + ".array",
-                  expected: "Array<number>",
-                  value: input.array,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".array",
+                    expected: "Array<number>",
+                    value: input.array,
+                  },
+                  errorFactory,
+                )) &&
                 input.array.every(
                   (elem: any, _index1: number) =>
                     ("number" === typeof elem && Number.isFinite(elem)) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".array[" + _index1 + "]",
-                      expected: "number",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".array[" + _index1 + "]",
+                        expected: "number",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".array",
-                  expected: "Array<number>",
-                  value: input.array,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".array",
+                    expected: "Array<number>",
+                    value: input.array,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectPartialAndRequired",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectPartialAndRequired",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectPartialAndRequired",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectPartialAndRequired): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

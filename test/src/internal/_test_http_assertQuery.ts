@@ -5,6 +5,7 @@ import { create_query } from "../helpers/create_query";
 import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_http_assertQuery =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
   (decode: (input: URLSearchParams) => typia.Resolved<T>) =>
@@ -26,7 +27,10 @@ export const _test_http_assertQuery =
       try {
         decode(create_query(elem));
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { FunctionalArrayUnion } from "../../../structures/FunctionalArrayUnion";
 
 export const test_createAssert_FunctionalArrayUnion = _test_assert(
-  "FunctionalArrayUnion",
-)<FunctionalArrayUnion>(FunctionalArrayUnion)(
-  (input: any): FunctionalArrayUnion => {
+  TypeGuardError,
+)("FunctionalArrayUnion")<FunctionalArrayUnion>(FunctionalArrayUnion)(
+  (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): FunctionalArrayUnion => {
     const __is = (input: any): input is FunctionalArrayUnion => {
       const $ip0 = (input: any) => {
         const array = input;
@@ -74,11 +78,15 @@ export const test_createAssert_FunctionalArrayUnion = _test_assert(
                 entire.every(
                   (elem: any, _index6: number) =>
                     ("number" === typeof elem && Number.isFinite(elem)) ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index6 + "]",
-                      expected: "number",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index6 + "]",
+                        expected: "number",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 ),
             ] as const,
             [
@@ -87,11 +95,15 @@ export const test_createAssert_FunctionalArrayUnion = _test_assert(
                 entire.every(
                   (elem: any, _index7: number) =>
                     "string" === typeof elem ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index7 + "]",
-                      expected: "string",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index7 + "]",
+                        expected: "string",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 ),
             ] as const,
             [
@@ -100,11 +112,15 @@ export const test_createAssert_FunctionalArrayUnion = _test_assert(
                 entire.every(
                   (elem: any, _index8: number) =>
                     "function" === typeof elem ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index8 + "]",
-                      expected: "unknown",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index8 + "]",
+                        expected: "unknown",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 ),
             ] as const,
             [
@@ -113,17 +129,25 @@ export const test_createAssert_FunctionalArrayUnion = _test_assert(
                 entire.every(
                   (elem: any, _index9: number) =>
                     (undefined !== elem ||
-                      $guard(_exceptionable, {
-                        path: _path + "[" + _index9 + "]",
-                        expected: "null",
-                        value: elem,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[" + _index9 + "]",
+                          expected: "null",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                     (null === elem ||
-                      $guard(_exceptionable, {
-                        path: _path + "[" + _index9 + "]",
-                        expected: "null",
-                        value: elem,
-                      })),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[" + _index9 + "]",
+                          expected: "null",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )),
                 ),
             ] as const,
           ];
@@ -133,52 +157,76 @@ export const test_createAssert_FunctionalArrayUnion = _test_assert(
             for (const pred of passed)
               if (array.every((value: any) => true === pred[0](value)))
                 return pred[1](array);
-          return $guard(_exceptionable, {
-            path: _path,
-            expected:
-              "(Array<number> | Array<string> | Array<__type> | Array<null>)",
-            value: input,
-          });
+          return $guard(
+            _exceptionable,
+            {
+              path: _path,
+              expected:
+                "(Array<number> | Array<string> | Array<__type> | Array<null>)",
+              value: input,
+            },
+            errorFactory,
+          );
         };
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "FunctionalArrayUnion",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "FunctionalArrayUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 ((Array.isArray(elem) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Array<__type> | Array<null> | Array<number> | Array<string>)",
-                    value: elem,
-                  })) &&
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected:
+                        "(Array<__type> | Array<null> | Array<number> | Array<string>)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                   ($ap0(
                     elem,
                     _path + "[" + _index1 + "]",
                     true && _exceptionable,
                   ) ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index1 + "]",
-                      expected:
-                        "Array<number> | Array<string> | Array<__type> | Array<null>",
-                      value: elem,
-                    }))) ||
-                $guard(true, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(Array<__type> | Array<null> | Array<number> | Array<string>)",
-                  value: elem,
-                }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "Array<number> | Array<string> | Array<__type> | Array<null>",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected:
+                      "(Array<__type> | Array<null> | Array<number> | Array<string>)",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "FunctionalArrayUnion",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "FunctionalArrayUnion",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

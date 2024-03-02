@@ -150,7 +150,10 @@ export const test_notation_validatePascal_ArrayRepeatedOptional =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<ArrayRepeatedOptional> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.PascalCase<ArrayRepeatedOptional> => {
       const __is = (
         input: any,
       ): input is typia.PascalCase<ArrayRepeatedOptional> => {
@@ -186,71 +189,103 @@ export const test_notation_validatePascal_ArrayRepeatedOptional =
             input.every(
               (elem: any, _index1: number) =>
                 (null !== elem ||
-                  $guard(_exceptionable, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
-                    value: elem,
-                  })) &&
-                (undefined === elem ||
-                  "string" === typeof elem ||
-                  ("number" === typeof elem && Number.isFinite(elem)) ||
-                  ((Array.isArray(elem) ||
-                    $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + "[" + _index1 + "]",
                       expected:
                         "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
                       value: elem,
-                    })) &&
+                    },
+                    errorFactory,
+                  )) &&
+                (undefined === elem ||
+                  "string" === typeof elem ||
+                  ("number" === typeof elem && Number.isFinite(elem)) ||
+                  ((Array.isArray(elem) ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     ($aa0(
                       elem,
                       _path + "[" + _index1 + "]",
                       true && _exceptionable,
                     ) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[" + _index1 + "]",
-                        expected:
-                          "Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...>",
-                        value: elem,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
-                    value: elem,
-                  })),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected:
+                            "Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...>",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected:
+                        "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )),
             );
           return (
             (null !== input ||
-              $guard(true, {
-                path: _path + "",
-                expected:
-                  "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
-                value: input,
-              })) &&
-            (undefined === input ||
-              "string" === typeof input ||
-              ("number" === typeof input && Number.isFinite(input)) ||
-              ((Array.isArray(input) ||
-                $guard(true, {
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected:
                     "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
                   value: input,
-                })) &&
-                ($aa0(input, _path + "", true && _exceptionable) ||
-                  $guard(_exceptionable, {
+                },
+                errorFactory,
+              )) &&
+            (undefined === input ||
+              "string" === typeof input ||
+              ("number" === typeof input && Number.isFinite(input)) ||
+              ((Array.isArray(input) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected:
-                      "Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...>",
+                      "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
                     value: input,
-                  }))) ||
-              $guard(true, {
-                path: _path + "",
-                expected:
-                  "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
-                value: input,
-              }))
+                  },
+                  errorFactory,
+                )) &&
+                ($aa0(input, _path + "", true && _exceptionable) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + "",
+                      expected:
+                        "Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...>",
+                      value: input,
+                    },
+                    errorFactory,
+                  ))) ||
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected:
+                    "(Array<string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | number | (string | ... 2 more ... | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | undefined)[] | ...> | number | string | undefined)",
+                  value: input,
+                },
+                errorFactory,
+              ))
           );
         })(input, "$input", true);
       return input;

@@ -22,7 +22,10 @@ export const test_createRandom_ObjectIntersection = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectIntersection => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectIntersection => {
     const __is = (input: any): input is ObjectIntersection => {
       return (
         "object" === typeof input &&
@@ -45,36 +48,56 @@ export const test_createRandom_ObjectIntersection = _test_random(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.email ||
-            $guard(_exceptionable, {
-              path: _path + ".email",
-              expected: "string",
-              value: input.email,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".email",
+                expected: "string",
+                value: input.email,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           ("boolean" === typeof input.vulnerable ||
-            $guard(_exceptionable, {
-              path: _path + ".vulnerable",
-              expected: "boolean",
-              value: input.vulnerable,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".vulnerable",
+                expected: "boolean",
+                value: input.vulnerable,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectIntersection",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectIntersection",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectIntersection",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

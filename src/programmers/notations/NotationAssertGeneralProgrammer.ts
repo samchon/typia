@@ -14,11 +14,14 @@ export namespace NotationAssertGeneralProgrammer {
     (rename: (str: string) => string) =>
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
+    (type: ts.Type, name?: string, init?: ts.Expression) =>
       ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        [
+          IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
+          AssertProgrammer.Guardian.parameter(init),
+        ],
         ts.factory.createTypeReferenceNode(
           NotationGeneralProgrammer.returnType(rename)(
             name ?? TypeFactory.getFullName(project.checker)(type),
@@ -45,7 +48,10 @@ export namespace NotationAssertGeneralProgrammer {
             ts.factory.createCallExpression(
               ts.factory.createIdentifier("assert"),
               undefined,
-              [ts.factory.createIdentifier("input")],
+              [
+                ts.factory.createIdentifier("input"),
+                AssertProgrammer.Guardian.identifier(),
+              ],
             ),
           ),
           StatementFactory.constant(

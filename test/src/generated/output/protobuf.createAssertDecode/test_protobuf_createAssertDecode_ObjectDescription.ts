@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
 export const test_protobuf_createAssertDecode_ObjectDescription =
-  _test_protobuf_assertDecode("ObjectDescription")<ObjectDescription>(
-    ObjectDescription,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectDescription> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectDescription",
+  )<ObjectDescription>(ObjectDescription)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.Resolved<ObjectDescription> => {
       const decode = (input: Uint8Array): typia.Resolved<ObjectDescription> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -52,7 +56,10 @@ export const test_protobuf_createAssertDecode_ObjectDescription =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectDescription => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectDescription => {
         const __is = (input: any): input is ObjectDescription => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -83,74 +90,114 @@ export const test_protobuf_createAssertDecode_ObjectDescription =
                 (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                   input.id,
                 ) ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".id",
+                      expected: 'string & Format<"uuid">',
+                      value: input.id,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".id",
-                    expected: 'string & Format<"uuid">',
+                    expected: '(string & Format<"uuid">)',
                     value: input.id,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: '(string & Format<"uuid">)',
-                  value: input.id,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               ("boolean" === typeof input.deprecated ||
-                $guard(_exceptionable, {
-                  path: _path + ".deprecated",
-                  expected: "boolean",
-                  value: input.deprecated,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".deprecated",
+                    expected: "boolean",
+                    value: input.deprecated,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.title ||
-                $guard(_exceptionable, {
-                  path: _path + ".title",
-                  expected: "string",
-                  value: input.title,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".title",
+                    expected: "string",
+                    value: input.title,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.descriptions) ||
-                $guard(_exceptionable, {
-                  path: _path + ".descriptions",
-                  expected: "Array<string>",
-                  value: input.descriptions,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".descriptions",
+                    expected: "Array<string>",
+                    value: input.descriptions,
+                  },
+                  errorFactory,
+                )) &&
                 input.descriptions.every(
                   (elem: any, _index1: number) =>
                     "string" === typeof elem ||
-                    $guard(_exceptionable, {
-                      path: _path + ".descriptions[" + _index1 + "]",
-                      expected: "string",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".descriptions[" + _index1 + "]",
+                        expected: "string",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".descriptions",
-                  expected: "Array<string>",
-                  value: input.descriptions,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".descriptions",
+                    expected: "Array<string>",
+                    value: input.descriptions,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.newLine &&
                 Number.isFinite(input.newLine)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".newLine",
-                  expected: "number",
-                  value: input.newLine,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".newLine",
+                    expected: "number",
+                    value: input.newLine,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectDescription",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectDescription",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectDescription",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectDescription): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

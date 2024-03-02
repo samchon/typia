@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
 export const test_assertGuard_ConstantAtomicTagged = _test_assertGuard(
-  "ConstantAtomicTagged",
-)<ConstantAtomicTagged>(ConstantAtomicTagged)((input) =>
-  ((input: any): asserts input is ConstantAtomicTagged => {
+  TypeGuardError,
+)("ConstantAtomicTagged")<ConstantAtomicTagged>(ConstantAtomicTagged)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is ConstantAtomicTagged => {
     const __is = (input: any): input is ConstantAtomicTagged => {
       const $io0 = (input: any): boolean =>
         ("latest" === input.id ||
@@ -39,50 +43,78 @@ export const test_assertGuard_ConstantAtomicTagged = _test_assertGuard(
               (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                 input.id,
               ) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: 'string & Format<"uuid">',
-                  value: input.id,
-                }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '("latest" | (string & Format<"uuid">))',
-              value: input.id,
-            })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: 'string & Format<"uuid">',
+                    value: input.id,
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: '("latest" | (string & Format<"uuid">))',
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           (-1 === input.age ||
             ("number" === typeof input.age &&
               ((Math.floor(input.age) === input.age &&
                 0 <= input.age &&
                 input.age <= 4294967295) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: 'number & Type<"uint32">',
-                  value: input.age,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: 'number & Type<"uint32">',
+                    value: input.age,
+                  },
+                  errorFactory,
+                )) &&
               (input.age <= 100 ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: "number & Maximum<100>",
-                  value: input.age,
-                }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: '((number & Type<"uint32"> & Maximum<100>) | -1)',
-              value: input.age,
-            }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: "number & Maximum<100>",
+                    value: input.age,
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".age",
+                expected: '((number & Type<"uint32"> & Maximum<100>) | -1)',
+                value: input.age,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantAtomicTagged",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ConstantAtomicTagged",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ConstantAtomicTagged",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

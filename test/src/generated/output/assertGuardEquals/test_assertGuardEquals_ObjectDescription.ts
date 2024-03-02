@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
 export const test_assertGuardEquals_ObjectDescription = _test_assertGuardEquals(
-  "ObjectDescription",
-)<ObjectDescription>(ObjectDescription)((input) =>
-  ((input: any): asserts input is ObjectDescription => {
+  TypeGuardError,
+)("ObjectDescription")<ObjectDescription>(ObjectDescription)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is ObjectDescription => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -55,55 +59,87 @@ export const test_assertGuardEquals_ObjectDescription = _test_assertGuardEquals(
             (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
               input.id,
             ) ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: 'string & Format<"uuid">',
+                  value: input.id,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".id",
-                expected: 'string & Format<"uuid">',
+                expected: '(string & Format<"uuid">)',
                 value: input.id,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '(string & Format<"uuid">)',
-              value: input.id,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           ("boolean" === typeof input.deprecated ||
-            $guard(_exceptionable, {
-              path: _path + ".deprecated",
-              expected: "boolean",
-              value: input.deprecated,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".deprecated",
+                expected: "boolean",
+                value: input.deprecated,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.title ||
-            $guard(_exceptionable, {
-              path: _path + ".title",
-              expected: "string",
-              value: input.title,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".title",
+                expected: "string",
+                value: input.title,
+              },
+              errorFactory,
+            )) &&
           (((Array.isArray(input.descriptions) ||
-            $guard(_exceptionable, {
-              path: _path + ".descriptions",
-              expected: "Array<string>",
-              value: input.descriptions,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".descriptions",
+                expected: "Array<string>",
+                value: input.descriptions,
+              },
+              errorFactory,
+            )) &&
             input.descriptions.every(
               (elem: any, _index1: number) =>
                 "string" === typeof elem ||
-                $guard(_exceptionable, {
-                  path: _path + ".descriptions[" + _index1 + "]",
-                  expected: "string",
-                  value: elem,
-                }),
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".descriptions[" + _index1 + "]",
+                    expected: "string",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-            $guard(_exceptionable, {
-              path: _path + ".descriptions",
-              expected: "Array<string>",
-              value: input.descriptions,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".descriptions",
+                expected: "Array<string>",
+                value: input.descriptions,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.newLine &&
             Number.isFinite(input.newLine)) ||
-            $guard(_exceptionable, {
-              path: _path + ".newLine",
-              expected: "number",
-              value: input.newLine,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".newLine",
+                expected: "number",
+                value: input.newLine,
+              },
+              errorFactory,
+            )) &&
           (5 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -115,25 +151,37 @@ export const test_assertGuardEquals_ObjectDescription = _test_assertGuardEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectDescription",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectDescription",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectDescription",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

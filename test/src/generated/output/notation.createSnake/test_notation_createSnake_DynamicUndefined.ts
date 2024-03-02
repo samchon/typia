@@ -110,7 +110,10 @@ export const test_notation_createValidateSnake_DynamicUndefined =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<DynamicUndefined> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<DynamicUndefined> => {
       const __is = (input: any): input is typia.SnakeCase<DynamicUndefined> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -144,34 +147,50 @@ export const test_notation_createValidateSnake_DynamicUndefined =
               if (undefined === value) return true;
               return (
                 (null !== value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "undefined",
-                    value: value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "undefined",
+                      value: value,
+                    },
+                    errorFactory,
+                  )) &&
                 (undefined === value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "undefined",
-                    value: value,
-                  }))
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "undefined",
+                      value: value,
+                    },
+                    errorFactory,
+                  ))
               );
             });
           return (
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicUndefined",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicUndefined",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicUndefined",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

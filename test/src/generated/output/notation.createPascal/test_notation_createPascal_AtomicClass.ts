@@ -271,7 +271,10 @@ export const test_notation_createValidatePascal_AtomicClass =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.PascalCase<AtomicClass> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.PascalCase<AtomicClass> => {
       const __is = (input: any): input is typia.PascalCase<AtomicClass> => {
         return (
           Array.isArray(input) &&
@@ -299,79 +302,127 @@ export const test_notation_createValidatePascal_AtomicClass =
           const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected:
-                  "[boolean, boolean, boolean, number, number, number, string, string, string]",
-                value: input,
-              })) &&
-              (input.length === 9 ||
-                $guard(true, {
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected:
                     "[boolean, boolean, boolean, number, number, number, string, string, string]",
                   value: input,
-                })) &&
+                },
+                errorFactory,
+              )) &&
+              (input.length === 9 ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected:
+                      "[boolean, boolean, boolean, number, number, number, string, string, string]",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
               ("boolean" === typeof input[0] ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "boolean",
-                  value: input[0],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "boolean",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
               ("boolean" === typeof input[1] ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "boolean",
-                  value: input[1],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "boolean",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
               ("boolean" === typeof input[2] ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: "boolean",
-                  value: input[2],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: "boolean",
+                    value: input[2],
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input[3] && Number.isFinite(input[3])) ||
-                $guard(true, {
-                  path: _path + "[3]",
-                  expected: "number",
-                  value: input[3],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[3]",
+                    expected: "number",
+                    value: input[3],
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input[4] && Number.isFinite(input[4])) ||
-                $guard(true, {
-                  path: _path + "[4]",
-                  expected: "number",
-                  value: input[4],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[4]",
+                    expected: "number",
+                    value: input[4],
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input[5] && Number.isFinite(input[5])) ||
-                $guard(true, {
-                  path: _path + "[5]",
-                  expected: "number",
-                  value: input[5],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[5]",
+                    expected: "number",
+                    value: input[5],
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input[6] ||
-                $guard(true, {
-                  path: _path + "[6]",
-                  expected: "string",
-                  value: input[6],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[6]",
+                    expected: "string",
+                    value: input[6],
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input[7] ||
-                $guard(true, {
-                  path: _path + "[7]",
-                  expected: "string",
-                  value: input[7],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[7]",
+                    expected: "string",
+                    value: input[7],
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input[8] ||
-                $guard(true, {
-                  path: _path + "[8]",
-                  expected: "string",
-                  value: input[8],
-                }))) ||
-            $guard(true, {
-              path: _path + "",
-              expected:
-                "[boolean, boolean, boolean, number, number, number, string, string, string]",
-              value: input,
-            })
+                $guard(
+                  true,
+                  {
+                    path: _path + "[8]",
+                    expected: "string",
+                    value: input[8],
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected:
+                  "[boolean, boolean, boolean, number, number, number, string, string, string]",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

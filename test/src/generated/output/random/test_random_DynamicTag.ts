@@ -63,7 +63,10 @@ export const test_random_DynamicTag = _test_random("DynamicTag")<DynamicTag>(
       };
       return $ro0();
     })((DynamicTag as any).RANDOM),
-  assert: (input: any): DynamicTag => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicTag => {
     const __is = (input: any): input is DynamicTag => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -121,16 +124,24 @@ export const test_random_DynamicTag = _test_random("DynamicTag")<DynamicTag>(
               return (
                 ("bigint" === typeof value &&
                   (BigInt(0) <= value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: 'bigint & Type<"uint64">',
-                      value: value,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: '(bigint & Type<"uint64">)',
-                  value: value,
-                })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: 'bigint & Type<"uint64">',
+                        value: value,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: '(bigint & Type<"uint64">)',
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             if (
               "string" === typeof key &&
@@ -143,16 +154,24 @@ export const test_random_DynamicTag = _test_random("DynamicTag")<DynamicTag>(
                   (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
                     value,
                   ) ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: 'string & Format<"email">',
-                      value: value,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: '(string & Format<"email">)',
-                  value: value,
-                })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: 'string & Format<"email">',
+                        value: value,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: '(string & Format<"email">)',
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             return true;
           });
@@ -160,17 +179,25 @@ export const test_random_DynamicTag = _test_random("DynamicTag")<DynamicTag>(
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicTag",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicTag",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicTag",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

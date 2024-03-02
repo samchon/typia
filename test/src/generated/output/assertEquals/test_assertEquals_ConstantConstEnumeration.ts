@@ -1,12 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_assertEquals_ConstantConstEnumeration = _test_assertEquals(
-  "ConstantConstEnumeration",
-)<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
-  ((input: any): ConstantConstEnumeration => {
+  TypeGuardError,
+)("ConstantConstEnumeration")<ConstantConstEnumeration>(
+  ConstantConstEnumeration,
+)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ConstantConstEnumeration => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -32,11 +38,15 @@ export const test_assertEquals_ConstantConstEnumeration = _test_assertEquals(
         const $guard = (typia.assertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantConstEnumeration",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantConstEnumeration",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 0 === elem ||
@@ -44,17 +54,25 @@ export const test_assertEquals_ConstantConstEnumeration = _test_assertEquals(
                 2 === elem ||
                 "Three" === elem ||
                 "Four" === elem ||
-                $guard(true, {
-                  path: _path + "[" + _index1 + "]",
-                  expected: '("Four" | "Three" | 0 | 1 | 2)',
-                  value: elem,
-                }),
+                $guard(
+                  true,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected: '("Four" | "Three" | 0 | 1 | 2)',
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ConstantConstEnumeration",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "ConstantConstEnumeration",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

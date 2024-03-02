@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { FunctionalArray } from "../../../structures/FunctionalArray";
 
 export const test_createAssertGuard_FunctionalArray = _test_assertGuard(
-  "FunctionalArray",
-)<FunctionalArray>(FunctionalArray)(
-  (input: any): asserts input is FunctionalArray => {
+  TypeGuardError,
+)("FunctionalArray")<FunctionalArray>(FunctionalArray)(
+  (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is FunctionalArray => {
     const __is = (input: any): input is FunctionalArray => {
       return (
         Array.isArray(input) &&
@@ -22,25 +26,37 @@ export const test_createAssertGuard_FunctionalArray = _test_assertGuard(
         const $guard = (typia.createAssertGuard as any).guard;
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "FunctionalArray",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "FunctionalArray",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 "function" === typeof elem ||
-                $guard(true, {
-                  path: _path + "[" + _index1 + "]",
-                  expected: "unknown",
-                  value: elem,
-                }),
+                $guard(
+                  true,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected: "unknown",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "FunctionalArray",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "FunctionalArray",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   },

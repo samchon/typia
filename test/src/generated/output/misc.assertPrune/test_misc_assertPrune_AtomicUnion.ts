@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_misc_assertPrune_AtomicUnion = _test_misc_assertPrune(
-  "AtomicUnion",
-)<AtomicUnion>(AtomicUnion)((input) =>
-  ((input: any): AtomicUnion => {
-    const assert = (input: any): AtomicUnion => {
+  TypeGuardError,
+)("AtomicUnion")<AtomicUnion>(AtomicUnion)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): AtomicUnion => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): AtomicUnion => {
       const __is = (input: any): input is AtomicUnion => {
         return (
           Array.isArray(input) &&
@@ -29,34 +36,46 @@ export const test_misc_assertPrune_AtomicUnion = _test_misc_assertPrune(
           const $guard = (typia.misc.assertPrune as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "AtomicUnion",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "AtomicUnion",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   null === elem ||
                   "string" === typeof elem ||
                   ("number" === typeof elem && Number.isFinite(elem)) ||
                   "boolean" === typeof elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "(boolean | null | number | string)",
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "(boolean | null | number | string)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "AtomicUnion",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "AtomicUnion",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
     };
     const prune = (input: AtomicUnion): void => {};
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

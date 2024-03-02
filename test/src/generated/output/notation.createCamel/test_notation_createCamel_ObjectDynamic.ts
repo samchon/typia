@@ -110,7 +110,10 @@ export const test_notation_createValidateCamel_ObjectDynamic =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectDynamic> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.CamelCase<ObjectDynamic> => {
       const __is = (input: any): input is typia.CamelCase<ObjectDynamic> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -150,28 +153,40 @@ export const test_notation_createValidateCamel_ObjectDynamic =
                 "string" === typeof value ||
                 ("number" === typeof value && Number.isFinite(value)) ||
                 "boolean" === typeof value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "(boolean | number | string)",
-                  value: value,
-                })
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "(boolean | number | string)",
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             });
           return (
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectDynamic",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectDynamic",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectDynamic",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

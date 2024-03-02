@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_assertPrune_ObjectLiteralProperty =
-  _test_misc_assertPrune("ObjectLiteralProperty")<ObjectLiteralProperty>(
-    ObjectLiteralProperty,
-  )((input) =>
-    ((input: any): ObjectLiteralProperty => {
-      const assert = (input: any): ObjectLiteralProperty => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ObjectLiteralProperty",
+  )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ObjectLiteralProperty => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectLiteralProperty => {
         const __is = (input: any): input is ObjectLiteralProperty => {
           return (
             "object" === typeof input &&
@@ -33,30 +40,46 @@ export const test_misc_assertPrune_ObjectLiteralProperty =
             ): boolean =>
               ("string" ===
                 typeof input["something-interesting-do-you-want?"] ||
-                $guard(_exceptionable, {
-                  path: _path + '["something-interesting-do-you-want?"]',
-                  expected: "string",
-                  value: input["something-interesting-do-you-want?"],
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + '["something-interesting-do-you-want?"]',
+                    expected: "string",
+                    value: input["something-interesting-do-you-want?"],
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input["or-something-crazy-do-you-want?"] ||
-                $guard(_exceptionable, {
-                  path: _path + '["or-something-crazy-do-you-want?"]',
-                  expected: "string",
-                  value: input["or-something-crazy-do-you-want?"],
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + '["or-something-crazy-do-you-want?"]',
+                    expected: "string",
+                    value: input["or-something-crazy-do-you-want?"],
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectLiteralProperty.ISomething",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectLiteralProperty.ISomething",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectLiteralProperty.ISomething",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -74,7 +97,7 @@ export const test_misc_assertPrune_ObjectLiteralProperty =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

@@ -1,10 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_createAssert_ObjectLiteralProperty = _test_assert(
-  "ObjectLiteralProperty",
-)<ObjectLiteralProperty>(ObjectLiteralProperty)(
+  TypeGuardError,
+)("ObjectLiteralProperty")<ObjectLiteralProperty>(ObjectLiteralProperty)(
   typia.createAssert<ObjectLiteralProperty>(),
 );

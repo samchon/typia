@@ -99,7 +99,10 @@ export const test_notation_validateSnake_ObjectLiteralProperty =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectLiteralProperty> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<ObjectLiteralProperty> => {
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ObjectLiteralProperty> => {
@@ -124,30 +127,46 @@ export const test_notation_validateSnake_ObjectLiteralProperty =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input["something-interesting-do-you-want?"] ||
-              $guard(_exceptionable, {
-                path: _path + '["something-interesting-do-you-want?"]',
-                expected: "string",
-                value: input["something-interesting-do-you-want?"],
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + '["something-interesting-do-you-want?"]',
+                  expected: "string",
+                  value: input["something-interesting-do-you-want?"],
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input["or-something-crazy-do-you-want?"] ||
-              $guard(_exceptionable, {
-                path: _path + '["or-something-crazy-do-you-want?"]',
-                expected: "string",
-                value: input["or-something-crazy-do-you-want?"],
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + '["or-something-crazy-do-you-want?"]',
+                  expected: "string",
+                  value: input["or-something-crazy-do-you-want?"],
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectLiteralProperty.ISomething",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectLiteralProperty.ISomething",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectLiteralProperty.ISomething",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

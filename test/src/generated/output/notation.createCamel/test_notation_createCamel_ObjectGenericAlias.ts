@@ -78,7 +78,10 @@ export const test_notation_createValidateCamel_ObjectGenericAlias =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<ObjectGenericAlias> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.CamelCase<ObjectGenericAlias> => {
       const __is = (
         input: any,
       ): input is typia.CamelCase<ObjectGenericAlias> => {
@@ -101,24 +104,36 @@ export const test_notation_createValidateCamel_ObjectGenericAlias =
             _exceptionable: boolean = true,
           ): boolean =>
             "string" === typeof input.value ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "string",
-              value: input.value,
-            });
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "string",
+                value: input.value,
+              },
+              errorFactory,
+            );
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectGenericAlias.Alias",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectGenericAlias.Alias",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectGenericAlias.Alias",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

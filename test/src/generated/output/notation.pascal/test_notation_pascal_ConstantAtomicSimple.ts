@@ -109,7 +109,10 @@ export const test_notation_validatePascal_ConstantAtomicSimple =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<ConstantAtomicSimple> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.PascalCase<ConstantAtomicSimple> => {
       const __is = (
         input: any,
       ): input is typia.PascalCase<ConstantAtomicSimple> => {
@@ -131,46 +134,74 @@ export const test_notation_validatePascal_ConstantAtomicSimple =
           const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ConstantAtomicSimple",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              (input.length === 4 ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: '[false, true, 2, "three"]',
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+              (false === input[0] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "false",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
+              (true === input[1] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "true",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
+              (2 === input[2] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: "2",
+                    value: input[2],
+                  },
+                  errorFactory,
+                )) &&
+              ("three" === input[3] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[3]",
+                    expected: '"three"',
+                    value: input[3],
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ConstantAtomicSimple",
                 value: input,
-              })) &&
-              (input.length === 4 ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: '[false, true, 2, "three"]',
-                  value: input,
-                })) &&
-              (false === input[0] ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "false",
-                  value: input[0],
-                })) &&
-              (true === input[1] ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "true",
-                  value: input[1],
-                })) &&
-              (2 === input[2] ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: "2",
-                  value: input[2],
-                })) &&
-              ("three" === input[3] ||
-                $guard(true, {
-                  path: _path + "[3]",
-                  expected: '"three"',
-                  value: input[3],
-                }))) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantAtomicSimple",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

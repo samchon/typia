@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
-export const test_protobuf_createAssertEncode_ConstantAtomicTagged =
-  _test_protobuf_assertEncode("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )({
+export const test_protobuf_assertEncode_ConstantAtomicTagged =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ConstantAtomicTagged",
+  )<ConstantAtomicTagged>(ConstantAtomicTagged)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): ConstantAtomicTagged => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ConstantAtomicTagged => {
           const __is = (input: any): input is ConstantAtomicTagged => {
             const $io0 = (input: any): boolean =>
               ("latest" === input.id ||
@@ -42,50 +49,79 @@ export const test_protobuf_createAssertEncode_ConstantAtomicTagged =
                     (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                       input.id,
                     ) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".id",
-                        expected: 'string & Format<"uuid">',
-                        value: input.id,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".id",
-                    expected: '("latest" | (string & Format<"uuid">))',
-                    value: input.id,
-                  })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".id",
+                          expected: 'string & Format<"uuid">',
+                          value: input.id,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".id",
+                      expected: '("latest" | (string & Format<"uuid">))',
+                      value: input.id,
+                    },
+                    errorFactory,
+                  )) &&
                 (-1 === input.age ||
                   ("number" === typeof input.age &&
                     ((Math.floor(input.age) === input.age &&
                       0 <= input.age &&
                       input.age <= 4294967295) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".age",
-                        expected: 'number & Type<"uint32">',
-                        value: input.age,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".age",
+                          expected: 'number & Type<"uint32">',
+                          value: input.age,
+                        },
+                        errorFactory,
+                      )) &&
                     (input.age <= 100 ||
-                      $guard(_exceptionable, {
-                        path: _path + ".age",
-                        expected: "number & Maximum<100>",
-                        value: input.age,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".age",
-                    expected: '((number & Type<"uint32"> & Maximum<100>) | -1)',
-                    value: input.age,
-                  }));
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".age",
+                          expected: "number & Maximum<100>",
+                          value: input.age,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".age",
+                      expected:
+                        '((number & Type<"uint32"> & Maximum<100>) | -1)',
+                      value: input.age,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ConstantAtomicTagged",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ConstantAtomicTagged",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ConstantAtomicTagged",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -130,7 +166,7 @@ export const test_protobuf_createAssertEncode_ConstantAtomicTagged =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ConstantAtomicTagged> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
 export const test_misc_createAssertClone_ObjectOptional =
-  _test_misc_assertClone("ObjectOptional")<ObjectOptional>(ObjectOptional)(
-    (input: any): typia.Resolved<ObjectOptional> => {
-      const assert = (input: any): ObjectOptional => {
+  _test_misc_assertClone(TypeGuardError)("ObjectOptional")<ObjectOptional>(
+    ObjectOptional,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.Resolved<ObjectOptional> => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectOptional => {
         const __is = (input: any): input is ObjectOptional => {
           const $io0 = (input: any): boolean =>
             (undefined === input.id || "string" === typeof input.id) &&
@@ -36,48 +45,72 @@ export const test_misc_createAssertClone_ObjectOptional =
             ): boolean =>
               (undefined === input.id ||
                 "string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "(string | undefined)",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "(string | undefined)",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input.name ||
                 "string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "(string | undefined)",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "(string | undefined)",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input.email ||
                 "string" === typeof input.email ||
-                $guard(_exceptionable, {
-                  path: _path + ".email",
-                  expected: "(string | undefined)",
-                  value: input.email,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".email",
+                    expected: "(string | undefined)",
+                    value: input.email,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input.sequence ||
                 ("number" === typeof input.sequence &&
                   Number.isFinite(input.sequence)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".sequence",
-                  expected: "(number | undefined)",
-                  value: input.sequence,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".sequence",
+                    expected: "(number | undefined)",
+                    value: input.sequence,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectOptional",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectOptional",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectOptional",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -93,7 +126,7 @@ export const test_misc_createAssertClone_ObjectOptional =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

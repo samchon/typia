@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
 
-export const test_protobuf_createValidateEncode_TypeTagArray =
+export const test_protobuf_validateEncode_TypeTagArray =
   _test_protobuf_validateEncode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
     encode: (input) =>
       ((input: TypeTagArray): typia.IValidation<Uint8Array> => {

@@ -1,13 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
 export const test_assertGuardEquals_ObjectUnionImplicit =
-  _test_assertGuardEquals("ObjectUnionImplicit")<ObjectUnionImplicit>(
-    ObjectUnionImplicit,
-  )((input) =>
-    ((input: any): asserts input is ObjectUnionImplicit => {
+  _test_assertGuardEquals(TypeGuardError)(
+    "ObjectUnionImplicit",
+  )<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): asserts input is ObjectUnionImplicit => {
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -229,26 +233,38 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             _exceptionable: boolean = true,
           ): boolean =>
             (("number" === typeof input.x && Number.isFinite(input.x)) ||
-              $guard(_exceptionable, {
-                path: _path + ".x",
-                expected: "number",
-                value: input.x,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".x",
+                  expected: "number",
+                  value: input.x,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.y && Number.isFinite(input.y)) ||
-              $guard(_exceptionable, {
-                path: _path + ".y",
-                expected: "number",
-                value: input.y,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".y",
+                  expected: "number",
+                  value: input.y,
+                },
+                errorFactory,
+              )) &&
             (null === input.slope ||
               undefined === input.slope ||
               ("number" === typeof input.slope &&
                 Number.isFinite(input.slope)) ||
-              $guard(_exceptionable, {
-                path: _path + ".slope",
-                expected: "(null | number | undefined)",
-                value: input.slope,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".slope",
+                  expected: "(null | number | undefined)",
+                  value: input.slope,
+                },
+                errorFactory,
+              )) &&
             (2 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -256,11 +272,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao1 = (
             input: any,
@@ -268,47 +288,71 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             _exceptionable: boolean = true,
           ): boolean =>
             (((("object" === typeof input.p1 && null !== input.p1) ||
-              $guard(_exceptionable, {
-                path: _path + ".p1",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p1,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p1",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p1,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p1, _path + ".p1", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p1",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p1,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p1",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p1,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.p2 && null !== input.p2) ||
-              $guard(_exceptionable, {
-                path: _path + ".p2",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p2,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p2",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p2,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p2, _path + ".p2", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p2",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p2,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p2",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p2,
+                },
+                errorFactory,
+              )) &&
             (null === input.width ||
               undefined === input.width ||
               ("number" === typeof input.width &&
                 Number.isFinite(input.width)) ||
-              $guard(_exceptionable, {
-                path: _path + ".width",
-                expected: "(null | number | undefined)",
-                value: input.width,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".width",
+                  expected: "(null | number | undefined)",
+                  value: input.width,
+                },
+                errorFactory,
+              )) &&
             (null === input.distance ||
               undefined === input.distance ||
               ("number" === typeof input.distance &&
                 Number.isFinite(input.distance)) ||
-              $guard(_exceptionable, {
-                path: _path + ".distance",
-                expected: "(null | number | undefined)",
-                value: input.distance,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".distance",
+                  expected: "(null | number | undefined)",
+                  value: input.distance,
+                },
+                errorFactory,
+              )) &&
             (2 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -320,11 +364,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao2 = (
             input: any,
@@ -332,67 +380,103 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             _exceptionable: boolean = true,
           ): boolean =>
             (((("object" === typeof input.p1 && null !== input.p1) ||
-              $guard(_exceptionable, {
-                path: _path + ".p1",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p1,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p1",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p1,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p1, _path + ".p1", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p1",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p1,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p1",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p1,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.p2 && null !== input.p2) ||
-              $guard(_exceptionable, {
-                path: _path + ".p2",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p2,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p2",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p2,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p2, _path + ".p2", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p2",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p2,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p2",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p2,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.p3 && null !== input.p3) ||
-              $guard(_exceptionable, {
-                path: _path + ".p3",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p3,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p3",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p3,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p3, _path + ".p3", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p3",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p3,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p3",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p3,
+                },
+                errorFactory,
+              )) &&
             (null === input.width ||
               undefined === input.width ||
               ("number" === typeof input.width &&
                 Number.isFinite(input.width)) ||
-              $guard(_exceptionable, {
-                path: _path + ".width",
-                expected: "(null | number | undefined)",
-                value: input.width,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".width",
+                  expected: "(null | number | undefined)",
+                  value: input.width,
+                },
+                errorFactory,
+              )) &&
             (null === input.height ||
               undefined === input.height ||
               ("number" === typeof input.height &&
                 Number.isFinite(input.height)) ||
-              $guard(_exceptionable, {
-                path: _path + ".height",
-                expected: "(null | number | undefined)",
-                value: input.height,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".height",
+                  expected: "(null | number | undefined)",
+                  value: input.height,
+                },
+                errorFactory,
+              )) &&
             (null === input.area ||
               undefined === input.area ||
               ("number" === typeof input.area && Number.isFinite(input.area)) ||
-              $guard(_exceptionable, {
-                path: _path + ".area",
-                expected: "(null | number | undefined)",
-                value: input.area,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".area",
+                  expected: "(null | number | undefined)",
+                  value: input.area,
+                },
+                errorFactory,
+              )) &&
             (3 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -404,11 +488,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao3 = (
             input: any,
@@ -416,79 +504,123 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             _exceptionable: boolean = true,
           ): boolean =>
             (((("object" === typeof input.p1 && null !== input.p1) ||
-              $guard(_exceptionable, {
-                path: _path + ".p1",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p1,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p1",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p1,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p1, _path + ".p1", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p1",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p1,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p1",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p1,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.p2 && null !== input.p2) ||
-              $guard(_exceptionable, {
-                path: _path + ".p2",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p2,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p2",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p2,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p2, _path + ".p2", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p2",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p2,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p2",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p2,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.p3 && null !== input.p3) ||
-              $guard(_exceptionable, {
-                path: _path + ".p3",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p3,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p3",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p3,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p3, _path + ".p3", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p3",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p3,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p3",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p3,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.p4 && null !== input.p4) ||
-              $guard(_exceptionable, {
-                path: _path + ".p4",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p4,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p4",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p4,
+                },
+                errorFactory,
+              )) &&
               $ao0(input.p4, _path + ".p4", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".p4",
-                expected: "ObjectUnionImplicit.IPoint",
-                value: input.p4,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".p4",
+                  expected: "ObjectUnionImplicit.IPoint",
+                  value: input.p4,
+                },
+                errorFactory,
+              )) &&
             (null === input.width ||
               undefined === input.width ||
               ("number" === typeof input.width &&
                 Number.isFinite(input.width)) ||
-              $guard(_exceptionable, {
-                path: _path + ".width",
-                expected: "(null | number | undefined)",
-                value: input.width,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".width",
+                  expected: "(null | number | undefined)",
+                  value: input.width,
+                },
+                errorFactory,
+              )) &&
             (null === input.height ||
               undefined === input.height ||
               ("number" === typeof input.height &&
                 Number.isFinite(input.height)) ||
-              $guard(_exceptionable, {
-                path: _path + ".height",
-                expected: "(null | number | undefined)",
-                value: input.height,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".height",
+                  expected: "(null | number | undefined)",
+                  value: input.height,
+                },
+                errorFactory,
+              )) &&
             (null === input.area ||
               undefined === input.area ||
               ("number" === typeof input.area && Number.isFinite(input.area)) ||
-              $guard(_exceptionable, {
-                path: _path + ".area",
-                expected: "(null | number | undefined)",
-                value: input.area,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".area",
+                  expected: "(null | number | undefined)",
+                  value: input.area,
+                },
+                errorFactory,
+              )) &&
             (4 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -500,11 +632,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao4 = (
             input: any,
@@ -512,44 +648,64 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             _exceptionable: boolean = true,
           ): boolean =>
             (((Array.isArray(input.points) ||
-              $guard(_exceptionable, {
-                path: _path + ".points",
-                expected: "Array<ObjectUnionImplicit.IPoint>",
-                value: input.points,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".points",
+                  expected: "Array<ObjectUnionImplicit.IPoint>",
+                  value: input.points,
+                },
+                errorFactory,
+              )) &&
               input.points.every(
                 (elem: any, _index2: number) =>
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".points[" + _index2 + "]",
-                      expected: "ObjectUnionImplicit.IPoint",
-                      value: elem,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".points[" + _index2 + "]",
+                        expected: "ObjectUnionImplicit.IPoint",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     $ao0(
                       elem,
                       _path + ".points[" + _index2 + "]",
                       true && _exceptionable,
                     )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".points[" + _index2 + "]",
-                    expected: "ObjectUnionImplicit.IPoint",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".points[" + _index2 + "]",
+                      expected: "ObjectUnionImplicit.IPoint",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-              $guard(_exceptionable, {
-                path: _path + ".points",
-                expected: "Array<ObjectUnionImplicit.IPoint>",
-                value: input.points,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".points",
+                  expected: "Array<ObjectUnionImplicit.IPoint>",
+                  value: input.points,
+                },
+                errorFactory,
+              )) &&
             (null === input.length ||
               undefined === input.length ||
               ("number" === typeof input.length &&
                 Number.isFinite(input.length)) ||
-              $guard(_exceptionable, {
-                path: _path + ".length",
-                expected: "(null | number | undefined)",
-                value: input.length,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".length",
+                  expected: "(null | number | undefined)",
+                  value: input.length,
+                },
+                errorFactory,
+              )) &&
             (1 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -557,11 +713,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao5 = (
             input: any,
@@ -569,57 +729,86 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             _exceptionable: boolean = true,
           ): boolean =>
             (((("object" === typeof input.outer && null !== input.outer) ||
-              $guard(_exceptionable, {
-                path: _path + ".outer",
-                expected: "ObjectUnionImplicit.IPolyline",
-                value: input.outer,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".outer",
+                  expected: "ObjectUnionImplicit.IPolyline",
+                  value: input.outer,
+                },
+                errorFactory,
+              )) &&
               $ao4(input.outer, _path + ".outer", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".outer",
-                expected: "ObjectUnionImplicit.IPolyline",
-                value: input.outer,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".outer",
+                  expected: "ObjectUnionImplicit.IPolyline",
+                  value: input.outer,
+                },
+                errorFactory,
+              )) &&
             (undefined === input.inner ||
               ((Array.isArray(input.inner) ||
-                $guard(_exceptionable, {
-                  path: _path + ".inner",
-                  expected:
-                    "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
-                  value: input.inner,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".inner",
+                    expected:
+                      "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
+                    value: input.inner,
+                  },
+                  errorFactory,
+                )) &&
                 input.inner.every(
                   (elem: any, _index3: number) =>
                     ((("object" === typeof elem && null !== elem) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".inner[" + _index3 + "]",
-                        expected: "ObjectUnionImplicit.IPolyline",
-                        value: elem,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".inner[" + _index3 + "]",
+                          expected: "ObjectUnionImplicit.IPolyline",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       $ao4(
                         elem,
                         _path + ".inner[" + _index3 + "]",
                         true && _exceptionable,
                       )) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".inner[" + _index3 + "]",
-                      expected: "ObjectUnionImplicit.IPolyline",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".inner[" + _index3 + "]",
+                        expected: "ObjectUnionImplicit.IPolyline",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-              $guard(_exceptionable, {
-                path: _path + ".inner",
-                expected: "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
-                value: input.inner,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".inner",
+                  expected:
+                    "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
+                  value: input.inner,
+                },
+                errorFactory,
+              )) &&
             (null === input.area ||
               undefined === input.area ||
               ("number" === typeof input.area && Number.isFinite(input.area)) ||
-              $guard(_exceptionable, {
-                path: _path + ".area",
-                expected: "(null | number | undefined)",
-                value: input.area,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".area",
+                  expected: "(null | number | undefined)",
+                  value: input.area,
+                },
+                errorFactory,
+              )) &&
             (1 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -629,11 +818,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao6 = (
             input: any,
@@ -642,37 +835,53 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
           ): boolean =>
             (("number" === typeof input.radius &&
               Number.isFinite(input.radius)) ||
-              $guard(_exceptionable, {
-                path: _path + ".radius",
-                expected: "number",
-                value: input.radius,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".radius",
+                  expected: "number",
+                  value: input.radius,
+                },
+                errorFactory,
+              )) &&
             (undefined === input.centroid ||
               ((("object" === typeof input.centroid &&
                 null !== input.centroid) ||
-                $guard(_exceptionable, {
-                  path: _path + ".centroid",
-                  expected: "(ObjectUnionImplicit.IPoint | undefined)",
-                  value: input.centroid,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".centroid",
+                    expected: "(ObjectUnionImplicit.IPoint | undefined)",
+                    value: input.centroid,
+                  },
+                  errorFactory,
+                )) &&
                 $ao0(
                   input.centroid,
                   _path + ".centroid",
                   true && _exceptionable,
                 )) ||
-              $guard(_exceptionable, {
-                path: _path + ".centroid",
-                expected: "(ObjectUnionImplicit.IPoint | undefined)",
-                value: input.centroid,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".centroid",
+                  expected: "(ObjectUnionImplicit.IPoint | undefined)",
+                  value: input.centroid,
+                },
+                errorFactory,
+              )) &&
             (null === input.area ||
               undefined === input.area ||
               ("number" === typeof input.area && Number.isFinite(input.area)) ||
-              $guard(_exceptionable, {
-                path: _path + ".area",
-                expected: "(null | number | undefined)",
-                value: input.area,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".area",
+                  expected: "(null | number | undefined)",
+                  value: input.area,
+                },
+                errorFactory,
+              )) &&
             (1 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -684,11 +893,15 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $au0 = (
             input: any,
@@ -715,33 +928,49 @@ export const test_assertGuardEquals_ObjectUnionImplicit =
             })();
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectUnionImplicit",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectUnionImplicit",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(true, {
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
+                    $au0(elem, _path + "[" + _index1 + "]", true)) ||
+                  $guard(
+                    true,
+                    {
                       path: _path + "[" + _index1 + "]",
                       expected:
                         "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
                       value: elem,
-                    })) &&
-                    $au0(elem, _path + "[" + _index1 + "]", true)) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
-                    value: elem,
-                  }),
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectUnionImplicit",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectUnionImplicit",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     })(input),

@@ -101,7 +101,10 @@ export const test_notation_validateSnake_ObjectJsonTag =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectJsonTag> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<ObjectJsonTag> => {
       const __is = (input: any): input is typia.SnakeCase<ObjectJsonTag> => {
         return (
           "object" === typeof input &&
@@ -125,42 +128,66 @@ export const test_notation_validateSnake_ObjectJsonTag =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "string",
-                value: input.vulnerable,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "string",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.description ||
-              $guard(_exceptionable, {
-                path: _path + ".description",
-                expected: "string",
-                value: input.description,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".description",
+                  expected: "string",
+                  value: input.description,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.title ||
-              $guard(_exceptionable, {
-                path: _path + ".title",
-                expected: "string",
-                value: input.title,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".title",
+                  expected: "string",
+                  value: input.title,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.complicate_title ||
-              $guard(_exceptionable, {
-                path: _path + ".complicate_title",
-                expected: "string",
-                value: input.complicate_title,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".complicate_title",
+                  expected: "string",
+                  value: input.complicate_title,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectJsonTag",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectJsonTag",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectJsonTag",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

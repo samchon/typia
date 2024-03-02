@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_misc_assertPrune_ConstantEnumeration = _test_misc_assertPrune(
-  "ConstantEnumeration",
-)<ConstantEnumeration>(ConstantEnumeration)((input) =>
-  ((input: any): ConstantEnumeration => {
-    const assert = (input: any): ConstantEnumeration => {
+  TypeGuardError,
+)("ConstantEnumeration")<ConstantEnumeration>(ConstantEnumeration)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ConstantEnumeration => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ConstantEnumeration => {
       const __is = (input: any): input is ConstantEnumeration => {
         return (
           Array.isArray(input) &&
@@ -30,11 +37,15 @@ export const test_misc_assertPrune_ConstantEnumeration = _test_misc_assertPrune(
           const $guard = (typia.misc.assertPrune as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantEnumeration",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ConstantEnumeration",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   0 === elem ||
@@ -42,23 +53,31 @@ export const test_misc_assertPrune_ConstantEnumeration = _test_misc_assertPrune(
                   2 === elem ||
                   "Three" === elem ||
                   "Four" === elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: '("Four" | "Three" | 0 | 1 | 2)',
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: '("Four" | "Three" | 0 | 1 | 2)',
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantEnumeration",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantEnumeration",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
     };
     const prune = (input: ConstantEnumeration): void => {};
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_validateDecode";
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
-export const test_protobuf_createValidateDecode_ConstantAtomicTagged =
+export const test_protobuf_validateDecode_ConstantAtomicTagged =
   _test_protobuf_validateDecode("ConstantAtomicTagged")<ConstantAtomicTagged>(
     ConstantAtomicTagged,
   )({

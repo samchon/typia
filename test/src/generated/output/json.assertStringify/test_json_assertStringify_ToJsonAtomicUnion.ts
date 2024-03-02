@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_json_assertStringify_ToJsonAtomicUnion =
-  _test_json_assertStringify("ToJsonAtomicUnion")<ToJsonAtomicUnion>(
-    ToJsonAtomicUnion,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): ToJsonAtomicUnion => {
+  _test_json_assertStringify(TypeGuardError)(
+    "ToJsonAtomicUnion",
+  )<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ToJsonAtomicUnion => {
         const __is = (input: any): input is ToJsonAtomicUnion => {
           const $io0 = (input: any): boolean => true;
           return (
@@ -32,38 +39,58 @@ export const test_json_assertStringify_ToJsonAtomicUnion =
               _exceptionable: boolean = true,
             ): boolean =>
               true ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              );
             return (
               ((Array.isArray(input) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ToJsonAtomicUnion",
-                  value: input,
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ToJsonAtomicUnion",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
                 input.every(
                   (elem: any, _index1: number) =>
                     ((("object" === typeof elem && null !== elem) ||
-                      $guard(true, {
+                      $guard(
+                        true,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected: "ToJsonAtomicUnion.IToJson",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
+                      $ao0(elem, _path + "[" + _index1 + "]", true)) ||
+                    $guard(
+                      true,
+                      {
                         path: _path + "[" + _index1 + "]",
                         expected: "ToJsonAtomicUnion.IToJson",
                         value: elem,
-                      })) &&
-                      $ao0(elem, _path + "[" + _index1 + "]", true)) ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "ToJsonAtomicUnion.IToJson",
-                      value: elem,
-                    }),
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ToJsonAtomicUnion",
-                value: input,
-              })
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ToJsonAtomicUnion",
+                  value: input,
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -90,6 +117,6 @@ export const test_json_assertStringify_ToJsonAtomicUnion =
           )
           .join(",")}]`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

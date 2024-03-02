@@ -13,7 +13,7 @@ export namespace HttpAssertQueryProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction =>
+    (type: ts.Type, name?: string, init?: ts.Expression): ts.ArrowFunction =>
       ts.factory.createArrowFunction(
         undefined,
         undefined,
@@ -22,6 +22,7 @@ export namespace HttpAssertQueryProgrammer {
             "input",
             ts.factory.createTypeReferenceNode(HttpQueryProgrammer.INPUT_TYPE),
           ),
+          AssertProgrammer.Guardian.parameter(init),
         ],
         ts.factory.createTypeReferenceNode(
           `typia.Resolved<${
@@ -65,7 +66,10 @@ export namespace HttpAssertQueryProgrammer {
               ts.factory.createCallExpression(
                 ts.factory.createIdentifier("assert"),
                 undefined,
-                [ts.factory.createIdentifier("output")],
+                [
+                  ts.factory.createIdentifier("output"),
+                  AssertProgrammer.Guardian.identifier(),
+                ],
               ),
               TypeFactory.keyword("any"),
             ),

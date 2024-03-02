@@ -1,11 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_createAssertDecode_ClassMethod =
-  _test_protobuf_assertDecode("ClassMethod")<ClassMethod>(ClassMethod)({
-    decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
+  _test_protobuf_assertDecode(TypeGuardError)("ClassMethod")<ClassMethod>(
+    ClassMethod,
+  )({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.Resolved<ClassMethod> => {
       const decode = (input: Uint8Array): typia.Resolved<ClassMethod> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
@@ -35,7 +41,10 @@ export const test_protobuf_createAssertDecode_ClassMethod =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ClassMethod => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ClassMethod => {
         const __is = (input: any): input is ClassMethod => {
           return (
             "object" === typeof input &&
@@ -58,36 +67,52 @@ export const test_protobuf_createAssertDecode_ClassMethod =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.age && Number.isFinite(input.age)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: "number",
-                  value: input.age,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: "number",
+                    value: input.age,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ClassMethod.Animal",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ClassMethod.Animal",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ClassMethod.Animal",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ClassMethod): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
 export const test_json_createAssertStringify_ObjectDynamic =
-  _test_json_assertStringify("ObjectDynamic")<ObjectDynamic>(ObjectDynamic)(
-    (input: any): string => {
-      const assert = (input: any): ObjectDynamic => {
+  _test_json_assertStringify(TypeGuardError)("ObjectDynamic")<ObjectDynamic>(
+    ObjectDynamic,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectDynamic => {
         const __is = (input: any): input is ObjectDynamic => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -46,28 +55,40 @@ export const test_json_createAssertStringify_ObjectDynamic =
                   "string" === typeof value ||
                   ("number" === typeof value && Number.isFinite(value)) ||
                   "boolean" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "(boolean | number | string)",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "(boolean | number | string)",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               });
             return (
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectDynamic",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectDynamic",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectDynamic",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -94,6 +115,6 @@ export const test_json_createAssertStringify_ObjectDynamic =
             .join(",")}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

@@ -439,7 +439,10 @@ export const test_notation_createValidateSnake_SetUnion =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<SetUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<SetUnion> => {
       const __is = (input: any): input is typia.SnakeCase<SetUnion> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -530,39 +533,59 @@ export const test_notation_createValidateSnake_SetUnion =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.id ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "string",
-                value: input.id,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: "string",
+                  value: input.id,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.age && Number.isFinite(input.age)) ||
-              $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".age",
+                  expected: "number",
+                  value: input.age,
+                },
+                errorFactory,
+              ));
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "SetUnion",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "SetUnion",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   ((elem instanceof Set ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected:
-                        "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
-                      value: elem,
-                    })) &&
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     (() => {
                       const array = [...elem];
                       const top = elem.values().next().value;
@@ -574,17 +597,21 @@ export const test_notation_createValidateSnake_SetUnion =
                             entire.every(
                               (elem: any, _index2: number) =>
                                 "boolean" === typeof elem ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index2 +
-                                    "]",
-                                  expected: "boolean",
-                                  value: elem,
-                                }),
+                                $guard(
+                                  true,
+                                  {
+                                    path:
+                                      _path +
+                                      "[" +
+                                      _index1 +
+                                      "][" +
+                                      _index2 +
+                                      "]",
+                                    expected: "boolean",
+                                    value: elem,
+                                  },
+                                  errorFactory,
+                                ),
                             ),
                         ] as const,
                         [
@@ -595,17 +622,21 @@ export const test_notation_createValidateSnake_SetUnion =
                               (elem: any, _index3: number) =>
                                 ("number" === typeof elem &&
                                   Number.isFinite(elem)) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index3 +
-                                    "]",
-                                  expected: "number",
-                                  value: elem,
-                                }),
+                                $guard(
+                                  true,
+                                  {
+                                    path:
+                                      _path +
+                                      "[" +
+                                      _index1 +
+                                      "][" +
+                                      _index3 +
+                                      "]",
+                                    expected: "number",
+                                    value: elem,
+                                  },
+                                  errorFactory,
+                                ),
                             ),
                         ] as const,
                         [
@@ -614,17 +645,21 @@ export const test_notation_createValidateSnake_SetUnion =
                             entire.every(
                               (elem: any, _index4: number) =>
                                 "string" === typeof elem ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index4 +
-                                    "]",
-                                  expected: "string",
-                                  value: elem,
-                                }),
+                                $guard(
+                                  true,
+                                  {
+                                    path:
+                                      _path +
+                                      "[" +
+                                      _index1 +
+                                      "][" +
+                                      _index4 +
+                                      "]",
+                                    expected: "string",
+                                    value: elem,
+                                  },
+                                  errorFactory,
+                                ),
                             ),
                         ] as const,
                         [
@@ -639,7 +674,46 @@ export const test_notation_createValidateSnake_SetUnion =
                             entire.every(
                               (elem: any, _index6: number) =>
                                 ((Array.isArray(elem) ||
-                                  $guard(true, {
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index6 +
+                                        "]",
+                                      expected: "Array<number>",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
+                                  elem.every(
+                                    (elem: any, _index7: number) =>
+                                      ("number" === typeof elem &&
+                                        Number.isFinite(elem)) ||
+                                      $guard(
+                                        true,
+                                        {
+                                          path:
+                                            _path +
+                                            "[" +
+                                            _index1 +
+                                            "][" +
+                                            _index6 +
+                                            "][" +
+                                            _index7 +
+                                            "]",
+                                          expected: "number",
+                                          value: elem,
+                                        },
+                                        errorFactory,
+                                      ),
+                                  )) ||
+                                $guard(
+                                  true,
+                                  {
                                     path:
                                       _path +
                                       "[" +
@@ -649,36 +723,9 @@ export const test_notation_createValidateSnake_SetUnion =
                                       "]",
                                     expected: "Array<number>",
                                     value: elem,
-                                  })) &&
-                                  elem.every(
-                                    (elem: any, _index7: number) =>
-                                      ("number" === typeof elem &&
-                                        Number.isFinite(elem)) ||
-                                      $guard(true, {
-                                        path:
-                                          _path +
-                                          "[" +
-                                          _index1 +
-                                          "][" +
-                                          _index6 +
-                                          "][" +
-                                          _index7 +
-                                          "]",
-                                        expected: "number",
-                                        value: elem,
-                                      }),
-                                  )) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index6 +
-                                    "]",
-                                  expected: "Array<number>",
-                                  value: elem,
-                                }),
+                                  },
+                                  errorFactory,
+                                ),
                             ),
                         ] as const,
                         [
@@ -690,17 +737,21 @@ export const test_notation_createValidateSnake_SetUnion =
                             entire.every(
                               (elem: any, _index8: number) =>
                                 ((("object" === typeof elem && null !== elem) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index8 +
-                                      "]",
-                                    expected: "SetUnion.Person",
-                                    value: elem,
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index8 +
+                                        "]",
+                                      expected: "SetUnion.Person",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
                                   $ao0(
                                     elem,
                                     _path +
@@ -711,17 +762,21 @@ export const test_notation_createValidateSnake_SetUnion =
                                       "]",
                                     true,
                                   )) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index8 +
-                                    "]",
-                                  expected: "SetUnion.Person",
-                                  value: elem,
-                                }),
+                                $guard(
+                                  true,
+                                  {
+                                    path:
+                                      _path +
+                                      "[" +
+                                      _index1 +
+                                      "][" +
+                                      _index8 +
+                                      "]",
+                                    expected: "SetUnion.Person",
+                                    value: elem,
+                                  },
+                                  errorFactory,
+                                ),
                             ),
                         ] as const,
                       ];
@@ -735,25 +790,37 @@ export const test_notation_createValidateSnake_SetUnion =
                             array.every((value: any) => true === pred[0](value))
                           )
                             return pred[1](array);
-                      return $guard(_exceptionable, {
-                        path: _path + "[" + _index1 + "]",
-                        expected:
-                          "(Set<boolean> | Set<number> | Set<string> | Set<Array<number>> | Set<SetUnion.Person>)",
-                        value: elem,
-                      });
+                      return $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected:
+                            "(Set<boolean> | Set<number> | Set<string> | Set<Array<number>> | Set<SetUnion.Person>)",
+                          value: elem,
+                        },
+                        errorFactory,
+                      );
                     })()) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected:
+                        "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "SetUnion",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "SetUnion",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

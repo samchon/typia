@@ -1,9 +1,10 @@
-import { Resolved, TypeGuardError } from "typia";
+import typia, { Resolved, TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_misc_assertClone =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (clone: (input: T) => Resolved<T>) =>
@@ -23,7 +24,10 @@ export const _test_misc_assertClone =
       try {
         clone(elem);
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

@@ -4,6 +4,7 @@ import { TestStructure } from "../helpers/TestStructure";
 import { _test_protobuf_decode } from "./_test_protobuf_decode";
 
 export const _test_protobuf_assertDecode =
+  (_ErrorClass: Function) =>
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
   (functor: {

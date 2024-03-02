@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_json_createAssertStringify_ClassMethod =
-  _test_json_assertStringify("ClassMethod")<ClassMethod>(ClassMethod)(
-    (input: any): string => {
-      const assert = (input: any): ClassMethod => {
+  _test_json_assertStringify(TypeGuardError)("ClassMethod")<ClassMethod>(
+    ClassMethod,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ClassMethod => {
         const __is = (input: any): input is ClassMethod => {
           return (
             "object" === typeof input &&
@@ -29,30 +38,46 @@ export const test_json_createAssertStringify_ClassMethod =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.age && Number.isFinite(input.age)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: "number",
-                  value: input.age,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: "number",
+                    value: input.age,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ClassMethod.Animal",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ClassMethod.Animal",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ClassMethod.Animal",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -64,6 +89,6 @@ export const test_json_createAssertStringify_ClassMethod =
           (input as any).age,
         )}}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

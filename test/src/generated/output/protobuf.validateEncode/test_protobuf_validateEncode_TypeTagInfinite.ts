@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_protobuf_createValidateEncode_TypeTagInfinite =
+export const test_protobuf_validateEncode_TypeTagInfinite =
   _test_protobuf_validateEncode("TypeTagInfinite")<TypeTagInfinite>(
     TypeTagInfinite,
   )({

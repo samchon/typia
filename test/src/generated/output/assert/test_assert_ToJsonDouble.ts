@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_assert_ToJsonDouble = _test_assert(
+export const test_assert_ToJsonDouble = _test_assert(TypeGuardError)(
   "ToJsonDouble",
 )<ToJsonDouble>(ToJsonDouble)((input) =>
-  ((input: any): ToJsonDouble => {
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ToJsonDouble => {
     const __is = (input: any): input is ToJsonDouble => {
       return "object" === typeof input && null !== input && true;
     };
@@ -26,17 +30,25 @@ export const test_assert_ToJsonDouble = _test_assert(
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ToJsonDouble.Parent",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ToJsonDouble.Parent",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ToJsonDouble.Parent",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

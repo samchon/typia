@@ -5,6 +5,7 @@ import { headers_to_string } from "../helpers/headers_to_string";
 import { resolved_equal_to } from "../helpers/resolved_equal_to";
 
 export const _test_http_assertHeaders =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
   (
@@ -31,7 +32,10 @@ export const _test_http_assertHeaders =
       try {
         decode(headers_to_string(elem));
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

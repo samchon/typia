@@ -95,7 +95,10 @@ export const test_notation_createValidatePascal_ConstantIntersection =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.PascalCase<ConstantIntersection> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.PascalCase<ConstantIntersection> => {
       const __is = (
         input: any,
       ): input is typia.PascalCase<ConstantIntersection> => {
@@ -116,40 +119,64 @@ export const test_notation_createValidatePascal_ConstantIntersection =
           const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ConstantIntersection",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              (input.length === 3 ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: '[false, 1, "two"]',
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+              (false === input[0] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "false",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
+              (1 === input[1] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "1",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
+              ("two" === input[2] ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: '"two"',
+                    value: input[2],
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ConstantIntersection",
                 value: input,
-              })) &&
-              (input.length === 3 ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: '[false, 1, "two"]',
-                  value: input,
-                })) &&
-              (false === input[0] ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "false",
-                  value: input[0],
-                })) &&
-              (1 === input[1] ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "1",
-                  value: input[1],
-                })) &&
-              ("two" === input[2] ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: '"two"',
-                  value: input[2],
-                }))) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantIntersection",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

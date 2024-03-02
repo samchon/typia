@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
 export const test_misc_createAssertPrune_ArrayRecursiveUnionExplicitPointer =
-  _test_misc_assertPrune(
+  _test_misc_assertPrune(TypeGuardError)(
     "ArrayRecursiveUnionExplicitPointer",
   )<ArrayRecursiveUnionExplicitPointer>(ArrayRecursiveUnionExplicitPointer)(
-    (input: any): ArrayRecursiveUnionExplicitPointer => {
-      const assert = (input: any): ArrayRecursiveUnionExplicitPointer => {
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ArrayRecursiveUnionExplicitPointer => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ArrayRecursiveUnionExplicitPointer => {
         const __is = (
           input: any,
         ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -102,325 +109,504 @@ export const test_misc_createAssertPrune_ArrayRecursiveUnionExplicitPointer =
               _exceptionable: boolean = true,
             ): boolean =>
               ((Array.isArray(input.value) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "Array<ArrayRecursiveUnionExplicitPointer.IBucket>",
-                  value: input.value,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected:
+                      "Array<ArrayRecursiveUnionExplicitPointer.IBucket>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                )) &&
                 input.value.every(
                   (elem: any, _index1: number) =>
                     ((("object" === typeof elem && null !== elem) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".value[" + _index1 + "]",
-                        expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
-                        value: elem,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".value[" + _index1 + "]",
+                          expected:
+                            "ArrayRecursiveUnionExplicitPointer.IBucket",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       $ao1(
                         elem,
                         _path + ".value[" + _index1 + "]",
                         true && _exceptionable,
                       )) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".value[" + _index1 + "]",
-                      expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".value[" + _index1 + "]",
+                        expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-              $guard(_exceptionable, {
-                path: _path + ".value",
-                expected: "Array<ArrayRecursiveUnionExplicitPointer.IBucket>",
-                value: input.value,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".value",
+                  expected: "Array<ArrayRecursiveUnionExplicitPointer.IBucket>",
+                  value: input.value,
+                },
+                errorFactory,
+              );
             const $ao1 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               ((("object" === typeof input.value && null !== input.value) ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected:
+                      "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.IShortcut | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile)",
+                    value: input.value,
+                  },
+                  errorFactory,
+                )) &&
+                $au0(input.value, _path + ".value", true && _exceptionable)) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".value",
                   expected:
                     "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.IShortcut | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile)",
                   value: input.value,
-                })) &&
-                $au0(input.value, _path + ".value", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".value",
-                expected:
-                  "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.IShortcut | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile)",
-                value: input.value,
-              });
+                },
+                errorFactory,
+              );
             const $ao2 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.path ||
-                $guard(_exceptionable, {
-                  path: _path + ".path",
-                  expected: "string",
-                  value: input.path,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".path",
+                    expected: "string",
+                    value: input.path,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.children) ||
-                $guard(_exceptionable, {
-                  path: _path + ".children",
-                  expected:
-                    "Array<ArrayRecursiveUnionExplicitPointer.IBucket>.o1",
-                  value: input.children,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".children",
+                    expected:
+                      "Array<ArrayRecursiveUnionExplicitPointer.IBucket>.o1",
+                    value: input.children,
+                  },
+                  errorFactory,
+                )) &&
                 input.children.every(
                   (elem: any, _index2: number) =>
                     ((("object" === typeof elem && null !== elem) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".children[" + _index2 + "]",
-                        expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
-                        value: elem,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".children[" + _index2 + "]",
+                          expected:
+                            "ArrayRecursiveUnionExplicitPointer.IBucket",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       $ao1(
                         elem,
                         _path + ".children[" + _index2 + "]",
                         true && _exceptionable,
                       )) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".children[" + _index2 + "]",
-                      expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".children[" + _index2 + "]",
+                        expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".children",
-                  expected:
-                    "Array<ArrayRecursiveUnionExplicitPointer.IBucket>.o1",
-                  value: input.children,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".children",
+                    expected:
+                      "Array<ArrayRecursiveUnionExplicitPointer.IBucket>.o1",
+                    value: input.children,
+                  },
+                  errorFactory,
+                )) &&
               ("directory" === input.type ||
-                $guard(_exceptionable, {
-                  path: _path + ".type",
-                  expected: '"directory"',
-                  value: input.type,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".type",
+                    expected: '"directory"',
+                    value: input.type,
+                  },
+                  errorFactory,
+                ));
             const $ao3 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.path ||
-                $guard(_exceptionable, {
-                  path: _path + ".path",
-                  expected: "string",
-                  value: input.path,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".path",
+                    expected: "string",
+                    value: input.path,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.width &&
                 Number.isFinite(input.width)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".width",
-                  expected: "number",
-                  value: input.width,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".width",
+                    expected: "number",
+                    value: input.width,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.height &&
                 Number.isFinite(input.height)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".height",
-                  expected: "number",
-                  value: input.height,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".height",
+                    expected: "number",
+                    value: input.height,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.url ||
-                $guard(_exceptionable, {
-                  path: _path + ".url",
-                  expected: "string",
-                  value: input.url,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".url",
+                    expected: "string",
+                    value: input.url,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.size &&
                 Number.isFinite(input.size)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".size",
-                  expected: "number",
-                  value: input.size,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".size",
+                    expected: "number",
+                    value: input.size,
+                  },
+                  errorFactory,
+                )) &&
               ("file" === input.type ||
-                $guard(_exceptionable, {
-                  path: _path + ".type",
-                  expected: '"file"',
-                  value: input.type,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".type",
+                    expected: '"file"',
+                    value: input.type,
+                  },
+                  errorFactory,
+                )) &&
               ("jpg" === input.extension ||
-                $guard(_exceptionable, {
-                  path: _path + ".extension",
-                  expected: '"jpg"',
-                  value: input.extension,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".extension",
+                    expected: '"jpg"',
+                    value: input.extension,
+                  },
+                  errorFactory,
+                ));
             const $ao4 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.path ||
-                $guard(_exceptionable, {
-                  path: _path + ".path",
-                  expected: "string",
-                  value: input.path,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".path",
+                    expected: "string",
+                    value: input.path,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.size &&
                 Number.isFinite(input.size)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".size",
-                  expected: "number",
-                  value: input.size,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".size",
+                    expected: "number",
+                    value: input.size,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.content ||
-                $guard(_exceptionable, {
-                  path: _path + ".content",
-                  expected: "string",
-                  value: input.content,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".content",
+                    expected: "string",
+                    value: input.content,
+                  },
+                  errorFactory,
+                )) &&
               ("file" === input.type ||
-                $guard(_exceptionable, {
-                  path: _path + ".type",
-                  expected: '"file"',
-                  value: input.type,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".type",
+                    expected: '"file"',
+                    value: input.type,
+                  },
+                  errorFactory,
+                )) &&
               ("txt" === input.extension ||
-                $guard(_exceptionable, {
-                  path: _path + ".extension",
-                  expected: '"txt"',
-                  value: input.extension,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".extension",
+                    expected: '"txt"',
+                    value: input.extension,
+                  },
+                  errorFactory,
+                ));
             const $ao5 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.path ||
-                $guard(_exceptionable, {
-                  path: _path + ".path",
-                  expected: "string",
-                  value: input.path,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".path",
+                    expected: "string",
+                    value: input.path,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.size &&
                 Number.isFinite(input.size)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".size",
-                  expected: "number",
-                  value: input.size,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".size",
+                    expected: "number",
+                    value: input.size,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.count &&
                 Number.isFinite(input.count)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".count",
-                  expected: "number",
-                  value: input.count,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".count",
+                    expected: "number",
+                    value: input.count,
+                  },
+                  errorFactory,
+                )) &&
               ("file" === input.type ||
-                $guard(_exceptionable, {
-                  path: _path + ".type",
-                  expected: '"file"',
-                  value: input.type,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".type",
+                    expected: '"file"',
+                    value: input.type,
+                  },
+                  errorFactory,
+                )) &&
               ("zip" === input.extension ||
-                $guard(_exceptionable, {
-                  path: _path + ".extension",
-                  expected: '"zip"',
-                  value: input.extension,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".extension",
+                    expected: '"zip"',
+                    value: input.extension,
+                  },
+                  errorFactory,
+                ));
             const $ao6 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.path ||
-                $guard(_exceptionable, {
-                  path: _path + ".path",
-                  expected: "string",
-                  value: input.path,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".path",
+                    expected: "string",
+                    value: input.path,
+                  },
+                  errorFactory,
+                )) &&
               (((("object" === typeof input.target && null !== input.target) ||
-                $guard(_exceptionable, {
-                  path: _path + ".target",
-                  expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
-                  value: input.target,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".target",
+                    expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
+                    value: input.target,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(
                   input.target,
                   _path + ".target",
                   true && _exceptionable,
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".target",
-                  expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
-                  value: input.target,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".target",
+                    expected: "ArrayRecursiveUnionExplicitPointer.IBucket",
+                    value: input.target,
+                  },
+                  errorFactory,
+                )) &&
               ("file" === input.type ||
-                $guard(_exceptionable, {
-                  path: _path + ".type",
-                  expected: '"file"',
-                  value: input.type,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".type",
+                    expected: '"file"',
+                    value: input.type,
+                  },
+                  errorFactory,
+                )) &&
               ("lnk" === input.extension ||
-                $guard(_exceptionable, {
-                  path: _path + ".extension",
-                  expected: '"lnk"',
-                  value: input.extension,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".extension",
+                    expected: '"lnk"',
+                    value: input.extension,
+                  },
+                  errorFactory,
+                ));
             const $au0 = (
               input: any,
               _path: string,
@@ -438,26 +624,38 @@ export const test_misc_createAssertPrune_ArrayRecursiveUnionExplicitPointer =
                 else if ("lnk" === input.extension)
                   return $ao6(input, _path, true && _exceptionable);
                 else
-                  return $guard(_exceptionable, {
-                    path: _path,
-                    expected:
-                      "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
-                    value: input,
-                  });
+                  return $guard(
+                    _exceptionable,
+                    {
+                      path: _path,
+                      expected:
+                        "(ArrayRecursiveUnionExplicitPointer.IDirectory | ArrayRecursiveUnionExplicitPointer.IImageFile | ArrayRecursiveUnionExplicitPointer.ITextFile | ArrayRecursiveUnionExplicitPointer.IZipFile | ArrayRecursiveUnionExplicitPointer.IShortcut)",
+                      value: input,
+                    },
+                    errorFactory,
+                  );
               })();
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ArrayRecursiveUnionExplicitPointer",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ArrayRecursiveUnionExplicitPointer",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ArrayRecursiveUnionExplicitPointer",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -638,7 +836,7 @@ export const test_misc_createAssertPrune_ArrayRecursiveUnionExplicitPointer =
           })();
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     },

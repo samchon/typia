@@ -79,7 +79,10 @@ export const test_createRandom_DynamicEnumeration = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): DynamicEnumeration => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicEnumeration => {
     const __is = (input: any): input is DynamicEnumeration => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -116,17 +119,25 @@ export const test_createRandom_DynamicEnumeration = _test_random(
           ((("object" === typeof input.value &&
             null !== input.value &&
             false === Array.isArray(input.value)) ||
-            $guard(_exceptionable, {
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "__type",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
+            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
+          $guard(
+            _exceptionable,
+            {
               path: _path + ".value",
               expected: "__type",
               value: input.value,
-            })) &&
-            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
-          $guard(_exceptionable, {
-            path: _path + ".value",
-            expected: "__type",
-            value: input.value,
-          });
+            },
+            errorFactory,
+          );
         const $ao1 = (
           input: any,
           _path: string,
@@ -134,87 +145,135 @@ export const test_createRandom_DynamicEnumeration = _test_random(
         ): boolean =>
           (undefined === input.ar ||
             "string" === typeof input.ar ||
-            $guard(_exceptionable, {
-              path: _path + ".ar",
-              expected: "(string | undefined)",
-              value: input.ar,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".ar",
+                expected: "(string | undefined)",
+                value: input.ar,
+              },
+              errorFactory,
+            )) &&
           (undefined === input["zh-Hans"] ||
             "string" === typeof input["zh-Hans"] ||
-            $guard(_exceptionable, {
-              path: _path + '["zh-Hans"]',
-              expected: "(string | undefined)",
-              value: input["zh-Hans"],
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + '["zh-Hans"]',
+                expected: "(string | undefined)",
+                value: input["zh-Hans"],
+              },
+              errorFactory,
+            )) &&
           (undefined === input["zh-Hant"] ||
             "string" === typeof input["zh-Hant"] ||
-            $guard(_exceptionable, {
-              path: _path + '["zh-Hant"]',
-              expected: "(string | undefined)",
-              value: input["zh-Hant"],
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + '["zh-Hant"]',
+                expected: "(string | undefined)",
+                value: input["zh-Hant"],
+              },
+              errorFactory,
+            )) &&
           (undefined === input.en ||
             "string" === typeof input.en ||
-            $guard(_exceptionable, {
-              path: _path + ".en",
-              expected: "(string | undefined)",
-              value: input.en,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".en",
+                expected: "(string | undefined)",
+                value: input.en,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.fr ||
             "string" === typeof input.fr ||
-            $guard(_exceptionable, {
-              path: _path + ".fr",
-              expected: "(string | undefined)",
-              value: input.fr,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".fr",
+                expected: "(string | undefined)",
+                value: input.fr,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.de ||
             "string" === typeof input.de ||
-            $guard(_exceptionable, {
-              path: _path + ".de",
-              expected: "(string | undefined)",
-              value: input.de,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".de",
+                expected: "(string | undefined)",
+                value: input.de,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.ja ||
             "string" === typeof input.ja ||
-            $guard(_exceptionable, {
-              path: _path + ".ja",
-              expected: "(string | undefined)",
-              value: input.ja,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".ja",
+                expected: "(string | undefined)",
+                value: input.ja,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.ko ||
             "string" === typeof input.ko ||
-            $guard(_exceptionable, {
-              path: _path + ".ko",
-              expected: "(string | undefined)",
-              value: input.ko,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".ko",
+                expected: "(string | undefined)",
+                value: input.ko,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.pt ||
             "string" === typeof input.pt ||
-            $guard(_exceptionable, {
-              path: _path + ".pt",
-              expected: "(string | undefined)",
-              value: input.pt,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".pt",
+                expected: "(string | undefined)",
+                value: input.pt,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.ru ||
             "string" === typeof input.ru ||
-            $guard(_exceptionable, {
-              path: _path + ".ru",
-              expected: "(string | undefined)",
-              value: input.ru,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".ru",
+                expected: "(string | undefined)",
+                value: input.ru,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicEnumeration",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicEnumeration",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicEnumeration",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_json_createAssertStringify_ClassGetter =
-  _test_json_assertStringify("ClassGetter")<ClassGetter>(ClassGetter)(
-    (input: any): string => {
-      const assert = (input: any): ClassGetter => {
+  _test_json_assertStringify(TypeGuardError)("ClassGetter")<ClassGetter>(
+    ClassGetter,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ClassGetter => {
         const __is = (input: any): input is ClassGetter => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -27,37 +36,57 @@ export const test_json_createAssertStringify_ClassGetter =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "string",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "string",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (null === input.dead ||
                 "boolean" === typeof input.dead ||
-                $guard(_exceptionable, {
-                  path: _path + ".dead",
-                  expected: "(boolean | null)",
-                  value: input.dead,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".dead",
+                    expected: "(boolean | null)",
+                    value: input.dead,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ClassGetter.Person",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ClassGetter.Person",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ClassGetter.Person",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -70,6 +99,6 @@ export const test_json_createAssertStringify_ClassGetter =
           }}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

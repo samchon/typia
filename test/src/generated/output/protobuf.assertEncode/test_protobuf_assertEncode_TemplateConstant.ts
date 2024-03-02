@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_protobuf_createAssertEncode_TemplateConstant =
-  _test_protobuf_assertEncode("TemplateConstant")<TemplateConstant>(
-    TemplateConstant,
-  )({
+export const test_protobuf_assertEncode_TemplateConstant =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "TemplateConstant",
+  )<TemplateConstant>(TemplateConstant)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): TemplateConstant => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): TemplateConstant => {
           const __is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.value) &&
@@ -48,35 +55,51 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((Array.isArray(input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "Array<TemplateConstant.Type>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "Array<TemplateConstant.Type>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   input.value.every(
                     (elem: any, _index1: number) =>
                       ((("object" === typeof elem && null !== elem) ||
-                        $guard(_exceptionable, {
-                          path: _path + ".value[" + _index1 + "]",
-                          expected: "TemplateConstant.Type",
-                          value: elem,
-                        })) &&
+                        $guard(
+                          _exceptionable,
+                          {
+                            path: _path + ".value[" + _index1 + "]",
+                            expected: "TemplateConstant.Type",
+                            value: elem,
+                          },
+                          errorFactory,
+                        )) &&
                         $ao1(
                           elem,
                           _path + ".value[" + _index1 + "]",
                           true && _exceptionable,
                         )) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".value[" + _index1 + "]",
-                        expected: "TemplateConstant.Type",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".value[" + _index1 + "]",
+                          expected: "TemplateConstant.Type",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "Array<TemplateConstant.Type>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "Array<TemplateConstant.Type>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao1 = (
                 input: any,
                 _path: string,
@@ -85,19 +108,27 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
                 ("prefix_A" === input.prefix ||
                   "prefix_B" === input.prefix ||
                   "prefix_C" === input.prefix ||
-                  $guard(_exceptionable, {
-                    path: _path + ".prefix",
-                    expected: '("prefix_A" | "prefix_B" | "prefix_C")',
-                    value: input.prefix,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".prefix",
+                      expected: '("prefix_A" | "prefix_B" | "prefix_C")',
+                      value: input.prefix,
+                    },
+                    errorFactory,
+                  )) &&
                 ("3_postfix" === input.postfix ||
                   "2_postfix" === input.postfix ||
                   "1_postfix" === input.postfix ||
-                  $guard(_exceptionable, {
-                    path: _path + ".postfix",
-                    expected: '("1_postfix" | "2_postfix" | "3_postfix")',
-                    value: input.postfix,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".postfix",
+                      expected: '("1_postfix" | "2_postfix" | "3_postfix")',
+                      value: input.postfix,
+                    },
+                    errorFactory,
+                  )) &&
                 ("the_3_value_with_label_A" === input.combined ||
                   "the_3_value_with_label_B" === input.combined ||
                   "the_3_value_with_label_C" === input.combined ||
@@ -107,25 +138,37 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
                   "the_1_value_with_label_A" === input.combined ||
                   "the_1_value_with_label_B" === input.combined ||
                   "the_1_value_with_label_C" === input.combined ||
-                  $guard(_exceptionable, {
-                    path: _path + ".combined",
-                    expected:
-                      '("the_1_value_with_label_A" | "the_1_value_with_label_B" | "the_1_value_with_label_C" | "the_2_value_with_label_A" | "the_2_value_with_label_B" | "the_2_value_with_label_C" | "the_3_value_with_label_A" | "the_3_value_with_label_B" | "the_3_value_with_label_C")',
-                    value: input.combined,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".combined",
+                      expected:
+                        '("the_1_value_with_label_A" | "the_1_value_with_label_B" | "the_1_value_with_label_C" | "the_2_value_with_label_A" | "the_2_value_with_label_B" | "the_2_value_with_label_C" | "the_3_value_with_label_A" | "the_3_value_with_label_B" | "the_3_value_with_label_C")',
+                      value: input.combined,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "TemplateConstant",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "TemplateConstant",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "TemplateConstant",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -181,7 +224,7 @@ export const test_protobuf_createAssertEncode_TemplateConstant =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

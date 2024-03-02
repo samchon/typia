@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
-  "ObjectLiteralProperty",
-)<ObjectLiteralProperty>(ObjectLiteralProperty)(
-  (input: any): ObjectLiteralProperty => {
+  TypeGuardError,
+)("ObjectLiteralProperty")<ObjectLiteralProperty>(ObjectLiteralProperty)(
+  (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectLiteralProperty => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -43,17 +47,25 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input["something-interesting-do-you-want?"] ||
-            $guard(_exceptionable, {
-              path: _path + '["something-interesting-do-you-want?"]',
-              expected: "string",
-              value: input["something-interesting-do-you-want?"],
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + '["something-interesting-do-you-want?"]',
+                expected: "string",
+                value: input["something-interesting-do-you-want?"],
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input["or-something-crazy-do-you-want?"] ||
-            $guard(_exceptionable, {
-              path: _path + '["or-something-crazy-do-you-want?"]',
-              expected: "string",
-              value: input["or-something-crazy-do-you-want?"],
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + '["or-something-crazy-do-you-want?"]',
+                expected: "string",
+                value: input["or-something-crazy-do-you-want?"],
+              },
+              errorFactory,
+            )) &&
           (2 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -66,25 +78,37 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectLiteralProperty.ISomething",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectLiteralProperty.ISomething",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectLiteralProperty.ISomething",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

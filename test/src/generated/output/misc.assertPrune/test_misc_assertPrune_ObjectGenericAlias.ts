@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
-  "ObjectGenericAlias",
-)<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-  ((input: any): ObjectGenericAlias => {
-    const assert = (input: any): ObjectGenericAlias => {
+  TypeGuardError,
+)("ObjectGenericAlias")<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectGenericAlias => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ObjectGenericAlias => {
       const __is = (input: any): input is ObjectGenericAlias => {
         return (
           "object" === typeof input &&
@@ -28,24 +35,36 @@ export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
             _exceptionable: boolean = true,
           ): boolean =>
             "string" === typeof input.value ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "string",
-              value: input.value,
-            });
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "string",
+                value: input.value,
+              },
+              errorFactory,
+            );
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectGenericAlias.Alias",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectGenericAlias.Alias",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectGenericAlias.Alias",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
@@ -59,7 +78,7 @@ export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

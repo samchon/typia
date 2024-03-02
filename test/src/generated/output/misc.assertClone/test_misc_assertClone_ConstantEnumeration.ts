@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_misc_assertClone_ConstantEnumeration = _test_misc_assertClone(
-  "ConstantEnumeration",
-)<ConstantEnumeration>(ConstantEnumeration)((input) =>
-  ((input: any): typia.Resolved<ConstantEnumeration> => {
-    const assert = (input: any): ConstantEnumeration => {
+  TypeGuardError,
+)("ConstantEnumeration")<ConstantEnumeration>(ConstantEnumeration)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): typia.Resolved<ConstantEnumeration> => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ConstantEnumeration => {
       const __is = (input: any): input is ConstantEnumeration => {
         return (
           Array.isArray(input) &&
@@ -30,11 +37,15 @@ export const test_misc_assertClone_ConstantEnumeration = _test_misc_assertClone(
           const $guard = (typia.misc.assertClone as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantEnumeration",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ConstantEnumeration",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   0 === elem ||
@@ -42,17 +53,25 @@ export const test_misc_assertClone_ConstantEnumeration = _test_misc_assertClone(
                   2 === elem ||
                   "Three" === elem ||
                   "Four" === elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: '("Four" | "Three" | 0 | 1 | 2)',
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: '("Four" | "Three" | 0 | 1 | 2)',
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantEnumeration",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantEnumeration",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
@@ -63,7 +82,7 @@ export const test_misc_assertClone_ConstantEnumeration = _test_misc_assertClone(
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       return Array.isArray(input) ? $cp0(input) : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { FunctionalValueUnion } from "../../../structures/FunctionalValueUnion";
 
 export const test_createAssertEquals_FunctionalValueUnion = _test_assertEquals(
-  "FunctionalValueUnion",
-)<FunctionalValueUnion>(FunctionalValueUnion)(
-  (input: any): FunctionalValueUnion => {
+  TypeGuardError,
+)("FunctionalValueUnion")<FunctionalValueUnion>(FunctionalValueUnion)(
+  (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): FunctionalValueUnion => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -32,34 +36,50 @@ export const test_createAssertEquals_FunctionalValueUnion = _test_assertEquals(
         const $guard = (typia.createAssertEquals as any).guard;
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "FunctionalValueUnion",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "FunctionalValueUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 (undefined !== elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "(null | number | string)",
-                    value: elem,
-                  })) &&
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "(null | number | string)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                 (null === elem ||
                   "function" === typeof elem ||
                   "string" === typeof elem ||
                   ("number" === typeof elem && Number.isFinite(elem)) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "(null | number | string)",
-                    value: elem,
-                  })),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "(null | number | string)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "FunctionalValueUnion",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "FunctionalValueUnion",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

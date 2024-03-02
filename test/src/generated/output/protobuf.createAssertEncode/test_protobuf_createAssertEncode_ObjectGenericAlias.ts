@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_protobuf_createAssertEncode_ObjectGenericAlias =
-  _test_protobuf_assertEncode("ObjectGenericAlias")<ObjectGenericAlias>(
-    ObjectGenericAlias,
-  )({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectGenericAlias => {
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectGenericAlias",
+  )<ObjectGenericAlias>(ObjectGenericAlias)({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectGenericAlias => {
         const __is = (input: any): input is ObjectGenericAlias => {
           return (
             "object" === typeof input &&
@@ -29,24 +36,36 @@ export const test_protobuf_createAssertEncode_ObjectGenericAlias =
               _exceptionable: boolean = true,
             ): boolean =>
               "string" === typeof input.value ||
-              $guard(_exceptionable, {
-                path: _path + ".value",
-                expected: "string",
-                value: input.value,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".value",
+                  expected: "string",
+                  value: input.value,
+                },
+                errorFactory,
+              );
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectGenericAlias.Alias",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectGenericAlias.Alias",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectGenericAlias.Alias",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -68,7 +87,7 @@ export const test_protobuf_createAssertEncode_ObjectGenericAlias =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
     decode: (input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagTypeBigInt } from "../../../structures/TypeTagTypeBigInt";
 
-export const test_protobuf_createAssertEncode_TypeTagTypeBigInt =
-  _test_protobuf_assertEncode("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
-    TypeTagTypeBigInt,
-  )({
+export const test_protobuf_assertEncode_TypeTagTypeBigInt =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "TypeTagTypeBigInt",
+  )<TypeTagTypeBigInt>(TypeTagTypeBigInt)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): TypeTagTypeBigInt => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): TypeTagTypeBigInt => {
           const __is = (input: any): input is TypeTagTypeBigInt => {
             return (
               "object" === typeof input &&
@@ -32,36 +39,56 @@ export const test_protobuf_createAssertEncode_TypeTagTypeBigInt =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ("bigint" === typeof input.in64 ||
-                  $guard(_exceptionable, {
-                    path: _path + ".in64",
-                    expected: "bigint",
-                    value: input.in64,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".in64",
+                      expected: "bigint",
+                      value: input.in64,
+                    },
+                    errorFactory,
+                  )) &&
                 (("bigint" === typeof input.uint64 &&
                   (BigInt(0) <= input.uint64 ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".uint64",
+                        expected: 'bigint & Type<"uint64">',
+                        value: input.uint64,
+                      },
+                      errorFactory,
+                    ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + ".uint64",
-                      expected: 'bigint & Type<"uint64">',
+                      expected: '(bigint & Type<"uint64">)',
                       value: input.uint64,
-                    }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".uint64",
-                    expected: '(bigint & Type<"uint64">)',
-                    value: input.uint64,
-                  }));
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "TypeTagTypeBigInt",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "TypeTagTypeBigInt",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "TypeTagTypeBigInt",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -86,7 +113,7 @@ export const test_protobuf_createAssertEncode_TypeTagTypeBigInt =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<TypeTagTypeBigInt> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

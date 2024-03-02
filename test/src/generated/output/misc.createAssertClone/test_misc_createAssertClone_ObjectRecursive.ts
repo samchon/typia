@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_misc_createAssertClone_ObjectRecursive =
-  _test_misc_assertClone("ObjectRecursive")<ObjectRecursive>(ObjectRecursive)(
-    (input: any): typia.Resolved<ObjectRecursive> => {
-      const assert = (input: any): ObjectRecursive => {
+  _test_misc_assertClone(TypeGuardError)("ObjectRecursive")<ObjectRecursive>(
+    ObjectRecursive,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.Resolved<ObjectRecursive> => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectRecursive => {
         const __is = (input: any): input is ObjectRecursive => {
           const $io0 = (input: any): boolean =>
             (null === input.parent ||
@@ -41,63 +50,95 @@ export const test_misc_createAssertClone_ObjectRecursive =
             ): boolean =>
               (null === input.parent ||
                 ((("object" === typeof input.parent && null !== input.parent) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".parent",
-                    expected: "(ObjectRecursive.IDepartment | null)",
-                    value: input.parent,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".parent",
+                      expected: "(ObjectRecursive.IDepartment | null)",
+                      value: input.parent,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao0(
                     input.parent,
                     _path + ".parent",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".parent",
-                  expected: "(ObjectRecursive.IDepartment | null)",
-                  value: input.parent,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".parent",
+                    expected: "(ObjectRecursive.IDepartment | null)",
+                    value: input.parent,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.code ||
-                $guard(_exceptionable, {
-                  path: _path + ".code",
-                  expected: "string",
-                  value: input.code,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".code",
+                    expected: "string",
+                    value: input.code,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.sequence &&
                 Number.isFinite(input.sequence)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".sequence",
-                  expected: "number",
-                  value: input.sequence,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".sequence",
+                    expected: "number",
+                    value: input.sequence,
+                  },
+                  errorFactory,
+                )) &&
               (((("object" === typeof input.created_at &&
                 null !== input.created_at) ||
-                $guard(_exceptionable, {
-                  path: _path + ".created_at",
-                  expected: "ObjectRecursive.ITimestamp",
-                  value: input.created_at,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".created_at",
+                    expected: "ObjectRecursive.ITimestamp",
+                    value: input.created_at,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(
                   input.created_at,
                   _path + ".created_at",
                   true && _exceptionable,
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".created_at",
-                  expected: "ObjectRecursive.ITimestamp",
-                  value: input.created_at,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".created_at",
+                    expected: "ObjectRecursive.ITimestamp",
+                    value: input.created_at,
+                  },
+                  errorFactory,
+                ));
             const $ao1 = (
               input: any,
               _path: string,
@@ -105,31 +146,47 @@ export const test_misc_createAssertClone_ObjectRecursive =
             ): boolean =>
               (("number" === typeof input.time &&
                 Number.isFinite(input.time)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".time",
-                  expected: "number",
-                  value: input.time,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".time",
+                    expected: "number",
+                    value: input.time,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.zone &&
                 Number.isFinite(input.zone)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".zone",
-                  expected: "number",
-                  value: input.zone,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".zone",
+                    expected: "number",
+                    value: input.zone,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectRecursive.IDepartment",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectRecursive.IDepartment",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectRecursive.IDepartment",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -173,7 +230,7 @@ export const test_misc_createAssertClone_ObjectRecursive =
           ? $co0(input)
           : (input as any);
       };
-      assert(input);
+      assert(input, errorFactory);
       const output = clone(input);
       return output;
     },

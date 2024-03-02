@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_json_createAssertParse_ObjectJsonTag = _test_json_assertParse(
-  "ObjectJsonTag",
-)<ObjectJsonTag>(ObjectJsonTag)(
-  (input: string): typia.Primitive<ObjectJsonTag> => {
-    const assert = (input: any): ObjectJsonTag => {
+  TypeGuardError,
+)("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)(
+  (
+    input: string,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): typia.Primitive<ObjectJsonTag> => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ObjectJsonTag => {
       const __is = (input: any): input is ObjectJsonTag => {
         return (
           "object" === typeof input &&
@@ -31,47 +38,71 @@ export const test_json_createAssertParse_ObjectJsonTag = _test_json_assertParse(
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "string",
-                value: input.vulnerable,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "string",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.description ||
-              $guard(_exceptionable, {
-                path: _path + ".description",
-                expected: "string",
-                value: input.description,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".description",
+                  expected: "string",
+                  value: input.description,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.title ||
-              $guard(_exceptionable, {
-                path: _path + ".title",
-                expected: "string",
-                value: input.title,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".title",
+                  expected: "string",
+                  value: input.title,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.complicate_title ||
-              $guard(_exceptionable, {
-                path: _path + ".complicate_title",
-                expected: "string",
-                value: input.complicate_title,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".complicate_title",
+                  expected: "string",
+                  value: input.complicate_title,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectJsonTag",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectJsonTag",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectJsonTag",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
     };
     input = JSON.parse(input);
-    return assert(input) as any;
+    return assert(input, errorFactory) as any;
   },
 );

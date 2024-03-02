@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectSimpleProtobufOptional } from "../../../structures/ObjectSimpleProtobufOptional";
 
-export const test_protobuf_createValidateEncode_ObjectSimpleProtobufOptional =
+export const test_protobuf_validateEncode_ObjectSimpleProtobufOptional =
   _test_protobuf_validateEncode(
     "ObjectSimpleProtobufOptional",
   )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({

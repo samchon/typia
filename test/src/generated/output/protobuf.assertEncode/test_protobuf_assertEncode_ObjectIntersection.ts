@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_protobuf_createAssertEncode_ObjectIntersection =
-  _test_protobuf_assertEncode("ObjectIntersection")<ObjectIntersection>(
-    ObjectIntersection,
-  )({
+export const test_protobuf_assertEncode_ObjectIntersection =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectIntersection",
+  )<ObjectIntersection>(ObjectIntersection)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectIntersection => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectIntersection => {
           const __is = (input: any): input is ObjectIntersection => {
             return (
               "object" === typeof input &&
@@ -32,36 +39,56 @@ export const test_protobuf_createAssertEncode_ObjectIntersection =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ("string" === typeof input.email ||
-                  $guard(_exceptionable, {
-                    path: _path + ".email",
-                    expected: "string",
-                    value: input.email,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".email",
+                      expected: "string",
+                      value: input.email,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.name ||
-                  $guard(_exceptionable, {
-                    path: _path + ".name",
-                    expected: "string",
-                    value: input.name,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".name",
+                      expected: "string",
+                      value: input.name,
+                    },
+                    errorFactory,
+                  )) &&
                 ("boolean" === typeof input.vulnerable ||
-                  $guard(_exceptionable, {
-                    path: _path + ".vulnerable",
-                    expected: "boolean",
-                    value: input.vulnerable,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".vulnerable",
+                      expected: "boolean",
+                      value: input.vulnerable,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectIntersection",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectIntersection",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectIntersection",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -89,7 +116,7 @@ export const test_protobuf_createAssertEncode_ObjectIntersection =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
     decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;

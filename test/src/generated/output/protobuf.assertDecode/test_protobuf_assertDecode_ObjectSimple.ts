@@ -1,12 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_protobuf_createAssertDecode_ObjectSimple =
-  _test_protobuf_assertDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
+export const test_protobuf_assertDecode_ObjectSimple =
+  _test_protobuf_assertDecode(TypeGuardError)("ObjectSimple")<ObjectSimple>(
+    ObjectSimple,
+  )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectSimple> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): typia.Resolved<ObjectSimple> => {
         const decode = (input: Uint8Array): typia.Resolved<ObjectSimple> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -75,7 +81,10 @@ export const test_protobuf_createAssertDecode_ObjectSimple =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectSimple => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectSimple => {
           const __is = (input: any): input is ObjectSimple => {
             return (
               "object" === typeof input &&
@@ -127,113 +136,165 @@ export const test_protobuf_createAssertDecode_ObjectSimple =
                 _exceptionable: boolean = true,
               ): boolean =>
                 (((("object" === typeof input.scale && null !== input.scale) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".scale",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.scale,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".scale",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.scale,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao1(
                     input.scale,
                     _path + ".scale",
                     true && _exceptionable,
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".scale",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.scale,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".scale",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.scale,
+                    },
+                    errorFactory,
+                  )) &&
                 (((("object" === typeof input.position &&
                   null !== input.position) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".position",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.position,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".position",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.position,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao1(
                     input.position,
                     _path + ".position",
                     true && _exceptionable,
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".position",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.position,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".position",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.position,
+                    },
+                    errorFactory,
+                  )) &&
                 (((("object" === typeof input.rotate &&
                   null !== input.rotate) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".rotate",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.rotate,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".rotate",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.rotate,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao1(
                     input.rotate,
                     _path + ".rotate",
                     true && _exceptionable,
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".rotate",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.rotate,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".rotate",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.rotate,
+                    },
+                    errorFactory,
+                  )) &&
                 (((("object" === typeof input.pivot && null !== input.pivot) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".pivot",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.pivot,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".pivot",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.pivot,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao1(
                     input.pivot,
                     _path + ".pivot",
                     true && _exceptionable,
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".pivot",
-                    expected: "ObjectSimple.IPoint3D",
-                    value: input.pivot,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".pivot",
+                      expected: "ObjectSimple.IPoint3D",
+                      value: input.pivot,
+                    },
+                    errorFactory,
+                  ));
               const $ao1 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 (("number" === typeof input.x && Number.isFinite(input.x)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".x",
-                    expected: "number",
-                    value: input.x,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".x",
+                      expected: "number",
+                      value: input.x,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.y && Number.isFinite(input.y)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".y",
-                    expected: "number",
-                    value: input.y,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".y",
+                      expected: "number",
+                      value: input.y,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.z && Number.isFinite(input.z)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".z",
-                    expected: "number",
-                    value: input.z,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".z",
+                      expected: "number",
+                      value: input.z,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectSimple.IBox3D",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectSimple.IBox3D",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectSimple.IBox3D",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectSimple): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

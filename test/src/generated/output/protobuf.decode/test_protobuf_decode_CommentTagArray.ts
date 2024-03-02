@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { CommentTagArray } from "../../../structures/CommentTagArray";
 
-export const test_protobuf_createDecode_CommentTagArray = _test_protobuf_decode(
+export const test_protobuf_decode_CommentTagArray = _test_protobuf_decode(
   "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)({
   decode: (input) =>

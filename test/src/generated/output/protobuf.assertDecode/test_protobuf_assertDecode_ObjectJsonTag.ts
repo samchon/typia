@@ -1,12 +1,18 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_protobuf_createAssertDecode_ObjectJsonTag =
-  _test_protobuf_assertDecode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
+export const test_protobuf_assertDecode_ObjectJsonTag =
+  _test_protobuf_assertDecode(TypeGuardError)("ObjectJsonTag")<ObjectJsonTag>(
+    ObjectJsonTag,
+  )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): typia.Resolved<ObjectJsonTag> => {
         const decode = (input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
@@ -46,7 +52,10 @@ export const test_protobuf_createAssertDecode_ObjectJsonTag =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectJsonTag => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectJsonTag => {
           const __is = (input: any): input is ObjectJsonTag => {
             return (
               "object" === typeof input &&
@@ -70,48 +79,72 @@ export const test_protobuf_createAssertDecode_ObjectJsonTag =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ("string" === typeof input.vulnerable ||
-                  $guard(_exceptionable, {
-                    path: _path + ".vulnerable",
-                    expected: "string",
-                    value: input.vulnerable,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".vulnerable",
+                      expected: "string",
+                      value: input.vulnerable,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.description ||
-                  $guard(_exceptionable, {
-                    path: _path + ".description",
-                    expected: "string",
-                    value: input.description,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".description",
+                      expected: "string",
+                      value: input.description,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.title ||
-                  $guard(_exceptionable, {
-                    path: _path + ".title",
-                    expected: "string",
-                    value: input.title,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".title",
+                      expected: "string",
+                      value: input.title,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.complicate_title ||
-                  $guard(_exceptionable, {
-                    path: _path + ".complicate_title",
-                    expected: "string",
-                    value: input.complicate_title,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".complicate_title",
+                      expected: "string",
+                      value: input.complicate_title,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectJsonTag",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectJsonTag",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectJsonTag",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectJsonTag): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

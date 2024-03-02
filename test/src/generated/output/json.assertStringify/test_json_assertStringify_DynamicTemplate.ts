@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_json_assertStringify_DynamicTemplate =
-  _test_json_assertStringify("DynamicTemplate")<DynamicTemplate>(
-    DynamicTemplate,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): DynamicTemplate => {
+  _test_json_assertStringify(TypeGuardError)(
+    "DynamicTemplate",
+  )<DynamicTemplate>(DynamicTemplate)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): DynamicTemplate => {
         const __is = (input: any): input is DynamicTemplate => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -59,11 +66,15 @@ export const test_json_assertStringify_DynamicTemplate =
                 if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                   return (
                     "string" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "string",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "string",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -71,11 +82,15 @@ export const test_json_assertStringify_DynamicTemplate =
                 )
                   return (
                     "string" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "string",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "string",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -85,11 +100,15 @@ export const test_json_assertStringify_DynamicTemplate =
                 )
                   return (
                     ("number" === typeof value && Number.isFinite(value)) ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "number",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "number",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -99,11 +118,15 @@ export const test_json_assertStringify_DynamicTemplate =
                 )
                   return (
                     "boolean" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "boolean",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "boolean",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 return true;
               });
@@ -111,17 +134,25 @@ export const test_json_assertStringify_DynamicTemplate =
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "DynamicTemplate",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "DynamicTemplate",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "DynamicTemplate",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -155,6 +186,6 @@ export const test_json_assertStringify_DynamicTemplate =
             .join(",")}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );
