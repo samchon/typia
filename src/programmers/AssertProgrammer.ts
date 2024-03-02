@@ -40,7 +40,7 @@ export namespace AssertProgrammer {
               ? entry.conditions[0]!.map((cond) =>
                   ts.factory.createLogicalOr(
                     cond.expression,
-                    create_guard_call(
+                    create_guard_call(importer)(
                       explore.from === "top"
                         ? ts.factory.createTrue()
                         : ts.factory.createIdentifier("_exceptionable"),
@@ -64,7 +64,7 @@ export namespace AssertProgrammer {
                           .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
                       )
                       .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-                    create_guard_call(
+                    create_guard_call(importer)(
                       explore.from === "top"
                         ? ts.factory.createTrue()
                         : ts.factory.createIdentifier("_exceptionable"),
@@ -107,21 +107,6 @@ export namespace AssertProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "$guard",
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(
-                  ts.factory.createParenthesizedExpression(
-                    ts.factory.createAsExpression(
-                      modulo,
-                      TypeFactory.keyword("any"),
-                    ),
-                  ),
-                )("guard"),
-                undefined,
-                [Guardian.identifier()],
-              ),
-            ),
             StatementFactory.constant("__is", is),
             ts.factory.createIfStatement(
               ts.factory.createStrictEquality(
@@ -176,7 +161,7 @@ export namespace AssertProgrammer {
                   ? binary.expression
                   : ts.factory.createLogicalOr(
                       binary.expression,
-                      create_guard_call(
+                      create_guard_call(importer)(
                         explore.source === "top"
                           ? ts.factory.createTrue()
                           : ts.factory.createIdentifier("_exceptionable"),
@@ -188,7 +173,7 @@ export namespace AssertProgrammer {
               binaries
                 .map((binary) => binary.expression)
                 .reduce(ts.factory.createLogicalOr),
-              create_guard_call(
+              create_guard_call(importer)(
                 explore.source === "top"
                   ? ts.factory.createTrue()
                   : ts.factory.createIdentifier("_exceptionable"),
@@ -201,7 +186,7 @@ export namespace AssertProgrammer {
       //       ) {
       //           addicted.push({
       //               combined: true,
-      //               expression: create_guard_call(
+      //               expression: create_guard_call(importer)(
       //                   explore.source === "top"
       //                       ? ts.factory.createTrue()
       //                       : ts.factory.createIdentifier(
@@ -229,7 +214,7 @@ export namespace AssertProgrammer {
         reduce: ts.factory.createLogicalAnd,
         positive: ts.factory.createTrue(),
         superfluous: (value) =>
-          create_guard_call()(
+          create_guard_call(importer)()(
             ts.factory.createAdd(
               ts.factory.createIdentifier("_path"),
               ts.factory.createCallExpression(importer.use("join"), undefined, [
@@ -261,7 +246,7 @@ export namespace AssertProgrammer {
           [arrow],
         ),
       failure: (value, expected, explore) =>
-        create_guard_call(
+        create_guard_call(importer)(
           explore?.from === "top"
             ? ts.factory.createTrue()
             : ts.factory.createIdentifier("_exceptionable"),
@@ -277,7 +262,7 @@ export namespace AssertProgrammer {
         : (condition) => (input, expected, explore) =>
             ts.factory.createLogicalOr(
               condition,
-              create_guard_call(
+              create_guard_call(importer)(
                 explore.from === "top"
                   ? ts.factory.createTrue()
                   : ts.factory.createIdentifier("_exceptionable"),
@@ -286,47 +271,61 @@ export namespace AssertProgrammer {
     });
 
   const create_guard_call =
+    (importer: FunctionImporter) =>
     (exceptionable?: ts.Expression) =>
     (
       path: ts.Expression,
       expected: string,
       value: ts.Expression,
     ): ts.Expression =>
-      ts.factory.createCallExpression(
-        ts.factory.createIdentifier("$guard"),
-        undefined,
-        [
-          exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
-          ts.factory.createObjectLiteralExpression(
-            [
-              ts.factory.createPropertyAssignment("path", path),
-              ts.factory.createPropertyAssignment(
-                "expected",
-                ts.factory.createStringLiteral(expected),
-              ),
-              ts.factory.createPropertyAssignment("value", value),
-            ],
-            true,
-          ),
-        ],
-      );
+      ts.factory.createCallExpression(importer.use("guard"), undefined, [
+        exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
+        ts.factory.createObjectLiteralExpression(
+          [
+            ts.factory.createPropertyAssignment("path", path),
+            ts.factory.createPropertyAssignment(
+              "expected",
+              ts.factory.createStringLiteral(expected),
+            ),
+            ts.factory.createPropertyAssignment("value", value),
+          ],
+          true,
+        ),
+        Guardian.identifier(),
+      ]);
 
   export namespace Guardian {
     export const identifier = () => ts.factory.createIdentifier("errorFactory");
     export const parameter = (init: ts.Expression | undefined) =>
       IdentifierFactory.parameter(
         "errorFactory",
-        ts.factory.createImportTypeNode(
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral("typia"),
-          ),
+        ts.factory.createFunctionTypeNode(
           undefined,
-          ts.factory.createQualifiedName(
-            ts.factory.createIdentifier("TypeGuardError"),
-            ts.factory.createIdentifier("IProps"),
+          [
+            ts.factory.createParameterDeclaration(
+              undefined,
+              undefined,
+              ts.factory.createIdentifier("p"),
+              undefined,
+              ts.factory.createImportTypeNode(
+                ts.factory.createLiteralTypeNode(
+                  ts.factory.createStringLiteral("typia"),
+                ),
+                undefined,
+                ts.factory.createQualifiedName(
+                  ts.factory.createIdentifier("TypeGuardError"),
+                  ts.factory.createIdentifier("IProps"),
+                ),
+                undefined,
+                false,
+              ),
+              undefined,
+            ),
+          ],
+          ts.factory.createTypeReferenceNode(
+            ts.factory.createIdentifier("Error"),
+            undefined,
           ),
-          undefined,
-          false,
         ),
         init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
       );
