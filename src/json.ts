@@ -4,6 +4,7 @@ import { IJsonApplication } from "./schemas/json/IJsonApplication";
 
 import { IValidation } from "./IValidation";
 import { Primitive } from "./Primitive";
+import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     JSON
@@ -103,7 +104,10 @@ export function application(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertParse(input: string): never;
+function assertParse(
+  input: string,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Safe `JSON.parse()` function with type assertion.
@@ -122,7 +126,10 @@ function assertParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertParse<T>(input: string): Primitive<T>;
+function assertParse<T>(
+  input: string,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Primitive<T>;
 
 /**
  * @internal
@@ -302,7 +309,10 @@ export { stringifyPure as stringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertStringify<T>(input: T): string;
+function assertStringify<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): string;
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -325,7 +335,10 @@ function assertStringify<T>(input: T): string;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertStringify<T>(input: T): unknown;
+function assertStringify<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): unknown;
 
 /**
  * @internal
@@ -518,7 +531,9 @@ export { createIsParsePure as createIsParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertParse(): never;
+function createAssertParse(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertParse} function.
@@ -528,7 +543,9 @@ function createAssertParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertParse<T>(): (input: string) => Primitive<T>;
+function createAssertParse<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: string) => Primitive<T>;
 
 /**
  * @internal
@@ -621,7 +638,9 @@ export { createStringifyPure as createStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertStringify(): never;
+function createAssertStringify(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertStringify} function.
@@ -631,7 +650,9 @@ function createAssertStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertStringify<T>(): (input: unknown) => string;
+function createAssertStringify<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => string;
 
 /**
  * @internal

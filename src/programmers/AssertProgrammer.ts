@@ -17,15 +17,14 @@ export namespace AssertProgrammer {
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (props: boolean | { equals: boolean; guard: boolean }) =>
-    (type: ts.Type, name?: string) => {
+    (type: ts.Type, name?: string, init?: ts.Expression) => {
       // TO SUPPORT LEGACY FEATURE
       if (typeof props === "boolean") props = { equals: props, guard: false };
 
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const is = IsProgrammer.write(project)(modulo, true)(props.equals)(
-        type,
-        name ?? TypeFactory.getFullName(project.checker)(type),
-      );
+      const is: ts.ArrowFunction = IsProgrammer.write(project)(modulo, true)(
+        props.equals,
+      )(type, name ?? TypeFactory.getFullName(project.checker)(type));
       const assert: ts.ArrowFunction = CheckerProgrammer.write(project)({
         prefix: "$a",
         path: true,
@@ -90,7 +89,10 @@ export namespace AssertProgrammer {
       return ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        [
+          IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
+          Guardian.parameter(init),
+        ],
         props.guard
           ? ts.factory.createTypePredicateNode(
               ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
@@ -289,5 +291,43 @@ export namespace AssertProgrammer {
           ],
           true,
         ),
+        Guardian.identifier(),
       ]);
+
+  export namespace Guardian {
+    export const identifier = () => ts.factory.createIdentifier("errorFactory");
+    export const parameter = (init: ts.Expression | undefined) =>
+      IdentifierFactory.parameter(
+        "errorFactory",
+        ts.factory.createFunctionTypeNode(
+          undefined,
+          [
+            ts.factory.createParameterDeclaration(
+              undefined,
+              undefined,
+              ts.factory.createIdentifier("p"),
+              undefined,
+              ts.factory.createImportTypeNode(
+                ts.factory.createLiteralTypeNode(
+                  ts.factory.createStringLiteral("typia"),
+                ),
+                undefined,
+                ts.factory.createQualifiedName(
+                  ts.factory.createIdentifier("TypeGuardError"),
+                  ts.factory.createIdentifier("IProps"),
+                ),
+                undefined,
+                false,
+              ),
+              undefined,
+            ),
+          ],
+          ts.factory.createTypeReferenceNode(
+            ts.factory.createIdentifier("Error"),
+            undefined,
+          ),
+        ),
+        init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+      );
+  }
 }

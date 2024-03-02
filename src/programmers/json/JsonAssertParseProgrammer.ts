@@ -13,7 +13,7 @@ export namespace JsonAssertParseProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction => {
+    (type: ts.Type, name?: string, init?: ts.Expression): ts.ArrowFunction => {
       JsonMetadataFactory.analyze(`typia.json.${modulo.getText()}`)(
         project.checker,
         project.context,
@@ -21,7 +21,10 @@ export namespace JsonAssertParseProgrammer {
       return ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("string"))],
+        [
+          IdentifierFactory.parameter("input", TypeFactory.keyword("string")),
+          AssertProgrammer.Guardian.parameter(init),
+        ],
         ts.factory.createTypeReferenceNode(
           `typia.Primitive<${
             name ?? TypeFactory.getFullName(project.checker)(type)
@@ -56,7 +59,10 @@ export namespace JsonAssertParseProgrammer {
               ts.factory.createCallExpression(
                 ts.factory.createIdentifier("assert"),
                 undefined,
-                [ts.factory.createIdentifier("input")],
+                [
+                  ts.factory.createIdentifier("input"),
+                  AssertProgrammer.Guardian.identifier(),
+                ],
               ),
               ts.factory.createTypeReferenceNode("any"),
             ),
