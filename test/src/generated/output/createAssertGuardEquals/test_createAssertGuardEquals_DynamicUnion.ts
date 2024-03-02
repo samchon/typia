@@ -10,9 +10,8 @@ export const test_createAssertGuardEquals_DynamicUnion =
   )(
     (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): asserts input is DynamicUnion => {
-      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -50,6 +49,7 @@ export const test_createAssertGuardEquals_DynamicUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicUnion => {
+          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,
@@ -66,29 +66,41 @@ export const test_createAssertGuardEquals_DynamicUnion =
               )
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if ("string" === typeof key && RegExp(/(.*)_postfix$/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -98,33 +110,49 @@ export const test_createAssertGuardEquals_DynamicUnion =
               )
                 return (
                   ("number" === typeof value && Number.isFinite(value)) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "number",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "number",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             });
           return (
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicUnion",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicUnion",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicUnion",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

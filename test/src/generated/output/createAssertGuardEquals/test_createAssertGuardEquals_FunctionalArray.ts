@@ -10,9 +10,8 @@ export const test_createAssertGuardEquals_FunctionalArray =
   )(
     (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): asserts input is FunctionalArray => {
-      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -30,27 +29,40 @@ export const test_createAssertGuardEquals_FunctionalArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is FunctionalArray => {
+          const $guard = (typia.createAssertGuardEquals as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "FunctionalArray",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "FunctionalArray",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   "function" === typeof elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "unknown",
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "unknown",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "FunctionalArray",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "FunctionalArray",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

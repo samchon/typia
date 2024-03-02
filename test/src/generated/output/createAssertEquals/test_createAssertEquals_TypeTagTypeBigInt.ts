@@ -9,9 +9,8 @@ export const test_createAssertEquals_TypeTagTypeBigInt = _test_assertEquals(
 )("TypeTagTypeBigInt")<TypeTagTypeBigInt>(TypeTagTypeBigInt)(
   (
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): TypeTagTypeBigInt => {
-    const $guard = (typia.createAssertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -36,6 +35,7 @@ export const test_createAssertEquals_TypeTagTypeBigInt = _test_assertEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagTypeBigInt => {
+        const $guard = (typia.createAssertEquals as any).guard;
         const $join = (typia.createAssertEquals as any).join;
         const $ao0 = (
           input: any,
@@ -43,23 +43,35 @@ export const test_createAssertEquals_TypeTagTypeBigInt = _test_assertEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("bigint" === typeof input.in64 ||
-            $guard(_exceptionable, {
-              path: _path + ".in64",
-              expected: "bigint",
-              value: input.in64,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".in64",
+                expected: "bigint",
+                value: input.in64,
+              },
+              errorFactory,
+            )) &&
           (("bigint" === typeof input.uint64 &&
             (BigInt(0) <= input.uint64 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".uint64",
+                  expected: 'bigint & Type<"uint64">',
+                  value: input.uint64,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".uint64",
-                expected: 'bigint & Type<"uint64">',
+                expected: '(bigint & Type<"uint64">)',
                 value: input.uint64,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".uint64",
-              expected: '(bigint & Type<"uint64">)',
-              value: input.uint64,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (2 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -67,25 +79,37 @@ export const test_createAssertEquals_TypeTagTypeBigInt = _test_assertEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "TypeTagTypeBigInt",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "TypeTagTypeBigInt",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "TypeTagTypeBigInt",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

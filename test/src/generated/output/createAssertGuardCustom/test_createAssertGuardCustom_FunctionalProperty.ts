@@ -10,10 +10,9 @@ export const test_createAssertGuardCustom_FunctionalProperty =
   )(
     (
       input: any,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): asserts input is FunctionalProperty => {
-      const $guard = (typia.createAssertGuard as any).guard(errorFactory);
       const __is = (input: any): input is FunctionalProperty => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.name && "function" === typeof input.closure;
@@ -25,36 +24,53 @@ export const test_createAssertGuardCustom_FunctionalProperty =
           _path: string,
           _exceptionable: boolean = true,
         ): input is FunctionalProperty => {
+          const $guard = (typia.createAssertGuard as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("function" === typeof input.closure ||
-              $guard(_exceptionable, {
-                path: _path + ".closure",
-                expected: "unknown",
-                value: input.closure,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".closure",
+                  expected: "unknown",
+                  value: input.closure,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "FunctionalProperty",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "FunctionalProperty",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "FunctionalProperty",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

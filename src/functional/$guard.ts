@@ -3,43 +3,15 @@ import { TypeGuardError } from "../TypeGuardError";
 /**
  * @internal
  */
-export function $guard(
-  method: string,
-): (
-  factory?: (props: TypeGuardError.IProps) => Error,
-) => (
-  exceptionable: boolean,
-  props: Omit<TypeGuardError.IProps, "method">,
-) => boolean;
-
-/**
- * @internal
- */
-export function $guard(
-  method: string,
-): (
-  exceptionable: boolean,
-  props: Omit<TypeGuardError.IProps, "method">,
-) => boolean;
-
-/**
- * @internal
- */
-export function $guard(method: string) {
-  return (...args: any[]) =>
-    args.length === 2
-      ? throws(method)((props) => new TypeGuardError(props))(
-          ...(args as [boolean, Omit<TypeGuardError.IProps, "method">]),
-        )
-      : throws(method)(args[0] ?? ((props) => new TypeGuardError(props)));
-}
-
-const throws =
+export const $guard =
   (method: string) =>
-  (factory: (props: TypeGuardError.IProps) => Error) =>
-  (exceptionable: boolean, props: Omit<TypeGuardError.IProps, "method">) => {
+  (
+    exceptionable: boolean,
+    props: Omit<TypeGuardError.IProps, "method">,
+    factory?: (props: TypeGuardError.IProps) => Error,
+  ): boolean => {
     if (exceptionable === true)
-      throw factory!({
+      throw (factory ?? ((props) => new TypeGuardError(props)))({
         method,
         path: props.path,
         expected: props.expected,

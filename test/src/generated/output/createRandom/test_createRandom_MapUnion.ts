@@ -75,9 +75,8 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
   },
   assert: (
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): MapUnion => {
-    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is MapUnion => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -203,45 +202,66 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
         _path: string,
         _exceptionable: boolean = true,
       ): input is MapUnion => {
+        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.id ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: "string",
-              value: input.id,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.age && Number.isFinite(input.age)) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "number",
-              value: input.age,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".age",
+                expected: "number",
+                value: input.age,
+              },
+              errorFactory,
+            ));
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "MapUnion",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "MapUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 ((elem instanceof Map ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
-                    value: elem,
-                  })) &&
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected:
+                        "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                   (() => {
                     const array = [...elem];
                     const top = elem.entries().next().value;
@@ -256,19 +276,9 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                           entire.every(
                             (elem: any, _index2: number) =>
                               ((Array.isArray(elem) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index2 +
-                                    "]",
-                                  expected: "[boolean, number]",
-                                  value: elem,
-                                })) &&
-                                (elem.length === 2 ||
-                                  $guard(true, {
+                                $guard(
+                                  true,
+                                  {
                                     path:
                                       _path +
                                       "[" +
@@ -278,38 +288,73 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                                       "]",
                                     expected: "[boolean, number]",
                                     value: elem,
-                                  })) &&
+                                  },
+                                  errorFactory,
+                                )) &&
+                                (elem.length === 2 ||
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index2 +
+                                        "]",
+                                      expected: "[boolean, number]",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 ("boolean" === typeof elem[0] ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index2 +
-                                      "][0]",
-                                    expected: "boolean",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index2 +
+                                        "][0]",
+                                      expected: "boolean",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (("number" === typeof elem[1] &&
                                   Number.isFinite(elem[1])) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index2 +
-                                      "][1]",
-                                    expected: "number",
-                                    value: elem[1],
-                                  }))) ||
-                              $guard(true, {
-                                path:
-                                  _path + "[" + _index1 + "][" + _index2 + "]",
-                                expected: "[boolean, number]",
-                                value: elem,
-                              }),
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index2 +
+                                        "][1]",
+                                      expected: "number",
+                                      value: elem[1],
+                                    },
+                                    errorFactory,
+                                  ))) ||
+                              $guard(
+                                true,
+                                {
+                                  path:
+                                    _path +
+                                    "[" +
+                                    _index1 +
+                                    "][" +
+                                    _index2 +
+                                    "]",
+                                  expected: "[boolean, number]",
+                                  value: elem,
+                                },
+                                errorFactory,
+                              ),
                           ),
                       ] as const,
                       [
@@ -322,19 +367,9 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                           entire.every(
                             (elem: any, _index3: number) =>
                               ((Array.isArray(elem) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index3 +
-                                    "]",
-                                  expected: "[number, number]",
-                                  value: elem,
-                                })) &&
-                                (elem.length === 2 ||
-                                  $guard(true, {
+                                $guard(
+                                  true,
+                                  {
                                     path:
                                       _path +
                                       "[" +
@@ -344,39 +379,74 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                                       "]",
                                     expected: "[number, number]",
                                     value: elem,
-                                  })) &&
+                                  },
+                                  errorFactory,
+                                )) &&
+                                (elem.length === 2 ||
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index3 +
+                                        "]",
+                                      expected: "[number, number]",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (("number" === typeof elem[0] &&
                                   Number.isFinite(elem[0])) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index3 +
-                                      "][0]",
-                                    expected: "number",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index3 +
+                                        "][0]",
+                                      expected: "number",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (("number" === typeof elem[1] &&
                                   Number.isFinite(elem[1])) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index3 +
-                                      "][1]",
-                                    expected: "number",
-                                    value: elem[1],
-                                  }))) ||
-                              $guard(true, {
-                                path:
-                                  _path + "[" + _index1 + "][" + _index3 + "]",
-                                expected: "[number, number]",
-                                value: elem,
-                              }),
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index3 +
+                                        "][1]",
+                                      expected: "number",
+                                      value: elem[1],
+                                    },
+                                    errorFactory,
+                                  ))) ||
+                              $guard(
+                                true,
+                                {
+                                  path:
+                                    _path +
+                                    "[" +
+                                    _index1 +
+                                    "][" +
+                                    _index3 +
+                                    "]",
+                                  expected: "[number, number]",
+                                  value: elem,
+                                },
+                                errorFactory,
+                              ),
                           ),
                       ] as const,
                       [
@@ -388,19 +458,9 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                           entire.every(
                             (elem: any, _index4: number) =>
                               ((Array.isArray(elem) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index4 +
-                                    "]",
-                                  expected: "[string, number]",
-                                  value: elem,
-                                })) &&
-                                (elem.length === 2 ||
-                                  $guard(true, {
+                                $guard(
+                                  true,
+                                  {
                                     path:
                                       _path +
                                       "[" +
@@ -410,38 +470,73 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                                       "]",
                                     expected: "[string, number]",
                                     value: elem,
-                                  })) &&
+                                  },
+                                  errorFactory,
+                                )) &&
+                                (elem.length === 2 ||
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index4 +
+                                        "]",
+                                      expected: "[string, number]",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 ("string" === typeof elem[0] ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index4 +
-                                      "][0]",
-                                    expected: "string",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index4 +
+                                        "][0]",
+                                      expected: "string",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (("number" === typeof elem[1] &&
                                   Number.isFinite(elem[1])) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index4 +
-                                      "][1]",
-                                    expected: "number",
-                                    value: elem[1],
-                                  }))) ||
-                              $guard(true, {
-                                path:
-                                  _path + "[" + _index1 + "][" + _index4 + "]",
-                                expected: "[string, number]",
-                                value: elem,
-                              }),
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index4 +
+                                        "][1]",
+                                      expected: "number",
+                                      value: elem[1],
+                                    },
+                                    errorFactory,
+                                  ))) ||
+                              $guard(
+                                true,
+                                {
+                                  path:
+                                    _path +
+                                    "[" +
+                                    _index1 +
+                                    "][" +
+                                    _index4 +
+                                    "]",
+                                  expected: "[string, number]",
+                                  value: elem,
+                                },
+                                errorFactory,
+                              ),
                           ),
                       ] as const,
                       [
@@ -457,19 +552,9 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                           entire.every(
                             (elem: any, _index6: number) =>
                               ((Array.isArray(elem) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index6 +
-                                    "]",
-                                  expected: "[Array<number>, number]",
-                                  value: elem,
-                                })) &&
-                                (elem.length === 2 ||
-                                  $guard(true, {
+                                $guard(
+                                  true,
+                                  {
                                     path:
                                       _path +
                                       "[" +
@@ -479,67 +564,110 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                                       "]",
                                     expected: "[Array<number>, number]",
                                     value: elem,
-                                  })) &&
+                                  },
+                                  errorFactory,
+                                )) &&
+                                (elem.length === 2 ||
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index6 +
+                                        "]",
+                                      expected: "[Array<number>, number]",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (((Array.isArray(elem[0]) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index6 +
-                                      "][0]",
-                                    expected: "Array<number>",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index6 +
+                                        "][0]",
+                                      expected: "Array<number>",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                   elem[0].every(
                                     (elem: any, _index7: number) =>
                                       ("number" === typeof elem &&
                                         Number.isFinite(elem)) ||
-                                      $guard(true, {
-                                        path:
-                                          _path +
-                                          "[" +
-                                          _index1 +
-                                          "][" +
-                                          _index6 +
-                                          "][0][" +
-                                          _index7 +
-                                          "]",
-                                        expected: "number",
-                                        value: elem,
-                                      }),
+                                      $guard(
+                                        true,
+                                        {
+                                          path:
+                                            _path +
+                                            "[" +
+                                            _index1 +
+                                            "][" +
+                                            _index6 +
+                                            "][0][" +
+                                            _index7 +
+                                            "]",
+                                          expected: "number",
+                                          value: elem,
+                                        },
+                                        errorFactory,
+                                      ),
                                   )) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index6 +
-                                      "][0]",
-                                    expected: "Array<number>",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index6 +
+                                        "][0]",
+                                      expected: "Array<number>",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (("number" === typeof elem[1] &&
                                   Number.isFinite(elem[1])) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index6 +
-                                      "][1]",
-                                    expected: "number",
-                                    value: elem[1],
-                                  }))) ||
-                              $guard(true, {
-                                path:
-                                  _path + "[" + _index1 + "][" + _index6 + "]",
-                                expected: "[Array<number>, number]",
-                                value: elem,
-                              }),
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index6 +
+                                        "][1]",
+                                      expected: "number",
+                                      value: elem[1],
+                                    },
+                                    errorFactory,
+                                  ))) ||
+                              $guard(
+                                true,
+                                {
+                                  path:
+                                    _path +
+                                    "[" +
+                                    _index1 +
+                                    "][" +
+                                    _index6 +
+                                    "]",
+                                  expected: "[Array<number>, number]",
+                                  value: elem,
+                                },
+                                errorFactory,
+                              ),
                           ),
                       ] as const,
                       [
@@ -553,19 +681,9 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                           entire.every(
                             (elem: any, _index8: number) =>
                               ((Array.isArray(elem) ||
-                                $guard(true, {
-                                  path:
-                                    _path +
-                                    "[" +
-                                    _index1 +
-                                    "][" +
-                                    _index8 +
-                                    "]",
-                                  expected: "[MapUnion.Person, number]",
-                                  value: elem,
-                                })) &&
-                                (elem.length === 2 ||
-                                  $guard(true, {
+                                $guard(
+                                  true,
+                                  {
                                     path:
                                       _path +
                                       "[" +
@@ -575,20 +693,42 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                                       "]",
                                     expected: "[MapUnion.Person, number]",
                                     value: elem,
-                                  })) &&
+                                  },
+                                  errorFactory,
+                                )) &&
+                                (elem.length === 2 ||
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index8 +
+                                        "]",
+                                      expected: "[MapUnion.Person, number]",
+                                      value: elem,
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (((("object" === typeof elem[0] &&
                                   null !== elem[0]) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index8 +
-                                      "][0]",
-                                    expected: "MapUnion.Person",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index8 +
+                                        "][0]",
+                                      expected: "MapUnion.Person",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                   $ao0(
                                     elem[0],
                                     _path +
@@ -599,36 +739,53 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                                       "][0]",
                                     true,
                                   )) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index8 +
-                                      "][0]",
-                                    expected: "MapUnion.Person",
-                                    value: elem[0],
-                                  })) &&
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index8 +
+                                        "][0]",
+                                      expected: "MapUnion.Person",
+                                      value: elem[0],
+                                    },
+                                    errorFactory,
+                                  )) &&
                                 (("number" === typeof elem[1] &&
                                   Number.isFinite(elem[1])) ||
-                                  $guard(true, {
-                                    path:
-                                      _path +
-                                      "[" +
-                                      _index1 +
-                                      "][" +
-                                      _index8 +
-                                      "][1]",
-                                    expected: "number",
-                                    value: elem[1],
-                                  }))) ||
-                              $guard(true, {
-                                path:
-                                  _path + "[" + _index1 + "][" + _index8 + "]",
-                                expected: "[MapUnion.Person, number]",
-                                value: elem,
-                              }),
+                                  $guard(
+                                    true,
+                                    {
+                                      path:
+                                        _path +
+                                        "[" +
+                                        _index1 +
+                                        "][" +
+                                        _index8 +
+                                        "][1]",
+                                      expected: "number",
+                                      value: elem[1],
+                                    },
+                                    errorFactory,
+                                  ))) ||
+                              $guard(
+                                true,
+                                {
+                                  path:
+                                    _path +
+                                    "[" +
+                                    _index1 +
+                                    "][" +
+                                    _index8 +
+                                    "]",
+                                  expected: "[MapUnion.Person, number]",
+                                  value: elem,
+                                },
+                                errorFactory,
+                              ),
                           ),
                       ] as const,
                     ];
@@ -642,25 +799,37 @@ export const test_createRandom_MapUnion = _test_random("MapUnion")<MapUnion>(
                           array.every((value: any) => true === pred[0](value))
                         )
                           return pred[1](array);
-                    return $guard(_exceptionable, {
-                      path: _path + "[" + _index1 + "]",
-                      expected:
-                        "(Map<boolean, number> | Map<number, number> | Map<string, number> | Map<Array<number>, number> | Map<MapUnion.Person, number>)",
-                      value: elem,
-                    });
+                    return $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "(Map<boolean, number> | Map<number, number> | Map<string, number> | Map<Array<number>, number> | Map<MapUnion.Person, number>)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    );
                   })()) ||
-                $guard(true, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
-                  value: elem,
-                }),
+                $guard(
+                  true,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected:
+                      "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "MapUnion",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "MapUnion",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

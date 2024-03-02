@@ -10,15 +10,12 @@ export const test_protobuf_createAssertEncode_ClassNonPublic =
   )({
     encode: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): Uint8Array => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ClassNonPublic => {
-        const $guard = (typia.protobuf.createAssertEncode as any).guard(
-          errorFactory,
-        );
         const __is = (input: any): input is ClassNonPublic => {
           return (
             "object" === typeof input &&
@@ -33,36 +30,53 @@ export const test_protobuf_createAssertEncode_ClassNonPublic =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ClassNonPublic => {
+            const $guard = (typia.protobuf.createAssertEncode as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.implicit ||
-                $guard(_exceptionable, {
-                  path: _path + ".implicit",
-                  expected: "string",
-                  value: input.implicit,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".implicit",
+                    expected: "string",
+                    value: input.implicit,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.shown ||
-                $guard(_exceptionable, {
-                  path: _path + ".shown",
-                  expected: "string",
-                  value: input.shown,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".shown",
+                    expected: "string",
+                    value: input.shown,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ClassNonPublic.Accessor",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ClassNonPublic.Accessor",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ClassNonPublic.Accessor",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

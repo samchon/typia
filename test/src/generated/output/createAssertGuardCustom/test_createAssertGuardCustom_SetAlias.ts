@@ -9,10 +9,9 @@ export const test_createAssertGuardCustom_SetAlias = _test_assertGuard(
 )("SetAlias")<SetAlias>(SetAlias)(
   (
     input: any,
-    errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+    errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
       new CustomGuardError(p),
   ): asserts input is SetAlias => {
-    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is SetAlias => {
       const $io0 = (input: any): boolean =>
         input.booleans instanceof Set &&
@@ -59,177 +58,275 @@ export const test_createAssertGuardCustom_SetAlias = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is SetAlias => {
+        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           (((input.booleans instanceof Set ||
-            $guard(_exceptionable, {
-              path: _path + ".booleans",
-              expected: "Set<boolean>",
-              value: input.booleans,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".booleans",
+                expected: "Set<boolean>",
+                value: input.booleans,
+              },
+              errorFactory,
+            )) &&
             (() =>
               [...input.booleans].every(
                 (elem: any, _index1: number) =>
                   "boolean" === typeof elem ||
-                  $guard(_exceptionable, {
-                    path: _path + ".booleans[" + _index1 + "]",
-                    expected: "boolean",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".booleans[" + _index1 + "]",
+                      expected: "boolean",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               ))()) ||
-            $guard(_exceptionable, {
-              path: _path + ".booleans",
-              expected: "Set<boolean>",
-              value: input.booleans,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".booleans",
+                expected: "Set<boolean>",
+                value: input.booleans,
+              },
+              errorFactory,
+            )) &&
           (((input.numbers instanceof Set ||
-            $guard(_exceptionable, {
-              path: _path + ".numbers",
-              expected: "Set<number>",
-              value: input.numbers,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".numbers",
+                expected: "Set<number>",
+                value: input.numbers,
+              },
+              errorFactory,
+            )) &&
             (() =>
               [...input.numbers].every(
                 (elem: any, _index2: number) =>
                   ("number" === typeof elem && Number.isFinite(elem)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".numbers[" + _index2 + "]",
-                    expected: "number",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".numbers[" + _index2 + "]",
+                      expected: "number",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               ))()) ||
-            $guard(_exceptionable, {
-              path: _path + ".numbers",
-              expected: "Set<number>",
-              value: input.numbers,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".numbers",
+                expected: "Set<number>",
+                value: input.numbers,
+              },
+              errorFactory,
+            )) &&
           (((input.strings instanceof Set ||
-            $guard(_exceptionable, {
-              path: _path + ".strings",
-              expected: "Set<string>",
-              value: input.strings,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".strings",
+                expected: "Set<string>",
+                value: input.strings,
+              },
+              errorFactory,
+            )) &&
             (() =>
               [...input.strings].every(
                 (elem: any, _index3: number) =>
                   "string" === typeof elem ||
-                  $guard(_exceptionable, {
-                    path: _path + ".strings[" + _index3 + "]",
-                    expected: "string",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".strings[" + _index3 + "]",
+                      expected: "string",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               ))()) ||
-            $guard(_exceptionable, {
-              path: _path + ".strings",
-              expected: "Set<string>",
-              value: input.strings,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".strings",
+                expected: "Set<string>",
+                value: input.strings,
+              },
+              errorFactory,
+            )) &&
           (((input.arrays instanceof Set ||
-            $guard(_exceptionable, {
-              path: _path + ".arrays",
-              expected: "Set<Array<number>>",
-              value: input.arrays,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".arrays",
+                expected: "Set<Array<number>>",
+                value: input.arrays,
+              },
+              errorFactory,
+            )) &&
             (() =>
               [...input.arrays].every(
                 (elem: any, _index4: number) =>
                   ((Array.isArray(elem) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".arrays[" + _index4 + "]",
-                      expected: "Array<number>",
-                      value: elem,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".arrays[" + _index4 + "]",
+                        expected: "Array<number>",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     elem.every(
                       (elem: any, _index5: number) =>
                         ("number" === typeof elem && Number.isFinite(elem)) ||
-                        $guard(_exceptionable, {
-                          path:
-                            _path + ".arrays[" + _index4 + "][" + _index5 + "]",
-                          expected: "number",
-                          value: elem,
-                        }),
+                        $guard(
+                          _exceptionable,
+                          {
+                            path:
+                              _path +
+                              ".arrays[" +
+                              _index4 +
+                              "][" +
+                              _index5 +
+                              "]",
+                            expected: "number",
+                            value: elem,
+                          },
+                          errorFactory,
+                        ),
                     )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".arrays[" + _index4 + "]",
-                    expected: "Array<number>",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".arrays[" + _index4 + "]",
+                      expected: "Array<number>",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               ))()) ||
-            $guard(_exceptionable, {
-              path: _path + ".arrays",
-              expected: "Set<Array<number>>",
-              value: input.arrays,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".arrays",
+                expected: "Set<Array<number>>",
+                value: input.arrays,
+              },
+              errorFactory,
+            )) &&
           (((input.objects instanceof Set ||
-            $guard(_exceptionable, {
-              path: _path + ".objects",
-              expected: "Set<SetAlias.Person>",
-              value: input.objects,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".objects",
+                expected: "Set<SetAlias.Person>",
+                value: input.objects,
+              },
+              errorFactory,
+            )) &&
             (() =>
               [...input.objects].every(
                 (elem: any, _index6: number) =>
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".objects[" + _index6 + "]",
-                      expected: "SetAlias.Person",
-                      value: elem,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".objects[" + _index6 + "]",
+                        expected: "SetAlias.Person",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     $ao1(
                       elem,
                       _path + ".objects[" + _index6 + "]",
                       true && _exceptionable,
                     )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".objects[" + _index6 + "]",
-                    expected: "SetAlias.Person",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".objects[" + _index6 + "]",
+                      expected: "SetAlias.Person",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               ))()) ||
-            $guard(_exceptionable, {
-              path: _path + ".objects",
-              expected: "Set<SetAlias.Person>",
-              value: input.objects,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".objects",
+                expected: "Set<SetAlias.Person>",
+                value: input.objects,
+              },
+              errorFactory,
+            ));
         const $ao1 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.id ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: "string",
-              value: input.id,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.age && Number.isFinite(input.age)) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "number",
-              value: input.age,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".age",
+                expected: "number",
+                value: input.age,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "SetAlias",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "SetAlias",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "SetAlias",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   },

@@ -10,16 +10,13 @@ export const test_misc_createAssertCloneCustom_ObjectGenericAlias =
   )<ObjectGenericAlias>(ObjectGenericAlias)(
     (
       input: any,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): typia.Resolved<ObjectGenericAlias> => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ObjectGenericAlias => {
-        const $guard = (typia.misc.createAssertClone as any).guard(
-          errorFactory,
-        );
         const __is = (input: any): input is ObjectGenericAlias => {
           return (
             "object" === typeof input &&
@@ -33,30 +30,43 @@ export const test_misc_createAssertCloneCustom_ObjectGenericAlias =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ObjectGenericAlias => {
+            const $guard = (typia.misc.createAssertClone as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               "string" === typeof input.value ||
-              $guard(_exceptionable, {
-                path: _path + ".value",
-                expected: "string",
-                value: input.value,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".value",
+                  expected: "string",
+                  value: input.value,
+                },
+                errorFactory,
+              );
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectGenericAlias.Alias",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectGenericAlias.Alias",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectGenericAlias.Alias",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

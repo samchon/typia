@@ -86,9 +86,8 @@ export const test_notation_validateSnake_ConstantEnumeration =
       })(input),
     assert: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.SnakeCase<ConstantEnumeration> => {
-      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ConstantEnumeration> => {
@@ -110,13 +109,18 @@ export const test_notation_validateSnake_ConstantEnumeration =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<ConstantEnumeration> => {
+          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantEnumeration",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ConstantEnumeration",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   0 === elem ||
@@ -124,17 +128,25 @@ export const test_notation_validateSnake_ConstantEnumeration =
                   2 === elem ||
                   "Three" === elem ||
                   "Four" === elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: '("Four" | "Three" | 0 | 1 | 2)',
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: '("Four" | "Three" | 0 | 1 | 2)',
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ConstantEnumeration",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantEnumeration",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

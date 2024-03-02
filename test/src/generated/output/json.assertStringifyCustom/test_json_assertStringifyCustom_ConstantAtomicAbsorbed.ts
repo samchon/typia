@@ -10,13 +10,12 @@ export const test_json_assertStringifyCustom_ConstantAtomicAbsorbed =
   )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
     ((
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): string => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ConstantAtomicAbsorbed => {
-        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ConstantAtomicAbsorbed => {
           return (
             "object" === typeof input &&
@@ -32,36 +31,53 @@ export const test_json_assertStringifyCustom_ConstantAtomicAbsorbed =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantAtomicAbsorbed => {
+            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: '(string & Default<"something">)',
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: '(string & Default<"something">)',
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.age && Number.isFinite(input.age)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: "(number & Default<20>)",
-                  value: input.age,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: "(number & Default<20>)",
+                    value: input.age,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ConstantAtomicAbsorbed",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ConstantAtomicAbsorbed",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantAtomicAbsorbed",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

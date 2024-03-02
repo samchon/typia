@@ -9,10 +9,9 @@ export const test_createAssertGuardCustom_ObjectDescription = _test_assertGuard(
 )("ObjectDescription")<ObjectDescription>(ObjectDescription)(
   (
     input: any,
-    errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+    errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
       new CustomGuardError(p),
   ): asserts input is ObjectDescription => {
-    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is ObjectDescription => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -33,6 +32,7 @@ export const test_createAssertGuardCustom_ObjectDescription = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectDescription => {
+        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
@@ -42,68 +42,108 @@ export const test_createAssertGuardCustom_ObjectDescription = _test_assertGuard(
             (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
               input.id,
             ) ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: 'string & Format<"uuid">',
+                  value: input.id,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".id",
-                expected: 'string & Format<"uuid">',
+                expected: '(string & Format<"uuid">)',
                 value: input.id,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '(string & Format<"uuid">)',
-              value: input.id,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           ("boolean" === typeof input.deprecated ||
-            $guard(_exceptionable, {
-              path: _path + ".deprecated",
-              expected: "boolean",
-              value: input.deprecated,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".deprecated",
+                expected: "boolean",
+                value: input.deprecated,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.title ||
-            $guard(_exceptionable, {
-              path: _path + ".title",
-              expected: "string",
-              value: input.title,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".title",
+                expected: "string",
+                value: input.title,
+              },
+              errorFactory,
+            )) &&
           (((Array.isArray(input.descriptions) ||
-            $guard(_exceptionable, {
-              path: _path + ".descriptions",
-              expected: "Array<string>",
-              value: input.descriptions,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".descriptions",
+                expected: "Array<string>",
+                value: input.descriptions,
+              },
+              errorFactory,
+            )) &&
             input.descriptions.every(
               (elem: any, _index1: number) =>
                 "string" === typeof elem ||
-                $guard(_exceptionable, {
-                  path: _path + ".descriptions[" + _index1 + "]",
-                  expected: "string",
-                  value: elem,
-                }),
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".descriptions[" + _index1 + "]",
+                    expected: "string",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-            $guard(_exceptionable, {
-              path: _path + ".descriptions",
-              expected: "Array<string>",
-              value: input.descriptions,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".descriptions",
+                expected: "Array<string>",
+                value: input.descriptions,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.newLine &&
             Number.isFinite(input.newLine)) ||
-            $guard(_exceptionable, {
-              path: _path + ".newLine",
-              expected: "number",
-              value: input.newLine,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".newLine",
+                expected: "number",
+                value: input.newLine,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectDescription",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectDescription",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectDescription",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   },

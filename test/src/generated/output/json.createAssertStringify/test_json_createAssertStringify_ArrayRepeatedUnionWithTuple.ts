@@ -10,15 +10,12 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
   )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
     (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): string => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ArrayRepeatedUnionWithTuple => {
-        const $guard = (typia.json.createAssertStringify as any).guard(
-          errorFactory,
-        );
         const __is = (input: any): input is ArrayRepeatedUnionWithTuple => {
           const $ip0 = (input: any) => {
             const array = input;
@@ -156,6 +153,7 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ArrayRepeatedUnionWithTuple => {
+            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ap0 = (
               input: any,
               _path: string,
@@ -172,30 +170,46 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                     "boolean" === typeof top[2],
                   (entire: any[]): any =>
                     (entire.length === 3 ||
-                      $guard(_exceptionable, {
-                        path: _path,
-                        expected: "[string, number, boolean]",
-                        value: entire,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path,
+                          expected: "[string, number, boolean]",
+                          value: entire,
+                        },
+                        errorFactory,
+                      )) &&
                     ("string" === typeof entire[0] ||
-                      $guard(_exceptionable, {
-                        path: _path + "[0]",
-                        expected: "string",
-                        value: entire[0],
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[0]",
+                          expected: "string",
+                          value: entire[0],
+                        },
+                        errorFactory,
+                      )) &&
                     (("number" === typeof entire[1] &&
                       Number.isFinite(entire[1])) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[1]",
-                        expected: "number",
-                        value: entire[1],
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[1]",
+                          expected: "number",
+                          value: entire[1],
+                        },
+                        errorFactory,
+                      )) &&
                     ("boolean" === typeof entire[2] ||
-                      $guard(_exceptionable, {
-                        path: _path + "[2]",
-                        expected: "boolean",
-                        value: entire[2],
-                      })),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[2]",
+                          expected: "boolean",
+                          value: entire[2],
+                        },
+                        errorFactory,
+                      )),
                 ] as const,
                 [
                   (top: any[]): any =>
@@ -208,36 +222,56 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                     $ao1(top[1], _path + "[1]", false && _exceptionable),
                   (entire: any[]): any =>
                     (entire.length === 2 ||
-                      $guard(_exceptionable, {
-                        path: _path,
-                        expected:
-                          "[ArrayRepeatedUnionWithTuple.IBox3D, ArrayRepeatedUnionWithTuple.IPoint3D]",
-                        value: entire,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path,
+                          expected:
+                            "[ArrayRepeatedUnionWithTuple.IBox3D, ArrayRepeatedUnionWithTuple.IPoint3D]",
+                          value: entire,
+                        },
+                        errorFactory,
+                      )) &&
                     (((("object" === typeof entire[0] && null !== entire[0]) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[0]",
-                        expected: "ArrayRepeatedUnionWithTuple.IBox3D",
-                        value: entire[0],
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[0]",
+                          expected: "ArrayRepeatedUnionWithTuple.IBox3D",
+                          value: entire[0],
+                        },
+                        errorFactory,
+                      )) &&
                       $ao0(entire[0], _path + "[0]", true && _exceptionable)) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[0]",
-                        expected: "ArrayRepeatedUnionWithTuple.IBox3D",
-                        value: entire[0],
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[0]",
+                          expected: "ArrayRepeatedUnionWithTuple.IBox3D",
+                          value: entire[0],
+                        },
+                        errorFactory,
+                      )) &&
                     (((("object" === typeof entire[1] && null !== entire[1]) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[1]",
-                        expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                        value: entire[1],
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[1]",
+                          expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                          value: entire[1],
+                        },
+                        errorFactory,
+                      )) &&
                       $ao1(entire[1], _path + "[1]", true && _exceptionable)) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[1]",
-                        expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                        value: entire[1],
-                      })),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[1]",
+                          expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                          value: entire[1],
+                        },
+                        errorFactory,
+                      )),
                 ] as const,
               ];
               for (const pred of tuplePredicators)
@@ -251,11 +285,15 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                     entire.every(
                       (elem: any, _index1: number) =>
                         "string" === typeof elem ||
-                        $guard(_exceptionable, {
-                          path: _path + "[" + _index1 + "]",
-                          expected: "string",
-                          value: elem,
-                        }),
+                        $guard(
+                          _exceptionable,
+                          {
+                            path: _path + "[" + _index1 + "]",
+                            expected: "string",
+                            value: elem,
+                          },
+                          errorFactory,
+                        ),
                     ),
                 ] as const,
                 [
@@ -266,19 +304,27 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                       "boolean" === typeof top ||
                       (Array.isArray(top) &&
                         ($ap0(top, _path, false && _exceptionable) ||
-                          $guard(_exceptionable, {
-                            path: _path,
-                            expected:
-                              "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
-                            value: top,
-                          })))),
+                          $guard(
+                            _exceptionable,
+                            {
+                              path: _path,
+                              expected:
+                                "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
+                              value: top,
+                            },
+                            errorFactory,
+                          )))),
                   (entire: any[]): any =>
                     $aa0(entire, _path, true && _exceptionable) ||
-                    $guard(_exceptionable, {
-                      path: _path,
-                      expected: "Array<ArrayRepeatedUnionWithTuple>",
-                      value: entire,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path,
+                        expected: "Array<ArrayRepeatedUnionWithTuple>",
+                        value: entire,
+                      },
+                      errorFactory,
+                    ),
                 ] as const,
                 [
                   (top: any[]): any =>
@@ -289,21 +335,29 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                     entire.every(
                       (elem: any, _index2: number) =>
                         ((("object" === typeof elem && null !== elem) ||
-                          $guard(_exceptionable, {
-                            path: _path + "[" + _index2 + "]",
-                            expected: "ArrayRepeatedUnionWithTuple.IBox3D",
-                            value: elem,
-                          })) &&
+                          $guard(
+                            _exceptionable,
+                            {
+                              path: _path + "[" + _index2 + "]",
+                              expected: "ArrayRepeatedUnionWithTuple.IBox3D",
+                              value: elem,
+                            },
+                            errorFactory,
+                          )) &&
                           $ao0(
                             elem,
                             _path + "[" + _index2 + "]",
                             true && _exceptionable,
                           )) ||
-                        $guard(_exceptionable, {
-                          path: _path + "[" + _index2 + "]",
-                          expected: "ArrayRepeatedUnionWithTuple.IBox3D",
-                          value: elem,
-                        }),
+                        $guard(
+                          _exceptionable,
+                          {
+                            path: _path + "[" + _index2 + "]",
+                            expected: "ArrayRepeatedUnionWithTuple.IBox3D",
+                            value: elem,
+                          },
+                          errorFactory,
+                        ),
                     ),
                 ] as const,
               ];
@@ -315,12 +369,16 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
                 for (const pred of passed)
                   if (array.every((value: any) => true === pred[0](value)))
                     return pred[1](array);
-              return $guard(_exceptionable, {
-                path: _path,
-                expected:
-                  "([string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>)",
-                value: input,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path,
+                  expected:
+                    "([string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>)",
+                  value: input,
+                },
+                errorFactory,
+              );
             };
             const $ao0 = (
               input: any,
@@ -328,85 +386,129 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
               _exceptionable: boolean = true,
             ): boolean =>
               (((("object" === typeof input.scale && null !== input.scale) ||
-                $guard(_exceptionable, {
-                  path: _path + ".scale",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.scale,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".scale",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.scale,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(input.scale, _path + ".scale", true && _exceptionable)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".scale",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.scale,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".scale",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.scale,
+                  },
+                  errorFactory,
+                )) &&
               (((("object" === typeof input.position &&
                 null !== input.position) ||
-                $guard(_exceptionable, {
-                  path: _path + ".position",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.position,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".position",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.position,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(
                   input.position,
                   _path + ".position",
                   true && _exceptionable,
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".position",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.position,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".position",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.position,
+                  },
+                  errorFactory,
+                )) &&
               (((("object" === typeof input.rotate && null !== input.rotate) ||
-                $guard(_exceptionable, {
-                  path: _path + ".rotate",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.rotate,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".rotate",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.rotate,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(
                   input.rotate,
                   _path + ".rotate",
                   true && _exceptionable,
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".rotate",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.rotate,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".rotate",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.rotate,
+                  },
+                  errorFactory,
+                )) &&
               (((("object" === typeof input.pivot && null !== input.pivot) ||
-                $guard(_exceptionable, {
-                  path: _path + ".pivot",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.pivot,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".pivot",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.pivot,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(input.pivot, _path + ".pivot", true && _exceptionable)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".pivot",
-                  expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
-                  value: input.pivot,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".pivot",
+                    expected: "ArrayRepeatedUnionWithTuple.IPoint3D",
+                    value: input.pivot,
+                  },
+                  errorFactory,
+                ));
             const $ao1 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.x && Number.isFinite(input.x)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".x",
-                  expected: "number",
-                  value: input.x,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".x",
+                    expected: "number",
+                    value: input.x,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.y && Number.isFinite(input.y)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".y",
-                  expected: "number",
-                  value: input.y,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".y",
+                    expected: "number",
+                    value: input.y,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.z && Number.isFinite(input.z)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".z",
-                  expected: "number",
-                  value: input.z,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".z",
+                    expected: "number",
+                    value: input.z,
+                  },
+                  errorFactory,
+                ));
             const $aa0 = (
               input: any,
               _path: string,
@@ -415,83 +517,123 @@ export const test_json_createAssertStringify_ArrayRepeatedUnionWithTuple =
               input.every(
                 (elem: any, _index3: number) =>
                   (null !== elem ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index3 + "]",
-                      expected:
-                        "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
-                      value: elem,
-                    })) &&
-                  (undefined !== elem ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index3 + "]",
-                      expected:
-                        "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
-                      value: elem,
-                    })) &&
-                  (("number" === typeof elem && Number.isFinite(elem)) ||
-                    "boolean" === typeof elem ||
-                    ((Array.isArray(elem) ||
-                      $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
                         path: _path + "[" + _index3 + "]",
                         expected:
                           "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
                         value: elem,
-                      })) &&
+                      },
+                      errorFactory,
+                    )) &&
+                  (undefined !== elem ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index3 + "]",
+                        expected:
+                          "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
+                  (("number" === typeof elem && Number.isFinite(elem)) ||
+                    "boolean" === typeof elem ||
+                    ((Array.isArray(elem) ||
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[" + _index3 + "]",
+                          expected:
+                            "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       ($ap0(
                         elem,
                         _path + "[" + _index3 + "]",
                         true && _exceptionable,
                       ) ||
-                        $guard(_exceptionable, {
-                          path: _path + "[" + _index3 + "]",
-                          expected:
-                            "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
-                          value: elem,
-                        }))) ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index3 + "]",
-                      expected:
-                        "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
-                      value: elem,
-                    })),
+                        $guard(
+                          _exceptionable,
+                          {
+                            path: _path + "[" + _index3 + "]",
+                            expected:
+                              "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
+                            value: elem,
+                          },
+                          errorFactory,
+                        ))) ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index3 + "]",
+                        expected:
+                          "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )),
               );
             return (
               (null !== input ||
-                $guard(true, {
-                  path: _path + "",
-                  expected:
-                    "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
-                  value: input,
-                })) &&
-              (undefined !== input ||
-                $guard(true, {
-                  path: _path + "",
-                  expected:
-                    "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
-                  value: input,
-                })) &&
-              (("number" === typeof input && Number.isFinite(input)) ||
-                "boolean" === typeof input ||
-                ((Array.isArray(input) ||
-                  $guard(true, {
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected:
                       "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
                     value: input,
-                  })) &&
-                  ($ap0(input, _path + "", true && _exceptionable) ||
-                    $guard(_exceptionable, {
+                  },
+                  errorFactory,
+                )) &&
+              (undefined !== input ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected:
+                      "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+              (("number" === typeof input && Number.isFinite(input)) ||
+                "boolean" === typeof input ||
+                ((Array.isArray(input) ||
+                  $guard(
+                    true,
+                    {
                       path: _path + "",
                       expected:
-                        "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
+                        "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
                       value: input,
-                    }))) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected:
-                    "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
-                  value: input,
-                }))
+                    },
+                    errorFactory,
+                  )) &&
+                  ($ap0(input, _path + "", true && _exceptionable) ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "",
+                        expected:
+                          "[string, number, boolean] | [IBox3D, IPoint3D] | Array<string> | Array<ArrayRepeatedUnionWithTuple> | Array<ArrayRepeatedUnionWithTuple.IBox3D>",
+                        value: input,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected:
+                      "(Array<ArrayRepeatedUnionWithTuple.IBox3D> | Array<ArrayRepeatedUnionWithTuple> | Array<string> | [IBox3D, IPoint3D] | [string, number, boolean] | boolean | number)",
+                    value: input,
+                  },
+                  errorFactory,
+                ))
             );
           })(input, "$input", true);
         return input;

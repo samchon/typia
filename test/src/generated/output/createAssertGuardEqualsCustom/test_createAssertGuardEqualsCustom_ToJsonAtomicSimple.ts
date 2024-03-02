@@ -10,10 +10,9 @@ export const test_createAssertGuardEqualsCustom_ToJsonAtomicSimple =
   )<ToJsonAtomicSimple>(ToJsonAtomicSimple)(
     (
       input: any,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): asserts input is ToJsonAtomicSimple => {
-      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -65,6 +64,7 @@ export const test_createAssertGuardEqualsCustom_ToJsonAtomicSimple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ToJsonAtomicSimple => {
+          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,
@@ -72,22 +72,30 @@ export const test_createAssertGuardEqualsCustom_ToJsonAtomicSimple =
             _exceptionable: boolean = true,
           ): boolean =>
             ("function" === typeof input.toJSON ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              )) &&
             (1 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
                 if (["toJSON"].some((prop: any) => key === prop)) return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao1 = (
             input: any,
@@ -95,22 +103,30 @@ export const test_createAssertGuardEqualsCustom_ToJsonAtomicSimple =
             _exceptionable: boolean = true,
           ): boolean =>
             ("function" === typeof input.toJSON ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              )) &&
             (1 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
                 if (["toJSON"].some((prop: any) => key === prop)) return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao2 = (
             input: any,
@@ -118,78 +134,122 @@ export const test_createAssertGuardEqualsCustom_ToJsonAtomicSimple =
             _exceptionable: boolean = true,
           ): boolean =>
             ("function" === typeof input.toJSON ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              )) &&
             (1 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
                 if (["toJSON"].some((prop: any) => key === prop)) return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ToJsonAtomicSimple",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              (input.length === 3 ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected:
+                      "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+              (((("object" === typeof input[0] && null !== input[0]) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "ToJsonAtomicSimple.IToJson<boolean>",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input[0], _path + "[0]", true)) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "ToJsonAtomicSimple.IToJson<boolean>",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
+              (((("object" === typeof input[1] && null !== input[1]) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "ToJsonAtomicSimple.IToJson<number>",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
+                $ao1(input[1], _path + "[1]", true)) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "ToJsonAtomicSimple.IToJson<number>",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
+              (((("object" === typeof input[2] && null !== input[2]) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: "ToJsonAtomicSimple.IToJson<string>",
+                    value: input[2],
+                  },
+                  errorFactory,
+                )) &&
+                $ao2(input[2], _path + "[2]", true)) ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: "ToJsonAtomicSimple.IToJson<string>",
+                    value: input[2],
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ToJsonAtomicSimple",
                 value: input,
-              })) &&
-              (input.length === 3 ||
-                $guard(true, {
-                  path: _path + "",
-                  expected:
-                    "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
-                  value: input,
-                })) &&
-              (((("object" === typeof input[0] && null !== input[0]) ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "ToJsonAtomicSimple.IToJson<boolean>",
-                  value: input[0],
-                })) &&
-                $ao0(input[0], _path + "[0]", true)) ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "ToJsonAtomicSimple.IToJson<boolean>",
-                  value: input[0],
-                })) &&
-              (((("object" === typeof input[1] && null !== input[1]) ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "ToJsonAtomicSimple.IToJson<number>",
-                  value: input[1],
-                })) &&
-                $ao1(input[1], _path + "[1]", true)) ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "ToJsonAtomicSimple.IToJson<number>",
-                  value: input[1],
-                })) &&
-              (((("object" === typeof input[2] && null !== input[2]) ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: "ToJsonAtomicSimple.IToJson<string>",
-                  value: input[2],
-                })) &&
-                $ao2(input[2], _path + "[2]", true)) ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: "ToJsonAtomicSimple.IToJson<string>",
-                  value: input[2],
-                }))) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ToJsonAtomicSimple",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

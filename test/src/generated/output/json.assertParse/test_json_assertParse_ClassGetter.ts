@@ -9,13 +9,12 @@ export const test_json_assertParse_ClassGetter = _test_json_assertParse(
 )("ClassGetter")<ClassGetter>(ClassGetter)((input) =>
   ((
     input: string,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): typia.Primitive<ClassGetter> => {
     const assert = (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): ClassGetter => {
-      const $guard = (typia.json.assertParse as any).guard(errorFactory);
       const __is = (input: any): input is ClassGetter => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -29,43 +28,64 @@ export const test_json_assertParse_ClassGetter = _test_json_assertParse(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ClassGetter => {
+          const $guard = (typia.json.assertParse as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.id ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "string",
-                value: input.id,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: "string",
+                  value: input.id,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             (null === input.dead ||
               "boolean" === typeof input.dead ||
-              $guard(_exceptionable, {
-                path: _path + ".dead",
-                expected: "(boolean | null)",
-                value: input.dead,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".dead",
+                  expected: "(boolean | null)",
+                  value: input.dead,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ClassGetter.Person",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ClassGetter.Person",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ClassGetter.Person",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

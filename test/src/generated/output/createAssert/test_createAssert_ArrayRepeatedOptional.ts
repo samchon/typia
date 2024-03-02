@@ -9,9 +9,8 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
 )("ArrayRepeatedOptional")<ArrayRepeatedOptional>(ArrayRepeatedOptional)(
   (
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): ArrayRepeatedOptional => {
-    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ArrayRepeatedOptional => {
       const $ia0 = (input: any): any =>
         input.every(
@@ -36,6 +35,7 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ArrayRepeatedOptional => {
+        const $guard = (typia.createAssert as any).guard;
         const $aa0 = (
           input: any,
           _path: string,
@@ -44,69 +44,101 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
           input.every(
             (elem: any, _index1: number) =>
               (null !== elem ||
-                $guard(_exceptionable, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(Array<ArrayRepeatedOptional> | number | string | undefined)",
-                  value: elem,
-                })) &&
-              (undefined === elem ||
-                "string" === typeof elem ||
-                ("number" === typeof elem && Number.isFinite(elem)) ||
-                ((Array.isArray(elem) ||
-                  $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + "[" + _index1 + "]",
                     expected:
                       "(Array<ArrayRepeatedOptional> | number | string | undefined)",
                     value: elem,
-                  })) &&
+                  },
+                  errorFactory,
+                )) &&
+              (undefined === elem ||
+                "string" === typeof elem ||
+                ("number" === typeof elem && Number.isFinite(elem)) ||
+                ((Array.isArray(elem) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected:
+                        "(Array<ArrayRepeatedOptional> | number | string | undefined)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                   ($aa0(
                     elem,
                     _path + "[" + _index1 + "]",
                     true && _exceptionable,
                   ) ||
-                    $guard(_exceptionable, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "Array<ArrayRepeatedOptional>",
-                      value: elem,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + "[" + _index1 + "]",
-                  expected:
-                    "(Array<ArrayRepeatedOptional> | number | string | undefined)",
-                  value: elem,
-                })),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: "Array<ArrayRepeatedOptional>",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected:
+                      "(Array<ArrayRepeatedOptional> | number | string | undefined)",
+                    value: elem,
+                  },
+                  errorFactory,
+                )),
           );
         return (
           (null !== input ||
-            $guard(true, {
-              path: _path + "",
-              expected:
-                "(Array<ArrayRepeatedOptional> | number | string | undefined)",
-              value: input,
-            })) &&
-          (undefined === input ||
-            "string" === typeof input ||
-            ("number" === typeof input && Number.isFinite(input)) ||
-            ((Array.isArray(input) ||
-              $guard(true, {
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected:
                   "(Array<ArrayRepeatedOptional> | number | string | undefined)",
                 value: input,
-              })) &&
-              ($aa0(input, _path + "", true && _exceptionable) ||
-                $guard(_exceptionable, {
+              },
+              errorFactory,
+            )) &&
+          (undefined === input ||
+            "string" === typeof input ||
+            ("number" === typeof input && Number.isFinite(input)) ||
+            ((Array.isArray(input) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
-                  expected: "Array<ArrayRepeatedOptional>",
+                  expected:
+                    "(Array<ArrayRepeatedOptional> | number | string | undefined)",
                   value: input,
-                }))) ||
-            $guard(true, {
-              path: _path + "",
-              expected:
-                "(Array<ArrayRepeatedOptional> | number | string | undefined)",
-              value: input,
-            }))
+                },
+                errorFactory,
+              )) &&
+              ($aa0(input, _path + "", true && _exceptionable) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + "",
+                    expected: "Array<ArrayRepeatedOptional>",
+                    value: input,
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected:
+                  "(Array<ArrayRepeatedOptional> | number | string | undefined)",
+                value: input,
+              },
+              errorFactory,
+            ))
         );
       })(input, "$input", true);
     return input;

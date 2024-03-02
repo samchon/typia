@@ -10,13 +10,12 @@ export const test_json_assertStringifyCustom_ToJsonUnion =
   )((input) =>
     ((
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): string => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ToJsonUnion => {
-        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ToJsonUnion => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -55,62 +54,87 @@ export const test_json_assertStringifyCustom_ToJsonUnion =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonUnion => {
+            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "number",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "number",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.mobile ||
-                $guard(_exceptionable, {
-                  path: _path + ".mobile",
-                  expected: "string",
-                  value: input.mobile,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".mobile",
+                    expected: "string",
+                    value: input.mobile,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                ));
             const $ao1 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               true ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              );
             const $ao2 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               true ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              );
             const $ao3 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               true ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              );
             const $au0 = (
               input: any,
               _path: string,
@@ -124,59 +148,87 @@ export const test_json_assertStringifyCustom_ToJsonUnion =
                     $ao3(input, _path, false && _exceptionable) ||
                     $ao2(input, _path, false && _exceptionable) ||
                     $ao1(input, _path, false && _exceptionable) ||
-                    $guard(_exceptionable, {
-                      path: _path,
-                      expected:
-                        "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
-                      value: input,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path,
+                        expected:
+                          "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
+                        value: input,
+                      },
+                      errorFactory,
+                    )
                   );
               })();
             return (
               ((Array.isArray(input) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ToJsonUnion",
-                  value: input,
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ToJsonUnion",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
                 input.every(
                   (elem: any, _index1: number) =>
                     (null !== elem ||
-                      $guard(true, {
-                        path: _path + "[" + _index1 + "]",
-                        expected:
-                          "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                        value: elem,
-                      })) &&
-                    (undefined !== elem ||
-                      $guard(true, {
-                        path: _path + "[" + _index1 + "]",
-                        expected:
-                          "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                        value: elem,
-                      })) &&
-                    ("string" === typeof elem ||
-                      ("number" === typeof elem && Number.isFinite(elem)) ||
-                      ((("object" === typeof elem && null !== elem) ||
-                        $guard(true, {
+                      $guard(
+                        true,
+                        {
                           path: _path + "[" + _index1 + "]",
                           expected:
                             "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                           value: elem,
-                        })) &&
+                        },
+                        errorFactory,
+                      )) &&
+                    (undefined !== elem ||
+                      $guard(
+                        true,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected:
+                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
+                    ("string" === typeof elem ||
+                      ("number" === typeof elem && Number.isFinite(elem)) ||
+                      ((("object" === typeof elem && null !== elem) ||
+                        $guard(
+                          true,
+                          {
+                            path: _path + "[" + _index1 + "]",
+                            expected:
+                              "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                            value: elem,
+                          },
+                          errorFactory,
+                        )) &&
                         $au0(elem, _path + "[" + _index1 + "]", true)) ||
-                      $guard(true, {
-                        path: _path + "[" + _index1 + "]",
-                        expected:
-                          "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                        value: elem,
-                      })),
+                      $guard(
+                        true,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected:
+                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )),
                 )) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ToJsonUnion",
-                value: input,
-              })
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ToJsonUnion",
+                  value: input,
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

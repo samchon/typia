@@ -31,9 +31,8 @@ export const test_issue_940_formdata = () => {
   };
   ((
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): Expected => {
-    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is Expected => {
       const $io0 = (input: any): boolean =>
         "string" === input.type && "binary" === input.format;
@@ -45,45 +44,61 @@ export const test_issue_940_formdata = () => {
         _path: string,
         _exceptionable: boolean = true,
       ): input is Expected => {
+        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === input.type ||
-            $guard(_exceptionable, {
-              path: _path + ".type",
-              expected: '"string"',
-              value: input.type,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".type",
+                expected: '"string"',
+                value: input.type,
+              },
+              errorFactory,
+            )) &&
           ("binary" === input.format ||
-            $guard(_exceptionable, {
-              path: _path + ".format",
-              expected: '"binary"',
-              value: input.format,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".format",
+                expected: '"binary"',
+                value: input.format,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "Expected",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "Expected",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "Expected",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;
   })(x.schemas[0]);
   ((
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): Expected => {
-    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is Expected => {
       const $io0 = (input: any): boolean =>
         "string" === input.type && "binary" === input.format;
@@ -95,36 +110,53 @@ export const test_issue_940_formdata = () => {
         _path: string,
         _exceptionable: boolean = true,
       ): input is Expected => {
+        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === input.type ||
-            $guard(_exceptionable, {
-              path: _path + ".type",
-              expected: '"string"',
-              value: input.type,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".type",
+                expected: '"string"',
+                value: input.type,
+              },
+              errorFactory,
+            )) &&
           ("binary" === input.format ||
-            $guard(_exceptionable, {
-              path: _path + ".format",
-              expected: '"binary"',
-              value: input.format,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".format",
+                expected: '"binary"',
+                value: input.format,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "Expected",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "Expected",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "Expected",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

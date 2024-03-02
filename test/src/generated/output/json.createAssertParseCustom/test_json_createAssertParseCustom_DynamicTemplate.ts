@@ -10,16 +10,13 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
   )(
     (
       input: string,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): typia.Primitive<DynamicTemplate> => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): DynamicTemplate => {
-        const $guard = (typia.json.createAssertParse as any).guard(
-          errorFactory,
-        );
         const __is = (input: any): input is DynamicTemplate => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -56,6 +53,7 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicTemplate => {
+            const $guard = (typia.json.createAssertParse as any).guard;
             const $join = (typia.json.createAssertParse as any).join;
             const $ao0 = (
               input: any,
@@ -69,11 +67,15 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
                 if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                   return (
                     "string" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "string",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "string",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -81,11 +83,15 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
                 )
                   return (
                     "string" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "string",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "string",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -95,11 +101,15 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
                 )
                   return (
                     ("number" === typeof value && Number.isFinite(value)) ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "number",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "number",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 if (
                   "string" === typeof key &&
@@ -109,11 +119,15 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
                 )
                   return (
                     "boolean" === typeof value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "boolean",
-                      value: value,
-                    })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "boolean",
+                        value: value,
+                      },
+                      errorFactory,
+                    )
                   );
                 return true;
               });
@@ -121,17 +135,25 @@ export const test_json_createAssertParseCustom_DynamicTemplate =
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "DynamicTemplate",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "DynamicTemplate",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "DynamicTemplate",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

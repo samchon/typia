@@ -9,10 +9,9 @@ export const test_createAssertGuardCustom_DynamicNever = _test_assertGuard(
 )("DynamicNever")<DynamicNever>(DynamicNever)(
   (
     input: any,
-    errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+    errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
       new CustomGuardError(p),
   ): asserts input is DynamicNever => {
-    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is DynamicNever => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -33,6 +32,7 @@ export const test_createAssertGuardCustom_DynamicNever = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicNever => {
+        const $guard = (typia.createAssertGuard as any).guard;
         const $join = (typia.createAssertGuard as any).join;
         const $ao0 = (
           input: any,
@@ -45,34 +45,50 @@ export const test_createAssertGuardCustom_DynamicNever = _test_assertGuard(
             if (undefined === value) return true;
             return (
               (null !== value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                }))
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                ))
             );
           });
         return (
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicNever",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicNever",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicNever",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   },

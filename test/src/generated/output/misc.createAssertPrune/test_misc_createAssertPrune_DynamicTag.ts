@@ -9,13 +9,12 @@ export const test_misc_createAssertPrune_DynamicTag = _test_misc_assertPrune(
 )("DynamicTag")<DynamicTag>(DynamicTag)(
   (
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): DynamicTag => {
     const assert = (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): DynamicTag => {
-      const $guard = (typia.misc.createAssertPrune as any).guard(errorFactory);
       const __is = (input: any): input is DynamicTag => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -54,6 +53,7 @@ export const test_misc_createAssertPrune_DynamicTag = _test_misc_assertPrune(
           _path: string,
           _exceptionable: boolean = true,
         ): input is DynamicTag => {
+          const $guard = (typia.misc.createAssertPrune as any).guard;
           const $join = (typia.misc.createAssertPrune as any).join;
           const $ao0 = (
             input: any,
@@ -72,16 +72,24 @@ export const test_misc_createAssertPrune_DynamicTag = _test_misc_assertPrune(
                 return (
                   ("bigint" === typeof value &&
                     (BigInt(0) <= value ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: 'bigint & Type<"uint64">',
-                        value: value,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: '(bigint & Type<"uint64">)',
-                    value: value,
-                  })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: 'bigint & Type<"uint64">',
+                          value: value,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: '(bigint & Type<"uint64">)',
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -94,16 +102,24 @@ export const test_misc_createAssertPrune_DynamicTag = _test_misc_assertPrune(
                     (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
                       value,
                     ) ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: 'string & Format<"email">',
-                        value: value,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: '(string & Format<"email">)',
-                    value: value,
-                  })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: 'string & Format<"email">',
+                          value: value,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: '(string & Format<"email">)',
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               return true;
             });
@@ -111,17 +127,25 @@ export const test_misc_createAssertPrune_DynamicTag = _test_misc_assertPrune(
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicTag",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicTag",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicTag",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

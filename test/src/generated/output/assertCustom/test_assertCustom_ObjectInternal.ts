@@ -9,9 +9,8 @@ export const test_assertCustom_ObjectInternal = _test_assert(CustomGuardError)(
 )<ObjectInternal>(ObjectInternal)((input) =>
   ((
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): ObjectInternal => {
-    const $guard = (typia.assert as any).guard(errorFactory);
     const __is = (input: any): input is ObjectInternal => {
       return (
         "object" === typeof input &&
@@ -26,36 +25,53 @@ export const test_assertCustom_ObjectInternal = _test_assert(CustomGuardError)(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ObjectInternal => {
+        const $guard = (typia.assert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.id ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: "string",
-              value: input.id,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectInternal",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectInternal",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectInternal",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

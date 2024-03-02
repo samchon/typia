@@ -158,9 +158,8 @@ export const test_notation_createValidateSnake_DynamicTag =
     },
     assert: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.SnakeCase<DynamicTag> => {
-      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.SnakeCase<DynamicTag> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -199,6 +198,7 @@ export const test_notation_createValidateSnake_DynamicTag =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.SnakeCase<DynamicTag> => {
+          const $guard = (typia.createAssert as any).guard;
           const $join = (typia.createAssert as any).join;
           const $ao0 = (
             input: any,
@@ -217,16 +217,24 @@ export const test_notation_createValidateSnake_DynamicTag =
                 return (
                   ("bigint" === typeof value &&
                     (BigInt(0) <= value ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: 'bigint & Type<"uint64">',
-                        value: value,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: '(bigint & Type<"uint64">)',
-                    value: value,
-                  })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: 'bigint & Type<"uint64">',
+                          value: value,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: '(bigint & Type<"uint64">)',
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -239,16 +247,24 @@ export const test_notation_createValidateSnake_DynamicTag =
                     (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
                       value,
                     ) ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: 'string & Format<"email">',
-                        value: value,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: '(string & Format<"email">)',
-                    value: value,
-                  })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: 'string & Format<"email">',
+                          value: value,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: '(string & Format<"email">)',
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               return true;
             });
@@ -256,17 +272,25 @@ export const test_notation_createValidateSnake_DynamicTag =
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicTag",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicTag",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicTag",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

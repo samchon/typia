@@ -114,9 +114,8 @@ export const test_notation_createValidatePascal_TupleRestAtomic =
     },
     assert: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.PascalCase<TupleRestAtomic> => {
-      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<TupleRestAtomic> => {
         return (
           Array.isArray(input) &&
@@ -134,29 +133,42 @@ export const test_notation_createValidatePascal_TupleRestAtomic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<TupleRestAtomic> => {
+          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "Array<string | number | boolean>",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "Array<string | number | boolean>",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   "string" === typeof elem ||
                   ("number" === typeof elem && Number.isFinite(elem)) ||
                   "boolean" === typeof elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "(boolean | number | string)",
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "(boolean | number | string)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "Array<string | number | boolean>",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "Array<string | number | boolean>",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

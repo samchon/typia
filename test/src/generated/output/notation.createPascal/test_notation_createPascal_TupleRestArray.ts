@@ -152,9 +152,8 @@ export const test_notation_createValidatePascal_TupleRestArray =
     },
     assert: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.PascalCase<TupleRestArray> => {
-      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.PascalCase<TupleRestArray> => {
         return (
           Array.isArray(input) &&
@@ -175,55 +174,85 @@ export const test_notation_createValidatePascal_TupleRestArray =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.PascalCase<TupleRestArray> => {
+          const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "Array<number | boolean | string[]>",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "Array<number | boolean | string[]>",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   (null !== elem ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "(Array<string> | boolean | number)",
-                      value: elem,
-                    })) &&
-                  (undefined !== elem ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "(Array<string> | boolean | number)",
-                      value: elem,
-                    })) &&
-                  (("number" === typeof elem && Number.isFinite(elem)) ||
-                    "boolean" === typeof elem ||
-                    ((Array.isArray(elem) ||
-                      $guard(true, {
+                    $guard(
+                      true,
+                      {
                         path: _path + "[" + _index1 + "]",
                         expected: "(Array<string> | boolean | number)",
                         value: elem,
-                      })) &&
+                      },
+                      errorFactory,
+                    )) &&
+                  (undefined !== elem ||
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: "(Array<string> | boolean | number)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
+                  (("number" === typeof elem && Number.isFinite(elem)) ||
+                    "boolean" === typeof elem ||
+                    ((Array.isArray(elem) ||
+                      $guard(
+                        true,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected: "(Array<string> | boolean | number)",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       elem.every(
                         (elem: any, _index2: number) =>
                           "string" === typeof elem ||
-                          $guard(true, {
-                            path: _path + "[" + _index1 + "][" + _index2 + "]",
-                            expected: "string",
-                            value: elem,
-                          }),
+                          $guard(
+                            true,
+                            {
+                              path:
+                                _path + "[" + _index1 + "][" + _index2 + "]",
+                              expected: "string",
+                              value: elem,
+                            },
+                            errorFactory,
+                          ),
                       )) ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "(Array<string> | boolean | number)",
-                      value: elem,
-                    })),
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: "(Array<string> | boolean | number)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "Array<number | boolean | string[]>",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "Array<number | boolean | string[]>",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

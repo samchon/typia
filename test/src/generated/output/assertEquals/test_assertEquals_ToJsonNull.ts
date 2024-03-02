@@ -9,9 +9,8 @@ export const test_assertEquals_ToJsonNull = _test_assertEquals(TypeGuardError)(
 )<ToJsonNull>(ToJsonNull)((input) =>
   ((
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): ToJsonNull => {
-    const $guard = (typia.assertEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -33,6 +32,7 @@ export const test_assertEquals_ToJsonNull = _test_assertEquals(TypeGuardError)(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonNull => {
+        const $guard = (typia.assertEquals as any).guard;
         const $join = (typia.assertEquals as any).join;
         const $ao0 = (
           input: any,
@@ -40,36 +40,52 @@ export const test_assertEquals_ToJsonNull = _test_assertEquals(TypeGuardError)(
           _exceptionable: boolean = true,
         ): boolean =>
           ("function" === typeof input.toJSON ||
-            $guard(_exceptionable, {
-              path: _path + ".toJSON",
-              expected: "unknown",
-              value: input.toJSON,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".toJSON",
+                expected: "unknown",
+                value: input.toJSON,
+              },
+              errorFactory,
+            )) &&
           (1 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
               if (["toJSON"].some((prop: any) => key === prop)) return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ToJsonNull",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ToJsonNull",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ToJsonNull",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

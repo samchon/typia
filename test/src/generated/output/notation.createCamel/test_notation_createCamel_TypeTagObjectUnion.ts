@@ -232,9 +232,8 @@ export const test_notation_createValidateCamel_TypeTagObjectUnion =
     },
     assert: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.CamelCase<TypeTagObjectUnion> => {
-      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (
         input: any,
       ): input is typia.CamelCase<TypeTagObjectUnion> => {
@@ -276,6 +275,7 @@ export const test_notation_createValidateCamel_TypeTagObjectUnion =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<TypeTagObjectUnion> => {
+          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
@@ -283,22 +283,34 @@ export const test_notation_createValidateCamel_TypeTagObjectUnion =
           ): boolean =>
             ("number" === typeof input.value &&
               (Number.isFinite(input.value) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "number",
-                  value: input.value,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "number",
+                    value: input.value,
+                  },
+                  errorFactory,
+                )) &&
               (3 <= input.value ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "number & Minimum<3>",
-                  value: input.value,
-                }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "(number & Minimum<3>)",
-              value: input.value,
-            });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "number & Minimum<3>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "(number & Minimum<3>)",
+                value: input.value,
+              },
+              errorFactory,
+            );
           const $ao1 = (
             input: any,
             _path: string,
@@ -306,22 +318,34 @@ export const test_notation_createValidateCamel_TypeTagObjectUnion =
           ): boolean =>
             ("string" === typeof input.value &&
               (3 <= input.value.length ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "string & MinLength<3>",
-                  value: input.value,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "string & MinLength<3>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                )) &&
               (input.value.length <= 7 ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "string & MaxLength<7>",
-                  value: input.value,
-                }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "(string & MinLength<3> & MaxLength<7>)",
-              value: input.value,
-            });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "string & MaxLength<7>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "(string & MinLength<3> & MaxLength<7>)",
+                value: input.value,
+              },
+              errorFactory,
+            );
           const $au0 = (
             input: any,
             _path: string,
@@ -331,66 +355,98 @@ export const test_notation_createValidateCamel_TypeTagObjectUnion =
               if (
                 "string" === typeof input.value &&
                 (3 <= input.value.length ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "string & MinLength<3>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "string & MinLength<3>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.value.length <= 7 ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "string & MaxLength<7>",
-                    value: input.value,
-                  }))
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "string & MaxLength<7>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  ))
               )
                 return $ao1(input, _path, true && _exceptionable);
               else if (
                 "number" === typeof input.value &&
                 (3 <= input.value ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "number & Minimum<3>",
-                    value: input.value,
-                  }))
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "number & Minimum<3>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  ))
               )
                 return $ao0(input, _path, true && _exceptionable);
               else
-                return $guard(_exceptionable, {
-                  path: _path,
-                  expected:
-                    "(TypeTagObjectUnion.Literal | TypeTagObjectUnion.Numeric)",
-                  value: input,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path,
+                    expected:
+                      "(TypeTagObjectUnion.Literal | TypeTagObjectUnion.Numeric)",
+                    value: input,
+                  },
+                  errorFactory,
+                );
             })();
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "TypeTagObjectUnion",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "TypeTagObjectUnion",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(true, {
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "(TypeTagObjectUnion.Literal | TypeTagObjectUnion.Numeric)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
+                    $au0(elem, _path + "[" + _index1 + "]", true)) ||
+                  $guard(
+                    true,
+                    {
                       path: _path + "[" + _index1 + "]",
                       expected:
                         "(TypeTagObjectUnion.Literal | TypeTagObjectUnion.Numeric)",
                       value: elem,
-                    })) &&
-                    $au0(elem, _path + "[" + _index1 + "]", true)) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(TypeTagObjectUnion.Literal | TypeTagObjectUnion.Numeric)",
-                    value: elem,
-                  }),
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "TypeTagObjectUnion",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "TypeTagObjectUnion",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

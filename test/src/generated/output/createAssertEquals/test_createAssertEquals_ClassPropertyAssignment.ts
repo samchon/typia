@@ -10,9 +10,8 @@ export const test_createAssertEquals_ClassPropertyAssignment =
   )<ClassPropertyAssignment>(ClassPropertyAssignment)(
     (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): ClassPropertyAssignment => {
-      const $guard = (typia.createAssertEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -44,6 +43,7 @@ export const test_createAssertEquals_ClassPropertyAssignment =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ClassPropertyAssignment => {
+          const $guard = (typia.createAssertEquals as any).guard;
           const $join = (typia.createAssertEquals as any).join;
           const $ao0 = (
             input: any,
@@ -51,35 +51,55 @@ export const test_createAssertEquals_ClassPropertyAssignment =
             _exceptionable: boolean = true,
           ): boolean =>
             (("number" === typeof input.id && Number.isFinite(input.id)) ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "number",
-                value: input.id,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: "number",
+                  value: input.id,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("assignment" === input.note ||
-              $guard(_exceptionable, {
-                path: _path + ".note",
-                expected: '"assignment"',
-                value: input.note,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".note",
+                  expected: '"assignment"',
+                  value: input.note,
+                },
+                errorFactory,
+              )) &&
             (false === input.editable ||
-              $guard(_exceptionable, {
-                path: _path + ".editable",
-                expected: "false",
-                value: input.editable,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".editable",
+                  expected: "false",
+                  value: input.editable,
+                },
+                errorFactory,
+              )) &&
             ("boolean" === typeof input.incremental ||
-              $guard(_exceptionable, {
-                path: _path + ".incremental",
-                expected: "boolean",
-                value: input.incremental,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".incremental",
+                  expected: "boolean",
+                  value: input.incremental,
+                },
+                errorFactory,
+              )) &&
             (5 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -91,25 +111,37 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ClassPropertyAssignment",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ClassPropertyAssignment",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ClassPropertyAssignment",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

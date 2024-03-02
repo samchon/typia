@@ -10,13 +10,12 @@ export const test_json_assertStringifyCustom_ToJsonNull =
   )((input) =>
     ((
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): string => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ToJsonNull => {
-        const $guard = (typia.json.assertStringify as any).guard(errorFactory);
         const __is = (input: any): input is ToJsonNull => {
           const $io0 = (input: any): boolean => true;
           return "object" === typeof input && null !== input && $io0(input);
@@ -27,30 +26,43 @@ export const test_json_assertStringifyCustom_ToJsonNull =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonNull => {
+            const $guard = (typia.json.assertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               true ||
-              $guard(_exceptionable, {
-                path: _path + ".toJSON",
-                expected: "unknown",
-                value: input.toJSON,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".toJSON",
+                  expected: "unknown",
+                  value: input.toJSON,
+                },
+                errorFactory,
+              );
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ToJsonNull",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ToJsonNull",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ToJsonNull",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

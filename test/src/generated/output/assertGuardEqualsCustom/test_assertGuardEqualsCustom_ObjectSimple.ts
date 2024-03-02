@@ -10,9 +10,8 @@ export const test_assertGuardEqualsCustom_ObjectSimple =
   )((input) =>
     ((
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): asserts input is ObjectSimple => {
-      const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -65,6 +64,7 @@ export const test_assertGuardEqualsCustom_ObjectSimple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectSimple => {
+          const $guard = (typia.assertGuardEquals as any).guard;
           const $join = (typia.assertGuardEquals as any).join;
           const $ao0 = (
             input: any,
@@ -72,58 +72,90 @@ export const test_assertGuardEqualsCustom_ObjectSimple =
             _exceptionable: boolean = true,
           ): boolean =>
             (((("object" === typeof input.scale && null !== input.scale) ||
-              $guard(_exceptionable, {
-                path: _path + ".scale",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.scale,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".scale",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.scale,
+                },
+                errorFactory,
+              )) &&
               $ao1(input.scale, _path + ".scale", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".scale",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.scale,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".scale",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.scale,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.position &&
               null !== input.position) ||
-              $guard(_exceptionable, {
-                path: _path + ".position",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.position,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".position",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.position,
+                },
+                errorFactory,
+              )) &&
               $ao1(
                 input.position,
                 _path + ".position",
                 true && _exceptionable,
               )) ||
-              $guard(_exceptionable, {
-                path: _path + ".position",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.position,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".position",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.position,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.rotate && null !== input.rotate) ||
-              $guard(_exceptionable, {
-                path: _path + ".rotate",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.rotate,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".rotate",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.rotate,
+                },
+                errorFactory,
+              )) &&
               $ao1(input.rotate, _path + ".rotate", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".rotate",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.rotate,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".rotate",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.rotate,
+                },
+                errorFactory,
+              )) &&
             (((("object" === typeof input.pivot && null !== input.pivot) ||
-              $guard(_exceptionable, {
-                path: _path + ".pivot",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.pivot,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".pivot",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.pivot,
+                },
+                errorFactory,
+              )) &&
               $ao1(input.pivot, _path + ".pivot", true && _exceptionable)) ||
-              $guard(_exceptionable, {
-                path: _path + ".pivot",
-                expected: "ObjectSimple.IPoint3D",
-                value: input.pivot,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".pivot",
+                  expected: "ObjectSimple.IPoint3D",
+                  value: input.pivot,
+                },
+                errorFactory,
+              )) &&
             (4 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -135,11 +167,15 @@ export const test_assertGuardEqualsCustom_ObjectSimple =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           const $ao1 = (
             input: any,
@@ -147,23 +183,35 @@ export const test_assertGuardEqualsCustom_ObjectSimple =
             _exceptionable: boolean = true,
           ): boolean =>
             (("number" === typeof input.x && Number.isFinite(input.x)) ||
-              $guard(_exceptionable, {
-                path: _path + ".x",
-                expected: "number",
-                value: input.x,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".x",
+                  expected: "number",
+                  value: input.x,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.y && Number.isFinite(input.y)) ||
-              $guard(_exceptionable, {
-                path: _path + ".y",
-                expected: "number",
-                value: input.y,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".y",
+                  expected: "number",
+                  value: input.y,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.z && Number.isFinite(input.z)) ||
-              $guard(_exceptionable, {
-                path: _path + ".z",
-                expected: "number",
-                value: input.z,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".z",
+                  expected: "number",
+                  value: input.z,
+                },
+                errorFactory,
+              )) &&
             (3 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -171,25 +219,37 @@ export const test_assertGuardEqualsCustom_ObjectSimple =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectSimple.IBox3D",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectSimple.IBox3D",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectSimple.IBox3D",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     })(input, (p) => new CustomGuardError(p)),

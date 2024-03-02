@@ -9,10 +9,9 @@ export const test_createAssertCustom_ToJsonDouble = _test_assert(
 )("ToJsonDouble")<ToJsonDouble>(ToJsonDouble)(
   (
     input: any,
-    errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+    errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
       new CustomGuardError(p),
   ): ToJsonDouble => {
-    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is ToJsonDouble => {
       return "object" === typeof input && null !== input && true;
     };
@@ -22,6 +21,7 @@ export const test_createAssertCustom_ToJsonDouble = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ToJsonDouble => {
+        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
@@ -31,17 +31,25 @@ export const test_createAssertCustom_ToJsonDouble = _test_assert(
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ToJsonDouble.Parent",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ToJsonDouble.Parent",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ToJsonDouble.Parent",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

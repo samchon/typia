@@ -195,9 +195,8 @@ export const test_notation_validateCamel_ArraySimple =
       })(input),
     assert: (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.CamelCase<ArraySimple> => {
-      const $guard = (typia.createAssert as any).guard(errorFactory);
       const __is = (input: any): input is typia.CamelCase<ArraySimple> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.name &&
@@ -226,103 +225,156 @@ export const test_notation_validateCamel_ArraySimple =
           _path: string,
           _exceptionable: boolean = true,
         ): input is typia.CamelCase<ArraySimple> => {
+          const $guard = (typia.createAssert as any).guard;
           const $ao0 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.email ||
-              $guard(_exceptionable, {
-                path: _path + ".email",
-                expected: "string",
-                value: input.email,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".email",
+                  expected: "string",
+                  value: input.email,
+                },
+                errorFactory,
+              )) &&
             (((Array.isArray(input.hobbies) ||
-              $guard(_exceptionable, {
-                path: _path + ".hobbies",
-                expected: "Array<ArraySimple.IHobby>",
-                value: input.hobbies,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".hobbies",
+                  expected: "Array<ArraySimple.IHobby>",
+                  value: input.hobbies,
+                },
+                errorFactory,
+              )) &&
               input.hobbies.every(
                 (elem: any, _index2: number) =>
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".hobbies[" + _index2 + "]",
-                      expected: "ArraySimple.IHobby",
-                      value: elem,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".hobbies[" + _index2 + "]",
+                        expected: "ArraySimple.IHobby",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     $ao1(
                       elem,
                       _path + ".hobbies[" + _index2 + "]",
                       true && _exceptionable,
                     )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".hobbies[" + _index2 + "]",
-                    expected: "ArraySimple.IHobby",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".hobbies[" + _index2 + "]",
+                      expected: "ArraySimple.IHobby",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-              $guard(_exceptionable, {
-                path: _path + ".hobbies",
-                expected: "Array<ArraySimple.IHobby>",
-                value: input.hobbies,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".hobbies",
+                  expected: "Array<ArraySimple.IHobby>",
+                  value: input.hobbies,
+                },
+                errorFactory,
+              ));
           const $ao1 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.body ||
-              $guard(_exceptionable, {
-                path: _path + ".body",
-                expected: "string",
-                value: input.body,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".body",
+                  expected: "string",
+                  value: input.body,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.rank && Number.isFinite(input.rank)) ||
-              $guard(_exceptionable, {
-                path: _path + ".rank",
-                expected: "number",
-                value: input.rank,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".rank",
+                  expected: "number",
+                  value: input.rank,
+                },
+                errorFactory,
+              ));
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ArraySimple",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ArraySimple",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   ((("object" === typeof elem && null !== elem) ||
-                    $guard(true, {
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: "ArraySimple.IPerson",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
+                    $ao0(elem, _path + "[" + _index1 + "]", true)) ||
+                  $guard(
+                    true,
+                    {
                       path: _path + "[" + _index1 + "]",
                       expected: "ArraySimple.IPerson",
                       value: elem,
-                    })) &&
-                    $ao0(elem, _path + "[" + _index1 + "]", true)) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "ArraySimple.IPerson",
-                    value: elem,
-                  }),
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ArraySimple",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ArraySimple",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

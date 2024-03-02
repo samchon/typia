@@ -9,10 +9,9 @@ export const test_createAssertCustom_CommentTagLength = _test_assert(
 )("CommentTagLength")<CommentTagLength>(CommentTagLength)(
   (
     input: any,
-    errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+    errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
       new CustomGuardError(p),
   ): CommentTagLength => {
-    const $guard = (typia.createAssert as any).guard(errorFactory);
     const __is = (input: any): input is CommentTagLength => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -42,41 +41,58 @@ export const test_createAssertCustom_CommentTagLength = _test_assert(
         _path: string,
         _exceptionable: boolean = true,
       ): input is CommentTagLength => {
+        const $guard = (typia.createAssert as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
           _exceptionable: boolean = true,
         ): boolean =>
           ((Array.isArray(input.value) ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "Array<CommentTagLength.Type>",
-              value: input.value,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "Array<CommentTagLength.Type>",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
             input.value.every(
               (elem: any, _index1: number) =>
                 ((("object" === typeof elem && null !== elem) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value[" + _index1 + "]",
-                    expected: "CommentTagLength.Type",
-                    value: elem,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value[" + _index1 + "]",
+                      expected: "CommentTagLength.Type",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao1(
                     elem,
                     _path + ".value[" + _index1 + "]",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value[" + _index1 + "]",
-                  expected: "CommentTagLength.Type",
-                  value: elem,
-                }),
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value[" + _index1 + "]",
+                    expected: "CommentTagLength.Type",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(_exceptionable, {
-            path: _path + ".value",
-            expected: "Array<CommentTagLength.Type>",
-            value: input.value,
-          });
+          $guard(
+            _exceptionable,
+            {
+              path: _path + ".value",
+              expected: "Array<CommentTagLength.Type>",
+              value: input.value,
+            },
+            errorFactory,
+          );
         const $ao1 = (
           input: any,
           _path: string,
@@ -84,95 +100,155 @@ export const test_createAssertCustom_CommentTagLength = _test_assert(
         ): boolean =>
           (("string" === typeof input.fixed &&
             (5 <= input.fixed.length ||
-              $guard(_exceptionable, {
-                path: _path + ".fixed",
-                expected: "string & MinLength<5>",
-                value: input.fixed,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".fixed",
+                  expected: "string & MinLength<5>",
+                  value: input.fixed,
+                },
+                errorFactory,
+              )) &&
             (input.fixed.length <= 5 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".fixed",
+                  expected: "string & MaxLength<5>",
+                  value: input.fixed,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".fixed",
-                expected: "string & MaxLength<5>",
+                expected: "(string & MinLength<5> & MaxLength<5>)",
                 value: input.fixed,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".fixed",
-              expected: "(string & MinLength<5> & MaxLength<5>)",
-              value: input.fixed,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("string" === typeof input.minimum &&
             (3 <= input.minimum.length ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".minimum",
+                  expected: "string & MinLength<3>",
+                  value: input.minimum,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".minimum",
-                expected: "string & MinLength<3>",
+                expected: "(string & MinLength<3>)",
                 value: input.minimum,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".minimum",
-              expected: "(string & MinLength<3>)",
-              value: input.minimum,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("string" === typeof input.maximum &&
             (input.maximum.length <= 7 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".maximum",
+                  expected: "string & MaxLength<7>",
+                  value: input.maximum,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".maximum",
-                expected: "string & MaxLength<7>",
+                expected: "(string & MaxLength<7>)",
                 value: input.maximum,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".maximum",
-              expected: "(string & MaxLength<7>)",
-              value: input.maximum,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("string" === typeof input.minimum_and_maximum &&
             (3 <= input.minimum_and_maximum.length ||
-              $guard(_exceptionable, {
-                path: _path + ".minimum_and_maximum",
-                expected: "string & MinLength<3>",
-                value: input.minimum_and_maximum,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".minimum_and_maximum",
+                  expected: "string & MinLength<3>",
+                  value: input.minimum_and_maximum,
+                },
+                errorFactory,
+              )) &&
             (input.minimum_and_maximum.length <= 7 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".minimum_and_maximum",
+                  expected: "string & MaxLength<7>",
+                  value: input.minimum_and_maximum,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".minimum_and_maximum",
-                expected: "string & MaxLength<7>",
+                expected: "(string & MinLength<3> & MaxLength<7>)",
                 value: input.minimum_and_maximum,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".minimum_and_maximum",
-              expected: "(string & MinLength<3> & MaxLength<7>)",
-              value: input.minimum_and_maximum,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("string" === typeof input.equal &&
             (10 <= input.equal.length ||
-              $guard(_exceptionable, {
-                path: _path + ".equal",
-                expected: "string & MinLength<10>",
-                value: input.equal,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".equal",
+                  expected: "string & MinLength<10>",
+                  value: input.equal,
+                },
+                errorFactory,
+              )) &&
             (input.equal.length <= 19 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".equal",
+                  expected: "string & MaxLength<19>",
+                  value: input.equal,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".equal",
-                expected: "string & MaxLength<19>",
+                expected: "(string & MinLength<10> & MaxLength<19>)",
                 value: input.equal,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".equal",
-              expected: "(string & MinLength<10> & MaxLength<19>)",
-              value: input.equal,
-            }));
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "CommentTagLength",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "CommentTagLength",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "CommentTagLength",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

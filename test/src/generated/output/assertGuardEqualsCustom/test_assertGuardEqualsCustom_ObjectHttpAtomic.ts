@@ -10,9 +10,8 @@ export const test_assertGuardEqualsCustom_ObjectHttpAtomic =
   )<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
     ((
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): asserts input is ObjectHttpAtomic => {
-      const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -43,6 +42,7 @@ export const test_assertGuardEqualsCustom_ObjectHttpAtomic =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectHttpAtomic => {
+          const $guard = (typia.assertGuardEquals as any).guard;
           const $join = (typia.assertGuardEquals as any).join;
           const $ao0 = (
             input: any,
@@ -50,30 +50,46 @@ export const test_assertGuardEqualsCustom_ObjectHttpAtomic =
             _exceptionable: boolean = true,
           ): boolean =>
             ("boolean" === typeof input.boolean ||
-              $guard(_exceptionable, {
-                path: _path + ".boolean",
-                expected: "boolean",
-                value: input.boolean,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".boolean",
+                  expected: "boolean",
+                  value: input.boolean,
+                },
+                errorFactory,
+              )) &&
             ("bigint" === typeof input.bigint ||
-              $guard(_exceptionable, {
-                path: _path + ".bigint",
-                expected: "bigint",
-                value: input.bigint,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".bigint",
+                  expected: "bigint",
+                  value: input.bigint,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.number &&
               Number.isFinite(input.number)) ||
-              $guard(_exceptionable, {
-                path: _path + ".number",
-                expected: "number",
-                value: input.number,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".number",
+                  expected: "number",
+                  value: input.number,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.string ||
-              $guard(_exceptionable, {
-                path: _path + ".string",
-                expected: "string",
-                value: input.string,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".string",
+                  expected: "string",
+                  value: input.string,
+                },
+                errorFactory,
+              )) &&
             (4 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -85,25 +101,37 @@ export const test_assertGuardEqualsCustom_ObjectHttpAtomic =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectHttpAtomic",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectHttpAtomic",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectHttpAtomic",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     })(input, (p) => new CustomGuardError(p)),

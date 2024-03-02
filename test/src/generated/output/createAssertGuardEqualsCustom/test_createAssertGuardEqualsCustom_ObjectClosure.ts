@@ -10,10 +10,9 @@ export const test_createAssertGuardEqualsCustom_ObjectClosure =
   )(
     (
       input: any,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): asserts input is ObjectClosure => {
-      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -36,6 +35,7 @@ export const test_createAssertGuardEqualsCustom_ObjectClosure =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectClosure => {
+          const $guard = (typia.createAssertGuardEquals as any).guard;
           const $join = (typia.createAssertGuardEquals as any).join;
           const $ao0 = (
             input: any,
@@ -43,17 +43,25 @@ export const test_createAssertGuardEqualsCustom_ObjectClosure =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.id ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: "string",
-                value: input.id,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: "string",
+                  value: input.id,
+                },
+                errorFactory,
+              )) &&
             ("function" === typeof input.open ||
-              $guard(_exceptionable, {
-                path: _path + ".open",
-                expected: "unknown",
-                value: input.open,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".open",
+                  expected: "unknown",
+                  value: input.open,
+                },
+                errorFactory,
+              )) &&
             (2 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -61,25 +69,37 @@ export const test_createAssertGuardEqualsCustom_ObjectClosure =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectClosure.IRecord",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectClosure.IRecord",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectClosure.IRecord",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

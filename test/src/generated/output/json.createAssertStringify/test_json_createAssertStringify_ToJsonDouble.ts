@@ -10,15 +10,12 @@ export const test_json_createAssertStringify_ToJsonDouble =
   )(
     (
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): string => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ToJsonDouble => {
-        const $guard = (typia.json.createAssertStringify as any).guard(
-          errorFactory,
-        );
         const __is = (input: any): input is ToJsonDouble => {
           return "object" === typeof input && null !== input && true;
         };
@@ -28,6 +25,7 @@ export const test_json_createAssertStringify_ToJsonDouble =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ToJsonDouble => {
+            const $guard = (typia.json.createAssertStringify as any).guard;
             const $ao0 = (
               input: any,
               _path: string,
@@ -37,17 +35,25 @@ export const test_json_createAssertStringify_ToJsonDouble =
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ToJsonDouble.Parent",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ToJsonDouble.Parent",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ToJsonDouble.Parent",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

@@ -10,10 +10,9 @@ export const test_createAssertGuardEqualsCustom_FunctionalValue =
   )(
     (
       input: any,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): asserts input is FunctionalValue => {
-      const $guard = (typia.createAssertGuardEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -26,13 +25,18 @@ export const test_createAssertGuardEqualsCustom_FunctionalValue =
           _path: string,
           _exceptionable: boolean = true,
         ): input is FunctionalValue => {
+          const $guard = (typia.createAssertGuardEquals as any).guard;
           return (
             "function" === typeof input ||
-            $guard(true, {
-              path: _path + "",
-              expected: "unknown",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "unknown",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

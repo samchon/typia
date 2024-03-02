@@ -10,16 +10,13 @@ export const test_json_createAssertParseCustom_ConstantEnumeration =
   )<ConstantEnumeration>(ConstantEnumeration)(
     (
       input: string,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): typia.Primitive<ConstantEnumeration> => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): ConstantEnumeration => {
-        const $guard = (typia.json.createAssertParse as any).guard(
-          errorFactory,
-        );
         const __is = (input: any): input is ConstantEnumeration => {
           return (
             Array.isArray(input) &&
@@ -39,13 +36,18 @@ export const test_json_createAssertParseCustom_ConstantEnumeration =
             _path: string,
             _exceptionable: boolean = true,
           ): input is ConstantEnumeration => {
+            const $guard = (typia.json.createAssertParse as any).guard;
             return (
               ((Array.isArray(input) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ConstantEnumeration",
-                  value: input,
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ConstantEnumeration",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
                 input.every(
                   (elem: any, _index1: number) =>
                     0 === elem ||
@@ -53,17 +55,25 @@ export const test_json_createAssertParseCustom_ConstantEnumeration =
                     2 === elem ||
                     "Three" === elem ||
                     "Four" === elem ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: '("Four" | "Three" | 0 | 1 | 2)',
-                      value: elem,
-                    }),
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: '("Four" | "Three" | 0 | 1 | 2)',
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantEnumeration",
-                value: input,
-              })
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ConstantEnumeration",
+                  value: input,
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;

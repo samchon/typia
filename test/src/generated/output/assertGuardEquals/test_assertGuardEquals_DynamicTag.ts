@@ -9,9 +9,8 @@ export const test_assertGuardEquals_DynamicTag = _test_assertGuardEquals(
 )("DynamicTag")<DynamicTag>(DynamicTag)((input) =>
   ((
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): asserts input is DynamicTag => {
-    const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -54,6 +53,7 @@ export const test_assertGuardEquals_DynamicTag = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is DynamicTag => {
+        const $guard = (typia.assertGuardEquals as any).guard;
         const $join = (typia.assertGuardEquals as any).join;
         const $ao0 = (
           input: any,
@@ -72,16 +72,24 @@ export const test_assertGuardEquals_DynamicTag = _test_assertGuardEquals(
               return (
                 ("bigint" === typeof value &&
                   (BigInt(0) <= value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: 'bigint & Type<"uint64">',
-                      value: value,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: '(bigint & Type<"uint64">)',
-                  value: value,
-                })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: 'bigint & Type<"uint64">',
+                        value: value,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: '(bigint & Type<"uint64">)',
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             if (
               "string" === typeof key &&
@@ -94,38 +102,58 @@ export const test_assertGuardEquals_DynamicTag = _test_assertGuardEquals(
                   (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
                     value,
                   ) ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: 'string & Format<"email">',
-                      value: value,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: '(string & Format<"email">)',
-                  value: value,
-                })
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: 'string & Format<"email">',
+                        value: value,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: '(string & Format<"email">)',
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
-            return $guard(_exceptionable, {
-              path: _path + $join(key),
-              expected: "undefined",
-              value: value,
-            });
+            return $guard(
+              _exceptionable,
+              {
+                path: _path + $join(key),
+                expected: "undefined",
+                value: value,
+              },
+              errorFactory,
+            );
           });
         return (
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicTag",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicTag",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicTag",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

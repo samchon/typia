@@ -10,9 +10,8 @@ export const test_assertGuard_ArrayRepeatedNullable = _test_assertGuard(
   (input) =>
     ((
       input: any,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): asserts input is ArrayRepeatedNullable => {
-      const $guard = (typia.assertGuard as any).guard(errorFactory);
       const __is = (input: any): input is ArrayRepeatedNullable => {
         const $ia0 = (input: any): any =>
           input.every(
@@ -37,6 +36,7 @@ export const test_assertGuard_ArrayRepeatedNullable = _test_assertGuard(
           _path: string,
           _exceptionable: boolean = true,
         ): input is ArrayRepeatedNullable => {
+          const $guard = (typia.assertGuard as any).guard;
           const $aa0 = (
             input: any,
             _path: string,
@@ -45,69 +45,101 @@ export const test_assertGuard_ArrayRepeatedNullable = _test_assertGuard(
             input.every(
               (elem: any, _index1: number) =>
                 (undefined !== elem ||
-                  $guard(_exceptionable, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Array<ArrayRepeatedNullable> | null | number | string)",
-                    value: elem,
-                  })) &&
-                (null === elem ||
-                  "string" === typeof elem ||
-                  ("number" === typeof elem && Number.isFinite(elem)) ||
-                  ((Array.isArray(elem) ||
-                    $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + "[" + _index1 + "]",
                       expected:
                         "(Array<ArrayRepeatedNullable> | null | number | string)",
                       value: elem,
-                    })) &&
+                    },
+                    errorFactory,
+                  )) &&
+                (null === elem ||
+                  "string" === typeof elem ||
+                  ("number" === typeof elem && Number.isFinite(elem)) ||
+                  ((Array.isArray(elem) ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected:
+                          "(Array<ArrayRepeatedNullable> | null | number | string)",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     ($aa0(
                       elem,
                       _path + "[" + _index1 + "]",
                       true && _exceptionable,
                     ) ||
-                      $guard(_exceptionable, {
-                        path: _path + "[" + _index1 + "]",
-                        expected: "Array<ArrayRepeatedNullable>",
-                        value: elem,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + "[" + _index1 + "]",
-                    expected:
-                      "(Array<ArrayRepeatedNullable> | null | number | string)",
-                    value: elem,
-                  })),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + "[" + _index1 + "]",
+                          expected: "Array<ArrayRepeatedNullable>",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected:
+                        "(Array<ArrayRepeatedNullable> | null | number | string)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )),
             );
           return (
             (undefined !== input ||
-              $guard(true, {
-                path: _path + "",
-                expected:
-                  "(Array<ArrayRepeatedNullable> | null | number | string)",
-                value: input,
-              })) &&
-            (null === input ||
-              "string" === typeof input ||
-              ("number" === typeof input && Number.isFinite(input)) ||
-              ((Array.isArray(input) ||
-                $guard(true, {
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected:
                     "(Array<ArrayRepeatedNullable> | null | number | string)",
                   value: input,
-                })) &&
-                ($aa0(input, _path + "", true && _exceptionable) ||
-                  $guard(_exceptionable, {
+                },
+                errorFactory,
+              )) &&
+            (null === input ||
+              "string" === typeof input ||
+              ("number" === typeof input && Number.isFinite(input)) ||
+              ((Array.isArray(input) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
-                    expected: "Array<ArrayRepeatedNullable>",
+                    expected:
+                      "(Array<ArrayRepeatedNullable> | null | number | string)",
                     value: input,
-                  }))) ||
-              $guard(true, {
-                path: _path + "",
-                expected:
-                  "(Array<ArrayRepeatedNullable> | null | number | string)",
-                value: input,
-              }))
+                  },
+                  errorFactory,
+                )) &&
+                ($aa0(input, _path + "", true && _exceptionable) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + "",
+                      expected: "Array<ArrayRepeatedNullable>",
+                      value: input,
+                    },
+                    errorFactory,
+                  ))) ||
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected:
+                    "(Array<ArrayRepeatedNullable> | null | number | string)",
+                  value: input,
+                },
+                errorFactory,
+              ))
           );
         })(input, "$input", true);
     })(input),

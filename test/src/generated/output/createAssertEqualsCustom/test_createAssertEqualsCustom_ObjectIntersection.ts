@@ -10,10 +10,9 @@ export const test_createAssertEqualsCustom_ObjectIntersection =
   )<ObjectIntersection>(ObjectIntersection)(
     (
       input: any,
-      errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+      errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
     ): ObjectIntersection => {
-      const $guard = (typia.createAssertEquals as any).guard(errorFactory);
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -42,6 +41,7 @@ export const test_createAssertEqualsCustom_ObjectIntersection =
           _path: string,
           _exceptionable: boolean = true,
         ): input is ObjectIntersection => {
+          const $guard = (typia.createAssertEquals as any).guard;
           const $join = (typia.createAssertEquals as any).join;
           const $ao0 = (
             input: any,
@@ -49,23 +49,35 @@ export const test_createAssertEqualsCustom_ObjectIntersection =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.email ||
-              $guard(_exceptionable, {
-                path: _path + ".email",
-                expected: "string",
-                value: input.email,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".email",
+                  expected: "string",
+                  value: input.email,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("boolean" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "boolean",
-                value: input.vulnerable,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "boolean",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              )) &&
             (3 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -77,25 +89,37 @@ export const test_createAssertEqualsCustom_ObjectIntersection =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectIntersection",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectIntersection",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectIntersection",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

@@ -9,9 +9,8 @@ export const test_assertGuardEqualsCustom_ClassMethod = _test_assertGuardEquals(
 )("ClassMethod")<ClassMethod>(ClassMethod)((input) =>
   ((
     input: any,
-    errorFactory?: import("typia").TypeGuardError.IProps,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): asserts input is ClassMethod => {
-    const $guard = (typia.assertGuardEquals as any).guard(errorFactory);
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -35,6 +34,7 @@ export const test_assertGuardEqualsCustom_ClassMethod = _test_assertGuardEquals(
         _path: string,
         _exceptionable: boolean = true,
       ): input is ClassMethod => {
+        const $guard = (typia.assertGuardEquals as any).guard;
         const $join = (typia.assertGuardEquals as any).join;
         const $ao0 = (
           input: any,
@@ -42,17 +42,25 @@ export const test_assertGuardEqualsCustom_ClassMethod = _test_assertGuardEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.age && Number.isFinite(input.age)) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "number",
-              value: input.age,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".age",
+                expected: "number",
+                value: input.age,
+              },
+              errorFactory,
+            )) &&
           (2 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -60,25 +68,37 @@ export const test_assertGuardEqualsCustom_ClassMethod = _test_assertGuardEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ClassMethod.Animal",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ClassMethod.Animal",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ClassMethod.Animal",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input, (p) => new CustomGuardError(p)),

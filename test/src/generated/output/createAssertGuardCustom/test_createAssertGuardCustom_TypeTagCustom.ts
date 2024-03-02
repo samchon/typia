@@ -9,10 +9,9 @@ export const test_createAssertGuardCustom_TypeTagCustom = _test_assertGuard(
 )("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)(
   (
     input: any,
-    errorFactory: import("typia").TypeGuardError.IProps = (p) =>
+    errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
       new CustomGuardError(p),
   ): asserts input is TypeTagCustom => {
-    const $guard = (typia.createAssertGuard as any).guard(errorFactory);
     const __is = (input: any): input is TypeTagCustom => {
       return (
         "object" === typeof input &&
@@ -43,6 +42,7 @@ export const test_createAssertGuardCustom_TypeTagCustom = _test_assertGuard(
         _path: string,
         _exceptionable: boolean = true,
       ): input is TypeTagCustom => {
+        const $guard = (typia.createAssertGuard as any).guard;
         const $ao0 = (
           input: any,
           _path: string,
@@ -52,76 +52,120 @@ export const test_createAssertGuardCustom_TypeTagCustom = _test_assertGuard(
             (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
               input.id,
             ) ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".id",
+                  expected: 'string & Format<"uuid">',
+                  value: input.id,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".id",
-                expected: 'string & Format<"uuid">',
+                expected: '(string & Format<"uuid">)',
                 value: input.id,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '(string & Format<"uuid">)',
-              value: input.id,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("string" === typeof input.dollar &&
             ((input.dollar[0] === "$" &&
               !isNaN(Number(input.dollar.substring(1).split(",").join("")))) ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".dollar",
+                  expected: "string & Dollar",
+                  value: input.dollar,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".dollar",
-                expected: "string & Dollar",
+                expected: "(string & Dollar)",
                 value: input.dollar,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".dollar",
-              expected: "(string & Dollar)",
-              value: input.dollar,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("string" === typeof input.postfix &&
             (input.postfix.endsWith("abcd") ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".postfix",
+                  expected: 'string & Postfix<"abcd">',
+                  value: input.postfix,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".postfix",
-                expected: 'string & Postfix<"abcd">',
+                expected: '(string & Postfix<"abcd">)',
                 value: input.postfix,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".postfix",
-              expected: '(string & Postfix<"abcd">)',
-              value: input.postfix,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.powerOf &&
             (Number.isFinite(input.powerOf) ||
-              $guard(_exceptionable, {
-                path: _path + ".powerOf",
-                expected: "number",
-                value: input.powerOf,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".powerOf",
+                  expected: "number",
+                  value: input.powerOf,
+                },
+                errorFactory,
+              )) &&
             ((() => {
               const denominator: number = Math.log(2);
               const value: number = Math.log(input.powerOf) / denominator;
               return Math.abs(value - Math.round(value)) < 1e-8;
             })() ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".powerOf",
+                  expected: "number & PowerOf<2>",
+                  value: input.powerOf,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".powerOf",
-                expected: "number & PowerOf<2>",
+                expected: "(number & PowerOf<2>)",
                 value: input.powerOf,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".powerOf",
-              expected: "(number & PowerOf<2>)",
-              value: input.powerOf,
-            }));
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "TypeTagCustom",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "TypeTagCustom",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "TypeTagCustom",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   },

@@ -10,13 +10,12 @@ export const test_json_assertParseCustom_DynamicUndefined =
   )<DynamicUndefined>(DynamicUndefined)((input) =>
     ((
       input: string,
-      errorFactory?: import("typia").TypeGuardError.IProps,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
     ): typia.Primitive<DynamicUndefined> => {
       const assert = (
         input: any,
-        errorFactory?: import("typia").TypeGuardError.IProps,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
       ): DynamicUndefined => {
-        const $guard = (typia.json.assertParse as any).guard(errorFactory);
         const __is = (input: any): input is DynamicUndefined => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -37,6 +36,7 @@ export const test_json_assertParseCustom_DynamicUndefined =
             _path: string,
             _exceptionable: boolean = true,
           ): input is DynamicUndefined => {
+            const $guard = (typia.json.assertParse as any).guard;
             const $join = (typia.json.assertParse as any).join;
             const $ao0 = (
               input: any,
@@ -49,34 +49,50 @@ export const test_json_assertParseCustom_DynamicUndefined =
                 if (undefined === value) return true;
                 return (
                   (null !== value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "undefined",
-                      value: value,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "undefined",
+                        value: value,
+                      },
+                      errorFactory,
+                    )) &&
                   (undefined === value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "undefined",
-                      value: value,
-                    }))
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "undefined",
+                        value: value,
+                      },
+                      errorFactory,
+                    ))
                 );
               });
             return (
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "DynamicUndefined",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "DynamicUndefined",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "DynamicUndefined",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
