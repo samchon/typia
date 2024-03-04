@@ -8,7 +8,7 @@ import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
@@ -299,35 +299,37 @@ export namespace AssertProgrammer {
     export const parameter = (init: ts.Expression | undefined) =>
       IdentifierFactory.parameter(
         "errorFactory",
-        ts.factory.createFunctionTypeNode(
-          undefined,
-          [
-            ts.factory.createParameterDeclaration(
-              undefined,
-              undefined,
-              ts.factory.createIdentifier("p"),
-              undefined,
-              ts.factory.createImportTypeNode(
-                ts.factory.createLiteralTypeNode(
-                  ts.factory.createStringLiteral("typia"),
-                ),
-                undefined,
-                ts.factory.createQualifiedName(
-                  ts.factory.createIdentifier("TypeGuardError"),
-                  ts.factory.createIdentifier("IProps"),
-                ),
-                undefined,
-                false,
+        type(),
+        init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+      );
+    export const type = () =>
+      ts.factory.createFunctionTypeNode(
+        undefined,
+        [
+          ts.factory.createParameterDeclaration(
+            undefined,
+            undefined,
+            ts.factory.createIdentifier("p"),
+            undefined,
+            ts.factory.createImportTypeNode(
+              ts.factory.createLiteralTypeNode(
+                ts.factory.createStringLiteral("typia"),
               ),
               undefined,
+              ts.factory.createQualifiedName(
+                ts.factory.createIdentifier("TypeGuardError"),
+                ts.factory.createIdentifier("IProps"),
+              ),
+              undefined,
+              false,
             ),
-          ],
-          ts.factory.createTypeReferenceNode(
-            ts.factory.createIdentifier("Error"),
             undefined,
           ),
+        ],
+        ts.factory.createTypeReferenceNode(
+          ts.factory.createIdentifier("Error"),
+          undefined,
         ),
-        init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
       );
   }
 }

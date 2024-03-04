@@ -35,17 +35,13 @@ export const _test_assert =
           typia.is<TypeGuardError.IProps>(exp)
         ) {
           if (exp.path && expected.includes(exp.path) === true) continue;
-        } else
-          console.log({
-            actualClassName: (exp as any).constructor.name,
-            expectedClassName: ErrorClass.name,
-          });
-        // console.log({
-        //   expected: expected,
-        //   actual: exp.path,
-        // });
+          else
+            console.log({
+              expected: expected,
+              actual: exp.path,
+            });
+        }
       }
-      // console.log(assert(elem), expected);
       throw new Error(
         `Bug on typia.assert(): failed to detect error on the ${name} type - ${expected}.`,
       );
