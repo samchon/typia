@@ -12,7 +12,7 @@ import { IProject } from "../../transformers/IProject";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { AssertProgrammer } from "../AssertProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {

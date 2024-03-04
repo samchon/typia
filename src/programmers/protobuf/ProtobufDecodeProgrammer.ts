@@ -18,7 +18,7 @@ import { IProject } from "../../transformers/IProject";
 
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 
 export namespace ProtobufDecodeProgrammer {

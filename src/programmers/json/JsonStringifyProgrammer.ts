@@ -24,7 +24,7 @@ import { ArrayUtil } from "../../utils/ArrayUtil";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { OptionPredicator } from "../helpers/OptionPredicator";
 import { StringifyJoiner } from "../helpers/StringifyJoinder";

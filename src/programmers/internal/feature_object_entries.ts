@@ -7,7 +7,7 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { Escaper } from "../../utils/Escaper";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 
 /**
  * @internal

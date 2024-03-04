@@ -20,7 +20,7 @@ import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 import { ProtobufWire } from "../helpers/ProtobufWire";
 import { UnionPredicator } from "../helpers/UnionPredicator";

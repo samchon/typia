@@ -20,7 +20,7 @@ import { Atomic } from "../../typings/Atomic";
 import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpHeadersProgrammer {

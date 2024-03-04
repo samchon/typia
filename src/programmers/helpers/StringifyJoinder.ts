@@ -5,7 +5,7 @@ import { TemplateFactory } from "../../factories/TemplateFactory";
 
 import { stringify_dynamic_properties } from "../internal/stringify_dynamic_properties";
 import { stringify_regular_properties } from "../internal/stringify_regular_properties";
-import { FunctionImporter } from "./FunctionImporeter";
+import { FunctionImporter } from "./FunctionImporter";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
