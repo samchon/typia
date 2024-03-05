@@ -22,7 +22,7 @@ import { TransformerError } from "../transformers/TransformerError";
 import { Escaper } from "../utils/Escaper";
 
 import { Format } from "../tags";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { RandomJoiner } from "./helpers/RandomJoiner";
 import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";

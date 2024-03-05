@@ -18,7 +18,7 @@ import { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpQueryProgrammer {

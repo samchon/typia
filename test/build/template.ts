@@ -101,6 +101,12 @@ function script(
               `${method}<${struct.name}>()`,
               `${method}<${struct.name}>((p) => new CustomGuardError(p))`,
             )
+        : feat.module === "functional"
+        ? (str: string) =>
+            str.replace(
+              `${method}(p)`,
+              `${method}(p, (p) => new CustomGuardError(p))`,
+            )
         : (str: string) =>
             str.replace(
               `${method}<${struct.name}>(input)`,

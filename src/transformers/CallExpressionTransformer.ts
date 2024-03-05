@@ -96,6 +96,10 @@ import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpA
 import { CreateHttpFormDataTransformer } from "./features/http/CreateHttpFormDataTransformer";
 import { CreateHttpIsFormDataTransformer } from "./features/http/CreateHttpIsFormDataTransformer";
 import { CreateHttpValidateFormDataTransformer } from "./features/http/CreateHttpValidateFormDataTransformer";
+import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
+import { FunctionalAssertFunctionProgrammer } from "../programmers/functional/FunctionalAssertFunctionProgrammer";
+import { FunctionalAssertParametersProgrammer } from "../programmers/functional/FunctionalAssertParametersProgrammer";
+import { FunctionAssertReturnProgrammer } from "../programmers/functional/FunctionalAssertReturnProgrammer";
 
 export namespace CallExpressionTransformer {
   export const transform =
@@ -186,6 +190,45 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createEquals: () => CreateIsTransformer.transform(true),
     createValidateEquals: () => CreateValidateTransformer.transform(true),
     createRandom: () => CreateRandomTransformer.transform,
+  },
+  functional: {
+    // ASSERTIONS
+    assertFunction: () =>
+      FunctionalGenericTransformer.transform({
+        method: "assertFunction",
+        equals: false,
+        programmer: FunctionalAssertFunctionProgrammer.write,
+      }),
+    assertParameters: () =>
+      FunctionalGenericTransformer.transform({
+        method: "assertParameters",
+        equals: false,
+        programmer: FunctionalAssertParametersProgrammer.write,
+      }),
+    assertReturn: () =>
+      FunctionalGenericTransformer.transform({
+        method: "assertReturn",
+        equals: false,
+        programmer: FunctionAssertReturnProgrammer.write,
+      }),
+    assertEqualsFunction: () =>
+      FunctionalGenericTransformer.transform({
+        method: "assertEqualsFunction",
+        equals: true,
+        programmer: FunctionalAssertFunctionProgrammer.write,
+      }),
+    assertEqualsParameters: () =>
+      FunctionalGenericTransformer.transform({
+        method: "assertEqualsParameters",
+        equals: true,
+        programmer: FunctionalAssertParametersProgrammer.write,
+      }),
+    assertEqualsReturn: () =>
+      FunctionalGenericTransformer.transform({
+        method: "assertEqualsReturn",
+        equals: true,
+        programmer: FunctionAssertReturnProgrammer.write,
+      }),
   },
   http: {
     // FORM-DATA
