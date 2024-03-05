@@ -13,7 +13,7 @@ export namespace ProtobufAssertDecodeProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
+    (type: ts.Type, name?: string, init?: ts.Expression) =>
       ts.factory.createArrowFunction(
         undefined,
         undefined,
@@ -22,11 +22,20 @@ export namespace ProtobufAssertDecodeProgrammer {
             "input",
             ts.factory.createTypeReferenceNode("Uint8Array"),
           ),
+          AssertProgrammer.Guardian.parameter(init),
         ],
-        ts.factory.createTypeReferenceNode(
-          `typia.Resolved<${
-            name ?? TypeFactory.getFullName(project.checker)(type)
-          }>`,
+        ts.factory.createImportTypeNode(
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral("typia"),
+          ),
+          undefined,
+          ts.factory.createIdentifier("Resolved"),
+          [
+            ts.factory.createTypeReferenceNode(
+              name ?? TypeFactory.getFullName(project.checker)(type),
+            ),
+          ],
+          false,
         ),
         undefined,
         ts.factory.createBlock([
@@ -65,7 +74,10 @@ export namespace ProtobufAssertDecodeProgrammer {
               ts.factory.createCallExpression(
                 ts.factory.createIdentifier("assert"),
                 undefined,
-                [ts.factory.createIdentifier("output")],
+                [
+                  ts.factory.createIdentifier("output"),
+                  AssertProgrammer.Guardian.identifier(),
+                ],
               ),
               TypeFactory.keyword("any"),
             ),

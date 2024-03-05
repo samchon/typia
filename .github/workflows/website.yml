@@ -5,11 +5,6 @@ on:
       - master
     paths:
       - 'website/**'
-  pull_request:
-    branches:
-      - master
-    paths:
-      - 'website/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { FunctionImporter } from "./FunctionImporeter";
+import { FunctionImporter } from "./FunctionImporter";
 
 export const disable_function_importer_declare = (
   importer: FunctionImporter,

@@ -1,0 +1,408 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `assertFunction()`
+<Tabs items={[
+  <code>typia</code>,
+  <code>TypeGuardError.ts</code>
+]}>
+  <Tab>
+```typescript showLineNumbers
+export namespace functional {
+  export function assertFunction<T extends Function>(func: T): T;
+  export function assertParameters<T extends Function>(func: T): T;
+  export function assertReturn<T extends Function>(func: T): T;
+
+  export function assertEqualsFunction<T extends Function>(func: T): T;
+  export function assertEqualsParameters<T extends Function>(func: T): T;
+  export function assertEqualsReturn<T extends Function>(func: T): T;
+}
+```
+  </Tab>
+  <Tab>
+```typescript showLineNumbers
+export class TypeGuardError extends Error {
+  public readonly method: string;
+  public readonly path: string | undefined;
+  public readonly expected: string;
+  public readonly value: any;
+}
+```
+  </Tab>
+</Tabs>
+
+Asserts a function.
+
+`typia.functional.assertFunction<T>()` asserts a function, by wrapping the parameter function and checking its parametrs and return value through [`typia.assert<T>()`](./assert) function. If some parameter or return value does not match the expected type, it throws a `TypeGuardError` error.
+
+For reference, `TypeGuardError.path` would be a little bit different with individual [`typia.assert<T>()`](./assert) function. If `TypeGuardError` occurs from some parameter, the path wouold start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+
+  - `$input.parameters[0].~`
+  - `$input.return.~`
+
+By the way, if you don't want to assert both paramters and return value, but one of them, you can use `typia.functional.assertParameters<T>()` or `typia.functional.assertReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.assertEqualsFunction<T>()` would be helpful.
+
+Also, if what you want is not just finding the first type error through assertion, but also finding every type errors, utilize [`typia.functional.validateFunction<T>()`](#validatefunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/assertFunction.ts" showLineNumbers
+import typia from "typia";
+
+typia.functional.assertFunction(
+  (x: number, y: number) => x + y,
+)(3, 4);
+```
+  </Tab>
+  <Tab>
+```javascript filename="examples/bin/assertFunction.js" showLineNumbers
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+((x, y) => {
+  const errorFactoryWrapper =
+    typia_1.default.functional.assertFunction.errorFactory;
+  ((
+    input,
+    errorFactory = (p) =>
+      errorFactoryWrapper({
+        ...p,
+        path: p.path
+          ? p.path.replace("$input", "$input.parameters[0]")
+          : undefined,
+      }),
+  ) => {
+    const __is = (input) => {
+      return "number" === typeof input;
+    };
+    if (false === __is(input))
+      ((input, _path, _exceptionable = true) => {
+        const $guard = typia_1.default.functional.assertFunction.guard;
+        return (
+          "number" === typeof input ||
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "number",
+              value: input,
+            },
+            errorFactory,
+          )
+        );
+      })(input, "$input", true);
+    return input;
+  })(x);
+  ((
+    input,
+    errorFactory = (p) =>
+      errorFactoryWrapper({
+        ...p,
+        path: p.path
+          ? p.path.replace("$input", "$input.parameters[1]")
+          : undefined,
+      }),
+  ) => {
+    const __is = (input) => {
+      return "number" === typeof input;
+    };
+    if (false === __is(input))
+      ((input, _path, _exceptionable = true) => {
+        const $guard = typia_1.default.functional.assertFunction.guard;
+        return (
+          "number" === typeof input ||
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "number",
+              value: input,
+            },
+            errorFactory,
+          )
+        );
+      })(input, "$input", true);
+    return input;
+  })(y);
+  return ((
+    input,
+    errorFactory = (p) =>
+      errorFactoryWrapper({
+        ...p,
+        path: p.path ? p.path.replace("$input", "$input.return") : undefined,
+      }),
+  ) => {
+    const __is = (input) => {
+      return true;
+    };
+    if (false === __is(input))
+      ((input, _path, _exceptionable = true) => {
+        return true;
+      })(input, "$input", true);
+    return input;
+  })(((x, y) => x + y)(x, y));
+})(3, 4);
+```
+  </Tab>
+</Tabs>
+
+
+
+
+## `isFunction()`
+```typescript filename="typia" showLineNumbers
+export namespace functional {
+  export function isFunction<T extends (...args: any[]) => any>(
+    func: T,
+  ): T extends (...args: infer Arguments) => infer Output
+    ? Output extends Promise<infer R>
+      ? (...args: Arguments) => Promise<R | null>
+      : (...args: Arguments) => Output | null
+    : never;
+  export function isParameters;
+  export function isReturn;
+
+  export function isEqualsFunction;
+  export function isEqualsParameters;
+  export function isEqualsReturn;
+}
+```
+
+Tests a function.
+
+`typia.functional.isFunction<T>()` tests a function, by wrapping the parameter function and checking its paramters and return value through [`typia.is<T>()`](./is) function. If some parameter or return value does not match the expected type, it returns `null`. Otherwise, it returns the return value of the parameter function.
+
+By the way, if you don't want to test both paramters and return value, but one of them, you can use `typia.functional.isParameters<T>()` or `typia.functional.isReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.equalsFunction<T>()` would be helpful.
+
+Also, if what you want is not just type checking, but want to know the detailed reason(s) why, utilize [`typia.functional.assertFunction<T>`()](#assertfunction) or [`typia.functional.validateFunction<T>()`](#validatefunction) instead.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/isFunction.ts" showLineNumbers
+import typia from "typia";
+
+typia.functional.isFunction(
+  (x: number, y: number) => x + y,
+)(3, 4);
+```
+  </Tab>
+  <Tab>
+```javascript filename="examples/bin/isFunction.js" showLineNumbers
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+((x, y) => {
+  if (
+    false ===
+    ((input) => {
+      return "number" === typeof input;
+    })(x)
+  )
+    return null;
+  if (
+    false ===
+    ((input) => {
+      return "number" === typeof input;
+    })(y)
+  )
+    return null;
+  const result = ((x, y) => x + y)(x, y);
+  return ((input) => {
+    return true;
+  })(result)
+    ? result
+    : null;
+})(3, 4);
+```
+  </Tab>
+</Tabs>
+
+
+
+
+## `validateFunction()`
+<Tabs items={[
+  <code>typia</code>,
+  <code>IValidation.ts</code>
+]}>
+  <Tab>
+```typescript showLineNumbers
+export namespace functional {
+  export function validateFunction<T extends (...args: any[]) => any>(
+    func: T,
+  ): T extends (...args: infer Arguments) => infer Output
+    ? Output extends Promise<infer R>
+      ? (...args: Arguments) => Promise<IValidation<R>>
+      : (...args: Arguments) => IValidation<Output>
+    : never;
+  export function validateParameters;
+  export function validateReturn;
+
+  export function validateEqualsFunction;
+  export function validateEqualsParameters;
+  export function validateEqualsReturn;
+}
+```
+  </Tab>
+  <Tab>
+```typescript showLineNumbers
+export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
+export namespace IValidation {
+  export interface ISuccess<T> {
+    success: true;
+    data: T;
+  }
+  export interface IFailure {
+    success: false;
+    errors: IError[];
+  }
+  export interface IError {
+    path: string;
+    expected: string;
+    value: any;
+  }
+}
+```
+  </Tab>
+</Tabs>
+
+Validates a function.
+
+`typia.functional.validateFunction<T>()` validates a function, by wrapping the parameter function and checking its paramters and return value through [`typia.validate<T>()`](./validate) function. If some parameter or return value does not match the expected type, it returns a `IValidation.IFailure` typed object. Otherwise, it returns a `IValidation.ISuccess` typed object instead.
+
+For reference, `IValidation.IError.path` would be a little bit different with individual [`typia.validate<T>()`](./validate) function. If `IValidation.IError` occurs from some parameter, the path wouold start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+
+  - `$input.parameters[0].~`
+  - `$input.return.~`
+
+By the way, if you don't want to validate both paramters and return value, but one of them, you can use `typia.functional.validateParameters<T>()` or `typia.functional.validateReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.validateEqualsFunction<T>()` would be helpful.
+
+Also, if what you want is not retrieving every type errors, but just finding the first type error, utilize [`typia.functional.assertFunction<T>()`](#assertfunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/validateFunction.ts" showLineNumbers
+import typia from "typia";
+
+typia.functional.validateFunction(
+  (x: number, y: number) => x + y,
+)(3, 4);
+```
+  </Tab>
+  <Tab>
+```javascript filename="examples/bin/validateFunction.js" showLineNumbers
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+((x, y) => {
+  const paramResults = [
+    ((input) => {
+      const errors = [];
+      const __is = (input) => {
+        return "number" === typeof input;
+      };
+      if (false === __is(input)) {
+        const $report =
+          typia_1.default.functional.validateFunction.report(errors);
+        ((input, _path, _exceptionable = true) => {
+          return (
+            "number" === typeof input ||
+            $report(true, {
+              path: _path + "",
+              expected: "number",
+              value: input,
+            })
+          );
+        })(input, "$input", true);
+      }
+      const success = 0 === errors.length;
+      return {
+        success,
+        errors,
+        data: success ? input : undefined,
+      };
+    })(x),
+    ((input) => {
+      const errors = [];
+      const __is = (input) => {
+        return "number" === typeof input;
+      };
+      if (false === __is(input)) {
+        const $report =
+          typia_1.default.functional.validateFunction.report(errors);
+        ((input, _path, _exceptionable = true) => {
+          return (
+            "number" === typeof input ||
+            $report(true, {
+              path: _path + "",
+              expected: "number",
+              value: input,
+            })
+          );
+        })(input, "$input", true);
+      }
+      const success = 0 === errors.length;
+      return {
+        success,
+        errors,
+        data: success ? input : undefined,
+      };
+    })(y),
+  ].filter((r) => false === r.success);
+  if (paramResults.length > 0)
+    return {
+      success: false,
+      errors: paramResults
+        .map((r, i) =>
+          r.errors.map((error) => ({
+            ...error,
+            path: error.path.replace("$input", `$input.parameters[${i}]`),
+          })),
+        )
+        .flat(),
+    };
+  const result = ((input) => {
+    const errors = [];
+    const __is = (input) => {
+      return true;
+    };
+    if (false === __is(input)) {
+      const $report =
+        typia_1.default.functional.validateFunction.report(errors);
+      ((input, _path, _exceptionable = true) => {
+        return true;
+      })(input, "$input", true);
+    }
+    const success = 0 === errors.length;
+    return {
+      success,
+      errors,
+      data: success ? input : undefined,
+    };
+  })(((x, y) => x + y)(x, y));
+  if (!result.success)
+    result.errors = result.errors.map((error) => ({
+      ...error,
+      path: error.path.replace("$input", "$input.return"),
+    }));
+  return result;
+})(3, 4);
+```
+  </Tab>
+</Tabs>

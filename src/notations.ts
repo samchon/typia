@@ -4,6 +4,7 @@ import { CamelCase } from "./CamelCase";
 import { IValidation } from "./IValidation";
 import { PascalCase } from "./PascalCase";
 import { SnakeCase } from "./SnakeCase";
+import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     NOTATIONS (NAMING CONVENTIONS)
@@ -55,11 +56,15 @@ export { camelPure as camel };
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Camel case object
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertCamel<T>(input: T): CamelCase<T>;
+function assertCamel<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): CamelCase<T>;
 
 /**
  * Converts to camel case with type assertion.
@@ -69,11 +74,15 @@ function assertCamel<T>(input: T): CamelCase<T>;
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Camel case object
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertCamel<T>(input: unknown): CamelCase<T>;
+function assertCamel<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): CamelCase<T>;
 
 /**
  * @internal
@@ -226,11 +235,15 @@ export { pascalPure as pascal };
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Pascal case object
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPascal<T>(input: T): PascalCase<T>;
+function assertPascal<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): PascalCase<T>;
 
 /**
  * Converts to pascal case with type assertion.
@@ -240,11 +253,15 @@ function assertPascal<T>(input: T): PascalCase<T>;
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Pascal case object
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPascal<T>(input: unknown): PascalCase<T>;
+function assertPascal<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): PascalCase<T>;
 
 /**
  * @internal
@@ -397,11 +414,15 @@ export { snakePure as snake };
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Snake case object
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertSnake<T>(input: T): SnakeCase<T>;
+function assertSnake<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): SnakeCase<T>;
 
 /**
  * Converts to snake case with type assertion.
@@ -411,11 +432,15 @@ function assertSnake<T>(input: T): SnakeCase<T>;
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Snake case object
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertSnake<T>(input: unknown): SnakeCase<T>;
+function assertSnake<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): SnakeCase<T>;
 
 /**
  * @internal
@@ -563,22 +588,28 @@ export { createCamelPure as createCamel };
  * Creates a reusable {@link assertCamel} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertCamel(): never;
+function createAssertCamel(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertCamel} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertCamel` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertCamel<T>(): (input: T) => CamelCase<T>;
+function createAssertCamel<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => CamelCase<T>;
 
 /**
  * @internal
@@ -710,22 +741,28 @@ export { createPascalPure as createPascal };
  * Creates a reusable {@link assertPascal} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPascal(): never;
+function createAssertPascal(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertPascal} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertPascal` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPascal<T>(): (input: T) => PascalCase<T>;
+function createAssertPascal<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => PascalCase<T>;
 
 /**
  * @internal
@@ -857,22 +894,28 @@ export { createSnakePure as createSnake };
  * Creates a reusable {@link assertSnake} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertSnake(): never;
+function createAssertSnake(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertSnake} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertSnake` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertSnake<T>(): (input: T) => SnakeCase<T>;
+function createAssertSnake<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => SnakeCase<T>;
 
 /**
  * @internal

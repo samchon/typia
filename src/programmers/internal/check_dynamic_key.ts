@@ -4,7 +4,7 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { IProject } from "../../transformers/IProject";
 
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ICheckEntry } from "../helpers/ICheckEntry";
 import { check_bigint } from "./check_bigint";
 import { check_number } from "./check_number";

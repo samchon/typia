@@ -17,7 +17,7 @@ export namespace GenericTransformer {
     (modulo: ts.LeftHandSideExpression) =>
     (expression: ts.CallExpression) => {
       // CHECK PARAMETER
-      if (expression.arguments.length !== 1)
+      if (expression.arguments.length === 0)
         throw new TransformerError({
           code: `typia.${method}`,
           message: `no input value.`,
@@ -51,7 +51,7 @@ export namespace GenericTransformer {
             : name(project.checker)(type)(node),
         ),
         undefined,
-        [expression.arguments[0]!],
+        expression.arguments,
       );
     };
 
@@ -62,7 +62,11 @@ export namespace GenericTransformer {
         project: IProject,
       ) => (
         modulo: ts.LeftHandSideExpression,
-      ) => (type: ts.Type, name: string) => ts.ArrowFunction,
+      ) => (
+        type: ts.Type,
+        name: string,
+        init?: ts.Expression,
+      ) => ts.ArrowFunction,
     ) =>
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
@@ -85,7 +89,11 @@ export namespace GenericTransformer {
         });
 
       // DO TRANSFORM
-      return programmer(project)(modulo)(type, node.getFullText().trim());
+      return programmer(project)(modulo)(
+        type,
+        node.getFullText().trim(),
+        expression.arguments[0],
+      );
     };
 
   const name =

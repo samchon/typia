@@ -120,18 +120,8 @@ export namespace TypiaProgrammer {
         .replace(props.input, props.output);
 
       const content: string = printer.printFile(file);
-      await fs.promises.writeFile(to, emend(content), "utf8");
+      await fs.promises.writeFile(to, content, "utf8");
     }
-  };
-
-  const emend = (content: string): string => {
-    if (
-      content.indexOf("typia.") === -1 ||
-      content.indexOf("import typia") !== -1 ||
-      content.indexOf("import * as typia") !== -1
-    )
-      return content;
-    return `import typia from "typia";\n\n${content}`;
   };
 
   const is_directory = async (current: string): Promise<boolean> => {
