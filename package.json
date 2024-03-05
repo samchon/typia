@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "5.5.0-dev.20240304",
+  "version": "5.5.0-dev.20240305",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -14,6 +14,7 @@
   },
   "scripts": {
     "test": "npm run package:tgz",
+    "test:template": "npm run test template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc --declaration false && tsc --emitDeclarationOnly",
     "dev": "rimraf lib && tsc --watch",

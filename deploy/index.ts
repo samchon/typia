@@ -90,7 +90,11 @@ const main = (): void => {
   const version: string = publish("tgz");
 
   title("TEST AUTOMATION PROGRAM");
-  test(version)("test")(["npm run build:actions", "npm start"]);
+  test(version)("test")(
+    tag === "tgz" && process.argv[3] === "template"
+      ? ["npm run template", "npm run build", "npm start"]
+      : ["npm run build:actions", "npm start"],
+  );
   test(version)("errors")(["npm start"]);
   test(version)("benchmark")(["npm run build"]);
 
