@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectUnionNonPredictable =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectUnionNonPredictable> => {
+    ): import("typia").Resolved<ObjectUnionNonPredictable> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -334,7 +334,7 @@ export const test_misc_createAssertCloneCustom_ObjectUnionNonPredictable =
       };
       const clone = (
         input: ObjectUnionNonPredictable,
-      ): typia.Resolved<ObjectUnionNonPredictable> => {
+      ): import("typia").Resolved<ObjectUnionNonPredictable> => {
         const $io1 = (input: any): boolean =>
           "object" === typeof input.value &&
           null !== input.value &&

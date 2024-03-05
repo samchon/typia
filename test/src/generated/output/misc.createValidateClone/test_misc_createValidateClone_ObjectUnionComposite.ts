@@ -555,7 +555,7 @@ export const test_misc_createValidateClone_ObjectUnionComposite =
     };
     const clone = (
       input: ObjectUnionComposite,
-    ): typia.Resolved<ObjectUnionComposite> => {
+    ): import("typia").Resolved<ObjectUnionComposite> => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x && "number" === typeof input.y;
       const $io1 = (input: any): boolean =>

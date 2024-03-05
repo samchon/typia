@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_ConstantAtomicAbsorbed =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<ConstantAtomicAbsorbed> => {
+    ): import("typia").Primitive<ConstantAtomicAbsorbed> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

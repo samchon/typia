@@ -6,7 +6,7 @@ import { TypeTagType } from "../../../structures/TypeTagType";
 export const test_misc_isClone_TypeTagType = _test_misc_isClone(
   "TypeTagType",
 )<TypeTagType>(TypeTagType)((input) =>
-  ((input: any): typia.Resolved<TypeTagType> | null => {
+  ((input: any): import("typia").Resolved<TypeTagType> | null => {
     const is = (input: any): input is TypeTagType => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -44,7 +44,9 @@ export const test_misc_isClone_TypeTagType = _test_misc_isClone(
         input.float <= 3.4028235e38;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagType): typia.Resolved<TypeTagType> => {
+    const clone = (
+      input: TypeTagType,
+    ): import("typia").Resolved<TypeTagType> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.int &&
         Math.floor(input.int) === input.int &&

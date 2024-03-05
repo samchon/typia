@@ -10,7 +10,7 @@ export const test_protobuf_isDecode_ObjectUnionNonPredictable =
     decode: (input) =>
       ((
         input: Uint8Array,
-      ): typia.Resolved<ObjectUnionNonPredictable> | null => {
+      ): import("typia").Resolved<ObjectUnionNonPredictable> | null => {
         const is = (input: any): input is ObjectUnionNonPredictable => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -50,7 +50,7 @@ export const test_protobuf_isDecode_ObjectUnionNonPredictable =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectUnionNonPredictable> => {
+        ): import("typia").Resolved<ObjectUnionNonPredictable> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

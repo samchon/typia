@@ -6,7 +6,7 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 export const test_json_isParse_AtomicClass = _test_json_isParse(
   "AtomicClass",
 )<AtomicClass>(AtomicClass)((input) =>
-  ((input: any): typia.Primitive<AtomicClass> => {
+  ((input: any): import("typia").Primitive<AtomicClass> => {
     const is = (input: any): input is AtomicClass => {
       return (
         Array.isArray(input) &&

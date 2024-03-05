@@ -8,7 +8,7 @@ export const test_createRandom_ObjectJsonTag = _test_random(
 )<ObjectJsonTag>(ObjectJsonTag)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectJsonTag as any).RANDOM,
-  ): typia.Resolved<ObjectJsonTag> => {
+  ): import("typia").Resolved<ObjectJsonTag> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       vulnerable:

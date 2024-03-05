@@ -7,7 +7,7 @@ export const test_protobuf_decode_ObjectHttpConstant = _test_protobuf_decode(
   "ObjectHttpConstant",
 )<ObjectHttpConstant>(ObjectHttpConstant)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectHttpConstant> => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectHttpConstant> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

@@ -10,7 +10,7 @@ export const test_misc_assertCloneCustom_ClassMethod = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ClassMethod> => {
+  ): import("typia").Resolved<ClassMethod> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -81,7 +81,9 @@ export const test_misc_assertCloneCustom_ClassMethod = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ClassMethod): typia.Resolved<ClassMethod> => {
+    const clone = (
+      input: ClassMethod,
+    ): import("typia").Resolved<ClassMethod> => {
       const $co0 = (input: any): any => ({
         name: input.name as any,
         age: input.age as any,

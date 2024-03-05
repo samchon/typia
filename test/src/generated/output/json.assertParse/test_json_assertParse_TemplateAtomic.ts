@@ -10,7 +10,7 @@ export const test_json_assertParse_TemplateAtomic = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<TemplateAtomic> => {
+  ): import("typia").Primitive<TemplateAtomic> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

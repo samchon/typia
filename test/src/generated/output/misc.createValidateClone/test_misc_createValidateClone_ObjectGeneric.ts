@@ -389,7 +389,9 @@ export const test_misc_createValidateClone_ObjectGeneric =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectGeneric): typia.Resolved<ObjectGeneric> => {
+      const clone = (
+        input: ObjectGeneric,
+      ): import("typia").Resolved<ObjectGeneric> => {
         const $io0 = (input: any): boolean =>
           "boolean" === typeof input.value &&
           "object" === typeof input.child &&

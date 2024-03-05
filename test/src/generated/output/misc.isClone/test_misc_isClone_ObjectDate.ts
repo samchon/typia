@@ -6,7 +6,7 @@ import { ObjectDate } from "../../../structures/ObjectDate";
 export const test_misc_isClone_ObjectDate = _test_misc_isClone(
   "ObjectDate",
 )<ObjectDate>(ObjectDate)((input) =>
-  ((input: any): typia.Resolved<ObjectDate> | null => {
+  ((input: any): import("typia").Resolved<ObjectDate> | null => {
     const is = (input: any): input is ObjectDate => {
       const $io0 = (input: any): boolean =>
         (null === input.classDate ||
@@ -30,7 +30,7 @@ export const test_misc_isClone_ObjectDate = _test_misc_isClone(
             )));
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: ObjectDate): typia.Resolved<ObjectDate> => {
+    const clone = (input: ObjectDate): import("typia").Resolved<ObjectDate> => {
       const $co0 = (input: any): any => ({
         classDate:
           input.classDate instanceof Date

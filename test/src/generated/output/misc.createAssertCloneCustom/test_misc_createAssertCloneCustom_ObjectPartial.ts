@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectPartial =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectPartial> => {
+    ): import("typia").Resolved<ObjectPartial> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -281,7 +281,9 @@ export const test_misc_createAssertCloneCustom_ObjectPartial =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: ObjectPartial): typia.Resolved<ObjectPartial> => {
+      const clone = (
+        input: ObjectPartial,
+      ): import("typia").Resolved<ObjectPartial> => {
         const $io1 = (input: any): boolean =>
           "boolean" === typeof input.boolean &&
           "number" === typeof input.number &&

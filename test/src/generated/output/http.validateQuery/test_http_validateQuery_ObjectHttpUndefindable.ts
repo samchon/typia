@@ -148,7 +148,7 @@ export const test_http_validateQuery_ObjectHttpUndefindable =
       };
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpUndefindable> => {
+      ): import("typia").Resolved<ObjectHttpUndefindable> => {
         const $params = (typia.http.validateQuery as any).params;
         const $boolean = (typia.http.validateQuery as any).boolean;
         const $bigint = (typia.http.validateQuery as any).bigint;

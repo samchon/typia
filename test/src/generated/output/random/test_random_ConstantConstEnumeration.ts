@@ -9,7 +9,7 @@ export const test_random_ConstantConstEnumeration = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ConstantConstEnumeration> => {
+    ): import("typia").Resolved<ConstantConstEnumeration> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       return (generator?.array ?? $generator.array)(() =>

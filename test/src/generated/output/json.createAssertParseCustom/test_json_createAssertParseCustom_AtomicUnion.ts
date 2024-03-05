@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_AtomicUnion =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<AtomicUnion> => {
+    ): import("typia").Primitive<AtomicUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

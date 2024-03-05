@@ -117,7 +117,7 @@ export const test_misc_createValidateClone_TupleRestObject =
       };
       const clone = (
         input: TupleRestObject,
-      ): typia.Resolved<TupleRestObject> => {
+      ): import("typia").Resolved<TupleRestObject> => {
         const $io0 = (input: any): boolean => "string" === typeof input.value;
         const $cp0 = (input: any) =>
           input.map((elem: any) =>

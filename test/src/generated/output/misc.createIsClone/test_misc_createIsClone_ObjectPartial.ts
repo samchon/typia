@@ -6,7 +6,7 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 export const test_misc_createIsClone_ObjectPartial = _test_misc_isClone(
   "ObjectPartial",
 )<ObjectPartial>(ObjectPartial)(
-  (input: any): typia.Resolved<ObjectPartial> | null => {
+  (input: any): import("typia").Resolved<ObjectPartial> | null => {
     const is = (input: any): input is ObjectPartial => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -44,7 +44,9 @@ export const test_misc_createIsClone_ObjectPartial = _test_misc_isClone(
         $io0(input)
       );
     };
-    const clone = (input: ObjectPartial): typia.Resolved<ObjectPartial> => {
+    const clone = (
+      input: ObjectPartial,
+    ): import("typia").Resolved<ObjectPartial> => {
       const $io1 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&
         "number" === typeof input.number &&

@@ -6,7 +6,7 @@ import { CommentTagRange } from "../../../structures/CommentTagRange";
 export const test_misc_clone_CommentTagRange = _test_misc_clone(
   "CommentTagRange",
 )<CommentTagRange>(CommentTagRange)((input) =>
-  ((input: CommentTagRange): typia.Resolved<CommentTagRange> => {
+  ((input: CommentTagRange): import("typia").Resolved<CommentTagRange> => {
     const $io1 = (input: any): boolean =>
       "number" === typeof input.greater &&
       Math.floor(input.greater) === input.greater &&

@@ -6,7 +6,7 @@ import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 export const test_json_isParse_CommentTagArrayUnion = _test_json_isParse(
   "CommentTagArrayUnion",
 )<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>
-  ((input: any): typia.Primitive<CommentTagArrayUnion> => {
+  ((input: any): import("typia").Primitive<CommentTagArrayUnion> => {
     const is = (input: any): input is CommentTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&

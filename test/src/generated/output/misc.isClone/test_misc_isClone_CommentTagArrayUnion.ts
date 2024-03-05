@@ -6,7 +6,7 @@ import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 export const test_misc_isClone_CommentTagArrayUnion = _test_misc_isClone(
   "CommentTagArrayUnion",
 )<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>
-  ((input: any): typia.Resolved<CommentTagArrayUnion> | null => {
+  ((input: any): import("typia").Resolved<CommentTagArrayUnion> | null => {
     const is = (input: any): input is CommentTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&
@@ -39,7 +39,7 @@ export const test_misc_isClone_CommentTagArrayUnion = _test_misc_isClone(
     };
     const clone = (
       input: CommentTagArrayUnion,
-    ): typia.Resolved<CommentTagArrayUnion> => {
+    ): import("typia").Resolved<CommentTagArrayUnion> => {
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

@@ -92,7 +92,9 @@ export const test_misc_validateClone_ObjectOptional = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: ObjectOptional): typia.Resolved<ObjectOptional> => {
+    const clone = (
+      input: ObjectOptional,
+    ): import("typia").Resolved<ObjectOptional> => {
       const $co0 = (input: any): any => ({
         id: input.id as any,
         name: input.name as any,

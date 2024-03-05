@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_TypeTagDefault =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<TypeTagDefault> => {
+    ): import("typia").Primitive<TypeTagDefault> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

@@ -11,8 +11,10 @@ export const test_protobuf_createAssertDecode_CommentTagLength =
     decode: (
       input: Uint8Array,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<CommentTagLength> => {
-      const decode = (input: Uint8Array): typia.Resolved<CommentTagLength> => {
+    ): import("typia").Resolved<CommentTagLength> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagLength> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

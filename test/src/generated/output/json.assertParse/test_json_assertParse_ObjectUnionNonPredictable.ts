@@ -11,7 +11,7 @@ export const test_json_assertParse_ObjectUnionNonPredictable =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectUnionNonPredictable> => {
+    ): import("typia").Primitive<ObjectUnionNonPredictable> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

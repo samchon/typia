@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ArrayRecursiveUnionExplicit =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ArrayRecursiveUnionExplicit> => {
+    ): import("typia").Resolved<ArrayRecursiveUnionExplicit> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -602,7 +602,7 @@ export const test_misc_createAssertCloneCustom_ArrayRecursiveUnionExplicit =
       };
       const clone = (
         input: ArrayRecursiveUnionExplicit,
-      ): typia.Resolved<ArrayRecursiveUnionExplicit> => {
+      ): import("typia").Resolved<ArrayRecursiveUnionExplicit> => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.id &&
           "string" === typeof input.name &&

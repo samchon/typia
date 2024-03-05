@@ -6,7 +6,7 @@ import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorb
 export const test_misc_isClone_ConstantAtomicAbsorbed = _test_misc_isClone(
   "ConstantAtomicAbsorbed",
 )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
-  ((input: any): typia.Resolved<ConstantAtomicAbsorbed> | null => {
+  ((input: any): import("typia").Resolved<ConstantAtomicAbsorbed> | null => {
     const is = (input: any): input is ConstantAtomicAbsorbed => {
       return (
         "object" === typeof input &&
@@ -18,7 +18,7 @@ export const test_misc_isClone_ConstantAtomicAbsorbed = _test_misc_isClone(
     };
     const clone = (
       input: ConstantAtomicAbsorbed,
-    ): typia.Resolved<ConstantAtomicAbsorbed> => {
+    ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
       const $co0 = (input: any): any => ({
         id: input.id as any,
         age: input.age as any,

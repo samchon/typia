@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_AtomicSimple =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<AtomicSimple> => {
+    ): import("typia").Resolved<AtomicSimple> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -98,7 +98,9 @@ export const test_misc_createAssertCloneCustom_AtomicSimple =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: AtomicSimple): typia.Resolved<AtomicSimple> => {
+      const clone = (
+        input: AtomicSimple,
+      ): import("typia").Resolved<AtomicSimple> => {
         return Array.isArray(input) &&
           input.length === 3 &&
           "boolean" === typeof input[0] &&

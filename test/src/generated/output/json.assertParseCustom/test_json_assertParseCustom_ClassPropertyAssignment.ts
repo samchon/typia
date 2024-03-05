@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ClassPropertyAssignment =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ClassPropertyAssignment> => {
+    ): import("typia").Primitive<ClassPropertyAssignment> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

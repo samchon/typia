@@ -6,7 +6,7 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_json_isParse_ObjectRequired = _test_json_isParse(
   "ObjectRequired",
 )<ObjectRequired>(ObjectRequired)((input) =>
-  ((input: any): typia.Primitive<ObjectRequired> => {
+  ((input: any): import("typia").Primitive<ObjectRequired> => {
     const is = (input: any): input is ObjectRequired => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&

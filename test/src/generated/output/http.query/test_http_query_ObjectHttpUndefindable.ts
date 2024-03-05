@@ -8,7 +8,7 @@ export const test_http_query_ObjectHttpUndefindable = _test_http_query(
 )<ObjectHttpUndefindable>(ObjectHttpUndefindable)((input) =>
   ((
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpUndefindable> => {
+  ): import("typia").Resolved<ObjectHttpUndefindable> => {
     const $params = (typia.http.query as any).params;
     const $boolean = (typia.http.query as any).boolean;
     const $bigint = (typia.http.query as any).bigint;

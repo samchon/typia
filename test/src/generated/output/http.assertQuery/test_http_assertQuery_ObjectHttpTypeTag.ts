@@ -10,10 +10,10 @@ export const test_http_assertQuery_ObjectHttpTypeTag = _test_http_assertQuery(
   ((
     input: string | URLSearchParams,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectHttpTypeTag> => {
+  ): import("typia").Resolved<ObjectHttpTypeTag> => {
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpTypeTag> => {
+    ): import("typia").Resolved<ObjectHttpTypeTag> => {
       const $params = (typia.http.assertQuery as any).params;
       const $number = (typia.http.assertQuery as any).number;
       const $bigint = (typia.http.assertQuery as any).bigint;

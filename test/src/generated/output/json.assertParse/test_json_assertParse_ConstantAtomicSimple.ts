@@ -11,7 +11,7 @@ export const test_json_assertParse_ConstantAtomicSimple =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ConstantAtomicSimple> => {
+    ): import("typia").Primitive<ConstantAtomicSimple> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

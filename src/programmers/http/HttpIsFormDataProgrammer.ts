@@ -24,10 +24,18 @@ export namespace HttpIsFormDataProgrammer {
           ),
         ],
         ts.factory.createUnionTypeNode([
-          ts.factory.createTypeReferenceNode(
-            `typia.Resolved<${
-              name ?? TypeFactory.getFullName(project.checker)(type)
-            }>`,
+          ts.factory.createImportTypeNode(
+            ts.factory.createLiteralTypeNode(
+              ts.factory.createStringLiteral("typia"),
+            ),
+            undefined,
+            ts.factory.createIdentifier("Resolved"),
+            [
+              ts.factory.createTypeReferenceNode(
+                name ?? TypeFactory.getFullName(project.checker)(type),
+              ),
+            ],
+            false,
           ),
           ts.factory.createLiteralTypeNode(ts.factory.createNull()),
         ]),

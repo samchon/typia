@@ -10,7 +10,7 @@ export const test_createRandom_ArrayHierarchicalPointer = _test_random(
     generator: Partial<typia.IRandomGenerator> = (
       ArrayHierarchicalPointer as any
     ).RANDOM,
-  ): typia.Resolved<ArrayHierarchicalPointer> => {
+  ): import("typia").Resolved<ArrayHierarchicalPointer> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.array ?? $generator.array)(() =>

@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
+    ): import("typia").Resolved<ArrayRecursiveUnionExplicitPointer> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -662,7 +662,7 @@ export const test_misc_createAssertClone_ArrayRecursiveUnionExplicitPointer =
       };
       const clone = (
         input: ArrayRecursiveUnionExplicitPointer,
-      ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
+      ): import("typia").Resolved<ArrayRecursiveUnionExplicitPointer> => {
         const $io1 = (input: any): boolean =>
           "object" === typeof input.value &&
           null !== input.value &&

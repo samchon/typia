@@ -10,7 +10,7 @@ export const test_json_createAssertParse_TypeTagType = _test_json_assertParse(
   (
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<TypeTagType> => {
+  ): import("typia").Primitive<TypeTagType> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

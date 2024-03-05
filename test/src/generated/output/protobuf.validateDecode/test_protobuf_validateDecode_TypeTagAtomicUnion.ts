@@ -143,7 +143,7 @@ export const test_protobuf_validateDecode_TypeTagAtomicUnion =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<TypeTagAtomicUnion> => {
+        ): import("typia").Resolved<TypeTagAtomicUnion> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

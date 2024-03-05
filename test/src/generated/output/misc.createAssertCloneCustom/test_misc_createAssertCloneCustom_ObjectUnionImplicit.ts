@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectUnionImplicit =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectUnionImplicit> => {
+    ): import("typia").Resolved<ObjectUnionImplicit> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -765,7 +765,7 @@ export const test_misc_createAssertCloneCustom_ObjectUnionImplicit =
       };
       const clone = (
         input: ObjectUnionImplicit,
-      ): typia.Resolved<ObjectUnionImplicit> => {
+      ): import("typia").Resolved<ObjectUnionImplicit> => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.x &&
           "number" === typeof input.y &&

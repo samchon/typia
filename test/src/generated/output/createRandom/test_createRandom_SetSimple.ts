@@ -8,7 +8,7 @@ export const test_createRandom_SetSimple = _test_random("SetSimple")<SetSimple>(
 )({
   random: (
     generator: Partial<typia.IRandomGenerator> = (SetSimple as any).RANDOM,
-  ): typia.Resolved<SetSimple> => {
+  ): import("typia").Resolved<SetSimple> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       booleans: new Set(

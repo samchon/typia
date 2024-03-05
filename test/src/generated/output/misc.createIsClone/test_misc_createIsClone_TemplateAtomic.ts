@@ -6,7 +6,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 export const test_misc_createIsClone_TemplateAtomic = _test_misc_isClone(
   "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)(
-  (input: any): typia.Resolved<TemplateAtomic> | null => {
+  (input: any): import("typia").Resolved<TemplateAtomic> | null => {
     const is = (input: any): input is TemplateAtomic => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.prefix &&
@@ -31,7 +31,9 @@ export const test_misc_createIsClone_TemplateAtomic = _test_misc_isClone(
         RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TemplateAtomic): typia.Resolved<TemplateAtomic> => {
+    const clone = (
+      input: TemplateAtomic,
+    ): import("typia").Resolved<TemplateAtomic> => {
       const $co0 = (input: any): any => ({
         prefix: input.prefix as any,
         postfix: input.postfix as any,

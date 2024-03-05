@@ -9,7 +9,7 @@ export const test_createRandom_ObjectHttpCommentTag = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectHttpCommentTag as any)
       .RANDOM,
-  ): typia.Resolved<ObjectHttpCommentTag> => {
+  ): import("typia").Resolved<ObjectHttpCommentTag> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       int:

@@ -5,6 +5,8 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
+import { StringUtil } from "../../utils/StringUtil";
+
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FunctionalAssertParametersProgrammer } from "./FunctionalAssertParametersProgrammer";
 import { FunctionAssertReturnProgrammer } from "./FunctionalAssertReturnProgrammer";
@@ -19,6 +21,7 @@ export namespace FunctionalAssertFunctionProgrammer {
       declaration: ts.FunctionDeclaration,
       init?: ts.Expression,
     ): ts.ArrowFunction => {
+      const wrapper = errorFactoryWrapper(modulo)(declaration.parameters)(init);
       const { async, returns } = FunctionAssertReturnProgrammer.returnStatement(
         project,
       )(modulo)(equals)(
@@ -27,6 +30,7 @@ export namespace FunctionalAssertFunctionProgrammer {
         declaration.parameters.map((p) =>
           ts.factory.createIdentifier(p.name.getText()),
         ),
+        wrapper.name,
       );
       return ts.factory.createArrowFunction(
         async
@@ -37,10 +41,10 @@ export namespace FunctionalAssertFunctionProgrammer {
         declaration.type,
         undefined,
         ts.factory.createBlock([
-          errorFactory(modulo)(init),
+          wrapper.variable,
           ...FunctionalAssertParametersProgrammer.argumentExpressions(project)(
             modulo,
-          )(equals)(declaration.parameters).map(
+          )(equals)(declaration.parameters, wrapper.name).map(
             ts.factory.createExpressionStatement,
           ),
           returns,
@@ -48,14 +52,24 @@ export namespace FunctionalAssertFunctionProgrammer {
       );
     };
 
-  export const errorFactory =
-    (modulo: ts.LeftHandSideExpression) => (init: ts.Expression | undefined) =>
-      ts.factory.createVariableStatement(
+  export const errorFactoryWrapper =
+    (modulo: ts.LeftHandSideExpression) =>
+    (paramters: readonly ts.ParameterDeclaration[]) =>
+    (
+      init: ts.Expression | undefined,
+    ): {
+      name: string;
+      variable: ts.VariableStatement;
+    } => {
+      const name: string = StringUtil.escapeDuplicate(
+        paramters.map((p) => p.name.getText()),
+      )("errorFactoryWrapper");
+      const variable: ts.VariableStatement = ts.factory.createVariableStatement(
         undefined,
         ts.factory.createVariableDeclarationList(
           [
             ts.factory.createVariableDeclaration(
-              "errorFactoryWrapper",
+              name,
               undefined,
               AssertProgrammer.Guardian.type(),
               init ??
@@ -71,8 +85,13 @@ export namespace FunctionalAssertFunctionProgrammer {
           ts.NodeFlags.Const,
         ),
       );
+      return { name, variable };
+    };
 
-  export const hookPath = (replacer: string): ts.ArrowFunction =>
+  export const hookPath = (props: {
+    wrapper: string;
+    replacer: string;
+  }): ts.ArrowFunction =>
     ts.factory.createArrowFunction(
       undefined,
       undefined,
@@ -80,7 +99,7 @@ export namespace FunctionalAssertFunctionProgrammer {
       undefined,
       undefined,
       ts.factory.createCallExpression(
-        ts.factory.createIdentifier("errorFactoryWrapper"),
+        ts.factory.createIdentifier(props.wrapper),
         undefined,
         [
           ts.factory.createObjectLiteralExpression([
@@ -104,7 +123,7 @@ export namespace FunctionalAssertFunctionProgrammer {
                   undefined,
                   [
                     ts.factory.createStringLiteral("$input"),
-                    ts.factory.createStringLiteral(replacer),
+                    ts.factory.createStringLiteral(props.replacer),
                   ],
                 ),
                 undefined,

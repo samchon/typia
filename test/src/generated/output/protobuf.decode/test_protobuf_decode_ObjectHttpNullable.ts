@@ -7,7 +7,7 @@ export const test_protobuf_decode_ObjectHttpNullable = _test_protobuf_decode(
   "ObjectHttpNullable",
 )<ObjectHttpNullable>(ObjectHttpNullable)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectHttpNullable> => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectHttpNullable> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

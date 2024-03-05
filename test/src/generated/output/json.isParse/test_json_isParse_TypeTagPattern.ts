@@ -6,7 +6,7 @@ import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 export const test_json_isParse_TypeTagPattern = _test_json_isParse(
   "TypeTagPattern",
 )<TypeTagPattern>(TypeTagPattern)((input) =>
-  ((input: any): typia.Primitive<TypeTagPattern> => {
+  ((input: any): import("typia").Primitive<TypeTagPattern> => {
     const is = (input: any): input is TypeTagPattern => {
       return (
         "object" === typeof input &&

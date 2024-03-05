@@ -293,7 +293,7 @@ export const test_misc_createValidateClone_ObjectUnionNonPredictable =
       };
       const clone = (
         input: ObjectUnionNonPredictable,
-      ): typia.Resolved<ObjectUnionNonPredictable> => {
+      ): import("typia").Resolved<ObjectUnionNonPredictable> => {
         const $io1 = (input: any): boolean =>
           "object" === typeof input.value &&
           null !== input.value &&

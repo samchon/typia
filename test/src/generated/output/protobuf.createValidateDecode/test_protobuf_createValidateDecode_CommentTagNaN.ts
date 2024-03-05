@@ -159,7 +159,9 @@ export const test_protobuf_createValidateDecode_CommentTagNaN =
           data: success ? input : undefined,
         } as any;
       };
-      const decode = (input: Uint8Array): typia.Resolved<CommentTagNaN> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagNaN> => {
         const $Reader = (typia.protobuf.createValidateDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

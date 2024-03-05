@@ -267,7 +267,7 @@ export const test_protobuf_validateDecode_CommentTagRangeBigInt =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<CommentTagRangeBigInt> => {
+        ): import("typia").Resolved<CommentTagRangeBigInt> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

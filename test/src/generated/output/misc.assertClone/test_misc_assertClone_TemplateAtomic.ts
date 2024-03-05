@@ -10,7 +10,7 @@ export const test_misc_assertClone_TemplateAtomic = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<TemplateAtomic> => {
+  ): import("typia").Resolved<TemplateAtomic> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -168,7 +168,9 @@ export const test_misc_assertClone_TemplateAtomic = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: TemplateAtomic): typia.Resolved<TemplateAtomic> => {
+    const clone = (
+      input: TemplateAtomic,
+    ): import("typia").Resolved<TemplateAtomic> => {
       const $co0 = (input: any): any => ({
         prefix: input.prefix as any,
         postfix: input.postfix as any,

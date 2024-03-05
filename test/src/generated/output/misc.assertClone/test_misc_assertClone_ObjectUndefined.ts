@@ -10,7 +10,7 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectUndefined> => {
+  ): import("typia").Resolved<ObjectUndefined> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -230,7 +230,9 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ObjectUndefined): typia.Resolved<ObjectUndefined> => {
+    const clone = (
+      input: ObjectUndefined,
+    ): import("typia").Resolved<ObjectUndefined> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id && "string" === typeof input.name;
       const $any = (typia.misc.assertClone as any).any;

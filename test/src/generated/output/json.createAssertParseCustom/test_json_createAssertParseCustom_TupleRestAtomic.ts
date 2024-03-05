@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_TupleRestAtomic =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<TupleRestAtomic> => {
+    ): import("typia").Primitive<TupleRestAtomic> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

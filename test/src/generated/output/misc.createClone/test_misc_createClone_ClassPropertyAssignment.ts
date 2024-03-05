@@ -6,7 +6,9 @@ import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssign
 export const test_misc_createClone_ClassPropertyAssignment = _test_misc_clone(
   "ClassPropertyAssignment",
 )<ClassPropertyAssignment>(ClassPropertyAssignment)(
-  (input: ClassPropertyAssignment): typia.Resolved<ClassPropertyAssignment> => {
+  (
+    input: ClassPropertyAssignment,
+  ): import("typia").Resolved<ClassPropertyAssignment> => {
     const $co0 = (input: any): any => ({
       id: input.id as any,
       name: input.name as any,

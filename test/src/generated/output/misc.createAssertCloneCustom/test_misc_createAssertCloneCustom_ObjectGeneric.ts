@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectGeneric =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectGeneric> => {
+    ): import("typia").Resolved<ObjectGeneric> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -502,7 +502,9 @@ export const test_misc_createAssertCloneCustom_ObjectGeneric =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: ObjectGeneric): typia.Resolved<ObjectGeneric> => {
+      const clone = (
+        input: ObjectGeneric,
+      ): import("typia").Resolved<ObjectGeneric> => {
         const $io0 = (input: any): boolean =>
           "boolean" === typeof input.value &&
           "object" === typeof input.child &&

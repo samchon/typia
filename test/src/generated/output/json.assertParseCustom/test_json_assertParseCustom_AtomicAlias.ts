@@ -10,7 +10,7 @@ export const test_json_assertParseCustom_AtomicAlias = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<AtomicAlias> => {
+  ): import("typia").Primitive<AtomicAlias> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

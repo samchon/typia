@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_TupleRestAtomic =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<TupleRestAtomic> => {
+    ): import("typia").Resolved<TupleRestAtomic> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -111,7 +111,7 @@ export const test_misc_assertCloneCustom_TupleRestAtomic =
       };
       const clone = (
         input: TupleRestAtomic,
-      ): typia.Resolved<TupleRestAtomic> => {
+      ): import("typia").Resolved<TupleRestAtomic> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         return Array.isArray(input) &&
           "boolean" === typeof input[0] &&

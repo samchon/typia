@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_CommentTagArrayUnion =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<CommentTagArrayUnion> => {
+    ): import("typia").Primitive<CommentTagArrayUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

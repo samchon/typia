@@ -10,7 +10,7 @@ export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<DynamicTree> => {
+  ): import("typia").Resolved<DynamicTree> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -149,7 +149,9 @@ export const test_misc_assertClone_DynamicTree = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: DynamicTree): typia.Resolved<DynamicTree> => {
+    const clone = (
+      input: DynamicTree,
+    ): import("typia").Resolved<DynamicTree> => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
         "number" === typeof input.sequence &&

@@ -6,7 +6,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_json_createIsParse_TemplateUnion = _test_json_isParse(
   "TemplateUnion",
 )<TemplateUnion>(TemplateUnion)(
-  (input: any): typia.Primitive<TemplateUnion> => {
+  (input: any): import("typia").Primitive<TemplateUnion> => {
     const is = (input: any): input is TemplateUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

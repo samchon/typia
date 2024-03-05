@@ -7,7 +7,9 @@ export const test_protobuf_createIsDecode_ObjectIntersection =
   _test_protobuf_isDecode("ObjectIntersection")<ObjectIntersection>(
     ObjectIntersection,
   )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectIntersection> | null => {
       const is = (input: any): input is ObjectIntersection => {
         return (
           "object" === typeof input &&
@@ -19,7 +21,7 @@ export const test_protobuf_createIsDecode_ObjectIntersection =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ObjectIntersection> => {
+      ): import("typia").Resolved<ObjectIntersection> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ObjectInternal =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectInternal> => {
+    ): import("typia").Primitive<ObjectInternal> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

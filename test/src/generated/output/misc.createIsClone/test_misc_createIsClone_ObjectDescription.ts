@@ -6,7 +6,7 @@ import { ObjectDescription } from "../../../structures/ObjectDescription";
 export const test_misc_createIsClone_ObjectDescription = _test_misc_isClone(
   "ObjectDescription",
 )<ObjectDescription>(ObjectDescription)(
-  (input: any): typia.Resolved<ObjectDescription> | null => {
+  (input: any): import("typia").Resolved<ObjectDescription> | null => {
     const is = (input: any): input is ObjectDescription => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -23,7 +23,7 @@ export const test_misc_createIsClone_ObjectDescription = _test_misc_isClone(
     };
     const clone = (
       input: ObjectDescription,
-    ): typia.Resolved<ObjectDescription> => {
+    ): import("typia").Resolved<ObjectDescription> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $co0 = (input: any): any => ({
         id: input.id as any,

@@ -143,7 +143,7 @@ export const test_misc_createValidateClone_DynamicTemplate =
       };
       const clone = (
         input: DynamicTemplate,
-      ): typia.Resolved<DynamicTemplate> => {
+      ): import("typia").Resolved<DynamicTemplate> => {
         const $co0 = (input: any): any => {
           const output = {} as any;
           for (const [key, value] of Object.entries(input)) {

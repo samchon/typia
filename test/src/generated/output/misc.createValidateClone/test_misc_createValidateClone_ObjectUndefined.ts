@@ -179,7 +179,7 @@ export const test_misc_createValidateClone_ObjectUndefined =
       };
       const clone = (
         input: ObjectUndefined,
-      ): typia.Resolved<ObjectUndefined> => {
+      ): import("typia").Resolved<ObjectUndefined> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.id && "string" === typeof input.name;
         const $any = (typia.misc.createValidateClone as any).any;

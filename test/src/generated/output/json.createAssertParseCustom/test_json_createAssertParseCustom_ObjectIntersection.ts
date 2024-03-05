@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_ObjectIntersection =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<ObjectIntersection> => {
+    ): import("typia").Primitive<ObjectIntersection> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

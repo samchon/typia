@@ -6,7 +6,7 @@ import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssign
 export const test_json_createIsParse_ClassPropertyAssignment =
   _test_json_isParse("ClassPropertyAssignment")<ClassPropertyAssignment>(
     ClassPropertyAssignment,
-  )((input: any): typia.Primitive<ClassPropertyAssignment> => {
+  )((input: any): import("typia").Primitive<ClassPropertyAssignment> => {
     const is = (input: any): input is ClassPropertyAssignment => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&

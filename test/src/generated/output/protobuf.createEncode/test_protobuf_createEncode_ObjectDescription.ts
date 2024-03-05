@@ -40,7 +40,9 @@ export const test_protobuf_createEncode_ObjectDescription =
       const writer = encoder(new $Writer(sizer));
       return writer.buffer();
     },
-    decode: (input: Uint8Array): typia.Resolved<ObjectDescription> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectDescription> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -85,5 +87,5 @@ export const test_protobuf_createEncode_ObjectDescription =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectDescription {\n    required string id = 1;\n    required bool deprecated = 2;\n    required string title = 3;\n    repeated string descriptions = 4;\n    required double newLine = 5;\n}',
+      'syntax = "proto3";\n\nmessage ObjectDescription {\n  required string id = 1;\n  required bool deprecated = 2;\n  required string title = 3;\n  repeated string descriptions = 4;\n  required double newLine = 5;\n}',
   });

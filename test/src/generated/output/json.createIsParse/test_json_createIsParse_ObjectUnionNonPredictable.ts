@@ -6,7 +6,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_json_createIsParse_ObjectUnionNonPredictable =
   _test_json_isParse("ObjectUnionNonPredictable")<ObjectUnionNonPredictable>(
     ObjectUnionNonPredictable,
-  )((input: any): typia.Primitive<ObjectUnionNonPredictable> => {
+  )((input: any): import("typia").Primitive<ObjectUnionNonPredictable> => {
     const is = (input: any): input is ObjectUnionNonPredictable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

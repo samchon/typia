@@ -9,7 +9,7 @@ export const test_random_TupleUnion = _test_random("TupleUnion")<TupleUnion>(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<TupleUnion> => {
+    ): import("typia").Resolved<TupleUnion> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       return (generator?.array ?? $generator.array)(() =>

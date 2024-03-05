@@ -84,7 +84,7 @@ export const test_protobuf_isEncode_ObjectHttpArray = _test_protobuf_isEncode(
       };
       return is(input) ? encode(input) : null;
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectHttpArray> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -141,5 +141,5 @@ export const test_protobuf_isEncode_ObjectHttpArray = _test_protobuf_isEncode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage ObjectHttpArray {\n    repeated bool booleans = 1;\n    repeated int64 bigints = 2;\n    repeated double numbers = 3;\n    repeated string strings = 4;\n    repeated string templates = 5;\n}',
+    'syntax = "proto3";\n\nmessage ObjectHttpArray {\n  repeated bool booleans = 1;\n  repeated int64 bigints = 2;\n  repeated double numbers = 3;\n  repeated string strings = 4;\n  repeated string templates = 5;\n}',
 });

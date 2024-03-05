@@ -8,7 +8,7 @@ export const test_http_createIsQuery_ObjectHttpCommentTag = _test_http_isQuery(
 )<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
   (
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpCommentTag> | null => {
+  ): import("typia").Resolved<ObjectHttpCommentTag> | null => {
     const is = (input: any): input is ObjectHttpCommentTag => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int &&
@@ -31,7 +31,7 @@ export const test_http_createIsQuery_ObjectHttpCommentTag = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpCommentTag> => {
+    ): import("typia").Resolved<ObjectHttpCommentTag> => {
       const $params = (typia.http.createIsQuery as any).params;
       const $number = (typia.http.createIsQuery as any).number;
       const $bigint = (typia.http.createIsQuery as any).bigint;

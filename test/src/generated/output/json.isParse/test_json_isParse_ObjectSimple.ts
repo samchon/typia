@@ -6,7 +6,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_json_isParse_ObjectSimple = _test_json_isParse(
   "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)((input) =>
-  ((input: any): typia.Primitive<ObjectSimple> => {
+  ((input: any): import("typia").Primitive<ObjectSimple> => {
     const is = (input: any): input is ObjectSimple => {
       return (
         "object" === typeof input &&

@@ -8,7 +8,7 @@ export const test_createRandom_SetAlias = _test_random("SetAlias")<SetAlias>(
 )({
   random: (
     generator: Partial<typia.IRandomGenerator> = (SetAlias as any).RANDOM,
-  ): typia.Resolved<SetAlias> => {
+  ): import("typia").Resolved<SetAlias> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       booleans: new Set(

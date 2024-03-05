@@ -12,10 +12,10 @@ export const test_protobuf_createAssertDecodeCustom_ObjectHttpNullable =
       input: Uint8Array,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectHttpNullable> => {
+    ): import("typia").Resolved<ObjectHttpNullable> => {
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ObjectHttpNullable> => {
+      ): import("typia").Resolved<ObjectHttpNullable> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

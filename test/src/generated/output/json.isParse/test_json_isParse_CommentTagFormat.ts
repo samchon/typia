@@ -6,7 +6,7 @@ import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 export const test_json_isParse_CommentTagFormat = _test_json_isParse(
   "CommentTagFormat",
 )<CommentTagFormat>(CommentTagFormat)((input) =>
-  ((input: any): typia.Primitive<CommentTagFormat> => {
+  ((input: any): import("typia").Primitive<CommentTagFormat> => {
     const is = (input: any): input is CommentTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&

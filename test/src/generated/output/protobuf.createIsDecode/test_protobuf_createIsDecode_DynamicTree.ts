@@ -6,7 +6,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_protobuf_createIsDecode_DynamicTree = _test_protobuf_isDecode(
   "DynamicTree",
 )<DynamicTree>(DynamicTree)({
-  decode: (input: Uint8Array): typia.Resolved<DynamicTree> | null => {
+  decode: (input: Uint8Array): import("typia").Resolved<DynamicTree> | null => {
     const is = (input: any): input is DynamicTree => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -24,7 +24,9 @@ export const test_protobuf_createIsDecode_DynamicTree = _test_protobuf_isDecode(
         });
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const decode = (input: Uint8Array): typia.Resolved<DynamicTree> => {
+    const decode = (
+      input: Uint8Array,
+    ): import("typia").Resolved<DynamicTree> => {
       const $Reader = (typia.protobuf.createIsDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

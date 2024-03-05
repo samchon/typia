@@ -6,7 +6,7 @@ import { TypeTagLength } from "../../../structures/TypeTagLength";
 export const test_misc_createIsClone_TypeTagLength = _test_misc_isClone(
   "TypeTagLength",
 )<TypeTagLength>(TypeTagLength)(
-  (input: any): typia.Resolved<TypeTagLength> | null => {
+  (input: any): import("typia").Resolved<TypeTagLength> | null => {
     const is = (input: any): input is TypeTagLength => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -30,7 +30,9 @@ export const test_misc_createIsClone_TypeTagLength = _test_misc_isClone(
         input.equal.length <= 19;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagLength): typia.Resolved<TypeTagLength> => {
+    const clone = (
+      input: TypeTagLength,
+    ): import("typia").Resolved<TypeTagLength> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.fixed &&
         5 <= input.fixed.length &&

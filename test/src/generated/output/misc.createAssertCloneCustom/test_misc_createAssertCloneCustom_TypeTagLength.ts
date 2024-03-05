@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_TypeTagLength =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<TypeTagLength> => {
+    ): import("typia").Resolved<TypeTagLength> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -258,7 +258,9 @@ export const test_misc_createAssertCloneCustom_TypeTagLength =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: TypeTagLength): typia.Resolved<TypeTagLength> => {
+      const clone = (
+        input: TypeTagLength,
+      ): import("typia").Resolved<TypeTagLength> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.fixed &&
           5 <= input.fixed.length &&

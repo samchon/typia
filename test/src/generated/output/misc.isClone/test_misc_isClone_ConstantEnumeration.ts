@@ -6,7 +6,7 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_misc_isClone_ConstantEnumeration = _test_misc_isClone(
   "ConstantEnumeration",
 )<ConstantEnumeration>(ConstantEnumeration)((input) =>
-  ((input: any): typia.Resolved<ConstantEnumeration> | null => {
+  ((input: any): import("typia").Resolved<ConstantEnumeration> | null => {
     const is = (input: any): input is ConstantEnumeration => {
       return (
         Array.isArray(input) &&
@@ -22,7 +22,7 @@ export const test_misc_isClone_ConstantEnumeration = _test_misc_isClone(
     };
     const clone = (
       input: ConstantEnumeration,
-    ): typia.Resolved<ConstantEnumeration> => {
+    ): import("typia").Resolved<ConstantEnumeration> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       return Array.isArray(input) ? $cp0(input) : (input as any);
     };

@@ -722,7 +722,9 @@ export const test_protobuf_validateEncode_MapSimpleProtobufOptional =
         if (output.success) output.data = encode(input);
         return output;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<MapSimpleProtobufOptional> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<MapSimpleProtobufOptional> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -937,5 +939,5 @@ export const test_protobuf_validateEncode_MapSimpleProtobufOptional =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage MapSimpleProtobufOptional {\n    map<string, bool> boolean = 1;\n    map<string, int32> int32 = 2;\n    map<string, int64> bigint = 3;\n    map<string, double> double = 4;\n    map<string, string> string = 5;\n    map<string, bytes> bytes = 6;\n    map<string, MapSimpleProtobufOptional> objects = 7;\n}',
+      'syntax = "proto3";\n\nmessage MapSimpleProtobufOptional {\n  map<string, bool> boolean = 1;\n  map<string, int32> int32 = 2;\n  map<string, int64> bigint = 3;\n  map<string, double> double = 4;\n  map<string, string> string = 5;\n  map<string, bytes> bytes = 6;\n  map<string, MapSimpleProtobufOptional> objects = 7;\n}',
   });

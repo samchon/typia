@@ -8,7 +8,7 @@ export const test_createRandom_MapSimple = _test_random("MapSimple")<MapSimple>(
 )({
   random: (
     generator: Partial<typia.IRandomGenerator> = (MapSimple as any).RANDOM,
-  ): typia.Resolved<MapSimple> => {
+  ): import("typia").Resolved<MapSimple> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       boolean: new Map(

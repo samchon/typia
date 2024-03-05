@@ -12,10 +12,10 @@ export const test_protobuf_createAssertDecodeCustom_TypeTagAtomicUnion =
       input: Uint8Array,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<TypeTagAtomicUnion> => {
+    ): import("typia").Resolved<TypeTagAtomicUnion> => {
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<TypeTagAtomicUnion> => {
+      ): import("typia").Resolved<TypeTagAtomicUnion> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

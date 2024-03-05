@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ConstantIntersection =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ConstantIntersection> => {
+    ): import("typia").Primitive<ConstantIntersection> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

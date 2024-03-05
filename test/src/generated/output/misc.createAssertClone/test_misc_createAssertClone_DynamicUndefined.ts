@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_DynamicUndefined =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<DynamicUndefined> => {
+    ): import("typia").Resolved<DynamicUndefined> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -99,7 +99,7 @@ export const test_misc_createAssertClone_DynamicUndefined =
       };
       const clone = (
         input: DynamicUndefined,
-      ): typia.Resolved<DynamicUndefined> => {
+      ): import("typia").Resolved<DynamicUndefined> => {
         const $co0 = (input: any): any => {
           const output = {} as any;
           for (const [key, value] of Object.entries(input)) {

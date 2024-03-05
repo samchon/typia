@@ -622,7 +622,7 @@ export const test_misc_validateClone_ObjectUnionCompositePointer =
       };
       const clone = (
         input: ObjectUnionCompositePointer,
-      ): typia.Resolved<ObjectUnionCompositePointer> => {
+      ): import("typia").Resolved<ObjectUnionCompositePointer> => {
         const $io1 = (input: any): boolean =>
           "object" === typeof input.value &&
           null !== input.value &&

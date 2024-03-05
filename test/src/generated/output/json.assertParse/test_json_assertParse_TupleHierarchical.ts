@@ -10,7 +10,7 @@ export const test_json_assertParse_TupleHierarchical = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<TupleHierarchical> => {
+  ): import("typia").Primitive<TupleHierarchical> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

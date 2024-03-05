@@ -6,7 +6,7 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 export const test_json_isParse_ObjectJsonTag = _test_json_isParse(
   "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)((input) =>
-  ((input: any): typia.Primitive<ObjectJsonTag> => {
+  ((input: any): import("typia").Primitive<ObjectJsonTag> => {
     const is = (input: any): input is ObjectJsonTag => {
       return (
         "object" === typeof input &&

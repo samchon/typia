@@ -126,7 +126,9 @@ export const test_protobuf_validateDecode_TypeTagBigInt =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<TypeTagBigInt> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<TypeTagBigInt> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

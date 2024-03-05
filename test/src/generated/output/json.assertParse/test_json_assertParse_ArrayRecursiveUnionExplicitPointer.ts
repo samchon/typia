@@ -12,7 +12,7 @@ export const test_json_assertParse_ArrayRecursiveUnionExplicitPointer =
       ((
         input: string,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-      ): typia.Primitive<ArrayRecursiveUnionExplicitPointer> => {
+      ): import("typia").Primitive<ArrayRecursiveUnionExplicitPointer> => {
         const assert = (
           input: any,
           errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

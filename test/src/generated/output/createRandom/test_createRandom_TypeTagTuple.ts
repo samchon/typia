@@ -8,7 +8,7 @@ export const test_createRandom_TypeTagTuple = _test_random(
 )<TypeTagTuple>(TypeTagTuple)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (TypeTagTuple as any).RANDOM,
-  ): typia.Resolved<TypeTagTuple> => {
+  ): import("typia").Resolved<TypeTagTuple> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       tuple: [

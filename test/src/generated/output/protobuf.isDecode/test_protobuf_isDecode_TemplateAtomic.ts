@@ -7,7 +7,7 @@ export const test_protobuf_isDecode_TemplateAtomic = _test_protobuf_isDecode(
   "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<TemplateAtomic> | null => {
+    ((input: Uint8Array): import("typia").Resolved<TemplateAtomic> | null => {
       const is = (input: any): input is TemplateAtomic => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.prefix &&
@@ -32,7 +32,9 @@ export const test_protobuf_isDecode_TemplateAtomic = _test_protobuf_isDecode(
           RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<TemplateAtomic> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TemplateAtomic> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

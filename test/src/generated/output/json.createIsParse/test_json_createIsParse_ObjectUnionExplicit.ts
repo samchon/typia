@@ -6,7 +6,7 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_json_createIsParse_ObjectUnionExplicit = _test_json_isParse(
   "ObjectUnionExplicit",
 )<ObjectUnionExplicit>(ObjectUnionExplicit)(
-  (input: any): typia.Primitive<ObjectUnionExplicit> => {
+  (input: any): import("typia").Primitive<ObjectUnionExplicit> => {
     const is = (input: any): input is ObjectUnionExplicit => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&

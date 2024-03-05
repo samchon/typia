@@ -12,8 +12,10 @@ export const test_protobuf_createAssertDecodeCustom_ObjectDescription =
       input: Uint8Array,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectDescription> => {
-      const decode = (input: Uint8Array): typia.Resolved<ObjectDescription> => {
+    ): import("typia").Resolved<ObjectDescription> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectDescription> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

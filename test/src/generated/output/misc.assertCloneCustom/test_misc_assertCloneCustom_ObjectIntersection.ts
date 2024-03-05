@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_ObjectIntersection =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectIntersection> => {
+    ): import("typia").Resolved<ObjectIntersection> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -94,7 +94,7 @@ export const test_misc_assertCloneCustom_ObjectIntersection =
       };
       const clone = (
         input: ObjectIntersection,
-      ): typia.Resolved<ObjectIntersection> => {
+      ): import("typia").Resolved<ObjectIntersection> => {
         const $co0 = (input: any): any => ({
           email: input.email as any,
           name: input.name as any,

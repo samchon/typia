@@ -6,7 +6,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_json_createIsParse_ObjectGenericArray = _test_json_isParse(
   "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)(
-  (input: any): typia.Primitive<ObjectGenericArray> => {
+  (input: any): import("typia").Primitive<ObjectGenericArray> => {
     const is = (input: any): input is ObjectGenericArray => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.pagination &&

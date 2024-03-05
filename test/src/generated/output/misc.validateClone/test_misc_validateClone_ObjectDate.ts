@@ -133,7 +133,7 @@ export const test_misc_validateClone_ObjectDate = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: ObjectDate): typia.Resolved<ObjectDate> => {
+    const clone = (input: ObjectDate): import("typia").Resolved<ObjectDate> => {
       const $co0 = (input: any): any => ({
         classDate:
           input.classDate instanceof Date

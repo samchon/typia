@@ -11,7 +11,7 @@ export const test_json_assertParse_ArrayHierarchicalPointer =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ArrayHierarchicalPointer> => {
+    ): import("typia").Primitive<ArrayHierarchicalPointer> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

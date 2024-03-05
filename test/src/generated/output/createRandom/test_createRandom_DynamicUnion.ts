@@ -8,7 +8,7 @@ export const test_createRandom_DynamicUnion = _test_random(
 )<DynamicUnion>(DynamicUnion)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicUnion as any).RANDOM,
-  ): typia.Resolved<DynamicUnion> => {
+  ): import("typia").Resolved<DynamicUnion> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
       const output = {} as any;

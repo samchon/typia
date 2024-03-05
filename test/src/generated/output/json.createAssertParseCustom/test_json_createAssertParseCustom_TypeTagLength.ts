@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_TypeTagLength =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<TypeTagLength> => {
+    ): import("typia").Primitive<TypeTagLength> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

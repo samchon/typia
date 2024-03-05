@@ -7,7 +7,7 @@ export const test_protobuf_decode_ClassNonPublic = _test_protobuf_decode(
   "ClassNonPublic",
 )<ClassNonPublic>(ClassNonPublic)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ClassNonPublic> => {
+    ((input: Uint8Array): import("typia").Resolved<ClassNonPublic> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

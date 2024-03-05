@@ -6,7 +6,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 export const test_json_isParse_DynamicEnumeration = _test_json_isParse(
   "DynamicEnumeration",
 )<DynamicEnumeration>(DynamicEnumeration)((input) =>
-  ((input: any): typia.Primitive<DynamicEnumeration> => {
+  ((input: any): import("typia").Primitive<DynamicEnumeration> => {
     const is = (input: any): input is DynamicEnumeration => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&

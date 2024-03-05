@@ -9,7 +9,7 @@ export const test_random_DynamicUnion = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<DynamicUnion> => {
+    ): import("typia").Resolved<DynamicUnion> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
         const output = {} as any;

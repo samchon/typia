@@ -144,7 +144,9 @@ export const test_misc_validateClone_ObjectRecursive = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: ObjectRecursive): typia.Resolved<ObjectRecursive> => {
+    const clone = (
+      input: ObjectRecursive,
+    ): import("typia").Resolved<ObjectRecursive> => {
       const $io0 = (input: any): boolean =>
         (null === input.parent ||
           ("object" === typeof input.parent &&

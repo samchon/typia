@@ -8,7 +8,7 @@ export const test_createRandom_NativeAlias = _test_random(
 )<NativeAlias>(NativeAlias)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (NativeAlias as any).RANDOM,
-  ): typia.Resolved<NativeAlias> => {
+  ): import("typia").Resolved<NativeAlias> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       date: new Date((generator?.datetime ?? $generator.datetime)()),

@@ -142,7 +142,7 @@ export const test_protobuf_createValidateDecode_CommentTagAtomicUnion =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<CommentTagAtomicUnion> => {
+      ): import("typia").Resolved<CommentTagAtomicUnion> => {
         const $Reader = (typia.protobuf.createValidateDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

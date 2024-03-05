@@ -407,7 +407,7 @@ export const test_protobuf_createAssertEncode_CommentTagArray =
       };
       return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<CommentTagArray> => {
+    decode: (input: Uint8Array): import("typia").Resolved<CommentTagArray> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -474,5 +474,5 @@ export const test_protobuf_createAssertEncode_CommentTagArray =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagArray {\n    repeated CommentTagArray.Type value = 1;\n    message Type {\n        repeated string items = 1;\n        repeated double minItems = 2;\n        repeated string both = 3;\n        repeated double equal = 4;\n    }\n}',
+      'syntax = "proto3";\n\nmessage CommentTagArray {\n  repeated CommentTagArray.Type value = 1;\n  message Type {\n    repeated string items = 1;\n    repeated double minItems = 2;\n    repeated string both = 3;\n    repeated double equal = 4;\n  }\n}',
   });

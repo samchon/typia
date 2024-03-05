@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_ObjectOptional =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectOptional> => {
+    ): import("typia").Resolved<ObjectOptional> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -115,7 +115,9 @@ export const test_misc_createAssertClone_ObjectOptional =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: ObjectOptional): typia.Resolved<ObjectOptional> => {
+      const clone = (
+        input: ObjectOptional,
+      ): import("typia").Resolved<ObjectOptional> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           name: input.name as any,

@@ -198,7 +198,9 @@ export const test_protobuf_validateEncode_CommentTagInfinite =
         if (output.success) output.data = encode(input);
         return output;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<CommentTagInfinite> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagInfinite> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -248,5 +250,5 @@ export const test_protobuf_validateEncode_CommentTagInfinite =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagInfinite {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
+      'syntax = "proto3";\n\nmessage CommentTagInfinite {\n  required double value = 1;\n  required double ranged = 2;\n  required double minimum = 3;\n  required double maximum = 4;\n  required double multipleOf = 5;\n  required int32 typed = 6;\n}',
   });

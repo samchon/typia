@@ -68,7 +68,9 @@ export const test_misc_createValidateClone_ClassMethod =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ClassMethod): typia.Resolved<ClassMethod> => {
+      const clone = (
+        input: ClassMethod,
+      ): import("typia").Resolved<ClassMethod> => {
         const $co0 = (input: any): any => ({
           name: input.name as any,
           age: input.age as any,

@@ -7,7 +7,7 @@ export const test_protobuf_decode_ObjectHttpTypeTag = _test_protobuf_decode(
   "ObjectHttpTypeTag",
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectHttpTypeTag> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

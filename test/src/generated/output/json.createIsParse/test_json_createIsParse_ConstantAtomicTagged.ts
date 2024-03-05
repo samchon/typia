@@ -6,7 +6,7 @@ import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 export const test_json_createIsParse_ConstantAtomicTagged = _test_json_isParse(
   "ConstantAtomicTagged",
 )<ConstantAtomicTagged>(ConstantAtomicTagged)(
-  (input: any): typia.Primitive<ConstantAtomicTagged> => {
+  (input: any): import("typia").Primitive<ConstantAtomicTagged> => {
     const is = (input: any): input is ConstantAtomicTagged => {
       const $io0 = (input: any): boolean =>
         ("latest" === input.id ||

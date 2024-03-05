@@ -311,7 +311,7 @@ export const test_protobuf_createValidateEncode_ObjectRequired =
       if (output.success) output.data = encode(input);
       return output;
     },
-    decode: (input: Uint8Array): typia.Resolved<ObjectRequired> => {
+    decode: (input: Uint8Array): import("typia").Resolved<ObjectRequired> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -398,5 +398,5 @@ export const test_protobuf_createValidateEncode_ObjectRequired =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage Required_lt_ObjectRequired {\n    message IBase_gt_ {\n        required bool boolean = 1;\n        required double number = 2;\n        required string string = 3;\n        repeated double array = 4;\n        optional ObjectRequired.IBase object = 5;\n    }\n}\n\nmessage ObjectRequired {\n    message IBase {\n        optional bool boolean = 1;\n        optional double number = 2;\n        optional string string = 3;\n        repeated double array = 4;\n        optional ObjectRequired.IBase object = 5;\n    }\n}',
+      'syntax = "proto3";\n\nmessage Required_lt_ObjectRequired {\n  message IBase_gt_ {\n    required bool boolean = 1;\n    required double number = 2;\n    required string string = 3;\n    repeated double array = 4;\n    optional ObjectRequired.IBase object = 5;\n  }\n}\n\nmessage ObjectRequired {\n  message IBase {\n    optional bool boolean = 1;\n    optional double number = 2;\n    optional string string = 3;\n    repeated double array = 4;\n    optional ObjectRequired.IBase object = 5;\n  }\n}',
   });

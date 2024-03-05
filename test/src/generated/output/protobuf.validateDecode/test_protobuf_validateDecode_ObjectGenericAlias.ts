@@ -69,7 +69,7 @@ export const test_protobuf_validateDecode_ObjectGenericAlias =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectGenericAlias> => {
+        ): import("typia").Resolved<ObjectGenericAlias> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

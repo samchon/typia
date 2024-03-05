@@ -9,7 +9,7 @@ export const test_createRandom_ObjectGenericArray = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectGenericArray as any)
       .RANDOM,
-  ): typia.Resolved<ObjectGenericArray> => {
+  ): import("typia").Resolved<ObjectGenericArray> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       pagination: $ro1(_recursive, _recursive ? 1 + _depth : _depth),

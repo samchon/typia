@@ -5,7 +5,9 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
 export const test_protobuf_createIsDecode_TypeTagCustom =
   _test_protobuf_isDecode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
-    decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<TypeTagCustom> | null => {
       const is = (input: any): input is TypeTagCustom => {
         return (
           "object" === typeof input &&
@@ -31,7 +33,9 @@ export const test_protobuf_createIsDecode_TypeTagCustom =
           })()
         );
       };
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagCustom> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

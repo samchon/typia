@@ -8,7 +8,7 @@ export const test_createRandom_TemplateAtomic = _test_random(
 )<TemplateAtomic>(TemplateAtomic)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (TemplateAtomic as any).RANDOM,
-  ): typia.Resolved<TemplateAtomic> => {
+  ): import("typia").Resolved<TemplateAtomic> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

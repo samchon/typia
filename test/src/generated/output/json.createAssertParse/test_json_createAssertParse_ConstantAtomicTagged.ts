@@ -11,7 +11,7 @@ export const test_json_createAssertParse_ConstantAtomicTagged =
     (
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ConstantAtomicTagged> => {
+    ): import("typia").Primitive<ConstantAtomicTagged> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

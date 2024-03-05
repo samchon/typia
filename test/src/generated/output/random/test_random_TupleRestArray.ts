@@ -9,7 +9,7 @@ export const test_random_TupleRestArray = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<TupleRestArray> => {
+    ): import("typia").Resolved<TupleRestArray> => {
       const $generator = (typia.random as any).generator;
       return [
         (generator?.boolean ?? $generator.boolean)(),

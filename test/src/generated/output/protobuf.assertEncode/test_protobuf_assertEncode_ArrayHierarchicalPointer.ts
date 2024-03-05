@@ -612,7 +612,9 @@ export const test_protobuf_assertEncode_ArrayHierarchicalPointer =
         };
         return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ArrayHierarchicalPointer> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ArrayHierarchicalPointer> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -778,5 +780,5 @@ export const test_protobuf_assertEncode_ArrayHierarchicalPointer =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ArrayHierarchicalPointer {\n    repeated ArrayHierarchicalPointer.ICompany value = 1;\n    message ICompany {\n        required double id = 1;\n        required double serial = 2;\n        required string name = 3;\n        required ArrayHierarchicalPointer.ITimestamp established_at = 4;\n        repeated ArrayHierarchicalPointer.IDepartment departments = 5;\n    }\n\n    message ITimestamp {\n        required double time = 1;\n        required double zone = 2;\n    }\n\n    message IDepartment {\n        required double id = 1;\n        required string code = 2;\n        required double sales = 3;\n        required ArrayHierarchicalPointer.ITimestamp created_at = 4;\n        repeated ArrayHierarchicalPointer.IEmployee employees = 5;\n    }\n\n    message IEmployee {\n        required double id = 1;\n        required string name = 2;\n        required double age = 3;\n        required double grade = 4;\n        required ArrayHierarchicalPointer.ITimestamp employeed_at = 5;\n    }\n}',
+      'syntax = "proto3";\n\nmessage ArrayHierarchicalPointer {\n  repeated ArrayHierarchicalPointer.ICompany value = 1;\n  message ICompany {\n    required double id = 1;\n    required double serial = 2;\n    required string name = 3;\n    required ArrayHierarchicalPointer.ITimestamp established_at = 4;\n    repeated ArrayHierarchicalPointer.IDepartment departments = 5;\n  }\n\n  message ITimestamp {\n    required double time = 1;\n    required double zone = 2;\n  }\n\n  message IDepartment {\n    required double id = 1;\n    required string code = 2;\n    required double sales = 3;\n    required ArrayHierarchicalPointer.ITimestamp created_at = 4;\n    repeated ArrayHierarchicalPointer.IEmployee employees = 5;\n  }\n\n  message IEmployee {\n    required double id = 1;\n    required string name = 2;\n    required double age = 3;\n    required double grade = 4;\n    required ArrayHierarchicalPointer.ITimestamp employeed_at = 5;\n  }\n}',
   });

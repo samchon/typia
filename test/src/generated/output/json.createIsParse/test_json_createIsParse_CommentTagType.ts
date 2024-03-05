@@ -6,7 +6,7 @@ import { CommentTagType } from "../../../structures/CommentTagType";
 export const test_json_createIsParse_CommentTagType = _test_json_isParse(
   "CommentTagType",
 )<CommentTagType>(CommentTagType)(
-  (input: any): typia.Primitive<CommentTagType> => {
+  (input: any): import("typia").Primitive<CommentTagType> => {
     const is = (input: any): input is CommentTagType => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

@@ -149,7 +149,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpCommentTag =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const $Reader = (typia.protobuf.createValidateDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

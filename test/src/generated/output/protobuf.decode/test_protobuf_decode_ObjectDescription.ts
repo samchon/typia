@@ -7,7 +7,7 @@ export const test_protobuf_decode_ObjectDescription = _test_protobuf_decode(
   "ObjectDescription",
 )<ObjectDescription>(ObjectDescription)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectDescription> => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectDescription> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

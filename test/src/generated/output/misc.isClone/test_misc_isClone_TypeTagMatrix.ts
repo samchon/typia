@@ -6,7 +6,7 @@ import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 export const test_misc_isClone_TypeTagMatrix = _test_misc_isClone(
   "TypeTagMatrix",
 )<TypeTagMatrix>(TypeTagMatrix)((input) =>
-  ((input: any): typia.Resolved<TypeTagMatrix> | null => {
+  ((input: any): import("typia").Resolved<TypeTagMatrix> | null => {
     const is = (input: any): input is TypeTagMatrix => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.matrix) &&
@@ -27,7 +27,9 @@ export const test_misc_isClone_TypeTagMatrix = _test_misc_isClone(
         );
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagMatrix): typia.Resolved<TypeTagMatrix> => {
+    const clone = (
+      input: TypeTagMatrix,
+    ): import("typia").Resolved<TypeTagMatrix> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $cp1 = (input: any) =>
         input.map((elem: any) =>

@@ -9,7 +9,7 @@ export const test_random_ArraySimpleProtobufOptional = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ArraySimpleProtobufOptional> => {
+    ): import("typia").Resolved<ArraySimpleProtobufOptional> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({

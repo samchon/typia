@@ -6,7 +6,7 @@ import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 export const test_json_createIsParse_ConstantAtomicUnion = _test_json_isParse(
   "ConstantAtomicUnion",
 )<ConstantAtomicUnion>(ConstantAtomicUnion)(
-  (input: any): typia.Primitive<ConstantAtomicUnion> => {
+  (input: any): import("typia").Primitive<ConstantAtomicUnion> => {
     const is = (input: any): input is ConstantAtomicUnion => {
       const $io0 = (input: any): boolean => "key" === input.key;
       return (

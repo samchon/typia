@@ -119,7 +119,7 @@ export const test_misc_createValidateClone_ArrayRepeatedNullable =
     };
     const clone = (
       input: ArrayRepeatedNullable,
-    ): typia.Resolved<ArrayRepeatedNullable> => {
+    ): import("typia").Resolved<ArrayRepeatedNullable> => {
       const $ia0 = (input: any): any =>
         input.every(
           (elem: any) =>

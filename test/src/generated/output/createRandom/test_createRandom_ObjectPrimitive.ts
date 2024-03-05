@@ -9,7 +9,7 @@ export const test_createRandom_ObjectPrimitive = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectPrimitive as any)
       .RANDOM,
-  ): typia.Resolved<ObjectPrimitive> => {
+  ): import("typia").Resolved<ObjectPrimitive> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

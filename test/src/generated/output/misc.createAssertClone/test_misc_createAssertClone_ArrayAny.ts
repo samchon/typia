@@ -10,7 +10,7 @@ export const test_misc_createAssertClone_ArrayAny = _test_misc_assertClone(
   (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ArrayAny> => {
+  ): import("typia").Resolved<ArrayAny> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -173,7 +173,7 @@ export const test_misc_createAssertClone_ArrayAny = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ArrayAny): typia.Resolved<ArrayAny> => {
+    const clone = (input: ArrayAny): import("typia").Resolved<ArrayAny> => {
       const $any = (typia.misc.createAssertClone as any).any;
       const $co0 = (input: any): any => ({
         anys: $any(input.anys),

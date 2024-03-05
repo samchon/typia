@@ -17,6 +17,9 @@ export namespace FunctionalAssertParametersProgrammer {
       declaration: ts.FunctionDeclaration,
       init?: ts.Expression,
     ): ts.ArrowFunction => {
+      const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper(
+        modulo,
+      )(declaration.parameters)(init);
       const async: boolean = (() => {
         if (declaration.type === undefined) return false;
         const type: ts.Type = project.checker.getTypeFromTypeNode(
@@ -34,9 +37,10 @@ export namespace FunctionalAssertParametersProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            FunctionalAssertFunctionProgrammer.errorFactory(modulo)(init),
+            wrapper.variable,
             ...argumentExpressions(project)(modulo)(equals)(
               declaration.parameters,
+              wrapper.name,
             ).map(ts.factory.createExpressionStatement),
             ts.factory.createReturnStatement(
               ts.factory.createCallExpression(
@@ -57,7 +61,10 @@ export namespace FunctionalAssertParametersProgrammer {
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
-    (parameters: readonly ts.ParameterDeclaration[]): ts.CallExpression[] =>
+    (
+      parameters: readonly ts.ParameterDeclaration[],
+      wrapper: string,
+    ): ts.CallExpression[] =>
       parameters.map((p, i) =>
         ts.factory.createCallExpression(
           AssertProgrammer.write(project)(modulo)(equals)(
@@ -65,9 +72,10 @@ export namespace FunctionalAssertParametersProgrammer {
               ? project.checker.getTypeFromTypeNode(p.type)
               : project.checker.getTypeFromTypeNode(TypeFactory.keyword("any")),
             undefined,
-            FunctionalAssertFunctionProgrammer.hookPath(
-              `$input.parameters[${i}]`,
-            ),
+            FunctionalAssertFunctionProgrammer.hookPath({
+              wrapper,
+              replacer: `$input.parameters[${i}]`,
+            }),
           ),
           undefined,
           [ts.factory.createIdentifier(p.name.getText())],

@@ -11,8 +11,10 @@ export const test_protobuf_createAssertDecode_ClassMethod =
     decode: (
       input: Uint8Array,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ClassMethod> => {
-      const decode = (input: Uint8Array): typia.Resolved<ClassMethod> => {
+    ): import("typia").Resolved<ClassMethod> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ClassMethod> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

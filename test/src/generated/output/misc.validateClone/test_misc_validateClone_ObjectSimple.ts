@@ -166,7 +166,9 @@ export const test_misc_validateClone_ObjectSimple = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: ObjectSimple): typia.Resolved<ObjectSimple> => {
+    const clone = (
+      input: ObjectSimple,
+    ): import("typia").Resolved<ObjectSimple> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.x &&
         "number" === typeof input.y &&

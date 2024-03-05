@@ -12,10 +12,10 @@ export const test_protobuf_assertDecodeCustom_ObjectGenericArray =
       ((
         input: Uint8Array,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-      ): typia.Resolved<ObjectGenericArray> => {
+      ): import("typia").Resolved<ObjectGenericArray> => {
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectGenericArray> => {
+        ): import("typia").Resolved<ObjectGenericArray> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

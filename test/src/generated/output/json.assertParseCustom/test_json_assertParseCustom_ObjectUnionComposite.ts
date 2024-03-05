@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ObjectUnionComposite =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectUnionComposite> => {
+    ): import("typia").Primitive<ObjectUnionComposite> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

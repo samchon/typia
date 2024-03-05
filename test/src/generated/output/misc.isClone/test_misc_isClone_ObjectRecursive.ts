@@ -6,7 +6,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_misc_isClone_ObjectRecursive = _test_misc_isClone(
   "ObjectRecursive",
 )<ObjectRecursive>(ObjectRecursive)((input) =>
-  ((input: any): typia.Resolved<ObjectRecursive> | null => {
+  ((input: any): import("typia").Resolved<ObjectRecursive> | null => {
     const is = (input: any): input is ObjectRecursive => {
       const $io0 = (input: any): boolean =>
         (null === input.parent ||
@@ -27,7 +27,9 @@ export const test_misc_isClone_ObjectRecursive = _test_misc_isClone(
         Number.isFinite((input.created_at as any).zone);
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: ObjectRecursive): typia.Resolved<ObjectRecursive> => {
+    const clone = (
+      input: ObjectRecursive,
+    ): import("typia").Resolved<ObjectRecursive> => {
       const $io0 = (input: any): boolean =>
         (null === input.parent ||
           ("object" === typeof input.parent &&

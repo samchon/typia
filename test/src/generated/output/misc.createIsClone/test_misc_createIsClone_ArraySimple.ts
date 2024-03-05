@@ -6,7 +6,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_misc_createIsClone_ArraySimple = _test_misc_isClone(
   "ArraySimple",
 )<ArraySimple>(ArraySimple)(
-  (input: any): typia.Resolved<ArraySimple> | null => {
+  (input: any): import("typia").Resolved<ArraySimple> | null => {
     const is = (input: any): input is ArraySimple => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.name &&
@@ -29,7 +29,9 @@ export const test_misc_createIsClone_ArraySimple = _test_misc_isClone(
         )
       );
     };
-    const clone = (input: ArraySimple): typia.Resolved<ArraySimple> => {
+    const clone = (
+      input: ArraySimple,
+    ): import("typia").Resolved<ArraySimple> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.name &&
         "string" === typeof input.body &&

@@ -6,7 +6,9 @@ import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 export const test_http_query_ObjectHttpConstant = _test_http_query(
   "ObjectHttpConstant",
 )<ObjectHttpConstant>(ObjectHttpConstant)((input) =>
-  ((input: string | URLSearchParams): typia.Resolved<ObjectHttpConstant> => {
+  ((
+    input: string | URLSearchParams,
+  ): import("typia").Resolved<ObjectHttpConstant> => {
     const $params = (typia.http.query as any).params;
     const $boolean = (typia.http.query as any).boolean;
     const $bigint = (typia.http.query as any).bigint;

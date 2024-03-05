@@ -6,7 +6,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_protobuf_createDecode_ObjectSimple = _test_protobuf_decode(
   "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)({
-  decode: (input: Uint8Array): typia.Resolved<ObjectSimple> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectSimple> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;

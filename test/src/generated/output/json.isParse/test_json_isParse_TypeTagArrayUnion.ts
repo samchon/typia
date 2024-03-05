@@ -6,7 +6,7 @@ import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 export const test_json_isParse_TypeTagArrayUnion = _test_json_isParse(
   "TypeTagArrayUnion",
 )<TypeTagArrayUnion>(TypeTagArrayUnion)((input) =>
-  ((input: any): typia.Primitive<TypeTagArrayUnion> => {
+  ((input: any): import("typia").Primitive<TypeTagArrayUnion> => {
     const is = (input: any): input is TypeTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&

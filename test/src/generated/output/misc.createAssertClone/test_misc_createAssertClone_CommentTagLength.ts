@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_CommentTagLength =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<CommentTagLength> => {
+    ): import("typia").Resolved<CommentTagLength> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -259,7 +259,7 @@ export const test_misc_createAssertClone_CommentTagLength =
       };
       const clone = (
         input: CommentTagLength,
-      ): typia.Resolved<CommentTagLength> => {
+      ): import("typia").Resolved<CommentTagLength> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.fixed &&
           5 <= input.fixed.length &&

@@ -12,10 +12,10 @@ export const test_protobuf_assertDecode_ObjectIntersection =
       ((
         input: Uint8Array,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-      ): typia.Resolved<ObjectIntersection> => {
+      ): import("typia").Resolved<ObjectIntersection> => {
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectIntersection> => {
+        ): import("typia").Resolved<ObjectIntersection> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

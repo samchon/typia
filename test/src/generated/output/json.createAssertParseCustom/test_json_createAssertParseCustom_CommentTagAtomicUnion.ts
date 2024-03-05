@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_CommentTagAtomicUnion =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<CommentTagAtomicUnion> => {
+    ): import("typia").Primitive<CommentTagAtomicUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

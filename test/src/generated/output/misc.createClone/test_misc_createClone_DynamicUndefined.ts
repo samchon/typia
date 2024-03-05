@@ -6,7 +6,7 @@ import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 export const test_misc_createClone_DynamicUndefined = _test_misc_clone(
   "DynamicUndefined",
 )<DynamicUndefined>(DynamicUndefined)(
-  (input: DynamicUndefined): typia.Resolved<DynamicUndefined> => {
+  (input: DynamicUndefined): import("typia").Resolved<DynamicUndefined> => {
     const $co0 = (input: any): any => {
       const output = {} as any;
       for (const [key, value] of Object.entries(input)) {

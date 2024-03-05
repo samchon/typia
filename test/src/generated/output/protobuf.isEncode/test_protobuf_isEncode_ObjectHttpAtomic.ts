@@ -47,7 +47,7 @@ export const test_protobuf_isEncode_ObjectHttpAtomic = _test_protobuf_isEncode(
       };
       return is(input) ? encode(input) : null;
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectHttpAtomic> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -87,5 +87,5 @@ export const test_protobuf_isEncode_ObjectHttpAtomic = _test_protobuf_isEncode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage ObjectHttpAtomic {\n    required bool boolean = 1;\n    required int64 bigint = 2;\n    required double number = 3;\n    required string string = 4;\n}',
+    'syntax = "proto3";\n\nmessage ObjectHttpAtomic {\n  required bool boolean = 1;\n  required int64 bigint = 2;\n  required double number = 3;\n  required string string = 4;\n}',
 });

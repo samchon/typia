@@ -6,7 +6,7 @@ import { CommentTagLength } from "../../../structures/CommentTagLength";
 export const test_misc_isClone_CommentTagLength = _test_misc_isClone(
   "CommentTagLength",
 )<CommentTagLength>(CommentTagLength)((input) =>
-  ((input: any): typia.Resolved<CommentTagLength> | null => {
+  ((input: any): import("typia").Resolved<CommentTagLength> | null => {
     const is = (input: any): input is CommentTagLength => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -32,7 +32,7 @@ export const test_misc_isClone_CommentTagLength = _test_misc_isClone(
     };
     const clone = (
       input: CommentTagLength,
-    ): typia.Resolved<CommentTagLength> => {
+    ): import("typia").Resolved<CommentTagLength> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.fixed &&
         5 <= input.fixed.length &&

@@ -9,7 +9,7 @@ export const test_random_ArrayRepeatedOptional = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ArrayRepeatedOptional> => {
+    ): import("typia").Resolved<ArrayRepeatedOptional> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       const $ra0 = (

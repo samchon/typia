@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_ObjectLiteralProperty =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectLiteralProperty> => {
+    ): import("typia").Resolved<ObjectLiteralProperty> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -86,7 +86,7 @@ export const test_misc_createAssertClone_ObjectLiteralProperty =
       };
       const clone = (
         input: ObjectLiteralProperty,
-      ): typia.Resolved<ObjectLiteralProperty> => {
+      ): import("typia").Resolved<ObjectLiteralProperty> => {
         const $co0 = (input: any): any => ({
           "something-interesting-do-you-want?": input[
             "something-interesting-do-you-want?"

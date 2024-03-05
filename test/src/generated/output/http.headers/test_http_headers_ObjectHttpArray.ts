@@ -8,7 +8,7 @@ export const test_http_headers_ObjectHttpArray = _test_http_headers(
 )<ObjectHttpArray>(ObjectHttpArray)((input) =>
   ((
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpArray> => {
+  ): import("typia").Resolved<ObjectHttpArray> => {
     const $boolean = (typia.http.headers as any).boolean;
     const $bigint = (typia.http.headers as any).bigint;
     const $number = (typia.http.headers as any).number;

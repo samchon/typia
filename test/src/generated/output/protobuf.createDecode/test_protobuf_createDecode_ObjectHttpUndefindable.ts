@@ -7,7 +7,9 @@ export const test_protobuf_createDecode_ObjectHttpUndefindable =
   _test_protobuf_decode("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
     ObjectHttpUndefindable,
   )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectHttpUndefindable> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

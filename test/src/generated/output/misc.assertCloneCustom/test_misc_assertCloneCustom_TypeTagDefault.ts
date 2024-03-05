@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_TypeTagDefault =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<TypeTagDefault> => {
+    ): import("typia").Resolved<TypeTagDefault> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -221,7 +221,9 @@ export const test_misc_assertCloneCustom_TypeTagDefault =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: TypeTagDefault): typia.Resolved<TypeTagDefault> => {
+      const clone = (
+        input: TypeTagDefault,
+      ): import("typia").Resolved<TypeTagDefault> => {
         const $co0 = (input: any): any => ({
           boolean: input.boolean as any,
           number: input.number as any,

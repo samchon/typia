@@ -8,7 +8,9 @@ export const test_protobuf_isDecode_CommentTagAtomicUnion =
     CommentTagAtomicUnion,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<CommentTagAtomicUnion> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagAtomicUnion> | null => {
         const is = (input: any): input is CommentTagAtomicUnion => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -27,7 +29,7 @@ export const test_protobuf_isDecode_CommentTagAtomicUnion =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<CommentTagAtomicUnion> => {
+        ): import("typia").Resolved<CommentTagAtomicUnion> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

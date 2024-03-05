@@ -6,7 +6,7 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_json_createIsParse_ObjectUnionComposite = _test_json_isParse(
   "ObjectUnionComposite",
 )<ObjectUnionComposite>(ObjectUnionComposite)(
-  (input: any): typia.Primitive<ObjectUnionComposite> => {
+  (input: any): import("typia").Primitive<ObjectUnionComposite> => {
     const is = (input: any): input is ObjectUnionComposite => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&

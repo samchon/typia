@@ -76,7 +76,7 @@ export const test_protobuf_isEncode_ObjectHttpTypeTag = _test_protobuf_isEncode(
       };
       return is(input) ? encode(input) : null;
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<ObjectHttpTypeTag> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectHttpTypeTag> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -124,5 +124,5 @@ export const test_protobuf_isEncode_ObjectHttpTypeTag = _test_protobuf_isEncode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage ObjectHttpTypeTag {\n    required int32 int32 = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double range = 4;\n    repeated string length = 5;\n}',
+    'syntax = "proto3";\n\nmessage ObjectHttpTypeTag {\n  required int32 int32 = 1;\n  required uint64 uint64 = 2;\n  required string uuid = 3;\n  repeated double range = 4;\n  repeated string length = 5;\n}',
 });

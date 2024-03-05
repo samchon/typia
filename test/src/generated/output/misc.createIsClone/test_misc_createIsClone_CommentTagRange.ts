@@ -6,7 +6,7 @@ import { CommentTagRange } from "../../../structures/CommentTagRange";
 export const test_misc_createIsClone_CommentTagRange = _test_misc_isClone(
   "CommentTagRange",
 )<CommentTagRange>(CommentTagRange)(
-  (input: any): typia.Resolved<CommentTagRange> | null => {
+  (input: any): import("typia").Resolved<CommentTagRange> | null => {
     const is = (input: any): input is CommentTagRange => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -68,7 +68,9 @@ export const test_misc_createIsClone_CommentTagRange = _test_misc_isClone(
         input.equal <= 10;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: CommentTagRange): typia.Resolved<CommentTagRange> => {
+    const clone = (
+      input: CommentTagRange,
+    ): import("typia").Resolved<CommentTagRange> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.greater &&
         Math.floor(input.greater) === input.greater &&

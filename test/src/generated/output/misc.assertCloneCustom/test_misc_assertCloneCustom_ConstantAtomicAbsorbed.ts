@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_ConstantAtomicAbsorbed =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ConstantAtomicAbsorbed> => {
+    ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -84,7 +84,7 @@ export const test_misc_assertCloneCustom_ConstantAtomicAbsorbed =
       };
       const clone = (
         input: ConstantAtomicAbsorbed,
-      ): typia.Resolved<ConstantAtomicAbsorbed> => {
+      ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           age: input.age as any,

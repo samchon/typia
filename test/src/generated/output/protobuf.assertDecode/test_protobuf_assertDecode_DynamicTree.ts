@@ -12,8 +12,10 @@ export const test_protobuf_assertDecode_DynamicTree =
       ((
         input: Uint8Array,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-      ): typia.Resolved<DynamicTree> => {
-        const decode = (input: Uint8Array): typia.Resolved<DynamicTree> => {
+      ): import("typia").Resolved<DynamicTree> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<DynamicTree> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

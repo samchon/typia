@@ -10,7 +10,9 @@ export const test_protobuf_isDecode_ArrayRecursiveUnionExplicitPointer =
     decode: (input) =>
       ((
         input: Uint8Array,
-      ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> | null => {
+      ):
+        | import("typia").Resolved<ArrayRecursiveUnionExplicitPointer>
+        | null => {
         const is = (
           input: any,
         ): input is ArrayRecursiveUnionExplicitPointer => {
@@ -93,7 +95,7 @@ export const test_protobuf_isDecode_ArrayRecursiveUnionExplicitPointer =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ArrayRecursiveUnionExplicitPointer> => {
+        ): import("typia").Resolved<ArrayRecursiveUnionExplicitPointer> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

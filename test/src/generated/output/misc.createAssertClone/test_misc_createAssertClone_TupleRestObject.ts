@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_TupleRestObject =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<TupleRestObject> => {
+    ): import("typia").Resolved<TupleRestObject> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -142,7 +142,7 @@ export const test_misc_createAssertClone_TupleRestObject =
       };
       const clone = (
         input: TupleRestObject,
-      ): typia.Resolved<TupleRestObject> => {
+      ): import("typia").Resolved<TupleRestObject> => {
         const $io0 = (input: any): boolean => "string" === typeof input.value;
         const $cp0 = (input: any) =>
           input.map((elem: any) =>

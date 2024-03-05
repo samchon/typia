@@ -8,7 +8,9 @@ export const test_protobuf_isDecode_ObjectHttpUndefindable =
     ObjectHttpUndefindable,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectHttpUndefindable> | null => {
         const is = (input: any): input is ObjectHttpUndefindable => {
           const $io0 = (input: any): boolean =>
             (undefined === input.boolean ||
@@ -41,7 +43,7 @@ export const test_protobuf_isDecode_ObjectHttpUndefindable =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectHttpUndefindable> => {
+        ): import("typia").Resolved<ObjectHttpUndefindable> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

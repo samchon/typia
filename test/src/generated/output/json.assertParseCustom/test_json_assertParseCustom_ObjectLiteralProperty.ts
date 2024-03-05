@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ObjectLiteralProperty =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectLiteralProperty> => {
+    ): import("typia").Primitive<ObjectLiteralProperty> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

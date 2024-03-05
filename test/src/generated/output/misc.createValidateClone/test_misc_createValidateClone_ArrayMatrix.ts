@@ -115,7 +115,9 @@ export const test_misc_createValidateClone_ArrayMatrix =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ArrayMatrix): typia.Resolved<ArrayMatrix> => {
+      const clone = (
+        input: ArrayMatrix,
+      ): import("typia").Resolved<ArrayMatrix> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) =>
           input.map((elem: any) =>

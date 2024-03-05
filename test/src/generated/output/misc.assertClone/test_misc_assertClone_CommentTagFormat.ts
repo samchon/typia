@@ -10,7 +10,7 @@ export const test_misc_assertClone_CommentTagFormat = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<CommentTagFormat> => {
+  ): import("typia").Resolved<CommentTagFormat> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -626,7 +626,7 @@ export const test_misc_assertClone_CommentTagFormat = _test_misc_assertClone(
     };
     const clone = (
       input: CommentTagFormat,
-    ): typia.Resolved<CommentTagFormat> => {
+    ): import("typia").Resolved<CommentTagFormat> => {
       const $co0 = (input: any): any => ({
         byte: input.byte as any,
         password: input.password as any,

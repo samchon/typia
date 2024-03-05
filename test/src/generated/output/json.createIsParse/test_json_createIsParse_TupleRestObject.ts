@@ -6,7 +6,7 @@ import { TupleRestObject } from "../../../structures/TupleRestObject";
 export const test_json_createIsParse_TupleRestObject = _test_json_isParse(
   "TupleRestObject",
 )<TupleRestObject>(TupleRestObject)(
-  (input: any): typia.Primitive<TupleRestObject> => {
+  (input: any): import("typia").Primitive<TupleRestObject> => {
     const is = (input: any): input is TupleRestObject => {
       const $io0 = (input: any): boolean => "string" === typeof input.value;
       return (

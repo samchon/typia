@@ -75,7 +75,7 @@ export const test_misc_createValidateClone_ObjectIntersection =
     };
     const clone = (
       input: ObjectIntersection,
-    ): typia.Resolved<ObjectIntersection> => {
+    ): import("typia").Resolved<ObjectIntersection> => {
       const $co0 = (input: any): any => ({
         email: input.email as any,
         name: input.name as any,

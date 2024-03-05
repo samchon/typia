@@ -6,7 +6,7 @@ import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 export const test_json_createIsParse_ArrayHierarchical = _test_json_isParse(
   "ArrayHierarchical",
 )<ArrayHierarchical>(ArrayHierarchical)(
-  (input: any): typia.Primitive<ArrayHierarchical> => {
+  (input: any): import("typia").Primitive<ArrayHierarchical> => {
     const is = (input: any): input is ArrayHierarchical => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&

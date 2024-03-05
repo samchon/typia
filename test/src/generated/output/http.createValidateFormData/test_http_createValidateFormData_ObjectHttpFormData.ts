@@ -182,7 +182,9 @@ export const test_http_createValidateFormData_ObjectHttpFormData =
           data: success ? input : undefined,
         } as any;
       };
-      const decode = (input: FormData): typia.Resolved<ObjectHttpFormData> => {
+      const decode = (
+        input: FormData,
+      ): import("typia").Resolved<ObjectHttpFormData> => {
         const $string = (typia.http.createValidateFormData as any).string;
         const $number = (typia.http.createValidateFormData as any).number;
         const $blob = (typia.http.createValidateFormData as any).blob;

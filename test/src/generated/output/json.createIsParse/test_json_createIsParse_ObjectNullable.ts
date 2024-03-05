@@ -6,7 +6,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_json_createIsParse_ObjectNullable = _test_json_isParse(
   "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)(
-  (input: any): typia.Primitive<ObjectNullable> => {
+  (input: any): import("typia").Primitive<ObjectNullable> => {
     const is = (input: any): input is ObjectNullable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

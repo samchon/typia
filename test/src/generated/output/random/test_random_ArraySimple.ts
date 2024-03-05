@@ -9,7 +9,7 @@ export const test_random_ArraySimple = _test_random("ArraySimple")<ArraySimple>(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ArraySimple> => {
+    ): import("typia").Resolved<ArraySimple> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         name:

@@ -6,7 +6,9 @@ import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
 export const test_http_createQuery_ObjectHttpTypeTag = _test_http_query(
   "ObjectHttpTypeTag",
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)(
-  (input: string | URLSearchParams): typia.Resolved<ObjectHttpTypeTag> => {
+  (
+    input: string | URLSearchParams,
+  ): import("typia").Resolved<ObjectHttpTypeTag> => {
     const $params = (typia.http.createQuery as any).params;
     const $number = (typia.http.createQuery as any).number;
     const $bigint = (typia.http.createQuery as any).bigint;

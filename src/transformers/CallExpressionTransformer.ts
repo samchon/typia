@@ -1,6 +1,17 @@
 import path from "path";
 import ts from "typescript";
 
+import { FunctionalAssertFunctionProgrammer } from "../programmers/functional/FunctionalAssertFunctionProgrammer";
+import { FunctionalAssertParametersProgrammer } from "../programmers/functional/FunctionalAssertParametersProgrammer";
+import { FunctionAssertReturnProgrammer } from "../programmers/functional/FunctionalAssertReturnProgrammer";
+import { FunctionalIsFunctionProgrammer } from "../programmers/functional/FunctionalIsFunctionProgrammer";
+import { FunctionalIsParametersProgrammer } from "../programmers/functional/FunctionalIsParametersProgrammer";
+import { FunctionalIsReturnProgrammer } from "../programmers/functional/FunctionalIsReturnProgrammer";
+import { FunctionalValidateFunctionProgrammer } from "../programmers/functional/FunctionalValidateFunctionProgrammer";
+import { FunctionalValidateParametersProgrammer } from "../programmers/functional/FunctionalValidateParametersProgrammer";
+import { FunctionalValidateReturnProgrammer } from "../programmers/functional/FunctionalValidateReturnProgrammer";
+import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
+
 import { NamingConvention } from "../utils/NamingConvention";
 
 import { IProject } from "./IProject";
@@ -12,22 +23,30 @@ import { CreateValidateTransformer } from "./features/CreateValidateTransformer"
 import { IsTransformer } from "./features/IsTransformer";
 import { RandomTransformer } from "./features/RandomTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
+import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpAssertFormDataTransformer";
 import { CreateHttpAssertHeadersTransformer } from "./features/http/CreateHttpAssertHeadersTransformer";
 import { CreateHttpAssertQueryTransformer } from "./features/http/CreateHttpAssertQueryTransformer";
+import { CreateHttpFormDataTransformer } from "./features/http/CreateHttpFormDataTransformer";
 import { CreateHttpHeadersTransformer } from "./features/http/CreateHttpHeadersTransformer";
+import { CreateHttpIsFormDataTransformer } from "./features/http/CreateHttpIsFormDataTransformer";
 import { CreateHttpIsHeadersTransformer } from "./features/http/CreateHttpIsHeadersTransformer";
 import { CreateHttpIsQueryTransformer } from "./features/http/CreateHttpIsQueryTransformer";
 import { CreateHttpParameterTransformer } from "./features/http/CreateHttpParameterTransformer";
 import { CreateHttpQueryTransformer } from "./features/http/CreateHttpQueryTransformer";
+import { CreateHttpValidateFormDataTransformer } from "./features/http/CreateHttpValidateFormDataTransformer";
 import { CreateHttpValidateHeadersTransformer } from "./features/http/CreateHttpValidateHeadersTransformer";
 import { CreateHttpValidateQueryTransformer } from "./features/http/CreateHttpValidateQueryTransformer";
+import { HttpAssertFormDataTransformer } from "./features/http/HttpAssertFormDataTransformer";
 import { HttpAssertHeadersTransformer } from "./features/http/HttpAssertHeadersTransformer";
 import { HttpAssertQueryTransformer } from "./features/http/HttpAssertQueryTransformer";
+import { HttpFormDataTransformer } from "./features/http/HttpFormDataTransformer";
 import { HttpHeadersTransformer } from "./features/http/HttpHeadersTransformer";
+import { HttpIsFormDataTransformer } from "./features/http/HttpIsFormDataTransformer";
 import { HttpIsHeadersTransformer } from "./features/http/HttpIsHeadersTransformer";
 import { HttpIsQueryTransformer } from "./features/http/HttpIsQueryTransformer";
 import { HttpParameterTransformer } from "./features/http/HttpParameterTransformer";
 import { HttpQueryTransformer } from "./features/http/HttpQueryTransformer";
+import { HttpValidateFormDataTransformer } from "./features/http/HttpValidateFormDataTransformer";
 import { HttpValidateHeadersTransformer } from "./features/http/HttpValidateHeadersTransformer";
 import { HttpValidateQueryTransformer } from "./features/http/HttpValidateQueryTransformer";
 import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
@@ -88,18 +107,6 @@ import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageT
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
-import { HttpAssertFormDataTransformer } from "./features/http/HttpAssertFormDataTransformer";
-import { HttpFormDataTransformer } from "./features/http/HttpFormDataTransformer";
-import { HttpIsFormDataTransformer } from "./features/http/HttpIsFormDataTransformer";
-import { HttpValidateFormDataTransformer } from "./features/http/HttpValidateFormDataTransformer";
-import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpAssertFormDataTransformer";
-import { CreateHttpFormDataTransformer } from "./features/http/CreateHttpFormDataTransformer";
-import { CreateHttpIsFormDataTransformer } from "./features/http/CreateHttpIsFormDataTransformer";
-import { CreateHttpValidateFormDataTransformer } from "./features/http/CreateHttpValidateFormDataTransformer";
-import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
-import { FunctionalAssertFunctionProgrammer } from "../programmers/functional/FunctionalAssertFunctionProgrammer";
-import { FunctionalAssertParametersProgrammer } from "../programmers/functional/FunctionalAssertParametersProgrammer";
-import { FunctionAssertReturnProgrammer } from "../programmers/functional/FunctionalAssertReturnProgrammer";
 
 export namespace CallExpressionTransformer {
   export const transform =
@@ -228,6 +235,82 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         method: "assertEqualsReturn",
         equals: true,
         programmer: FunctionAssertReturnProgrammer.write,
+      }),
+
+    // IS
+    isFunction: () =>
+      FunctionalGenericTransformer.transform({
+        method: "isFunction",
+        equals: false,
+        programmer: FunctionalIsFunctionProgrammer.write,
+      }),
+    isParameters: () =>
+      FunctionalGenericTransformer.transform({
+        method: "isParameters",
+        equals: false,
+        programmer: FunctionalIsParametersProgrammer.write,
+      }),
+    isReturn: () =>
+      FunctionalGenericTransformer.transform({
+        method: "isReturn",
+        equals: false,
+        programmer: FunctionalIsReturnProgrammer.write,
+      }),
+    equalsFunction: () =>
+      FunctionalGenericTransformer.transform({
+        method: "equalsFunction",
+        equals: true,
+        programmer: FunctionalIsFunctionProgrammer.write,
+      }),
+    equalsParameters: () =>
+      FunctionalGenericTransformer.transform({
+        method: "equalsParameters",
+        equals: true,
+        programmer: FunctionalIsParametersProgrammer.write,
+      }),
+    equalsReturn: () =>
+      FunctionalGenericTransformer.transform({
+        method: "equalsReturn",
+        equals: true,
+        programmer: FunctionalIsReturnProgrammer.write,
+      }),
+
+    // VALIDATIONS
+    validateFunction: () =>
+      FunctionalGenericTransformer.transform({
+        method: "validateFunction",
+        equals: false,
+        programmer: FunctionalValidateFunctionProgrammer.write,
+      }),
+    validateParameters: () =>
+      FunctionalGenericTransformer.transform({
+        method: "validateParameters",
+        equals: false,
+        programmer: FunctionalValidateParametersProgrammer.write,
+      }),
+    validateReturn: () =>
+      FunctionalGenericTransformer.transform({
+        method: "validateReturn",
+        equals: false,
+        programmer: FunctionalValidateReturnProgrammer.write,
+      }),
+    validateEqualsFunction: () =>
+      FunctionalGenericTransformer.transform({
+        method: "validateEqualsFunction",
+        equals: true,
+        programmer: FunctionalValidateFunctionProgrammer.write,
+      }),
+    validateEqualsParameters: () =>
+      FunctionalGenericTransformer.transform({
+        method: "validateEqualsParameters",
+        equals: true,
+        programmer: FunctionalValidateParametersProgrammer.write,
+      }),
+    validateEqualsReturn: () =>
+      FunctionalGenericTransformer.transform({
+        method: "validateEqualsReturn",
+        equals: true,
+        programmer: FunctionalValidateReturnProgrammer.write,
       }),
   },
   http: {

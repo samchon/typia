@@ -6,7 +6,7 @@ import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 export const test_misc_createClone_TypeTagArrayUnion = _test_misc_clone(
   "TypeTagArrayUnion",
 )<TypeTagArrayUnion>(TypeTagArrayUnion)(
-  (input: TypeTagArrayUnion): typia.Resolved<TypeTagArrayUnion> => {
+  (input: TypeTagArrayUnion): import("typia").Resolved<TypeTagArrayUnion> => {
     const $cp0 = (input: any) =>
       input.map((elem: any) =>
         "object" === typeof elem && null !== elem ? $co0(elem) : (elem as any),

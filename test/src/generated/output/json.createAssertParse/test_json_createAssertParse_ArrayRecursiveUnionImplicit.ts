@@ -11,7 +11,7 @@ export const test_json_createAssertParse_ArrayRecursiveUnionImplicit =
     (
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+    ): import("typia").Primitive<ArrayRecursiveUnionImplicit> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

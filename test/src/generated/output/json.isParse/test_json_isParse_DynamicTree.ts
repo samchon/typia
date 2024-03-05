@@ -6,7 +6,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_json_isParse_DynamicTree = _test_json_isParse(
   "DynamicTree",
 )<DynamicTree>(DynamicTree)((input) =>
-  ((input: any): typia.Primitive<DynamicTree> => {
+  ((input: any): import("typia").Primitive<DynamicTree> => {
     const is = (input: any): input is DynamicTree => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&

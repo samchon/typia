@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_TemplateConstant =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<TemplateConstant> => {
+    ): import("typia").Resolved<TemplateConstant> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -174,7 +174,7 @@ export const test_misc_assertCloneCustom_TemplateConstant =
       };
       const clone = (
         input: TemplateConstant,
-      ): typia.Resolved<TemplateConstant> => {
+      ): import("typia").Resolved<TemplateConstant> => {
         const $io1 = (input: any): boolean =>
           ("prefix_A" === input.prefix ||
             "prefix_B" === input.prefix ||

@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 message MapSimpleProtobuf {
-    map<string, bool> boolean = 1;
-    map<string, int32> int32 = 2;
-    map<string, int64> bigint = 3;
-    map<string, double> double = 4;
-    map<string, string> string = 5;
-    map<string, bytes> bytes = 6;
-    map<string, MapSimpleProtobuf> objects = 7;
+  map<string, bool> boolean = 1;
+  map<string, int32> int32 = 2;
+  map<string, int64> bigint = 3;
+  map<string, double> double = 4;
+  map<string, string> string = 5;
+  map<string, bytes> bytes = 6;
+  map<string, MapSimpleProtobuf> objects = 7;
 }

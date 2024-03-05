@@ -10,7 +10,7 @@ export const test_misc_assertClone_ObjectGenericArray = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectGenericArray> => {
+  ): import("typia").Resolved<ObjectGenericArray> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -221,7 +221,7 @@ export const test_misc_assertClone_ObjectGenericArray = _test_misc_assertClone(
     };
     const clone = (
       input: ObjectGenericArray,
-    ): typia.Resolved<ObjectGenericArray> => {
+    ): import("typia").Resolved<ObjectGenericArray> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.page &&
         "number" === typeof input.limit &&

@@ -10,7 +10,7 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ArrayUnion> => {
+  ): import("typia").Resolved<ArrayUnion> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -204,7 +204,7 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
+    const clone = (input: ArrayUnion): import("typia").Resolved<ArrayUnion> => {
       const $throws = (typia.misc.assertClone as any).throws;
       const $cp0 = (input: any) => {
         const array = input;

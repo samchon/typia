@@ -11,8 +11,10 @@ export const test_http_assertFormDataCustom_ObjectHttpFormData =
     ((
       input: FormData,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpFormData> => {
-      const decode = (input: FormData): typia.Resolved<ObjectHttpFormData> => {
+    ): import("typia").Resolved<ObjectHttpFormData> => {
+      const decode = (
+        input: FormData,
+      ): import("typia").Resolved<ObjectHttpFormData> => {
         const $string = (typia.http.assertFormData as any).string;
         const $number = (typia.http.assertFormData as any).number;
         const $blob = (typia.http.assertFormData as any).blob;

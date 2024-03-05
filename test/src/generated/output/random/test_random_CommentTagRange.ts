@@ -9,7 +9,7 @@ export const test_random_CommentTagRange = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<CommentTagRange> => {
+    ): import("typia").Resolved<CommentTagRange> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         value: (generator?.array ?? $generator.array)(() =>

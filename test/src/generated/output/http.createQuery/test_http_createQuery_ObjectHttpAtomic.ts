@@ -6,7 +6,9 @@ import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 export const test_http_createQuery_ObjectHttpAtomic = _test_http_query(
   "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)(
-  (input: string | URLSearchParams): typia.Resolved<ObjectHttpAtomic> => {
+  (
+    input: string | URLSearchParams,
+  ): import("typia").Resolved<ObjectHttpAtomic> => {
     const $params = (typia.http.createQuery as any).params;
     const $boolean = (typia.http.createQuery as any).boolean;
     const $bigint = (typia.http.createQuery as any).bigint;

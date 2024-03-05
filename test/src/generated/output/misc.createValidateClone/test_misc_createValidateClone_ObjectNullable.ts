@@ -234,7 +234,9 @@ export const test_misc_createValidateClone_ObjectNullable =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectNullable): typia.Resolved<ObjectNullable> => {
+      const clone = (
+        input: ObjectNullable,
+      ): import("typia").Resolved<ObjectNullable> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.name &&
           "object" === typeof input.manufacturer &&

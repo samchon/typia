@@ -9,7 +9,7 @@ export const test_createRandom_CommentTagFormat = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (CommentTagFormat as any)
       .RANDOM,
-  ): typia.Resolved<CommentTagFormat> => {
+  ): import("typia").Resolved<CommentTagFormat> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       byte:

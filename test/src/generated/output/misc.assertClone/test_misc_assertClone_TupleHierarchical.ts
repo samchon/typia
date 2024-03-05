@@ -10,7 +10,7 @@ export const test_misc_assertClone_TupleHierarchical = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<TupleHierarchical> => {
+  ): import("typia").Resolved<TupleHierarchical> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -603,7 +603,7 @@ export const test_misc_assertClone_TupleHierarchical = _test_misc_assertClone(
     };
     const clone = (
       input: TupleHierarchical,
-    ): typia.Resolved<TupleHierarchical> => {
+    ): import("typia").Resolved<TupleHierarchical> => {
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           Array.isArray(elem) &&

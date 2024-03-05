@@ -6,7 +6,7 @@ import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 export const test_misc_isClone_CommentTagFormat = _test_misc_isClone(
   "CommentTagFormat",
 )<CommentTagFormat>(CommentTagFormat)((input) =>
-  ((input: any): typia.Resolved<CommentTagFormat> | null => {
+  ((input: any): import("typia").Resolved<CommentTagFormat> | null => {
     const is = (input: any): input is CommentTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&
@@ -99,7 +99,7 @@ export const test_misc_isClone_CommentTagFormat = _test_misc_isClone(
     };
     const clone = (
       input: CommentTagFormat,
-    ): typia.Resolved<CommentTagFormat> => {
+    ): import("typia").Resolved<CommentTagFormat> => {
       const $co0 = (input: any): any => ({
         byte: input.byte as any,
         password: input.password as any,

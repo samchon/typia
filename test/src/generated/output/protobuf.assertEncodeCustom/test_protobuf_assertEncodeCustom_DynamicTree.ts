@@ -207,7 +207,7 @@ export const test_protobuf_assertEncodeCustom_DynamicTree =
         };
         return encode(assert(input, errorFactory));
       })(input, (p) => new CustomGuardError(p)),
-    decode: (input: Uint8Array): typia.Resolved<DynamicTree> => {
+    decode: (input: Uint8Array): import("typia").Resolved<DynamicTree> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -265,5 +265,5 @@ export const test_protobuf_assertEncodeCustom_DynamicTree =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
+      'syntax = "proto3";\n\nmessage DynamicTree {\n  required string id = 1;\n  required double sequence = 2;\n  map<string, DynamicTree> children = 3;\n}',
   });

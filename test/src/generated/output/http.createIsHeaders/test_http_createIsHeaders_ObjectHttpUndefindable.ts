@@ -9,7 +9,7 @@ export const test_http_createIsHeaders_ObjectHttpUndefindable =
   )(
     (
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpUndefindable> | null => {
+    ): import("typia").Resolved<ObjectHttpUndefindable> | null => {
       const is = (input: any): input is ObjectHttpUndefindable => {
         const $io0 = (input: any): boolean =>
           (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -41,7 +41,7 @@ export const test_http_createIsHeaders_ObjectHttpUndefindable =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpUndefindable> => {
+      ): import("typia").Resolved<ObjectHttpUndefindable> => {
         const $boolean = (typia.http.createIsHeaders as any).boolean;
         const $bigint = (typia.http.createIsHeaders as any).bigint;
         const $number = (typia.http.createIsHeaders as any).number;

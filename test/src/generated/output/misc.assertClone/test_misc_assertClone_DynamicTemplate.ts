@@ -10,7 +10,7 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<DynamicTemplate> => {
+  ): import("typia").Resolved<DynamicTemplate> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -151,7 +151,9 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: DynamicTemplate): typia.Resolved<DynamicTemplate> => {
+    const clone = (
+      input: DynamicTemplate,
+    ): import("typia").Resolved<DynamicTemplate> => {
       const $co0 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {

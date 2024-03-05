@@ -6,7 +6,7 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 export const test_json_isParse_AtomicIntersection = _test_json_isParse(
   "AtomicIntersection",
 )<AtomicIntersection>(AtomicIntersection)((input) =>
-  ((input: any): typia.Primitive<AtomicIntersection> => {
+  ((input: any): import("typia").Primitive<AtomicIntersection> => {
     const is = (input: any): input is AtomicIntersection => {
       return (
         Array.isArray(input) &&

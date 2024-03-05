@@ -7,7 +7,9 @@ export const test_protobuf_createDecode_MapSimpleProtobuf =
   _test_protobuf_decode("MapSimpleProtobuf")<MapSimpleProtobuf>(
     MapSimpleProtobuf,
   )({
-    decode: (input: Uint8Array): typia.Resolved<MapSimpleProtobuf> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<MapSimpleProtobuf> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

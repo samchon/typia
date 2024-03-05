@@ -125,7 +125,9 @@ export const test_protobuf_validateEncode_ClassPropertyAssignment =
         if (output.success) output.data = encode(input);
         return output;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ClassPropertyAssignment> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ClassPropertyAssignment> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -170,5 +172,5 @@ export const test_protobuf_validateEncode_ClassPropertyAssignment =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n    required double id = 1;\n    required string name = 2;\n    required string note = 3;\n    required bool editable = 4;\n    required bool incremental = 5;\n}',
+      'syntax = "proto3";\n\nmessage ClassPropertyAssignment {\n  required double id = 1;\n  required string name = 2;\n  required string note = 3;\n  required bool editable = 4;\n  required bool incremental = 5;\n}',
   });

@@ -6,7 +6,7 @@ import { ObjectHttpFormData } from "../../../structures/ObjectHttpFormData";
 export const test_http_isFormData_ObjectHttpFormData = _test_http_isFormData(
   "ObjectHttpFormData",
 )<ObjectHttpFormData>(ObjectHttpFormData)((input) =>
-  ((input: FormData): typia.Resolved<ObjectHttpFormData> | null => {
+  ((input: FormData): import("typia").Resolved<ObjectHttpFormData> | null => {
     const is = (input: any): input is ObjectHttpFormData => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -31,7 +31,9 @@ export const test_http_isFormData_ObjectHttpFormData = _test_http_isFormData(
         input.files.every((elem: any) => elem instanceof File);
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const decode = (input: FormData): typia.Resolved<ObjectHttpFormData> => {
+    const decode = (
+      input: FormData,
+    ): import("typia").Resolved<ObjectHttpFormData> => {
       const $string = (typia.http.isFormData as any).string;
       const $number = (typia.http.isFormData as any).number;
       const $blob = (typia.http.isFormData as any).blob;

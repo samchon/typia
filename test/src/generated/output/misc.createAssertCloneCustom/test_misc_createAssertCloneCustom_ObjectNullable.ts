@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectNullable =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectNullable> => {
+    ): import("typia").Resolved<ObjectNullable> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -297,7 +297,9 @@ export const test_misc_createAssertCloneCustom_ObjectNullable =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: ObjectNullable): typia.Resolved<ObjectNullable> => {
+      const clone = (
+        input: ObjectNullable,
+      ): import("typia").Resolved<ObjectNullable> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.name &&
           "object" === typeof input.manufacturer &&

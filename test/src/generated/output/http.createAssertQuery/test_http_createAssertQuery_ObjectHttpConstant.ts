@@ -11,10 +11,10 @@ export const test_http_createAssertQuery_ObjectHttpConstant =
     (
       input: string | URLSearchParams,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpConstant> => {
+    ): import("typia").Resolved<ObjectHttpConstant> => {
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpConstant> => {
+      ): import("typia").Resolved<ObjectHttpConstant> => {
         const $params = (typia.http.createAssertQuery as any).params;
         const $boolean = (typia.http.createAssertQuery as any).boolean;
         const $bigint = (typia.http.createAssertQuery as any).bigint;

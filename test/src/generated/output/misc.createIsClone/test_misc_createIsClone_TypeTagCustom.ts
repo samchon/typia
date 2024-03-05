@@ -6,7 +6,7 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 export const test_misc_createIsClone_TypeTagCustom = _test_misc_isClone(
   "TypeTagCustom",
 )<TypeTagCustom>(TypeTagCustom)(
-  (input: any): typia.Resolved<TypeTagCustom> | null => {
+  (input: any): import("typia").Resolved<TypeTagCustom> | null => {
     const is = (input: any): input is TypeTagCustom => {
       return (
         "object" === typeof input &&
@@ -31,7 +31,9 @@ export const test_misc_createIsClone_TypeTagCustom = _test_misc_isClone(
         })()
       );
     };
-    const clone = (input: TypeTagCustom): typia.Resolved<TypeTagCustom> => {
+    const clone = (
+      input: TypeTagCustom,
+    ): import("typia").Resolved<TypeTagCustom> => {
       const $co0 = (input: any): any => ({
         id: input.id as any,
         dollar: input.dollar as any,

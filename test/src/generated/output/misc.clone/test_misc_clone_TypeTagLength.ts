@@ -6,7 +6,7 @@ import { TypeTagLength } from "../../../structures/TypeTagLength";
 export const test_misc_clone_TypeTagLength = _test_misc_clone(
   "TypeTagLength",
 )<TypeTagLength>(TypeTagLength)((input) =>
-  ((input: TypeTagLength): typia.Resolved<TypeTagLength> => {
+  ((input: TypeTagLength): import("typia").Resolved<TypeTagLength> => {
     const $io1 = (input: any): boolean =>
       "string" === typeof input.fixed &&
       5 <= input.fixed.length &&

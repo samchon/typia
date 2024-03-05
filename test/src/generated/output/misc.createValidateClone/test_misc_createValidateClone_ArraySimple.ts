@@ -155,7 +155,9 @@ export const test_misc_createValidateClone_ArraySimple =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ArraySimple): typia.Resolved<ArraySimple> => {
+      const clone = (
+        input: ArraySimple,
+      ): import("typia").Resolved<ArraySimple> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.name &&
           "string" === typeof input.body &&

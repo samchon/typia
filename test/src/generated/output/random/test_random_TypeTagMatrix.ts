@@ -9,7 +9,7 @@ export const test_random_TypeTagMatrix = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<TypeTagMatrix> => {
+    ): import("typia").Resolved<TypeTagMatrix> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         matrix: (generator?.array ?? $generator.array)(

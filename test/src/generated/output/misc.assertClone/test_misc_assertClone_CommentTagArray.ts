@@ -10,7 +10,7 @@ export const test_misc_assertClone_CommentTagArray = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<CommentTagArray> => {
+  ): import("typia").Resolved<CommentTagArray> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -330,7 +330,9 @@ export const test_misc_assertClone_CommentTagArray = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: CommentTagArray): typia.Resolved<CommentTagArray> => {
+    const clone = (
+      input: CommentTagArray,
+    ): import("typia").Resolved<CommentTagArray> => {
       const $io1 = (input: any): boolean =>
         Array.isArray(input.items) &&
         3 <= input.items.length &&

@@ -117,7 +117,9 @@ export const test_protobuf_createAssertEncode_ObjectIntersection =
       };
       return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<ObjectIntersection> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectIntersection> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -152,5 +154,5 @@ export const test_protobuf_createAssertEncode_ObjectIntersection =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectIntersection {\n    required string email = 1;\n    required string name = 2;\n    required bool vulnerable = 3;\n}',
+      'syntax = "proto3";\n\nmessage ObjectIntersection {\n  required string email = 1;\n  required string name = 2;\n  required bool vulnerable = 3;\n}',
   });

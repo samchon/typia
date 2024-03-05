@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ConstantAtomicWrapper =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ConstantAtomicWrapper> => {
+    ): import("typia").Primitive<ConstantAtomicWrapper> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

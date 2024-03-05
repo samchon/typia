@@ -6,7 +6,7 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_misc_isClone_ObjectUnionDouble = _test_misc_isClone(
   "ObjectUnionDouble",
 )<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-  ((input: any): typia.Resolved<ObjectUnionDouble> | null => {
+  ((input: any): import("typia").Resolved<ObjectUnionDouble> | null => {
     const is = (input: any): input is ObjectUnionDouble => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -73,7 +73,7 @@ export const test_misc_isClone_ObjectUnionDouble = _test_misc_isClone(
     };
     const clone = (
       input: ObjectUnionDouble,
-    ): typia.Resolved<ObjectUnionDouble> => {
+    ): import("typia").Resolved<ObjectUnionDouble> => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
         null !== input.value &&

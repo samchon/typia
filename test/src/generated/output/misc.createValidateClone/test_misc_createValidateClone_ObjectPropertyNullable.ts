@@ -328,7 +328,7 @@ export const test_misc_createValidateClone_ObjectPropertyNullable =
     };
     const clone = (
       input: ObjectPropertyNullable,
-    ): typia.Resolved<ObjectPropertyNullable> => {
+    ): import("typia").Resolved<ObjectPropertyNullable> => {
       const $io0 = (input: any): boolean =>
         null === input.value || "boolean" === typeof input.value;
       const $io1 = (input: any): boolean =>

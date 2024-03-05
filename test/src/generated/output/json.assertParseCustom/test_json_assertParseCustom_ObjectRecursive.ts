@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ObjectRecursive =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectRecursive> => {
+    ): import("typia").Primitive<ObjectRecursive> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

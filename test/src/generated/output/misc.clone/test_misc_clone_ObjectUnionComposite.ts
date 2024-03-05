@@ -6,7 +6,9 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_misc_clone_ObjectUnionComposite = _test_misc_clone(
   "ObjectUnionComposite",
 )<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
-  ((input: ObjectUnionComposite): typia.Resolved<ObjectUnionComposite> => {
+  ((
+    input: ObjectUnionComposite,
+  ): import("typia").Resolved<ObjectUnionComposite> => {
     const $io0 = (input: any): boolean =>
       "number" === typeof input.x && "number" === typeof input.y;
     const $io1 = (input: any): boolean =>

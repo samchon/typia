@@ -8,7 +8,7 @@ export const test_createRandom_ClassNonPublic = _test_random(
 )<ClassNonPublic>(ClassNonPublic)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ClassNonPublic as any).RANDOM,
-  ): typia.Resolved<ClassNonPublic> => {
+  ): import("typia").Resolved<ClassNonPublic> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       implicit:
