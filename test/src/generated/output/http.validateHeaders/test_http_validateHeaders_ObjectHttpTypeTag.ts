@@ -216,7 +216,7 @@ export const test_http_validateHeaders_ObjectHttpTypeTag =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpTypeTag> => {
+      ): import("typia").Resolved<ObjectHttpTypeTag> => {
         const $number = (typia.http.validateHeaders as any).number;
         const $bigint = (typia.http.validateHeaders as any).bigint;
         const $string = (typia.http.validateHeaders as any).string;

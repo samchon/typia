@@ -6,7 +6,7 @@ import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 export const test_misc_isClone_TypeTagTuple = _test_misc_isClone(
   "TypeTagTuple",
 )<TypeTagTuple>(TypeTagTuple)((input) =>
-  ((input: any): typia.Resolved<TypeTagTuple> | null => {
+  ((input: any): import("typia").Resolved<TypeTagTuple> | null => {
     const is = (input: any): input is TypeTagTuple => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.tuple) &&
@@ -32,7 +32,9 @@ export const test_misc_isClone_TypeTagTuple = _test_misc_isClone(
         );
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagTuple): typia.Resolved<TypeTagTuple> => {
+    const clone = (
+      input: TypeTagTuple,
+    ): import("typia").Resolved<TypeTagTuple> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $cp1 = (input: any) => input.map((elem: any) => elem as any);
       const $co0 = (input: any): any => ({

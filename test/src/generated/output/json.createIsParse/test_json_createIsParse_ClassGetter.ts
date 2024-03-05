@@ -5,14 +5,16 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 
 export const test_json_createIsParse_ClassGetter = _test_json_isParse(
   "ClassGetter",
-)<ClassGetter>(ClassGetter)((input: any): typia.Primitive<ClassGetter> => {
-  const is = (input: any): input is ClassGetter => {
-    const $io0 = (input: any): boolean =>
-      "string" === typeof input.id &&
-      "string" === typeof input.name &&
-      (null === input.dead || "boolean" === typeof input.dead);
-    return "object" === typeof input && null !== input && $io0(input);
-  };
-  input = JSON.parse(input);
-  return is(input) ? (input as any) : null;
-});
+)<ClassGetter>(ClassGetter)(
+  (input: any): import("typia").Primitive<ClassGetter> => {
+    const is = (input: any): input is ClassGetter => {
+      const $io0 = (input: any): boolean =>
+        "string" === typeof input.id &&
+        "string" === typeof input.name &&
+        (null === input.dead || "boolean" === typeof input.dead);
+      return "object" === typeof input && null !== input && $io0(input);
+    };
+    input = JSON.parse(input);
+    return is(input) ? (input as any) : null;
+  },
+);

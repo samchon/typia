@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
 
-export const test_protobuf_createValidateDecode_ClassNonPublic =
+export const test_protobuf_validateDecode_ClassNonPublic =
   _test_protobuf_validateDecode("ClassNonPublic")<ClassNonPublic>(
     ClassNonPublic,
   )({
@@ -72,7 +72,9 @@ export const test_protobuf_createValidateDecode_ClassNonPublic =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<ClassNonPublic> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<ClassNonPublic> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

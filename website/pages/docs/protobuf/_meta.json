@@ -1,5 +1,5 @@
 {
-    "message": "Message Schema",
-    "encode": "encode() functions",
-    "decode": "decode() functions"
+  "message": "Message Schema",
+  "encode": "encode() functions",
+  "decode": "decode() functions"
 }

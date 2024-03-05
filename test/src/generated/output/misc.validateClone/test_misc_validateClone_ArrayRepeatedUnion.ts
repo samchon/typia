@@ -391,7 +391,7 @@ export const test_misc_validateClone_ArrayRepeatedUnion =
       };
       const clone = (
         input: ArrayRepeatedUnion,
-      ): typia.Resolved<ArrayRepeatedUnion> => {
+      ): import("typia").Resolved<ArrayRepeatedUnion> => {
         const $io0 = (input: any): boolean =>
           "object" === typeof input.scale &&
           null !== input.scale &&

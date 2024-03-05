@@ -1,9 +1,10 @@
-import typia from "typia";
+import typia, { TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { _test_protobuf_encode } from "./_test_protobuf_encode";
 
 export const _test_protobuf_assertEncode =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
   (functor: {
@@ -25,16 +26,19 @@ export const _test_protobuf_assertEncode =
       try {
         functor.encode(elem);
       } catch (exp) {
-        if (exp instanceof typia.TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        ) {
           if (exp.path && expected.includes(exp.path) === true) continue;
-          else
-            console.log({
-              expected,
-              actual: exp.path,
-            });
+        } else
+          console.log({
+            actualClassName: (exp as any).constructor.name,
+            expectedClassName: ErrorClass.name,
+          });
+        throw new Error(
+          `Bug on typia.json.assertEncode(): failed to detect error on the ${name} type.`,
+        );
       }
-      throw new Error(
-        `Bug on typia.json.assertEncode(): failed to detect error on the ${name} type.`,
-      );
     }
   };

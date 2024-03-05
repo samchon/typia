@@ -53,7 +53,7 @@ const test =
     process.chdir(`${__dirname}/../${name}`);
 
     if (fs.existsSync("node_modules/typia"))
-      cp.execSync("npm uninstall typia --force", { stdio: "ignore" });
+      cp.execSync("npm uninstall typia", { stdio: "ignore" });
 
     const pack: any = JSON.parse(fs.readFileSync("package.json", "utf8"));
     pack.dependencies ??= {};
@@ -63,7 +63,7 @@ const test =
     fs.writeFileSync("package.json", JSON.stringify(pack, null, 2), "utf8");
 
     if (commands.length) {
-      execute(`@typia/${name}`)("npm install --force");
+      execute(`@typia/${name}`)("npm install");
       commands.forEach(execute(`@typia/${name}`));
     }
     process.chdir(__dirname + "/..");
@@ -90,7 +90,11 @@ const main = (): void => {
   const version: string = publish("tgz");
 
   title("TEST AUTOMATION PROGRAM");
-  test(version)("test")(["npm run build:actions", "npm start"]);
+  test(version)("test")(
+    tag === "tgz" && process.argv[3] === "template"
+      ? ["npm run template", "npm run build", "npm start"]
+      : ["npm run build:actions", "npm start"],
+  );
   test(version)("errors")(["npm start"]);
   test(version)("benchmark")(["npm run build"]);
 

@@ -288,7 +288,7 @@ export const test_misc_validateClone_TypeTagArrayUnion =
       };
       const clone = (
         input: TypeTagArrayUnion,
-      ): typia.Resolved<TypeTagArrayUnion> => {
+      ): import("typia").Resolved<TypeTagArrayUnion> => {
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem

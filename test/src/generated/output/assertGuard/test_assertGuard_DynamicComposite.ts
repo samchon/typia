@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_assertGuard_DynamicComposite = _test_assertGuard(
-  "DynamicComposite",
-)<DynamicComposite>(DynamicComposite)((input) =>
-  ((input: any): asserts input is DynamicComposite => {
+  TypeGuardError,
+)("DynamicComposite")<DynamicComposite>(DynamicComposite)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is DynamicComposite => {
     const __is = (input: any): input is DynamicComposite => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -55,17 +59,25 @@ export const test_assertGuard_DynamicComposite = _test_assertGuard(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.id ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: "string",
-              value: input.id,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           (false === _exceptionable ||
             Object.keys(input).every((key: any) => {
               if (["id", "name"].some((prop: any) => key === prop)) return true;
@@ -77,29 +89,41 @@ export const test_assertGuard_DynamicComposite = _test_assertGuard(
               )
                 return (
                   ("number" === typeof value && Number.isFinite(value)) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "number",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "number",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if ("string" === typeof key && RegExp(/(.*)_postfix$/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -109,11 +133,15 @@ export const test_assertGuard_DynamicComposite = _test_assertGuard(
                   "string" === typeof value ||
                   ("number" === typeof value && Number.isFinite(value)) ||
                   "boolean" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "(boolean | number | string)",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "(boolean | number | string)",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -123,27 +151,39 @@ export const test_assertGuard_DynamicComposite = _test_assertGuard(
               )
                 return (
                   "boolean" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "boolean",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "boolean",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               return true;
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicComposite",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicComposite",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicComposite",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

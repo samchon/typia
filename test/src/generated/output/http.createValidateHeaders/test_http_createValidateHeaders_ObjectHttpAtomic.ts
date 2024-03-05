@@ -89,7 +89,7 @@ export const test_http_createValidateHeaders_ObjectHttpAtomic =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpAtomic> => {
+      ): import("typia").Resolved<ObjectHttpAtomic> => {
         const $boolean = (typia.http.createValidateHeaders as any).boolean;
         const $bigint = (typia.http.createValidateHeaders as any).bigint;
         const $number = (typia.http.createValidateHeaders as any).number;

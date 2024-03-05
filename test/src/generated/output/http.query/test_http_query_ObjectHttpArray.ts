@@ -6,7 +6,9 @@ import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 export const test_http_query_ObjectHttpArray = _test_http_query(
   "ObjectHttpArray",
 )<ObjectHttpArray>(ObjectHttpArray)((input) =>
-  ((input: string | URLSearchParams): typia.Resolved<ObjectHttpArray> => {
+  ((
+    input: string | URLSearchParams,
+  ): import("typia").Resolved<ObjectHttpArray> => {
     const $params = (typia.http.query as any).params;
     const $boolean = (typia.http.query as any).boolean;
     const $bigint = (typia.http.query as any).bigint;

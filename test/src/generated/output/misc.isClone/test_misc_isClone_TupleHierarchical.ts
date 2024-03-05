@@ -6,7 +6,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_misc_isClone_TupleHierarchical = _test_misc_isClone(
   "TupleHierarchical",
 )<TupleHierarchical>(TupleHierarchical)((input) =>
-  ((input: any): typia.Resolved<TupleHierarchical> | null => {
+  ((input: any): import("typia").Resolved<TupleHierarchical> | null => {
     const is = (input: any): input is TupleHierarchical => {
       return (
         Array.isArray(input) &&
@@ -59,7 +59,7 @@ export const test_misc_isClone_TupleHierarchical = _test_misc_isClone(
     };
     const clone = (
       input: TupleHierarchical,
-    ): typia.Resolved<TupleHierarchical> => {
+    ): import("typia").Resolved<TupleHierarchical> => {
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           Array.isArray(elem) &&

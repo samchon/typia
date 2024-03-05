@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_json_assertStringify_DynamicComposite =
-  _test_json_assertStringify("DynamicComposite")<DynamicComposite>(
-    DynamicComposite,
-  )((input) =>
-    ((input: any): string => {
-      const assert = (input: any): DynamicComposite => {
+  _test_json_assertStringify(TypeGuardError)(
+    "DynamicComposite",
+  )<DynamicComposite>(DynamicComposite)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): DynamicComposite => {
         const __is = (input: any): input is DynamicComposite => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -60,17 +67,25 @@ export const test_json_assertStringify_DynamicComposite =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "string",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "string",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (false === _exceptionable ||
                 Object.keys(input).every((key: any) => {
                   if (["id", "name"].some((prop: any) => key === prop))
@@ -83,11 +98,15 @@ export const test_json_assertStringify_DynamicComposite =
                   )
                     return (
                       ("number" === typeof value && Number.isFinite(value)) ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "number",
-                        value: value,
-                      })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: "number",
+                          value: value,
+                        },
+                        errorFactory,
+                      )
                     );
                   if (
                     "string" === typeof key &&
@@ -95,11 +114,15 @@ export const test_json_assertStringify_DynamicComposite =
                   )
                     return (
                       "string" === typeof value ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "string",
-                        value: value,
-                      })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: "string",
+                          value: value,
+                        },
+                        errorFactory,
+                      )
                     );
                   if (
                     "string" === typeof key &&
@@ -107,11 +130,15 @@ export const test_json_assertStringify_DynamicComposite =
                   )
                     return (
                       "string" === typeof value ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "string",
-                        value: value,
-                      })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: "string",
+                          value: value,
+                        },
+                        errorFactory,
+                      )
                     );
                   if (
                     "string" === typeof key &&
@@ -123,11 +150,15 @@ export const test_json_assertStringify_DynamicComposite =
                       "string" === typeof value ||
                       ("number" === typeof value && Number.isFinite(value)) ||
                       "boolean" === typeof value ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "(boolean | number | string)",
-                        value: value,
-                      })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: "(boolean | number | string)",
+                          value: value,
+                        },
+                        errorFactory,
+                      )
                     );
                   if (
                     "string" === typeof key &&
@@ -137,27 +168,39 @@ export const test_json_assertStringify_DynamicComposite =
                   )
                     return (
                       "boolean" === typeof value ||
-                      $guard(_exceptionable, {
-                        path: _path + $join(key),
-                        expected: "boolean",
-                        value: value,
-                      })
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + $join(key),
+                          expected: "boolean",
+                          value: value,
+                        },
+                        errorFactory,
+                      )
                     );
                   return true;
                 }));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "DynamicComposite",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "DynamicComposite",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "DynamicComposite",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -209,6 +252,6 @@ export const test_json_assertStringify_DynamicComposite =
           )}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     })(input),
   );

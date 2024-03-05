@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "build": "rimraf bin && tsc",
+    "build": "rimraf bin && node --max-old-space-size=8192 node_modules/typescript/bin/tsc",
     "build:actions": "rimraf bin && tsc -p tsconfig.actions.json",
     "prepare": "ts-patch install",
     "prettier": "prettier ./src/**/*.ts --write",
@@ -33,15 +33,13 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/cli": "^0.11.25",
     "@types/node": "^20.9.4",
     "@types/uuid": "^9.0.7",
-    "prettier": "^2.6.2",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
     "ts-patch": "^3.1.0",
-    "typescript": "^5.4.0-dev.20240124"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "cli": "^1.0.1",
@@ -51,6 +49,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^2.5.13",
     "uuid": "^9.0.1",
-    "typia": "D:\\github\\samchon\\typia\\typia-5.4.14.tgz"
+    "typia": "D:\\github\\samchon\\typia\\typia-5.5.0.tgz"
   }
 }

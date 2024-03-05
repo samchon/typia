@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_protobuf_createAssertEncode_CommentTagDefault =
-  _test_protobuf_assertEncode("CommentTagDefault")<CommentTagDefault>(
-    CommentTagDefault,
-  )({
+export const test_protobuf_assertEncode_CommentTagDefault =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagDefault",
+  )<CommentTagDefault>(CommentTagDefault)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): CommentTagDefault => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): CommentTagDefault => {
           const __is = (input: any): input is CommentTagDefault => {
             const $io0 = (input: any): boolean =>
               "boolean" === typeof input.boolean &&
@@ -60,96 +67,148 @@ export const test_protobuf_createAssertEncode_CommentTagDefault =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ("boolean" === typeof input.boolean ||
-                  $guard(_exceptionable, {
-                    path: _path + ".boolean",
-                    expected: "boolean",
-                    value: input.boolean,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".boolean",
+                      expected: "boolean",
+                      value: input.boolean,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.number &&
                   Number.isFinite(input.number)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".number",
-                    expected: "number",
-                    value: input.number,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".number",
+                      expected: "number",
+                      value: input.number,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.string ||
-                  $guard(_exceptionable, {
-                    path: _path + ".string",
-                    expected: "string",
-                    value: input.string,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".string",
+                      expected: "string",
+                      value: input.string,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.text ||
-                  $guard(_exceptionable, {
-                    path: _path + ".text",
-                    expected: "string",
-                    value: input.text,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".text",
+                      expected: "string",
+                      value: input.text,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.boolean_and_number_and_string ||
                   ("number" === typeof input.boolean_and_number_and_string &&
                     Number.isFinite(input.boolean_and_number_and_string)) ||
                   "boolean" === typeof input.boolean_and_number_and_string ||
-                  $guard(_exceptionable, {
-                    path: _path + ".boolean_and_number_and_string",
-                    expected: "(boolean | number | string)",
-                    value: input.boolean_and_number_and_string,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".boolean_and_number_and_string",
+                      expected: "(boolean | number | string)",
+                      value: input.boolean_and_number_and_string,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.union_but_boolean ||
                   ("number" === typeof input.union_but_boolean &&
                     Number.isFinite(input.union_but_boolean)) ||
                   "boolean" === typeof input.union_but_boolean ||
-                  $guard(_exceptionable, {
-                    path: _path + ".union_but_boolean",
-                    expected: "(boolean | number | string)",
-                    value: input.union_but_boolean,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".union_but_boolean",
+                      expected: "(boolean | number | string)",
+                      value: input.union_but_boolean,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.union_but_number ||
                   ("number" === typeof input.union_but_number &&
                     Number.isFinite(input.union_but_number)) ||
                   "boolean" === typeof input.union_but_number ||
-                  $guard(_exceptionable, {
-                    path: _path + ".union_but_number",
-                    expected: "(boolean | number | string)",
-                    value: input.union_but_number,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".union_but_number",
+                      expected: "(boolean | number | string)",
+                      value: input.union_but_number,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.union_but_string ||
                   ("number" === typeof input.union_but_string &&
                     Number.isFinite(input.union_but_string)) ||
                   "boolean" === typeof input.union_but_string ||
-                  $guard(_exceptionable, {
-                    path: _path + ".union_but_string",
-                    expected: "(boolean | number | string)",
-                    value: input.union_but_string,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".union_but_string",
+                      expected: "(boolean | number | string)",
+                      value: input.union_but_string,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.vulnerable_range &&
                   (3 <= input.vulnerable_range ||
-                    $guard(_exceptionable, {
-                      path: _path + ".vulnerable_range",
-                      expected: "number & Minimum<3>",
-                      value: input.vulnerable_range,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".vulnerable_range",
+                        expected: "number & Minimum<3>",
+                        value: input.vulnerable_range,
+                      },
+                      errorFactory,
+                    )) &&
                   (input.vulnerable_range <= 5 ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".vulnerable_range",
+                        expected: "number & Maximum<5>",
+                        value: input.vulnerable_range,
+                      },
+                      errorFactory,
+                    ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + ".vulnerable_range",
-                      expected: "number & Maximum<5>",
+                      expected: "(number & Minimum<3> & Maximum<5>)",
                       value: input.vulnerable_range,
-                    }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".vulnerable_range",
-                    expected: "(number & Minimum<3> & Maximum<5>)",
-                    value: input.vulnerable_range,
-                  })) &&
+                    },
+                    errorFactory,
+                  )) &&
                 (null !== input.boolean_and_number_and_template ||
-                  $guard(_exceptionable, {
-                    path: _path + ".boolean_and_number_and_template",
-                    expected: "(`prefix_${string}` | boolean | number)",
-                    value: input.boolean_and_number_and_template,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".boolean_and_number_and_template",
+                      expected: "(`prefix_${string}` | boolean | number)",
+                      value: input.boolean_and_number_and_template,
+                    },
+                    errorFactory,
+                  )) &&
                 (undefined !== input.boolean_and_number_and_template ||
-                  $guard(_exceptionable, {
-                    path: _path + ".boolean_and_number_and_template",
-                    expected: "(`prefix_${string}` | boolean | number)",
-                    value: input.boolean_and_number_and_template,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".boolean_and_number_and_template",
+                      expected: "(`prefix_${string}` | boolean | number)",
+                      value: input.boolean_and_number_and_template,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.boolean_and_number_and_template &&
                   Number.isFinite(input.boolean_and_number_and_template)) ||
                   "boolean" === typeof input.boolean_and_number_and_template ||
@@ -157,24 +216,36 @@ export const test_protobuf_createAssertEncode_CommentTagDefault =
                     RegExp(/^prefix_(.*)/).test(
                       input.boolean_and_number_and_template,
                     )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".boolean_and_number_and_template",
-                    expected: "(`prefix_${string}` | boolean | number)",
-                    value: input.boolean_and_number_and_template,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".boolean_and_number_and_template",
+                      expected: "(`prefix_${string}` | boolean | number)",
+                      value: input.boolean_and_number_and_template,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "CommentTagDefault",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "CommentTagDefault",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "CommentTagDefault",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -292,9 +363,11 @@ export const test_protobuf_createAssertEncode_CommentTagDefault =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<CommentTagDefault> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagDefault> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -404,5 +477,5 @@ export const test_protobuf_createAssertEncode_CommentTagDefault =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagDefault {\n    required bool boolean = 1;\n    required double number = 2;\n    required string string = 3;\n    required string text = 4;\n    oneof boolean_and_number_and_string {\n        bool v5 = 5;\n        double v6 = 6;\n        string v7 = 7;\n    }\n    oneof union_but_boolean {\n        bool v8 = 8;\n        double v9 = 9;\n        string v10 = 10;\n    }\n    oneof union_but_number {\n        bool v11 = 11;\n        double v12 = 12;\n        string v13 = 13;\n    }\n    oneof union_but_string {\n        bool v14 = 14;\n        double v15 = 15;\n        string v16 = 16;\n    }\n    required double vulnerable_range = 17;\n    oneof boolean_and_number_and_template {\n        bool v18 = 18;\n        double v19 = 19;\n        string v20 = 20;\n    }\n}',
+      'syntax = "proto3";\n\nmessage CommentTagDefault {\n  required bool boolean = 1;\n  required double number = 2;\n  required string string = 3;\n  required string text = 4;\n  oneof boolean_and_number_and_string {\n    bool v5 = 5;\n    double v6 = 6;\n    string v7 = 7;\n  }\n  oneof union_but_boolean {\n    bool v8 = 8;\n    double v9 = 9;\n    string v10 = 10;\n  }\n  oneof union_but_number {\n    bool v11 = 11;\n    double v12 = 12;\n    string v13 = 13;\n  }\n  oneof union_but_string {\n    bool v14 = 14;\n    double v15 = 15;\n    string v16 = 16;\n  }\n  required double vulnerable_range = 17;\n  oneof boolean_and_number_and_template {\n    bool v18 = 18;\n    double v19 = 19;\n    string v20 = 20;\n  }\n}',
   });

@@ -3,11 +3,11 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_protobuf_createDecode_ObjectJsonTag = _test_protobuf_decode(
+export const test_protobuf_decode_ObjectJsonTag = _test_protobuf_decode(
   "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectJsonTag> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

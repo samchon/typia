@@ -9,7 +9,7 @@ export const test_protobuf_createIsDecode_ObjectSimpleProtobuf =
   )({
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<ObjectSimpleProtobuf> | null => {
+    ): import("typia").Resolved<ObjectSimpleProtobuf> | null => {
       const is = (input: any): input is ObjectSimpleProtobuf => {
         const $io0 = (input: any): boolean =>
           "boolean" === typeof input.bool &&
@@ -36,7 +36,7 @@ export const test_protobuf_createIsDecode_ObjectSimpleProtobuf =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ObjectSimpleProtobuf> => {
+      ): import("typia").Resolved<ObjectSimpleProtobuf> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

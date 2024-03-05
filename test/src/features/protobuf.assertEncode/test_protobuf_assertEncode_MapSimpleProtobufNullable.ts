@@ -1,10 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
-export const test_protobuf_createAssertEncode_MapSimpleProtobufNullable =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_MapSimpleProtobufNullable =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "MapSimpleProtobufNullable",
   )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({
     encode: (input) =>

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_protobuf_createValidateEncode_ConstantAtomicAbsorbed =
+export const test_protobuf_validateEncode_ConstantAtomicAbsorbed =
   _test_protobuf_validateEncode(
     "ConstantAtomicAbsorbed",
   )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({
@@ -98,7 +98,9 @@ export const test_protobuf_createValidateEncode_ConstantAtomicAbsorbed =
         if (output.success) output.data = encode(input);
         return output;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ConstantAtomicAbsorbed> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -128,5 +130,5 @@ export const test_protobuf_createValidateEncode_ConstantAtomicAbsorbed =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ConstantAtomicAbsorbed {\n    required string id = 1;\n    required double age = 2;\n}',
+      'syntax = "proto3";\n\nmessage ConstantAtomicAbsorbed {\n  required string id = 1;\n  required double age = 2;\n}',
   });

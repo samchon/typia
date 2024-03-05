@@ -1,15 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
-export const test_protobuf_createAssertDecode_ObjectHttpArray =
-  _test_protobuf_assertDecode("ObjectHttpArray")<ObjectHttpArray>(
-    ObjectHttpArray,
-  )({
+export const test_protobuf_assertDecode_ObjectHttpArray =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectHttpArray",
+  )<ObjectHttpArray>(ObjectHttpArray)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
-        const decode = (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): import("typia").Resolved<ObjectHttpArray> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<ObjectHttpArray> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;
@@ -65,7 +71,10 @@ export const test_protobuf_createAssertDecode_ObjectHttpArray =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectHttpArray => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectHttpArray => {
           const __is = (input: any): input is ObjectHttpArray => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.booleans) &&
@@ -100,125 +109,193 @@ export const test_protobuf_createAssertDecode_ObjectHttpArray =
                 _exceptionable: boolean = true,
               ): boolean =>
                 (((Array.isArray(input.booleans) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".booleans",
-                    expected: "Array<boolean>",
-                    value: input.booleans,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".booleans",
+                      expected: "Array<boolean>",
+                      value: input.booleans,
+                    },
+                    errorFactory,
+                  )) &&
                   input.booleans.every(
                     (elem: any, _index1: number) =>
                       "boolean" === typeof elem ||
-                      $guard(_exceptionable, {
-                        path: _path + ".booleans[" + _index1 + "]",
-                        expected: "boolean",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".booleans[" + _index1 + "]",
+                          expected: "boolean",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".booleans",
-                    expected: "Array<boolean>",
-                    value: input.booleans,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".booleans",
+                      expected: "Array<boolean>",
+                      value: input.booleans,
+                    },
+                    errorFactory,
+                  )) &&
                 (((Array.isArray(input.bigints) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".bigints",
-                    expected: "Array<bigint>",
-                    value: input.bigints,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".bigints",
+                      expected: "Array<bigint>",
+                      value: input.bigints,
+                    },
+                    errorFactory,
+                  )) &&
                   input.bigints.every(
                     (elem: any, _index2: number) =>
                       "bigint" === typeof elem ||
-                      $guard(_exceptionable, {
-                        path: _path + ".bigints[" + _index2 + "]",
-                        expected: "bigint",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".bigints[" + _index2 + "]",
+                          expected: "bigint",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".bigints",
-                    expected: "Array<bigint>",
-                    value: input.bigints,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".bigints",
+                      expected: "Array<bigint>",
+                      value: input.bigints,
+                    },
+                    errorFactory,
+                  )) &&
                 (((Array.isArray(input.numbers) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".numbers",
-                    expected: "Array<number>",
-                    value: input.numbers,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".numbers",
+                      expected: "Array<number>",
+                      value: input.numbers,
+                    },
+                    errorFactory,
+                  )) &&
                   input.numbers.every(
                     (elem: any, _index3: number) =>
                       ("number" === typeof elem && Number.isFinite(elem)) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".numbers[" + _index3 + "]",
-                        expected: "number",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".numbers[" + _index3 + "]",
+                          expected: "number",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".numbers",
-                    expected: "Array<number>",
-                    value: input.numbers,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".numbers",
+                      expected: "Array<number>",
+                      value: input.numbers,
+                    },
+                    errorFactory,
+                  )) &&
                 (((Array.isArray(input.strings) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".strings",
-                    expected: "Array<string>",
-                    value: input.strings,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".strings",
+                      expected: "Array<string>",
+                      value: input.strings,
+                    },
+                    errorFactory,
+                  )) &&
                   input.strings.every(
                     (elem: any, _index4: number) =>
                       "string" === typeof elem ||
-                      $guard(_exceptionable, {
-                        path: _path + ".strings[" + _index4 + "]",
-                        expected: "string",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".strings[" + _index4 + "]",
+                          expected: "string",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".strings",
-                    expected: "Array<string>",
-                    value: input.strings,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".strings",
+                      expected: "Array<string>",
+                      value: input.strings,
+                    },
+                    errorFactory,
+                  )) &&
                 (((Array.isArray(input.templates) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".templates",
-                    expected: "Array<`something_${string}`>",
-                    value: input.templates,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".templates",
+                      expected: "Array<`something_${string}`>",
+                      value: input.templates,
+                    },
+                    errorFactory,
+                  )) &&
                   input.templates.every(
                     (elem: any, _index5: number) =>
                       ("string" === typeof elem &&
                         RegExp(/^something_(.*)/).test(elem)) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".templates[" + _index5 + "]",
-                        expected: "`something_${string}`",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".templates[" + _index5 + "]",
+                          expected: "`something_${string}`",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".templates",
-                    expected: "Array<`something_${string}`>",
-                    value: input.templates,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".templates",
+                      expected: "Array<`something_${string}`>",
+                      value: input.templates,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectHttpArray",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectHttpArray",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectHttpArray",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectHttpArray): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

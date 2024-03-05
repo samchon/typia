@@ -1,11 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_createAssertGuardEquals_ObjectJsonTag =
-  _test_assertGuardEquals("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)(
-    (input: any): asserts input is ObjectJsonTag => {
+  _test_assertGuardEquals(TypeGuardError)("ObjectJsonTag")<ObjectJsonTag>(
+    ObjectJsonTag,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): asserts input is ObjectJsonTag => {
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -43,29 +49,45 @@ export const test_createAssertGuardEquals_ObjectJsonTag =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "string",
-                value: input.vulnerable,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "string",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.description ||
-              $guard(_exceptionable, {
-                path: _path + ".description",
-                expected: "string",
-                value: input.description,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".description",
+                  expected: "string",
+                  value: input.description,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.title ||
-              $guard(_exceptionable, {
-                path: _path + ".title",
-                expected: "string",
-                value: input.title,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".title",
+                  expected: "string",
+                  value: input.title,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.complicate_title ||
-              $guard(_exceptionable, {
-                path: _path + ".complicate_title",
-                expected: "string",
-                value: input.complicate_title,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".complicate_title",
+                  expected: "string",
+                  value: input.complicate_title,
+                },
+                errorFactory,
+              )) &&
             (4 === Object.keys(input).length ||
               false === _exceptionable ||
               Object.keys(input).every((key: any) => {
@@ -80,25 +102,37 @@ export const test_createAssertGuardEquals_ObjectJsonTag =
                   return true;
                 const value = input[key];
                 if (undefined === value) return true;
-                return $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "undefined",
-                  value: value,
-                });
+                return $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "undefined",
+                    value: value,
+                  },
+                  errorFactory,
+                );
               }));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectJsonTag",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectJsonTag",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectJsonTag",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

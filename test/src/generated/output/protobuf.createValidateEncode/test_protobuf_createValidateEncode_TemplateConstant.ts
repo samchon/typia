@@ -199,7 +199,7 @@ export const test_protobuf_createValidateEncode_TemplateConstant =
       if (output.success) output.data = encode(input);
       return output;
     },
-    decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
+    decode: (input: Uint8Array): import("typia").Resolved<TemplateConstant> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -253,5 +253,5 @@ export const test_protobuf_createValidateEncode_TemplateConstant =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage TemplateConstant {\n    repeated TemplateConstant.Type value = 1;\n    message Type {\n        required string prefix = 1;\n        required string postfix = 2;\n        required string combined = 3;\n    }\n}',
+      'syntax = "proto3";\n\nmessage TemplateConstant {\n  repeated TemplateConstant.Type value = 1;\n  message Type {\n    required string prefix = 1;\n    required string postfix = 2;\n    required string combined = 3;\n  }\n}',
   });

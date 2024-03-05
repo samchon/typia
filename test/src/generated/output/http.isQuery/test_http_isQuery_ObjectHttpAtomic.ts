@@ -8,7 +8,7 @@ export const test_http_isQuery_ObjectHttpAtomic = _test_http_isQuery(
 )<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
   ((
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpAtomic> | null => {
+  ): import("typia").Resolved<ObjectHttpAtomic> | null => {
     const is = (input: any): input is ObjectHttpAtomic => {
       return (
         "object" === typeof input &&
@@ -22,7 +22,7 @@ export const test_http_isQuery_ObjectHttpAtomic = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpAtomic> => {
+    ): import("typia").Resolved<ObjectHttpAtomic> => {
       const $params = (typia.http.isQuery as any).params;
       const $boolean = (typia.http.isQuery as any).boolean;
       const $bigint = (typia.http.isQuery as any).bigint;

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
-export const test_protobuf_createValidateDecode_ObjectPartialAndRequired =
+export const test_protobuf_validateDecode_ObjectPartialAndRequired =
   _test_protobuf_validateDecode(
     "ObjectPartialAndRequired",
   )<ObjectPartialAndRequired>(ObjectPartialAndRequired)({
@@ -138,7 +138,7 @@ export const test_protobuf_createValidateDecode_ObjectPartialAndRequired =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectPartialAndRequired> => {
+        ): import("typia").Resolved<ObjectPartialAndRequired> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

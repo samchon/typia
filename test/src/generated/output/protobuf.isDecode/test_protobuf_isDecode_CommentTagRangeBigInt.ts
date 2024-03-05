@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
 
-export const test_protobuf_createIsDecode_CommentTagRangeBigInt =
+export const test_protobuf_isDecode_CommentTagRangeBigInt =
   _test_protobuf_isDecode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
     CommentTagRangeBigInt,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<CommentTagRangeBigInt> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagRangeBigInt> | null => {
         const is = (input: any): input is CommentTagRangeBigInt => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -44,7 +46,7 @@ export const test_protobuf_createIsDecode_CommentTagRangeBigInt =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<CommentTagRangeBigInt> => {
+        ): import("typia").Resolved<CommentTagRangeBigInt> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

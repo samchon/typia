@@ -6,7 +6,9 @@ import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 export const test_protobuf_createDecode_ObjectHttpAtomic =
   _test_protobuf_decode("ObjectHttpAtomic")<ObjectHttpAtomic>(ObjectHttpAtomic)(
     {
-      decode: (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
+      decode: (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectHttpAtomic> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

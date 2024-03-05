@@ -5,7 +5,9 @@ import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
 export const test_protobuf_createIsDecode_TypeTagInfinite =
   _test_protobuf_isDecode("TypeTagInfinite")<TypeTagInfinite>(TypeTagInfinite)({
-    decode: (input: Uint8Array): typia.Resolved<TypeTagInfinite> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<TypeTagInfinite> | null => {
       const is = (input: any): input is TypeTagInfinite => {
         return (
           "object" === typeof input &&
@@ -29,7 +31,9 @@ export const test_protobuf_createIsDecode_TypeTagInfinite =
           (input as any).typed <= 2147483647
         );
       };
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagInfinite> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

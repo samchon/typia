@@ -9,7 +9,7 @@ export const test_misc_createClone_ObjectUnionExplicitPointer =
   )(
     (
       input: ObjectUnionExplicitPointer,
-    ): typia.Resolved<ObjectUnionExplicitPointer> => {
+    ): import("typia").Resolved<ObjectUnionExplicitPointer> => {
       const $io1 = (input: any): boolean =>
         "object" === typeof input.value &&
         null !== input.value &&

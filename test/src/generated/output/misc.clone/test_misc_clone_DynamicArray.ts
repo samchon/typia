@@ -6,7 +6,7 @@ import { DynamicArray } from "../../../structures/DynamicArray";
 export const test_misc_clone_DynamicArray = _test_misc_clone(
   "DynamicArray",
 )<DynamicArray>(DynamicArray)((input) =>
-  ((input: DynamicArray): typia.Resolved<DynamicArray> => {
+  ((input: DynamicArray): import("typia").Resolved<DynamicArray> => {
     const $io1 = (input: any): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];

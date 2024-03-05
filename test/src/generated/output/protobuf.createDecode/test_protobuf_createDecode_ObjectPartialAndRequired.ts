@@ -7,7 +7,9 @@ export const test_protobuf_createDecode_ObjectPartialAndRequired =
   _test_protobuf_decode("ObjectPartialAndRequired")<ObjectPartialAndRequired>(
     ObjectPartialAndRequired,
   )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectPartialAndRequired> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectPartialAndRequired> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

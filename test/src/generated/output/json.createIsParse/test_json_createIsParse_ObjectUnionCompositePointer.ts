@@ -7,7 +7,7 @@ export const test_json_createIsParse_ObjectUnionCompositePointer =
   _test_json_isParse(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
-    (input: any): typia.Primitive<ObjectUnionCompositePointer> => {
+    (input: any): import("typia").Primitive<ObjectUnionCompositePointer> => {
       const is = (input: any): input is ObjectUnionCompositePointer => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&

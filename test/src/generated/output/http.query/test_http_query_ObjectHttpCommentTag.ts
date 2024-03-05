@@ -6,7 +6,9 @@ import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 export const test_http_query_ObjectHttpCommentTag = _test_http_query(
   "ObjectHttpCommentTag",
 )<ObjectHttpCommentTag>(ObjectHttpCommentTag)((input) =>
-  ((input: string | URLSearchParams): typia.Resolved<ObjectHttpCommentTag> => {
+  ((
+    input: string | URLSearchParams,
+  ): import("typia").Resolved<ObjectHttpCommentTag> => {
     const $params = (typia.http.query as any).params;
     const $number = (typia.http.query as any).number;
     const $bigint = (typia.http.query as any).bigint;

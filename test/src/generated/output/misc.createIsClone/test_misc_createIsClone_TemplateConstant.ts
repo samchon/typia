@@ -6,7 +6,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_misc_createIsClone_TemplateConstant = _test_misc_isClone(
   "TemplateConstant",
 )<TemplateConstant>(TemplateConstant)(
-  (input: any): typia.Resolved<TemplateConstant> | null => {
+  (input: any): import("typia").Resolved<TemplateConstant> | null => {
     const is = (input: any): input is TemplateConstant => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -34,7 +34,7 @@ export const test_misc_createIsClone_TemplateConstant = _test_misc_isClone(
     };
     const clone = (
       input: TemplateConstant,
-    ): typia.Resolved<TemplateConstant> => {
+    ): import("typia").Resolved<TemplateConstant> => {
       const $io1 = (input: any): boolean =>
         ("prefix_A" === input.prefix ||
           "prefix_B" === input.prefix ||

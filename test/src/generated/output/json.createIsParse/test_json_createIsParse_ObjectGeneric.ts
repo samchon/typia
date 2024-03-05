@@ -6,7 +6,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_json_createIsParse_ObjectGeneric = _test_json_isParse(
   "ObjectGeneric",
 )<ObjectGeneric>(ObjectGeneric)(
-  (input: any): typia.Primitive<ObjectGeneric> => {
+  (input: any): import("typia").Primitive<ObjectGeneric> => {
     const is = (input: any): input is ObjectGeneric => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.value &&

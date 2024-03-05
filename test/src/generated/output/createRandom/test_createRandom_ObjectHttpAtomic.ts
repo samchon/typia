@@ -9,7 +9,7 @@ export const test_createRandom_ObjectHttpAtomic = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectHttpAtomic as any)
       .RANDOM,
-  ): typia.Resolved<ObjectHttpAtomic> => {
+  ): import("typia").Resolved<ObjectHttpAtomic> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       boolean: (generator?.boolean ?? $generator.boolean)(),
@@ -25,7 +25,10 @@ export const test_createRandom_ObjectHttpAtomic = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ObjectHttpAtomic => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectHttpAtomic => {
     const __is = (input: any): input is ObjectHttpAtomic => {
       return (
         "object" === typeof input &&
@@ -50,43 +53,67 @@ export const test_createRandom_ObjectHttpAtomic = _test_random(
           _exceptionable: boolean = true,
         ): boolean =>
           ("boolean" === typeof input.boolean ||
-            $guard(_exceptionable, {
-              path: _path + ".boolean",
-              expected: "boolean",
-              value: input.boolean,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".boolean",
+                expected: "boolean",
+                value: input.boolean,
+              },
+              errorFactory,
+            )) &&
           ("bigint" === typeof input.bigint ||
-            $guard(_exceptionable, {
-              path: _path + ".bigint",
-              expected: "bigint",
-              value: input.bigint,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".bigint",
+                expected: "bigint",
+                value: input.bigint,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.number &&
             Number.isFinite(input.number)) ||
-            $guard(_exceptionable, {
-              path: _path + ".number",
-              expected: "number",
-              value: input.number,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".number",
+                expected: "number",
+                value: input.number,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.string ||
-            $guard(_exceptionable, {
-              path: _path + ".string",
-              expected: "string",
-              value: input.string,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".string",
+                expected: "string",
+                value: input.string,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectHttpAtomic",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectHttpAtomic",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectHttpAtomic",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

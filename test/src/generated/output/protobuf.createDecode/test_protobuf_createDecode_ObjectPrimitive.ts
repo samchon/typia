@@ -6,7 +6,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_protobuf_createDecode_ObjectPrimitive = _test_protobuf_decode(
   "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)({
-  decode: (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectPrimitive> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;

@@ -220,7 +220,9 @@ export const test_misc_createValidateClone_TypeTagType =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: TypeTagType): typia.Resolved<TypeTagType> => {
+      const clone = (
+        input: TypeTagType,
+      ): import("typia").Resolved<TypeTagType> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.int &&
           Math.floor(input.int) === input.int &&

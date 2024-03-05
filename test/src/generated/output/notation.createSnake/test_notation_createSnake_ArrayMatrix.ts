@@ -133,7 +133,10 @@ export const test_notation_createValidateSnake_ArrayMatrix =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<ArrayMatrix> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<ArrayMatrix> => {
       const __is = (input: any): input is typia.SnakeCase<ArrayMatrix> => {
         return (
           Array.isArray(input) &&
@@ -160,62 +163,91 @@ export const test_notation_createValidateSnake_ArrayMatrix =
           const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ArrayMatrix",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ArrayMatrix",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   ((Array.isArray(elem) ||
-                    $guard(true, {
-                      path: _path + "[" + _index1 + "]",
-                      expected: "Array<Array<number>>",
-                      value: elem,
-                    })) &&
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[" + _index1 + "]",
+                        expected: "Array<Array<number>>",
+                        value: elem,
+                      },
+                      errorFactory,
+                    )) &&
                     elem.every(
                       (elem: any, _index2: number) =>
                         ((Array.isArray(elem) ||
-                          $guard(true, {
-                            path: _path + "[" + _index1 + "][" + _index2 + "]",
-                            expected: "Array<number>",
-                            value: elem,
-                          })) &&
+                          $guard(
+                            true,
+                            {
+                              path:
+                                _path + "[" + _index1 + "][" + _index2 + "]",
+                              expected: "Array<number>",
+                              value: elem,
+                            },
+                            errorFactory,
+                          )) &&
                           elem.every(
                             (elem: any, _index3: number) =>
                               ("number" === typeof elem &&
                                 Number.isFinite(elem)) ||
-                              $guard(true, {
-                                path:
-                                  _path +
-                                  "[" +
-                                  _index1 +
-                                  "][" +
-                                  _index2 +
-                                  "][" +
-                                  _index3 +
-                                  "]",
-                                expected: "number",
-                                value: elem,
-                              }),
+                              $guard(
+                                true,
+                                {
+                                  path:
+                                    _path +
+                                    "[" +
+                                    _index1 +
+                                    "][" +
+                                    _index2 +
+                                    "][" +
+                                    _index3 +
+                                    "]",
+                                  expected: "number",
+                                  value: elem,
+                                },
+                                errorFactory,
+                              ),
                           )) ||
-                        $guard(true, {
-                          path: _path + "[" + _index1 + "][" + _index2 + "]",
-                          expected: "Array<number>",
-                          value: elem,
-                        }),
+                        $guard(
+                          true,
+                          {
+                            path: _path + "[" + _index1 + "][" + _index2 + "]",
+                            expected: "Array<number>",
+                            value: elem,
+                          },
+                          errorFactory,
+                        ),
                     )) ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "Array<Array<number>>",
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "Array<Array<number>>",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ArrayMatrix",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ArrayMatrix",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

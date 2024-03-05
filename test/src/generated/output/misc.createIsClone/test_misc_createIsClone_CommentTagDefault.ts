@@ -6,7 +6,7 @@ import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 export const test_misc_createIsClone_CommentTagDefault = _test_misc_isClone(
   "CommentTagDefault",
 )<CommentTagDefault>(CommentTagDefault)(
-  (input: any): typia.Resolved<CommentTagDefault> | null => {
+  (input: any): import("typia").Resolved<CommentTagDefault> | null => {
     const is = (input: any): input is CommentTagDefault => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&
@@ -46,7 +46,7 @@ export const test_misc_createIsClone_CommentTagDefault = _test_misc_isClone(
     };
     const clone = (
       input: CommentTagDefault,
-    ): typia.Resolved<CommentTagDefault> => {
+    ): import("typia").Resolved<CommentTagDefault> => {
       const $co0 = (input: any): any => ({
         boolean: input.boolean as any,
         number: input.number as any,

@@ -8,7 +8,7 @@ export const test_http_isHeaders_ObjectHttpTypeTag = _test_http_isHeaders(
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)((input) =>
   ((
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpTypeTag> | null => {
+  ): import("typia").Resolved<ObjectHttpTypeTag> | null => {
     const is = (input: any): input is ObjectHttpTypeTag => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int32 &&
@@ -38,7 +38,7 @@ export const test_http_isHeaders_ObjectHttpTypeTag = _test_http_isHeaders(
     };
     const decode = (
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpTypeTag> => {
+    ): import("typia").Resolved<ObjectHttpTypeTag> => {
       const $number = (typia.http.isHeaders as any).number;
       const $bigint = (typia.http.isHeaders as any).bigint;
       const $string = (typia.http.isHeaders as any).string;

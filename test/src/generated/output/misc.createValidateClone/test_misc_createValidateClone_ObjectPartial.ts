@@ -218,7 +218,9 @@ export const test_misc_createValidateClone_ObjectPartial =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectPartial): typia.Resolved<ObjectPartial> => {
+      const clone = (
+        input: ObjectPartial,
+      ): import("typia").Resolved<ObjectPartial> => {
         const $io1 = (input: any): boolean =>
           "boolean" === typeof input.boolean &&
           "number" === typeof input.number &&

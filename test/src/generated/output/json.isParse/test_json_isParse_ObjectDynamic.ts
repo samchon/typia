@@ -6,7 +6,7 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 export const test_json_isParse_ObjectDynamic = _test_json_isParse(
   "ObjectDynamic",
 )<ObjectDynamic>(ObjectDynamic)((input) =>
-  ((input: any): typia.Primitive<ObjectDynamic> => {
+  ((input: any): import("typia").Primitive<ObjectDynamic> => {
     const is = (input: any): input is ObjectDynamic => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {

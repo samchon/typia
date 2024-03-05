@@ -1,10 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
-export const test_protobuf_createAssertDecode_ArrayHierarchicalPointer =
-  _test_protobuf_assertDecode(
+export const test_protobuf_assertDecode_ArrayHierarchicalPointer =
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ArrayHierarchicalPointer",
   )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)({
     decode: (input) =>

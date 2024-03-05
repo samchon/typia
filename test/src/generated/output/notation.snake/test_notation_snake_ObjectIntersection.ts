@@ -95,7 +95,10 @@ export const test_notation_validateSnake_ObjectIntersection =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectIntersection> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<ObjectIntersection> => {
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ObjectIntersection> => {
@@ -120,36 +123,56 @@ export const test_notation_validateSnake_ObjectIntersection =
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.email ||
-              $guard(_exceptionable, {
-                path: _path + ".email",
-                expected: "string",
-                value: input.email,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".email",
+                  expected: "string",
+                  value: input.email,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.name ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".name",
+                  expected: "string",
+                  value: input.name,
+                },
+                errorFactory,
+              )) &&
             ("boolean" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "boolean",
-                value: input.vulnerable,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "boolean",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectIntersection",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectIntersection",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectIntersection",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

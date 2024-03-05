@@ -3,14 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectSimpleProtobufNullable } from "../../../structures/ObjectSimpleProtobufNullable";
 
-export const test_protobuf_createIsDecode_ObjectSimpleProtobufNullable =
+export const test_protobuf_isDecode_ObjectSimpleProtobufNullable =
   _test_protobuf_isDecode(
     "ObjectSimpleProtobufNullable",
   )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
     decode: (input) =>
       ((
         input: Uint8Array,
-      ): typia.Resolved<ObjectSimpleProtobufNullable> | null => {
+      ): import("typia").Resolved<ObjectSimpleProtobufNullable> | null => {
         const is = (input: any): input is ObjectSimpleProtobufNullable => {
           const $io0 = (input: any): boolean =>
             (null === input.bool || "boolean" === typeof input.bool) &&
@@ -42,7 +42,7 @@ export const test_protobuf_createIsDecode_ObjectSimpleProtobufNullable =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectSimpleProtobufNullable> => {
+        ): import("typia").Resolved<ObjectSimpleProtobufNullable> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

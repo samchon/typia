@@ -6,7 +6,7 @@ import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion
 export const test_json_isParse_CommentTagObjectUnion = _test_json_isParse(
   "CommentTagObjectUnion",
 )<CommentTagObjectUnion>(CommentTagObjectUnion)((input) =>
-  ((input: any): typia.Primitive<CommentTagObjectUnion> => {
+  ((input: any): import("typia").Primitive<CommentTagObjectUnion> => {
     const is = (input: any): input is CommentTagObjectUnion => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.value &&

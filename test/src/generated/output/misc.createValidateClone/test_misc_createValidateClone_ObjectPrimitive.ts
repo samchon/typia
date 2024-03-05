@@ -179,7 +179,7 @@ export const test_misc_createValidateClone_ObjectPrimitive =
       };
       const clone = (
         input: ObjectPrimitive,
-      ): typia.Resolved<ObjectPrimitive> => {
+      ): import("typia").Resolved<ObjectPrimitive> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.id &&
           "string" === typeof input.name &&

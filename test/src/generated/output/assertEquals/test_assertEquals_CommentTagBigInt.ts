@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
 
 export const test_assertEquals_CommentTagBigInt = _test_assertEquals(
-  "CommentTagBigInt",
-)<CommentTagBigInt>(CommentTagBigInt)((input) =>
-  ((input: any): CommentTagBigInt => {
+  TypeGuardError,
+)("CommentTagBigInt")<CommentTagBigInt>(CommentTagBigInt)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): CommentTagBigInt => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -50,65 +54,105 @@ export const test_assertEquals_CommentTagBigInt = _test_assertEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("bigint" === typeof input.value ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "bigint",
-              value: input.value,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "bigint",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
           (("bigint" === typeof input.ranged &&
             (0 <= input.ranged ||
-              $guard(_exceptionable, {
-                path: _path + ".ranged",
-                expected: "bigint & Minimum<0n>",
-                value: input.ranged,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".ranged",
+                  expected: "bigint & Minimum<0n>",
+                  value: input.ranged,
+                },
+                errorFactory,
+              )) &&
             (input.ranged <= 100 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".ranged",
+                  expected: "bigint & Maximum<100n>",
+                  value: input.ranged,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".ranged",
-                expected: "bigint & Maximum<100n>",
+                expected: "(bigint & Minimum<0n> & Maximum<100n>)",
                 value: input.ranged,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".ranged",
-              expected: "(bigint & Minimum<0n> & Maximum<100n>)",
-              value: input.ranged,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("bigint" === typeof input.minimum &&
             (0 <= input.minimum ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".minimum",
+                  expected: "bigint & Minimum<0n>",
+                  value: input.minimum,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".minimum",
-                expected: "bigint & Minimum<0n>",
+                expected: "(bigint & Minimum<0n>)",
                 value: input.minimum,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".minimum",
-              expected: "(bigint & Minimum<0n>)",
-              value: input.minimum,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("bigint" === typeof input.maximum &&
             (input.maximum <= 100 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".maximum",
+                  expected: "bigint & Maximum<100n>",
+                  value: input.maximum,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".maximum",
-                expected: "bigint & Maximum<100n>",
+                expected: "(bigint & Maximum<100n>)",
                 value: input.maximum,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".maximum",
-              expected: "(bigint & Maximum<100n>)",
-              value: input.maximum,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (("bigint" === typeof input.multipleOf &&
             (input.multipleOf % 3n === 0n ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".multipleOf",
+                  expected: "bigint & MultipleOf<3n>",
+                  value: input.multipleOf,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".multipleOf",
-                expected: "bigint & MultipleOf<3n>",
+                expected: "(bigint & MultipleOf<3n>)",
                 value: input.multipleOf,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".multipleOf",
-              expected: "(bigint & MultipleOf<3n>)",
-              value: input.multipleOf,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (5 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -120,25 +164,37 @@ export const test_assertEquals_CommentTagBigInt = _test_assertEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "CommentTagBigInt",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "CommentTagBigInt",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "CommentTagBigInt",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

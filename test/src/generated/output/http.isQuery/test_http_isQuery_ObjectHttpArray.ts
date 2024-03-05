@@ -8,7 +8,7 @@ export const test_http_isQuery_ObjectHttpArray = _test_http_isQuery(
 )<ObjectHttpArray>(ObjectHttpArray)((input) =>
   ((
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpArray> | null => {
+  ): import("typia").Resolved<ObjectHttpArray> | null => {
     const is = (input: any): input is ObjectHttpArray => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.booleans) &&
@@ -30,7 +30,7 @@ export const test_http_isQuery_ObjectHttpArray = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpArray> => {
+    ): import("typia").Resolved<ObjectHttpArray> => {
       const $params = (typia.http.isQuery as any).params;
       const $boolean = (typia.http.isQuery as any).boolean;
       const $bigint = (typia.http.isQuery as any).bigint;

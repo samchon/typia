@@ -92,7 +92,10 @@ export const test_notation_validateCamel_TypeTagTypeBigInt =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.CamelCase<TypeTagTypeBigInt> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.CamelCase<TypeTagTypeBigInt> => {
       const __is = (
         input: any,
       ): input is typia.CamelCase<TypeTagTypeBigInt> => {
@@ -117,36 +120,56 @@ export const test_notation_validateCamel_TypeTagTypeBigInt =
             _exceptionable: boolean = true,
           ): boolean =>
             ("bigint" === typeof input.in64 ||
-              $guard(_exceptionable, {
-                path: _path + ".in64",
-                expected: "bigint",
-                value: input.in64,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".in64",
+                  expected: "bigint",
+                  value: input.in64,
+                },
+                errorFactory,
+              )) &&
             (("bigint" === typeof input.uint64 &&
               (BigInt(0) <= input.uint64 ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".uint64",
+                    expected: 'bigint & Type<"uint64">',
+                    value: input.uint64,
+                  },
+                  errorFactory,
+                ))) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".uint64",
-                  expected: 'bigint & Type<"uint64">',
+                  expected: '(bigint & Type<"uint64">)',
                   value: input.uint64,
-                }))) ||
-              $guard(_exceptionable, {
-                path: _path + ".uint64",
-                expected: '(bigint & Type<"uint64">)',
-                value: input.uint64,
-              }));
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "TypeTagTypeBigInt",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "TypeTagTypeBigInt",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "TypeTagTypeBigInt",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

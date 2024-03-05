@@ -29,7 +29,10 @@ export const test_issue_940_formdata = () => {
     purpose: "swagger",
     surplus: false,
   };
-  ((input: any): Expected => {
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): Expected => {
     const __is = (input: any): input is Expected => {
       const $io0 = (input: any): boolean =>
         "string" === input.type && "binary" === input.format;
@@ -48,35 +51,54 @@ export const test_issue_940_formdata = () => {
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === input.type ||
-            $guard(_exceptionable, {
-              path: _path + ".type",
-              expected: '"string"',
-              value: input.type,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".type",
+                expected: '"string"',
+                value: input.type,
+              },
+              errorFactory,
+            )) &&
           ("binary" === input.format ||
-            $guard(_exceptionable, {
-              path: _path + ".format",
-              expected: '"binary"',
-              value: input.format,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".format",
+                expected: '"binary"',
+                value: input.format,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "Expected",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "Expected",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "Expected",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;
   })(x.schemas[0]);
-  ((input: any): Expected => {
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): Expected => {
     const __is = (input: any): input is Expected => {
       const $io0 = (input: any): boolean =>
         "string" === input.type && "binary" === input.format;
@@ -95,30 +117,46 @@ export const test_issue_940_formdata = () => {
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === input.type ||
-            $guard(_exceptionable, {
-              path: _path + ".type",
-              expected: '"string"',
-              value: input.type,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".type",
+                expected: '"string"',
+                value: input.type,
+              },
+              errorFactory,
+            )) &&
           ("binary" === input.format ||
-            $guard(_exceptionable, {
-              path: _path + ".format",
-              expected: '"binary"',
-              value: input.format,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".format",
+                expected: '"binary"',
+                value: input.format,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "Expected",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "Expected",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "Expected",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

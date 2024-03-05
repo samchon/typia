@@ -6,7 +6,7 @@ import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable
 export const test_json_createIsParse_ArrayRepeatedNullable = _test_json_isParse(
   "ArrayRepeatedNullable",
 )<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-  (input: any): typia.Primitive<ArrayRepeatedNullable> => {
+  (input: any): import("typia").Primitive<ArrayRepeatedNullable> => {
     const is = (input: any): input is ArrayRepeatedNullable => {
       const $ia0 = (input: any): any =>
         input.every(

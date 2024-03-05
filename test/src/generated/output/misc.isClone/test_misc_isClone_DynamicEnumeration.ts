@@ -6,7 +6,7 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 export const test_misc_isClone_DynamicEnumeration = _test_misc_isClone(
   "DynamicEnumeration",
 )<DynamicEnumeration>(DynamicEnumeration)((input) =>
-  ((input: any): typia.Resolved<DynamicEnumeration> | null => {
+  ((input: any): import("typia").Resolved<DynamicEnumeration> | null => {
     const is = (input: any): input is DynamicEnumeration => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -30,7 +30,7 @@ export const test_misc_isClone_DynamicEnumeration = _test_misc_isClone(
     };
     const clone = (
       input: DynamicEnumeration,
-    ): typia.Resolved<DynamicEnumeration> => {
+    ): import("typia").Resolved<DynamicEnumeration> => {
       const $io1 = (input: any): boolean =>
         (undefined === input.ar || "string" === typeof input.ar) &&
         (undefined === input["zh-Hans"] ||

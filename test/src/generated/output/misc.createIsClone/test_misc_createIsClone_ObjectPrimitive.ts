@@ -6,7 +6,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_misc_createIsClone_ObjectPrimitive = _test_misc_isClone(
   "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)(
-  (input: any): typia.Resolved<ObjectPrimitive> | null => {
+  (input: any): import("typia").Resolved<ObjectPrimitive> | null => {
     const is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -30,7 +30,9 @@ export const test_misc_createIsClone_ObjectPrimitive = _test_misc_isClone(
         "string" === typeof input.created_at;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: ObjectPrimitive): typia.Resolved<ObjectPrimitive> => {
+    const clone = (
+      input: ObjectPrimitive,
+    ): import("typia").Resolved<ObjectPrimitive> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.id &&
         "string" === typeof input.name &&

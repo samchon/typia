@@ -8,7 +8,7 @@ export const test_createRandom_ClassMethod = _test_random(
 )<ClassMethod>(ClassMethod)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ClassMethod as any).RANDOM,
-  ): typia.Resolved<ClassMethod> => {
+  ): import("typia").Resolved<ClassMethod> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       name:
@@ -20,7 +20,10 @@ export const test_createRandom_ClassMethod = _test_random(
     });
     return $ro0();
   },
-  assert: (input: any): ClassMethod => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ClassMethod => {
     const __is = (input: any): input is ClassMethod => {
       return (
         "object" === typeof input &&
@@ -43,30 +46,46 @@ export const test_createRandom_ClassMethod = _test_random(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.age && Number.isFinite(input.age)) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "number",
-              value: input.age,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".age",
+                expected: "number",
+                value: input.age,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ClassMethod.Animal",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ClassMethod.Animal",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ClassMethod.Animal",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

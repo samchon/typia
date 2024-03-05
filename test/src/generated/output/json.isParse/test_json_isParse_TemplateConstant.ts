@@ -6,7 +6,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_json_isParse_TemplateConstant = _test_json_isParse(
   "TemplateConstant",
 )<TemplateConstant>(TemplateConstant)((input) =>
-  ((input: any): typia.Primitive<TemplateConstant> => {
+  ((input: any): import("typia").Primitive<TemplateConstant> => {
     const is = (input: any): input is TemplateConstant => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

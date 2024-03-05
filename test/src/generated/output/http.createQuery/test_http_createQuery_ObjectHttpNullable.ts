@@ -6,7 +6,9 @@ import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 export const test_http_createQuery_ObjectHttpNullable = _test_http_query(
   "ObjectHttpNullable",
 )<ObjectHttpNullable>(ObjectHttpNullable)(
-  (input: string | URLSearchParams): typia.Resolved<ObjectHttpNullable> => {
+  (
+    input: string | URLSearchParams,
+  ): import("typia").Resolved<ObjectHttpNullable> => {
     const $params = (typia.http.createQuery as any).params;
     const $boolean = (typia.http.createQuery as any).boolean;
     const $bigint = (typia.http.createQuery as any).bigint;

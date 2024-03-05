@@ -5,7 +5,9 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 
 export const test_protobuf_createIsDecode_TypeTagArray =
   _test_protobuf_isDecode("TypeTagArray")<TypeTagArray>(TypeTagArray)({
-    decode: (input: Uint8Array): typia.Resolved<TypeTagArray> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<TypeTagArray> | null => {
       const is = (input: any): input is TypeTagArray => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -48,7 +50,9 @@ export const test_protobuf_createIsDecode_TypeTagArray =
           );
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagArray> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagArray> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

@@ -6,7 +6,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_json_isParse_ObjectGenericAlias = _test_json_isParse(
   "ObjectGenericAlias",
 )<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-  ((input: any): typia.Primitive<ObjectGenericAlias> => {
+  ((input: any): import("typia").Primitive<ObjectGenericAlias> => {
     const is = (input: any): input is ObjectGenericAlias => {
       return (
         "object" === typeof input &&

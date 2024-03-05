@@ -1,18 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_http_assertHeaders } from "../../../internal/_test_http_assertHeaders";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
 export const test_http_assertHeaders_ObjectHttpAtomic =
-  _test_http_assertHeaders("ObjectHttpAtomic")<ObjectHttpAtomic>(
-    ObjectHttpAtomic,
-  )((input) =>
+  _test_http_assertHeaders(TypeGuardError)(
+    "ObjectHttpAtomic",
+  )<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
     ((
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpAtomic> => {
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): import("typia").Resolved<ObjectHttpAtomic> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpAtomic> => {
+      ): import("typia").Resolved<ObjectHttpAtomic> => {
         const $boolean = (typia.http.assertHeaders as any).boolean;
         const $bigint = (typia.http.assertHeaders as any).bigint;
         const $number = (typia.http.assertHeaders as any).number;
@@ -24,7 +26,10 @@ export const test_http_assertHeaders_ObjectHttpAtomic =
         };
         return output as any;
       };
-      const assert = (input: any): ObjectHttpAtomic => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectHttpAtomic => {
         const __is = (input: any): input is ObjectHttpAtomic => {
           return (
             "object" === typeof input &&
@@ -49,48 +54,72 @@ export const test_http_assertHeaders_ObjectHttpAtomic =
               _exceptionable: boolean = true,
             ): boolean =>
               ("boolean" === typeof input.boolean ||
-                $guard(_exceptionable, {
-                  path: _path + ".boolean",
-                  expected: "boolean",
-                  value: input.boolean,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".boolean",
+                    expected: "boolean",
+                    value: input.boolean,
+                  },
+                  errorFactory,
+                )) &&
               ("bigint" === typeof input.bigint ||
-                $guard(_exceptionable, {
-                  path: _path + ".bigint",
-                  expected: "bigint",
-                  value: input.bigint,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".bigint",
+                    expected: "bigint",
+                    value: input.bigint,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.number &&
                 Number.isFinite(input.number)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".number",
-                  expected: "number",
-                  value: input.number,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".number",
+                    expected: "number",
+                    value: input.number,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.string ||
-                $guard(_exceptionable, {
-                  path: _path + ".string",
-                  expected: "string",
-                  value: input.string,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".string",
+                    expected: "string",
+                    value: input.string,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectHttpAtomic",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectHttpAtomic",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectHttpAtomic",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     })(input),
   );

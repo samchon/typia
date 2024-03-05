@@ -147,7 +147,7 @@ export const test_http_validateQuery_ObjectHttpCommentTag =
       };
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const $params = (typia.http.validateQuery as any).params;
         const $number = (typia.http.validateQuery as any).number;
         const $bigint = (typia.http.validateQuery as any).bigint;

@@ -6,7 +6,7 @@ import { CommentTagRange } from "../../../structures/CommentTagRange";
 export const test_json_createIsParse_CommentTagRange = _test_json_isParse(
   "CommentTagRange",
 )<CommentTagRange>(CommentTagRange)(
-  (input: any): typia.Primitive<CommentTagRange> => {
+  (input: any): import("typia").Primitive<CommentTagRange> => {
     const is = (input: any): input is CommentTagRange => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

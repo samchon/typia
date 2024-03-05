@@ -6,7 +6,7 @@ import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 export const test_misc_createClone_CommentTagPattern = _test_misc_clone(
   "CommentTagPattern",
 )<CommentTagPattern>(CommentTagPattern)(
-  (input: CommentTagPattern): typia.Resolved<CommentTagPattern> => {
+  (input: CommentTagPattern): import("typia").Resolved<CommentTagPattern> => {
     const $co0 = (input: any): any => ({
       uuid: input.uuid as any,
       email: input.email as any,

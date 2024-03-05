@@ -8,6 +8,7 @@ import { IValidation } from "../../IValidation";
 import { TypeGuardError } from "../../TypeGuardError";
 import { is } from "../is";
 
+export * as functional from "./functional";
 export * as json from "./json";
 export * as http from "./http";
 export * as notations from "./notations";

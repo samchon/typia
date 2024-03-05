@@ -6,7 +6,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_json_isParse_ObjectTuple = _test_json_isParse(
   "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input) =>
-  ((input: any): typia.Primitive<ObjectTuple> => {
+  ((input: any): import("typia").Primitive<ObjectTuple> => {
     const is = (input: any): input is ObjectTuple => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&

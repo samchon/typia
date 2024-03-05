@@ -85,7 +85,9 @@ export const test_misc_createValidateClone_ObjectDynamic =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectDynamic): typia.Resolved<ObjectDynamic> => {
+      const clone = (
+        input: ObjectDynamic,
+      ): import("typia").Resolved<ObjectDynamic> => {
         const $co0 = (input: any): any => {
           const output = {} as any;
           for (const [key, value] of Object.entries(input)) {

@@ -364,7 +364,9 @@ export const test_misc_validateClone_TypeTagRange = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: TypeTagRange): typia.Resolved<TypeTagRange> => {
+    const clone = (
+      input: TypeTagRange,
+    ): import("typia").Resolved<TypeTagRange> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.greater &&
         Math.floor(input.greater) === input.greater &&

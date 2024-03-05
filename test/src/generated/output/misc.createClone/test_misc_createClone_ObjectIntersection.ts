@@ -6,7 +6,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_misc_createClone_ObjectIntersection = _test_misc_clone(
   "ObjectIntersection",
 )<ObjectIntersection>(ObjectIntersection)(
-  (input: ObjectIntersection): typia.Resolved<ObjectIntersection> => {
+  (input: ObjectIntersection): import("typia").Resolved<ObjectIntersection> => {
     const $co0 = (input: any): any => ({
       email: input.email as any,
       name: input.name as any,

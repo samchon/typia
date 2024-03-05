@@ -8,7 +8,7 @@ export const test_createRandom_AtomicUnion = _test_random(
 )<AtomicUnion>(AtomicUnion)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (AtomicUnion as any).RANDOM,
-  ): typia.Resolved<AtomicUnion> => {
+  ): import("typia").Resolved<AtomicUnion> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     return (generator?.array ?? $generator.array)(() =>
@@ -24,7 +24,10 @@ export const test_createRandom_AtomicUnion = _test_random(
       ])(),
     );
   },
-  assert: (input: any): AtomicUnion => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): AtomicUnion => {
     const __is = (input: any): input is AtomicUnion => {
       return (
         Array.isArray(input) &&
@@ -46,28 +49,40 @@ export const test_createRandom_AtomicUnion = _test_random(
         const $guard = (typia.createAssert as any).guard;
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "AtomicUnion",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "AtomicUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 null === elem ||
                 "string" === typeof elem ||
                 ("number" === typeof elem && Number.isFinite(elem)) ||
                 "boolean" === typeof elem ||
-                $guard(true, {
-                  path: _path + "[" + _index1 + "]",
-                  expected: "(boolean | null | number | string)",
-                  value: elem,
-                }),
+                $guard(
+                  true,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected: "(boolean | null | number | string)",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "AtomicUnion",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "AtomicUnion",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

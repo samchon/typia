@@ -6,7 +6,7 @@ import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 export const test_misc_createClone_CommentTagFormat = _test_misc_clone(
   "CommentTagFormat",
 )<CommentTagFormat>(CommentTagFormat)(
-  (input: CommentTagFormat): typia.Resolved<CommentTagFormat> => {
+  (input: CommentTagFormat): import("typia").Resolved<CommentTagFormat> => {
     const $co0 = (input: any): any => ({
       byte: input.byte as any,
       password: input.password as any,

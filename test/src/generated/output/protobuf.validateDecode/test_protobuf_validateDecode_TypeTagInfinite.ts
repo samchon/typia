@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_protobuf_createValidateDecode_TypeTagInfinite =
+export const test_protobuf_validateDecode_TypeTagInfinite =
   _test_protobuf_validateDecode("TypeTagInfinite")<TypeTagInfinite>(
     TypeTagInfinite,
   )({
@@ -162,7 +162,9 @@ export const test_protobuf_createValidateDecode_TypeTagInfinite =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<TypeTagInfinite> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

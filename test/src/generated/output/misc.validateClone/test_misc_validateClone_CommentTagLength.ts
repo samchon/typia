@@ -189,7 +189,7 @@ export const test_misc_validateClone_CommentTagLength =
       };
       const clone = (
         input: CommentTagLength,
-      ): typia.Resolved<CommentTagLength> => {
+      ): import("typia").Resolved<CommentTagLength> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.fixed &&
           5 <= input.fixed.length &&

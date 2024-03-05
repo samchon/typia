@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_protobuf_createValidateDecode_ObjectUnionNonPredictable =
+export const test_protobuf_validateDecode_ObjectUnionNonPredictable =
   _test_protobuf_validateDecode(
     "ObjectUnionNonPredictable",
   )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
@@ -294,7 +294,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionNonPredictable =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectUnionNonPredictable> => {
+        ): import("typia").Resolved<ObjectUnionNonPredictable> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

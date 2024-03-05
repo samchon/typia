@@ -7,7 +7,9 @@ export const test_misc_createIsClone_ArrayRepeatedUnionWithTuple =
   _test_misc_isClone(
     "ArrayRepeatedUnionWithTuple",
   )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
-    (input: any): typia.Resolved<ArrayRepeatedUnionWithTuple> | null => {
+    (
+      input: any,
+    ): import("typia").Resolved<ArrayRepeatedUnionWithTuple> | null => {
       const is = (input: any): input is ArrayRepeatedUnionWithTuple => {
         const $ip0 = (input: any) => {
           const array = input;
@@ -141,7 +143,7 @@ export const test_misc_createIsClone_ArrayRepeatedUnionWithTuple =
       };
       const clone = (
         input: ArrayRepeatedUnionWithTuple,
-      ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
+      ): import("typia").Resolved<ArrayRepeatedUnionWithTuple> => {
         const $io0 = (input: any): boolean =>
           "object" === typeof input.scale &&
           null !== input.scale &&

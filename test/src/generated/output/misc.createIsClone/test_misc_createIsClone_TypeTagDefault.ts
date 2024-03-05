@@ -6,7 +6,7 @@ import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 export const test_misc_createIsClone_TypeTagDefault = _test_misc_isClone(
   "TypeTagDefault",
 )<TypeTagDefault>(TypeTagDefault)(
-  (input: any): typia.Resolved<TypeTagDefault> | null => {
+  (input: any): import("typia").Resolved<TypeTagDefault> | null => {
     const is = (input: any): input is TypeTagDefault => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&
@@ -41,7 +41,9 @@ export const test_misc_createIsClone_TypeTagDefault = _test_misc_isClone(
             )));
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagDefault): typia.Resolved<TypeTagDefault> => {
+    const clone = (
+      input: TypeTagDefault,
+    ): import("typia").Resolved<TypeTagDefault> => {
       const $co0 = (input: any): any => ({
         boolean: input.boolean as any,
         number: input.number as any,

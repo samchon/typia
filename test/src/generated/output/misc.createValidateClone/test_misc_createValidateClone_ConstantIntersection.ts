@@ -75,7 +75,7 @@ export const test_misc_createValidateClone_ConstantIntersection =
     };
     const clone = (
       input: ConstantIntersection,
-    ): typia.Resolved<ConstantIntersection> => {
+    ): import("typia").Resolved<ConstantIntersection> => {
       return Array.isArray(input) &&
         input.length === 3 &&
         false === input[0] &&

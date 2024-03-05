@@ -6,7 +6,7 @@ import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 export const test_misc_createClone_TypeTagTuple = _test_misc_clone(
   "TypeTagTuple",
 )<TypeTagTuple>(TypeTagTuple)(
-  (input: TypeTagTuple): typia.Resolved<TypeTagTuple> => {
+  (input: TypeTagTuple): import("typia").Resolved<TypeTagTuple> => {
     const $cp0 = (input: any) => input.map((elem: any) => elem as any);
     const $cp1 = (input: any) => input.map((elem: any) => elem as any);
     const $co0 = (input: any): any => ({

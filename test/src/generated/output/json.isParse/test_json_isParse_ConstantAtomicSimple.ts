@@ -6,7 +6,7 @@ import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 export const test_json_isParse_ConstantAtomicSimple = _test_json_isParse(
   "ConstantAtomicSimple",
 )<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
-  ((input: any): typia.Primitive<ConstantAtomicSimple> => {
+  ((input: any): import("typia").Primitive<ConstantAtomicSimple> => {
     const is = (input: any): input is ConstantAtomicSimple => {
       return (
         Array.isArray(input) &&

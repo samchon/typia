@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_assertEquals_ObjectGenericAlias = _test_assertEquals(
-  "ObjectGenericAlias",
-)<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-  ((input: any): ObjectGenericAlias => {
+  TypeGuardError,
+)("ObjectGenericAlias")<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectGenericAlias => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -36,36 +40,52 @@ export const test_assertEquals_ObjectGenericAlias = _test_assertEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.value ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "string",
-              value: input.value,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "string",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
           (1 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
               if (["value"].some((prop: any) => key === prop)) return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectGenericAlias.Alias",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectGenericAlias.Alias",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectGenericAlias.Alias",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

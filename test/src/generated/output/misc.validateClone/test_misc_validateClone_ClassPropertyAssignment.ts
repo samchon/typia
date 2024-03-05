@@ -93,7 +93,7 @@ export const test_misc_validateClone_ClassPropertyAssignment =
       };
       const clone = (
         input: ClassPropertyAssignment,
-      ): typia.Resolved<ClassPropertyAssignment> => {
+      ): import("typia").Resolved<ClassPropertyAssignment> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           name: input.name as any,

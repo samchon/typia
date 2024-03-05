@@ -6,7 +6,9 @@ import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 export const test_misc_clone_CommentTagArrayUnion = _test_misc_clone(
   "CommentTagArrayUnion",
 )<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>
-  ((input: CommentTagArrayUnion): typia.Resolved<CommentTagArrayUnion> => {
+  ((
+    input: CommentTagArrayUnion,
+  ): import("typia").Resolved<CommentTagArrayUnion> => {
     const $cp0 = (input: any) =>
       input.map((elem: any) =>
         "object" === typeof elem && null !== elem ? $co0(elem) : (elem as any),

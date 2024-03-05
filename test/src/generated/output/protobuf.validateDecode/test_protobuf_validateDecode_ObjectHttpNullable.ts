@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
-export const test_protobuf_createValidateDecode_ObjectHttpNullable =
+export const test_protobuf_validateDecode_ObjectHttpNullable =
   _test_protobuf_validateDecode("ObjectHttpNullable")<ObjectHttpNullable>(
     ObjectHttpNullable,
   )({
@@ -185,7 +185,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpNullable =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectHttpNullable> => {
+        ): import("typia").Resolved<ObjectHttpNullable> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

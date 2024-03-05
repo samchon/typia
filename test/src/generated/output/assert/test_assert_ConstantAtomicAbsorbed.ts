@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_assert_ConstantAtomicAbsorbed = _test_assert(
+export const test_assert_ConstantAtomicAbsorbed = _test_assert(TypeGuardError)(
   "ConstantAtomicAbsorbed",
 )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
-  ((input: any): ConstantAtomicAbsorbed => {
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ConstantAtomicAbsorbed => {
     const __is = (input: any): input is ConstantAtomicAbsorbed => {
       return (
         "object" === typeof input &&
@@ -29,30 +33,46 @@ export const test_assert_ConstantAtomicAbsorbed = _test_assert(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.id ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '(string & Default<"something">)',
-              value: input.id,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: '(string & Default<"something">)',
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           (("number" === typeof input.age && Number.isFinite(input.age)) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "(number & Default<20>)",
-              value: input.age,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".age",
+                expected: "(number & Default<20>)",
+                value: input.age,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ConstantAtomicAbsorbed",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ConstantAtomicAbsorbed",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ConstantAtomicAbsorbed",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

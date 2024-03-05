@@ -6,7 +6,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_json_isParse_TupleRestAtomic = _test_json_isParse(
   "TupleRestAtomic",
 )<TupleRestAtomic>(TupleRestAtomic)((input) =>
-  ((input: any): typia.Primitive<TupleRestAtomic> => {
+  ((input: any): import("typia").Primitive<TupleRestAtomic> => {
     const is = (input: any): input is TupleRestAtomic => {
       return (
         Array.isArray(input) &&

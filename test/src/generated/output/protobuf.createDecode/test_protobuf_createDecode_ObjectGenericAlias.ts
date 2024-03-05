@@ -7,7 +7,9 @@ export const test_protobuf_createDecode_ObjectGenericAlias =
   _test_protobuf_decode("ObjectGenericAlias")<ObjectGenericAlias>(
     ObjectGenericAlias,
   )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectGenericAlias> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectGenericAlias> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

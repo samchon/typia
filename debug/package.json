@@ -1,0 +1,20 @@
+{
+  "name": "@typia/debug",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "prepare": "ts-patch install && typia patch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "ts-patch": "^3.1.2",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "typia": "D:\\github\\samchon\\typia\\typia-5.5.0-dev.20240305.tgz"
+  }
+}

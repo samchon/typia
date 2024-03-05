@@ -1,10 +1,11 @@
-import { Primitive, TypeGuardError } from "typia";
+import typia, { Primitive, TypeGuardError } from "typia";
 
 import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_json_assertParse =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (parse: (input: string) => Primitive<T>) =>
@@ -28,7 +29,10 @@ export const _test_json_assertParse =
       try {
         parse(JSON.stringify(elem));
       } catch (exp) {
-        if (exp instanceof TypeGuardError)
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
           if (exp.path && expected.includes(exp.path) === true) continue;
           else
             console.log({

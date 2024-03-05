@@ -6,7 +6,7 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_misc_clone_DynamicUnion = _test_misc_clone(
   "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)((input) =>
-  ((input: DynamicUnion): typia.Resolved<DynamicUnion> => {
+  ((input: DynamicUnion): import("typia").Resolved<DynamicUnion> => {
     const $co0 = (input: any): any => {
       const output = {} as any;
       for (const [key, value] of Object.entries(input)) {

@@ -136,7 +136,7 @@ export const test_misc_validateClone_TypeTagAtomicUnion =
       };
       const clone = (
         input: TypeTagAtomicUnion,
-      ): typia.Resolved<TypeTagAtomicUnion> => {
+      ): import("typia").Resolved<TypeTagAtomicUnion> => {
         const $io1 = (input: any): boolean =>
           ("string" === typeof input.value &&
             3 <= input.value.length &&

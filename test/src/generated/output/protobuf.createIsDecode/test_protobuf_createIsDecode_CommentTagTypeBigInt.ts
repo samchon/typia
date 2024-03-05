@@ -9,7 +9,7 @@ export const test_protobuf_createIsDecode_CommentTagTypeBigInt =
   )({
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<CommentTagTypeBigInt> | null => {
+    ): import("typia").Resolved<CommentTagTypeBigInt> | null => {
       const is = (input: any): input is CommentTagTypeBigInt => {
         return (
           "object" === typeof input &&
@@ -21,7 +21,7 @@ export const test_protobuf_createIsDecode_CommentTagTypeBigInt =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<CommentTagTypeBigInt> => {
+      ): import("typia").Resolved<CommentTagTypeBigInt> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

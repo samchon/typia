@@ -6,7 +6,7 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_misc_isClone_ObjectUnionNonPredictable = _test_misc_isClone(
   "ObjectUnionNonPredictable",
 )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
-  ((input: any): typia.Resolved<ObjectUnionNonPredictable> | null => {
+  ((input: any): import("typia").Resolved<ObjectUnionNonPredictable> | null => {
     const is = (input: any): input is ObjectUnionNonPredictable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -46,7 +46,7 @@ export const test_misc_isClone_ObjectUnionNonPredictable = _test_misc_isClone(
     };
     const clone = (
       input: ObjectUnionNonPredictable,
-    ): typia.Resolved<ObjectUnionNonPredictable> => {
+    ): import("typia").Resolved<ObjectUnionNonPredictable> => {
       const $io1 = (input: any): boolean =>
         "object" === typeof input.value &&
         null !== input.value &&

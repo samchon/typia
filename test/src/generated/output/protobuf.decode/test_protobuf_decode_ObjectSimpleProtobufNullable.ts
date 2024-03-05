@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { ObjectSimpleProtobufNullable } from "../../../structures/ObjectSimpleProtobufNullable";
 
-export const test_protobuf_createDecode_ObjectSimpleProtobufNullable =
+export const test_protobuf_decode_ObjectSimpleProtobufNullable =
   _test_protobuf_decode(
     "ObjectSimpleProtobufNullable",
   )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectSimpleProtobufNullable> => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectSimpleProtobufNullable> => {
         const $Reader = (typia.protobuf.decode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

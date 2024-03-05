@@ -364,7 +364,7 @@ export const test_misc_createValidateClone_ArrayHierarchicalPointer =
       };
       const clone = (
         input: ArrayHierarchicalPointer,
-      ): typia.Resolved<ArrayHierarchicalPointer> => {
+      ): import("typia").Resolved<ArrayHierarchicalPointer> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.id &&
           "number" === typeof input.serial &&

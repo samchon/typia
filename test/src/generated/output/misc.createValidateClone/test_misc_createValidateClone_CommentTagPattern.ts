@@ -134,7 +134,7 @@ export const test_misc_createValidateClone_CommentTagPattern =
     };
     const clone = (
       input: CommentTagPattern,
-    ): typia.Resolved<CommentTagPattern> => {
+    ): import("typia").Resolved<CommentTagPattern> => {
       const $co0 = (input: any): any => ({
         uuid: input.uuid as any,
         email: input.email as any,

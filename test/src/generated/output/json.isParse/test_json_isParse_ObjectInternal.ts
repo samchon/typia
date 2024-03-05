@@ -6,7 +6,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_json_isParse_ObjectInternal = _test_json_isParse(
   "ObjectInternal",
 )<ObjectInternal>(ObjectInternal)((input) =>
-  ((input: any): typia.Primitive<ObjectInternal> => {
+  ((input: any): import("typia").Primitive<ObjectInternal> => {
     const is = (input: any): input is ObjectInternal => {
       return (
         "object" === typeof input &&

@@ -6,7 +6,7 @@ import { CommentTagLength } from "../../../structures/CommentTagLength";
 export const test_misc_createClone_CommentTagLength = _test_misc_clone(
   "CommentTagLength",
 )<CommentTagLength>(CommentTagLength)(
-  (input: CommentTagLength): typia.Resolved<CommentTagLength> => {
+  (input: CommentTagLength): import("typia").Resolved<CommentTagLength> => {
     const $io1 = (input: any): boolean =>
       "string" === typeof input.fixed &&
       5 <= input.fixed.length &&

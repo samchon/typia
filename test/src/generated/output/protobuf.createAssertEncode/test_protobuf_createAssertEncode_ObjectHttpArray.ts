@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
 export const test_protobuf_createAssertEncode_ObjectHttpArray =
-  _test_protobuf_assertEncode("ObjectHttpArray")<ObjectHttpArray>(
-    ObjectHttpArray,
-  )({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectHttpArray => {
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpArray",
+  )<ObjectHttpArray>(ObjectHttpArray)({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectHttpArray => {
         const __is = (input: any): input is ObjectHttpArray => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.booleans) &&
@@ -42,119 +49,187 @@ export const test_protobuf_createAssertEncode_ObjectHttpArray =
               _exceptionable: boolean = true,
             ): boolean =>
               (((Array.isArray(input.booleans) ||
-                $guard(_exceptionable, {
-                  path: _path + ".booleans",
-                  expected: "Array<boolean>",
-                  value: input.booleans,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".booleans",
+                    expected: "Array<boolean>",
+                    value: input.booleans,
+                  },
+                  errorFactory,
+                )) &&
                 input.booleans.every(
                   (elem: any, _index1: number) =>
                     "boolean" === typeof elem ||
-                    $guard(_exceptionable, {
-                      path: _path + ".booleans[" + _index1 + "]",
-                      expected: "boolean",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".booleans[" + _index1 + "]",
+                        expected: "boolean",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".booleans",
-                  expected: "Array<boolean>",
-                  value: input.booleans,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".booleans",
+                    expected: "Array<boolean>",
+                    value: input.booleans,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.bigints) ||
-                $guard(_exceptionable, {
-                  path: _path + ".bigints",
-                  expected: "Array<bigint>",
-                  value: input.bigints,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".bigints",
+                    expected: "Array<bigint>",
+                    value: input.bigints,
+                  },
+                  errorFactory,
+                )) &&
                 input.bigints.every(
                   (elem: any, _index2: number) =>
                     "bigint" === typeof elem ||
-                    $guard(_exceptionable, {
-                      path: _path + ".bigints[" + _index2 + "]",
-                      expected: "bigint",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".bigints[" + _index2 + "]",
+                        expected: "bigint",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".bigints",
-                  expected: "Array<bigint>",
-                  value: input.bigints,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".bigints",
+                    expected: "Array<bigint>",
+                    value: input.bigints,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.numbers) ||
-                $guard(_exceptionable, {
-                  path: _path + ".numbers",
-                  expected: "Array<number>",
-                  value: input.numbers,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".numbers",
+                    expected: "Array<number>",
+                    value: input.numbers,
+                  },
+                  errorFactory,
+                )) &&
                 input.numbers.every(
                   (elem: any, _index3: number) =>
                     ("number" === typeof elem && Number.isFinite(elem)) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".numbers[" + _index3 + "]",
-                      expected: "number",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".numbers[" + _index3 + "]",
+                        expected: "number",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".numbers",
-                  expected: "Array<number>",
-                  value: input.numbers,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".numbers",
+                    expected: "Array<number>",
+                    value: input.numbers,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.strings) ||
-                $guard(_exceptionable, {
-                  path: _path + ".strings",
-                  expected: "Array<string>",
-                  value: input.strings,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".strings",
+                    expected: "Array<string>",
+                    value: input.strings,
+                  },
+                  errorFactory,
+                )) &&
                 input.strings.every(
                   (elem: any, _index4: number) =>
                     "string" === typeof elem ||
-                    $guard(_exceptionable, {
-                      path: _path + ".strings[" + _index4 + "]",
-                      expected: "string",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".strings[" + _index4 + "]",
+                        expected: "string",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".strings",
-                  expected: "Array<string>",
-                  value: input.strings,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".strings",
+                    expected: "Array<string>",
+                    value: input.strings,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.templates) ||
-                $guard(_exceptionable, {
-                  path: _path + ".templates",
-                  expected: "Array<`something_${string}`>",
-                  value: input.templates,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".templates",
+                    expected: "Array<`something_${string}`>",
+                    value: input.templates,
+                  },
+                  errorFactory,
+                )) &&
                 input.templates.every(
                   (elem: any, _index5: number) =>
                     ("string" === typeof elem &&
                       RegExp(/^something_(.*)/).test(elem)) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".templates[" + _index5 + "]",
-                      expected: "`something_${string}`",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".templates[" + _index5 + "]",
+                        expected: "`something_${string}`",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".templates",
-                  expected: "Array<`something_${string}`>",
-                  value: input.templates,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".templates",
+                    expected: "Array<`something_${string}`>",
+                    value: input.templates,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectHttpArray",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectHttpArray",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectHttpArray",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -214,9 +289,9 @@ export const test_protobuf_createAssertEncode_ObjectHttpArray =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
+    decode: (input: Uint8Array): import("typia").Resolved<ObjectHttpArray> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -273,5 +348,5 @@ export const test_protobuf_createAssertEncode_ObjectHttpArray =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectHttpArray {\n    repeated bool booleans = 1;\n    repeated int64 bigints = 2;\n    repeated double numbers = 3;\n    repeated string strings = 4;\n    repeated string templates = 5;\n}',
+      'syntax = "proto3";\n\nmessage ObjectHttpArray {\n  repeated bool booleans = 1;\n  repeated int64 bigints = 2;\n  repeated double numbers = 3;\n  repeated string strings = 4;\n  repeated string templates = 5;\n}',
   });

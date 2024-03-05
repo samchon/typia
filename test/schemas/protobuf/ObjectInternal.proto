@@ -1,6 +1,6 @@
 syntax = "proto3";
 
 message ObjectInternal {
-    required string id = 1;
-    required string name = 2;
+  required string id = 1;
+  required string name = 2;
 }

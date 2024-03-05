@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 
-export const test_protobuf_createValidateDecode_ObjectHttpConstant =
+export const test_protobuf_validateDecode_ObjectHttpConstant =
   _test_protobuf_validateDecode("ObjectHttpConstant")<ObjectHttpConstant>(
     ObjectHttpConstant,
   )({
@@ -103,7 +103,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpConstant =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectHttpConstant> => {
+        ): import("typia").Resolved<ObjectHttpConstant> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_misc_assertPrune_ObjectJsonTag = _test_misc_assertPrune(
-  "ObjectJsonTag",
-)<ObjectJsonTag>(ObjectJsonTag)((input) =>
-  ((input: any): ObjectJsonTag => {
-    const assert = (input: any): ObjectJsonTag => {
+  TypeGuardError,
+)("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectJsonTag => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ObjectJsonTag => {
       const __is = (input: any): input is ObjectJsonTag => {
         return (
           "object" === typeof input &&
@@ -31,42 +38,66 @@ export const test_misc_assertPrune_ObjectJsonTag = _test_misc_assertPrune(
             _exceptionable: boolean = true,
           ): boolean =>
             ("string" === typeof input.vulnerable ||
-              $guard(_exceptionable, {
-                path: _path + ".vulnerable",
-                expected: "string",
-                value: input.vulnerable,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".vulnerable",
+                  expected: "string",
+                  value: input.vulnerable,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.description ||
-              $guard(_exceptionable, {
-                path: _path + ".description",
-                expected: "string",
-                value: input.description,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".description",
+                  expected: "string",
+                  value: input.description,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.title ||
-              $guard(_exceptionable, {
-                path: _path + ".title",
-                expected: "string",
-                value: input.title,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".title",
+                  expected: "string",
+                  value: input.title,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.complicate_title ||
-              $guard(_exceptionable, {
-                path: _path + ".complicate_title",
-                expected: "string",
-                value: input.complicate_title,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".complicate_title",
+                  expected: "string",
+                  value: input.complicate_title,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectJsonTag",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectJsonTag",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectJsonTag",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
@@ -86,7 +117,7 @@ export const test_misc_assertPrune_ObjectJsonTag = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

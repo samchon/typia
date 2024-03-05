@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_protobuf_createValidateDecode_ObjectPrimitive =
+export const test_protobuf_validateDecode_ObjectPrimitive =
   _test_protobuf_validateDecode("ObjectPrimitive")<ObjectPrimitive>(
     ObjectPrimitive,
   )({
@@ -182,7 +182,9 @@ export const test_protobuf_createValidateDecode_ObjectPrimitive =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<ObjectPrimitive> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

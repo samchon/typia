@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
-export const test_protobuf_createValidateDecode_TypeTagCustom =
+export const test_protobuf_validateDecode_TypeTagCustom =
   _test_protobuf_validateDecode("TypeTagCustom")<TypeTagCustom>(TypeTagCustom)({
     decode: (input) =>
       ((
@@ -139,7 +139,9 @@ export const test_protobuf_createValidateDecode_TypeTagCustom =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<TypeTagCustom> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_protobuf_createValidateDecode_ObjectSimple =
+export const test_protobuf_validateDecode_ObjectSimple =
   _test_protobuf_validateDecode("ObjectSimple")<ObjectSimple>(ObjectSimple)({
     decode: (input) =>
       ((input: Uint8Array): typia.IValidation<typia.Resolved<ObjectSimple>> => {
@@ -177,7 +177,9 @@ export const test_protobuf_createValidateDecode_ObjectSimple =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<ObjectSimple> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<ObjectSimple> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

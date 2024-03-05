@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_protobuf_createAssertEncode_ConstantAtomicAbsorbed =
-  _test_protobuf_assertEncode("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
-    ConstantAtomicAbsorbed,
-  )({
+export const test_protobuf_assertEncode_ConstantAtomicAbsorbed =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ConstantAtomicAbsorbed",
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): ConstantAtomicAbsorbed => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ConstantAtomicAbsorbed => {
           const __is = (input: any): input is ConstantAtomicAbsorbed => {
             return (
               "object" === typeof input &&
@@ -32,31 +39,47 @@ export const test_protobuf_createAssertEncode_ConstantAtomicAbsorbed =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ("string" === typeof input.id ||
-                  $guard(_exceptionable, {
-                    path: _path + ".id",
-                    expected: '(string & Default<"something">)',
-                    value: input.id,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".id",
+                      expected: '(string & Default<"something">)',
+                      value: input.id,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.age &&
                   Number.isFinite(input.age)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".age",
-                    expected: "(number & Default<20>)",
-                    value: input.age,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".age",
+                      expected: "(number & Default<20>)",
+                      value: input.age,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ConstantAtomicAbsorbed",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ConstantAtomicAbsorbed",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ConstantAtomicAbsorbed",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -81,9 +104,11 @@ export const test_protobuf_createAssertEncode_ConstantAtomicAbsorbed =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ConstantAtomicAbsorbed> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -113,5 +138,5 @@ export const test_protobuf_createAssertEncode_ConstantAtomicAbsorbed =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ConstantAtomicAbsorbed {\n    required string id = 1;\n    required double age = 2;\n}',
+      'syntax = "proto3";\n\nmessage ConstantAtomicAbsorbed {\n  required string id = 1;\n  required double age = 2;\n}',
   });

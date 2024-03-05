@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_protobuf_createIsDecode_ObjectGenericArray =
+export const test_protobuf_isDecode_ObjectGenericArray =
   _test_protobuf_isDecode("ObjectGenericArray")<ObjectGenericArray>(
     ObjectGenericArray,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectGenericArray> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectGenericArray> | null => {
         const is = (input: any): input is ObjectGenericArray => {
           const $io0 = (input: any): boolean =>
             "object" === typeof input.pagination &&
@@ -34,7 +36,7 @@ export const test_protobuf_createIsDecode_ObjectGenericArray =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectGenericArray> => {
+        ): import("typia").Resolved<ObjectGenericArray> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

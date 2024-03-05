@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
 
-export const test_protobuf_createIsEncode_ArraySimpleProtobufNullable =
+export const test_protobuf_isEncode_ArraySimpleProtobufNullable =
   _test_protobuf_isEncode(
     "ArraySimpleProtobufNullable",
   )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
@@ -263,7 +263,7 @@ export const test_protobuf_createIsEncode_ArraySimpleProtobufNullable =
       })(input),
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<ArraySimpleProtobufNullable> => {
+    ): import("typia").Resolved<ArraySimpleProtobufNullable> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -371,5 +371,5 @@ export const test_protobuf_createIsEncode_ArraySimpleProtobufNullable =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ArraySimpleProtobufNullable {\n    repeated bool boolean = 1;\n    repeated int32 int32 = 2;\n    repeated uint32 uint32 = 3;\n    repeated int64 int64 = 4;\n    repeated uint64 uint64 = 5;\n    repeated float float = 6;\n    repeated double double = 7;\n    repeated string string = 8;\n    repeated bytes bytes = 9;\n    repeated ArraySimpleProtobufNullable object = 10;\n}',
+      'syntax = "proto3";\n\nmessage ArraySimpleProtobufNullable {\n  repeated bool boolean = 1;\n  repeated int32 int32 = 2;\n  repeated uint32 uint32 = 3;\n  repeated int64 int64 = 4;\n  repeated uint64 uint64 = 5;\n  repeated float float = 6;\n  repeated double double = 7;\n  repeated string string = 8;\n  repeated bytes bytes = 9;\n  repeated ArraySimpleProtobufNullable object = 10;\n}',
   });

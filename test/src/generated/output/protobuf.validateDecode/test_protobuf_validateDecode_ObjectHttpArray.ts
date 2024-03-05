@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 
-export const test_protobuf_createValidateDecode_ObjectHttpArray =
+export const test_protobuf_validateDecode_ObjectHttpArray =
   _test_protobuf_validateDecode("ObjectHttpArray")<ObjectHttpArray>(
     ObjectHttpArray,
   )({
@@ -184,7 +184,9 @@ export const test_protobuf_createValidateDecode_ObjectHttpArray =
             data: success ? input : undefined,
           } as any;
         };
-        const decode = (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
+        const decode = (
+          input: Uint8Array,
+        ): import("typia").Resolved<ObjectHttpArray> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

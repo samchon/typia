@@ -6,7 +6,7 @@ import { TypeTagTuple } from "../../../structures/TypeTagTuple";
 export const test_json_isParse_TypeTagTuple = _test_json_isParse(
   "TypeTagTuple",
 )<TypeTagTuple>(TypeTagTuple)((input) =>
-  ((input: any): typia.Primitive<TypeTagTuple> => {
+  ((input: any): import("typia").Primitive<TypeTagTuple> => {
     const is = (input: any): input is TypeTagTuple => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.tuple) &&

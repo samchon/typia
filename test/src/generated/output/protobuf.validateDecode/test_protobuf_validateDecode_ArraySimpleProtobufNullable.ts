@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
 
-export const test_protobuf_createValidateDecode_ArraySimpleProtobufNullable =
+export const test_protobuf_validateDecode_ArraySimpleProtobufNullable =
   _test_protobuf_validateDecode(
     "ArraySimpleProtobufNullable",
   )<ArraySimpleProtobufNullable>(ArraySimpleProtobufNullable)({
@@ -411,7 +411,7 @@ export const test_protobuf_createValidateDecode_ArraySimpleProtobufNullable =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ArraySimpleProtobufNullable> => {
+        ): import("typia").Resolved<ArraySimpleProtobufNullable> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_json_createAssertStringify_ToJsonDouble =
-  _test_json_assertStringify("ToJsonDouble")<ToJsonDouble>(ToJsonDouble)(
-    (input: any): string => {
-      const assert = (input: any): ToJsonDouble => {
+  _test_json_assertStringify(TypeGuardError)("ToJsonDouble")<ToJsonDouble>(
+    ToJsonDouble,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ToJsonDouble => {
         const __is = (input: any): input is ToJsonDouble => {
           return "object" === typeof input && null !== input && true;
         };
@@ -26,17 +35,25 @@ export const test_json_createAssertStringify_ToJsonDouble =
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ToJsonDouble.Parent",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ToJsonDouble.Parent",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ToJsonDouble.Parent",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -47,6 +64,6 @@ export const test_json_createAssertStringify_ToJsonDouble =
           (input.toJSON() as any).flag
         }}`;
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

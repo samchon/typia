@@ -1,9 +1,10 @@
-import { AssertionGuard, TypeGuardError } from "typia";
+import typia, { AssertionGuard, TypeGuardError } from "typia";
 import { Escaper } from "typia/lib/utils/Escaper";
 
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_assertGuardEquals =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (assertEquals: AssertionGuard<T>) =>
@@ -14,7 +15,10 @@ export const _test_assertGuardEquals =
     try {
       assertEquals(input);
     } catch (exp) {
-      if (exp instanceof TypeGuardError) {
+      if (
+        (exp as Function).constructor?.name === ErrorClass.name &&
+        typia.is<TypeGuardError.IProps>(exp)
+      ) {
         throw new Error(
           `Bug on typia.assertGuardEquals(): failed to understand the ${name} type.`,
         );
@@ -44,7 +48,8 @@ export const _test_assertGuardEquals =
         );
       } catch (exp) {
         if (
-          exp instanceof TypeGuardError &&
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp) &&
           exp.method === "typia.assertGuardEquals" &&
           exp.path === fullPath &&
           exp.expected === "undefined" &&
@@ -52,7 +57,10 @@ export const _test_assertGuardEquals =
         ) {
           delete value[key];
           continue;
-        } else if (exp instanceof TypeGuardError) {
+        } else if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        ) {
           console.log({
             method: exp.method,
             path: exp.path,

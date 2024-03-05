@@ -182,7 +182,7 @@ export const test_misc_createValidateClone_CommentTagObjectUnion =
     };
     const clone = (
       input: CommentTagObjectUnion,
-    ): typia.Resolved<CommentTagObjectUnion> => {
+    ): import("typia").Resolved<CommentTagObjectUnion> => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.value && 3 <= input.value;
       const $io1 = (input: any): boolean =>

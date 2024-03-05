@@ -219,7 +219,7 @@ export const test_misc_createValidateClone_CommentTagArrayUnion =
     };
     const clone = (
       input: CommentTagArrayUnion,
-    ): typia.Resolved<CommentTagArrayUnion> => {
+    ): import("typia").Resolved<CommentTagArrayUnion> => {
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

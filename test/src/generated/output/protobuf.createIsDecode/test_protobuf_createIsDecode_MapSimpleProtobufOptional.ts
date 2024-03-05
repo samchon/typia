@@ -9,7 +9,7 @@ export const test_protobuf_createIsDecode_MapSimpleProtobufOptional =
   )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<MapSimpleProtobufOptional> | null => {
+    ): import("typia").Resolved<MapSimpleProtobufOptional> | null => {
       const is = (input: any): input is MapSimpleProtobufOptional => {
         const $io0 = (input: any): boolean =>
           (undefined === input.boolean ||
@@ -99,7 +99,7 @@ export const test_protobuf_createIsDecode_MapSimpleProtobufOptional =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<MapSimpleProtobufOptional> => {
+      ): import("typia").Resolved<MapSimpleProtobufOptional> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

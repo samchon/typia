@@ -6,7 +6,7 @@ import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 export const test_misc_createIsClone_ConstantAtomicTagged = _test_misc_isClone(
   "ConstantAtomicTagged",
 )<ConstantAtomicTagged>(ConstantAtomicTagged)(
-  (input: any): typia.Resolved<ConstantAtomicTagged> | null => {
+  (input: any): import("typia").Resolved<ConstantAtomicTagged> | null => {
     const is = (input: any): input is ConstantAtomicTagged => {
       const $io0 = (input: any): boolean =>
         ("latest" === input.id ||
@@ -24,7 +24,7 @@ export const test_misc_createIsClone_ConstantAtomicTagged = _test_misc_isClone(
     };
     const clone = (
       input: ConstantAtomicTagged,
-    ): typia.Resolved<ConstantAtomicTagged> => {
+    ): import("typia").Resolved<ConstantAtomicTagged> => {
       const $co0 = (input: any): any => ({
         id: input.id as any,
         age: input.age as any,

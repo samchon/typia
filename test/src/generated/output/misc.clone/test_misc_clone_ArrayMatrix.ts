@@ -6,7 +6,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_misc_clone_ArrayMatrix = _test_misc_clone(
   "ArrayMatrix",
 )<ArrayMatrix>(ArrayMatrix)((input) =>
-  ((input: ArrayMatrix): typia.Resolved<ArrayMatrix> => {
+  ((input: ArrayMatrix): import("typia").Resolved<ArrayMatrix> => {
     const $cp0 = (input: any) => input.map((elem: any) => elem as any);
     const $cp1 = (input: any) =>
       input.map((elem: any) =>

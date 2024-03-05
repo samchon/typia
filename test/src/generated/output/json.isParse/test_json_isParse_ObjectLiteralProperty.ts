@@ -6,7 +6,7 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_json_isParse_ObjectLiteralProperty = _test_json_isParse(
   "ObjectLiteralProperty",
 )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-  ((input: any): typia.Primitive<ObjectLiteralProperty> => {
+  ((input: any): import("typia").Primitive<ObjectLiteralProperty> => {
     const is = (input: any): input is ObjectLiteralProperty => {
       return (
         "object" === typeof input &&

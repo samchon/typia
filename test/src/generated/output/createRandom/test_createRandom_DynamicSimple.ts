@@ -8,7 +8,7 @@ export const test_createRandom_DynamicSimple = _test_random(
 )<DynamicSimple>(DynamicSimple)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicSimple as any).RANDOM,
-  ): typia.Resolved<DynamicSimple> => {
+  ): import("typia").Resolved<DynamicSimple> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
@@ -29,7 +29,10 @@ export const test_createRandom_DynamicSimple = _test_random(
     };
     return $ro0();
   },
-  assert: (input: any): DynamicSimple => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicSimple => {
     const __is = (input: any): input is DynamicSimple => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -60,17 +63,25 @@ export const test_createRandom_DynamicSimple = _test_random(
           ((("object" === typeof input.value &&
             null !== input.value &&
             false === Array.isArray(input.value)) ||
-            $guard(_exceptionable, {
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "__type",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
+            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
+          $guard(
+            _exceptionable,
+            {
               path: _path + ".value",
               expected: "__type",
               value: input.value,
-            })) &&
-            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
-          $guard(_exceptionable, {
-            path: _path + ".value",
-            expected: "__type",
-            value: input.value,
-          });
+            },
+            errorFactory,
+          );
         const $ao1 = (
           input: any,
           _path: string,
@@ -82,26 +93,38 @@ export const test_createRandom_DynamicSimple = _test_random(
             if (undefined === value) return true;
             return (
               ("number" === typeof value && Number.isFinite(value)) ||
-              $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "number",
-                value: value,
-              })
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "number",
+                  value: value,
+                },
+                errorFactory,
+              )
             );
           });
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicSimple",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicSimple",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicSimple",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

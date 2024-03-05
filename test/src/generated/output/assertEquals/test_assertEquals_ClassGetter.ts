@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_assertEquals_ClassGetter = _test_assertEquals(
+export const test_assertEquals_ClassGetter = _test_assertEquals(TypeGuardError)(
   "ClassGetter",
 )<ClassGetter>(ClassGetter)((input) =>
-  ((input: any): ClassGetter => {
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ClassGetter => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -39,24 +43,36 @@ export const test_assertEquals_ClassGetter = _test_assertEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("string" === typeof input.id ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: "string",
-              value: input.id,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id,
+              },
+              errorFactory,
+            )) &&
           ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name,
+              },
+              errorFactory,
+            )) &&
           (null === input.dead ||
             "boolean" === typeof input.dead ||
-            $guard(_exceptionable, {
-              path: _path + ".dead",
-              expected: "(boolean | null)",
-              value: input.dead,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".dead",
+                expected: "(boolean | null)",
+                value: input.dead,
+              },
+              errorFactory,
+            )) &&
           (3 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -64,25 +80,37 @@ export const test_assertEquals_ClassGetter = _test_assertEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ClassGetter.Person",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ClassGetter.Person",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ClassGetter.Person",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

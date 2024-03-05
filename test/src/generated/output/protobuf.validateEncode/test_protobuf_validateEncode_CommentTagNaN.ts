@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { CommentTagNaN } from "../../../structures/CommentTagNaN";
 
-export const test_protobuf_createValidateEncode_CommentTagNaN =
+export const test_protobuf_validateEncode_CommentTagNaN =
   _test_protobuf_validateEncode("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)({
     encode: (input) =>
       ((input: CommentTagNaN): typia.IValidation<Uint8Array> => {
@@ -194,7 +194,7 @@ export const test_protobuf_createValidateEncode_CommentTagNaN =
         if (output.success) output.data = encode(input);
         return output;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<CommentTagNaN> => {
+    decode: (input: Uint8Array): import("typia").Resolved<CommentTagNaN> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -244,5 +244,5 @@ export const test_protobuf_createValidateEncode_CommentTagNaN =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagNaN {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
+      'syntax = "proto3";\n\nmessage CommentTagNaN {\n  required double value = 1;\n  required double ranged = 2;\n  required double minimum = 3;\n  required double maximum = 4;\n  required double multipleOf = 5;\n  required int32 typed = 6;\n}',
   });

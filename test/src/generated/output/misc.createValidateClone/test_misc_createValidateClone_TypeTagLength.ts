@@ -187,7 +187,9 @@ export const test_misc_createValidateClone_TypeTagLength =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: TypeTagLength): typia.Resolved<TypeTagLength> => {
+      const clone = (
+        input: TypeTagLength,
+      ): import("typia").Resolved<TypeTagLength> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.fixed &&
           5 <= input.fixed.length &&

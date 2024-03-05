@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_assertGuardEquals_TemplateConstant = _test_assertGuardEquals(
-  "TemplateConstant",
-)<TemplateConstant>(TemplateConstant)((input) =>
-  ((input: any): asserts input is TemplateConstant => {
+  TypeGuardError,
+)("TemplateConstant")<TemplateConstant>(TemplateConstant)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is TemplateConstant => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -70,46 +74,66 @@ export const test_assertGuardEquals_TemplateConstant = _test_assertGuardEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           (((Array.isArray(input.value) ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "Array<TemplateConstant.Type>",
-              value: input.value,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "Array<TemplateConstant.Type>",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
             input.value.every(
               (elem: any, _index1: number) =>
                 ((("object" === typeof elem && null !== elem) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value[" + _index1 + "]",
-                    expected: "TemplateConstant.Type",
-                    value: elem,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value[" + _index1 + "]",
+                      expected: "TemplateConstant.Type",
+                      value: elem,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao1(
                     elem,
                     _path + ".value[" + _index1 + "]",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value[" + _index1 + "]",
-                  expected: "TemplateConstant.Type",
-                  value: elem,
-                }),
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value[" + _index1 + "]",
+                    expected: "TemplateConstant.Type",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-            $guard(_exceptionable, {
-              path: _path + ".value",
-              expected: "Array<TemplateConstant.Type>",
-              value: input.value,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "Array<TemplateConstant.Type>",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
           (1 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
               if (["value"].some((prop: any) => key === prop)) return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         const $ao1 = (
           input: any,
@@ -119,19 +143,27 @@ export const test_assertGuardEquals_TemplateConstant = _test_assertGuardEquals(
           ("prefix_A" === input.prefix ||
             "prefix_B" === input.prefix ||
             "prefix_C" === input.prefix ||
-            $guard(_exceptionable, {
-              path: _path + ".prefix",
-              expected: '("prefix_A" | "prefix_B" | "prefix_C")',
-              value: input.prefix,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".prefix",
+                expected: '("prefix_A" | "prefix_B" | "prefix_C")',
+                value: input.prefix,
+              },
+              errorFactory,
+            )) &&
           ("3_postfix" === input.postfix ||
             "2_postfix" === input.postfix ||
             "1_postfix" === input.postfix ||
-            $guard(_exceptionable, {
-              path: _path + ".postfix",
-              expected: '("1_postfix" | "2_postfix" | "3_postfix")',
-              value: input.postfix,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".postfix",
+                expected: '("1_postfix" | "2_postfix" | "3_postfix")',
+                value: input.postfix,
+              },
+              errorFactory,
+            )) &&
           ("the_3_value_with_label_A" === input.combined ||
             "the_3_value_with_label_B" === input.combined ||
             "the_3_value_with_label_C" === input.combined ||
@@ -141,12 +173,16 @@ export const test_assertGuardEquals_TemplateConstant = _test_assertGuardEquals(
             "the_1_value_with_label_A" === input.combined ||
             "the_1_value_with_label_B" === input.combined ||
             "the_1_value_with_label_C" === input.combined ||
-            $guard(_exceptionable, {
-              path: _path + ".combined",
-              expected:
-                '("the_1_value_with_label_A" | "the_1_value_with_label_B" | "the_1_value_with_label_C" | "the_2_value_with_label_A" | "the_2_value_with_label_B" | "the_2_value_with_label_C" | "the_3_value_with_label_A" | "the_3_value_with_label_B" | "the_3_value_with_label_C")',
-              value: input.combined,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".combined",
+                expected:
+                  '("the_1_value_with_label_A" | "the_1_value_with_label_B" | "the_1_value_with_label_C" | "the_2_value_with_label_A" | "the_2_value_with_label_B" | "the_2_value_with_label_C" | "the_3_value_with_label_A" | "the_3_value_with_label_B" | "the_3_value_with_label_C")',
+                value: input.combined,
+              },
+              errorFactory,
+            )) &&
           (3 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -158,25 +194,37 @@ export const test_assertGuardEquals_TemplateConstant = _test_assertGuardEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "TemplateConstant",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "TemplateConstant",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "TemplateConstant",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

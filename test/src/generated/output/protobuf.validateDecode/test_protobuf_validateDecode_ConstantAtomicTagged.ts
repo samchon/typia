@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
-export const test_protobuf_createValidateDecode_ConstantAtomicTagged =
+export const test_protobuf_validateDecode_ConstantAtomicTagged =
   _test_protobuf_validateDecode("ConstantAtomicTagged")<ConstantAtomicTagged>(
     ConstantAtomicTagged,
   )({
@@ -108,7 +108,7 @@ export const test_protobuf_createValidateDecode_ConstantAtomicTagged =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ConstantAtomicTagged> => {
+        ): import("typia").Resolved<ConstantAtomicTagged> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

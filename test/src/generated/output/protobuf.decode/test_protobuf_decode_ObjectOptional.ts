@@ -3,11 +3,11 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_protobuf_createDecode_ObjectOptional = _test_protobuf_decode(
+export const test_protobuf_decode_ObjectOptional = _test_protobuf_decode(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectOptional> => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectOptional> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

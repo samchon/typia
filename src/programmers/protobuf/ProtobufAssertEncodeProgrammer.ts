@@ -13,11 +13,14 @@ export namespace ProtobufAssertEncodeProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction =>
+    (type: ts.Type, name?: string, init?: ts.Expression): ts.ArrowFunction =>
       ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        [
+          IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
+          AssertProgrammer.Guardian.parameter(init),
+        ],
         ts.factory.createTypeReferenceNode("Uint8Array"),
         undefined,
         ts.factory.createBlock([
@@ -51,7 +54,10 @@ export namespace ProtobufAssertEncodeProgrammer {
                 ts.factory.createCallExpression(
                   ts.factory.createIdentifier("assert"),
                   undefined,
-                  [ts.factory.createIdentifier("input")],
+                  [
+                    ts.factory.createIdentifier("input"),
+                    AssertProgrammer.Guardian.identifier(),
+                  ],
                 ),
               ],
             ),

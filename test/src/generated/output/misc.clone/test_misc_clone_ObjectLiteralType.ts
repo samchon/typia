@@ -6,7 +6,7 @@ import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 export const test_misc_clone_ObjectLiteralType = _test_misc_clone(
   "ObjectLiteralType",
 )<ObjectLiteralType>(ObjectLiteralType)((input) =>
-  ((input: ObjectLiteralType): typia.Resolved<ObjectLiteralType> => {
+  ((input: ObjectLiteralType): import("typia").Resolved<ObjectLiteralType> => {
     const $co0 = (input: any): any => ({
       id: input.id as any,
       name: input.name as any,

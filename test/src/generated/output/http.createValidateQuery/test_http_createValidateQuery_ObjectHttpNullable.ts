@@ -181,7 +181,7 @@ export const test_http_createValidateQuery_ObjectHttpNullable =
       };
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpNullable> => {
+      ): import("typia").Resolved<ObjectHttpNullable> => {
         const $params = (typia.http.createValidateQuery as any).params;
         const $boolean = (typia.http.createValidateQuery as any).boolean;
         const $bigint = (typia.http.createValidateQuery as any).bigint;

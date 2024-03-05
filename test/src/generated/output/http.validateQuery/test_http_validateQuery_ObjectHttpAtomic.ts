@@ -87,7 +87,7 @@ export const test_http_validateQuery_ObjectHttpAtomic =
       };
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpAtomic> => {
+      ): import("typia").Resolved<ObjectHttpAtomic> => {
         const $params = (typia.http.validateQuery as any).params;
         const $boolean = (typia.http.validateQuery as any).boolean;
         const $bigint = (typia.http.validateQuery as any).bigint;

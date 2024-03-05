@@ -6,7 +6,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_json_isParse_ArrayUnion = _test_json_isParse(
   "ArrayUnion",
 )<ArrayUnion>(ArrayUnion)((input) =>
-  ((input: any): typia.Primitive<ArrayUnion> => {
+  ((input: any): import("typia").Primitive<ArrayUnion> => {
     const is = (input: any): input is ArrayUnion => {
       const $ip0 = (input: any) => {
         const array = input;

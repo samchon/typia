@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
-export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
+export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
   _test_protobuf_validateDecode(
     "ObjectUnionExplicitPointer",
   )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)({
@@ -646,7 +646,7 @@ export const test_protobuf_createValidateDecode_ObjectUnionExplicitPointer =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectUnionExplicitPointer> => {
+        ): import("typia").Resolved<ObjectUnionExplicitPointer> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

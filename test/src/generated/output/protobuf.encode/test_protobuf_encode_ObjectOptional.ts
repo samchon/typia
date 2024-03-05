@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_protobuf_createEncode_ObjectOptional = _test_protobuf_encode(
+export const test_protobuf_encode_ObjectOptional = _test_protobuf_encode(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)({
   encode: (input) =>
@@ -41,7 +41,7 @@ export const test_protobuf_createEncode_ObjectOptional = _test_protobuf_encode(
       const writer = encoder(new $Writer(sizer));
       return writer.buffer();
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<ObjectOptional> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectOptional> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -76,5 +76,5 @@ export const test_protobuf_createEncode_ObjectOptional = _test_protobuf_encode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage ObjectOptional {\n    optional string id = 1;\n    optional string name = 2;\n    optional string email = 3;\n    optional double sequence = 4;\n}',
+    'syntax = "proto3";\n\nmessage ObjectOptional {\n  optional string id = 1;\n  optional string name = 2;\n  optional string email = 3;\n  optional double sequence = 4;\n}',
 });

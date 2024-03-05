@@ -1,17 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_protobuf_createAssertDecode_ClassPropertyAssignment =
-  _test_protobuf_assertDecode(
+export const test_protobuf_assertDecode_ClassPropertyAssignment =
+  _test_protobuf_assertDecode(TypeGuardError)(
     "ClassPropertyAssignment",
   )<ClassPropertyAssignment>(ClassPropertyAssignment)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ClassPropertyAssignment> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): import("typia").Resolved<ClassPropertyAssignment> => {
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ClassPropertyAssignment> => {
+        ): import("typia").Resolved<ClassPropertyAssignment> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;
@@ -55,7 +59,10 @@ export const test_protobuf_createAssertDecode_ClassPropertyAssignment =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ClassPropertyAssignment => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ClassPropertyAssignment => {
           const __is = (input: any): input is ClassPropertyAssignment => {
             const $io0 = (input: any): boolean =>
               "number" === typeof input.id &&
@@ -79,54 +86,82 @@ export const test_protobuf_createAssertDecode_ClassPropertyAssignment =
                 _exceptionable: boolean = true,
               ): boolean =>
                 (("number" === typeof input.id && Number.isFinite(input.id)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".id",
-                    expected: "number",
-                    value: input.id,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".id",
+                      expected: "number",
+                      value: input.id,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.name ||
-                  $guard(_exceptionable, {
-                    path: _path + ".name",
-                    expected: "string",
-                    value: input.name,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".name",
+                      expected: "string",
+                      value: input.name,
+                    },
+                    errorFactory,
+                  )) &&
                 ("assignment" === input.note ||
-                  $guard(_exceptionable, {
-                    path: _path + ".note",
-                    expected: '"assignment"',
-                    value: input.note,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".note",
+                      expected: '"assignment"',
+                      value: input.note,
+                    },
+                    errorFactory,
+                  )) &&
                 (false === input.editable ||
-                  $guard(_exceptionable, {
-                    path: _path + ".editable",
-                    expected: "false",
-                    value: input.editable,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".editable",
+                      expected: "false",
+                      value: input.editable,
+                    },
+                    errorFactory,
+                  )) &&
                 ("boolean" === typeof input.incremental ||
-                  $guard(_exceptionable, {
-                    path: _path + ".incremental",
-                    expected: "boolean",
-                    value: input.incremental,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".incremental",
+                      expected: "boolean",
+                      value: input.incremental,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ClassPropertyAssignment",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ClassPropertyAssignment",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ClassPropertyAssignment",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ClassPropertyAssignment): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

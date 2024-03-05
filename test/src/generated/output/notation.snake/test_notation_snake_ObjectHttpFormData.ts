@@ -218,7 +218,10 @@ export const test_notation_validateSnake_ObjectHttpFormData =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.SnakeCase<ObjectHttpFormData> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<ObjectHttpFormData> => {
       const __is = (
         input: any,
       ): input is typia.SnakeCase<ObjectHttpFormData> => {
@@ -261,116 +264,184 @@ export const test_notation_validateSnake_ObjectHttpFormData =
               (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                 input.id,
               ) ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: 'string & Format<"uuid">',
+                    value: input.id,
+                  },
+                  errorFactory,
+                ))) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".id",
-                  expected: 'string & Format<"uuid">',
+                  expected: '(string & Format<"uuid">)',
                   value: input.id,
-                }))) ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: '(string & Format<"uuid">)',
-                value: input.id,
-              })) &&
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.number &&
               Number.isFinite(input.number)) ||
-              $guard(_exceptionable, {
-                path: _path + ".number",
-                expected: "number",
-                value: input.number,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".number",
+                  expected: "number",
+                  value: input.number,
+                },
+                errorFactory,
+              )) &&
             (((Array.isArray(input.integers) ||
-              $guard(_exceptionable, {
-                path: _path + ".integers",
-                expected: 'Array<number & Type<"int32">>',
-                value: input.integers,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".integers",
+                  expected: 'Array<number & Type<"int32">>',
+                  value: input.integers,
+                },
+                errorFactory,
+              )) &&
               input.integers.every(
                 (elem: any, _index1: number) =>
                   ("number" === typeof elem &&
                     ((Math.floor(elem) === elem &&
                       -2147483648 <= elem &&
                       elem <= 2147483647) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".integers[" + _index1 + "]",
-                        expected: 'number & Type<"int32">',
-                        value: elem,
-                      }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".integers[" + _index1 + "]",
-                    expected: '(number & Type<"int32">)',
-                    value: elem,
-                  }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".integers[" + _index1 + "]",
+                          expected: 'number & Type<"int32">',
+                          value: elem,
+                        },
+                        errorFactory,
+                      ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".integers[" + _index1 + "]",
+                      expected: '(number & Type<"int32">)',
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-              $guard(_exceptionable, {
-                path: _path + ".integers",
-                expected: 'Array<number & Type<"int32">>',
-                value: input.integers,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".integers",
+                  expected: 'Array<number & Type<"int32">>',
+                  value: input.integers,
+                },
+                errorFactory,
+              )) &&
             (input.blob instanceof Blob ||
-              $guard(_exceptionable, {
-                path: _path + ".blob",
-                expected: "Blob",
-                value: input.blob,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".blob",
+                  expected: "Blob",
+                  value: input.blob,
+                },
+                errorFactory,
+              )) &&
             (((Array.isArray(input.blobs) ||
-              $guard(_exceptionable, {
-                path: _path + ".blobs",
-                expected: "Array<Blob>",
-                value: input.blobs,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".blobs",
+                  expected: "Array<Blob>",
+                  value: input.blobs,
+                },
+                errorFactory,
+              )) &&
               input.blobs.every(
                 (elem: any, _index2: number) =>
                   elem instanceof Blob ||
-                  $guard(_exceptionable, {
-                    path: _path + ".blobs[" + _index2 + "]",
-                    expected: "Blob",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".blobs[" + _index2 + "]",
+                      expected: "Blob",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-              $guard(_exceptionable, {
-                path: _path + ".blobs",
-                expected: "Array<Blob>",
-                value: input.blobs,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".blobs",
+                  expected: "Array<Blob>",
+                  value: input.blobs,
+                },
+                errorFactory,
+              )) &&
             (input.file instanceof File ||
-              $guard(_exceptionable, {
-                path: _path + ".file",
-                expected: "File",
-                value: input.file,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".file",
+                  expected: "File",
+                  value: input.file,
+                },
+                errorFactory,
+              )) &&
             (((Array.isArray(input.files) ||
-              $guard(_exceptionable, {
-                path: _path + ".files",
-                expected: "Array<File>",
-                value: input.files,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".files",
+                  expected: "Array<File>",
+                  value: input.files,
+                },
+                errorFactory,
+              )) &&
               input.files.every(
                 (elem: any, _index3: number) =>
                   elem instanceof File ||
-                  $guard(_exceptionable, {
-                    path: _path + ".files[" + _index3 + "]",
-                    expected: "File",
-                    value: elem,
-                  }),
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".files[" + _index3 + "]",
+                      expected: "File",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-              $guard(_exceptionable, {
-                path: _path + ".files",
-                expected: "Array<File>",
-                value: input.files,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".files",
+                  expected: "Array<File>",
+                  value: input.files,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectHttpFormData",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectHttpFormData",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectHttpFormData",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

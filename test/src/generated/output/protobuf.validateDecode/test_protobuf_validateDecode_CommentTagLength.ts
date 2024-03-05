@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { CommentTagLength } from "../../../structures/CommentTagLength";
 
-export const test_protobuf_createValidateDecode_CommentTagLength =
+export const test_protobuf_validateDecode_CommentTagLength =
   _test_protobuf_validateDecode("CommentTagLength")<CommentTagLength>(
     CommentTagLength,
   )({
@@ -194,7 +194,7 @@ export const test_protobuf_createValidateDecode_CommentTagLength =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<CommentTagLength> => {
+        ): import("typia").Resolved<CommentTagLength> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

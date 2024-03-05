@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
 
 export const test_misc_assertPrune_ObjectHttpAtomic = _test_misc_assertPrune(
-  "ObjectHttpAtomic",
-)<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
-  ((input: any): ObjectHttpAtomic => {
-    const assert = (input: any): ObjectHttpAtomic => {
+  TypeGuardError,
+)("ObjectHttpAtomic")<ObjectHttpAtomic>(ObjectHttpAtomic)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectHttpAtomic => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ObjectHttpAtomic => {
       const __is = (input: any): input is ObjectHttpAtomic => {
         return (
           "object" === typeof input &&
@@ -32,43 +39,67 @@ export const test_misc_assertPrune_ObjectHttpAtomic = _test_misc_assertPrune(
             _exceptionable: boolean = true,
           ): boolean =>
             ("boolean" === typeof input.boolean ||
-              $guard(_exceptionable, {
-                path: _path + ".boolean",
-                expected: "boolean",
-                value: input.boolean,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".boolean",
+                  expected: "boolean",
+                  value: input.boolean,
+                },
+                errorFactory,
+              )) &&
             ("bigint" === typeof input.bigint ||
-              $guard(_exceptionable, {
-                path: _path + ".bigint",
-                expected: "bigint",
-                value: input.bigint,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".bigint",
+                  expected: "bigint",
+                  value: input.bigint,
+                },
+                errorFactory,
+              )) &&
             (("number" === typeof input.number &&
               Number.isFinite(input.number)) ||
-              $guard(_exceptionable, {
-                path: _path + ".number",
-                expected: "number",
-                value: input.number,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".number",
+                  expected: "number",
+                  value: input.number,
+                },
+                errorFactory,
+              )) &&
             ("string" === typeof input.string ||
-              $guard(_exceptionable, {
-                path: _path + ".string",
-                expected: "string",
-                value: input.string,
-              }));
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".string",
+                  expected: "string",
+                  value: input.string,
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ObjectHttpAtomic",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ObjectHttpAtomic",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ObjectHttpAtomic",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
@@ -88,7 +119,7 @@ export const test_misc_assertPrune_ObjectHttpAtomic = _test_misc_assertPrune(
       };
       if ("object" === typeof input && null !== input) $po0(input);
     };
-    assert(input);
+    assert(input, errorFactory);
     prune(input);
     return input;
   })(input),

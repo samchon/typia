@@ -6,7 +6,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_json_isParse_ArrayMatrix = _test_json_isParse(
   "ArrayMatrix",
 )<ArrayMatrix>(ArrayMatrix)((input) =>
-  ((input: any): typia.Primitive<ArrayMatrix> => {
+  ((input: any): import("typia").Primitive<ArrayMatrix> => {
     const is = (input: any): input is ArrayMatrix => {
       return (
         Array.isArray(input) &&

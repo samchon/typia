@@ -6,7 +6,7 @@ import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper
 export const test_json_createIsParse_ConstantAtomicWrapper = _test_json_isParse(
   "ConstantAtomicWrapper",
 )<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
-  (input: any): typia.Primitive<ConstantAtomicWrapper> => {
+  (input: any): import("typia").Primitive<ConstantAtomicWrapper> => {
     const is = (input: any): input is ConstantAtomicWrapper => {
       const $io0 = (input: any): boolean => "boolean" === typeof input.value;
       const $io1 = (input: any): boolean =>

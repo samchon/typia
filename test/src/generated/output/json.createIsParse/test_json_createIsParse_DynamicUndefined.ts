@@ -6,7 +6,7 @@ import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 export const test_json_createIsParse_DynamicUndefined = _test_json_isParse(
   "DynamicUndefined",
 )<DynamicUndefined>(DynamicUndefined)(
-  (input: any): typia.Primitive<DynamicUndefined> => {
+  (input: any): import("typia").Primitive<DynamicUndefined> => {
     const is = (input: any): input is DynamicUndefined => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {

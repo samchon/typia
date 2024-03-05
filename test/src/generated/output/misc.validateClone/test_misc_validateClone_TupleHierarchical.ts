@@ -454,7 +454,7 @@ export const test_misc_validateClone_TupleHierarchical =
       };
       const clone = (
         input: TupleHierarchical,
-      ): typia.Resolved<TupleHierarchical> => {
+      ): import("typia").Resolved<TupleHierarchical> => {
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             Array.isArray(elem) &&

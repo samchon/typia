@@ -74,7 +74,7 @@ export const test_misc_validateClone_ConstantAtomicAbsorbed =
       };
       const clone = (
         input: ConstantAtomicAbsorbed,
-      ): typia.Resolved<ConstantAtomicAbsorbed> => {
+      ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           age: input.age as any,

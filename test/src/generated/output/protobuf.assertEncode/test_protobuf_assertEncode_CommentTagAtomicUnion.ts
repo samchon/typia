@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
 
-export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
-  _test_protobuf_assertEncode("CommentTagAtomicUnion")<CommentTagAtomicUnion>(
-    CommentTagAtomicUnion,
-  )({
+export const test_protobuf_assertEncode_CommentTagAtomicUnion =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagAtomicUnion",
+  )<CommentTagAtomicUnion>(CommentTagAtomicUnion)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): CommentTagAtomicUnion => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): CommentTagAtomicUnion => {
           const __is = (input: any): input is CommentTagAtomicUnion => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.value) &&
@@ -39,35 +46,51 @@ export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((Array.isArray(input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "Array<CommentTagAtomicUnion.Type>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "Array<CommentTagAtomicUnion.Type>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   input.value.every(
                     (elem: any, _index1: number) =>
                       ((("object" === typeof elem && null !== elem) ||
-                        $guard(_exceptionable, {
-                          path: _path + ".value[" + _index1 + "]",
-                          expected: "CommentTagAtomicUnion.Type",
-                          value: elem,
-                        })) &&
+                        $guard(
+                          _exceptionable,
+                          {
+                            path: _path + ".value[" + _index1 + "]",
+                            expected: "CommentTagAtomicUnion.Type",
+                            value: elem,
+                          },
+                          errorFactory,
+                        )) &&
                         $ao1(
                           elem,
                           _path + ".value[" + _index1 + "]",
                           true && _exceptionable,
                         )) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".value[" + _index1 + "]",
-                        expected: "CommentTagAtomicUnion.Type",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".value[" + _index1 + "]",
+                          expected: "CommentTagAtomicUnion.Type",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "Array<CommentTagAtomicUnion.Type>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "Array<CommentTagAtomicUnion.Type>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao1 = (
                 input: any,
                 _path: string,
@@ -75,49 +98,77 @@ export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
               ): boolean =>
                 ("string" === typeof input.value &&
                   (3 <= input.value.length ||
-                    $guard(_exceptionable, {
-                      path: _path + ".value",
-                      expected: "string & MinLength<3>",
-                      value: input.value,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".value",
+                        expected: "string & MinLength<3>",
+                        value: input.value,
+                      },
+                      errorFactory,
+                    )) &&
                   (input.value.length <= 7 ||
-                    $guard(_exceptionable, {
-                      path: _path + ".value",
-                      expected: "string & MaxLength<7>",
-                      value: input.value,
-                    }))) ||
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".value",
+                        expected: "string & MaxLength<7>",
+                        value: input.value,
+                      },
+                      errorFactory,
+                    ))) ||
                 ("number" === typeof input.value &&
                   (Number.isFinite(input.value) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".value",
-                      expected: "number",
-                      value: input.value,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".value",
+                        expected: "number",
+                        value: input.value,
+                      },
+                      errorFactory,
+                    )) &&
                   (3 <= input.value ||
-                    $guard(_exceptionable, {
-                      path: _path + ".value",
-                      expected: "number & Minimum<3>",
-                      value: input.value,
-                    }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected:
-                    "((number & Minimum<3>) | (string & MinLength<3> & MaxLength<7>))",
-                  value: input.value,
-                });
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".value",
+                        expected: "number & Minimum<3>",
+                        value: input.value,
+                      },
+                      errorFactory,
+                    ))) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected:
+                      "((number & Minimum<3>) | (string & MinLength<3> & MaxLength<7>))",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "CommentTagAtomicUnion",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "CommentTagAtomicUnion",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "CommentTagAtomicUnion",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -167,9 +218,11 @@ export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<CommentTagAtomicUnion> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagAtomicUnion> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -217,5 +270,5 @@ export const test_protobuf_createAssertEncode_CommentTagAtomicUnion =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagAtomicUnion {\n    repeated CommentTagAtomicUnion.Type value = 1;\n    message Type {\n        oneof value {\n            double v1 = 1;\n            string v2 = 2;\n        }\n    }\n}',
+      'syntax = "proto3";\n\nmessage CommentTagAtomicUnion {\n  repeated CommentTagAtomicUnion.Type value = 1;\n  message Type {\n    oneof value {\n      double v1 = 1;\n      string v2 = 2;\n    }\n  }\n}',
   });

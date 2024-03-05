@@ -7,7 +7,9 @@ export const test_protobuf_createIsDecode_CommentTagFormat =
   _test_protobuf_isDecode("CommentTagFormat")<CommentTagFormat>(
     CommentTagFormat,
   )({
-    decode: (input: Uint8Array): typia.Resolved<CommentTagFormat> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagFormat> | null => {
       const is = (input: any): input is CommentTagFormat => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.byte &&
@@ -98,7 +100,9 @@ export const test_protobuf_createIsDecode_CommentTagFormat =
           );
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<CommentTagFormat> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagFormat> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

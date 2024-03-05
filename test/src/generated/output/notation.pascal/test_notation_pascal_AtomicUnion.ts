@@ -76,7 +76,10 @@ export const test_notation_validatePascal_AtomicUnion =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<AtomicUnion> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.PascalCase<AtomicUnion> => {
       const __is = (input: any): input is typia.PascalCase<AtomicUnion> => {
         return (
           Array.isArray(input) &&
@@ -98,28 +101,40 @@ export const test_notation_validatePascal_AtomicUnion =
           const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "AtomicUnion",
-                value: input,
-              })) &&
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "AtomicUnion",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
               input.every(
                 (elem: any, _index1: number) =>
                   null === elem ||
                   "string" === typeof elem ||
                   ("number" === typeof elem && Number.isFinite(elem)) ||
                   "boolean" === typeof elem ||
-                  $guard(true, {
-                    path: _path + "[" + _index1 + "]",
-                    expected: "(boolean | null | number | string)",
-                    value: elem,
-                  }),
+                  $guard(
+                    true,
+                    {
+                      path: _path + "[" + _index1 + "]",
+                      expected: "(boolean | null | number | string)",
+                      value: elem,
+                    },
+                    errorFactory,
+                  ),
               )) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "AtomicUnion",
-              value: input,
-            })
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "AtomicUnion",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

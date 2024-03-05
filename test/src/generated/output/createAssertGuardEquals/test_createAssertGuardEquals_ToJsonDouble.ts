@@ -1,11 +1,17 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_createAssertGuardEquals_ToJsonDouble =
-  _test_assertGuardEquals("ToJsonDouble")<ToJsonDouble>(ToJsonDouble)(
-    (input: any): asserts input is ToJsonDouble => {
+  _test_assertGuardEquals(TypeGuardError)("ToJsonDouble")<ToJsonDouble>(
+    ToJsonDouble,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): asserts input is ToJsonDouble => {
       const __is = (
         input: any,
         _exceptionable: boolean = true,
@@ -42,27 +48,39 @@ export const test_createAssertGuardEquals_ToJsonDouble =
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             });
           return (
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "ToJsonDouble.Parent",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "ToJsonDouble.Parent",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ToJsonDouble.Parent",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
     },

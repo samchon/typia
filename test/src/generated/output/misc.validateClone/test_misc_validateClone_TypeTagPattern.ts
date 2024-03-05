@@ -132,7 +132,9 @@ export const test_misc_validateClone_TypeTagPattern = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: TypeTagPattern): typia.Resolved<TypeTagPattern> => {
+    const clone = (
+      input: TypeTagPattern,
+    ): import("typia").Resolved<TypeTagPattern> => {
       const $co0 = (input: any): any => ({
         uuid: input.uuid as any,
         email: input.email as any,

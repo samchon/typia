@@ -3,14 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
-export const test_protobuf_createIsDecode_ObjectUnionCompositePointer =
+export const test_protobuf_isDecode_ObjectUnionCompositePointer =
   _test_protobuf_isDecode(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
     decode: (input) =>
       ((
         input: Uint8Array,
-      ): typia.Resolved<ObjectUnionCompositePointer> | null => {
+      ): import("typia").Resolved<ObjectUnionCompositePointer> | null => {
         const is = (input: any): input is ObjectUnionCompositePointer => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -150,7 +150,7 @@ export const test_protobuf_createIsDecode_ObjectUnionCompositePointer =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectUnionCompositePointer> => {
+        ): import("typia").Resolved<ObjectUnionCompositePointer> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

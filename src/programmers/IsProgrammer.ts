@@ -11,7 +11,7 @@ import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { disable_function_importer_declare } from "./helpers/disable_function_importer_declare";

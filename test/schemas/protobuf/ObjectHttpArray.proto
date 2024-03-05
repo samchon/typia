@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 message ObjectHttpArray {
-    repeated bool booleans = 1;
-    repeated int64 bigints = 2;
-    repeated double numbers = 3;
-    repeated string strings = 4;
-    repeated string templates = 5;
+  repeated bool booleans = 1;
+  repeated int64 bigints = 2;
+  repeated double numbers = 3;
+  repeated string strings = 4;
+  repeated string templates = 5;
 }

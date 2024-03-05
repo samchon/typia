@@ -8,7 +8,7 @@ export const test_http_createHeaders_ObjectHttpCommentTag = _test_http_headers(
 )<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
   (
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpCommentTag> => {
+  ): import("typia").Resolved<ObjectHttpCommentTag> => {
     const $number = (typia.http.createHeaders as any).number;
     const $bigint = (typia.http.createHeaders as any).bigint;
     const output = {

@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_protobuf_createAssertEncode_DynamicTree =
-  _test_protobuf_assertEncode("DynamicTree")<DynamicTree>(DynamicTree)({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): DynamicTree => {
+  _test_protobuf_assertEncode(TypeGuardError)("DynamicTree")<DynamicTree>(
+    DynamicTree,
+  )({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): DynamicTree => {
         const __is = (input: any): input is DynamicTree => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -38,36 +47,52 @@ export const test_protobuf_createAssertEncode_DynamicTree =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "string",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "string",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.sequence &&
                 Number.isFinite(input.sequence)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".sequence",
-                  expected: "number",
-                  value: input.sequence,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".sequence",
+                    expected: "number",
+                    value: input.sequence,
+                  },
+                  errorFactory,
+                )) &&
               (((("object" === typeof input.children &&
                 null !== input.children &&
                 false === Array.isArray(input.children)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".children",
-                  expected: "Record<string, DynamicTree>",
-                  value: input.children,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".children",
+                    expected: "Record<string, DynamicTree>",
+                    value: input.children,
+                  },
+                  errorFactory,
+                )) &&
                 $ao1(
                   input.children,
                   _path + ".children",
                   true && _exceptionable,
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".children",
-                  expected: "Record<string, DynamicTree>",
-                  value: input.children,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".children",
+                    expected: "Record<string, DynamicTree>",
+                    value: input.children,
+                  },
+                  errorFactory,
+                ));
             const $ao1 = (
               input: any,
               _path: string,
@@ -79,32 +104,48 @@ export const test_protobuf_createAssertEncode_DynamicTree =
                 if (undefined === value) return true;
                 return (
                   ((("object" === typeof value && null !== value) ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "DynamicTree",
+                        value: value,
+                      },
+                      errorFactory,
+                    )) &&
+                    $ao0(value, _path + $join(key), true && _exceptionable)) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + $join(key),
                       expected: "DynamicTree",
                       value: value,
-                    })) &&
-                    $ao0(value, _path + $join(key), true && _exceptionable)) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "DynamicTree",
-                    value: value,
-                  })
+                    },
+                    errorFactory,
+                  )
                 );
               });
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "DynamicTree",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "DynamicTree",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "DynamicTree",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -155,9 +196,9 @@ export const test_protobuf_createAssertEncode_DynamicTree =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<DynamicTree> => {
+    decode: (input: Uint8Array): import("typia").Resolved<DynamicTree> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -215,5 +256,5 @@ export const test_protobuf_createAssertEncode_DynamicTree =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage DynamicTree {\n    required string id = 1;\n    required double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
+      'syntax = "proto3";\n\nmessage DynamicTree {\n  required string id = 1;\n  required double sequence = 2;\n  map<string, DynamicTree> children = 3;\n}',
   });

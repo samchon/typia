@@ -6,7 +6,7 @@ import { ObjectDescription } from "../../../structures/ObjectDescription";
 export const test_json_createIsParse_ObjectDescription = _test_json_isParse(
   "ObjectDescription",
 )<ObjectDescription>(ObjectDescription)(
-  (input: any): typia.Primitive<ObjectDescription> => {
+  (input: any): import("typia").Primitive<ObjectDescription> => {
     const is = (input: any): input is ObjectDescription => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&

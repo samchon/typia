@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { TypeTagType } from "../../../structures/TypeTagType";
 
-export const test_protobuf_createIsEncode_TypeTagType = _test_protobuf_isEncode(
+export const test_protobuf_isEncode_TypeTagType = _test_protobuf_isEncode(
   "TypeTagType",
 )<TypeTagType>(TypeTagType)({
   encode: (input) =>
@@ -122,7 +122,7 @@ export const test_protobuf_createIsEncode_TypeTagType = _test_protobuf_isEncode(
       };
       return is(input) ? encode(input) : null;
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<TypeTagType> => {
+  decode: (input: Uint8Array): import("typia").Resolved<TypeTagType> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -196,5 +196,5 @@ export const test_protobuf_createIsEncode_TypeTagType = _test_protobuf_isEncode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage TypeTagType {\n    repeated TypeTagType.Type value = 1;\n    message Type {\n        required int32 int = 1;\n        required uint32 uint = 2;\n        required int32 int32 = 3;\n        required uint32 uint32 = 4;\n        required int64 int64 = 5;\n        required uint64 uint64 = 6;\n        required float float = 7;\n    }\n}',
+    'syntax = "proto3";\n\nmessage TypeTagType {\n  repeated TypeTagType.Type value = 1;\n  message Type {\n    required int32 int = 1;\n    required uint32 uint = 2;\n    required int32 int32 = 3;\n    required uint32 uint32 = 4;\n    required int64 int64 = 5;\n    required uint64 uint64 = 6;\n    required float float = 7;\n  }\n}',
 });

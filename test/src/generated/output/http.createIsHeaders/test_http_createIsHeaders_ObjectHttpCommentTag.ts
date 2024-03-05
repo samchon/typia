@@ -9,7 +9,7 @@ export const test_http_createIsHeaders_ObjectHttpCommentTag =
   )(
     (
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpCommentTag> | null => {
+    ): import("typia").Resolved<ObjectHttpCommentTag> | null => {
       const is = (input: any): input is ObjectHttpCommentTag => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.int &&
@@ -32,7 +32,7 @@ export const test_http_createIsHeaders_ObjectHttpCommentTag =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const $number = (typia.http.createIsHeaders as any).number;
         const $bigint = (typia.http.createIsHeaders as any).bigint;
         const output = {

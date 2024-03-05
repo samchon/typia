@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
 export const test_misc_assertPrune_ConstantAtomicAbsorbed =
-  _test_misc_assertPrune("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
-    ConstantAtomicAbsorbed,
-  )((input) =>
-    ((input: any): ConstantAtomicAbsorbed => {
-      const assert = (input: any): ConstantAtomicAbsorbed => {
+  _test_misc_assertPrune(TypeGuardError)(
+    "ConstantAtomicAbsorbed",
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
+    ((
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): ConstantAtomicAbsorbed => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ConstantAtomicAbsorbed => {
         const __is = (input: any): input is ConstantAtomicAbsorbed => {
           return (
             "object" === typeof input &&
@@ -31,30 +38,46 @@ export const test_misc_assertPrune_ConstantAtomicAbsorbed =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: '(string & Default<"something">)',
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: '(string & Default<"something">)',
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.age && Number.isFinite(input.age)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: "(number & Default<20>)",
-                  value: input.age,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: "(number & Default<20>)",
+                    value: input.age,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ConstantAtomicAbsorbed",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ConstantAtomicAbsorbed",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ConstantAtomicAbsorbed",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -68,7 +91,7 @@ export const test_misc_assertPrune_ConstantAtomicAbsorbed =
         };
         if ("object" === typeof input && null !== input) $po0(input);
       };
-      assert(input);
+      assert(input, errorFactory);
       prune(input);
       return input;
     })(input),

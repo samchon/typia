@@ -9,7 +9,7 @@ export const test_random_DynamicUnion = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<DynamicUnion> => {
+    ): import("typia").Resolved<DynamicUnion> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
         const output = {} as any;
@@ -66,7 +66,10 @@ export const test_random_DynamicUnion = _test_random(
       };
       return $ro0();
     })((DynamicUnion as any).RANDOM),
-  assert: (input: any): DynamicUnion => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): DynamicUnion => {
     const __is = (input: any): input is DynamicUnion => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -114,29 +117,41 @@ export const test_random_DynamicUnion = _test_random(
             if ("number" === typeof Number(key) && Number.isFinite(Number(key)))
               return (
                 "string" === typeof value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "string",
-                  value: value,
-                })
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "string",
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
               return (
                 "string" === typeof value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "string",
-                  value: value,
-                })
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "string",
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             if ("string" === typeof key && RegExp(/(.*)_postfix$/).test(key))
               return (
                 "string" === typeof value ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "string",
-                  value: value,
-                })
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "string",
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             if (
               "string" === typeof key &&
@@ -146,11 +161,15 @@ export const test_random_DynamicUnion = _test_random(
             )
               return (
                 ("number" === typeof value && Number.isFinite(value)) ||
-                $guard(_exceptionable, {
-                  path: _path + $join(key),
-                  expected: "number",
-                  value: value,
-                })
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + $join(key),
+                    expected: "number",
+                    value: value,
+                  },
+                  errorFactory,
+                )
               );
             return true;
           });
@@ -158,17 +177,25 @@ export const test_random_DynamicUnion = _test_random(
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicUnion",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicUnion",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

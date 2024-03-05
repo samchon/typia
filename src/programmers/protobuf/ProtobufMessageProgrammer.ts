@@ -157,4 +157,4 @@ interface IPointer<T> {
   value: T;
 }
 
-const TAB = " ".repeat(4);
+const TAB = " ".repeat(2);

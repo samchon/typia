@@ -1,17 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
-export const test_protobuf_createAssertDecode_ObjectHttpCommentTag =
-  _test_protobuf_assertDecode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-    ObjectHttpCommentTag,
-  )({
+export const test_protobuf_assertDecode_ObjectHttpCommentTag =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectHttpCommentTag",
+  )<ObjectHttpCommentTag>(ObjectHttpCommentTag)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpCommentTag> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectHttpCommentTag> => {
+        ): import("typia").Resolved<ObjectHttpCommentTag> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;
@@ -54,7 +58,10 @@ export const test_protobuf_createAssertDecode_ObjectHttpCommentTag =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ObjectHttpCommentTag => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectHttpCommentTag => {
           const __is = (input: any): input is ObjectHttpCommentTag => {
             const $io0 = (input: any): boolean =>
               "number" === typeof input.int &&
@@ -92,93 +99,147 @@ export const test_protobuf_createAssertDecode_ObjectHttpCommentTag =
                   ((Math.floor(input.int) === input.int &&
                     -2147483648 <= input.int &&
                     input.int <= 2147483647) ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".int",
+                        expected: 'number & Type<"int32">',
+                        value: input.int,
+                      },
+                      errorFactory,
+                    ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + ".int",
-                      expected: 'number & Type<"int32">',
+                      expected: '(number & Type<"int32">)',
                       value: input.int,
-                    }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".int",
-                    expected: '(number & Type<"int32">)',
-                    value: input.int,
-                  })) &&
+                    },
+                    errorFactory,
+                  )) &&
                 (("bigint" === typeof input.uint64 &&
                   (BigInt(0) <= input.uint64 ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".uint64",
+                        expected: 'bigint & Type<"uint64">',
+                        value: input.uint64,
+                      },
+                      errorFactory,
+                    ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + ".uint64",
-                      expected: 'bigint & Type<"uint64">',
+                      expected: '(bigint & Type<"uint64">)',
                       value: input.uint64,
-                    }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".uint64",
-                    expected: '(bigint & Type<"uint64">)',
-                    value: input.uint64,
-                  })) &&
+                    },
+                    errorFactory,
+                  )) &&
                 (("string" === typeof input.uuid &&
                   (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                     input.uuid,
                   ) ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".uuid",
+                        expected: 'string & Format<"uuid">',
+                        value: input.uuid,
+                      },
+                      errorFactory,
+                    ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + ".uuid",
-                      expected: 'string & Format<"uuid">',
+                      expected: '(string & Format<"uuid">)',
                       value: input.uuid,
-                    }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".uuid",
-                    expected: '(string & Format<"uuid">)',
-                    value: input.uuid,
-                  })) &&
+                    },
+                    errorFactory,
+                  )) &&
                 (((Array.isArray(input.items) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".items",
-                    expected: "(Array<number> & MinItems<10> & MaxItems<100>)",
-                    value: input.items,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".items",
+                      expected:
+                        "(Array<number> & MinItems<10> & MaxItems<100>)",
+                      value: input.items,
+                    },
+                    errorFactory,
+                  )) &&
                   (10 <= input.items.length ||
-                    $guard(_exceptionable, {
-                      path: _path + ".items",
-                      expected: "Array<> & MinItems<10>",
-                      value: input.items,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".items",
+                        expected: "Array<> & MinItems<10>",
+                        value: input.items,
+                      },
+                      errorFactory,
+                    )) &&
                   (input.items.length <= 100 ||
-                    $guard(_exceptionable, {
-                      path: _path + ".items",
-                      expected: "Array<> & MaxItems<100>",
-                      value: input.items,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".items",
+                        expected: "Array<> & MaxItems<100>",
+                        value: input.items,
+                      },
+                      errorFactory,
+                    )) &&
                   input.items.every(
                     (elem: any, _index1: number) =>
                       ("number" === typeof elem && Number.isFinite(elem)) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".items[" + _index1 + "]",
-                        expected: "number",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".items[" + _index1 + "]",
+                          expected: "number",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".items",
-                    expected: "(Array<number> & MinItems<10> & MaxItems<100>)",
-                    value: input.items,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".items",
+                      expected:
+                        "(Array<number> & MinItems<10> & MaxItems<100>)",
+                      value: input.items,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectHttpCommentTag",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectHttpCommentTag",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectHttpCommentTag",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ObjectHttpCommentTag): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

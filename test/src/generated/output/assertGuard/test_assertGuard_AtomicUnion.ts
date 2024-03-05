@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_assertGuard_AtomicUnion = _test_assertGuard(
+export const test_assertGuard_AtomicUnion = _test_assertGuard(TypeGuardError)(
   "AtomicUnion",
 )<AtomicUnion>(AtomicUnion)((input) =>
-  ((input: any): asserts input is AtomicUnion => {
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is AtomicUnion => {
     const __is = (input: any): input is AtomicUnion => {
       return (
         Array.isArray(input) &&
@@ -28,28 +32,40 @@ export const test_assertGuard_AtomicUnion = _test_assertGuard(
         const $guard = (typia.assertGuard as any).guard;
         return (
           ((Array.isArray(input) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "AtomicUnion",
-              value: input,
-            })) &&
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "AtomicUnion",
+                value: input,
+              },
+              errorFactory,
+            )) &&
             input.every(
               (elem: any, _index1: number) =>
                 null === elem ||
                 "string" === typeof elem ||
                 ("number" === typeof elem && Number.isFinite(elem)) ||
                 "boolean" === typeof elem ||
-                $guard(true, {
-                  path: _path + "[" + _index1 + "]",
-                  expected: "(boolean | null | number | string)",
-                  value: elem,
-                }),
+                $guard(
+                  true,
+                  {
+                    path: _path + "[" + _index1 + "]",
+                    expected: "(boolean | null | number | string)",
+                    value: elem,
+                  },
+                  errorFactory,
+                ),
             )) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "AtomicUnion",
-            value: input,
-          })
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "AtomicUnion",
+              value: input,
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

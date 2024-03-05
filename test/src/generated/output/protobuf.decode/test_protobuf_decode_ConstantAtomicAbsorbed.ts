@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_protobuf_createDecode_ConstantAtomicAbsorbed =
+export const test_protobuf_decode_ConstantAtomicAbsorbed =
   _test_protobuf_decode("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
     ConstantAtomicAbsorbed,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ConstantAtomicAbsorbed> => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
         const $Reader = (typia.protobuf.decode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

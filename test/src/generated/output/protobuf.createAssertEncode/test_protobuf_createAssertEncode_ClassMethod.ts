@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_protobuf_createAssertEncode_ClassMethod =
-  _test_protobuf_assertEncode("ClassMethod")<ClassMethod>(ClassMethod)({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): ClassMethod => {
+  _test_protobuf_assertEncode(TypeGuardError)("ClassMethod")<ClassMethod>(
+    ClassMethod,
+  )({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ClassMethod => {
         const __is = (input: any): input is ClassMethod => {
           return (
             "object" === typeof input &&
@@ -29,30 +38,46 @@ export const test_protobuf_createAssertEncode_ClassMethod =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.age && Number.isFinite(input.age)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".age",
-                  expected: "number",
-                  value: input.age,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".age",
+                    expected: "number",
+                    value: input.age,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ClassMethod.Animal",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ClassMethod.Animal",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ClassMethod.Animal",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -77,9 +102,9 @@ export const test_protobuf_createAssertEncode_ClassMethod =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<ClassMethod> => {
+    decode: (input: Uint8Array): import("typia").Resolved<ClassMethod> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -109,5 +134,5 @@ export const test_protobuf_createAssertEncode_ClassMethod =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ClassMethod {\n    message Animal {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
+      'syntax = "proto3";\n\nmessage ClassMethod {\n  message Animal {\n    required string name = 1;\n    required double age = 2;\n  }\n}',
   });

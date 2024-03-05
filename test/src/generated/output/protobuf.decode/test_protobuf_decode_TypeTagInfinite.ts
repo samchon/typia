@@ -3,11 +3,11 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_protobuf_createDecode_TypeTagInfinite = _test_protobuf_decode(
+export const test_protobuf_decode_TypeTagInfinite = _test_protobuf_decode(
   "TypeTagInfinite",
 )<TypeTagInfinite>(TypeTagInfinite)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
+    ((input: Uint8Array): import("typia").Resolved<TypeTagInfinite> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

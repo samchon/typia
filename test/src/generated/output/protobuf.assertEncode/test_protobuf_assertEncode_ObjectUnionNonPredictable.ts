@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
-  _test_protobuf_assertEncode(
+export const test_protobuf_assertEncode_ObjectUnionNonPredictable =
+  _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectUnionNonPredictable",
   )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectUnionNonPredictable => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectUnionNonPredictable => {
           const __is = (input: any): input is ObjectUnionNonPredictable => {
             const $io0 = (input: any): boolean =>
               Array.isArray(input.value) &&
@@ -60,136 +67,188 @@ export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((Array.isArray(input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected:
-                      "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected:
+                        "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   input.value.every(
                     (elem: any, _index1: number) =>
                       ((("object" === typeof elem && null !== elem) ||
-                        $guard(_exceptionable, {
-                          path: _path + ".value[" + _index1 + "]",
-                          expected:
-                            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
-                          value: elem,
-                        })) &&
+                        $guard(
+                          _exceptionable,
+                          {
+                            path: _path + ".value[" + _index1 + "]",
+                            expected:
+                              "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                            value: elem,
+                          },
+                          errorFactory,
+                        )) &&
                         $ao1(
                           elem,
                           _path + ".value[" + _index1 + "]",
                           true && _exceptionable,
                         )) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".value[" + _index1 + "]",
-                        expected:
-                          "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".value[" + _index1 + "]",
+                          expected:
+                            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected:
-                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected:
+                      "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao1 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((("object" === typeof input.value && null !== input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "IPointer<ObjectUnionNonPredictable.IUnion>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "IPointer<ObjectUnionNonPredictable.IUnion>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao2(
                     input.value,
                     _path + ".value",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "IPointer<ObjectUnionNonPredictable.IUnion>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "IPointer<ObjectUnionNonPredictable.IUnion>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao2 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((("object" === typeof input.value && null !== input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected:
-                      "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected:
+                        "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   $au0(
                     input.value,
                     _path + ".value",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected:
-                    "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected:
+                      "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao3 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((("object" === typeof input.value && null !== input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "IPointer<boolean>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "IPointer<boolean>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao4(
                     input.value,
                     _path + ".value",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "IPointer<boolean>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "IPointer<boolean>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao4 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 "boolean" === typeof input.value ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "boolean",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "boolean",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao5 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((("object" === typeof input.value && null !== input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "IPointer<number>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "IPointer<number>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao6(
                     input.value,
                     _path + ".value",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "IPointer<number>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "IPointer<number>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao6 = (
                 input: any,
                 _path: string,
@@ -197,43 +256,59 @@ export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
               ): boolean =>
                 ("number" === typeof input.value &&
                   Number.isFinite(input.value)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "number",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "number",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao7 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 ((("object" === typeof input.value && null !== input.value) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".value",
-                    expected: "IPointer<string>",
-                    value: input.value,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".value",
+                      expected: "IPointer<string>",
+                      value: input.value,
+                    },
+                    errorFactory,
+                  )) &&
                   $ao8(
                     input.value,
                     _path + ".value",
                     true && _exceptionable,
                   )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "IPointer<string>",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "IPointer<string>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $ao8 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
               ): boolean =>
                 "string" === typeof input.value ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "string",
-                  value: input.value,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "string",
+                    value: input.value,
+                  },
+                  errorFactory,
+                );
               const $au0 = (
                 input: any,
                 _path: string,
@@ -242,25 +317,37 @@ export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
                 $ao7(input, _path, false && _exceptionable) ||
                 $ao5(input, _path, false && _exceptionable) ||
                 $ao3(input, _path, false && _exceptionable) ||
-                $guard(_exceptionable, {
-                  path: _path,
-                  expected:
-                    "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
-                  value: input,
-                });
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path,
+                    expected:
+                      "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+                    value: input,
+                  },
+                  errorFactory,
+                );
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectUnionNonPredictable",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectUnionNonPredictable",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectUnionNonPredictable",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -399,9 +486,11 @@ export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ObjectUnionNonPredictable> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectUnionNonPredictable> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -586,5 +675,5 @@ export const test_protobuf_createAssertEncode_ObjectUnionNonPredictable =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectUnionNonPredictable {\n    repeated ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;\n    message IWrapper_lt_ObjectUnionNonPredictable {\n        message IUnion_gt_ {\n            required IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;\n        }\n    }\n\n    message IWrapper_lt_boolean_gt_ {\n        required IPointer_lt_boolean_gt_ value = 1;\n    }\n\n    message IWrapper_lt_number_gt_ {\n        required IPointer_lt_number_gt_ value = 1;\n    }\n\n    message IWrapper_lt_string_gt_ {\n        required IPointer_lt_string_gt_ value = 1;\n    }\n}\n\nmessage IPointer_lt_ObjectUnionNonPredictable {\n    message IUnion_gt_ {\n        oneof value {\n            ObjectUnionNonPredictable.IWrapper_lt_string_gt_ v1 = 1;\n            ObjectUnionNonPredictable.IWrapper_lt_number_gt_ v2 = 2;\n            ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_ v3 = 3;\n        }\n    }\n}\n\nmessage IPointer_lt_boolean_gt_ {\n    required bool value = 1;\n}\n\nmessage IPointer_lt_number_gt_ {\n    required double value = 1;\n}\n\nmessage IPointer_lt_string_gt_ {\n    required string value = 1;\n}',
+      'syntax = "proto3";\n\nmessage ObjectUnionNonPredictable {\n  repeated ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;\n  message IWrapper_lt_ObjectUnionNonPredictable {\n    message IUnion_gt_ {\n      required IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;\n    }\n  }\n\n  message IWrapper_lt_boolean_gt_ {\n    required IPointer_lt_boolean_gt_ value = 1;\n  }\n\n  message IWrapper_lt_number_gt_ {\n    required IPointer_lt_number_gt_ value = 1;\n  }\n\n  message IWrapper_lt_string_gt_ {\n    required IPointer_lt_string_gt_ value = 1;\n  }\n}\n\nmessage IPointer_lt_ObjectUnionNonPredictable {\n  message IUnion_gt_ {\n    oneof value {\n      ObjectUnionNonPredictable.IWrapper_lt_string_gt_ v1 = 1;\n      ObjectUnionNonPredictable.IWrapper_lt_number_gt_ v2 = 2;\n      ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_ v3 = 3;\n    }\n  }\n}\n\nmessage IPointer_lt_boolean_gt_ {\n  required bool value = 1;\n}\n\nmessage IPointer_lt_number_gt_ {\n  required double value = 1;\n}\n\nmessage IPointer_lt_string_gt_ {\n  required string value = 1;\n}',
   });

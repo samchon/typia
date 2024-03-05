@@ -6,7 +6,7 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 export const test_misc_clone_ObjectPartial = _test_misc_clone(
   "ObjectPartial",
 )<ObjectPartial>(ObjectPartial)((input) =>
-  ((input: ObjectPartial): typia.Resolved<ObjectPartial> => {
+  ((input: ObjectPartial): import("typia").Resolved<ObjectPartial> => {
     const $io1 = (input: any): boolean =>
       "boolean" === typeof input.boolean &&
       "number" === typeof input.number &&

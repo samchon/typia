@@ -134,7 +134,9 @@ export const test_misc_validateClone_TypeTagCustom = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: TypeTagCustom): typia.Resolved<TypeTagCustom> => {
+    const clone = (
+      input: TypeTagCustom,
+    ): import("typia").Resolved<TypeTagCustom> => {
       const $co0 = (input: any): any => ({
         id: input.id as any,
         dollar: input.dollar as any,

@@ -6,7 +6,7 @@ import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 export const test_misc_createClone_CommentTagDefault = _test_misc_clone(
   "CommentTagDefault",
 )<CommentTagDefault>(CommentTagDefault)(
-  (input: CommentTagDefault): typia.Resolved<CommentTagDefault> => {
+  (input: CommentTagDefault): import("typia").Resolved<CommentTagDefault> => {
     const $co0 = (input: any): any => ({
       boolean: input.boolean as any,
       number: input.number as any,

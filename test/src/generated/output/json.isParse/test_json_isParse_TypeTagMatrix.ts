@@ -6,7 +6,7 @@ import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 export const test_json_isParse_TypeTagMatrix = _test_json_isParse(
   "TypeTagMatrix",
 )<TypeTagMatrix>(TypeTagMatrix)((input) =>
-  ((input: any): typia.Primitive<TypeTagMatrix> => {
+  ((input: any): import("typia").Primitive<TypeTagMatrix> => {
     const is = (input: any): input is TypeTagMatrix => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.matrix) &&

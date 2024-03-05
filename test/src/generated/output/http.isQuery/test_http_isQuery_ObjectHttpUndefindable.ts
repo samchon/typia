@@ -8,7 +8,7 @@ export const test_http_isQuery_ObjectHttpUndefindable = _test_http_isQuery(
 )<ObjectHttpUndefindable>(ObjectHttpUndefindable)((input) =>
   ((
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpUndefindable> | null => {
+  ): import("typia").Resolved<ObjectHttpUndefindable> | null => {
     const is = (input: any): input is ObjectHttpUndefindable => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -40,7 +40,7 @@ export const test_http_isQuery_ObjectHttpUndefindable = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpUndefindable> => {
+    ): import("typia").Resolved<ObjectHttpUndefindable> => {
       const $params = (typia.http.isQuery as any).params;
       const $boolean = (typia.http.isQuery as any).boolean;
       const $bigint = (typia.http.isQuery as any).bigint;

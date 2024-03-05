@@ -5,5 +5,5 @@ import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorb
 
 export const test_protobuf_message_ConstantAtomicAbsorbed =
   _test_protobuf_message("ConstantAtomicAbsorbed")(
-    'syntax = "proto3";\n\nmessage ConstantAtomicAbsorbed {\n    required string id = 1;\n    required double age = 2;\n}',
+    'syntax = "proto3";\n\nmessage ConstantAtomicAbsorbed {\n  required string id = 1;\n  required double age = 2;\n}',
   );

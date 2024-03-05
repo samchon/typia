@@ -1,14 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_protobuf_createAssertDecode_ObjectPrimitive =
-  _test_protobuf_assertDecode("ObjectPrimitive")<ObjectPrimitive>(
-    ObjectPrimitive,
-  )({
-    decode: (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
-      const decode = (input: Uint8Array): typia.Resolved<ObjectPrimitive> => {
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ObjectPrimitive",
+  )<ObjectPrimitive>(ObjectPrimitive)({
+    decode: (
+      input: Uint8Array,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): import("typia").Resolved<ObjectPrimitive> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectPrimitive> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;
@@ -101,7 +107,10 @@ export const test_protobuf_createAssertDecode_ObjectPrimitive =
         const reader = new $Reader(input);
         return $pdo0(reader);
       };
-      const assert = (input: any): ObjectPrimitive => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectPrimitive => {
         const __is = (input: any): input is ObjectPrimitive => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
@@ -138,127 +147,195 @@ export const test_protobuf_createAssertDecode_ObjectPrimitive =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "string",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "string",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("txt" === input.extension ||
                 "md" === input.extension ||
                 "html" === input.extension ||
-                $guard(_exceptionable, {
-                  path: _path + ".extension",
-                  expected: '("html" | "md" | "txt")',
-                  value: input.extension,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".extension",
+                    expected: '("html" | "md" | "txt")',
+                    value: input.extension,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.title ||
-                $guard(_exceptionable, {
-                  path: _path + ".title",
-                  expected: "string",
-                  value: input.title,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".title",
+                    expected: "string",
+                    value: input.title,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.body ||
-                $guard(_exceptionable, {
-                  path: _path + ".body",
-                  expected: "string",
-                  value: input.body,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".body",
+                    expected: "string",
+                    value: input.body,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input.files) ||
-                $guard(_exceptionable, {
-                  path: _path + ".files",
-                  expected: "Array<ObjectPrimitive.IFile>",
-                  value: input.files,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".files",
+                    expected: "Array<ObjectPrimitive.IFile>",
+                    value: input.files,
+                  },
+                  errorFactory,
+                )) &&
                 input.files.every(
                   (elem: any, _index1: number) =>
                     ((("object" === typeof elem && null !== elem) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".files[" + _index1 + "]",
-                        expected: "ObjectPrimitive.IFile",
-                        value: elem,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".files[" + _index1 + "]",
+                          expected: "ObjectPrimitive.IFile",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       $ao1(
                         elem,
                         _path + ".files[" + _index1 + "]",
                         true && _exceptionable,
                       )) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".files[" + _index1 + "]",
-                      expected: "ObjectPrimitive.IFile",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".files[" + _index1 + "]",
+                        expected: "ObjectPrimitive.IFile",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".files",
-                  expected: "Array<ObjectPrimitive.IFile>",
-                  value: input.files,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".files",
+                    expected: "Array<ObjectPrimitive.IFile>",
+                    value: input.files,
+                  },
+                  errorFactory,
+                )) &&
               ("boolean" === typeof input.secret ||
-                $guard(_exceptionable, {
-                  path: _path + ".secret",
-                  expected: "boolean",
-                  value: input.secret,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".secret",
+                    expected: "boolean",
+                    value: input.secret,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.created_at ||
-                $guard(_exceptionable, {
-                  path: _path + ".created_at",
-                  expected: "string",
-                  value: input.created_at,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".created_at",
+                    expected: "string",
+                    value: input.created_at,
+                  },
+                  errorFactory,
+                ));
             const $ao1 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.id ||
-                $guard(_exceptionable, {
-                  path: _path + ".id",
-                  expected: "string",
-                  value: input.id,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".id",
+                    expected: "string",
+                    value: input.id,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.name ||
-                $guard(_exceptionable, {
-                  path: _path + ".name",
-                  expected: "string",
-                  value: input.name,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".name",
+                    expected: "string",
+                    value: input.name,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.extension ||
-                $guard(_exceptionable, {
-                  path: _path + ".extension",
-                  expected: "string",
-                  value: input.extension,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".extension",
+                    expected: "string",
+                    value: input.extension,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.url ||
-                $guard(_exceptionable, {
-                  path: _path + ".url",
-                  expected: "string",
-                  value: input.url,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".url",
+                    expected: "string",
+                    value: input.url,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.created_at ||
-                $guard(_exceptionable, {
-                  path: _path + ".created_at",
-                  expected: "string",
-                  value: input.created_at,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".created_at",
+                    expected: "string",
+                    value: input.created_at,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectPrimitive.IArticle",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectPrimitive.IArticle",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectPrimitive.IArticle",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
       };
       const output = decode(input);
-      return assert(output) as any;
+      return assert(output, errorFactory) as any;
     },
     encode: (input: ObjectPrimitive): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

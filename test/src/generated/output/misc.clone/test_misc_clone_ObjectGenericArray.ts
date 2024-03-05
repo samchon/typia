@@ -6,7 +6,9 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_misc_clone_ObjectGenericArray = _test_misc_clone(
   "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)((input) =>
-  ((input: ObjectGenericArray): typia.Resolved<ObjectGenericArray> => {
+  ((
+    input: ObjectGenericArray,
+  ): import("typia").Resolved<ObjectGenericArray> => {
     const $io1 = (input: any): boolean =>
       "number" === typeof input.page &&
       "number" === typeof input.limit &&

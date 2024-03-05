@@ -6,7 +6,7 @@ import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 export const test_misc_createClone_AtomicIntersection = _test_misc_clone(
   "AtomicIntersection",
 )<AtomicIntersection>(AtomicIntersection)(
-  (input: AtomicIntersection): typia.Resolved<AtomicIntersection> => {
+  (input: AtomicIntersection): import("typia").Resolved<AtomicIntersection> => {
     return Array.isArray(input) &&
       input.length === 3 &&
       "boolean" === typeof input[0] &&

@@ -332,7 +332,7 @@ export const test_misc_createValidateClone_ArrayHierarchical =
     };
     const clone = (
       input: ArrayHierarchical,
-    ): typia.Resolved<ArrayHierarchical> => {
+    ): import("typia").Resolved<ArrayHierarchical> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.time && "number" === typeof input.zone;
       const $io2 = (input: any): boolean =>

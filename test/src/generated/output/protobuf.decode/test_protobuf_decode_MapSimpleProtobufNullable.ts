@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
 
-export const test_protobuf_createDecode_MapSimpleProtobufNullable =
+export const test_protobuf_decode_MapSimpleProtobufNullable =
   _test_protobuf_decode("MapSimpleProtobufNullable")<MapSimpleProtobufNullable>(
     MapSimpleProtobufNullable,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<MapSimpleProtobufNullable> => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<MapSimpleProtobufNullable> => {
         const $Reader = (typia.protobuf.decode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

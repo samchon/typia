@@ -6,7 +6,7 @@ import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion
 export const test_json_isParse_CommentTagAtomicUnion = _test_json_isParse(
   "CommentTagAtomicUnion",
 )<CommentTagAtomicUnion>(CommentTagAtomicUnion)((input) =>
-  ((input: any): typia.Primitive<CommentTagAtomicUnion> => {
+  ((input: any): import("typia").Primitive<CommentTagAtomicUnion> => {
     const is = (input: any): input is CommentTagAtomicUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

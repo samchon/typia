@@ -6,7 +6,7 @@ import { DynamicNever } from "../../../structures/DynamicNever";
 export const test_misc_isClone_DynamicNever = _test_misc_isClone(
   "DynamicNever",
 )<DynamicNever>(DynamicNever)((input) =>
-  ((input: any): typia.Resolved<DynamicNever> | null => {
+  ((input: any): import("typia").Resolved<DynamicNever> | null => {
     const is = (input: any): input is DynamicNever => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -21,7 +21,9 @@ export const test_misc_isClone_DynamicNever = _test_misc_isClone(
         $io0(input)
       );
     };
-    const clone = (input: DynamicNever): typia.Resolved<DynamicNever> => {
+    const clone = (
+      input: DynamicNever,
+    ): import("typia").Resolved<DynamicNever> => {
       const $co0 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {

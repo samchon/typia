@@ -7,7 +7,9 @@ export const test_protobuf_createIsDecode_CommentTagPattern =
   _test_protobuf_isDecode("CommentTagPattern")<CommentTagPattern>(
     CommentTagPattern,
   )({
-    decode: (input: Uint8Array): typia.Resolved<CommentTagPattern> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagPattern> | null => {
       const is = (input: any): input is CommentTagPattern => {
         return (
           "object" === typeof input &&
@@ -30,7 +32,9 @@ export const test_protobuf_createIsDecode_CommentTagPattern =
           ).test((input as any).ipv6)
         );
       };
-      const decode = (input: Uint8Array): typia.Resolved<CommentTagPattern> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagPattern> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

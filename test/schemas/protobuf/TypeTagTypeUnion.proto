@@ -1,48 +1,48 @@
 syntax = "proto3";
 
 message TypeTagTypeUnion {
-    oneof int32_or_uint32 {
-        int32 v1 = 1;
-        uint32 v2 = 2;
-    }
-    oneof int32_or_int64 {
-        int32 v3 = 3;
-        int64 v4 = 4;
-    }
-    oneof int32_or_uint64 {
-        int32 v5 = 5;
-        uint64 v6 = 6;
-    }
-    oneof int32_or_float {
-        int32 v7 = 7;
-        float v8 = 8;
-    }
-    oneof int32_or_double {
-        int32 v9 = 9;
-        double v10 = 10;
-    }
-    oneof int64_or_uint64 {
-        int64 v11 = 11;
-        uint64 v12 = 12;
-    }
-    oneof int64_or_float {
-        int64 v13 = 13;
-        float v14 = 14;
-    }
-    oneof int64_or_double {
-        int64 v15 = 15;
-        double v16 = 16;
-    }
-    oneof float_or_double {
-        float v17 = 17;
-        double v18 = 18;
-    }
-    oneof everything {
-        int32 v19 = 19;
-        uint32 v20 = 20;
-        int64 v21 = 21;
-        uint64 v22 = 22;
-        float v23 = 23;
-        double v24 = 24;
-    }
+  oneof int32_or_uint32 {
+    int32 v1 = 1;
+    uint32 v2 = 2;
+  }
+  oneof int32_or_int64 {
+    int32 v3 = 3;
+    int64 v4 = 4;
+  }
+  oneof int32_or_uint64 {
+    int32 v5 = 5;
+    uint64 v6 = 6;
+  }
+  oneof int32_or_float {
+    int32 v7 = 7;
+    float v8 = 8;
+  }
+  oneof int32_or_double {
+    int32 v9 = 9;
+    double v10 = 10;
+  }
+  oneof int64_or_uint64 {
+    int64 v11 = 11;
+    uint64 v12 = 12;
+  }
+  oneof int64_or_float {
+    int64 v13 = 13;
+    float v14 = 14;
+  }
+  oneof int64_or_double {
+    int64 v15 = 15;
+    double v16 = 16;
+  }
+  oneof float_or_double {
+    float v17 = 17;
+    double v18 = 18;
+  }
+  oneof everything {
+    int32 v19 = 19;
+    uint32 v20 = 20;
+    int64 v21 = 21;
+    uint64 v22 = 22;
+    float v23 = 23;
+    double v24 = 24;
+  }
 }

@@ -6,7 +6,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_misc_createIsClone_ObjectHierarchical = _test_misc_isClone(
   "ObjectHierarchical",
 )<ObjectHierarchical>(ObjectHierarchical)(
-  (input: any): typia.Resolved<ObjectHierarchical> | null => {
+  (input: any): import("typia").Resolved<ObjectHierarchical> | null => {
     const is = (input: any): input is ObjectHierarchical => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -104,7 +104,7 @@ export const test_misc_createIsClone_ObjectHierarchical = _test_misc_isClone(
     };
     const clone = (
       input: ObjectHierarchical,
-    ): typia.Resolved<ObjectHierarchical> => {
+    ): import("typia").Resolved<ObjectHierarchical> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.id &&
         "string" === typeof input.code &&

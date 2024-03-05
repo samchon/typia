@@ -131,7 +131,9 @@ export const test_misc_createValidateClone_TemplateAtomic =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: TemplateAtomic): typia.Resolved<TemplateAtomic> => {
+      const clone = (
+        input: TemplateAtomic,
+      ): import("typia").Resolved<TemplateAtomic> => {
         const $co0 = (input: any): any => ({
           prefix: input.prefix as any,
           postfix: input.postfix as any,

@@ -181,7 +181,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpNullable =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ObjectHttpNullable> => {
+      ): import("typia").Resolved<ObjectHttpNullable> => {
         const $Reader = (typia.protobuf.createValidateDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

@@ -6,7 +6,9 @@ import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion
 export const test_misc_clone_CommentTagAtomicUnion = _test_misc_clone(
   "CommentTagAtomicUnion",
 )<CommentTagAtomicUnion>(CommentTagAtomicUnion)((input) =>
-  ((input: CommentTagAtomicUnion): typia.Resolved<CommentTagAtomicUnion> => {
+  ((
+    input: CommentTagAtomicUnion,
+  ): import("typia").Resolved<CommentTagAtomicUnion> => {
     const $io1 = (input: any): boolean =>
       ("string" === typeof input.value &&
         3 <= input.value.length &&

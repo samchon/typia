@@ -8,7 +8,7 @@ export const test_http_createIsQuery_ObjectHttpConstant = _test_http_isQuery(
 )<ObjectHttpConstant>(ObjectHttpConstant)(
   (
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpConstant> | null => {
+  ): import("typia").Resolved<ObjectHttpConstant> | null => {
     const is = (input: any): input is ObjectHttpConstant => {
       const $io0 = (input: any): boolean =>
         false === input.boolean &&
@@ -23,7 +23,7 @@ export const test_http_createIsQuery_ObjectHttpConstant = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpConstant> => {
+    ): import("typia").Resolved<ObjectHttpConstant> => {
       const $params = (typia.http.createIsQuery as any).params;
       const $boolean = (typia.http.createIsQuery as any).boolean;
       const $bigint = (typia.http.createIsQuery as any).bigint;

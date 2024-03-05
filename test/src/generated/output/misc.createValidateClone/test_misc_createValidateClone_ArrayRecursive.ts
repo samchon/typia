@@ -156,7 +156,9 @@ export const test_misc_createValidateClone_ArrayRecursive =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ArrayRecursive): typia.Resolved<ArrayRecursive> => {
+      const clone = (
+        input: ArrayRecursive,
+      ): import("typia").Resolved<ArrayRecursive> => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.children) &&
           input.children.every(

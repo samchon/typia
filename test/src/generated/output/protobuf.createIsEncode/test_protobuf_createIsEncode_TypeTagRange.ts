@@ -174,7 +174,7 @@ export const test_protobuf_createIsEncode_TypeTagRange =
       };
       return is(input) ? encode(input) : null;
     },
-    decode: (input: Uint8Array): typia.Resolved<TypeTagRange> => {
+    decode: (input: Uint8Array): import("typia").Resolved<TypeTagRange> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -258,5 +258,5 @@ export const test_protobuf_createIsEncode_TypeTagRange =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage TypeTagRange {\n    repeated TypeTagRange.Type value = 1;\n    message Type {\n        required int32 greater = 1;\n        required int32 greater_equal = 2;\n        required int32 less = 3;\n        required int32 less_equal = 4;\n        required int32 greater_less = 5;\n        required int32 greater_equal_less = 6;\n        required int32 greater_less_equal = 7;\n        required int32 greater_equal_less_equal = 8;\n        required int32 equal = 9;\n    }\n}',
+      'syntax = "proto3";\n\nmessage TypeTagRange {\n  repeated TypeTagRange.Type value = 1;\n  message Type {\n    required int32 greater = 1;\n    required int32 greater_equal = 2;\n    required int32 less = 3;\n    required int32 less_equal = 4;\n    required int32 greater_less = 5;\n    required int32 greater_equal_less = 6;\n    required int32 greater_less_equal = 7;\n    required int32 greater_equal_less_equal = 8;\n    required int32 equal = 9;\n  }\n}',
   });

@@ -6,7 +6,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_misc_createClone_ObjectSimple = _test_misc_clone(
   "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)(
-  (input: ObjectSimple): typia.Resolved<ObjectSimple> => {
+  (input: ObjectSimple): import("typia").Resolved<ObjectSimple> => {
     const $io1 = (input: any): boolean =>
       "number" === typeof input.x &&
       "number" === typeof input.y &&

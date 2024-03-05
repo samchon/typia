@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
 
-export const test_protobuf_createValidateDecode_CommentTagBigInt =
+export const test_protobuf_validateDecode_CommentTagBigInt =
   _test_protobuf_validateDecode("CommentTagBigInt")<CommentTagBigInt>(
     CommentTagBigInt,
   )({
@@ -130,7 +130,7 @@ export const test_protobuf_createValidateDecode_CommentTagBigInt =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<CommentTagBigInt> => {
+        ): import("typia").Resolved<CommentTagBigInt> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectSimpleProtobufOptional } from "../../../structures/ObjectSimpleProtobufOptional";
 
-export const test_protobuf_createEncode_ObjectSimpleProtobufOptional =
+export const test_protobuf_encode_ObjectSimpleProtobufOptional =
   _test_protobuf_encode(
     "ObjectSimpleProtobufOptional",
   )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
@@ -69,7 +69,7 @@ export const test_protobuf_createEncode_ObjectSimpleProtobufOptional =
       })(input),
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<ObjectSimpleProtobufOptional> => {
+    ): import("typia").Resolved<ObjectSimpleProtobufOptional> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -124,5 +124,5 @@ export const test_protobuf_createEncode_ObjectSimpleProtobufOptional =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectSimpleProtobufOptional {\n    optional bool bool = 1;\n    optional int32 int32 = 2;\n    optional uint32 uint32 = 3;\n    optional int64 int64 = 4;\n    optional uint64 uint64 = 5;\n    optional float float = 6;\n    optional double double = 7;\n    optional string string = 8;\n    optional bytes bytes = 9;\n}',
+      'syntax = "proto3";\n\nmessage ObjectSimpleProtobufOptional {\n  optional bool bool = 1;\n  optional int32 int32 = 2;\n  optional uint32 uint32 = 3;\n  optional int64 int64 = 4;\n  optional uint64 uint64 = 5;\n  optional float float = 6;\n  optional double double = 7;\n  optional string string = 8;\n  optional bytes bytes = 9;\n}',
   });

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
-export const test_protobuf_createValidateDecode_ObjectDescription =
+export const test_protobuf_validateDecode_ObjectDescription =
   _test_protobuf_validateDecode("ObjectDescription")<ObjectDescription>(
     ObjectDescription,
   )({
@@ -125,7 +125,7 @@ export const test_protobuf_createValidateDecode_ObjectDescription =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectDescription> => {
+        ): import("typia").Resolved<ObjectDescription> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

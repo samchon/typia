@@ -184,7 +184,10 @@ export const test_notation_createValidateSnake_DynamicTemplate =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.SnakeCase<DynamicTemplate> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.SnakeCase<DynamicTemplate> => {
       const __is = (input: any): input is typia.SnakeCase<DynamicTemplate> => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -235,20 +238,28 @@ export const test_notation_createValidateSnake_DynamicTemplate =
               if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if ("string" === typeof key && RegExp(/(.*)_postfix$/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -256,11 +267,15 @@ export const test_notation_createValidateSnake_DynamicTemplate =
               )
                 return (
                   ("number" === typeof value && Number.isFinite(value)) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "number",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "number",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -270,11 +285,15 @@ export const test_notation_createValidateSnake_DynamicTemplate =
               )
                 return (
                   "boolean" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "boolean",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "boolean",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               return true;
             });
@@ -282,17 +301,25 @@ export const test_notation_createValidateSnake_DynamicTemplate =
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicTemplate",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicTemplate",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicTemplate",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

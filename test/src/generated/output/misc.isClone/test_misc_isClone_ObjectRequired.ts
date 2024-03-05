@@ -6,7 +6,7 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_misc_isClone_ObjectRequired = _test_misc_isClone(
   "ObjectRequired",
 )<ObjectRequired>(ObjectRequired)((input) =>
-  ((input: any): typia.Resolved<ObjectRequired> | null => {
+  ((input: any): import("typia").Resolved<ObjectRequired> | null => {
     const is = (input: any): input is ObjectRequired => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&
@@ -41,7 +41,9 @@ export const test_misc_isClone_ObjectRequired = _test_misc_isClone(
             $io1(input.object)));
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: ObjectRequired): typia.Resolved<ObjectRequired> => {
+    const clone = (
+      input: ObjectRequired,
+    ): import("typia").Resolved<ObjectRequired> => {
       const $io1 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&
         (undefined === input.number || "number" === typeof input.number) &&

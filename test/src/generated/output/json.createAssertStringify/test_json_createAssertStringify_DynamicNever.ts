@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
 export const test_json_createAssertStringify_DynamicNever =
-  _test_json_assertStringify("DynamicNever")<DynamicNever>(DynamicNever)(
-    (input: any): string => {
-      const assert = (input: any): DynamicNever => {
+  _test_json_assertStringify(TypeGuardError)("DynamicNever")<DynamicNever>(
+    DynamicNever,
+  )(
+    (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): string => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): DynamicNever => {
         const __is = (input: any): input is DynamicNever => {
           const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
@@ -40,34 +49,50 @@ export const test_json_createAssertStringify_DynamicNever =
                 if (undefined === value) return true;
                 return (
                   (null !== value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "undefined",
-                      value: value,
-                    })) &&
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "undefined",
+                        value: value,
+                      },
+                      errorFactory,
+                    )) &&
                   (undefined === value ||
-                    $guard(_exceptionable, {
-                      path: _path + $join(key),
-                      expected: "undefined",
-                      value: value,
-                    }))
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + $join(key),
+                        expected: "undefined",
+                        value: value,
+                      },
+                      errorFactory,
+                    ))
                 );
               });
             return (
               ((("object" === typeof input &&
                 null !== input &&
                 false === Array.isArray(input)) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "DynamicNever",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "DynamicNever",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "DynamicNever",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -83,6 +108,6 @@ export const test_json_createAssertStringify_DynamicNever =
             .join(",")}}`;
         return $so0(input);
       };
-      return stringify(assert(input));
+      return stringify(assert(input, errorFactory));
     },
   );

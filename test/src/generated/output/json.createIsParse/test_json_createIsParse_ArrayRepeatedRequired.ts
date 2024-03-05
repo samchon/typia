@@ -6,7 +6,7 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_json_createIsParse_ArrayRepeatedRequired = _test_json_isParse(
   "ArrayRepeatedRequired",
 )<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
-  (input: any): typia.Primitive<ArrayRepeatedRequired> => {
+  (input: any): import("typia").Primitive<ArrayRepeatedRequired> => {
     const is = (input: any): input is ArrayRepeatedRequired => {
       const $ia0 = (input: any): any =>
         input.every(

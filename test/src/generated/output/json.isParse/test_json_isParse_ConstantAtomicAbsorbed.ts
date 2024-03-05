@@ -6,7 +6,7 @@ import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorb
 export const test_json_isParse_ConstantAtomicAbsorbed = _test_json_isParse(
   "ConstantAtomicAbsorbed",
 )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
-  ((input: any): typia.Primitive<ConstantAtomicAbsorbed> => {
+  ((input: any): import("typia").Primitive<ConstantAtomicAbsorbed> => {
     const is = (input: any): input is ConstantAtomicAbsorbed => {
       return (
         "object" === typeof input &&

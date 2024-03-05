@@ -9,7 +9,7 @@ export const test_random_ObjectHttpUndefindable = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ObjectHttpUndefindable> => {
+    ): import("typia").Resolved<ObjectHttpUndefindable> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
@@ -52,7 +52,10 @@ export const test_random_ObjectHttpUndefindable = _test_random(
       });
       return $ro0();
     })((ObjectHttpUndefindable as any).RANDOM),
-  assert: (input: any): ObjectHttpUndefindable => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectHttpUndefindable => {
     const __is = (input: any): input is ObjectHttpUndefindable => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -96,82 +99,122 @@ export const test_random_ObjectHttpUndefindable = _test_random(
         ): boolean =>
           (undefined === input.boolean ||
             "boolean" === typeof input.boolean ||
-            $guard(_exceptionable, {
-              path: _path + ".boolean",
-              expected: "(boolean | undefined)",
-              value: input.boolean,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".boolean",
+                expected: "(boolean | undefined)",
+                value: input.boolean,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.bigint ||
             "bigint" === typeof input.bigint ||
-            $guard(_exceptionable, {
-              path: _path + ".bigint",
-              expected: "(bigint | undefined)",
-              value: input.bigint,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".bigint",
+                expected: "(bigint | undefined)",
+                value: input.bigint,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.number ||
             ("number" === typeof input.number &&
               Number.isFinite(input.number)) ||
-            $guard(_exceptionable, {
-              path: _path + ".number",
-              expected: "(number | undefined)",
-              value: input.number,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".number",
+                expected: "(number | undefined)",
+                value: input.number,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.string ||
             "string" === typeof input.string ||
-            $guard(_exceptionable, {
-              path: _path + ".string",
-              expected: "(string | undefined)",
-              value: input.string,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".string",
+                expected: "(string | undefined)",
+                value: input.string,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.constantBoolean ||
             true === input.constantBoolean ||
-            $guard(_exceptionable, {
-              path: _path + ".constantBoolean",
-              expected: "(true | undefined)",
-              value: input.constantBoolean,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".constantBoolean",
+                expected: "(true | undefined)",
+                value: input.constantBoolean,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.constantBigint ||
             BigInt(1) === input.constantBigint ||
             BigInt(2) === input.constantBigint ||
             BigInt(3) === input.constantBigint ||
-            $guard(_exceptionable, {
-              path: _path + ".constantBigint",
-              expected: "(1 | 2 | 3 | undefined)",
-              value: input.constantBigint,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".constantBigint",
+                expected: "(1 | 2 | 3 | undefined)",
+                value: input.constantBigint,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.constantNumber ||
             3 === input.constantNumber ||
             2 === input.constantNumber ||
             1 === input.constantNumber ||
-            $guard(_exceptionable, {
-              path: _path + ".constantNumber",
-              expected: "(1 | 2 | 3 | undefined)",
-              value: input.constantNumber,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".constantNumber",
+                expected: "(1 | 2 | 3 | undefined)",
+                value: input.constantNumber,
+              },
+              errorFactory,
+            )) &&
           (undefined === input.constantString ||
             "three" === input.constantString ||
             "two" === input.constantString ||
             "one" === input.constantString ||
-            $guard(_exceptionable, {
-              path: _path + ".constantString",
-              expected: '("one" | "three" | "two" | undefined)',
-              value: input.constantString,
-            }));
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".constantString",
+                expected: '("one" | "three" | "two" | undefined)',
+                value: input.constantString,
+              },
+              errorFactory,
+            ));
         return (
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectHttpUndefindable",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectHttpUndefindable",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectHttpUndefindable",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

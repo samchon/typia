@@ -2,6 +2,7 @@ import * as Namespace from "./functional/Namespace";
 
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
+import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     PROTOCOL BUFFER
@@ -163,11 +164,15 @@ export { decodePure as decode };
  *
  * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded value
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertDecode(input: Uint8Array): never;
+function assertDecode(
+  input: Uint8Array,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Protocol Buffer Decoder wity type assertion, but not safe.
@@ -192,11 +197,15 @@ function assertDecode(input: Uint8Array): never;
  *
  * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded value
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertDecode<T>(input: Uint8Array): Resolved<T>;
+function assertDecode<T>(
+  input: Uint8Array,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Resolved<T>;
 
 /**
  * @internal
@@ -439,11 +448,15 @@ export { encodePure as encode };
  *
  * @template T Type of the value input
  * @param input A value to encode
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Encoded binary data
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEncode<T>(input: T): Uint8Array;
+function assertEncode<T>(
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Uint8Array;
 
 /**
  * Protocol Buffer Encoder with type assertion.
@@ -472,11 +485,15 @@ function assertEncode<T>(input: T): Uint8Array;
  *
  * @template T Type of the value input
  * @param input A value to encode
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Encoded binary data
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEncode<T>(input: unknown): Uint8Array;
+function assertEncode<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): Uint8Array;
 
 /**
  * @internal
@@ -737,22 +754,28 @@ export { createIsDecodePure as createIsDecode };
  * Creates a reusable {@link assertDecode} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertDecode(): never;
+function createAssertDecode(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertDecode} function.
  *
  * @template T Target type
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertDecode` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T>;
+function createAssertDecode<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: Uint8Array) => Resolved<T>;
 
 /**
  * @internal
@@ -888,22 +911,28 @@ export { createIsEncodePure as createIsEncode };
  * Creates a reusable {@link assertEncode} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEncode(): never;
+function createAssertEncode(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
 
 /**
  * Creates a reusable {@link assertEncode} function.
  *
  * @template T Target type
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertEncode` function
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEncode<T>(): (input: T) => Uint8Array;
+function createAssertEncode<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: T) => Uint8Array;
 
 /**
  * @internal

@@ -8,7 +8,7 @@ export const test_misc_clone_ObjectUnionCompositePointer = _test_misc_clone(
 )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>
   ((
     input: ObjectUnionCompositePointer,
-  ): typia.Resolved<ObjectUnionCompositePointer> => {
+  ): import("typia").Resolved<ObjectUnionCompositePointer> => {
     const $io1 = (input: any): boolean =>
       "object" === typeof input.value &&
       null !== input.value &&

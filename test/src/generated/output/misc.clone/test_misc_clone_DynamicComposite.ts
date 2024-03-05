@@ -6,7 +6,7 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_misc_clone_DynamicComposite = _test_misc_clone(
   "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)((input) =>
-  ((input: DynamicComposite): typia.Resolved<DynamicComposite> => {
+  ((input: DynamicComposite): import("typia").Resolved<DynamicComposite> => {
     const $co0 = (input: any): any => {
       const output = {
         id: input.id as any,

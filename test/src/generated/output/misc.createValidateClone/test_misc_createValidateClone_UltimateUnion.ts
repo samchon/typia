@@ -6009,7 +6009,9 @@ export const test_misc_createValidateClone_UltimateUnion =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: UltimateUnion): typia.Resolved<UltimateUnion> => {
+      const clone = (
+        input: UltimateUnion,
+      ): import("typia").Resolved<UltimateUnion> => {
         const $io1 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every((elem: any) => "boolean" === typeof elem) &&

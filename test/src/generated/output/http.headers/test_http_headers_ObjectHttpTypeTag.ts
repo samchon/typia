@@ -8,7 +8,7 @@ export const test_http_headers_ObjectHttpTypeTag = _test_http_headers(
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)((input) =>
   ((
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpTypeTag> => {
+  ): import("typia").Resolved<ObjectHttpTypeTag> => {
     const $number = (typia.http.headers as any).number;
     const $bigint = (typia.http.headers as any).bigint;
     const $string = (typia.http.headers as any).string;

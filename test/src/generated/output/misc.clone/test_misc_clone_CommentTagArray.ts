@@ -6,7 +6,7 @@ import { CommentTagArray } from "../../../structures/CommentTagArray";
 export const test_misc_clone_CommentTagArray = _test_misc_clone(
   "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)((input) =>
-  ((input: CommentTagArray): typia.Resolved<CommentTagArray> => {
+  ((input: CommentTagArray): import("typia").Resolved<CommentTagArray> => {
     const $io1 = (input: any): boolean =>
       Array.isArray(input.items) &&
       3 <= input.items.length &&

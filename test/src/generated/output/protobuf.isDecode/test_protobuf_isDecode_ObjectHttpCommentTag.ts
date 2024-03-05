@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
 
-export const test_protobuf_createIsDecode_ObjectHttpCommentTag =
+export const test_protobuf_isDecode_ObjectHttpCommentTag =
   _test_protobuf_isDecode("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
     ObjectHttpCommentTag,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpCommentTag> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectHttpCommentTag> | null => {
         const is = (input: any): input is ObjectHttpCommentTag => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.int &&
@@ -31,7 +33,7 @@ export const test_protobuf_createIsDecode_ObjectHttpCommentTag =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectHttpCommentTag> => {
+        ): import("typia").Resolved<ObjectHttpCommentTag> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

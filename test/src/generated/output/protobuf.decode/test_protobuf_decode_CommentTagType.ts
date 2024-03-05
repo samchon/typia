@@ -3,11 +3,11 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_protobuf_createDecode_CommentTagType = _test_protobuf_decode(
+export const test_protobuf_decode_CommentTagType = _test_protobuf_decode(
   "CommentTagType",
 )<CommentTagType>(CommentTagType)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<CommentTagType> => {
+    ((input: Uint8Array): import("typia").Resolved<CommentTagType> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

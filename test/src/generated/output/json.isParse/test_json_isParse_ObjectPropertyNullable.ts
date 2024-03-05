@@ -6,7 +6,7 @@ import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullab
 export const test_json_isParse_ObjectPropertyNullable = _test_json_isParse(
   "ObjectPropertyNullable",
 )<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
-  ((input: any): typia.Primitive<ObjectPropertyNullable> => {
+  ((input: any): import("typia").Primitive<ObjectPropertyNullable> => {
     const is = (input: any): input is ObjectPropertyNullable => {
       const $io0 = (input: any): boolean =>
         null === input.value || "boolean" === typeof input.value;

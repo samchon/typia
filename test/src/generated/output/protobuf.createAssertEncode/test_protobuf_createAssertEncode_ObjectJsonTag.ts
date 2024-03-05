@@ -1,12 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_protobuf_createAssertEncode_ObjectJsonTag =
-  _test_protobuf_assertEncode("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): ObjectJsonTag => {
+  _test_protobuf_assertEncode(TypeGuardError)("ObjectJsonTag")<ObjectJsonTag>(
+    ObjectJsonTag,
+  )({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): ObjectJsonTag => {
         const __is = (input: any): input is ObjectJsonTag => {
           return (
             "object" === typeof input &&
@@ -30,42 +39,66 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
               _exceptionable: boolean = true,
             ): boolean =>
               ("string" === typeof input.vulnerable ||
-                $guard(_exceptionable, {
-                  path: _path + ".vulnerable",
-                  expected: "string",
-                  value: input.vulnerable,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".vulnerable",
+                    expected: "string",
+                    value: input.vulnerable,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.description ||
-                $guard(_exceptionable, {
-                  path: _path + ".description",
-                  expected: "string",
-                  value: input.description,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".description",
+                    expected: "string",
+                    value: input.description,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.title ||
-                $guard(_exceptionable, {
-                  path: _path + ".title",
-                  expected: "string",
-                  value: input.title,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".title",
+                    expected: "string",
+                    value: input.title,
+                  },
+                  errorFactory,
+                )) &&
               ("string" === typeof input.complicate_title ||
-                $guard(_exceptionable, {
-                  path: _path + ".complicate_title",
-                  expected: "string",
-                  value: input.complicate_title,
-                }));
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".complicate_title",
+                    expected: "string",
+                    value: input.complicate_title,
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "ObjectJsonTag",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "ObjectJsonTag",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ObjectJsonTag",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -96,9 +129,9 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<ObjectJsonTag> => {
+    decode: (input: Uint8Array): import("typia").Resolved<ObjectJsonTag> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -138,5 +171,5 @@ export const test_protobuf_createAssertEncode_ObjectJsonTag =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectJsonTag {\n    required string vulnerable = 1;\n    required string description = 2;\n    required string title = 3;\n    required string complicate_title = 4;\n}',
+      'syntax = "proto3";\n\nmessage ObjectJsonTag {\n  required string vulnerable = 1;\n  required string description = 2;\n  required string title = 3;\n  required string complicate_title = 4;\n}',
   });

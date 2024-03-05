@@ -41,7 +41,7 @@ export namespace IdentifierFactory {
     name: string | ts.BindingName,
     type?: ts.TypeNode,
     init?: ts.Expression | ts.PunctuationToken<ts.SyntaxKind.QuestionToken>,
-  ) => {
+  ): ts.ParameterDeclaration => {
     // instead of ts.version >= "4.8"
     if (ts.getDecorators !== undefined)
       return ts.factory.createParameterDeclaration(

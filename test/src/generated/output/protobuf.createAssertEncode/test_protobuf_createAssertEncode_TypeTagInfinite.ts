@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
 export const test_protobuf_createAssertEncode_TypeTagInfinite =
-  _test_protobuf_assertEncode("TypeTagInfinite")<TypeTagInfinite>(
-    TypeTagInfinite,
-  )({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): TypeTagInfinite => {
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "TypeTagInfinite",
+  )<TypeTagInfinite>(TypeTagInfinite)({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): TypeTagInfinite => {
         const __is = (input: any): input is TypeTagInfinite => {
           return (
             "object" === typeof input &&
@@ -46,104 +53,168 @@ export const test_protobuf_createAssertEncode_TypeTagInfinite =
             ): boolean =>
               (("number" === typeof input.value &&
                 Number.isFinite(input.value)) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "number",
-                  value: input.value,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "number",
+                    value: input.value,
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.ranged &&
                 (0 <= input.ranged ||
-                  $guard(_exceptionable, {
-                    path: _path + ".ranged",
-                    expected: "number & Minimum<0>",
-                    value: input.ranged,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".ranged",
+                      expected: "number & Minimum<0>",
+                      value: input.ranged,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.ranged <= 100 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".ranged",
+                      expected: "number & Maximum<100>",
+                      value: input.ranged,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".ranged",
-                    expected: "number & Maximum<100>",
+                    expected: "(number & Minimum<0> & Maximum<100>)",
                     value: input.ranged,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".ranged",
-                  expected: "(number & Minimum<0> & Maximum<100>)",
-                  value: input.ranged,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.minimum &&
                 (Number.isFinite(input.minimum) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".minimum",
-                    expected: "number",
-                    value: input.minimum,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".minimum",
+                      expected: "number",
+                      value: input.minimum,
+                    },
+                    errorFactory,
+                  )) &&
                 (0 <= input.minimum ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".minimum",
+                      expected: "number & Minimum<0>",
+                      value: input.minimum,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".minimum",
-                    expected: "number & Minimum<0>",
+                    expected: "(number & Minimum<0>)",
                     value: input.minimum,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".minimum",
-                  expected: "(number & Minimum<0>)",
-                  value: input.minimum,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.maximum &&
                 (Number.isFinite(input.maximum) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".maximum",
-                    expected: "number",
-                    value: input.maximum,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".maximum",
+                      expected: "number",
+                      value: input.maximum,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.maximum <= 100 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".maximum",
+                      expected: "number & Maximum<100>",
+                      value: input.maximum,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".maximum",
-                    expected: "number & Maximum<100>",
+                    expected: "(number & Maximum<100>)",
                     value: input.maximum,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".maximum",
-                  expected: "(number & Maximum<100>)",
-                  value: input.maximum,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.multipleOf &&
                 (input.multipleOf % 3 === 0 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".multipleOf",
+                      expected: "number & MultipleOf<3>",
+                      value: input.multipleOf,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".multipleOf",
-                    expected: "number & MultipleOf<3>",
+                    expected: "(number & MultipleOf<3>)",
                     value: input.multipleOf,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".multipleOf",
-                  expected: "(number & MultipleOf<3>)",
-                  value: input.multipleOf,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("number" === typeof input.typed &&
                 ((Math.floor(input.typed) === input.typed &&
                   -2147483648 <= input.typed &&
                   input.typed <= 2147483647) ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".typed",
+                      expected: 'number & Type<"int32">',
+                      value: input.typed,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".typed",
-                    expected: 'number & Type<"int32">',
+                    expected: '(number & Type<"int32">)',
                     value: input.typed,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".typed",
-                  expected: '(number & Type<"int32">)',
-                  value: input.typed,
-                }));
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "TypeTagInfinite",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "TypeTagInfinite",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "TypeTagInfinite",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -180,9 +251,9 @@ export const test_protobuf_createAssertEncode_TypeTagInfinite =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
+    decode: (input: Uint8Array): import("typia").Resolved<TypeTagInfinite> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -232,5 +303,5 @@ export const test_protobuf_createAssertEncode_TypeTagInfinite =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage TypeTagInfinite {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
+      'syntax = "proto3";\n\nmessage TypeTagInfinite {\n  required double value = 1;\n  required double ranged = 2;\n  required double minimum = 3;\n  required double maximum = 4;\n  required double multipleOf = 5;\n  required int32 typed = 6;\n}',
   });

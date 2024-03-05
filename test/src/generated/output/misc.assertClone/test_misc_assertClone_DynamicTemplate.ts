@@ -1,13 +1,20 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
-  "DynamicTemplate",
-)<DynamicTemplate>(DynamicTemplate)((input) =>
-  ((input: any): typia.Resolved<DynamicTemplate> => {
-    const assert = (input: any): DynamicTemplate => {
+  TypeGuardError,
+)("DynamicTemplate")<DynamicTemplate>(DynamicTemplate)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): import("typia").Resolved<DynamicTemplate> => {
+    const assert = (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): DynamicTemplate => {
       const __is = (input: any): input is DynamicTemplate => {
         const $io0 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
@@ -58,20 +65,28 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
               if ("string" === typeof key && RegExp(/^prefix_(.*)/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if ("string" === typeof key && RegExp(/(.*)_postfix$/).test(key))
                 return (
                   "string" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "string",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "string",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -79,11 +94,15 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
               )
                 return (
                   ("number" === typeof value && Number.isFinite(value)) ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "number",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "number",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               if (
                 "string" === typeof key &&
@@ -93,11 +112,15 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
               )
                 return (
                   "boolean" === typeof value ||
-                  $guard(_exceptionable, {
-                    path: _path + $join(key),
-                    expected: "boolean",
-                    value: value,
-                  })
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + $join(key),
+                      expected: "boolean",
+                      value: value,
+                    },
+                    errorFactory,
+                  )
                 );
               return true;
             });
@@ -105,22 +128,32 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
             ((("object" === typeof input &&
               null !== input &&
               false === Array.isArray(input)) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "DynamicTemplate",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "DynamicTemplate",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "DynamicTemplate",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: DynamicTemplate): typia.Resolved<DynamicTemplate> => {
+    const clone = (
+      input: DynamicTemplate,
+    ): import("typia").Resolved<DynamicTemplate> => {
       const $co0 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {
@@ -153,7 +186,7 @@ export const test_misc_assertClone_DynamicTemplate = _test_misc_assertClone(
         ? $co0(input)
         : (input as any);
     };
-    assert(input);
+    assert(input, errorFactory);
     const output = clone(input);
     return output;
   })(input),

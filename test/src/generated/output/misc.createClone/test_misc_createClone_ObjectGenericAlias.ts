@@ -6,7 +6,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_misc_createClone_ObjectGenericAlias = _test_misc_clone(
   "ObjectGenericAlias",
 )<ObjectGenericAlias>(ObjectGenericAlias)(
-  (input: ObjectGenericAlias): typia.Resolved<ObjectGenericAlias> => {
+  (input: ObjectGenericAlias): import("typia").Resolved<ObjectGenericAlias> => {
     const $co0 = (input: any): any => ({
       value: input.value as any,
     });

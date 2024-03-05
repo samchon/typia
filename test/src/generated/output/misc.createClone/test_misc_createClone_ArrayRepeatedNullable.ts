@@ -6,7 +6,9 @@ import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable
 export const test_misc_createClone_ArrayRepeatedNullable = _test_misc_clone(
   "ArrayRepeatedNullable",
 )<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
-  (input: ArrayRepeatedNullable): typia.Resolved<ArrayRepeatedNullable> => {
+  (
+    input: ArrayRepeatedNullable,
+  ): import("typia").Resolved<ArrayRepeatedNullable> => {
     const $ia0 = (input: any): any =>
       input.every(
         (elem: any) =>

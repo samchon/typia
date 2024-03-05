@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
 
-export const test_protobuf_createAssertEncode_ObjectHttpConstant =
-  _test_protobuf_assertEncode("ObjectHttpConstant")<ObjectHttpConstant>(
-    ObjectHttpConstant,
-  )({
+export const test_protobuf_assertEncode_ObjectHttpConstant =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectHttpConstant",
+  )<ObjectHttpConstant>(ObjectHttpConstant)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectHttpConstant => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectHttpConstant => {
           const __is = (input: any): input is ObjectHttpConstant => {
             const $io0 = (input: any): boolean =>
               false === input.boolean &&
@@ -35,53 +42,81 @@ export const test_protobuf_createAssertEncode_ObjectHttpConstant =
                 _exceptionable: boolean = true,
               ): boolean =>
                 (false === input.boolean ||
-                  $guard(_exceptionable, {
-                    path: _path + ".boolean",
-                    expected: "false",
-                    value: input.boolean,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".boolean",
+                      expected: "false",
+                      value: input.boolean,
+                    },
+                    errorFactory,
+                  )) &&
                 (BigInt(1) === input.bigint ||
                   BigInt(99) === input.bigint ||
-                  $guard(_exceptionable, {
-                    path: _path + ".bigint",
-                    expected: "(1 | 99)",
-                    value: input.bigint,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".bigint",
+                      expected: "(1 | 99)",
+                      value: input.bigint,
+                    },
+                    errorFactory,
+                  )) &&
                 (2 === input.number ||
                   98 === input.number ||
-                  $guard(_exceptionable, {
-                    path: _path + ".number",
-                    expected: "(2 | 98)",
-                    value: input.number,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".number",
+                      expected: "(2 | 98)",
+                      value: input.number,
+                    },
+                    errorFactory,
+                  )) &&
                 ("something" === input.string ||
                   "three" === input.string ||
                   "ninety-seven" === input.string ||
-                  $guard(_exceptionable, {
-                    path: _path + ".string",
-                    expected: '("ninety-seven" | "something" | "three")',
-                    value: input.string,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".string",
+                      expected: '("ninety-seven" | "something" | "three")',
+                      value: input.string,
+                    },
+                    errorFactory,
+                  )) &&
                 (("string" === typeof input.template &&
                   RegExp(/^abcd_(.*)/).test(input.template)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".template",
-                    expected: "`abcd_${string}`",
-                    value: input.template,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".template",
+                      expected: "`abcd_${string}`",
+                      value: input.template,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectHttpConstant",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectHttpConstant",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectHttpConstant",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -115,9 +150,11 @@ export const test_protobuf_createAssertEncode_ObjectHttpConstant =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ObjectHttpConstant> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectHttpConstant> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -162,5 +199,5 @@ export const test_protobuf_createAssertEncode_ObjectHttpConstant =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectHttpConstant {\n    required bool boolean = 1;\n    required uint64 bigint = 2;\n    required int32 number = 3;\n    required string string = 4;\n    required string template = 5;\n}',
+      'syntax = "proto3";\n\nmessage ObjectHttpConstant {\n  required bool boolean = 1;\n  required uint64 bigint = 2;\n  required int32 number = 3;\n  required string string = 4;\n  required string template = 5;\n}',
   });

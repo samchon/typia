@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
 
-export const test_protobuf_createIsEncode_ObjectHttpNullable =
+export const test_protobuf_isEncode_ObjectHttpNullable =
   _test_protobuf_isEncode("ObjectHttpNullable")<ObjectHttpNullable>(
     ObjectHttpNullable,
   )({
@@ -107,7 +107,9 @@ export const test_protobuf_createIsEncode_ObjectHttpNullable =
         };
         return is(input) ? encode(input) : null;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ObjectHttpNullable> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectHttpNullable> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -177,5 +179,5 @@ export const test_protobuf_createIsEncode_ObjectHttpNullable =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectHttpNullable {\n    optional bool boolean = 1;\n    optional int64 bigint = 2;\n    optional double number = 3;\n    optional string string = 4;\n    optional bool constantBoolean = 5;\n    optional uint64 constantBigint = 6;\n    optional int32 constantNumber = 7;\n    optional string constantString = 8;\n    repeated double nullableArray = 9;\n}',
+      'syntax = "proto3";\n\nmessage ObjectHttpNullable {\n  optional bool boolean = 1;\n  optional int64 bigint = 2;\n  optional double number = 3;\n  optional string string = 4;\n  optional bool constantBoolean = 5;\n  optional uint64 constantBigint = 6;\n  optional int32 constantNumber = 7;\n  optional string constantString = 8;\n  repeated double nullableArray = 9;\n}',
   });

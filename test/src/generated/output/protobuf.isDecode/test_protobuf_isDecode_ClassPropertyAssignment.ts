@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_protobuf_createIsDecode_ClassPropertyAssignment =
+export const test_protobuf_isDecode_ClassPropertyAssignment =
   _test_protobuf_isDecode("ClassPropertyAssignment")<ClassPropertyAssignment>(
     ClassPropertyAssignment,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ClassPropertyAssignment> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ClassPropertyAssignment> | null => {
         const is = (input: any): input is ClassPropertyAssignment => {
           const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
@@ -21,7 +23,7 @@ export const test_protobuf_createIsDecode_ClassPropertyAssignment =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ClassPropertyAssignment> => {
+        ): import("typia").Resolved<ClassPropertyAssignment> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

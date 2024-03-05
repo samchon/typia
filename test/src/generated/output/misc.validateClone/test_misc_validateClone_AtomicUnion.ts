@@ -64,7 +64,9 @@ export const test_misc_validateClone_AtomicUnion = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: AtomicUnion): typia.Resolved<AtomicUnion> => {
+    const clone = (
+      input: AtomicUnion,
+    ): import("typia").Resolved<AtomicUnion> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       return Array.isArray(input) ? $cp0(input) : (input as any);
     };

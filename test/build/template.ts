@@ -7,6 +7,7 @@ import { TestProtobufMessageGenerator } from "./internal/TestProtobufMessageGene
 import { TestReflectMetadataGenerator } from "./internal/TestReflectMetadataGenerator";
 import { TestStructure } from "./internal/TestStructure";
 import { __TypeRemover } from "./internal/__TypeRemover";
+import { StringUtil } from "./utils/StringUtil";
 import { write_common } from "./writers/write_common";
 
 const emit = process.emit;
@@ -36,14 +37,17 @@ async function generate(
   create: boolean,
 ): Promise<void> {
   const method: string = create
-    ? `create${feat.method[0]!.toUpperCase()}${feat.method.slice(1)}`
+    ? `create${StringUtil.capitalize(feat.method)}`
     : feat.method;
   const path: string = [
     __dirname,
     "..",
     "src",
     "features",
-    feat.module ? `${feat.module}.${method}` : method,
+    [
+      feat.module ? `${feat.module}.${method}` : method,
+      ...(feat.custom === true ? ["Custom"] : ""),
+    ].join(""),
   ].join("/");
 
   if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
@@ -64,7 +68,7 @@ async function generate(
 
     const location: string = `${path}/test_${
       feat.module ? `${feat.module}_` : ""
-    }${method}_${s.name}.ts`;
+    }${method}${feat.custom === true ? "Custom" : ""}_${s.name}.ts`;
     await fs.promises.writeFile(
       location,
       script(feat, method, s, create),
@@ -79,11 +83,54 @@ function script(
   struct: TestStructure<any>,
   create: boolean,
 ): string {
-  if (feat.programmer) return feat.programmer(create)(struct.name);
-  return write_common({
-    module: feat.module,
-    method,
-  })(create)(struct.name);
+  const content: string = feat.programmer
+    ? feat.programmer(create)(struct.name)
+    : write_common({
+        module: feat.module,
+        method,
+      })(create)(struct.name);
+  if (false === method.toLowerCase().includes("assert")) return content;
+
+  const from: number = content.indexOf("export const");
+  const to: number = content.indexOf("(", from + 1);
+  const replacer =
+    feat.custom === true
+      ? create === true
+        ? (str: string) =>
+            str.replace(
+              `${method}<${struct.name}>()`,
+              `${method}<${struct.name}>((p) => new CustomGuardError(p))`,
+            )
+        : feat.module === "functional"
+        ? (str: string) =>
+            str.replace(
+              `${method}(p)`,
+              `${method}(p, (p) => new CustomGuardError(p))`,
+            )
+        : (str: string) =>
+            str.replace(
+              `${method}<${struct.name}>(input)`,
+              `${method}<${struct.name}>(input, (p) => new CustomGuardError(p))`,
+            )
+      : (str: string) => str;
+  return [
+    content.substring(0, from),
+    feat.custom === true
+      ? `import { CustomGuardError } from "../../internal/CustomGuardError";\n\n`
+      : `import { TypeGuardError } from "typia";\n\n`,
+    feat.custom === true
+      ? content
+          .substring(from, to)
+          .replace(
+            create ? StringUtil.capitalize(feat.method) : feat.method,
+            create
+              ? `${StringUtil.capitalize(feat.method)}Custom`
+              : `${feat.method}Custom`,
+          )
+      : content.substring(from, to),
+    feat.custom === true ? "(CustomGuardError)" : "(TypeGuardError)",
+    replacer(content.substring(to)),
+  ].join("");
 }
 
 async function main(): Promise<void> {
@@ -93,7 +140,16 @@ async function main(): Promise<void> {
   const structures: TestStructure<any>[] = await load();
 
   // NORMAL FEATURES
-  for (const feature of TestFeature.DATA) {
+  const featureList: TestFeature[] = [
+    ...TestFeature.DATA,
+    ...TestFeature.DATA.filter((f) =>
+      f.method.toLowerCase().includes("assert"),
+    ).map((f) => ({
+      ...f,
+      custom: true as const,
+    })),
+  ];
+  for (const feature of featureList) {
     await generate(feature, structures, false);
     if (feature.creatable) await generate(feature, structures, true);
   }

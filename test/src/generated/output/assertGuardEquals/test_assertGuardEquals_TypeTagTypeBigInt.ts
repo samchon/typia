@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TypeTagTypeBigInt } from "../../../structures/TypeTagTypeBigInt";
 
 export const test_assertGuardEquals_TypeTagTypeBigInt = _test_assertGuardEquals(
-  "TypeTagTypeBigInt",
-)<TypeTagTypeBigInt>(TypeTagTypeBigInt)((input) =>
-  ((input: any): asserts input is TypeTagTypeBigInt => {
+  TypeGuardError,
+)("TypeTagTypeBigInt")<TypeTagTypeBigInt>(TypeTagTypeBigInt)((input) =>
+  ((
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is TypeTagTypeBigInt => {
     const __is = (
       input: any,
       _exceptionable: boolean = true,
@@ -39,23 +43,35 @@ export const test_assertGuardEquals_TypeTagTypeBigInt = _test_assertGuardEquals(
           _exceptionable: boolean = true,
         ): boolean =>
           ("bigint" === typeof input.in64 ||
-            $guard(_exceptionable, {
-              path: _path + ".in64",
-              expected: "bigint",
-              value: input.in64,
-            })) &&
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".in64",
+                expected: "bigint",
+                value: input.in64,
+              },
+              errorFactory,
+            )) &&
           (("bigint" === typeof input.uint64 &&
             (BigInt(0) <= input.uint64 ||
-              $guard(_exceptionable, {
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".uint64",
+                  expected: 'bigint & Type<"uint64">',
+                  value: input.uint64,
+                },
+                errorFactory,
+              ))) ||
+            $guard(
+              _exceptionable,
+              {
                 path: _path + ".uint64",
-                expected: 'bigint & Type<"uint64">',
+                expected: '(bigint & Type<"uint64">)',
                 value: input.uint64,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".uint64",
-              expected: '(bigint & Type<"uint64">)',
-              value: input.uint64,
-            })) &&
+              },
+              errorFactory,
+            )) &&
           (2 === Object.keys(input).length ||
             false === _exceptionable ||
             Object.keys(input).every((key: any) => {
@@ -63,25 +79,37 @@ export const test_assertGuardEquals_TypeTagTypeBigInt = _test_assertGuardEquals(
                 return true;
               const value = input[key];
               if (undefined === value) return true;
-              return $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "undefined",
-                value: value,
-              });
+              return $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "undefined",
+                  value: value,
+                },
+                errorFactory,
+              );
             }));
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "TypeTagTypeBigInt",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "TypeTagTypeBigInt",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "TypeTagTypeBigInt",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   })(input),

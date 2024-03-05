@@ -3,12 +3,14 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
 
-export const test_protobuf_createDecode_ObjectHttpUndefindable =
+export const test_protobuf_decode_ObjectHttpUndefindable =
   _test_protobuf_decode("ObjectHttpUndefindable")<ObjectHttpUndefindable>(
     ObjectHttpUndefindable,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ObjectHttpUndefindable> => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectHttpUndefindable> => {
         const $Reader = (typia.protobuf.decode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

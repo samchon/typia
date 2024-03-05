@@ -145,7 +145,10 @@ export const test_notation_createValidateCamel_TypeTagBigInt =
       if (output.success) output.data = general(input);
       return output;
     },
-    assert: (input: any): typia.CamelCase<TypeTagBigInt> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.CamelCase<TypeTagBigInt> => {
       const __is = (input: any): input is typia.CamelCase<TypeTagBigInt> => {
         return (
           "object" === typeof input &&
@@ -175,78 +178,126 @@ export const test_notation_createValidateCamel_TypeTagBigInt =
             _exceptionable: boolean = true,
           ): boolean =>
             ("bigint" === typeof input.value ||
-              $guard(_exceptionable, {
-                path: _path + ".value",
-                expected: "bigint",
-                value: input.value,
-              })) &&
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".value",
+                  expected: "bigint",
+                  value: input.value,
+                },
+                errorFactory,
+              )) &&
             (("bigint" === typeof input.ranged &&
               (BigInt(0) <= input.ranged ||
-                $guard(_exceptionable, {
-                  path: _path + ".ranged",
-                  expected: "bigint & Minimum<0n>",
-                  value: input.ranged,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".ranged",
+                    expected: "bigint & Minimum<0n>",
+                    value: input.ranged,
+                  },
+                  errorFactory,
+                )) &&
               (input.ranged <= BigInt(100) ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".ranged",
+                    expected: "bigint & Maximum<100n>",
+                    value: input.ranged,
+                  },
+                  errorFactory,
+                ))) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".ranged",
-                  expected: "bigint & Maximum<100n>",
+                  expected: "(bigint & Minimum<0n> & Maximum<100n>)",
                   value: input.ranged,
-                }))) ||
-              $guard(_exceptionable, {
-                path: _path + ".ranged",
-                expected: "(bigint & Minimum<0n> & Maximum<100n>)",
-                value: input.ranged,
-              })) &&
+                },
+                errorFactory,
+              )) &&
             (("bigint" === typeof input.minimum &&
               (BigInt(0) <= input.minimum ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".minimum",
+                    expected: "bigint & Minimum<0n>",
+                    value: input.minimum,
+                  },
+                  errorFactory,
+                ))) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".minimum",
-                  expected: "bigint & Minimum<0n>",
+                  expected: "(bigint & Minimum<0n>)",
                   value: input.minimum,
-                }))) ||
-              $guard(_exceptionable, {
-                path: _path + ".minimum",
-                expected: "(bigint & Minimum<0n>)",
-                value: input.minimum,
-              })) &&
+                },
+                errorFactory,
+              )) &&
             (("bigint" === typeof input.maximum &&
               (input.maximum <= BigInt(100) ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".maximum",
+                    expected: "bigint & Maximum<100n>",
+                    value: input.maximum,
+                  },
+                  errorFactory,
+                ))) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".maximum",
-                  expected: "bigint & Maximum<100n>",
+                  expected: "(bigint & Maximum<100n>)",
                   value: input.maximum,
-                }))) ||
-              $guard(_exceptionable, {
-                path: _path + ".maximum",
-                expected: "(bigint & Maximum<100n>)",
-                value: input.maximum,
-              })) &&
+                },
+                errorFactory,
+              )) &&
             (("bigint" === typeof input.multipleOf &&
               (input.multipleOf % BigInt(3) === BigInt(0) ||
-                $guard(_exceptionable, {
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".multipleOf",
+                    expected: "bigint & MultipleOf<3n>",
+                    value: input.multipleOf,
+                  },
+                  errorFactory,
+                ))) ||
+              $guard(
+                _exceptionable,
+                {
                   path: _path + ".multipleOf",
-                  expected: "bigint & MultipleOf<3n>",
+                  expected: "(bigint & MultipleOf<3n>)",
                   value: input.multipleOf,
-                }))) ||
-              $guard(_exceptionable, {
-                path: _path + ".multipleOf",
-                expected: "(bigint & MultipleOf<3n>)",
-                value: input.multipleOf,
-              }));
+                },
+                errorFactory,
+              ));
           return (
             ((("object" === typeof input && null !== input) ||
-              $guard(true, {
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: "TypeTagBigInt",
+                  value: input,
+                },
+                errorFactory,
+              )) &&
+              $ao0(input, _path + "", true)) ||
+            $guard(
+              true,
+              {
                 path: _path + "",
                 expected: "TypeTagBigInt",
                 value: input,
-              })) &&
-              $ao0(input, _path + "", true)) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "TypeTagBigInt",
-              value: input,
-            })
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

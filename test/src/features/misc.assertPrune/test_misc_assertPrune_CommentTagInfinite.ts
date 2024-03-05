@@ -1,10 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_misc_assertPrune_CommentTagInfinite = _test_misc_assertPrune(
-  "CommentTagInfinite",
-)<CommentTagInfinite>(CommentTagInfinite)((input) =>
+  TypeGuardError,
+)("CommentTagInfinite")<CommentTagInfinite>(CommentTagInfinite)((input) =>
   typia.misc.assertPrune<CommentTagInfinite>(input),
 );

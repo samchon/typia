@@ -9,7 +9,7 @@ export const test_http_createIsHeaders_ObjectHttpConstant =
   )(
     (
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpConstant> | null => {
+    ): import("typia").Resolved<ObjectHttpConstant> | null => {
       const is = (input: any): input is ObjectHttpConstant => {
         const $io0 = (input: any): boolean =>
           false === input.boolean &&
@@ -24,7 +24,7 @@ export const test_http_createIsHeaders_ObjectHttpConstant =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpConstant> => {
+      ): import("typia").Resolved<ObjectHttpConstant> => {
         const $boolean = (typia.http.createIsHeaders as any).boolean;
         const $bigint = (typia.http.createIsHeaders as any).bigint;
         const $number = (typia.http.createIsHeaders as any).number;

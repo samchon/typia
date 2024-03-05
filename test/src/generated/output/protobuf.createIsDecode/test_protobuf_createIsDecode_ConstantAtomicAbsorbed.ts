@@ -9,7 +9,7 @@ export const test_protobuf_createIsDecode_ConstantAtomicAbsorbed =
   )({
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<ConstantAtomicAbsorbed> | null => {
+    ): import("typia").Resolved<ConstantAtomicAbsorbed> | null => {
       const is = (input: any): input is ConstantAtomicAbsorbed => {
         return (
           "object" === typeof input &&
@@ -21,7 +21,7 @@ export const test_protobuf_createIsDecode_ConstantAtomicAbsorbed =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ConstantAtomicAbsorbed> => {
+      ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

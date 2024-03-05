@@ -6,7 +6,7 @@ import { ObjectHttpFormData } from "../../../structures/ObjectHttpFormData";
 export const test_http_createFormData_ObjectHttpFormData = _test_http_formData(
   "ObjectHttpFormData",
 )<ObjectHttpFormData>(ObjectHttpFormData)(
-  (input: FormData): typia.Resolved<ObjectHttpFormData> => {
+  (input: FormData): import("typia").Resolved<ObjectHttpFormData> => {
     const $string = (typia.http.createFormData as any).string;
     const $number = (typia.http.createFormData as any).number;
     const $blob = (typia.http.createFormData as any).blob;

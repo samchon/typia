@@ -6,7 +6,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_json_isParse_ClassGetter = _test_json_isParse(
   "ClassGetter",
 )<ClassGetter>(ClassGetter)((input) =>
-  ((input: any): typia.Primitive<ClassGetter> => {
+  ((input: any): import("typia").Primitive<ClassGetter> => {
     const is = (input: any): input is ClassGetter => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&

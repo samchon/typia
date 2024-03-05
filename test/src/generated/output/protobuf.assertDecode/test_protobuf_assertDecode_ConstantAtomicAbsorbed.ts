@@ -1,17 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_protobuf_createAssertDecode_ConstantAtomicAbsorbed =
-  _test_protobuf_assertDecode("ConstantAtomicAbsorbed")<ConstantAtomicAbsorbed>(
-    ConstantAtomicAbsorbed,
-  )({
+export const test_protobuf_assertDecode_ConstantAtomicAbsorbed =
+  _test_protobuf_assertDecode(TypeGuardError)(
+    "ConstantAtomicAbsorbed",
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ConstantAtomicAbsorbed> => {
+      ((
+        input: Uint8Array,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ConstantAtomicAbsorbed> => {
+        ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;
@@ -40,7 +44,10 @@ export const test_protobuf_createAssertDecode_ConstantAtomicAbsorbed =
           const reader = new $Reader(input);
           return $pdo0(reader);
         };
-        const assert = (input: any): ConstantAtomicAbsorbed => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ConstantAtomicAbsorbed => {
           const __is = (input: any): input is ConstantAtomicAbsorbed => {
             return (
               "object" === typeof input &&
@@ -63,37 +70,53 @@ export const test_protobuf_createAssertDecode_ConstantAtomicAbsorbed =
                 _exceptionable: boolean = true,
               ): boolean =>
                 ("string" === typeof input.id ||
-                  $guard(_exceptionable, {
-                    path: _path + ".id",
-                    expected: '(string & Default<"something">)',
-                    value: input.id,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".id",
+                      expected: '(string & Default<"something">)',
+                      value: input.id,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.age &&
                   Number.isFinite(input.age)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".age",
-                    expected: "(number & Default<20>)",
-                    value: input.age,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".age",
+                      expected: "(number & Default<20>)",
+                      value: input.age,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ConstantAtomicAbsorbed",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ConstantAtomicAbsorbed",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ConstantAtomicAbsorbed",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
         };
         const output = decode(input);
-        return assert(output) as any;
+        return assert(output, errorFactory) as any;
       })(input),
     encode: (input: ConstantAtomicAbsorbed): Uint8Array => {
       const $Sizer = (typia.protobuf.createEncode as any).Sizer;

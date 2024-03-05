@@ -219,7 +219,9 @@ export const test_misc_validateClone_CommentTagType = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: CommentTagType): typia.Resolved<CommentTagType> => {
+    const clone = (
+      input: CommentTagType,
+    ): import("typia").Resolved<CommentTagType> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.int &&
         Math.floor(input.int) === input.int &&

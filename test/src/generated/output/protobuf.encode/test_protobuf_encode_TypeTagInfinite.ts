@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
 
-export const test_protobuf_createEncode_TypeTagInfinite = _test_protobuf_encode(
+export const test_protobuf_encode_TypeTagInfinite = _test_protobuf_encode(
   "TypeTagInfinite",
 )<TypeTagInfinite>(TypeTagInfinite)({
   encode: (input) =>
@@ -39,7 +39,7 @@ export const test_protobuf_createEncode_TypeTagInfinite = _test_protobuf_encode(
       const writer = encoder(new $Writer(sizer));
       return writer.buffer();
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<TypeTagInfinite> => {
+  decode: (input: Uint8Array): import("typia").Resolved<TypeTagInfinite> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -89,5 +89,5 @@ export const test_protobuf_createEncode_TypeTagInfinite = _test_protobuf_encode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage TypeTagInfinite {\n    required double value = 1;\n    required double ranged = 2;\n    required double minimum = 3;\n    required double maximum = 4;\n    required double multipleOf = 5;\n    required int32 typed = 6;\n}',
+    'syntax = "proto3";\n\nmessage TypeTagInfinite {\n  required double value = 1;\n  required double ranged = 2;\n  required double minimum = 3;\n  required double maximum = 4;\n  required double multipleOf = 5;\n  required int32 typed = 6;\n}',
 });

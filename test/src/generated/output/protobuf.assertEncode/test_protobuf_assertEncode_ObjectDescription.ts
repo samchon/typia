@@ -1,15 +1,22 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
-export const test_protobuf_createAssertEncode_ObjectDescription =
-  _test_protobuf_assertEncode("ObjectDescription")<ObjectDescription>(
-    ObjectDescription,
-  )({
+export const test_protobuf_assertEncode_ObjectDescription =
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "ObjectDescription",
+  )<ObjectDescription>(ObjectDescription)({
     encode: (input) =>
-      ((input: any): Uint8Array => {
-        const assert = (input: any): ObjectDescription => {
+      ((
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): Uint8Array => {
+        const assert = (
+          input: any,
+          errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+        ): ObjectDescription => {
           const __is = (input: any): input is ObjectDescription => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
@@ -42,68 +49,108 @@ export const test_protobuf_createAssertEncode_ObjectDescription =
                   (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
                     input.id,
                   ) ||
-                    $guard(_exceptionable, {
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".id",
+                        expected: 'string & Format<"uuid">',
+                        value: input.id,
+                      },
+                      errorFactory,
+                    ))) ||
+                  $guard(
+                    _exceptionable,
+                    {
                       path: _path + ".id",
-                      expected: 'string & Format<"uuid">',
+                      expected: '(string & Format<"uuid">)',
                       value: input.id,
-                    }))) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".id",
-                    expected: '(string & Format<"uuid">)',
-                    value: input.id,
-                  })) &&
+                    },
+                    errorFactory,
+                  )) &&
                 ("boolean" === typeof input.deprecated ||
-                  $guard(_exceptionable, {
-                    path: _path + ".deprecated",
-                    expected: "boolean",
-                    value: input.deprecated,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".deprecated",
+                      expected: "boolean",
+                      value: input.deprecated,
+                    },
+                    errorFactory,
+                  )) &&
                 ("string" === typeof input.title ||
-                  $guard(_exceptionable, {
-                    path: _path + ".title",
-                    expected: "string",
-                    value: input.title,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".title",
+                      expected: "string",
+                      value: input.title,
+                    },
+                    errorFactory,
+                  )) &&
                 (((Array.isArray(input.descriptions) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".descriptions",
-                    expected: "Array<string>",
-                    value: input.descriptions,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".descriptions",
+                      expected: "Array<string>",
+                      value: input.descriptions,
+                    },
+                    errorFactory,
+                  )) &&
                   input.descriptions.every(
                     (elem: any, _index1: number) =>
                       "string" === typeof elem ||
-                      $guard(_exceptionable, {
-                        path: _path + ".descriptions[" + _index1 + "]",
-                        expected: "string",
-                        value: elem,
-                      }),
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".descriptions[" + _index1 + "]",
+                          expected: "string",
+                          value: elem,
+                        },
+                        errorFactory,
+                      ),
                   )) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".descriptions",
-                    expected: "Array<string>",
-                    value: input.descriptions,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".descriptions",
+                      expected: "Array<string>",
+                      value: input.descriptions,
+                    },
+                    errorFactory,
+                  )) &&
                 (("number" === typeof input.newLine &&
                   Number.isFinite(input.newLine)) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".newLine",
-                    expected: "number",
-                    value: input.newLine,
-                  }));
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".newLine",
+                      expected: "number",
+                      value: input.newLine,
+                    },
+                    errorFactory,
+                  ));
               return (
                 ((("object" === typeof input && null !== input) ||
-                  $guard(true, {
+                  $guard(
+                    true,
+                    {
+                      path: _path + "",
+                      expected: "ObjectDescription",
+                      value: input,
+                    },
+                    errorFactory,
+                  )) &&
+                  $ao0(input, _path + "", true)) ||
+                $guard(
+                  true,
+                  {
                     path: _path + "",
                     expected: "ObjectDescription",
                     value: input,
-                  })) &&
-                  $ao0(input, _path + "", true)) ||
-                $guard(true, {
-                  path: _path + "",
-                  expected: "ObjectDescription",
-                  value: input,
-                })
+                  },
+                  errorFactory,
+                )
               );
             })(input, "$input", true);
           return input;
@@ -141,9 +188,11 @@ export const test_protobuf_createAssertEncode_ObjectDescription =
           const writer = encoder(new $Writer(sizer));
           return writer.buffer();
         };
-        return encode(assert(input));
+        return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ObjectDescription> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectDescription> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -188,5 +237,5 @@ export const test_protobuf_createAssertEncode_ObjectDescription =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectDescription {\n    required string id = 1;\n    required bool deprecated = 2;\n    required string title = 3;\n    repeated string descriptions = 4;\n    required double newLine = 5;\n}',
+      'syntax = "proto3";\n\nmessage ObjectDescription {\n  required string id = 1;\n  required bool deprecated = 2;\n  required string title = 3;\n  repeated string descriptions = 4;\n  required double newLine = 5;\n}',
   });

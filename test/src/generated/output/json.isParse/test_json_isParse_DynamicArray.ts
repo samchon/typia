@@ -6,7 +6,7 @@ import { DynamicArray } from "../../../structures/DynamicArray";
 export const test_json_isParse_DynamicArray = _test_json_isParse(
   "DynamicArray",
 )<DynamicArray>(DynamicArray)((input) =>
-  ((input: any): typia.Primitive<DynamicArray> => {
+  ((input: any): import("typia").Primitive<DynamicArray> => {
     const is = (input: any): input is DynamicArray => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&

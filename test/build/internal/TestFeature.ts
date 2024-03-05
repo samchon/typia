@@ -1,3 +1,4 @@
+import { write_functional } from "../writers/write_functional";
 import { write_notation } from "../writers/write_notation";
 import { write_protobuf_decode } from "../writers/write_protobuf_decode";
 import { write_protobuf_encode } from "../writers/write_protobuf_encode";
@@ -9,6 +10,7 @@ export interface TestFeature {
   creatable: boolean;
   spoilable: boolean;
   formData?: boolean;
+  custom?: true;
   query?: true;
   headers?: true;
   jsonable?: true;
@@ -88,6 +90,45 @@ export namespace TestFeature {
       resolved: true,
       programmer: write_random,
     },
+
+    //----
+    // FUNCTIONAL FEATURES
+    //----
+    ...[
+      "assertFunction",
+      "assertParameters",
+      "assertReturn",
+      "isFunction",
+      "isParameters",
+      "isReturn",
+      "validateFunction",
+      "validateParameters",
+      "validateReturn",
+    ].map((method) => ({
+      module: "functional",
+      method,
+      creatable: false,
+      spoilable: true,
+      programmer: () => write_functional(method),
+    })),
+    ...[
+      "assertEqualsFunction",
+      "assertEqualsParameters",
+      "assertEqualsReturn",
+      "equalsFunction",
+      "equalsParameters",
+      "equalsReturn",
+      "validateEqualsFunction",
+      "validateEqualsParameters",
+      "validateEqualsReturn",
+    ].map((method) => ({
+      module: "functional",
+      method,
+      creatable: false,
+      spoilable: false,
+      strict: true,
+      programmer: () => write_functional(method),
+    })),
 
     //----
     // PROTOBUF FUNCTIONS

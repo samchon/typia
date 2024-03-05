@@ -6,7 +6,7 @@ import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExpli
 export const test_json_isParse_ObjectUnionExplicitPointer = _test_json_isParse(
   "ObjectUnionExplicitPointer",
 )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
-  ((input: any): typia.Primitive<ObjectUnionExplicitPointer> => {
+  ((input: any): import("typia").Primitive<ObjectUnionExplicitPointer> => {
     const is = (input: any): input is ObjectUnionExplicitPointer => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

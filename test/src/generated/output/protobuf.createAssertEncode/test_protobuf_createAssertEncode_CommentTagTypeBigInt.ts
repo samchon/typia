@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagTypeBigInt } from "../../../structures/CommentTagTypeBigInt";
 
 export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
-  _test_protobuf_assertEncode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
-    CommentTagTypeBigInt,
-  )({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): CommentTagTypeBigInt => {
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagTypeBigInt",
+  )<CommentTagTypeBigInt>(CommentTagTypeBigInt)({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): CommentTagTypeBigInt => {
         const __is = (input: any): input is CommentTagTypeBigInt => {
           return (
             "object" === typeof input &&
@@ -31,36 +38,56 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
               _exceptionable: boolean = true,
             ): boolean =>
               ("bigint" === typeof input.in64 ||
-                $guard(_exceptionable, {
-                  path: _path + ".in64",
-                  expected: "bigint",
-                  value: input.in64,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".in64",
+                    expected: "bigint",
+                    value: input.in64,
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.uint64 &&
                 (BigInt(0) <= input.uint64 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".uint64",
+                      expected: 'bigint & Type<"uint64">',
+                      value: input.uint64,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".uint64",
-                    expected: 'bigint & Type<"uint64">',
+                    expected: '(bigint & Type<"uint64">)',
                     value: input.uint64,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".uint64",
-                  expected: '(bigint & Type<"uint64">)',
-                  value: input.uint64,
-                }));
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "CommentTagTypeBigInt",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "CommentTagTypeBigInt",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "CommentTagTypeBigInt",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -85,9 +112,11 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<CommentTagTypeBigInt> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagTypeBigInt> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -117,5 +146,5 @@ export const test_protobuf_createAssertEncode_CommentTagTypeBigInt =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagTypeBigInt {\n    required int64 in64 = 1;\n    required uint64 uint64 = 2;\n}',
+      'syntax = "proto3";\n\nmessage CommentTagTypeBigInt {\n  required int64 in64 = 1;\n  required uint64 uint64 = 2;\n}',
   });

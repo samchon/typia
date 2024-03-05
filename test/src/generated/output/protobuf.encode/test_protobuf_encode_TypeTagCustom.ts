@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 
-export const test_protobuf_createEncode_TypeTagCustom = _test_protobuf_encode(
+export const test_protobuf_encode_TypeTagCustom = _test_protobuf_encode(
   "TypeTagCustom",
 )<TypeTagCustom>(TypeTagCustom)({
   encode: (input) =>
@@ -33,7 +33,7 @@ export const test_protobuf_createEncode_TypeTagCustom = _test_protobuf_encode(
       const writer = encoder(new $Writer(sizer));
       return writer.buffer();
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<TypeTagCustom> => {
+  decode: (input: Uint8Array): import("typia").Resolved<TypeTagCustom> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -73,5 +73,5 @@ export const test_protobuf_createEncode_TypeTagCustom = _test_protobuf_encode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage TypeTagCustom {\n    required string id = 1;\n    required string dollar = 2;\n    required string postfix = 3;\n    required double powerOf = 4;\n}',
+    'syntax = "proto3";\n\nmessage TypeTagCustom {\n  required string id = 1;\n  required string dollar = 2;\n  required string postfix = 3;\n  required double powerOf = 4;\n}',
 });

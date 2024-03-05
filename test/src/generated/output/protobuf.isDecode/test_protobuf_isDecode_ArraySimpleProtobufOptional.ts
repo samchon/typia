@@ -3,14 +3,14 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ArraySimpleProtobufOptional } from "../../../structures/ArraySimpleProtobufOptional";
 
-export const test_protobuf_createIsDecode_ArraySimpleProtobufOptional =
+export const test_protobuf_isDecode_ArraySimpleProtobufOptional =
   _test_protobuf_isDecode(
     "ArraySimpleProtobufOptional",
   )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
     decode: (input) =>
       ((
         input: Uint8Array,
-      ): typia.Resolved<ArraySimpleProtobufOptional> | null => {
+      ): import("typia").Resolved<ArraySimpleProtobufOptional> | null => {
         const is = (input: any): input is ArraySimpleProtobufOptional => {
           const $io0 = (input: any): boolean =>
             (undefined === input.boolean ||
@@ -86,7 +86,7 @@ export const test_protobuf_createIsDecode_ArraySimpleProtobufOptional =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ArraySimpleProtobufOptional> => {
+        ): import("typia").Resolved<ArraySimpleProtobufOptional> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

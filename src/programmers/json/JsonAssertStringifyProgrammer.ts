@@ -13,11 +13,14 @@ export namespace JsonAssertStringifyProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
+    (type: ts.Type, name?: string, init?: ts.Expression) =>
       ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        [
+          IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
+          AssertProgrammer.Guardian.parameter(init),
+        ],
         TypeFactory.keyword("string"),
         undefined,
         ts.factory.createBlock([
@@ -51,7 +54,10 @@ export namespace JsonAssertStringifyProgrammer {
                 ts.factory.createCallExpression(
                   ts.factory.createIdentifier("assert"),
                   undefined,
-                  [ts.factory.createIdentifier("input")],
+                  [
+                    ts.factory.createIdentifier("input"),
+                    AssertProgrammer.Guardian.identifier(),
+                  ],
                 ),
               ],
             ),

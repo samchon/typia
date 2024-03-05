@@ -1,12 +1,16 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../../internal/_test_assertGuard";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_createAssertGuard_DynamicSimple = _test_assertGuard(
-  "DynamicSimple",
-)<DynamicSimple>(DynamicSimple)(
-  (input: any): asserts input is DynamicSimple => {
+  TypeGuardError,
+)("DynamicSimple")<DynamicSimple>(DynamicSimple)(
+  (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is DynamicSimple => {
     const __is = (input: any): input is DynamicSimple => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&
@@ -37,17 +41,25 @@ export const test_createAssertGuard_DynamicSimple = _test_assertGuard(
           ((("object" === typeof input.value &&
             null !== input.value &&
             false === Array.isArray(input.value)) ||
-            $guard(_exceptionable, {
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".value",
+                expected: "__type",
+                value: input.value,
+              },
+              errorFactory,
+            )) &&
+            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
+          $guard(
+            _exceptionable,
+            {
               path: _path + ".value",
               expected: "__type",
               value: input.value,
-            })) &&
-            $ao1(input.value, _path + ".value", true && _exceptionable)) ||
-          $guard(_exceptionable, {
-            path: _path + ".value",
-            expected: "__type",
-            value: input.value,
-          });
+            },
+            errorFactory,
+          );
         const $ao1 = (
           input: any,
           _path: string,
@@ -59,26 +71,38 @@ export const test_createAssertGuard_DynamicSimple = _test_assertGuard(
             if (undefined === value) return true;
             return (
               ("number" === typeof value && Number.isFinite(value)) ||
-              $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "number",
-                value: value,
-              })
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "number",
+                  value: value,
+                },
+                errorFactory,
+              )
             );
           });
         return (
           ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "DynamicSimple",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "DynamicSimple",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "DynamicSimple",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
   },

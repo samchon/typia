@@ -229,7 +229,9 @@ export const test_misc_createValidateClone_TypeTagTuple =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: TypeTagTuple): typia.Resolved<TypeTagTuple> => {
+      const clone = (
+        input: TypeTagTuple,
+      ): import("typia").Resolved<TypeTagTuple> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({

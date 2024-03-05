@@ -6,7 +6,7 @@ import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 export const test_json_createIsParse_TypeTagAtomicUnion = _test_json_isParse(
   "TypeTagAtomicUnion",
 )<TypeTagAtomicUnion>(TypeTagAtomicUnion)(
-  (input: any): typia.Primitive<TypeTagAtomicUnion> => {
+  (input: any): import("typia").Primitive<TypeTagAtomicUnion> => {
     const is = (input: any): input is TypeTagAtomicUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

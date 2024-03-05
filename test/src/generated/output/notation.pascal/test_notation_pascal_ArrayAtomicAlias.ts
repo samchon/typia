@@ -158,7 +158,10 @@ export const test_notation_validatePascal_ArrayAtomicAlias =
         if (output.success) output.data = general(input);
         return output;
       })(input),
-    assert: (input: any): typia.PascalCase<ArrayAtomicAlias> => {
+    assert: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): typia.PascalCase<ArrayAtomicAlias> => {
       const __is = (
         input: any,
       ): input is typia.PascalCase<ArrayAtomicAlias> => {
@@ -184,83 +187,131 @@ export const test_notation_validatePascal_ArrayAtomicAlias =
           const $guard = (typia.createAssert as any).guard;
           return (
             ((Array.isArray(input) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "ArrayAtomicAlias",
-                value: input,
-              })) &&
-              (input.length === 3 ||
-                $guard(true, {
+              $guard(
+                true,
+                {
                   path: _path + "",
-                  expected:
-                    "[ArrayAtomicAlias.Alias<boolean>, ArrayAtomicAlias.Alias<number>, ArrayAtomicAlias.Alias<string>]",
+                  expected: "ArrayAtomicAlias",
                   value: input,
-                })) &&
+                },
+                errorFactory,
+              )) &&
+              (input.length === 3 ||
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected:
+                      "[ArrayAtomicAlias.Alias<boolean>, ArrayAtomicAlias.Alias<number>, ArrayAtomicAlias.Alias<string>]",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input[0]) ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "ArrayAtomicAlias.Alias<boolean>",
-                  value: input[0],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "ArrayAtomicAlias.Alias<boolean>",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
                 input[0].every(
                   (elem: any, _index1: number) =>
                     "boolean" === typeof elem ||
-                    $guard(true, {
-                      path: _path + "[0][" + _index1 + "]",
-                      expected: "boolean",
-                      value: elem,
-                    }),
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[0][" + _index1 + "]",
+                        expected: "boolean",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(true, {
-                  path: _path + "[0]",
-                  expected: "ArrayAtomicAlias.Alias<boolean>",
-                  value: input[0],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[0]",
+                    expected: "ArrayAtomicAlias.Alias<boolean>",
+                    value: input[0],
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input[1]) ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "ArrayAtomicAlias.Alias<number>",
-                  value: input[1],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "ArrayAtomicAlias.Alias<number>",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
                 input[1].every(
                   (elem: any, _index2: number) =>
                     ("number" === typeof elem && Number.isFinite(elem)) ||
-                    $guard(true, {
-                      path: _path + "[1][" + _index2 + "]",
-                      expected: "number",
-                      value: elem,
-                    }),
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[1][" + _index2 + "]",
+                        expected: "number",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(true, {
-                  path: _path + "[1]",
-                  expected: "ArrayAtomicAlias.Alias<number>",
-                  value: input[1],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[1]",
+                    expected: "ArrayAtomicAlias.Alias<number>",
+                    value: input[1],
+                  },
+                  errorFactory,
+                )) &&
               (((Array.isArray(input[2]) ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: "ArrayAtomicAlias.Alias<string>",
-                  value: input[2],
-                })) &&
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: "ArrayAtomicAlias.Alias<string>",
+                    value: input[2],
+                  },
+                  errorFactory,
+                )) &&
                 input[2].every(
                   (elem: any, _index3: number) =>
                     "string" === typeof elem ||
-                    $guard(true, {
-                      path: _path + "[2][" + _index3 + "]",
-                      expected: "string",
-                      value: elem,
-                    }),
+                    $guard(
+                      true,
+                      {
+                        path: _path + "[2][" + _index3 + "]",
+                        expected: "string",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-                $guard(true, {
-                  path: _path + "[2]",
-                  expected: "ArrayAtomicAlias.Alias<string>",
-                  value: input[2],
-                }))) ||
-            $guard(true, {
-              path: _path + "",
-              expected: "ArrayAtomicAlias",
-              value: input,
-            })
+                $guard(
+                  true,
+                  {
+                    path: _path + "[2]",
+                    expected: "ArrayAtomicAlias.Alias<string>",
+                    value: input[2],
+                  },
+                  errorFactory,
+                ))) ||
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ArrayAtomicAlias",
+                value: input,
+              },
+              errorFactory,
+            )
           );
         })(input, "$input", true);
       return input;

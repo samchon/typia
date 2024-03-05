@@ -171,7 +171,7 @@ export const test_misc_createValidateClone_DynamicComposite =
     };
     const clone = (
       input: DynamicComposite,
-    ): typia.Resolved<DynamicComposite> => {
+    ): import("typia").Resolved<DynamicComposite> => {
       const $co0 = (input: any): any => {
         const output = {
           id: input.id as any,

@@ -1,14 +1,21 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
 
 export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
-  _test_protobuf_assertEncode("CommentTagRangeBigInt")<CommentTagRangeBigInt>(
-    CommentTagRangeBigInt,
-  )({
-    encode: (input: any): Uint8Array => {
-      const assert = (input: any): CommentTagRangeBigInt => {
+  _test_protobuf_assertEncode(TypeGuardError)(
+    "CommentTagRangeBigInt",
+  )<CommentTagRangeBigInt>(CommentTagRangeBigInt)({
+    encode: (
+      input: any,
+      errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+    ): Uint8Array => {
+      const assert = (
+        input: any,
+        errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+      ): CommentTagRangeBigInt => {
         const __is = (input: any): input is CommentTagRangeBigInt => {
           const $io0 = (input: any): boolean =>
             Array.isArray(input.value) &&
@@ -55,35 +62,51 @@ export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
               _exceptionable: boolean = true,
             ): boolean =>
               ((Array.isArray(input.value) ||
-                $guard(_exceptionable, {
-                  path: _path + ".value",
-                  expected: "Array<CommentTagRangeBigInt.Type>",
-                  value: input.value,
-                })) &&
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".value",
+                    expected: "Array<CommentTagRangeBigInt.Type>",
+                    value: input.value,
+                  },
+                  errorFactory,
+                )) &&
                 input.value.every(
                   (elem: any, _index1: number) =>
                     ((("object" === typeof elem && null !== elem) ||
-                      $guard(_exceptionable, {
-                        path: _path + ".value[" + _index1 + "]",
-                        expected: "CommentTagRangeBigInt.Type",
-                        value: elem,
-                      })) &&
+                      $guard(
+                        _exceptionable,
+                        {
+                          path: _path + ".value[" + _index1 + "]",
+                          expected: "CommentTagRangeBigInt.Type",
+                          value: elem,
+                        },
+                        errorFactory,
+                      )) &&
                       $ao1(
                         elem,
                         _path + ".value[" + _index1 + "]",
                         true && _exceptionable,
                       )) ||
-                    $guard(_exceptionable, {
-                      path: _path + ".value[" + _index1 + "]",
-                      expected: "CommentTagRangeBigInt.Type",
-                      value: elem,
-                    }),
+                    $guard(
+                      _exceptionable,
+                      {
+                        path: _path + ".value[" + _index1 + "]",
+                        expected: "CommentTagRangeBigInt.Type",
+                        value: elem,
+                      },
+                      errorFactory,
+                    ),
                 )) ||
-              $guard(_exceptionable, {
-                path: _path + ".value",
-                expected: "Array<CommentTagRangeBigInt.Type>",
-                value: input.value,
-              });
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".value",
+                  expected: "Array<CommentTagRangeBigInt.Type>",
+                  value: input.value,
+                },
+                errorFactory,
+              );
             const $ao1 = (
               input: any,
               _path: string,
@@ -91,156 +114,256 @@ export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
             ): boolean =>
               (("bigint" === typeof input.greater &&
                 (3 < input.greater ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater",
+                      expected: "bigint & ExclusiveMinimum<3n>",
+                      value: input.greater,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".greater",
-                    expected: "bigint & ExclusiveMinimum<3n>",
+                    expected: "(bigint & ExclusiveMinimum<3n>)",
                     value: input.greater,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".greater",
-                  expected: "(bigint & ExclusiveMinimum<3n>)",
-                  value: input.greater,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.greater_equal &&
                 (3 <= input.greater_equal ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_equal",
+                      expected: "bigint & Minimum<3n>",
+                      value: input.greater_equal,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".greater_equal",
-                    expected: "bigint & Minimum<3n>",
+                    expected: "(bigint & Minimum<3n>)",
                     value: input.greater_equal,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".greater_equal",
-                  expected: "(bigint & Minimum<3n>)",
-                  value: input.greater_equal,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.less &&
                 (input.less < 7 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".less",
+                      expected: "bigint & ExclusiveMaximum<7n>",
+                      value: input.less,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".less",
-                    expected: "bigint & ExclusiveMaximum<7n>",
+                    expected: "(bigint & ExclusiveMaximum<7n>)",
                     value: input.less,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".less",
-                  expected: "(bigint & ExclusiveMaximum<7n>)",
-                  value: input.less,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.less_equal &&
                 (input.less_equal <= 7 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".less_equal",
+                      expected: "bigint & Maximum<7n>",
+                      value: input.less_equal,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".less_equal",
-                    expected: "bigint & Maximum<7n>",
+                    expected: "(bigint & Maximum<7n>)",
                     value: input.less_equal,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".less_equal",
-                  expected: "(bigint & Maximum<7n>)",
-                  value: input.less_equal,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.greater_less &&
                 (3 < input.greater_less ||
-                  $guard(_exceptionable, {
-                    path: _path + ".greater_less",
-                    expected: "bigint & ExclusiveMinimum<3n>",
-                    value: input.greater_less,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_less",
+                      expected: "bigint & ExclusiveMinimum<3n>",
+                      value: input.greater_less,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.greater_less < 7 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_less",
+                      expected: "bigint & ExclusiveMaximum<7n>",
+                      value: input.greater_less,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".greater_less",
-                    expected: "bigint & ExclusiveMaximum<7n>",
+                    expected:
+                      "(bigint & ExclusiveMinimum<3n> & ExclusiveMaximum<7n>)",
                     value: input.greater_less,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".greater_less",
-                  expected:
-                    "(bigint & ExclusiveMinimum<3n> & ExclusiveMaximum<7n>)",
-                  value: input.greater_less,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.greater_equal_less &&
                 (3 <= input.greater_equal_less ||
-                  $guard(_exceptionable, {
-                    path: _path + ".greater_equal_less",
-                    expected: "bigint & Minimum<3n>",
-                    value: input.greater_equal_less,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_equal_less",
+                      expected: "bigint & Minimum<3n>",
+                      value: input.greater_equal_less,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.greater_equal_less < 7 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_equal_less",
+                      expected: "bigint & ExclusiveMaximum<7n>",
+                      value: input.greater_equal_less,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".greater_equal_less",
-                    expected: "bigint & ExclusiveMaximum<7n>",
+                    expected: "(bigint & Minimum<3n> & ExclusiveMaximum<7n>)",
                     value: input.greater_equal_less,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".greater_equal_less",
-                  expected: "(bigint & Minimum<3n> & ExclusiveMaximum<7n>)",
-                  value: input.greater_equal_less,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.greater_less_equal &&
                 (3 < input.greater_less_equal ||
-                  $guard(_exceptionable, {
-                    path: _path + ".greater_less_equal",
-                    expected: "bigint & ExclusiveMinimum<3n>",
-                    value: input.greater_less_equal,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_less_equal",
+                      expected: "bigint & ExclusiveMinimum<3n>",
+                      value: input.greater_less_equal,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.greater_less_equal <= 7 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_less_equal",
+                      expected: "bigint & Maximum<7n>",
+                      value: input.greater_less_equal,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".greater_less_equal",
-                    expected: "bigint & Maximum<7n>",
+                    expected: "(bigint & ExclusiveMinimum<3n> & Maximum<7n>)",
                     value: input.greater_less_equal,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".greater_less_equal",
-                  expected: "(bigint & ExclusiveMinimum<3n> & Maximum<7n>)",
-                  value: input.greater_less_equal,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.greater_equal_less_equal &&
                 (3 <= input.greater_equal_less_equal ||
-                  $guard(_exceptionable, {
-                    path: _path + ".greater_equal_less_equal",
-                    expected: "bigint & Minimum<3n>",
-                    value: input.greater_equal_less_equal,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_equal_less_equal",
+                      expected: "bigint & Minimum<3n>",
+                      value: input.greater_equal_less_equal,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.greater_equal_less_equal <= 7 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".greater_equal_less_equal",
+                      expected: "bigint & Maximum<7n>",
+                      value: input.greater_equal_less_equal,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".greater_equal_less_equal",
-                    expected: "bigint & Maximum<7n>",
+                    expected: "(bigint & Minimum<3n> & Maximum<7n>)",
                     value: input.greater_equal_less_equal,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".greater_equal_less_equal",
-                  expected: "(bigint & Minimum<3n> & Maximum<7n>)",
-                  value: input.greater_equal_less_equal,
-                })) &&
+                  },
+                  errorFactory,
+                )) &&
               (("bigint" === typeof input.equal &&
                 (10 <= input.equal ||
-                  $guard(_exceptionable, {
-                    path: _path + ".equal",
-                    expected: "bigint & Minimum<10n>",
-                    value: input.equal,
-                  })) &&
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".equal",
+                      expected: "bigint & Minimum<10n>",
+                      value: input.equal,
+                    },
+                    errorFactory,
+                  )) &&
                 (input.equal <= 10 ||
-                  $guard(_exceptionable, {
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".equal",
+                      expected: "bigint & Maximum<10n>",
+                      value: input.equal,
+                    },
+                    errorFactory,
+                  ))) ||
+                $guard(
+                  _exceptionable,
+                  {
                     path: _path + ".equal",
-                    expected: "bigint & Maximum<10n>",
+                    expected: "(bigint & Minimum<10n> & Maximum<10n>)",
                     value: input.equal,
-                  }))) ||
-                $guard(_exceptionable, {
-                  path: _path + ".equal",
-                  expected: "(bigint & Minimum<10n> & Maximum<10n>)",
-                  value: input.equal,
-                }));
+                  },
+                  errorFactory,
+                ));
             return (
               ((("object" === typeof input && null !== input) ||
-                $guard(true, {
+                $guard(
+                  true,
+                  {
+                    path: _path + "",
+                    expected: "CommentTagRangeBigInt",
+                    value: input,
+                  },
+                  errorFactory,
+                )) &&
+                $ao0(input, _path + "", true)) ||
+              $guard(
+                true,
+                {
                   path: _path + "",
                   expected: "CommentTagRangeBigInt",
                   value: input,
-                })) &&
-                $ao0(input, _path + "", true)) ||
-              $guard(true, {
-                path: _path + "",
-                expected: "CommentTagRangeBigInt",
-                value: input,
-              })
+                },
+                errorFactory,
+              )
             );
           })(input, "$input", true);
         return input;
@@ -322,9 +445,11 @@ export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
         const writer = encoder(new $Writer(sizer));
         return writer.buffer();
       };
-      return encode(assert(input));
+      return encode(assert(input, errorFactory));
     },
-    decode: (input: Uint8Array): typia.Resolved<CommentTagRangeBigInt> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagRangeBigInt> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -408,5 +533,5 @@ export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagRangeBigInt {\n    repeated CommentTagRangeBigInt.Type value = 1;\n    message Type {\n        required int64 greater = 1;\n        required int64 greater_equal = 2;\n        required int64 less = 3;\n        required int64 less_equal = 4;\n        required int64 greater_less = 5;\n        required int64 greater_equal_less = 6;\n        required int64 greater_less_equal = 7;\n        required int64 greater_equal_less_equal = 8;\n        required int64 equal = 9;\n    }\n}',
+      'syntax = "proto3";\n\nmessage CommentTagRangeBigInt {\n  repeated CommentTagRangeBigInt.Type value = 1;\n  message Type {\n    required int64 greater = 1;\n    required int64 greater_equal = 2;\n    required int64 less = 3;\n    required int64 less_equal = 4;\n    required int64 greater_less = 5;\n    required int64 greater_equal_less = 6;\n    required int64 greater_less_equal = 7;\n    required int64 greater_equal_less_equal = 8;\n    required int64 equal = 9;\n  }\n}',
   });

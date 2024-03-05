@@ -9,7 +9,7 @@ export const test_random_ObjectDynamic = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ObjectDynamic> => {
+    ): import("typia").Resolved<ObjectDynamic> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
@@ -34,7 +34,10 @@ export const test_random_ObjectDynamic = _test_random(
       };
       return $ro0();
     })((ObjectDynamic as any).RANDOM),
-  assert: (input: any): ObjectDynamic => {
+  assert: (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ObjectDynamic => {
     const __is = (input: any): input is ObjectDynamic => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -74,28 +77,40 @@ export const test_random_ObjectDynamic = _test_random(
               "string" === typeof value ||
               ("number" === typeof value && Number.isFinite(value)) ||
               "boolean" === typeof value ||
-              $guard(_exceptionable, {
-                path: _path + $join(key),
-                expected: "(boolean | number | string)",
-                value: value,
-              })
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + $join(key),
+                  expected: "(boolean | number | string)",
+                  value: value,
+                },
+                errorFactory,
+              )
             );
           });
         return (
           ((("object" === typeof input &&
             null !== input &&
             false === Array.isArray(input)) ||
-            $guard(true, {
+            $guard(
+              true,
+              {
+                path: _path + "",
+                expected: "ObjectDynamic",
+                value: input,
+              },
+              errorFactory,
+            )) &&
+            $ao0(input, _path + "", true)) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "ObjectDynamic",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
-            path: _path + "",
-            expected: "ObjectDynamic",
-            value: input,
-          })
+            },
+            errorFactory,
+          )
         );
       })(input, "$input", true);
     return input;

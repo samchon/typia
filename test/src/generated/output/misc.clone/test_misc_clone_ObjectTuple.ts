@@ -6,7 +6,7 @@ import { ObjectTuple } from "../../../structures/ObjectTuple";
 export const test_misc_clone_ObjectTuple = _test_misc_clone(
   "ObjectTuple",
 )<ObjectTuple>(ObjectTuple)((input) =>
-  ((input: ObjectTuple): typia.Resolved<ObjectTuple> => {
+  ((input: ObjectTuple): import("typia").Resolved<ObjectTuple> => {
     const $io0 = (input: any): boolean =>
       "string" === typeof input.id &&
       "string" === typeof input.code &&

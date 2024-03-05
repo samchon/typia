@@ -6,7 +6,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_misc_isClone_ObjectNullable = _test_misc_isClone(
   "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)((input) =>
-  ((input: any): typia.Resolved<ObjectNullable> | null => {
+  ((input: any): import("typia").Resolved<ObjectNullable> | null => {
     const is = (input: any): input is ObjectNullable => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -39,7 +39,9 @@ export const test_misc_isClone_ObjectNullable = _test_misc_isClone(
         })();
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: ObjectNullable): typia.Resolved<ObjectNullable> => {
+    const clone = (
+      input: ObjectNullable,
+    ): import("typia").Resolved<ObjectNullable> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.name &&
         "object" === typeof input.manufacturer &&
