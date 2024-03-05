@@ -10,7 +10,7 @@ export const test_json_assertParse_CommentTagArray = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<CommentTagArray> => {
+  ): import("typia").Primitive<CommentTagArray> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

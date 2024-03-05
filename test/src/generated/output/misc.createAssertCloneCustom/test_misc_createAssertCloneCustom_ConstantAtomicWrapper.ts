@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ConstantAtomicWrapper =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ConstantAtomicWrapper> => {
+    ): import("typia").Resolved<ConstantAtomicWrapper> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -187,7 +187,7 @@ export const test_misc_createAssertCloneCustom_ConstantAtomicWrapper =
       };
       const clone = (
         input: ConstantAtomicWrapper,
-      ): typia.Resolved<ConstantAtomicWrapper> => {
+      ): import("typia").Resolved<ConstantAtomicWrapper> => {
         const $io0 = (input: any): boolean => "boolean" === typeof input.value;
         const $io1 = (input: any): boolean => "number" === typeof input.value;
         const $io2 = (input: any): boolean => "string" === typeof input.value;

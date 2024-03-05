@@ -215,7 +215,9 @@ export const test_misc_createValidateClone_ObjectRequired =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectRequired): typia.Resolved<ObjectRequired> => {
+      const clone = (
+        input: ObjectRequired,
+      ): import("typia").Resolved<ObjectRequired> => {
         const $io1 = (input: any): boolean =>
           (undefined === input.boolean || "boolean" === typeof input.boolean) &&
           (undefined === input.number || "number" === typeof input.number) &&

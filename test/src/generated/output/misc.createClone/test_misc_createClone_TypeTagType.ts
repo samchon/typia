@@ -6,7 +6,7 @@ import { TypeTagType } from "../../../structures/TypeTagType";
 export const test_misc_createClone_TypeTagType = _test_misc_clone(
   "TypeTagType",
 )<TypeTagType>(TypeTagType)(
-  (input: TypeTagType): typia.Resolved<TypeTagType> => {
+  (input: TypeTagType): import("typia").Resolved<TypeTagType> => {
     const $io1 = (input: any): boolean =>
       "number" === typeof input.int &&
       Math.floor(input.int) === input.int &&

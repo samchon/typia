@@ -10,7 +10,7 @@ export const test_json_assertParse_ArrayRecursive = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<ArrayRecursive> => {
+  ): import("typia").Primitive<ArrayRecursive> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

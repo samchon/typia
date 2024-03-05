@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_TypeTagArrayUnion =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<TypeTagArrayUnion> => {
+    ): import("typia").Resolved<TypeTagArrayUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -392,7 +392,7 @@ export const test_misc_createAssertClone_TypeTagArrayUnion =
       };
       const clone = (
         input: TypeTagArrayUnion,
-      ): typia.Resolved<TypeTagArrayUnion> => {
+      ): import("typia").Resolved<TypeTagArrayUnion> => {
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem

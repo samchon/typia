@@ -6,7 +6,9 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_misc_clone_ObjectLiteralProperty = _test_misc_clone(
   "ObjectLiteralProperty",
 )<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
-  ((input: ObjectLiteralProperty): typia.Resolved<ObjectLiteralProperty> => {
+  ((
+    input: ObjectLiteralProperty,
+  ): import("typia").Resolved<ObjectLiteralProperty> => {
     const $co0 = (input: any): any => ({
       "something-interesting-do-you-want?": input[
         "something-interesting-do-you-want?"

@@ -1,34 +1,34 @@
 syntax = "proto3";
 
 message CommentTagDefault {
-    required bool boolean = 1;
-    required double number = 2;
-    required string string = 3;
-    required string text = 4;
-    oneof boolean_and_number_and_string {
-        bool v5 = 5;
-        double v6 = 6;
-        string v7 = 7;
-    }
-    oneof union_but_boolean {
-        bool v8 = 8;
-        double v9 = 9;
-        string v10 = 10;
-    }
-    oneof union_but_number {
-        bool v11 = 11;
-        double v12 = 12;
-        string v13 = 13;
-    }
-    oneof union_but_string {
-        bool v14 = 14;
-        double v15 = 15;
-        string v16 = 16;
-    }
-    required double vulnerable_range = 17;
-    oneof boolean_and_number_and_template {
-        bool v18 = 18;
-        double v19 = 19;
-        string v20 = 20;
-    }
+  required bool boolean = 1;
+  required double number = 2;
+  required string string = 3;
+  required string text = 4;
+  oneof boolean_and_number_and_string {
+    bool v5 = 5;
+    double v6 = 6;
+    string v7 = 7;
+  }
+  oneof union_but_boolean {
+    bool v8 = 8;
+    double v9 = 9;
+    string v10 = 10;
+  }
+  oneof union_but_number {
+    bool v11 = 11;
+    double v12 = 12;
+    string v13 = 13;
+  }
+  oneof union_but_string {
+    bool v14 = 14;
+    double v15 = 15;
+    string v16 = 16;
+  }
+  required double vulnerable_range = 17;
+  oneof boolean_and_number_and_template {
+    bool v18 = 18;
+    double v19 = 19;
+    string v20 = 20;
+  }
 }

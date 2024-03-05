@@ -6,7 +6,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_json_isParse_ObjectRecursive = _test_json_isParse(
   "ObjectRecursive",
 )<ObjectRecursive>(ObjectRecursive)((input) =>
-  ((input: any): typia.Primitive<ObjectRecursive> => {
+  ((input: any): import("typia").Primitive<ObjectRecursive> => {
     const is = (input: any): input is ObjectRecursive => {
       const $io0 = (input: any): boolean =>
         (null === input.parent ||

@@ -11,7 +11,7 @@ export const test_json_createAssertParse_ArrayRepeatedUnion =
     (
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ArrayRepeatedUnion> => {
+    ): import("typia").Primitive<ArrayRepeatedUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

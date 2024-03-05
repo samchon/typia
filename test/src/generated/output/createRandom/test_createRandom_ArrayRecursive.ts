@@ -8,7 +8,7 @@ export const test_createRandom_ArrayRecursive = _test_random(
 )<ArrayRecursive>(ArrayRecursive)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ArrayRecursive as any).RANDOM,
-  ): typia.Resolved<ArrayRecursive> => {
+  ): import("typia").Resolved<ArrayRecursive> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
       children:

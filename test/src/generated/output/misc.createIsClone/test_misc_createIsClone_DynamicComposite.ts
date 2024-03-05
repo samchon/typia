@@ -6,7 +6,7 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_misc_createIsClone_DynamicComposite = _test_misc_isClone(
   "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)(
-  (input: any): typia.Resolved<DynamicComposite> | null => {
+  (input: any): import("typia").Resolved<DynamicComposite> | null => {
     const is = (input: any): input is DynamicComposite => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
@@ -43,7 +43,7 @@ export const test_misc_createIsClone_DynamicComposite = _test_misc_isClone(
     };
     const clone = (
       input: DynamicComposite,
-    ): typia.Resolved<DynamicComposite> => {
+    ): import("typia").Resolved<DynamicComposite> => {
       const $co0 = (input: any): any => {
         const output = {
           id: input.id as any,

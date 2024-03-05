@@ -134,7 +134,9 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: DynamicUnion): typia.Resolved<DynamicUnion> => {
+    const clone = (
+      input: DynamicUnion,
+    ): import("typia").Resolved<DynamicUnion> => {
       const $co0 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {

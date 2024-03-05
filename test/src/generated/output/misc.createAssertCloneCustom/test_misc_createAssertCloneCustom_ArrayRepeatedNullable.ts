@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ArrayRepeatedNullable =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ArrayRepeatedNullable> => {
+    ): import("typia").Resolved<ArrayRepeatedNullable> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -151,7 +151,7 @@ export const test_misc_createAssertCloneCustom_ArrayRepeatedNullable =
       };
       const clone = (
         input: ArrayRepeatedNullable,
-      ): typia.Resolved<ArrayRepeatedNullable> => {
+      ): import("typia").Resolved<ArrayRepeatedNullable> => {
         const $ia0 = (input: any): any =>
           input.every(
             (elem: any) =>

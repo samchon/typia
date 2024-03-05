@@ -6,7 +6,7 @@ import { CommentTagArray } from "../../../structures/CommentTagArray";
 export const test_misc_isClone_CommentTagArray = _test_misc_isClone(
   "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)((input) =>
-  ((input: any): typia.Resolved<CommentTagArray> | null => {
+  ((input: any): import("typia").Resolved<CommentTagArray> | null => {
     const is = (input: any): input is CommentTagArray => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -36,7 +36,9 @@ export const test_misc_isClone_CommentTagArray = _test_misc_isClone(
         );
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: CommentTagArray): typia.Resolved<CommentTagArray> => {
+    const clone = (
+      input: CommentTagArray,
+    ): import("typia").Resolved<CommentTagArray> => {
       const $io1 = (input: any): boolean =>
         Array.isArray(input.items) &&
         3 <= input.items.length &&

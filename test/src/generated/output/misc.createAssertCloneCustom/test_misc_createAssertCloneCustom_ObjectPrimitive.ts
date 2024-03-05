@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectPrimitive =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectPrimitive> => {
+    ): import("typia").Resolved<ObjectPrimitive> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -242,7 +242,7 @@ export const test_misc_createAssertCloneCustom_ObjectPrimitive =
       };
       const clone = (
         input: ObjectPrimitive,
-      ): typia.Resolved<ObjectPrimitive> => {
+      ): import("typia").Resolved<ObjectPrimitive> => {
         const $io1 = (input: any): boolean =>
           "string" === typeof input.id &&
           "string" === typeof input.name &&

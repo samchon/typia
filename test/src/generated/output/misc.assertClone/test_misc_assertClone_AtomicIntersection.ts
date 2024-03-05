@@ -10,7 +10,7 @@ export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<AtomicIntersection> => {
+  ): import("typia").Resolved<AtomicIntersection> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -98,7 +98,7 @@ export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
     };
     const clone = (
       input: AtomicIntersection,
-    ): typia.Resolved<AtomicIntersection> => {
+    ): import("typia").Resolved<AtomicIntersection> => {
       return Array.isArray(input) &&
         input.length === 3 &&
         "boolean" === typeof input[0] &&

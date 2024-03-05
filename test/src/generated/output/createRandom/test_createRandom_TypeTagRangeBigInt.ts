@@ -9,7 +9,7 @@ export const test_createRandom_TypeTagRangeBigInt = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (TypeTagRangeBigInt as any)
       .RANDOM,
-  ): typia.Resolved<TypeTagRangeBigInt> => {
+  ): import("typia").Resolved<TypeTagRangeBigInt> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.array ?? $generator.array)(() =>

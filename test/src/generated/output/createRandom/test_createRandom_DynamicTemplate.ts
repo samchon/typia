@@ -9,7 +9,7 @@ export const test_createRandom_DynamicTemplate = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicTemplate as any)
       .RANDOM,
-  ): typia.Resolved<DynamicTemplate> => {
+  ): import("typia").Resolved<DynamicTemplate> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
       const output = {} as any;

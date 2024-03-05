@@ -6,7 +6,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_json_isParse_TypeTagRange = _test_json_isParse(
   "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)((input) =>
-  ((input: any): typia.Primitive<TypeTagRange> => {
+  ((input: any): import("typia").Primitive<TypeTagRange> => {
     const is = (input: any): input is TypeTagRange => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

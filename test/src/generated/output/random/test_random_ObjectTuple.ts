@@ -9,7 +9,7 @@ export const test_random_ObjectTuple = _test_random("ObjectTuple")<ObjectTuple>(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ObjectTuple> => {
+    ): import("typia").Resolved<ObjectTuple> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         id:

@@ -10,7 +10,7 @@ export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ArrayAtomicSimple> => {
+  ): import("typia").Resolved<ArrayAtomicSimple> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -168,7 +168,7 @@ export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
     };
     const clone = (
       input: ArrayAtomicSimple,
-    ): typia.Resolved<ArrayAtomicSimple> => {
+    ): import("typia").Resolved<ArrayAtomicSimple> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $cp1 = (input: any) => input.map((elem: any) => elem as any);
       const $cp2 = (input: any) => input.map((elem: any) => elem as any);

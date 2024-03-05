@@ -10,7 +10,7 @@ export const test_misc_assertCloneCustom_UltimateUnion = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<UltimateUnion> => {
+  ): import("typia").Resolved<UltimateUnion> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -7925,7 +7925,9 @@ export const test_misc_assertCloneCustom_UltimateUnion = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: UltimateUnion): typia.Resolved<UltimateUnion> => {
+    const clone = (
+      input: UltimateUnion,
+    ): import("typia").Resolved<UltimateUnion> => {
       const $io1 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "boolean" === typeof elem) &&

@@ -113,7 +113,9 @@ export const test_misc_validateClone_TupleRestArray = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: TupleRestArray): typia.Resolved<TupleRestArray> => {
+    const clone = (
+      input: TupleRestArray,
+    ): import("typia").Resolved<TupleRestArray> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $cp1 = (input: any) =>
         input.map((elem: any) =>

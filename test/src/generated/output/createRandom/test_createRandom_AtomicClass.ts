@@ -8,7 +8,7 @@ export const test_createRandom_AtomicClass = _test_random(
 )<AtomicClass>(AtomicClass)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (AtomicClass as any).RANDOM,
-  ): typia.Resolved<AtomicClass> => {
+  ): import("typia").Resolved<AtomicClass> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     return [

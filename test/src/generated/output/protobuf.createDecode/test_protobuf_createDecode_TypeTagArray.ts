@@ -6,7 +6,7 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 export const test_protobuf_createDecode_TypeTagArray = _test_protobuf_decode(
   "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)({
-  decode: (input: Uint8Array): typia.Resolved<TypeTagArray> => {
+  decode: (input: Uint8Array): import("typia").Resolved<TypeTagArray> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;

@@ -10,7 +10,7 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectRecursive> => {
+  ): import("typia").Resolved<ObjectRecursive> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -188,7 +188,9 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ObjectRecursive): typia.Resolved<ObjectRecursive> => {
+    const clone = (
+      input: ObjectRecursive,
+    ): import("typia").Resolved<ObjectRecursive> => {
       const $io0 = (input: any): boolean =>
         (null === input.parent ||
           ("object" === typeof input.parent &&

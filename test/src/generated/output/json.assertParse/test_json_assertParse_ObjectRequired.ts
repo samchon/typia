@@ -10,7 +10,7 @@ export const test_json_assertParse_ObjectRequired = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<ObjectRequired> => {
+  ): import("typia").Primitive<ObjectRequired> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

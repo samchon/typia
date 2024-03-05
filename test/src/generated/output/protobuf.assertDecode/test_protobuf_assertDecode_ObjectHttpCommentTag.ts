@@ -12,10 +12,10 @@ export const test_protobuf_assertDecode_ObjectHttpCommentTag =
       ((
         input: Uint8Array,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectHttpCommentTag> => {
+        ): import("typia").Resolved<ObjectHttpCommentTag> => {
           const $Reader = (typia.protobuf.assertDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

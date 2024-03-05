@@ -6,7 +6,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_json_createIsParse_ObjectOptional = _test_json_isParse(
   "ObjectOptional",
 )<ObjectOptional>(ObjectOptional)(
-  (input: any): typia.Primitive<ObjectOptional> => {
+  (input: any): import("typia").Primitive<ObjectOptional> => {
     const is = (input: any): input is ObjectOptional => {
       const $io0 = (input: any): boolean =>
         (undefined === input.id || "string" === typeof input.id) &&

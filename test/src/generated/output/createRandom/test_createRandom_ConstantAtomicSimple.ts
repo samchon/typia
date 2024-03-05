@@ -9,7 +9,7 @@ export const test_createRandom_ConstantAtomicSimple = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ConstantAtomicSimple as any)
       .RANDOM,
-  ): typia.Resolved<ConstantAtomicSimple> => {
+  ): import("typia").Resolved<ConstantAtomicSimple> => {
     return [false, true, 2, "three"];
   },
   assert: (

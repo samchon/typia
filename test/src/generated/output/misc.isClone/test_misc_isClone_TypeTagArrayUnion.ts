@@ -6,7 +6,7 @@ import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 export const test_misc_isClone_TypeTagArrayUnion = _test_misc_isClone(
   "TypeTagArrayUnion",
 )<TypeTagArrayUnion>(TypeTagArrayUnion)((input) =>
-  ((input: any): typia.Resolved<TypeTagArrayUnion> | null => {
+  ((input: any): import("typia").Resolved<TypeTagArrayUnion> | null => {
     const is = (input: any): input is TypeTagArrayUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.items) &&
@@ -52,7 +52,7 @@ export const test_misc_isClone_TypeTagArrayUnion = _test_misc_isClone(
     };
     const clone = (
       input: TypeTagArrayUnion,
-    ): typia.Resolved<TypeTagArrayUnion> => {
+    ): import("typia").Resolved<TypeTagArrayUnion> => {
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

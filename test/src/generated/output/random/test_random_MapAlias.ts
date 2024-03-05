@@ -9,7 +9,7 @@ export const test_random_MapAlias = _test_random("MapAlias")<MapAlias>(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<MapAlias> => {
+    ): import("typia").Resolved<MapAlias> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         boolean: new Map(

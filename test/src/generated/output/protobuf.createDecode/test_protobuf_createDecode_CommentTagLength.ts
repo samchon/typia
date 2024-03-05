@@ -6,7 +6,9 @@ import { CommentTagLength } from "../../../structures/CommentTagLength";
 export const test_protobuf_createDecode_CommentTagLength =
   _test_protobuf_decode("CommentTagLength")<CommentTagLength>(CommentTagLength)(
     {
-      decode: (input: Uint8Array): typia.Resolved<CommentTagLength> => {
+      decode: (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagLength> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

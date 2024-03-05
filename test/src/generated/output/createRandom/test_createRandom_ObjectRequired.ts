@@ -8,7 +8,7 @@ export const test_createRandom_ObjectRequired = _test_random(
 )<ObjectRequired>(ObjectRequired)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectRequired as any).RANDOM,
-  ): typia.Resolved<ObjectRequired> => {
+  ): import("typia").Resolved<ObjectRequired> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

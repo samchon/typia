@@ -7,7 +7,9 @@ export const test_protobuf_isDecode_ObjectDescription = _test_protobuf_isDecode(
   "ObjectDescription",
 )<ObjectDescription>(ObjectDescription)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectDescription> | null => {
+    ((
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectDescription> | null => {
       const is = (input: any): input is ObjectDescription => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
@@ -22,7 +24,9 @@ export const test_protobuf_isDecode_ObjectDescription = _test_protobuf_isDecode(
           Number.isFinite(input.newLine);
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<ObjectDescription> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectDescription> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_DynamicNever =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<DynamicNever> => {
+    ): import("typia").Primitive<DynamicNever> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

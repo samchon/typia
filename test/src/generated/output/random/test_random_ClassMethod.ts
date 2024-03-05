@@ -9,7 +9,7 @@ export const test_random_ClassMethod = _test_random("ClassMethod")<ClassMethod>(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ClassMethod> => {
+    ): import("typia").Resolved<ClassMethod> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         name:

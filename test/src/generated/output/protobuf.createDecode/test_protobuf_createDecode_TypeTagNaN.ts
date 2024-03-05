@@ -6,7 +6,7 @@ import { TypeTagNaN } from "../../../structures/TypeTagNaN";
 export const test_protobuf_createDecode_TypeTagNaN = _test_protobuf_decode(
   "TypeTagNaN",
 )<TypeTagNaN>(TypeTagNaN)({
-  decode: (input: Uint8Array): typia.Resolved<TypeTagNaN> => {
+  decode: (input: Uint8Array): import("typia").Resolved<TypeTagNaN> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;

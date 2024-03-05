@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ConstantEnumeration =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ConstantEnumeration> => {
+    ): import("typia").Primitive<ConstantEnumeration> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

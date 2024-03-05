@@ -6,7 +6,9 @@ import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion
 export const test_misc_createClone_CommentTagObjectUnion = _test_misc_clone(
   "CommentTagObjectUnion",
 )<CommentTagObjectUnion>(CommentTagObjectUnion)(
-  (input: CommentTagObjectUnion): typia.Resolved<CommentTagObjectUnion> => {
+  (
+    input: CommentTagObjectUnion,
+  ): import("typia").Resolved<CommentTagObjectUnion> => {
     const $io0 = (input: any): boolean =>
       "number" === typeof input.value && 3 <= input.value;
     const $io1 = (input: any): boolean =>

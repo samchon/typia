@@ -210,7 +210,9 @@ export const test_misc_createValidateClone_AtomicClass =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: AtomicClass): typia.Resolved<AtomicClass> => {
+      const clone = (
+        input: AtomicClass,
+      ): import("typia").Resolved<AtomicClass> => {
         return Array.isArray(input) &&
           input.length === 9 &&
           ("boolean" === typeof input[0] || input[0] instanceof Boolean) &&

@@ -580,7 +580,7 @@ export const test_misc_createValidateClone_ObjectUnionExplicit =
     };
     const clone = (
       input: ObjectUnionExplicit,
-    ): typia.Resolved<ObjectUnionExplicit> => {
+    ): import("typia").Resolved<ObjectUnionExplicit> => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
         "number" === typeof input.y &&

@@ -6,7 +6,7 @@ import { ObjectHttpArray } from "../../../structures/ObjectHttpArray";
 export const test_protobuf_createDecode_ObjectHttpArray = _test_protobuf_decode(
   "ObjectHttpArray",
 )<ObjectHttpArray>(ObjectHttpArray)({
-  decode: (input: Uint8Array): typia.Resolved<ObjectHttpArray> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectHttpArray> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;

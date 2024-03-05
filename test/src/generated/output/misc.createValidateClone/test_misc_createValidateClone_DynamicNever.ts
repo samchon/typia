@@ -85,7 +85,9 @@ export const test_misc_createValidateClone_DynamicNever =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: DynamicNever): typia.Resolved<DynamicNever> => {
+      const clone = (
+        input: DynamicNever,
+      ): import("typia").Resolved<DynamicNever> => {
         const $co0 = (input: any): any => {
           const output = {} as any;
           for (const [key, value] of Object.entries(input)) {

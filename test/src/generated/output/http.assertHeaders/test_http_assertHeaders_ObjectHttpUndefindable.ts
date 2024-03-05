@@ -11,10 +11,10 @@ export const test_http_assertHeaders_ObjectHttpUndefindable =
     ((
       input: Record<string, string | string[] | undefined>,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpUndefindable> => {
+    ): import("typia").Resolved<ObjectHttpUndefindable> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpUndefindable> => {
+      ): import("typia").Resolved<ObjectHttpUndefindable> => {
         const $boolean = (typia.http.assertHeaders as any).boolean;
         const $bigint = (typia.http.assertHeaders as any).bigint;
         const $number = (typia.http.assertHeaders as any).number;

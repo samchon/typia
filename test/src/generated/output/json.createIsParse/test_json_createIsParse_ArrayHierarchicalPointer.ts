@@ -6,7 +6,7 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_json_createIsParse_ArrayHierarchicalPointer =
   _test_json_isParse("ArrayHierarchicalPointer")<ArrayHierarchicalPointer>(
     ArrayHierarchicalPointer,
-  )((input: any): typia.Primitive<ArrayHierarchicalPointer> => {
+  )((input: any): import("typia").Primitive<ArrayHierarchicalPointer> => {
     const is = (input: any): input is ArrayHierarchicalPointer => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

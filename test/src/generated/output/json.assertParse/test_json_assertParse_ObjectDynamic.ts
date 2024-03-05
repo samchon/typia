@@ -10,7 +10,7 @@ export const test_json_assertParse_ObjectDynamic = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<ObjectDynamic> => {
+  ): import("typia").Primitive<ObjectDynamic> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

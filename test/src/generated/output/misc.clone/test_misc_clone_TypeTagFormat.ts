@@ -6,7 +6,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 export const test_misc_clone_TypeTagFormat = _test_misc_clone(
   "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)((input) =>
-  ((input: TypeTagFormat): typia.Resolved<TypeTagFormat> => {
+  ((input: TypeTagFormat): import("typia").Resolved<TypeTagFormat> => {
     const $co0 = (input: any): any => ({
       byte: input.byte as any,
       password: input.password as any,

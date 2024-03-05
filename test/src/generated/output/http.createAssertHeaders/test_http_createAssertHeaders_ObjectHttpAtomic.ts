@@ -11,10 +11,10 @@ export const test_http_createAssertHeaders_ObjectHttpAtomic =
     (
       input: Record<string, string | string[] | undefined>,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpAtomic> => {
+    ): import("typia").Resolved<ObjectHttpAtomic> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpAtomic> => {
+      ): import("typia").Resolved<ObjectHttpAtomic> => {
         const $boolean = (typia.http.createAssertHeaders as any).boolean;
         const $bigint = (typia.http.createAssertHeaders as any).bigint;
         const $number = (typia.http.createAssertHeaders as any).number;

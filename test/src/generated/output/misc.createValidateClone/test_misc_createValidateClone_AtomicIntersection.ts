@@ -76,7 +76,7 @@ export const test_misc_createValidateClone_AtomicIntersection =
     };
     const clone = (
       input: AtomicIntersection,
-    ): typia.Resolved<AtomicIntersection> => {
+    ): import("typia").Resolved<AtomicIntersection> => {
       return Array.isArray(input) &&
         input.length === 3 &&
         "boolean" === typeof input[0] &&

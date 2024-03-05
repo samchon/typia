@@ -138,7 +138,7 @@ export const test_misc_validateClone_CommentTagAtomicUnion =
       };
       const clone = (
         input: CommentTagAtomicUnion,
-      ): typia.Resolved<CommentTagAtomicUnion> => {
+      ): import("typia").Resolved<CommentTagAtomicUnion> => {
         const $io1 = (input: any): boolean =>
           ("string" === typeof input.value &&
             3 <= input.value.length &&

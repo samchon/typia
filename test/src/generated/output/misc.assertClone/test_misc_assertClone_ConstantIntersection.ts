@@ -11,7 +11,7 @@ export const test_misc_assertClone_ConstantIntersection =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ConstantIntersection> => {
+    ): import("typia").Resolved<ConstantIntersection> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -98,7 +98,7 @@ export const test_misc_assertClone_ConstantIntersection =
       };
       const clone = (
         input: ConstantIntersection,
-      ): typia.Resolved<ConstantIntersection> => {
+      ): import("typia").Resolved<ConstantIntersection> => {
         return Array.isArray(input) &&
           input.length === 3 &&
           false === input[0] &&

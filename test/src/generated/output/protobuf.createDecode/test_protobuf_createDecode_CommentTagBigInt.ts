@@ -6,7 +6,9 @@ import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
 export const test_protobuf_createDecode_CommentTagBigInt =
   _test_protobuf_decode("CommentTagBigInt")<CommentTagBigInt>(CommentTagBigInt)(
     {
-      decode: (input: Uint8Array): typia.Resolved<CommentTagBigInt> => {
+      decode: (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagBigInt> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

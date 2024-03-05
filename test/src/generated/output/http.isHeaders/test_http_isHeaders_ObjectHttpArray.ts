@@ -8,7 +8,7 @@ export const test_http_isHeaders_ObjectHttpArray = _test_http_isHeaders(
 )<ObjectHttpArray>(ObjectHttpArray)((input) =>
   ((
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpArray> | null => {
+  ): import("typia").Resolved<ObjectHttpArray> | null => {
     const is = (input: any): input is ObjectHttpArray => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.booleans) &&
@@ -30,7 +30,7 @@ export const test_http_isHeaders_ObjectHttpArray = _test_http_isHeaders(
     };
     const decode = (
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpArray> => {
+    ): import("typia").Resolved<ObjectHttpArray> => {
       const $boolean = (typia.http.isHeaders as any).boolean;
       const $bigint = (typia.http.isHeaders as any).bigint;
       const $number = (typia.http.isHeaders as any).number;

@@ -6,7 +6,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_json_isParse_ArrayRecursive = _test_json_isParse(
   "ArrayRecursive",
 )<ArrayRecursive>(ArrayRecursive)((input) =>
-  ((input: any): typia.Primitive<ArrayRecursive> => {
+  ((input: any): import("typia").Primitive<ArrayRecursive> => {
     const is = (input: any): input is ArrayRecursive => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.children) &&

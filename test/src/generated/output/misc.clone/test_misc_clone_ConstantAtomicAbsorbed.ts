@@ -6,7 +6,9 @@ import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorb
 export const test_misc_clone_ConstantAtomicAbsorbed = _test_misc_clone(
   "ConstantAtomicAbsorbed",
 )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
-  ((input: ConstantAtomicAbsorbed): typia.Resolved<ConstantAtomicAbsorbed> => {
+  ((
+    input: ConstantAtomicAbsorbed,
+  ): import("typia").Resolved<ConstantAtomicAbsorbed> => {
     const $co0 = (input: any): any => ({
       id: input.id as any,
       age: input.age as any,

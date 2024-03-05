@@ -6,7 +6,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_misc_isClone_TemplateUnion = _test_misc_isClone(
   "TemplateUnion",
 )<TemplateUnion>(TemplateUnion)((input) =>
-  ((input: any): typia.Resolved<TemplateUnion> | null => {
+  ((input: any): import("typia").Resolved<TemplateUnion> | null => {
     const is = (input: any): input is TemplateUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -49,7 +49,9 @@ export const test_misc_isClone_TemplateUnion = _test_misc_isClone(
       const $io2 = (input: any): boolean => "string" === typeof input.name;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TemplateUnion): typia.Resolved<TemplateUnion> => {
+    const clone = (
+      input: TemplateUnion,
+    ): import("typia").Resolved<TemplateUnion> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.prefix &&
         (RegExp(/^prefix_(.*)/).test(input.prefix) ||

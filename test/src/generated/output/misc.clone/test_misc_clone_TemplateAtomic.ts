@@ -6,7 +6,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 export const test_misc_clone_TemplateAtomic = _test_misc_clone(
   "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)((input) =>
-  ((input: TemplateAtomic): typia.Resolved<TemplateAtomic> => {
+  ((input: TemplateAtomic): import("typia").Resolved<TemplateAtomic> => {
     const $co0 = (input: any): any => ({
       prefix: input.prefix as any,
       postfix: input.postfix as any,

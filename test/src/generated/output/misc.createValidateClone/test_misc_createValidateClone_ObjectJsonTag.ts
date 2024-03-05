@@ -81,7 +81,9 @@ export const test_misc_createValidateClone_ObjectJsonTag =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectJsonTag): typia.Resolved<ObjectJsonTag> => {
+      const clone = (
+        input: ObjectJsonTag,
+      ): import("typia").Resolved<ObjectJsonTag> => {
         const $co0 = (input: any): any => ({
           vulnerable: input.vulnerable as any,
           description: input.description as any,

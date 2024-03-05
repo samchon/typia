@@ -8,7 +8,7 @@ export const test_createRandom_ObjectGeneric = _test_random(
 )<ObjectGeneric>(ObjectGeneric)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectGeneric as any).RANDOM,
-  ): typia.Resolved<ObjectGeneric> => {
+  ): import("typia").Resolved<ObjectGeneric> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: (generator?.boolean ?? $generator.boolean)(),

@@ -6,7 +6,7 @@ import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssign
 export const test_misc_createIsClone_ClassPropertyAssignment =
   _test_misc_isClone("ClassPropertyAssignment")<ClassPropertyAssignment>(
     ClassPropertyAssignment,
-  )((input: any): typia.Resolved<ClassPropertyAssignment> | null => {
+  )((input: any): import("typia").Resolved<ClassPropertyAssignment> | null => {
     const is = (input: any): input is ClassPropertyAssignment => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&
@@ -19,7 +19,7 @@ export const test_misc_createIsClone_ClassPropertyAssignment =
     };
     const clone = (
       input: ClassPropertyAssignment,
-    ): typia.Resolved<ClassPropertyAssignment> => {
+    ): import("typia").Resolved<ClassPropertyAssignment> => {
       const $co0 = (input: any): any => ({
         id: input.id as any,
         name: input.name as any,

@@ -6,7 +6,7 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_misc_createIsClone_DynamicUnion = _test_misc_isClone(
   "DynamicUnion",
 )<DynamicUnion>(DynamicUnion)(
-  (input: any): typia.Resolved<DynamicUnion> | null => {
+  (input: any): import("typia").Resolved<DynamicUnion> | null => {
     const is = (input: any): input is DynamicUnion => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
@@ -34,7 +34,9 @@ export const test_misc_createIsClone_DynamicUnion = _test_misc_isClone(
         $io0(input)
       );
     };
-    const clone = (input: DynamicUnion): typia.Resolved<DynamicUnion> => {
+    const clone = (
+      input: DynamicUnion,
+    ): import("typia").Resolved<DynamicUnion> => {
       const $co0 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {

@@ -12,8 +12,10 @@ export const test_protobuf_createAssertDecodeCustom_TypeTagTypeBigInt =
       input: Uint8Array,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<TypeTagTypeBigInt> => {
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagTypeBigInt> => {
+    ): import("typia").Resolved<TypeTagTypeBigInt> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagTypeBigInt> => {
         const $Reader = (typia.protobuf.createAssertDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

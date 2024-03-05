@@ -11,7 +11,7 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ArrayRepeatedRequired> => {
+    ): import("typia").Resolved<ArrayRepeatedRequired> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -170,7 +170,7 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
       };
       const clone = (
         input: ArrayRepeatedRequired,
-      ): typia.Resolved<ArrayRepeatedRequired> => {
+      ): import("typia").Resolved<ArrayRepeatedRequired> => {
         const $ia0 = (input: any): any =>
           input.every(
             (elem: any) =>

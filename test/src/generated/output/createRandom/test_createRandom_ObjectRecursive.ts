@@ -9,7 +9,7 @@ export const test_createRandom_ObjectRecursive = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectRecursive as any)
       .RANDOM,
-  ): typia.Resolved<ObjectRecursive> => {
+  ): import("typia").Resolved<ObjectRecursive> => {
     const $pick = (typia.createRandom as any).pick;
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({

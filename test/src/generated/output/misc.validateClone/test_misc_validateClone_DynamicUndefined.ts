@@ -87,7 +87,7 @@ export const test_misc_validateClone_DynamicUndefined =
       };
       const clone = (
         input: DynamicUndefined,
-      ): typia.Resolved<DynamicUndefined> => {
+      ): import("typia").Resolved<DynamicUndefined> => {
         const $co0 = (input: any): any => {
           const output = {} as any;
           for (const [key, value] of Object.entries(input)) {

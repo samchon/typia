@@ -7,7 +7,7 @@ export const test_protobuf_isDecode_ObjectPartial = _test_protobuf_isDecode(
   "ObjectPartial",
 )<ObjectPartial>(ObjectPartial)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectPartial> | null => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectPartial> | null => {
       const is = (input: any): input is ObjectPartial => {
         const $io0 = (input: any): boolean =>
           (undefined === input.boolean || "boolean" === typeof input.boolean) &&
@@ -46,7 +46,9 @@ export const test_protobuf_isDecode_ObjectPartial = _test_protobuf_isDecode(
           $io0(input)
         );
       };
-      const decode = (input: Uint8Array): typia.Resolved<ObjectPartial> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectPartial> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

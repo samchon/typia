@@ -9,7 +9,7 @@ export const test_random_NativeSimple = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<NativeSimple> => {
+    ): import("typia").Resolved<NativeSimple> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         date: new Date((generator?.datetime ?? $generator.datetime)()),

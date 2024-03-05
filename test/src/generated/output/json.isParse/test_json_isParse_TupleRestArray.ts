@@ -6,7 +6,7 @@ import { TupleRestArray } from "../../../structures/TupleRestArray";
 export const test_json_isParse_TupleRestArray = _test_json_isParse(
   "TupleRestArray",
 )<TupleRestArray>(TupleRestArray)((input) =>
-  ((input: any): typia.Primitive<TupleRestArray> => {
+  ((input: any): import("typia").Primitive<TupleRestArray> => {
     const is = (input: any): input is TupleRestArray => {
       return (
         Array.isArray(input) &&

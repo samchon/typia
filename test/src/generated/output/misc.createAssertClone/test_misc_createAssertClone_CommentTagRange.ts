@@ -11,7 +11,7 @@ export const test_misc_createAssertClone_CommentTagRange =
     (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<CommentTagRange> => {
+    ): import("typia").Resolved<CommentTagRange> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -513,7 +513,7 @@ export const test_misc_createAssertClone_CommentTagRange =
       };
       const clone = (
         input: CommentTagRange,
-      ): typia.Resolved<CommentTagRange> => {
+      ): import("typia").Resolved<CommentTagRange> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.greater &&
           Math.floor(input.greater) === input.greater &&

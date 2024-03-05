@@ -10,7 +10,7 @@ export const test_createRandom_MapSimpleProtobufOptional = _test_random(
     generator: Partial<typia.IRandomGenerator> = (
       MapSimpleProtobufOptional as any
     ).RANDOM,
-  ): typia.Resolved<MapSimpleProtobufOptional> => {
+  ): import("typia").Resolved<MapSimpleProtobufOptional> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({

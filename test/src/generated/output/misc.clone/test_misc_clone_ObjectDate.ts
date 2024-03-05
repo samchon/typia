@@ -6,7 +6,7 @@ import { ObjectDate } from "../../../structures/ObjectDate";
 export const test_misc_clone_ObjectDate = _test_misc_clone(
   "ObjectDate",
 )<ObjectDate>(ObjectDate)((input) =>
-  ((input: ObjectDate): typia.Resolved<ObjectDate> => {
+  ((input: ObjectDate): import("typia").Resolved<ObjectDate> => {
     const $co0 = (input: any): any => ({
       classDate:
         input.classDate instanceof Date

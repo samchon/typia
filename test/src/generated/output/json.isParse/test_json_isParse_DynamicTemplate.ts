@@ -6,7 +6,7 @@ import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 export const test_json_isParse_DynamicTemplate = _test_json_isParse(
   "DynamicTemplate",
 )<DynamicTemplate>(DynamicTemplate)((input) =>
-  ((input: any): typia.Primitive<DynamicTemplate> => {
+  ((input: any): import("typia").Primitive<DynamicTemplate> => {
     const is = (input: any): input is DynamicTemplate => {
       const $io0 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {

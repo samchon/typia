@@ -6,7 +6,7 @@ import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 export const test_json_createIsParse_CommentTagPattern = _test_json_isParse(
   "CommentTagPattern",
 )<CommentTagPattern>(CommentTagPattern)(
-  (input: any): typia.Primitive<CommentTagPattern> => {
+  (input: any): import("typia").Primitive<CommentTagPattern> => {
     const is = (input: any): input is CommentTagPattern => {
       return (
         "object" === typeof input &&

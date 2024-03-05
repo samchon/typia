@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_TypeTagRange =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<TypeTagRange> => {
+    ): import("typia").Resolved<TypeTagRange> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -512,7 +512,9 @@ export const test_misc_createAssertCloneCustom_TypeTagRange =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: TypeTagRange): typia.Resolved<TypeTagRange> => {
+      const clone = (
+        input: TypeTagRange,
+      ): import("typia").Resolved<TypeTagRange> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.greater &&
           Math.floor(input.greater) === input.greater &&

@@ -6,7 +6,7 @@ import { UltimateUnion } from "../../../structures/UltimateUnion";
 export const test_json_isParse_UltimateUnion = _test_json_isParse(
   "UltimateUnion",
 )<UltimateUnion>(UltimateUnion)((input) =>
-  ((input: any): typia.Primitive<UltimateUnion> => {
+  ((input: any): import("typia").Primitive<UltimateUnion> => {
     const is = (input: any): input is UltimateUnion => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.schemas) &&

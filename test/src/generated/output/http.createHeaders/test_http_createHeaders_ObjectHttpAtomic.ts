@@ -8,7 +8,7 @@ export const test_http_createHeaders_ObjectHttpAtomic = _test_http_headers(
 )<ObjectHttpAtomic>(ObjectHttpAtomic)(
   (
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpAtomic> => {
+  ): import("typia").Resolved<ObjectHttpAtomic> => {
     const $boolean = (typia.http.createHeaders as any).boolean;
     const $bigint = (typia.http.createHeaders as any).bigint;
     const $number = (typia.http.createHeaders as any).number;

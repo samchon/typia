@@ -6,7 +6,7 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_protobuf_createDecode_ObjectRequired = _test_protobuf_decode(
   "ObjectRequired",
 )<ObjectRequired>(ObjectRequired)({
-  decode: (input: Uint8Array): typia.Resolved<ObjectRequired> => {
+  decode: (input: Uint8Array): import("typia").Resolved<ObjectRequired> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;

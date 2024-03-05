@@ -7,7 +7,9 @@ export const test_protobuf_createDecode_TypeTagTypeBigInt =
   _test_protobuf_decode("TypeTagTypeBigInt")<TypeTagTypeBigInt>(
     TypeTagTypeBigInt,
   )({
-    decode: (input: Uint8Array): typia.Resolved<TypeTagTypeBigInt> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<TypeTagTypeBigInt> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

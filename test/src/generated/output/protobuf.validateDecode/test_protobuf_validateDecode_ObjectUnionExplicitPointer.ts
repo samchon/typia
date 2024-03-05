@@ -646,7 +646,7 @@ export const test_protobuf_validateDecode_ObjectUnionExplicitPointer =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ObjectUnionExplicitPointer> => {
+        ): import("typia").Resolved<ObjectUnionExplicitPointer> => {
           const $Reader = (typia.protobuf.validateDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

@@ -6,7 +6,7 @@ import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 export const test_misc_createIsClone_ObjectGeneric = _test_misc_isClone(
   "ObjectGeneric",
 )<ObjectGeneric>(ObjectGeneric)(
-  (input: any): typia.Resolved<ObjectGeneric> | null => {
+  (input: any): import("typia").Resolved<ObjectGeneric> | null => {
     const is = (input: any): input is ObjectGeneric => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.value &&
@@ -69,7 +69,9 @@ export const test_misc_createIsClone_ObjectGeneric = _test_misc_isClone(
         $io4(input[2])
       );
     };
-    const clone = (input: ObjectGeneric): typia.Resolved<ObjectGeneric> => {
+    const clone = (
+      input: ObjectGeneric,
+    ): import("typia").Resolved<ObjectGeneric> => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.value &&
         "object" === typeof input.child &&

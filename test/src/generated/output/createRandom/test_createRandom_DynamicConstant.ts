@@ -9,7 +9,7 @@ export const test_createRandom_DynamicConstant = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicConstant as any)
       .RANDOM,
-  ): typia.Resolved<DynamicConstant> => {
+  ): import("typia").Resolved<DynamicConstant> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),

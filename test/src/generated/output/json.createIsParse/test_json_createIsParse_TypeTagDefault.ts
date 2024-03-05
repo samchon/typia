@@ -6,7 +6,7 @@ import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 export const test_json_createIsParse_TypeTagDefault = _test_json_isParse(
   "TypeTagDefault",
 )<TypeTagDefault>(TypeTagDefault)(
-  (input: any): typia.Primitive<TypeTagDefault> => {
+  (input: any): import("typia").Primitive<TypeTagDefault> => {
     const is = (input: any): input is TypeTagDefault => {
       const $io0 = (input: any): boolean =>
         "boolean" === typeof input.boolean &&

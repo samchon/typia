@@ -10,7 +10,7 @@ export const test_createRandom_ObjectSimpleProtobufNullable = _test_random(
     generator: Partial<typia.IRandomGenerator> = (
       ObjectSimpleProtobufNullable as any
     ).RANDOM,
-  ): typia.Resolved<ObjectSimpleProtobufNullable> => {
+  ): import("typia").Resolved<ObjectSimpleProtobufNullable> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

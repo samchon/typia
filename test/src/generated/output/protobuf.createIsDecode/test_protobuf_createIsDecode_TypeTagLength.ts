@@ -5,7 +5,9 @@ import { TypeTagLength } from "../../../structures/TypeTagLength";
 
 export const test_protobuf_createIsDecode_TypeTagLength =
   _test_protobuf_isDecode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
-    decode: (input: Uint8Array): typia.Resolved<TypeTagLength> | null => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<TypeTagLength> | null => {
       const is = (input: any): input is TypeTagLength => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -29,7 +31,9 @@ export const test_protobuf_createIsDecode_TypeTagLength =
           input.equal.length <= 19;
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagLength> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagLength> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

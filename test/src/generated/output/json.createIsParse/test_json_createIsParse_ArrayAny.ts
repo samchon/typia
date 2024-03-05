@@ -5,7 +5,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 
 export const test_json_createIsParse_ArrayAny = _test_json_isParse(
   "ArrayAny",
-)<ArrayAny>(ArrayAny)((input: any): typia.Primitive<ArrayAny> => {
+)<ArrayAny>(ArrayAny)((input: any): import("typia").Primitive<ArrayAny> => {
   const is = (input: any): input is ArrayAny => {
     const $io0 = (input: any): boolean =>
       Array.isArray(input.anys) &&

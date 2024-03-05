@@ -39,7 +39,9 @@ export const test_protobuf_encode_ObjectHttpCommentTag = _test_protobuf_encode(
       const writer = encoder(new $Writer(sizer));
       return writer.buffer();
     })(input),
-  decode: (input: Uint8Array): typia.Resolved<ObjectHttpCommentTag> => {
+  decode: (
+    input: Uint8Array,
+  ): import("typia").Resolved<ObjectHttpCommentTag> => {
     const $Reader = (typia.protobuf.createDecode as any).Reader;
     const $pdo0 = (reader: any, length: number = -1): any => {
       length = length < 0 ? reader.size() : reader.index() + length;
@@ -82,5 +84,5 @@ export const test_protobuf_encode_ObjectHttpCommentTag = _test_protobuf_encode(
     return $pdo0(reader);
   },
   message:
-    'syntax = "proto3";\n\nmessage ObjectHttpCommentTag {\n    required int32 int = 1;\n    required uint64 uint64 = 2;\n    required string uuid = 3;\n    repeated double items = 4;\n}',
+    'syntax = "proto3";\n\nmessage ObjectHttpCommentTag {\n  required int32 int = 1;\n  required uint64 uint64 = 2;\n  required string uuid = 3;\n  repeated double items = 4;\n}',
 });

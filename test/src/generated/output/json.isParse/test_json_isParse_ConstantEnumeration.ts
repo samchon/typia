@@ -6,7 +6,7 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_json_isParse_ConstantEnumeration = _test_json_isParse(
   "ConstantEnumeration",
 )<ConstantEnumeration>(ConstantEnumeration)((input) =>
-  ((input: any): typia.Primitive<ConstantEnumeration> => {
+  ((input: any): import("typia").Primitive<ConstantEnumeration> => {
     const is = (input: any): input is ConstantEnumeration => {
       return (
         Array.isArray(input) &&

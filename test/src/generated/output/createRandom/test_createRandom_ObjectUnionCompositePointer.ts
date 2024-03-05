@@ -10,7 +10,7 @@ export const test_createRandom_ObjectUnionCompositePointer = _test_random(
     generator: Partial<typia.IRandomGenerator> = (
       ObjectUnionCompositePointer as any
     ).RANDOM,
-  ): typia.Resolved<ObjectUnionCompositePointer> => {
+  ): import("typia").Resolved<ObjectUnionCompositePointer> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

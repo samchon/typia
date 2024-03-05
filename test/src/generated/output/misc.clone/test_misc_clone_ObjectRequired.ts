@@ -6,7 +6,7 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_misc_clone_ObjectRequired = _test_misc_clone(
   "ObjectRequired",
 )<ObjectRequired>(ObjectRequired)((input) =>
-  ((input: ObjectRequired): typia.Resolved<ObjectRequired> => {
+  ((input: ObjectRequired): import("typia").Resolved<ObjectRequired> => {
     const $io1 = (input: any): boolean =>
       (undefined === input.boolean || "boolean" === typeof input.boolean) &&
       (undefined === input.number || "number" === typeof input.number) &&

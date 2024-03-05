@@ -85,7 +85,7 @@ export const test_misc_validateClone_ConstantAtomicSimple =
       };
       const clone = (
         input: ConstantAtomicSimple,
-      ): typia.Resolved<ConstantAtomicSimple> => {
+      ): import("typia").Resolved<ConstantAtomicSimple> => {
         return Array.isArray(input) &&
           input.length === 4 &&
           false === input[0] &&

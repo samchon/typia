@@ -6,7 +6,7 @@ import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 export const test_json_isParse_ObjectIntersection = _test_json_isParse(
   "ObjectIntersection",
 )<ObjectIntersection>(ObjectIntersection)((input) =>
-  ((input: any): typia.Primitive<ObjectIntersection> => {
+  ((input: any): import("typia").Primitive<ObjectIntersection> => {
     const is = (input: any): input is ObjectIntersection => {
       return (
         "object" === typeof input &&

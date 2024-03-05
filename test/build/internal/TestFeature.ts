@@ -1,4 +1,4 @@
-import { write_functional_assert } from "../writers/write_functional_assert";
+import { write_functional } from "../writers/write_functional";
 import { write_notation } from "../writers/write_notation";
 import { write_protobuf_decode } from "../writers/write_protobuf_decode";
 import { write_protobuf_encode } from "../writers/write_protobuf_encode";
@@ -94,24 +94,40 @@ export namespace TestFeature {
     //----
     // FUNCTIONAL FEATURES
     //----
-    ...["assertFunction", "assertParameters", "assertReturn"].map((method) => ({
+    ...[
+      "assertFunction",
+      "assertParameters",
+      "assertReturn",
+      "isFunction",
+      "isParameters",
+      "isReturn",
+      "validateFunction",
+      "validateParameters",
+      "validateReturn",
+    ].map((method) => ({
       module: "functional",
       method,
       creatable: false,
       spoilable: true,
-      programmer: () => write_functional_assert(method),
+      programmer: () => write_functional(method),
     })),
     ...[
       "assertEqualsFunction",
       "assertEqualsParameters",
       "assertEqualsReturn",
+      "equalsFunction",
+      "equalsParameters",
+      "equalsReturn",
+      "validateEqualsFunction",
+      "validateEqualsParameters",
+      "validateEqualsReturn",
     ].map((method) => ({
       module: "functional",
       method,
       creatable: false,
       spoilable: false,
       strict: true,
-      programmer: () => write_functional_assert(method),
+      programmer: () => write_functional(method),
     })),
 
     //----

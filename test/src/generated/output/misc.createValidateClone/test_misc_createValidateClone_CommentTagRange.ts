@@ -367,7 +367,7 @@ export const test_misc_createValidateClone_CommentTagRange =
       };
       const clone = (
         input: CommentTagRange,
-      ): typia.Resolved<CommentTagRange> => {
+      ): import("typia").Resolved<CommentTagRange> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.greater &&
           Math.floor(input.greater) === input.greater &&

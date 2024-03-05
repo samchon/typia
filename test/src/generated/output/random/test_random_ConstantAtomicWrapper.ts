@@ -9,7 +9,7 @@ export const test_random_ConstantAtomicWrapper = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ConstantAtomicWrapper> => {
+    ): import("typia").Resolved<ConstantAtomicWrapper> => {
       const $generator = (typia.random as any).generator;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
         value: (generator?.boolean ?? $generator.boolean)(),

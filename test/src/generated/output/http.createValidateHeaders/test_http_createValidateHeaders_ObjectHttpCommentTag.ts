@@ -149,7 +149,7 @@ export const test_http_createValidateHeaders_ObjectHttpCommentTag =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const $number = (typia.http.createValidateHeaders as any).number;
         const $bigint = (typia.http.createValidateHeaders as any).bigint;
         const output = {

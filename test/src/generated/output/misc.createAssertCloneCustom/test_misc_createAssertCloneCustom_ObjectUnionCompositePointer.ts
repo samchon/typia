@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ObjectUnionCompositePointer =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectUnionCompositePointer> => {
+    ): import("typia").Resolved<ObjectUnionCompositePointer> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -765,7 +765,7 @@ export const test_misc_createAssertCloneCustom_ObjectUnionCompositePointer =
       };
       const clone = (
         input: ObjectUnionCompositePointer,
-      ): typia.Resolved<ObjectUnionCompositePointer> => {
+      ): import("typia").Resolved<ObjectUnionCompositePointer> => {
         const $io1 = (input: any): boolean =>
           "object" === typeof input.value &&
           null !== input.value &&

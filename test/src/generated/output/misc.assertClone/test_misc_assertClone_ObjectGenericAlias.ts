@@ -10,7 +10,7 @@ export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectGenericAlias> => {
+  ): import("typia").Resolved<ObjectGenericAlias> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -71,7 +71,7 @@ export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
     };
     const clone = (
       input: ObjectGenericAlias,
-    ): typia.Resolved<ObjectGenericAlias> => {
+    ): import("typia").Resolved<ObjectGenericAlias> => {
       const $co0 = (input: any): any => ({
         value: input.value as any,
       });

@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_TypeTagAtomicUnion =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<TypeTagAtomicUnion> => {
+    ): import("typia").Resolved<TypeTagAtomicUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -174,7 +174,7 @@ export const test_misc_assertCloneCustom_TypeTagAtomicUnion =
       };
       const clone = (
         input: TypeTagAtomicUnion,
-      ): typia.Resolved<TypeTagAtomicUnion> => {
+      ): import("typia").Resolved<TypeTagAtomicUnion> => {
         const $io1 = (input: any): boolean =>
           ("string" === typeof input.value &&
             3 <= input.value.length &&

@@ -7,7 +7,7 @@ export const test_protobuf_isDecode_TypeTagType = _test_protobuf_isDecode(
   "TypeTagType",
 )<TypeTagType>(TypeTagType)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<TypeTagType> | null => {
+    ((input: Uint8Array): import("typia").Resolved<TypeTagType> | null => {
       const is = (input: any): input is TypeTagType => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -45,7 +45,9 @@ export const test_protobuf_isDecode_TypeTagType = _test_protobuf_isDecode(
           input.float <= 3.4028235e38;
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagType> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagType> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

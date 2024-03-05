@@ -9,7 +9,7 @@ export const test_createRandom_ObjectIntersection = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectIntersection as any)
       .RANDOM,
-  ): typia.Resolved<ObjectIntersection> => {
+  ): import("typia").Resolved<ObjectIntersection> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       email:

@@ -9,7 +9,7 @@ export const test_protobuf_createIsDecode_ArraySimpleProtobufOptional =
   )<ArraySimpleProtobufOptional>(ArraySimpleProtobufOptional)({
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<ArraySimpleProtobufOptional> | null => {
+    ): import("typia").Resolved<ArraySimpleProtobufOptional> | null => {
       const is = (input: any): input is ArraySimpleProtobufOptional => {
         const $io0 = (input: any): boolean =>
           (undefined === input.boolean ||
@@ -81,7 +81,7 @@ export const test_protobuf_createIsDecode_ArraySimpleProtobufOptional =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<ArraySimpleProtobufOptional> => {
+      ): import("typia").Resolved<ArraySimpleProtobufOptional> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

@@ -191,7 +191,7 @@ export const test_misc_validateClone_CommentTagDefault =
       };
       const clone = (
         input: CommentTagDefault,
-      ): typia.Resolved<CommentTagDefault> => {
+      ): import("typia").Resolved<CommentTagDefault> => {
         const $co0 = (input: any): any => ({
           boolean: input.boolean as any,
           number: input.number as any,

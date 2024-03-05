@@ -129,7 +129,7 @@ export const test_misc_createValidateClone_ArrayAtomicAlias =
     };
     const clone = (
       input: ArrayAtomicAlias,
-    ): typia.Resolved<ArrayAtomicAlias> => {
+    ): import("typia").Resolved<ArrayAtomicAlias> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       const $cp1 = (input: any) => input.map((elem: any) => elem as any);
       const $cp2 = (input: any) => input.map((elem: any) => elem as any);

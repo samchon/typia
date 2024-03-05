@@ -6,7 +6,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_misc_createIsClone_TypeTagRange = _test_misc_isClone(
   "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)(
-  (input: any): typia.Resolved<TypeTagRange> | null => {
+  (input: any): import("typia").Resolved<TypeTagRange> | null => {
     const is = (input: any): input is TypeTagRange => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -68,7 +68,9 @@ export const test_misc_createIsClone_TypeTagRange = _test_misc_isClone(
         input.equal <= 10;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagRange): typia.Resolved<TypeTagRange> => {
+    const clone = (
+      input: TypeTagRange,
+    ): import("typia").Resolved<TypeTagRange> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.greater &&
         Math.floor(input.greater) === input.greater &&

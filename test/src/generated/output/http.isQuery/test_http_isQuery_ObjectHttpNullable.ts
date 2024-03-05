@@ -8,7 +8,7 @@ export const test_http_isQuery_ObjectHttpNullable = _test_http_isQuery(
 )<ObjectHttpNullable>(ObjectHttpNullable)((input) =>
   ((
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpNullable> | null => {
+  ): import("typia").Resolved<ObjectHttpNullable> | null => {
     const is = (input: any): input is ObjectHttpNullable => {
       const $io0 = (input: any): boolean =>
         (null === input.boolean || "boolean" === typeof input.boolean) &&
@@ -40,7 +40,7 @@ export const test_http_isQuery_ObjectHttpNullable = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpNullable> => {
+    ): import("typia").Resolved<ObjectHttpNullable> => {
       const $params = (typia.http.isQuery as any).params;
       const $boolean = (typia.http.isQuery as any).boolean;
       const $bigint = (typia.http.isQuery as any).bigint;

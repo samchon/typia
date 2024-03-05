@@ -9,7 +9,7 @@ export const test_random_ArrayAtomicSimple = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ArrayAtomicSimple> => {
+    ): import("typia").Resolved<ArrayAtomicSimple> => {
       const $generator = (typia.random as any).generator;
       return [
         (generator?.array ?? $generator.array)(() =>

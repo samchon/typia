@@ -10,7 +10,7 @@ export const test_misc_assertClone_CommentTagDefault = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<CommentTagDefault> => {
+  ): import("typia").Resolved<CommentTagDefault> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -250,7 +250,7 @@ export const test_misc_assertClone_CommentTagDefault = _test_misc_assertClone(
     };
     const clone = (
       input: CommentTagDefault,
-    ): typia.Resolved<CommentTagDefault> => {
+    ): import("typia").Resolved<CommentTagDefault> => {
       const $co0 = (input: any): any => ({
         boolean: input.boolean as any,
         number: input.number as any,

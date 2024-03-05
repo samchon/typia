@@ -7,7 +7,7 @@ export const test_json_createIsParse_ArrayRecursiveUnionImplicit =
   _test_json_isParse(
     "ArrayRecursiveUnionImplicit",
   )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
-    (input: any): typia.Primitive<ArrayRecursiveUnionImplicit> => {
+    (input: any): import("typia").Primitive<ArrayRecursiveUnionImplicit> => {
       const is = (input: any): input is ArrayRecursiveUnionImplicit => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.id &&

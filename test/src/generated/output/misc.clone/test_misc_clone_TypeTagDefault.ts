@@ -6,7 +6,7 @@ import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 export const test_misc_clone_TypeTagDefault = _test_misc_clone(
   "TypeTagDefault",
 )<TypeTagDefault>(TypeTagDefault)((input) =>
-  ((input: TypeTagDefault): typia.Resolved<TypeTagDefault> => {
+  ((input: TypeTagDefault): import("typia").Resolved<TypeTagDefault> => {
     const $co0 = (input: any): any => ({
       boolean: input.boolean as any,
       number: input.number as any,

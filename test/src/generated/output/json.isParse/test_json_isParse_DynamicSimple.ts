@@ -6,7 +6,7 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 export const test_json_isParse_DynamicSimple = _test_json_isParse(
   "DynamicSimple",
 )<DynamicSimple>(DynamicSimple)((input) =>
-  ((input: any): typia.Primitive<DynamicSimple> => {
+  ((input: any): import("typia").Primitive<DynamicSimple> => {
     const is = (input: any): input is DynamicSimple => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.value &&

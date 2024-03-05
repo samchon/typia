@@ -6,7 +6,9 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_protobuf_createDecode_TemplateConstant =
   _test_protobuf_decode("TemplateConstant")<TemplateConstant>(TemplateConstant)(
     {
-      decode: (input: Uint8Array): typia.Resolved<TemplateConstant> => {
+      decode: (
+        input: Uint8Array,
+      ): import("typia").Resolved<TemplateConstant> => {
         const $Reader = (typia.protobuf.createDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

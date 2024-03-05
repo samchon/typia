@@ -102,7 +102,7 @@ export const test_misc_validateClone_ConstantAtomicTagged =
       };
       const clone = (
         input: ConstantAtomicTagged,
-      ): typia.Resolved<ConstantAtomicTagged> => {
+      ): import("typia").Resolved<ConstantAtomicTagged> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           age: input.age as any,

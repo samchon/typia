@@ -6,7 +6,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_misc_createClone_TypeTagRange = _test_misc_clone(
   "TypeTagRange",
 )<TypeTagRange>(TypeTagRange)(
-  (input: TypeTagRange): typia.Resolved<TypeTagRange> => {
+  (input: TypeTagRange): import("typia").Resolved<TypeTagRange> => {
     const $io1 = (input: any): boolean =>
       "number" === typeof input.greater &&
       Math.floor(input.greater) === input.greater &&

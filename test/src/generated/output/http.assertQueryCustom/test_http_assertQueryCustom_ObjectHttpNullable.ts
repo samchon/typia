@@ -11,10 +11,10 @@ export const test_http_assertQueryCustom_ObjectHttpNullable =
     ((
       input: string | URLSearchParams,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpNullable> => {
+    ): import("typia").Resolved<ObjectHttpNullable> => {
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpNullable> => {
+      ): import("typia").Resolved<ObjectHttpNullable> => {
         const $params = (typia.http.assertQuery as any).params;
         const $boolean = (typia.http.assertQuery as any).boolean;
         const $bigint = (typia.http.assertQuery as any).bigint;

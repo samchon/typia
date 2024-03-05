@@ -6,7 +6,7 @@ import { CommentTagType } from "../../../structures/CommentTagType";
 export const test_misc_isClone_CommentTagType = _test_misc_isClone(
   "CommentTagType",
 )<CommentTagType>(CommentTagType)((input) =>
-  ((input: any): typia.Resolved<CommentTagType> | null => {
+  ((input: any): import("typia").Resolved<CommentTagType> | null => {
     const is = (input: any): input is CommentTagType => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&
@@ -44,7 +44,9 @@ export const test_misc_isClone_CommentTagType = _test_misc_isClone(
         input.float <= 3.4028235e38;
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: CommentTagType): typia.Resolved<CommentTagType> => {
+    const clone = (
+      input: CommentTagType,
+    ): import("typia").Resolved<CommentTagType> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.int &&
         Math.floor(input.int) === input.int &&

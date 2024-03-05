@@ -6,7 +6,7 @@ import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 export const test_misc_isClone_TupleRestAtomic = _test_misc_isClone(
   "TupleRestAtomic",
 )<TupleRestAtomic>(TupleRestAtomic)((input) =>
-  ((input: any): typia.Resolved<TupleRestAtomic> | null => {
+  ((input: any): import("typia").Resolved<TupleRestAtomic> | null => {
     const is = (input: any): input is TupleRestAtomic => {
       return (
         Array.isArray(input) &&
@@ -17,7 +17,9 @@ export const test_misc_isClone_TupleRestAtomic = _test_misc_isClone(
         input.slice(2).every((elem: any) => "string" === typeof elem)
       );
     };
-    const clone = (input: TupleRestAtomic): typia.Resolved<TupleRestAtomic> => {
+    const clone = (
+      input: TupleRestAtomic,
+    ): import("typia").Resolved<TupleRestAtomic> => {
       const $cp0 = (input: any) => input.map((elem: any) => elem as any);
       return Array.isArray(input) &&
         "boolean" === typeof input[0] &&

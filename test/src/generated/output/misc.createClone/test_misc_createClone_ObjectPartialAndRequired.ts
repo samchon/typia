@@ -8,7 +8,7 @@ export const test_misc_createClone_ObjectPartialAndRequired = _test_misc_clone(
 )<ObjectPartialAndRequired>(ObjectPartialAndRequired)(
   (
     input: ObjectPartialAndRequired,
-  ): typia.Resolved<ObjectPartialAndRequired> => {
+  ): import("typia").Resolved<ObjectPartialAndRequired> => {
     const $io0 = (input: any): boolean =>
       (undefined === input.string || "string" === typeof input.string) &&
       (undefined === input.number || "number" === typeof input.number) &&

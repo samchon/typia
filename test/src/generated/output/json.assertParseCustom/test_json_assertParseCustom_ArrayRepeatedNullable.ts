@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ArrayRepeatedNullable =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ArrayRepeatedNullable> => {
+    ): import("typia").Primitive<ArrayRepeatedNullable> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

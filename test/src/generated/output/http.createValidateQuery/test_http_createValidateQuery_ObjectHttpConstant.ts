@@ -100,7 +100,7 @@ export const test_http_createValidateQuery_ObjectHttpConstant =
       };
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpConstant> => {
+      ): import("typia").Resolved<ObjectHttpConstant> => {
         const $params = (typia.http.createValidateQuery as any).params;
         const $boolean = (typia.http.createValidateQuery as any).boolean;
         const $bigint = (typia.http.createValidateQuery as any).bigint;

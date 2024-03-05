@@ -128,7 +128,9 @@ export const test_misc_createValidateClone_DynamicTree =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: DynamicTree): typia.Resolved<DynamicTree> => {
+      const clone = (
+        input: DynamicTree,
+      ): import("typia").Resolved<DynamicTree> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
           "number" === typeof input.sequence &&

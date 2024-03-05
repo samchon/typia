@@ -7,7 +7,7 @@ export const test_protobuf_isDecode_ObjectHttpAtomic = _test_protobuf_isDecode(
   "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<ObjectHttpAtomic> | null => {
+    ((input: Uint8Array): import("typia").Resolved<ObjectHttpAtomic> | null => {
       const is = (input: any): input is ObjectHttpAtomic => {
         return (
           "object" === typeof input &&
@@ -19,7 +19,9 @@ export const test_protobuf_isDecode_ObjectHttpAtomic = _test_protobuf_isDecode(
           "string" === typeof (input as any).string
         );
       };
-      const decode = (input: Uint8Array): typia.Resolved<ObjectHttpAtomic> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectHttpAtomic> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

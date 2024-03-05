@@ -170,7 +170,9 @@ export const test_misc_validateClone_TypeTagDefault = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: TypeTagDefault): typia.Resolved<TypeTagDefault> => {
+    const clone = (
+      input: TypeTagDefault,
+    ): import("typia").Resolved<TypeTagDefault> => {
       const $co0 = (input: any): any => ({
         boolean: input.boolean as any,
         number: input.number as any,

@@ -10,7 +10,7 @@ export const test_misc_createAssertClone_ObjectJsonTag = _test_misc_assertClone(
   (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectJsonTag> => {
+  ): import("typia").Resolved<ObjectJsonTag> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -102,7 +102,9 @@ export const test_misc_createAssertClone_ObjectJsonTag = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ObjectJsonTag): typia.Resolved<ObjectJsonTag> => {
+    const clone = (
+      input: ObjectJsonTag,
+    ): import("typia").Resolved<ObjectJsonTag> => {
       const $co0 = (input: any): any => ({
         vulnerable: input.vulnerable as any,
         description: input.description as any,

@@ -6,7 +6,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 export const test_misc_createIsClone_TypeTagFormat = _test_misc_isClone(
   "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)(
-  (input: any): typia.Resolved<TypeTagFormat> | null => {
+  (input: any): import("typia").Resolved<TypeTagFormat> | null => {
     const is = (input: any): input is TypeTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&
@@ -97,7 +97,9 @@ export const test_misc_createIsClone_TypeTagFormat = _test_misc_isClone(
         );
       return "object" === typeof input && null !== input && $io0(input);
     };
-    const clone = (input: TypeTagFormat): typia.Resolved<TypeTagFormat> => {
+    const clone = (
+      input: TypeTagFormat,
+    ): import("typia").Resolved<TypeTagFormat> => {
       const $co0 = (input: any): any => ({
         byte: input.byte as any,
         password: input.password as any,

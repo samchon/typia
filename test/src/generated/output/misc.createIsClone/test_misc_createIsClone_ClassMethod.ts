@@ -6,7 +6,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_misc_createIsClone_ClassMethod = _test_misc_isClone(
   "ClassMethod",
 )<ClassMethod>(ClassMethod)(
-  (input: any): typia.Resolved<ClassMethod> | null => {
+  (input: any): import("typia").Resolved<ClassMethod> | null => {
     const is = (input: any): input is ClassMethod => {
       return (
         "object" === typeof input &&
@@ -16,7 +16,9 @@ export const test_misc_createIsClone_ClassMethod = _test_misc_isClone(
         Number.isFinite((input as any).age)
       );
     };
-    const clone = (input: ClassMethod): typia.Resolved<ClassMethod> => {
+    const clone = (
+      input: ClassMethod,
+    ): import("typia").Resolved<ClassMethod> => {
       const $co0 = (input: any): any => ({
         name: input.name as any,
         age: input.age as any,

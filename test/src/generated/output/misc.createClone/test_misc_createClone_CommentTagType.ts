@@ -6,7 +6,7 @@ import { CommentTagType } from "../../../structures/CommentTagType";
 export const test_misc_createClone_CommentTagType = _test_misc_clone(
   "CommentTagType",
 )<CommentTagType>(CommentTagType)(
-  (input: CommentTagType): typia.Resolved<CommentTagType> => {
+  (input: CommentTagType): import("typia").Resolved<CommentTagType> => {
     const $io1 = (input: any): boolean =>
       "number" === typeof input.int &&
       Math.floor(input.int) === input.int &&

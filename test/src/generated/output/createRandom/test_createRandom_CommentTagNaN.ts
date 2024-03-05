@@ -8,7 +8,7 @@ export const test_createRandom_CommentTagNaN = _test_random(
 )<CommentTagNaN>(CommentTagNaN)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (CommentTagNaN as any).RANDOM,
-  ): typia.Resolved<CommentTagNaN> => {
+  ): import("typia").Resolved<CommentTagNaN> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value:

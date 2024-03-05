@@ -6,7 +6,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 export const test_json_createIsParse_TypeTagFormat = _test_json_isParse(
   "TypeTagFormat",
 )<TypeTagFormat>(TypeTagFormat)(
-  (input: any): typia.Primitive<TypeTagFormat> => {
+  (input: any): import("typia").Primitive<TypeTagFormat> => {
     const is = (input: any): input is TypeTagFormat => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.byte &&

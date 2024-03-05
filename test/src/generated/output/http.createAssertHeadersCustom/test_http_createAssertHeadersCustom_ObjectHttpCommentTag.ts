@@ -12,10 +12,10 @@ export const test_http_createAssertHeadersCustom_ObjectHttpCommentTag =
       input: Record<string, string | string[] | undefined>,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectHttpCommentTag> => {
+    ): import("typia").Resolved<ObjectHttpCommentTag> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const $number = (typia.http.createAssertHeaders as any).number;
         const $bigint = (typia.http.createAssertHeaders as any).bigint;
         const output = {

@@ -11,7 +11,7 @@ export const test_misc_assertClone_ClassPropertyAssignment =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ClassPropertyAssignment> => {
+    ): import("typia").Resolved<ClassPropertyAssignment> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -115,7 +115,7 @@ export const test_misc_assertClone_ClassPropertyAssignment =
       };
       const clone = (
         input: ClassPropertyAssignment,
-      ): typia.Resolved<ClassPropertyAssignment> => {
+      ): import("typia").Resolved<ClassPropertyAssignment> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           name: input.name as any,

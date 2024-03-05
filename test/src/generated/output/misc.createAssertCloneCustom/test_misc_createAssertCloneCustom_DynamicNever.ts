@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_DynamicNever =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<DynamicNever> => {
+    ): import("typia").Resolved<DynamicNever> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -98,7 +98,9 @@ export const test_misc_createAssertCloneCustom_DynamicNever =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: DynamicNever): typia.Resolved<DynamicNever> => {
+      const clone = (
+        input: DynamicNever,
+      ): import("typia").Resolved<DynamicNever> => {
         const $co0 = (input: any): any => {
           const output = {} as any;
           for (const [key, value] of Object.entries(input)) {

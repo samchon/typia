@@ -6,7 +6,7 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_misc_createIsClone_ObjectGenericArray = _test_misc_isClone(
   "ObjectGenericArray",
 )<ObjectGenericArray>(ObjectGenericArray)(
-  (input: any): typia.Resolved<ObjectGenericArray> | null => {
+  (input: any): import("typia").Resolved<ObjectGenericArray> | null => {
     const is = (input: any): input is ObjectGenericArray => {
       const $io0 = (input: any): boolean =>
         "object" === typeof input.pagination &&
@@ -32,7 +32,7 @@ export const test_misc_createIsClone_ObjectGenericArray = _test_misc_isClone(
     };
     const clone = (
       input: ObjectGenericArray,
-    ): typia.Resolved<ObjectGenericArray> => {
+    ): import("typia").Resolved<ObjectGenericArray> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.page &&
         "number" === typeof input.limit &&

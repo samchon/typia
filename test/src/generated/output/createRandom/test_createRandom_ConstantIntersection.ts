@@ -9,7 +9,7 @@ export const test_createRandom_ConstantIntersection = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ConstantIntersection as any)
       .RANDOM,
-  ): typia.Resolved<ConstantIntersection> => {
+  ): import("typia").Resolved<ConstantIntersection> => {
     return [false, 1, "two"];
   },
   assert: (

@@ -153,7 +153,9 @@ export const test_misc_createValidateClone_TypeTagMatrix =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: TypeTagMatrix): typia.Resolved<TypeTagMatrix> => {
+      const clone = (
+        input: TypeTagMatrix,
+      ): import("typia").Resolved<TypeTagMatrix> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $cp1 = (input: any) =>
           input.map((elem: any) =>

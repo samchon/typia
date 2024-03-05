@@ -182,7 +182,7 @@ export const test_http_validateHeaders_ObjectHttpArray =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpArray> => {
+      ): import("typia").Resolved<ObjectHttpArray> => {
         const $boolean = (typia.http.validateHeaders as any).boolean;
         const $bigint = (typia.http.validateHeaders as any).bigint;
         const $number = (typia.http.validateHeaders as any).number;

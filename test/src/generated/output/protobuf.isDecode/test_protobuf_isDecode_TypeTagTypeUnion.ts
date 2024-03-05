@@ -7,7 +7,7 @@ export const test_protobuf_isDecode_TypeTagTypeUnion = _test_protobuf_isDecode(
   "TypeTagTypeUnion",
 )<TypeTagTypeUnion>(TypeTagTypeUnion)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<TypeTagTypeUnion> | null => {
+    ((input: Uint8Array): import("typia").Resolved<TypeTagTypeUnion> | null => {
       const is = (input: any): input is TypeTagTypeUnion => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.int32_or_uint32 &&
@@ -82,7 +82,9 @@ export const test_protobuf_isDecode_TypeTagTypeUnion = _test_protobuf_isDecode(
               input.everything <= 18446744073709552000));
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<TypeTagTypeUnion> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<TypeTagTypeUnion> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

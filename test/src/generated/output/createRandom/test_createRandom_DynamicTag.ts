@@ -8,7 +8,7 @@ export const test_createRandom_DynamicTag = _test_random(
 )<DynamicTag>(DynamicTag)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicTag as any).RANDOM,
-  ): typia.Resolved<DynamicTag> => {
+  ): import("typia").Resolved<DynamicTag> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => {
       const output = {} as any;

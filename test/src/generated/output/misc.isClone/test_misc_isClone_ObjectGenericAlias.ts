@@ -6,7 +6,7 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_misc_isClone_ObjectGenericAlias = _test_misc_isClone(
   "ObjectGenericAlias",
 )<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
-  ((input: any): typia.Resolved<ObjectGenericAlias> | null => {
+  ((input: any): import("typia").Resolved<ObjectGenericAlias> | null => {
     const is = (input: any): input is ObjectGenericAlias => {
       return (
         "object" === typeof input &&
@@ -16,7 +16,7 @@ export const test_misc_isClone_ObjectGenericAlias = _test_misc_isClone(
     };
     const clone = (
       input: ObjectGenericAlias,
-    ): typia.Resolved<ObjectGenericAlias> => {
+    ): import("typia").Resolved<ObjectGenericAlias> => {
       const $co0 = (input: any): any => ({
         value: input.value as any,
       });

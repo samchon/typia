@@ -118,7 +118,7 @@ export const test_misc_validateClone_ObjectDescription =
       };
       const clone = (
         input: ObjectDescription,
-      ): typia.Resolved<ObjectDescription> => {
+      ): import("typia").Resolved<ObjectDescription> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
           id: input.id as any,

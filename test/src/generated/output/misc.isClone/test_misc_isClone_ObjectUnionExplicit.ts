@@ -6,7 +6,7 @@ import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 export const test_misc_isClone_ObjectUnionExplicit = _test_misc_isClone(
   "ObjectUnionExplicit",
 )<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
-  ((input: any): typia.Resolved<ObjectUnionExplicit> | null => {
+  ((input: any): import("typia").Resolved<ObjectUnionExplicit> | null => {
     const is = (input: any): input is ObjectUnionExplicit => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
@@ -133,7 +133,7 @@ export const test_misc_isClone_ObjectUnionExplicit = _test_misc_isClone(
     };
     const clone = (
       input: ObjectUnionExplicit,
-    ): typia.Resolved<ObjectUnionExplicit> => {
+    ): import("typia").Resolved<ObjectUnionExplicit> => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.x &&
         "number" === typeof input.y &&

@@ -8,7 +8,9 @@ export const test_protobuf_isDecode_ConstantAtomicTagged =
     ConstantAtomicTagged,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<ConstantAtomicTagged> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<ConstantAtomicTagged> | null => {
         const is = (input: any): input is ConstantAtomicTagged => {
           const $io0 = (input: any): boolean =>
             ("latest" === input.id ||
@@ -26,7 +28,7 @@ export const test_protobuf_isDecode_ConstantAtomicTagged =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<ConstantAtomicTagged> => {
+        ): import("typia").Resolved<ConstantAtomicTagged> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

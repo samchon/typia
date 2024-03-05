@@ -9,7 +9,7 @@ export const test_random_AtomicIntersection = _test_random(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<AtomicIntersection> => {
+    ): import("typia").Resolved<AtomicIntersection> => {
       const $generator = (typia.random as any).generator;
       return [
         (generator?.boolean ?? $generator.boolean)(),

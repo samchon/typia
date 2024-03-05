@@ -6,7 +6,7 @@ import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 export const test_json_isParse_ArrayAtomicAlias = _test_json_isParse(
   "ArrayAtomicAlias",
 )<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
-  ((input: any): typia.Primitive<ArrayAtomicAlias> => {
+  ((input: any): import("typia").Primitive<ArrayAtomicAlias> => {
     const is = (input: any): input is ArrayAtomicAlias => {
       return (
         Array.isArray(input) &&

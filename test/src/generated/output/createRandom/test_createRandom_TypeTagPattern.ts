@@ -8,7 +8,7 @@ export const test_createRandom_TypeTagPattern = _test_random(
 )<TypeTagPattern>(TypeTagPattern)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (TypeTagPattern as any).RANDOM,
-  ): typia.Resolved<TypeTagPattern> => {
+  ): import("typia").Resolved<TypeTagPattern> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       uuid:

@@ -9,7 +9,7 @@ export const test_createRandom_ObjectHttpArray = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectHttpArray as any)
       .RANDOM,
-  ): typia.Resolved<ObjectHttpArray> => {
+  ): import("typia").Resolved<ObjectHttpArray> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       booleans: (generator?.array ?? $generator.array)(() =>

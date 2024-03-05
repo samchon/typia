@@ -9,7 +9,7 @@ export const test_createRandom_CommentTagAtomicUnion = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (CommentTagAtomicUnion as any)
       .RANDOM,
-  ): typia.Resolved<CommentTagAtomicUnion> => {
+  ): import("typia").Resolved<CommentTagAtomicUnion> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

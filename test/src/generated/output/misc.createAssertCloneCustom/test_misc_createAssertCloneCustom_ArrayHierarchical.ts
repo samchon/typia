@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_ArrayHierarchical =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ArrayHierarchical> => {
+    ): import("typia").Resolved<ArrayHierarchical> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -442,7 +442,7 @@ export const test_misc_createAssertCloneCustom_ArrayHierarchical =
       };
       const clone = (
         input: ArrayHierarchical,
-      ): typia.Resolved<ArrayHierarchical> => {
+      ): import("typia").Resolved<ArrayHierarchical> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.time && "number" === typeof input.zone;
         const $io2 = (input: any): boolean =>

@@ -6,7 +6,7 @@ import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 export const test_misc_clone_TypeTagPattern = _test_misc_clone(
   "TypeTagPattern",
 )<TypeTagPattern>(TypeTagPattern)((input) =>
-  ((input: TypeTagPattern): typia.Resolved<TypeTagPattern> => {
+  ((input: TypeTagPattern): import("typia").Resolved<TypeTagPattern> => {
     const $co0 = (input: any): any => ({
       uuid: input.uuid as any,
       email: input.email as any,

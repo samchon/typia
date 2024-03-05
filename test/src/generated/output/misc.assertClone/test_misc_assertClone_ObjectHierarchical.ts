@@ -10,7 +10,7 @@ export const test_misc_assertClone_ObjectHierarchical = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ObjectHierarchical> => {
+  ): import("typia").Resolved<ObjectHierarchical> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -735,7 +735,7 @@ export const test_misc_assertClone_ObjectHierarchical = _test_misc_assertClone(
     };
     const clone = (
       input: ObjectHierarchical,
-    ): typia.Resolved<ObjectHierarchical> => {
+    ): import("typia").Resolved<ObjectHierarchical> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.id &&
         "string" === typeof input.code &&

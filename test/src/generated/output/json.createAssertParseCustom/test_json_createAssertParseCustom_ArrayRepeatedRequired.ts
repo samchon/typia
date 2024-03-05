@@ -12,7 +12,7 @@ export const test_json_createAssertParseCustom_ArrayRepeatedRequired =
       input: string,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Primitive<ArrayRepeatedRequired> => {
+    ): import("typia").Primitive<ArrayRepeatedRequired> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

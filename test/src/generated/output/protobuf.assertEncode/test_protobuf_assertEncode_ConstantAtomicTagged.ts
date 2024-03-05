@@ -168,7 +168,9 @@ export const test_protobuf_assertEncode_ConstantAtomicTagged =
         };
         return encode(assert(input, errorFactory));
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ConstantAtomicTagged> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ConstantAtomicTagged> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -202,5 +204,5 @@ export const test_protobuf_assertEncode_ConstantAtomicTagged =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ConstantAtomicTagged {\n    required string id = 1;\n    oneof age {\n        int32 v2 = 2;\n        uint32 v3 = 3;\n    }\n}',
+      'syntax = "proto3";\n\nmessage ConstantAtomicTagged {\n  required string id = 1;\n  oneof age {\n    int32 v2 = 2;\n    uint32 v3 = 3;\n  }\n}',
   });

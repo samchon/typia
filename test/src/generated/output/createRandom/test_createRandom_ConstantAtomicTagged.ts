@@ -9,7 +9,7 @@ export const test_createRandom_ConstantAtomicTagged = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ConstantAtomicTagged as any)
       .RANDOM,
-  ): typia.Resolved<ConstantAtomicTagged> => {
+  ): import("typia").Resolved<ConstantAtomicTagged> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

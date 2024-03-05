@@ -11,10 +11,10 @@ export const test_http_createAssertQuery_ObjectHttpCommentTag =
     (
       input: string | URLSearchParams,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpCommentTag> => {
+    ): import("typia").Resolved<ObjectHttpCommentTag> => {
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpCommentTag> => {
+      ): import("typia").Resolved<ObjectHttpCommentTag> => {
         const $params = (typia.http.createAssertQuery as any).params;
         const $number = (typia.http.createAssertQuery as any).number;
         const $bigint = (typia.http.createAssertQuery as any).bigint;

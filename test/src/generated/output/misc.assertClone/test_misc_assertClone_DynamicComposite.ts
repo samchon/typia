@@ -10,7 +10,7 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<DynamicComposite> => {
+  ): import("typia").Resolved<DynamicComposite> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -200,7 +200,7 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
     };
     const clone = (
       input: DynamicComposite,
-    ): typia.Resolved<DynamicComposite> => {
+    ): import("typia").Resolved<DynamicComposite> => {
       const $co0 = (input: any): any => {
         const output = {
           id: input.id as any,

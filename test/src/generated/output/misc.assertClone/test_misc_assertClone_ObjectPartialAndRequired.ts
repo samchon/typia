@@ -11,7 +11,7 @@ export const test_misc_assertClone_ObjectPartialAndRequired =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectPartialAndRequired> => {
+    ): import("typia").Resolved<ObjectPartialAndRequired> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -164,7 +164,7 @@ export const test_misc_assertClone_ObjectPartialAndRequired =
       };
       const clone = (
         input: ObjectPartialAndRequired,
-      ): typia.Resolved<ObjectPartialAndRequired> => {
+      ): import("typia").Resolved<ObjectPartialAndRequired> => {
         const $io0 = (input: any): boolean =>
           (undefined === input.string || "string" === typeof input.string) &&
           (undefined === input.number || "number" === typeof input.number) &&

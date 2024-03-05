@@ -6,7 +6,7 @@ import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 export const test_misc_isClone_CommentTagPattern = _test_misc_isClone(
   "CommentTagPattern",
 )<CommentTagPattern>(CommentTagPattern)((input) =>
-  ((input: any): typia.Resolved<CommentTagPattern> | null => {
+  ((input: any): import("typia").Resolved<CommentTagPattern> | null => {
     const is = (input: any): input is CommentTagPattern => {
       return (
         "object" === typeof input &&
@@ -31,7 +31,7 @@ export const test_misc_isClone_CommentTagPattern = _test_misc_isClone(
     };
     const clone = (
       input: CommentTagPattern,
-    ): typia.Resolved<CommentTagPattern> => {
+    ): import("typia").Resolved<CommentTagPattern> => {
       const $co0 = (input: any): any => ({
         uuid: input.uuid as any,
         email: input.email as any,

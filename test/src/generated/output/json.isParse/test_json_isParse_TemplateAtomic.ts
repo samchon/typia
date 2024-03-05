@@ -6,7 +6,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 export const test_json_isParse_TemplateAtomic = _test_json_isParse(
   "TemplateAtomic",
 )<TemplateAtomic>(TemplateAtomic)((input) =>
-  ((input: any): typia.Primitive<TemplateAtomic> => {
+  ((input: any): import("typia").Primitive<TemplateAtomic> => {
     const is = (input: any): input is TemplateAtomic => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.prefix &&

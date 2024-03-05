@@ -6,7 +6,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_json_isParse_ClassMethod = _test_json_isParse(
   "ClassMethod",
 )<ClassMethod>(ClassMethod)((input) =>
-  ((input: any): typia.Primitive<ClassMethod> => {
+  ((input: any): import("typia").Primitive<ClassMethod> => {
     const is = (input: any): input is ClassMethod => {
       return (
         "object" === typeof input &&

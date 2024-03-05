@@ -9,7 +9,7 @@ export const test_random_ObjectDate = _test_random("ObjectDate")<ObjectDate>(
   random: () =>
     ((
       generator?: Partial<typia.IRandomGenerator>,
-    ): typia.Resolved<ObjectDate> => {
+    ): import("typia").Resolved<ObjectDate> => {
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

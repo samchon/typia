@@ -445,7 +445,7 @@ export const test_misc_validateClone_CommentTagFormat =
       };
       const clone = (
         input: CommentTagFormat,
-      ): typia.Resolved<CommentTagFormat> => {
+      ): import("typia").Resolved<CommentTagFormat> => {
         const $co0 = (input: any): any => ({
           byte: input.byte as any,
           password: input.password as any,

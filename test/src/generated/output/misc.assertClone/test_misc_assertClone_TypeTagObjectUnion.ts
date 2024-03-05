@@ -10,7 +10,7 @@ export const test_misc_assertClone_TypeTagObjectUnion = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<TypeTagObjectUnion> => {
+  ): import("typia").Resolved<TypeTagObjectUnion> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -232,7 +232,7 @@ export const test_misc_assertClone_TypeTagObjectUnion = _test_misc_assertClone(
     };
     const clone = (
       input: TypeTagObjectUnion,
-    ): typia.Resolved<TypeTagObjectUnion> => {
+    ): import("typia").Resolved<TypeTagObjectUnion> => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.value && 3 <= input.value;
       const $io1 = (input: any): boolean =>

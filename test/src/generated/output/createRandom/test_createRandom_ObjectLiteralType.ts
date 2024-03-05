@@ -9,7 +9,7 @@ export const test_createRandom_ObjectLiteralType = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectLiteralType as any)
       .RANDOM,
-  ): typia.Resolved<ObjectLiteralType> => {
+  ): import("typia").Resolved<ObjectLiteralType> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       id:

@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_CommentTagType =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<CommentTagType> => {
+    ): import("typia").Resolved<CommentTagType> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -294,7 +294,9 @@ export const test_misc_assertCloneCustom_CommentTagType =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: CommentTagType): typia.Resolved<CommentTagType> => {
+      const clone = (
+        input: CommentTagType,
+      ): import("typia").Resolved<CommentTagType> => {
         const $io1 = (input: any): boolean =>
           "number" === typeof input.int &&
           Math.floor(input.int) === input.int &&

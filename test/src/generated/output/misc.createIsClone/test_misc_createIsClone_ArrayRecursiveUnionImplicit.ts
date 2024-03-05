@@ -7,7 +7,9 @@ export const test_misc_createIsClone_ArrayRecursiveUnionImplicit =
   _test_misc_isClone(
     "ArrayRecursiveUnionImplicit",
   )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
-    (input: any): typia.Resolved<ArrayRecursiveUnionImplicit> | null => {
+    (
+      input: any,
+    ): import("typia").Resolved<ArrayRecursiveUnionImplicit> | null => {
       const is = (input: any): input is ArrayRecursiveUnionImplicit => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.id &&
@@ -86,7 +88,7 @@ export const test_misc_createIsClone_ArrayRecursiveUnionImplicit =
       };
       const clone = (
         input: ArrayRecursiveUnionImplicit,
-      ): typia.Resolved<ArrayRecursiveUnionImplicit> => {
+      ): import("typia").Resolved<ArrayRecursiveUnionImplicit> => {
         const $io0 = (input: any): boolean =>
           "number" === typeof input.id &&
           "string" === typeof input.name &&

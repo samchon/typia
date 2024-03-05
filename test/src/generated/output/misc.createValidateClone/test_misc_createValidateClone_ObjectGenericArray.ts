@@ -173,7 +173,7 @@ export const test_misc_createValidateClone_ObjectGenericArray =
     };
     const clone = (
       input: ObjectGenericArray,
-    ): typia.Resolved<ObjectGenericArray> => {
+    ): import("typia").Resolved<ObjectGenericArray> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.page &&
         "number" === typeof input.limit &&

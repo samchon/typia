@@ -12,7 +12,7 @@ export const test_misc_createAssertCloneCustom_AtomicUnion =
       input: any,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<AtomicUnion> => {
+    ): import("typia").Resolved<AtomicUnion> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -76,7 +76,9 @@ export const test_misc_createAssertCloneCustom_AtomicUnion =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: AtomicUnion): typia.Resolved<AtomicUnion> => {
+      const clone = (
+        input: AtomicUnion,
+      ): import("typia").Resolved<AtomicUnion> => {
         const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         return Array.isArray(input) ? $cp0(input) : (input as any);
       };

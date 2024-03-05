@@ -6,5 +6,5 @@ import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 export const test_protobuf_message_TypeTagPattern = _test_protobuf_message(
   "TypeTagPattern",
 )(
-  'syntax = "proto3";\n\nmessage TypeTagPattern {\n    required string uuid = 1;\n    required string email = 2;\n    required string ipv4 = 3;\n    required string ipv6 = 4;\n}',
+  'syntax = "proto3";\n\nmessage TypeTagPattern {\n  required string uuid = 1;\n  required string email = 2;\n  required string ipv4 = 3;\n  required string ipv6 = 4;\n}',
 );

@@ -165,7 +165,9 @@ export const test_protobuf_createValidateEncode_CommentTagPattern =
       if (output.success) output.data = encode(input);
       return output;
     },
-    decode: (input: Uint8Array): typia.Resolved<CommentTagPattern> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<CommentTagPattern> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -205,5 +207,5 @@ export const test_protobuf_createValidateEncode_CommentTagPattern =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage CommentTagPattern {\n    required string uuid = 1;\n    required string email = 2;\n    required string ipv4 = 3;\n    required string ipv6 = 4;\n}',
+      'syntax = "proto3";\n\nmessage CommentTagPattern {\n  required string uuid = 1;\n  required string email = 2;\n  required string ipv4 = 3;\n  required string ipv6 = 4;\n}',
   });

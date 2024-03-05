@@ -443,7 +443,9 @@ export const test_misc_createValidateClone_TypeTagFormat =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: TypeTagFormat): typia.Resolved<TypeTagFormat> => {
+      const clone = (
+        input: TypeTagFormat,
+      ): import("typia").Resolved<TypeTagFormat> => {
         const $co0 = (input: any): any => ({
           byte: input.byte as any,
           password: input.password as any,

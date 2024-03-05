@@ -8,7 +8,7 @@ export const test_http_headers_ObjectHttpUndefindable = _test_http_headers(
 )<ObjectHttpUndefindable>(ObjectHttpUndefindable)((input) =>
   ((
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpUndefindable> => {
+  ): import("typia").Resolved<ObjectHttpUndefindable> => {
     const $boolean = (typia.http.headers as any).boolean;
     const $bigint = (typia.http.headers as any).bigint;
     const $number = (typia.http.headers as any).number;

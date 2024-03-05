@@ -93,7 +93,9 @@ export const test_protobuf_isEncode_ObjectGenericArray =
         };
         return is(input) ? encode(input) : null;
       })(input),
-    decode: (input: Uint8Array): typia.Resolved<ObjectGenericArray> => {
+    decode: (
+      input: Uint8Array,
+    ): import("typia").Resolved<ObjectGenericArray> => {
       const $Reader = (typia.protobuf.createDecode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -181,5 +183,5 @@ export const test_protobuf_isEncode_ObjectGenericArray =
       return $pdo0(reader);
     },
     message:
-      'syntax = "proto3";\n\nmessage ObjectGenericArray {\n    required ObjectGenericArray.IPagination pagination = 1;\n    repeated ObjectGenericArray.IPerson data = 2;\n    message IPagination {\n        required double page = 1;\n        required double limit = 2;\n        required double total_count = 3;\n        required double total_pages = 4;\n    }\n\n    message IPerson {\n        required string name = 1;\n        required double age = 2;\n    }\n}',
+      'syntax = "proto3";\n\nmessage ObjectGenericArray {\n  required ObjectGenericArray.IPagination pagination = 1;\n  repeated ObjectGenericArray.IPerson data = 2;\n  message IPagination {\n    required double page = 1;\n    required double limit = 2;\n    required double total_count = 3;\n    required double total_pages = 4;\n  }\n\n  message IPerson {\n    required string name = 1;\n    required double age = 2;\n  }\n}',
   });

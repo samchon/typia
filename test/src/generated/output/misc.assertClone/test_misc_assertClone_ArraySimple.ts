@@ -10,7 +10,7 @@ export const test_misc_assertClone_ArraySimple = _test_misc_assertClone(
   ((
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Resolved<ArraySimple> => {
+  ): import("typia").Resolved<ArraySimple> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -197,7 +197,9 @@ export const test_misc_assertClone_ArraySimple = _test_misc_assertClone(
         })(input, "$input", true);
       return input;
     };
-    const clone = (input: ArraySimple): typia.Resolved<ArraySimple> => {
+    const clone = (
+      input: ArraySimple,
+    ): import("typia").Resolved<ArraySimple> => {
       const $io1 = (input: any): boolean =>
         "string" === typeof input.name &&
         "string" === typeof input.body &&

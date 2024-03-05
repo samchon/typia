@@ -6,7 +6,7 @@ import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 export const test_json_createIsParse_TupleHierarchical = _test_json_isParse(
   "TupleHierarchical",
 )<TupleHierarchical>(TupleHierarchical)(
-  (input: any): typia.Primitive<TupleHierarchical> => {
+  (input: any): import("typia").Primitive<TupleHierarchical> => {
     const is = (input: any): input is TupleHierarchical => {
       return (
         Array.isArray(input) &&

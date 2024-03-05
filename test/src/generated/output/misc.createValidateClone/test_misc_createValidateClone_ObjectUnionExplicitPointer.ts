@@ -645,7 +645,7 @@ export const test_misc_createValidateClone_ObjectUnionExplicitPointer =
       };
       const clone = (
         input: ObjectUnionExplicitPointer,
-      ): typia.Resolved<ObjectUnionExplicitPointer> => {
+      ): import("typia").Resolved<ObjectUnionExplicitPointer> => {
         const $io1 = (input: any): boolean =>
           "object" === typeof input.value &&
           null !== input.value &&

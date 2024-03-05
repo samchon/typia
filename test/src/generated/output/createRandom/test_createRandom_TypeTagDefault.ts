@@ -8,7 +8,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
 )<TypeTagDefault>(TypeTagDefault)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (TypeTagDefault as any).RANDOM,
-  ): typia.Resolved<TypeTagDefault> => {
+  ): import("typia").Resolved<TypeTagDefault> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

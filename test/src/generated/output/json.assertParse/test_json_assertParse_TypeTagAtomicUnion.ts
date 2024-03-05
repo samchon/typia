@@ -10,7 +10,7 @@ export const test_json_assertParse_TypeTagAtomicUnion = _test_json_assertParse(
   ((
     input: string,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): typia.Primitive<TypeTagAtomicUnion> => {
+  ): import("typia").Primitive<TypeTagAtomicUnion> => {
     const assert = (
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

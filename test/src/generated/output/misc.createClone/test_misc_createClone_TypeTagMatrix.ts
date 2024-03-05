@@ -6,7 +6,7 @@ import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 export const test_misc_createClone_TypeTagMatrix = _test_misc_clone(
   "TypeTagMatrix",
 )<TypeTagMatrix>(TypeTagMatrix)(
-  (input: TypeTagMatrix): typia.Resolved<TypeTagMatrix> => {
+  (input: TypeTagMatrix): import("typia").Resolved<TypeTagMatrix> => {
     const $cp0 = (input: any) => input.map((elem: any) => elem as any);
     const $cp1 = (input: any) =>
       input.map((elem: any) =>

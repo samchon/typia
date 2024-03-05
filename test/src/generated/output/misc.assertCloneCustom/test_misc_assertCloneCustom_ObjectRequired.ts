@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_ObjectRequired =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectRequired> => {
+    ): import("typia").Resolved<ObjectRequired> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -279,7 +279,9 @@ export const test_misc_assertCloneCustom_ObjectRequired =
           })(input, "$input", true);
         return input;
       };
-      const clone = (input: ObjectRequired): typia.Resolved<ObjectRequired> => {
+      const clone = (
+        input: ObjectRequired,
+      ): import("typia").Resolved<ObjectRequired> => {
         const $io1 = (input: any): boolean =>
           (undefined === input.boolean || "boolean" === typeof input.boolean) &&
           (undefined === input.number || "number" === typeof input.number) &&

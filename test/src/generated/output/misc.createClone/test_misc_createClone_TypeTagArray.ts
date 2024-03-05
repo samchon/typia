@@ -6,7 +6,7 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 export const test_misc_createClone_TypeTagArray = _test_misc_clone(
   "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)(
-  (input: TypeTagArray): typia.Resolved<TypeTagArray> => {
+  (input: TypeTagArray): import("typia").Resolved<TypeTagArray> => {
     const $io1 = (input: any): boolean =>
       Array.isArray(input.items) &&
       3 <= input.items.length &&

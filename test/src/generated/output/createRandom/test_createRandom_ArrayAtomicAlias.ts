@@ -9,7 +9,7 @@ export const test_createRandom_ArrayAtomicAlias = _test_random(
   random: (
     generator: Partial<typia.IRandomGenerator> = (ArrayAtomicAlias as any)
       .RANDOM,
-  ): typia.Resolved<ArrayAtomicAlias> => {
+  ): import("typia").Resolved<ArrayAtomicAlias> => {
     const $generator = (typia.createRandom as any).generator;
     return [
       (generator?.array ?? $generator.array)(() =>

@@ -176,7 +176,7 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: ArrayUnion): typia.Resolved<ArrayUnion> => {
+    const clone = (input: ArrayUnion): import("typia").Resolved<ArrayUnion> => {
       const $throws = (typia.misc.validateClone as any).throws;
       const $cp0 = (input: any) => {
         const array = input;

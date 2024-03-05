@@ -177,7 +177,9 @@ export const test_protobuf_createValidateDecode_ObjectSimple =
           data: success ? input : undefined,
         } as any;
       };
-      const decode = (input: Uint8Array): typia.Resolved<ObjectSimple> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<ObjectSimple> => {
         const $Reader = (typia.protobuf.createValidateDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

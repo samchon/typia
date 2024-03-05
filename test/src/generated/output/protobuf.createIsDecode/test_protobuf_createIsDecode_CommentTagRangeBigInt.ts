@@ -9,7 +9,7 @@ export const test_protobuf_createIsDecode_CommentTagRangeBigInt =
   )({
     decode: (
       input: Uint8Array,
-    ): typia.Resolved<CommentTagRangeBigInt> | null => {
+    ): import("typia").Resolved<CommentTagRangeBigInt> | null => {
       const is = (input: any): input is CommentTagRangeBigInt => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -45,7 +45,7 @@ export const test_protobuf_createIsDecode_CommentTagRangeBigInt =
       };
       const decode = (
         input: Uint8Array,
-      ): typia.Resolved<CommentTagRangeBigInt> => {
+      ): import("typia").Resolved<CommentTagRangeBigInt> => {
         const $Reader = (typia.protobuf.createIsDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

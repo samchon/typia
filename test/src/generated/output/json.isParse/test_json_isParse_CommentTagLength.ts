@@ -6,7 +6,7 @@ import { CommentTagLength } from "../../../structures/CommentTagLength";
 export const test_json_isParse_CommentTagLength = _test_json_isParse(
   "CommentTagLength",
 )<CommentTagLength>(CommentTagLength)((input) =>
-  ((input: any): typia.Primitive<CommentTagLength> => {
+  ((input: any): import("typia").Primitive<CommentTagLength> => {
     const is = (input: any): input is CommentTagLength => {
       const $io0 = (input: any): boolean =>
         Array.isArray(input.value) &&

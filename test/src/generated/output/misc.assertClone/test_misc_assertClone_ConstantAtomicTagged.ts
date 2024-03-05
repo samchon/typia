@@ -11,7 +11,7 @@ export const test_misc_assertClone_ConstantAtomicTagged =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ConstantAtomicTagged> => {
+    ): import("typia").Resolved<ConstantAtomicTagged> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -126,7 +126,7 @@ export const test_misc_assertClone_ConstantAtomicTagged =
       };
       const clone = (
         input: ConstantAtomicTagged,
-      ): typia.Resolved<ConstantAtomicTagged> => {
+      ): import("typia").Resolved<ConstantAtomicTagged> => {
         const $co0 = (input: any): any => ({
           id: input.id as any,
           age: input.age as any,

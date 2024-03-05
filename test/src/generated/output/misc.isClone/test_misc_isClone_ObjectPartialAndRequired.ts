@@ -6,7 +6,7 @@ import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRe
 export const test_misc_isClone_ObjectPartialAndRequired = _test_misc_isClone(
   "ObjectPartialAndRequired",
 )<ObjectPartialAndRequired>(ObjectPartialAndRequired)((input) =>
-  ((input: any): typia.Resolved<ObjectPartialAndRequired> | null => {
+  ((input: any): import("typia").Resolved<ObjectPartialAndRequired> | null => {
     const is = (input: any): input is ObjectPartialAndRequired => {
       const $io0 = (input: any): boolean =>
         (undefined === input.string || "string" === typeof input.string) &&
@@ -26,7 +26,7 @@ export const test_misc_isClone_ObjectPartialAndRequired = _test_misc_isClone(
     };
     const clone = (
       input: ObjectPartialAndRequired,
-    ): typia.Resolved<ObjectPartialAndRequired> => {
+    ): import("typia").Resolved<ObjectPartialAndRequired> => {
       const $io0 = (input: any): boolean =>
         (undefined === input.string || "string" === typeof input.string) &&
         (undefined === input.number || "number" === typeof input.number) &&

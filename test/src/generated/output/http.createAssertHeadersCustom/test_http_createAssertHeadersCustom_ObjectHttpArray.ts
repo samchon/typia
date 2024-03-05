@@ -12,10 +12,10 @@ export const test_http_createAssertHeadersCustom_ObjectHttpArray =
       input: Record<string, string | string[] | undefined>,
       errorFactory: (p: import("typia").TypeGuardError.IProps) => Error = (p) =>
         new CustomGuardError(p),
-    ): typia.Resolved<ObjectHttpArray> => {
+    ): import("typia").Resolved<ObjectHttpArray> => {
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpArray> => {
+      ): import("typia").Resolved<ObjectHttpArray> => {
         const $boolean = (typia.http.createAssertHeaders as any).boolean;
         const $bigint = (typia.http.createAssertHeaders as any).bigint;
         const $number = (typia.http.createAssertHeaders as any).number;

@@ -8,7 +8,7 @@ export const test_http_createIsHeaders_ObjectHttpAtomic = _test_http_isHeaders(
 )<ObjectHttpAtomic>(ObjectHttpAtomic)(
   (
     input: Record<string, string | string[] | undefined>,
-  ): typia.Resolved<ObjectHttpAtomic> | null => {
+  ): import("typia").Resolved<ObjectHttpAtomic> | null => {
     const is = (input: any): input is ObjectHttpAtomic => {
       return (
         "object" === typeof input &&
@@ -22,7 +22,7 @@ export const test_http_createIsHeaders_ObjectHttpAtomic = _test_http_isHeaders(
     };
     const decode = (
       input: Record<string, string | string[] | undefined>,
-    ): typia.Resolved<ObjectHttpAtomic> => {
+    ): import("typia").Resolved<ObjectHttpAtomic> => {
       const $boolean = (typia.http.createIsHeaders as any).boolean;
       const $bigint = (typia.http.createIsHeaders as any).bigint;
       const $number = (typia.http.createIsHeaders as any).number;

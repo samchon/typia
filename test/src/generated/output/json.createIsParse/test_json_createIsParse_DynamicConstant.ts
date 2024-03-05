@@ -6,7 +6,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_json_createIsParse_DynamicConstant = _test_json_isParse(
   "DynamicConstant",
 )<DynamicConstant>(DynamicConstant)(
-  (input: any): typia.Primitive<DynamicConstant> => {
+  (input: any): import("typia").Primitive<DynamicConstant> => {
     const is = (input: any): input is DynamicConstant => {
       return (
         "object" === typeof input &&

@@ -74,7 +74,9 @@ export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
         data: success ? input : undefined,
       } as any;
     };
-    const clone = (input: AtomicAlias): typia.Resolved<AtomicAlias> => {
+    const clone = (
+      input: AtomicAlias,
+    ): import("typia").Resolved<AtomicAlias> => {
       return Array.isArray(input) &&
         input.length === 3 &&
         "boolean" === typeof input[0] &&

@@ -128,7 +128,9 @@ export const test_misc_createValidateClone_ObjectAlias =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectAlias): typia.Resolved<ObjectAlias> => {
+      const clone = (
+        input: ObjectAlias,
+      ): import("typia").Resolved<ObjectAlias> => {
         const $cp0 = (input: any) =>
           input.map((elem: any) =>
             "object" === typeof elem && null !== elem

@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_CommentTagRange =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<CommentTagRange> => {
+    ): import("typia").Primitive<CommentTagRange> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

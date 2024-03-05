@@ -11,7 +11,7 @@ export const test_json_assertParse_ObjectPropertyNullable =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectPropertyNullable> => {
+    ): import("typia").Primitive<ObjectPropertyNullable> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

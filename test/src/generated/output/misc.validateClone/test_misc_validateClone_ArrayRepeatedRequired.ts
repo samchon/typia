@@ -131,7 +131,7 @@ export const test_misc_validateClone_ArrayRepeatedRequired =
       };
       const clone = (
         input: ArrayRepeatedRequired,
-      ): typia.Resolved<ArrayRepeatedRequired> => {
+      ): import("typia").Resolved<ArrayRepeatedRequired> => {
         const $ia0 = (input: any): any =>
           input.every(
             (elem: any) =>

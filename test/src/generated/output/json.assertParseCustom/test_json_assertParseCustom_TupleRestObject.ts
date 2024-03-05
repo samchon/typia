@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_TupleRestObject =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<TupleRestObject> => {
+    ): import("typia").Primitive<TupleRestObject> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

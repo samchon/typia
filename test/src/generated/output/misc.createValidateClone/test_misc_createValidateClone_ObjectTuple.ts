@@ -141,7 +141,9 @@ export const test_misc_createValidateClone_ObjectTuple =
           data: success ? input : undefined,
         } as any;
       };
-      const clone = (input: ObjectTuple): typia.Resolved<ObjectTuple> => {
+      const clone = (
+        input: ObjectTuple,
+      ): import("typia").Resolved<ObjectTuple> => {
         const $io0 = (input: any): boolean =>
           "string" === typeof input.id &&
           "string" === typeof input.code &&

@@ -8,7 +8,7 @@ export const test_http_createIsQuery_ObjectHttpTypeTag = _test_http_isQuery(
 )<ObjectHttpTypeTag>(ObjectHttpTypeTag)(
   (
     input: string | URLSearchParams,
-  ): typia.Resolved<ObjectHttpTypeTag> | null => {
+  ): import("typia").Resolved<ObjectHttpTypeTag> | null => {
     const is = (input: any): input is ObjectHttpTypeTag => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.int32 &&
@@ -38,7 +38,7 @@ export const test_http_createIsQuery_ObjectHttpTypeTag = _test_http_isQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpTypeTag> => {
+    ): import("typia").Resolved<ObjectHttpTypeTag> => {
       const $params = (typia.http.createIsQuery as any).params;
       const $number = (typia.http.createIsQuery as any).number;
       const $bigint = (typia.http.createIsQuery as any).bigint;

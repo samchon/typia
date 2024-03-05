@@ -11,7 +11,7 @@ export const test_json_assertParseCustom_ObjectHierarchical =
     ((
       input: string,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Primitive<ObjectHierarchical> => {
+    ): import("typia").Primitive<ObjectHierarchical> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,

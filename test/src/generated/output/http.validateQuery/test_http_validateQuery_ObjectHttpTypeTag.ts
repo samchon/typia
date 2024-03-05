@@ -216,7 +216,7 @@ export const test_http_validateQuery_ObjectHttpTypeTag =
       };
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpTypeTag> => {
+      ): import("typia").Resolved<ObjectHttpTypeTag> => {
         const $params = (typia.http.validateQuery as any).params;
         const $number = (typia.http.validateQuery as any).number;
         const $bigint = (typia.http.validateQuery as any).bigint;

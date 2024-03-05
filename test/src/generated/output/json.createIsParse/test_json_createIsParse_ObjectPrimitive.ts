@@ -6,7 +6,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_json_createIsParse_ObjectPrimitive = _test_json_isParse(
   "ObjectPrimitive",
 )<ObjectPrimitive>(ObjectPrimitive)(
-  (input: any): typia.Primitive<ObjectPrimitive> => {
+  (input: any): import("typia").Primitive<ObjectPrimitive> => {
     const is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&

@@ -6,7 +6,7 @@ import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 export const test_json_isParse_ObjectHierarchical = _test_json_isParse(
   "ObjectHierarchical",
 )<ObjectHierarchical>(ObjectHierarchical)((input) =>
-  ((input: any): typia.Primitive<ObjectHierarchical> => {
+  ((input: any): import("typia").Primitive<ObjectHierarchical> => {
     const is = (input: any): input is ObjectHierarchical => {
       const $io0 = (input: any): boolean =>
         "number" === typeof input.id &&

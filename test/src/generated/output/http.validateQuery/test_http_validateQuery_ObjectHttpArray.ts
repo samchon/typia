@@ -180,7 +180,7 @@ export const test_http_validateQuery_ObjectHttpArray = _test_http_validateQuery(
     };
     const decode = (
       input: string | URLSearchParams,
-    ): typia.Resolved<ObjectHttpArray> => {
+    ): import("typia").Resolved<ObjectHttpArray> => {
       const $params = (typia.http.validateQuery as any).params;
       const $boolean = (typia.http.validateQuery as any).boolean;
       const $bigint = (typia.http.validateQuery as any).bigint;

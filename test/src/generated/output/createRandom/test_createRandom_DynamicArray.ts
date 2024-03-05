@@ -8,7 +8,7 @@ export const test_createRandom_DynamicArray = _test_random(
 )<DynamicArray>(DynamicArray)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (DynamicArray as any).RANDOM,
-  ): typia.Resolved<DynamicArray> => {
+  ): import("typia").Resolved<DynamicArray> => {
     const $generator = (typia.createRandom as any).generator;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({
       value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),

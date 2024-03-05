@@ -6,7 +6,7 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_json_isParse_DynamicComposite = _test_json_isParse(
   "DynamicComposite",
 )<DynamicComposite>(DynamicComposite)((input) =>
-  ((input: any): typia.Primitive<DynamicComposite> => {
+  ((input: any): import("typia").Primitive<DynamicComposite> => {
     const is = (input: any): input is DynamicComposite => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&

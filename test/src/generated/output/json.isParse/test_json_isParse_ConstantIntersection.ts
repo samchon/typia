@@ -6,7 +6,7 @@ import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 export const test_json_isParse_ConstantIntersection = _test_json_isParse(
   "ConstantIntersection",
 )<ConstantIntersection>(ConstantIntersection)((input) =>
-  ((input: any): typia.Primitive<ConstantIntersection> => {
+  ((input: any): import("typia").Primitive<ConstantIntersection> => {
     const is = (input: any): input is ConstantIntersection => {
       return (
         Array.isArray(input) &&

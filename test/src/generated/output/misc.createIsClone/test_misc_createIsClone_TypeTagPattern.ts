@@ -6,7 +6,7 @@ import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 export const test_misc_createIsClone_TypeTagPattern = _test_misc_isClone(
   "TypeTagPattern",
 )<TypeTagPattern>(TypeTagPattern)(
-  (input: any): typia.Resolved<TypeTagPattern> | null => {
+  (input: any): import("typia").Resolved<TypeTagPattern> | null => {
     const is = (input: any): input is TypeTagPattern => {
       return (
         "object" === typeof input &&
@@ -29,7 +29,9 @@ export const test_misc_createIsClone_TypeTagPattern = _test_misc_isClone(
         )
       );
     };
-    const clone = (input: TypeTagPattern): typia.Resolved<TypeTagPattern> => {
+    const clone = (
+      input: TypeTagPattern,
+    ): import("typia").Resolved<TypeTagPattern> => {
       const $co0 = (input: any): any => ({
         uuid: input.uuid as any,
         email: input.email as any,

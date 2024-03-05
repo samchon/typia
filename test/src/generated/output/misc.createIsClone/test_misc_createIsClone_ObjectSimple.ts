@@ -6,7 +6,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_misc_createIsClone_ObjectSimple = _test_misc_isClone(
   "ObjectSimple",
 )<ObjectSimple>(ObjectSimple)(
-  (input: any): typia.Resolved<ObjectSimple> | null => {
+  (input: any): import("typia").Resolved<ObjectSimple> | null => {
     const is = (input: any): input is ObjectSimple => {
       return (
         "object" === typeof input &&
@@ -45,7 +45,9 @@ export const test_misc_createIsClone_ObjectSimple = _test_misc_isClone(
         Number.isFinite(((input as any).pivot as any).z)
       );
     };
-    const clone = (input: ObjectSimple): typia.Resolved<ObjectSimple> => {
+    const clone = (
+      input: ObjectSimple,
+    ): import("typia").Resolved<ObjectSimple> => {
       const $io1 = (input: any): boolean =>
         "number" === typeof input.x &&
         "number" === typeof input.y &&

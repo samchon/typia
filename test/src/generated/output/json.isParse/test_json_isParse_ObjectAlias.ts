@@ -6,7 +6,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_json_isParse_ObjectAlias = _test_json_isParse(
   "ObjectAlias",
 )<ObjectAlias>(ObjectAlias)((input) =>
-  ((input: any): typia.Primitive<ObjectAlias> => {
+  ((input: any): import("typia").Primitive<ObjectAlias> => {
     const is = (input: any): input is ObjectAlias => {
       const $io0 = (input: any): boolean =>
         (null === input.id || "string" === typeof input.id) &&

@@ -7,7 +7,7 @@ export const test_protobuf_isDecode_CommentTagArray = _test_protobuf_isDecode(
   "CommentTagArray",
 )<CommentTagArray>(CommentTagArray)({
   decode: (input) =>
-    ((input: Uint8Array): typia.Resolved<CommentTagArray> | null => {
+    ((input: Uint8Array): import("typia").Resolved<CommentTagArray> | null => {
       const is = (input: any): input is CommentTagArray => {
         const $io0 = (input: any): boolean =>
           Array.isArray(input.value) &&
@@ -37,7 +37,9 @@ export const test_protobuf_isDecode_CommentTagArray = _test_protobuf_isDecode(
           );
         return "object" === typeof input && null !== input && $io0(input);
       };
-      const decode = (input: Uint8Array): typia.Resolved<CommentTagArray> => {
+      const decode = (
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagArray> => {
         const $Reader = (typia.protobuf.isDecode as any).Reader;
         const $pdo0 = (reader: any, length: number = -1): any => {
           length = length < 0 ? reader.size() : reader.index() + length;

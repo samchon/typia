@@ -148,7 +148,7 @@ export const test_http_validateHeaders_ObjectHttpUndefindable =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpUndefindable> => {
+      ): import("typia").Resolved<ObjectHttpUndefindable> => {
         const $boolean = (typia.http.validateHeaders as any).boolean;
         const $bigint = (typia.http.validateHeaders as any).bigint;
         const $number = (typia.http.validateHeaders as any).number;

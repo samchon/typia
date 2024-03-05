@@ -8,7 +8,7 @@ export const test_createRandom_ObjectPartial = _test_random(
 )<ObjectPartial>(ObjectPartial)({
   random: (
     generator: Partial<typia.IRandomGenerator> = (ObjectPartial as any).RANDOM,
-  ): typia.Resolved<ObjectPartial> => {
+  ): import("typia").Resolved<ObjectPartial> => {
     const $generator = (typia.createRandom as any).generator;
     const $pick = (typia.createRandom as any).pick;
     const $ro0 = (_recursive: boolean = false, _depth: number = 0): any => ({

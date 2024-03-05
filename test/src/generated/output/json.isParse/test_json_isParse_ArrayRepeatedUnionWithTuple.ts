@@ -6,7 +6,7 @@ import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUn
 export const test_json_isParse_ArrayRepeatedUnionWithTuple = _test_json_isParse(
   "ArrayRepeatedUnionWithTuple",
 )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
-  ((input: any): typia.Primitive<ArrayRepeatedUnionWithTuple> => {
+  ((input: any): import("typia").Primitive<ArrayRepeatedUnionWithTuple> => {
     const is = (input: any): input is ArrayRepeatedUnionWithTuple => {
       const $ip0 = (input: any) => {
         const array = input;

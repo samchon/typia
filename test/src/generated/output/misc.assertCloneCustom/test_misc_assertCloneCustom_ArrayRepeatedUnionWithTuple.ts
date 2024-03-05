@@ -11,7 +11,7 @@ export const test_misc_assertCloneCustom_ArrayRepeatedUnionWithTuple =
     ((
       input: any,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
+    ): import("typia").Resolved<ArrayRepeatedUnionWithTuple> => {
       const assert = (
         input: any,
         errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -640,7 +640,7 @@ export const test_misc_assertCloneCustom_ArrayRepeatedUnionWithTuple =
       };
       const clone = (
         input: ArrayRepeatedUnionWithTuple,
-      ): typia.Resolved<ArrayRepeatedUnionWithTuple> => {
+      ): import("typia").Resolved<ArrayRepeatedUnionWithTuple> => {
         const $io0 = (input: any): boolean =>
           "object" === typeof input.scale &&
           null !== input.scale &&

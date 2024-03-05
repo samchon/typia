@@ -11,10 +11,10 @@ export const test_http_createAssertQuery_ObjectHttpUndefindable =
     (
       input: string | URLSearchParams,
       errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-    ): typia.Resolved<ObjectHttpUndefindable> => {
+    ): import("typia").Resolved<ObjectHttpUndefindable> => {
       const decode = (
         input: string | URLSearchParams,
-      ): typia.Resolved<ObjectHttpUndefindable> => {
+      ): import("typia").Resolved<ObjectHttpUndefindable> => {
         const $params = (typia.http.createAssertQuery as any).params;
         const $boolean = (typia.http.createAssertQuery as any).boolean;
         const $bigint = (typia.http.createAssertQuery as any).bigint;

@@ -100,7 +100,7 @@ export const test_http_createValidateHeaders_ObjectHttpConstant =
       };
       const decode = (
         input: Record<string, string | string[] | undefined>,
-      ): typia.Resolved<ObjectHttpConstant> => {
+      ): import("typia").Resolved<ObjectHttpConstant> => {
         const $boolean = (typia.http.createValidateHeaders as any).boolean;
         const $bigint = (typia.http.createValidateHeaders as any).bigint;
         const $number = (typia.http.createValidateHeaders as any).number;

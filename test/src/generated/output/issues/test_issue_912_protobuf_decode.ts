@@ -33,7 +33,7 @@ export const test_issue_912_protobuf_decode = () => {
   let decoded1: Foo;
   let decoded2: Foo;
   try {
-    decoded1 = ((input: Uint8Array): typia.Resolved<Foo> => {
+    decoded1 = ((input: Uint8Array): import("typia").Resolved<Foo> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;
@@ -57,7 +57,7 @@ export const test_issue_912_protobuf_decode = () => {
       const reader = new $Reader(input);
       return $pdo0(reader);
     })(encoded);
-    decoded2 = ((input: Uint8Array): typia.Resolved<Foo> => {
+    decoded2 = ((input: Uint8Array): import("typia").Resolved<Foo> => {
       const $Reader = (typia.protobuf.decode as any).Reader;
       const $pdo0 = (reader: any, length: number = -1): any => {
         length = length < 0 ? reader.size() : reader.index() + length;

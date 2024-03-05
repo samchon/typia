@@ -8,7 +8,9 @@ export const test_protobuf_isDecode_CommentTagInfinite =
     CommentTagInfinite,
   )({
     decode: (input) =>
-      ((input: Uint8Array): typia.Resolved<CommentTagInfinite> | null => {
+      ((
+        input: Uint8Array,
+      ): import("typia").Resolved<CommentTagInfinite> | null => {
         const is = (input: any): input is CommentTagInfinite => {
           return (
             "object" === typeof input &&
@@ -34,7 +36,7 @@ export const test_protobuf_isDecode_CommentTagInfinite =
         };
         const decode = (
           input: Uint8Array,
-        ): typia.Resolved<CommentTagInfinite> => {
+        ): import("typia").Resolved<CommentTagInfinite> => {
           const $Reader = (typia.protobuf.isDecode as any).Reader;
           const $pdo0 = (reader: any, length: number = -1): any => {
             length = length < 0 ? reader.size() : reader.index() + length;

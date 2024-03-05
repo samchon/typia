@@ -6,7 +6,7 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 export const test_json_createIsParse_ObjectPartial = _test_json_isParse(
   "ObjectPartial",
 )<ObjectPartial>(ObjectPartial)(
-  (input: any): typia.Primitive<ObjectPartial> => {
+  (input: any): import("typia").Primitive<ObjectPartial> => {
     const is = (input: any): input is ObjectPartial => {
       const $io0 = (input: any): boolean =>
         (undefined === input.boolean || "boolean" === typeof input.boolean) &&

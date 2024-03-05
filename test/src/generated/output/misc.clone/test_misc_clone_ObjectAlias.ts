@@ -6,7 +6,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_misc_clone_ObjectAlias = _test_misc_clone(
   "ObjectAlias",
 )<ObjectAlias>(ObjectAlias)((input) =>
-  ((input: ObjectAlias): typia.Resolved<ObjectAlias> => {
+  ((input: ObjectAlias): import("typia").Resolved<ObjectAlias> => {
     const $cp0 = (input: any) =>
       input.map((elem: any) =>
         "object" === typeof elem && null !== elem ? $co0(elem) : (elem as any),
