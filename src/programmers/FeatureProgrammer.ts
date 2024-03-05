@@ -13,7 +13,7 @@ import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { FunctionImporter } from "./helpers/FunctionImporter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { feature_object_entries } from "./internal/feature_object_entries";

@@ -17,7 +17,7 @@ import { TransformerError } from "../../transformers/TransformerError";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { PruneJoiner } from "../helpers/PruneJoiner";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 import { decode_union_object } from "../internal/decode_union_object";

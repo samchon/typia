@@ -6,6 +6,7 @@ import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
 
+export * as functional from "./functional";
 export * as http from "./http";
 export * as json from "./json";
 export * as misc from "./misc";
