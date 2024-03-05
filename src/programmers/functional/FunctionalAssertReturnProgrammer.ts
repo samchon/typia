@@ -17,6 +17,9 @@ export namespace FunctionAssertReturnProgrammer {
       declaration: ts.FunctionDeclaration,
       init?: ts.Expression,
     ): ts.ArrowFunction => {
+      const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper(
+        modulo,
+      )(declaration.parameters)(init);
       const { async, returns: statement } = returnStatement(project)(modulo)(
         equals,
       )(
@@ -25,6 +28,7 @@ export namespace FunctionAssertReturnProgrammer {
         declaration.parameters.map((p) =>
           ts.factory.createIdentifier(p.name.getText()),
         ),
+        wrapper.name,
       );
       return ts.factory.createArrowFunction(
         async
@@ -34,13 +38,7 @@ export namespace FunctionAssertReturnProgrammer {
         declaration.parameters,
         declaration.type,
         undefined,
-        ts.factory.createBlock(
-          [
-            FunctionalAssertFunctionProgrammer.errorFactory(modulo)(init),
-            statement,
-          ],
-          true,
-        ),
+        ts.factory.createBlock([wrapper.variable, statement], true),
       );
     };
 
@@ -52,6 +50,7 @@ export namespace FunctionAssertReturnProgrammer {
       expression: ts.Expression,
       typeNode: ts.TypeNode | undefined,
       argumentExpressions: ts.Expression[],
+      wrapper: string,
     ): {
       async: boolean;
       returns: ts.ReturnStatement;
@@ -76,7 +75,10 @@ export namespace FunctionAssertReturnProgrammer {
             AssertProgrammer.write(project)(modulo)(equals)(
               type,
               undefined,
-              FunctionalAssertFunctionProgrammer.hookPath("$input.return"),
+              FunctionalAssertFunctionProgrammer.hookPath({
+                wrapper,
+                replacer: "$input.return",
+              }),
             ),
             undefined,
             [async ? ts.factory.createAwaitExpression(caller) : caller],

@@ -22,10 +22,18 @@ export namespace JsonIsParseProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.Primitive<${
-            name ?? TypeFactory.getFullName(project.checker)(type)
-          }>`,
+        ts.factory.createImportTypeNode(
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral("typia"),
+          ),
+          undefined,
+          ts.factory.createIdentifier("Primitive"),
+          [
+            ts.factory.createTypeReferenceNode(
+              name ?? TypeFactory.getFullName(project.checker)(type),
+            ),
+          ],
+          false,
         ),
         undefined,
         ts.factory.createBlock([

@@ -1,14 +1,15 @@
 import * as Namespace from "./functional/Namespace";
 
-// import { IValidation } from "./IValidation";
+import { IValidation } from "./IValidation";
 import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
   FUNCTIONAL
-    - ASSERTIONS
-    - VALIDATIONS
+    - ASSERT
+    - IS
+    - VALIDATE
 ==============================================================
-  ASSERTIONS
+  ASSERT
 ----------------------------------------------------------- */
 /**
  * Asserts a function.
@@ -320,248 +321,543 @@ const assertEqualsReturnPure = /** @__PURE__ */ Object.assign<
 );
 export { assertEqualsReturnPure as assertEqualsReturn };
 
-// /* -----------------------------------------------------------
-//   VALIDATIONS
-// ----------------------------------------------------------- */
-// /**
-//  * Validates a function.
-//  *
-//  * Validates a function, by wrapping the function and checking its parameters and
-//  * return value through {@link validate} function. If some parameter or return value
-//  * does not match the expected type, it returns {@link IValidation.IError} typed
-//  * object. Otherwise there's no type error, it returns {@link IValidation.ISuccess}
-//  * typed object instead.
-//  *
-//  * For reference, {@link IValidation.IError.path} would be a little bit different with
-//  * individual {@link validate} function. If the {@link IValidation.IError} occurs from
-//  * some parameter, the path would start from `$input.parameters[number]`. Otherwise
-//  * the path would start from `$input.return`.
-//  *
-//  * - `$input.parameters[0].~`
-//  * - `$input.return.~`
-//  *
-//  * By the way, if what you want is not finding every type errors, but just finding
-//  * the 1st type error, then use {@link assertFunction} instead. Otherwise, what you
-//  * want is just validating parameters or return value only, you can use
-//  * {@link validateParameters} or {@link validateReturn} instead.
-//  *
-//  * On the other hand, if you don't want to allow any superfluous properties, utilize
-//  * {@link validateEqualsFunction} or {@link assertEqualsFunction} instead.
-//  *
-//  * @template T Target function type
-//  * @param func Target function to validate
-//  * @returns The wrapper function with type validations
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// function validateFunction<T extends (...args: any[]) => any>(
-//   func: T,
-// ): T extends (...args: infer Arguments) => infer Output
-//   ? Output extends Promise<infer R>
-//     ? (...args: Arguments) => Promise<IValidation<R>>
-//     : (...args: Arguments) => IValidation<Output>
-//   : never;
+/* -----------------------------------------------------------
+  IS
+----------------------------------------------------------- */
+/**
+ * Tests a function.
+ *
+ * Tests a function, by wrapping the function and checking its parameters and
+ * return value through {@link is} function. If some parameter or return value
+ * does not match the expected type, it returns `null`. Otherwise there's no
+ * type error, it returns the result of the function.
+ *
+ * By the way, if you want is not just testing type checking, but also finding
+ * detailed type error reason(s), then use {@link assertFunction} or
+ * {@link validateFunction} instead.
+ *
+ * On the other hand, if you don't want to allow any superfluous properties,
+ * utilize {@link equalsFunction}, {@link assertEqualsFunction} or
+ * {@link validateEqualsFunction} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to test
+ * @returns The wrapper function with type tests
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function isFunction<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<R | null>
+    : (...args: Arguments) => Output | null
+  : never;
 
-// /**
-//  * @internal
-//  */
-// function validateFunction(): never {
-//   halt("validateFunction");
-// }
-// const validateFunctionPure = /** @__PURE__ */ Object.assign<
-//   typeof validateFunction,
-//   {}
-// >(validateFunction, /** @__PURE__ */ Namespace.validate());
-// export { validateFunctionPure as validateFunction };
+/**
+ * @internal
+ */
+function isFunction(): never {
+  halt("isFunction");
+}
+const isFunctionPure = /** @__PURE__ */ Object.assign<typeof isFunction, {}>(
+  isFunction,
+  /** @__PURE__ */ Namespace.is(),
+);
+export { isFunctionPure as isFunction };
 
-// /**
-//  * Validates parameters.
-//  *
-//  * Validates a function, by wrapping the function and checking its parameters through
-//  * {@link validate} function. If some parameter does not match the expected type, it
-//  * returns {@link IValidation.IError} typed object. Otherwise there's no type error,
-//  * it returns {@link IValidation.ISuccess} typed object instead.
-//  *
-//  * For reference, {@link IValidation.IError.path} would be a little bit different with
-//  * individual {@link validate} function. If the {@link IValidation.IError} occurs from
-//  * some parameter, the path would start from `$input.parameters[number]`.
-//  *
-//  * By the way, if what you want is not finding every type errors, but just finding
-//  * the 1st type error, then use {@link assertParameters} instead. Otherwise, what you
-//  * want is not only validating parameters, but also validating return value, you can
-//  * use {@link validateFunction} instead.
-//  *
-//  * On the other hand, if you don't want to allow any superfluous properties, utilize
-//  * {@link validateEqualsParameters} or {@link assertEqualsParameters} instead.
-//  *
-//  * @template T Target function type
-//  * @param func Target function to validate
-//  * @returns The wrapper function with type validations
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// function validateReturn<T extends (...args: any[]) => any>(
-//   func: T,
-// ): T extends (...args: infer Arguments) => infer Output
-//   ? Output extends Promise<infer R>
-//     ? (...args: Arguments) => Promise<IValidation<R>>
-//     : (...args: Arguments) => IValidation<Output>
-//   : never;
+/**
+ * Tests parameters.
+ *
+ * Tests a function, by wrapping the function and checking its parameters through
+ * {@link is} function. If some parameter does not match the expected type, it
+ * returns `null`. Otherwise there's no type error, it returns the result of the
+ * function.
+ *
+ * By the way, if you want is not just testing type checking, but also finding
+ * detailed type error reason(s), then use {@link assertParameters} or
+ * {@link validateParameters} instead.
+ *
+ * On the other hand, if you don't want to allow any superfluous properties,
+ * utilize {@link equalsParameters}, {@link assertEqualsParameters} or
+ * {@link validateEqualsParameters} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to test
+ * @returns The wrapper function with type tests
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function isParameters<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<R | null>
+    : (...args: Arguments) => Output | null
+  : never;
 
-// /**
-//  * @internal
-//  */
-// function validateReturn(): never {
-//   halt("validateReturn");
-// }
-// const validateReturnPure = /** @__PURE__ */ Object.assign<
-//   typeof validateReturn,
-//   {}
-// >(validateReturn, /** @__PURE__ */ Namespace.validate());
-// export { validateReturnPure as validateReturn };
+/**
+ * @internal
+ */
+function isParameters(): never {
+  halt("isParameters");
+}
+const isParametersPure = /** @__PURE__ */ Object.assign<
+  typeof isParameters,
+  {}
+>(isParameters, /** @__PURE__ */ Namespace.is());
+export { isParametersPure as isParameters };
 
-// /**
-//  * Validates a function with strict equality.
-//  *
-//  * Validates a function with strict equality, by wrapping the function and checking
-//  * its parameters and return value through {@link validateEquals} function. If some
-//  * parameter or return value does not match the expected type, it returns
-//  * {@link IValidation.IError} typed object. Otherwise there's no type error, it
-//  * returns {@link IValidation.ISuccess} typed object instead.
-//  *
-//  * For reference, {@link IValidation.IError.path} would be a little bit different with
-//  * individual {@link validateEquals} function. If the {@link IValidation.IError} occurs
-//  * from some parameter, the path would start from `$input.parameters[number]`. Otherwise
-//  * the path would start from `$input.return`.
-//  *
-//  * - `$input.parameters[0].~`
-//  * - `$input.return.~`
-//  *
-//  * By the way, if what you want is not finding every type errors, but just finding
-//  * the 1st type error, then use {@link assertEqualsFunction} instead. Otherwise, what
-//  * you want is just validating parameters or return value only, you can use
-//  * {@link validateEqualsParameters} or {@link validateEqualsReturn} instead.
-//  *
-//  * On the other hand, if you want to allow any superfluous properties, utilize
-//  * {@link validateFunction} or {@link assertFunction} instead.
-//  *
-//  * @template T Target function type
-//  * @param func Target function to validate
-//  * @returns The wrapper function with type validations
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// function validateEqualsFunction<T extends (...args: any[]) => any>(
-//   func: T,
-// ): T extends (...args: infer Arguments) => infer Output
-//   ? Output extends Promise<infer R>
-//     ? (...args: Arguments) => Promise<IValidation<R>>
-//     : (...args: Arguments) => IValidation<Output>
-//   : never;
+/**
+ * Tests return value.
+ *
+ * Tests a function, by wrapping the function and checking its return value through
+ * {@link is} function. If the return value does not match the expected type, it
+ * returns `null`. Otherwise there's no type error, it returns the result of the
+ * function.
+ *
+ * By the way, if you want is not just testing type checking, but also finding
+ * detailed type error reason(s), then use {@link assertReturn} or
+ * {@link validateReturn} instead.
+ *
+ * On the other hand, if you don't want to allow any superfluous properties,
+ * utilize {@link equalsReturn}, {@link assertEqualsReturn} or
+ * {@link validateEqualsReturn} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to test
+ * @returns The wrapper function with type tests
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function isReturn<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<R | null>
+    : (...args: Arguments) => Output | null
+  : never;
 
-// /**
-//  * @internal
-//  */
-// function validateEqualsFunction(): never {
-//   halt("validateEqualsFunction");
-// }
-// const validateEqualsFunctionPure = /** @__PURE__ */ Object.assign<
-//   typeof validateEqualsFunction,
-//   {}
-// >(validateEqualsFunction, /** @__PURE__ */ Namespace.validate());
-// export { validateEqualsFunctionPure as validateEqualsFunction };
+/**
+ * @internal
+ */
+function isReturn(): never {
+  halt("isReturn");
+}
+const isReturnPure = /** @__PURE__ */ Object.assign<typeof isReturn, {}>(
+  isReturn,
+  /** @__PURE__ */ Namespace.is(),
+);
+export { isReturnPure as isReturn };
 
-// /**
-//  * Validates parameters with strict equality.
-//  *
-//  * Validates a function, by wrapping the function and checking its parameters through
-//  * {@link validateEquals} function. If some parameter does not match the expected type,
-//  * it returns {@link IValidation.IError} typed object. Otherwise there's no type error,
-//  * it returns {@link IValidation.ISuccess} typed object instead.
-//  *
-//  * For reference, {@link IValidation.IError.path} would be a little bit different with
-//  * individual {@link validateEquals} function. If the {@link IValidation.IError} occurs
-//  * from some parameter, the path would start from `$input.parameters[number]`.
-//  *
-//  * By the way, if what you want is not finding every type errors, but just finding
-//  * the 1st type error, then use {@link assertEqualsParameters} instead. Otherwise,
-//  * what you want is not only validating parameters, but also validating return value,
-//  * you can use {@link validateEqualsFunction} instead.
-//  *
-//  * On the other hand, if you want to allow any superfluous properties, utilize
-//  * {@link validateParameters} or {@link assertParameters} instead.
-//  *
-//  * @template T Target function type
-//  * @param func Target function to validate
-//  * @returns The wrapper function with type validations
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// function validateEqualsParameters<T extends (...args: any[]) => any>(
-//   func: T,
-// ): T extends (...args: infer Arguments) => infer Output
-//   ? Output extends Promise<infer R>
-//     ? (...args: Arguments) => Promise<IValidation<R>>
-//     : (...args: Arguments) => IValidation<Output>
-//   : never;
+/**
+ * Tests a function with strict equality.
+ *
+ * Tests a function with strict equality, by wrapping the function and checking its
+ * parameters and return value through {@link isEquals} function. If some parameter
+ * or return value does not match the expected type, it returns `null`. Otherwise
+ * there's no type error, it returns the result of the function.
+ *
+ * By the way, if you want is not just testing type checking, but also finding
+ * detailed type error reason(s), then use {@link assertEqualsFunction} or
+ * {@link validateEqualsFunction} instead.
+ *
+ * On the other hand, if you want to allow any superfluous properties, utilize
+ * {@link isFunction}, {@link assertFunction} or {@link validateFunction} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to test
+ * @returns The wrapper function with type tests
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function equalsFunction<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<R | null>
+    : (...args: Arguments) => Output | null
+  : never;
 
-// /**
-//  * @internal
-//  */
-// function validateEqualsParameters(): never {
-//   halt("validateEqualsParameters");
-// }
-// const validateEqualsParametersPure = /** @__PURE__ */ Object.assign<
-//   typeof validateEqualsParameters,
-//   {}
-// >(validateEqualsParameters, /** @__PURE__ */ Namespace.validate());
-// export { validateEqualsParametersPure as validateEqualsParameters };
+/**
+ * @internal
+ */
+function equalsFunction(): never {
+  halt("equalsFunction");
+}
+const equalsFunctionPure = /** @__PURE__ */ Object.assign<
+  typeof equalsFunction,
+  {}
+>(equalsFunction, /** @__PURE__ */ Namespace.is());
+export { equalsFunctionPure as equalsFunction };
 
-// /**
-//  * Validates return value with strict equality.
-//  *
-//  * Validates a function, by wrapping the function and checking its return value through
-//  * {@link validateEquals} function. If the return value does not match the expected type,
-//  * it returns {@link IValidation.IError} typed object. Otherwise there's no type error,
-//  * it returns {@link IValidation.ISuccess} typed object instead.
-//  *
-//  * For reference, {@link IValidation.IError.path} would be a little bit different with
-//  * individual {@link validateEquals} function. If the {@link IValidation.IError} occurs
-//  * from the return value, the path would start from `$input.return`.
-//  *
-//  * By the way, if what you want is not finding every type errors, but just finding
-//  * the 1st type error, then use {@link assertEqualsReturn} instead. Otherwise, what you
-//  * want is not only validating return value, but also validating parameters, you can use
-//  * {@link validateEqualsFunction} instead.
-//  *
-//  * On the other hand, if you want to allow any superfluous properties, utilize
-//  * {@link validateReturn} or {@link assertReturn} instead.
-//  *
-//  * @template T Target function type
-//  * @param func Target function to validate
-//  * @returns The wrapper function with type validations
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// function validateEqualsReturn<T extends (...args: any[]) => any>(
-//   func: T,
-// ): T extends (...args: infer Arguments) => infer Output
-//   ? Output extends Promise<infer R>
-//     ? (...args: Arguments) => Promise<IValidation<R>>
-//     : (...args: Arguments) => IValidation<Output>
-//   : never;
+/**
+ * Tests parameters with strict equality.
+ *
+ * Tests a function, by wrapping the function and checking its parameters through
+ * {@link isEquals} function. If some parameter does not match the expected type,
+ * it returns `null`. Otherwise there's no type error, it returns the result of the
+ * function.
+ *
+ * By the way, if you want is not just testing type checking, but also finding
+ * detailed type error reason(s), then use {@link assertEqualsParameters} or
+ * {@link validateEqualsParameters} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to test
+ * @returns The wrapper function with type tests
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function equalsParameters<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<R | null>
+    : (...args: Arguments) => Output | null
+  : never;
 
-// /**
-//  * @internal
-//  */
-// function validateEqualsReturn(): never {
-//   halt("validateEqualsReturn");
-// }
-// const validateEqualsReturnPure = /** @__PURE__ */ Object.assign<
-//   typeof validateEqualsReturn,
-//   {}
-// >(validateEqualsReturn, /** @__PURE__ */ Namespace.validate());
-// export { validateEqualsReturnPure as validateEqualsReturn };
+/**
+ * @internal
+ */
+function equalsParameters(): never {
+  halt("equalsParameters");
+}
+const equalsParametersPure = /** @__PURE__ */ Object.assign<
+  typeof equalsParameters,
+  {}
+>(equalsParameters, /** @__PURE__ */ Namespace.is());
+export { equalsParametersPure as equalsParameters };
+
+/**
+ * Tests return value with strict equality.
+ *
+ * Tests a function, by wrapping the function and checking its return value through
+ * {@link isEquals} function. If the return value does not match the expected type,
+ * it returns `null`. Otherwise there's no type error, it returns the result of the
+ * function.
+ *
+ * By the way, if you want is not just testing type checking, but also finding
+ * detailed type error reason(s), then use {@link assertEqualsReturn} or
+ * {@link validateEqualsReturn} instead.
+ *
+ * On the other hand, if you want to allow any superfluous properties, utilize
+ * {@link isReturn}, {@link assertReturn} or {@link validateReturn} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to test
+ * @returns The wrapper function with type tests
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function equalsReturn<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<R | null>
+    : (...args: Arguments) => Output | null
+  : never;
+
+/**
+ * @internal
+ */
+function equalsReturn(): never {
+  halt("equalsReturn");
+}
+const equalsReturnPure = /** @__PURE__ */ Object.assign<
+  typeof equalsReturn,
+  {}
+>(equalsReturn, /** @__PURE__ */ Namespace.is());
+export { equalsReturnPure as equalsReturn };
+
+/* -----------------------------------------------------------
+  VALIDATE
+----------------------------------------------------------- */
+/**
+ * Validates a function.
+ *
+ * Validates a function, by wrapping the function and checking its parameters and
+ * return value through {@link validate} function. If some parameter or return value
+ * does not match the expected type, it returns {@link IValidation.IError} typed
+ * object. Otherwise there's no type error, it returns {@link IValidation.ISuccess}
+ * typed object instead.
+ *
+ * For reference, {@link IValidation.IError.path} would be a little bit different with
+ * individual {@link validate} function. If the {@link IValidation.IError} occurs from
+ * some parameter, the path would start from `$input.parameters[number]`. Otherwise
+ * the path would start from `$input.return`.
+ *
+ * - `$input.parameters[0].~`
+ * - `$input.return.~`
+ *
+ * By the way, if what you want is not finding every type errors, but just finding
+ * the 1st type error, then use {@link assertFunction} instead. Otherwise, what you
+ * want is just validating parameters or return value only, you can use
+ * {@link validateParameters} or {@link validateReturn} instead.
+ *
+ * On the other hand, if you don't want to allow any superfluous properties, utilize
+ * {@link validateEqualsFunction} or {@link assertEqualsFunction} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to validate
+ * @returns The wrapper function with type validations
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateFunction<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<IValidation<R>>
+    : (...args: Arguments) => IValidation<Output>
+  : never;
+
+/**
+ * @internal
+ */
+function validateFunction(): never {
+  halt("validateFunction");
+}
+const validateFunctionPure = /** @__PURE__ */ Object.assign<
+  typeof validateFunction,
+  {}
+>(validateFunction, /** @__PURE__ */ Namespace.validate());
+export { validateFunctionPure as validateFunction };
+
+/**
+ * Validates parameters.
+ *
+ * Validates a function, by wrapping the function and checking its parameters through
+ * {@link validate} function. If some parameter does not match the expected type, it
+ * returns {@link IValidation.IError} typed object. Otherwise there's no type error,
+ * it returns {@link IValidation.ISuccess} typed object instead.
+ *
+ * For reference, {@link IValidation.IError.path} would be a little bit different with
+ * individual {@link validate} function. If the {@link IValidation.IError} occurs from
+ * some parameter, the path would start from `$input.parameters[number]`.
+ *
+ * By the way, if what you want is not finding every type errors, but just finding
+ * the 1st type error, then use {@link assertParameters} instead. Otherwise, what you
+ * want is not only validating parameters, but also validating return value, you can
+ * use {@link validateFunction} instead.
+ *
+ * On the other hand, if you don't want to allow any superfluous properties, utilize
+ * {@link validateEqualsParameters} or {@link assertEqualsParameters} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to validate
+ * @returns The wrapper function with type validations
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateParameters<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<IValidation<R>>
+    : (...args: Arguments) => IValidation<Output>
+  : never;
+
+/**
+ * @internal
+ */
+function validateParameters(): never {
+  halt("validateReturn");
+}
+const validateParametersPure = /** @__PURE__ */ Object.assign<
+  typeof validateParameters,
+  {}
+>(validateParameters, /** @__PURE__ */ Namespace.validate());
+export { validateParametersPure as validateParameters };
+
+/**
+ * Validates return value.
+ *
+ * Validates a function, by wrapping the function and checking its return value through
+ * {@link validate} function. If the return value does not match the expected type, it
+ * returns {@link IValidation.IError} typed object. Otherwise there's no type error,
+ * it returns {@link IValidation.ISuccess} typed object instead.
+ *
+ * For reference, {@link IValidation.IError.path} would be a little bit different with
+ * individual {@link validate} function. If the {@link IValidation.IError} occurs from
+ * the return value, the path would start from `$input.return`.
+ *
+ * By the way, if what you want is not finding every type errors, but just finding
+ * the 1st type error, then use {@link assertReturn} instead. Otherwise, what you want
+ * is not only validating return value, but also validating parameters, you can use
+ * {@link validateFunction} instead.
+ *
+ * On the other hand, if you don't want to allow any superfluous properties, utilize
+ * {@link validateEqualsReturn} or {@link assertEqualsReturn} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to validate
+ * @returns The wrapper function with type validations
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateReturn<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<IValidation<R>>
+    : (...args: Arguments) => IValidation<Output>
+  : never;
+
+/**
+ * @internal
+ */
+function validateReturn(): never {
+  halt("validateReturn");
+}
+const validateReturnPure = /** @__PURE__ */ Object.assign<
+  typeof validateReturn,
+  {}
+>(validateReturn, /** @__PURE__ */ Namespace.validate());
+export { validateReturnPure as validateReturn };
+
+/**
+ * Validates a function with strict equality.
+ *
+ * Validates a function with strict equality, by wrapping the function and checking
+ * its parameters and return value through {@link validateEquals} function. If some
+ * parameter or return value does not match the expected type, it returns
+ * {@link IValidation.IError} typed object. Otherwise there's no type error, it
+ * returns {@link IValidation.ISuccess} typed object instead.
+ *
+ * For reference, {@link IValidation.IError.path} would be a little bit different with
+ * individual {@link validateEquals} function. If the {@link IValidation.IError} occurs
+ * from some parameter, the path would start from `$input.parameters[number]`. Otherwise
+ * the path would start from `$input.return`.
+ *
+ * - `$input.parameters[0].~`
+ * - `$input.return.~`
+ *
+ * By the way, if what you want is not finding every type errors, but just finding
+ * the 1st type error, then use {@link assertEqualsFunction} instead. Otherwise, what
+ * you want is just validating parameters or return value only, you can use
+ * {@link validateEqualsParameters} or {@link validateEqualsReturn} instead.
+ *
+ * On the other hand, if you want to allow any superfluous properties, utilize
+ * {@link validateFunction} or {@link assertFunction} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to validate
+ * @returns The wrapper function with type validations
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateEqualsFunction<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<IValidation<R>>
+    : (...args: Arguments) => IValidation<Output>
+  : never;
+
+/**
+ * @internal
+ */
+function validateEqualsFunction(): never {
+  halt("validateEqualsFunction");
+}
+const validateEqualsFunctionPure = /** @__PURE__ */ Object.assign<
+  typeof validateEqualsFunction,
+  {}
+>(validateEqualsFunction, /** @__PURE__ */ Namespace.validate());
+export { validateEqualsFunctionPure as validateEqualsFunction };
+
+/**
+ * Validates parameters with strict equality.
+ *
+ * Validates a function, by wrapping the function and checking its parameters through
+ * {@link validateEquals} function. If some parameter does not match the expected type,
+ * it returns {@link IValidation.IError} typed object. Otherwise there's no type error,
+ * it returns {@link IValidation.ISuccess} typed object instead.
+ *
+ * For reference, {@link IValidation.IError.path} would be a little bit different with
+ * individual {@link validateEquals} function. If the {@link IValidation.IError} occurs
+ * from some parameter, the path would start from `$input.parameters[number]`.
+ *
+ * By the way, if what you want is not finding every type errors, but just finding
+ * the 1st type error, then use {@link assertEqualsParameters} instead. Otherwise,
+ * what you want is not only validating parameters, but also validating return value,
+ * you can use {@link validateEqualsFunction} instead.
+ *
+ * On the other hand, if you want to allow any superfluous properties, utilize
+ * {@link validateParameters} or {@link assertParameters} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to validate
+ * @returns The wrapper function with type validations
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateEqualsParameters<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<IValidation<R>>
+    : (...args: Arguments) => IValidation<Output>
+  : never;
+
+/**
+ * @internal
+ */
+function validateEqualsParameters(): never {
+  halt("validateEqualsParameters");
+}
+const validateEqualsParametersPure = /** @__PURE__ */ Object.assign<
+  typeof validateEqualsParameters,
+  {}
+>(validateEqualsParameters, /** @__PURE__ */ Namespace.validate());
+export { validateEqualsParametersPure as validateEqualsParameters };
+
+/**
+ * Validates return value with strict equality.
+ *
+ * Validates a function, by wrapping the function and checking its return value through
+ * {@link validateEquals} function. If the return value does not match the expected type,
+ * it returns {@link IValidation.IError} typed object. Otherwise there's no type error,
+ * it returns {@link IValidation.ISuccess} typed object instead.
+ *
+ * For reference, {@link IValidation.IError.path} would be a little bit different with
+ * individual {@link validateEquals} function. If the {@link IValidation.IError} occurs
+ * from the return value, the path would start from `$input.return`.
+ *
+ * By the way, if what you want is not finding every type errors, but just finding
+ * the 1st type error, then use {@link assertEqualsReturn} instead. Otherwise, what you
+ * want is not only validating return value, but also validating parameters, you can use
+ * {@link validateEqualsFunction} instead.
+ *
+ * On the other hand, if you want to allow any superfluous properties, utilize
+ * {@link validateReturn} or {@link assertReturn} instead.
+ *
+ * @template T Target function type
+ * @param func Target function to validate
+ * @returns The wrapper function with type validations
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+function validateEqualsReturn<T extends (...args: any[]) => any>(
+  func: T,
+): T extends (...args: infer Arguments) => infer Output
+  ? Output extends Promise<infer R>
+    ? (...args: Arguments) => Promise<IValidation<R>>
+    : (...args: Arguments) => IValidation<Output>
+  : never;
+
+/**
+ * @internal
+ */
+function validateEqualsReturn(): never {
+  halt("validateEqualsReturn");
+}
+const validateEqualsReturnPure = /** @__PURE__ */ Object.assign<
+  typeof validateEqualsReturn,
+  {}
+>(validateEqualsReturn, /** @__PURE__ */ Namespace.validate());
+export { validateEqualsReturnPure as validateEqualsReturn };
 
 /* -----------------------------------------------------------
   HALTER

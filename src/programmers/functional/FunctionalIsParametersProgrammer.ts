@@ -4,10 +4,9 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
-import { AssertProgrammer } from "../AssertProgrammer";
-import { FunctionalAssertFunctionProgrammer } from "./FunctionalAssertFunctionProgrammer";
+import { IsProgrammer } from "../IsProgrammer";
 
-export namespace FunctionalAssertParametersProgrammer {
+export namespace FunctionalIsParametersProgrammer {
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
@@ -15,11 +14,7 @@ export namespace FunctionalAssertParametersProgrammer {
     (
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
-      init?: ts.Expression,
     ): ts.ArrowFunction => {
-      const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper(
-        modulo,
-      )(declaration.parameters)(init);
       const async: boolean = (() => {
         if (declaration.type === undefined) return false;
         const type: ts.Type = project.checker.getTypeFromTypeNode(
@@ -33,15 +28,14 @@ export namespace FunctionalAssertParametersProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        declaration.type,
+        ts.factory.createUnionTypeNode([
+          declaration.type ?? TypeFactory.keyword("any"),
+          ts.factory.createTypeReferenceNode("null"),
+        ]),
         undefined,
         ts.factory.createBlock(
           [
-            wrapper.variable,
-            ...argumentExpressions(project)(modulo)(equals)(
-              declaration.parameters,
-              wrapper.name,
-            ).map(ts.factory.createExpressionStatement),
+            ...writeStatements(project)(modulo)(equals)(declaration),
             ts.factory.createReturnStatement(
               ts.factory.createCallExpression(
                 expression,
@@ -57,28 +51,28 @@ export namespace FunctionalAssertParametersProgrammer {
       );
     };
 
-  export const argumentExpressions =
+  export const writeStatements =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
-    (
-      parameters: readonly ts.ParameterDeclaration[],
-      wrapper: string,
-    ): ts.CallExpression[] =>
-      parameters.map((p, i) =>
-        ts.factory.createCallExpression(
-          AssertProgrammer.write(project)(modulo)(equals)(
-            p.type
-              ? project.checker.getTypeFromTypeNode(p.type)
-              : project.checker.getTypeFromTypeNode(TypeFactory.keyword("any")),
-            undefined,
-            FunctionalAssertFunctionProgrammer.hookPath({
-              wrapper,
-              replacer: `$input.parameters[${i}]`,
-            }),
+    (declaration: ts.FunctionDeclaration): ts.Statement[] =>
+      declaration.parameters
+        .map((p) => [
+          ts.factory.createIfStatement(
+            ts.factory.createStrictEquality(
+              ts.factory.createFalse(),
+              ts.factory.createCallExpression(
+                IsProgrammer.write(project)(modulo)(equals)(
+                  project.checker.getTypeFromTypeNode(
+                    p.type ?? TypeFactory.keyword("any"),
+                  ),
+                ),
+                undefined,
+                [ts.factory.createIdentifier(p.name.getText())],
+              ),
+            ),
+            ts.factory.createReturnStatement(ts.factory.createNull()),
           ),
-          undefined,
-          [ts.factory.createIdentifier(p.name.getText())],
-        ),
-      );
+        ])
+        .flat();
 }

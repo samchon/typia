@@ -2,5 +2,6 @@
     "assert": "assert() function",
     "is": "is() function",
     "validate": "validate() function",
+    "functional": "functional module",
     "tags": "Special Tags"
 }
