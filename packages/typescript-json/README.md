@@ -81,6 +81,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`assert()` function](https://typia.io/docs/validators/assert/)
     - [`is()` function](https://typia.io/docs/validators/is/)
     - [`validate()` function](https://typia.io/docs/validators/validate/)
+    - [Functional Module](https://typia.io/docs/validators/functional)
     - [Special Tags](https://typia.io/docs/validators/tags/)
   - Enhanced JSON
     - [`stringify()` functions](https://typia.io/docs/json/stringify/)

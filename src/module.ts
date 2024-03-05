@@ -51,6 +51,7 @@ export * from "./SnakeCase";
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
@@ -77,6 +78,7 @@ function assert<T>(
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
@@ -119,6 +121,7 @@ export { assertPure as assert };
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -148,6 +151,7 @@ function assertGuard<T>(
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -187,6 +191,7 @@ export { assertGuardPure as assertGuard };
  *
  * @template T Type of the input value
  * @param input A value to be tested
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Whether the parametric value is following the type `T` or not
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -312,6 +317,7 @@ export { validatePure as validate };
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
@@ -340,6 +346,7 @@ function assertEquals<T>(
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
@@ -384,6 +391,7 @@ export { assertEqualsPure as assertEquals };
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
@@ -416,6 +424,7 @@ function assertGuardEquals<T>(
  *
  * @template T Type of the input value
  * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
  * @throws A {@link TypeGuardError} instance with detailed reason
  *
@@ -624,6 +633,7 @@ export { randomPure as random };
  * Creates a reusable {@link assert} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
@@ -637,6 +647,7 @@ function createAssert(
  * Creates a reusable {@link assert} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assert` function
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -676,6 +687,7 @@ export { createAssertPure as createAssert };
  * > *explicit type annotation.*
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
@@ -704,6 +716,7 @@ function createAssertGuard(
  * > *explicit type annotation.*
  *
  * @returns Nothing until you configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @throws compile error
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -794,6 +807,7 @@ export { createValidatePure as createValidate };
  * Creates a reusable {@link assertEquals} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
@@ -807,6 +821,7 @@ function createAssertEquals(
  * Creates a reusable {@link assertEquals} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertEquals` function
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -846,6 +861,7 @@ export { createAssertEqualsPure as createAssertEquals };
  * > *explicit type annotation.*
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
@@ -873,6 +889,7 @@ function createAssertGuardEquals(
  * > *Assertions require every name in the call target to be declared with an*
  * > *explicit type annotation.*
  *
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *

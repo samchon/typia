@@ -164,6 +164,7 @@ export { decodePure as decode };
  *
  * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded value
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -196,6 +197,7 @@ function assertDecode(
  *
  * @template T Expected type of decoded value
  * @param input Protobuf Buffer binary data
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Decoded value
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -446,6 +448,7 @@ export { encodePure as encode };
  *
  * @template T Type of the value input
  * @param input A value to encode
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Encoded binary data
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -482,6 +485,7 @@ function assertEncode<T>(
  *
  * @template T Type of the value input
  * @param input A value to encode
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Encoded binary data
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -750,6 +754,7 @@ export { createIsDecodePure as createIsDecode };
  * Creates a reusable {@link assertDecode} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
@@ -763,6 +768,7 @@ function createAssertDecode(
  * Creates a reusable {@link assertDecode} function.
  *
  * @template T Target type
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertDecode` function
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -905,6 +911,7 @@ export { createIsEncodePure as createIsEncode };
  * Creates a reusable {@link assertEncode} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until you configure the generic argument `T`
  * @throws compile error
  *
@@ -918,6 +925,7 @@ function createAssertEncode(
  * Creates a reusable {@link assertEncode} function.
  *
  * @template T Target type
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertEncode` function
  *
  * @author Jeongho Nam - https://github.com/samchon
