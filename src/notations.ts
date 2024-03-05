@@ -56,6 +56,7 @@ export { camelPure as camel };
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Camel case object
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -73,6 +74,7 @@ function assertCamel<T>(
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Camel case object
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -233,6 +235,7 @@ export { pascalPure as pascal };
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Pascal case object
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -250,6 +253,7 @@ function assertPascal<T>(
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Pascal case object
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -410,6 +414,7 @@ export { snakePure as snake };
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Snake case object
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -427,6 +432,7 @@ function assertSnake<T>(
  *
  * @template T Type of the input value
  * @param input Target object
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Snake case object
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -582,6 +588,7 @@ export { createCamelPure as createCamel };
  * Creates a reusable {@link assertCamel} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws compile error
  *
@@ -595,6 +602,7 @@ function createAssertCamel(
  * Creates a reusable {@link assertCamel} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertCamel` function
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -733,6 +741,7 @@ export { createPascalPure as createPascal };
  * Creates a reusable {@link assertPascal} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws compile error
  *
@@ -746,6 +755,7 @@ function createAssertPascal(
  * Creates a reusable {@link assertPascal} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertPascal` function
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -884,6 +894,7 @@ export { createSnakePure as createSnake };
  * Creates a reusable {@link assertSnake} function.
  *
  * @danger You must configure the generic argument `T`
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Nothing until be configure the generic argument `T`
  * @throws compile error
  *
@@ -897,6 +908,7 @@ function createAssertSnake(
  * Creates a reusable {@link assertSnake} function.
  *
  * @template T Type of the input value
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns A reusable `assertSnake` function
  *
  * @author Jeongho Nam - https://github.com/samchon
