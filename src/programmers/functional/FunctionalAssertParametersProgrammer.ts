@@ -6,6 +6,7 @@ import { IProject } from "../../transformers/IProject";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FunctionalAssertFunctionProgrammer } from "./FunctionalAssertFunctionProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionalAssertParametersProgrammer {
   export const write =
@@ -20,13 +21,9 @@ export namespace FunctionalAssertParametersProgrammer {
       const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper(
         modulo,
       )(declaration.parameters)(init);
-      const async: boolean = (() => {
-        if (declaration.type === undefined) return false;
-        const type: ts.Type = project.checker.getTypeFromTypeNode(
-          declaration.type,
-        );
-        return type.isTypeParameter() && type.symbol.name === "Promise";
-      })();
+      const { async } = FunctionalGeneralProgrammer.getReturnType(
+        project.checker,
+      )(declaration);
       return ts.factory.createArrowFunction(
         async
           ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]

@@ -1,11 +1,10 @@
 import ts from "typescript";
 
-import { TypeFactory } from "../../factories/TypeFactory";
-
 import { IProject } from "../../transformers/IProject";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FunctionalAssertFunctionProgrammer } from "./FunctionalAssertFunctionProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionAssertReturnProgrammer {
   export const write =
@@ -22,14 +21,7 @@ export namespace FunctionAssertReturnProgrammer {
       )(declaration.parameters)(init);
       const { async, returns: statement } = returnStatement(project)(modulo)(
         equals,
-      )(
-        expression,
-        declaration.type,
-        declaration.parameters.map((p) =>
-          ts.factory.createIdentifier(p.name.getText()),
-        ),
-        wrapper.name,
-      );
+      )(expression, declaration, wrapper.name);
       return ts.factory.createArrowFunction(
         async
           ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
@@ -48,25 +40,21 @@ export namespace FunctionAssertReturnProgrammer {
     (equals: boolean) =>
     (
       expression: ts.Expression,
-      typeNode: ts.TypeNode | undefined,
-      argumentExpressions: ts.Expression[],
+      declaration: ts.FunctionDeclaration,
       wrapper: string,
     ): {
       async: boolean;
       returns: ts.ReturnStatement;
     } => {
-      const [type, async]: [ts.Type, boolean] = (() => {
-        const type: ts.Type = project.checker.getTypeFromTypeNode(
-          typeNode ?? TypeFactory.keyword("any"),
-        );
-        return type.isTypeParameter() && type.symbol.name === "Promise"
-          ? [type.aliasTypeArguments![0]!, true]
-          : [type, false];
-      })();
+      const { type, async } = FunctionalGeneralProgrammer.getReturnType(
+        project.checker,
+      )(declaration);
       const caller: ts.CallExpression = ts.factory.createCallExpression(
         expression,
         undefined,
-        argumentExpressions,
+        declaration.parameters.map((p) =>
+          ts.factory.createIdentifier(p.name.getText()),
+        ),
       );
       return {
         async,
