@@ -1,13 +1,13 @@
 import ts from "typescript";
 
 import { StatementFactory } from "../../factories/StatementFactory";
-import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
 import { StringUtil } from "../../utils/StringUtil";
 
 import { IsProgrammer } from "../IsProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionalIsReturnProgrammer {
   export const write =
@@ -28,10 +28,12 @@ export namespace FunctionalIsReturnProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        ts.factory.createUnionTypeNode([
-          declaration.type ?? TypeFactory.keyword("any"),
-          ts.factory.createTypeReferenceNode("null"),
-        ]),
+        declaration.type
+          ? ts.factory.createUnionTypeNode([
+              declaration.type,
+              ts.factory.createTypeReferenceNode("null"),
+            ])
+          : undefined,
         undefined,
         ts.factory.createBlock(statements, true),
       );
@@ -48,14 +50,9 @@ export namespace FunctionalIsReturnProgrammer {
       async: boolean;
       statements: ts.Statement[];
     } => {
-      const [type, async]: [ts.Type, boolean] = (() => {
-        const type: ts.Type = project.checker.getTypeFromTypeNode(
-          declaration.type ?? TypeFactory.keyword("any"),
-        );
-        return type.isTypeParameter() && type.symbol.name === "Promise"
-          ? [type.aliasTypeArguments![0]!, true]
-          : [type, false];
-      })();
+      const { type, async } = FunctionalGeneralProgrammer.getReturnType(
+        project.checker,
+      )(declaration);
       const caller: ts.CallExpression = ts.factory.createCallExpression(
         expression,
         undefined,
