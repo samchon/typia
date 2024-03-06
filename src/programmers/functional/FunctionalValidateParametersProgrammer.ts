@@ -10,6 +10,7 @@ import { StringUtil } from "../../utils/StringUtil";
 
 import { ValidateProgrammer } from "../ValidateProgrammer";
 import { FunctionalValidateFunctionProgrammer } from "./FunctionalValidateFunctionProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionalValidateParametersProgrammer {
   export const write =
@@ -20,13 +21,9 @@ export namespace FunctionalValidateParametersProgrammer {
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
     ): ts.ArrowFunction => {
-      const async: boolean = (() => {
-        if (declaration.type === undefined) return false;
-        const type: ts.Type = project.checker.getTypeFromTypeNode(
-          declaration.type,
-        );
-        return type.isTypeParameter() && type.symbol.name === "Promise";
-      })();
+      const { async } = FunctionalGeneralProgrammer.getReturnType(
+        project.checker,
+      )(declaration);
       const caller: ts.CallExpression = ts.factory.createCallExpression(
         expression,
         undefined,
