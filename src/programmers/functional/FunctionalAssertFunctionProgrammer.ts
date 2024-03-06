@@ -24,14 +24,7 @@ export namespace FunctionalAssertFunctionProgrammer {
       const wrapper = errorFactoryWrapper(modulo)(declaration.parameters)(init);
       const { async, returns } = FunctionAssertReturnProgrammer.returnStatement(
         project,
-      )(modulo)(equals)(
-        expression,
-        declaration.type,
-        declaration.parameters.map((p) =>
-          ts.factory.createIdentifier(p.name.getText()),
-        ),
-        wrapper.name,
-      );
+      )(modulo)(equals)(expression, declaration, wrapper.name);
       return ts.factory.createArrowFunction(
         async
           ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]

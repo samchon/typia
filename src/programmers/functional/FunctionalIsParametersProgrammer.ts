@@ -5,6 +5,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { IProject } from "../../transformers/IProject";
 
 import { IsProgrammer } from "../IsProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionalIsParametersProgrammer {
   export const write =
@@ -15,23 +16,21 @@ export namespace FunctionalIsParametersProgrammer {
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
     ): ts.ArrowFunction => {
-      const async: boolean = (() => {
-        if (declaration.type === undefined) return false;
-        const type: ts.Type = project.checker.getTypeFromTypeNode(
-          declaration.type,
-        );
-        return type.isTypeParameter() && type.symbol.name === "Promise";
-      })();
+      const { async } = FunctionalGeneralProgrammer.getReturnType(
+        project.checker,
+      )(declaration);
       return ts.factory.createArrowFunction(
         async
           ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
           : undefined,
         undefined,
         declaration.parameters,
-        ts.factory.createUnionTypeNode([
-          declaration.type ?? TypeFactory.keyword("any"),
-          ts.factory.createTypeReferenceNode("null"),
-        ]),
+        declaration.type
+          ? ts.factory.createUnionTypeNode([
+              declaration.type,
+              ts.factory.createTypeReferenceNode("null"),
+            ])
+          : undefined,
         undefined,
         ts.factory.createBlock(
           [

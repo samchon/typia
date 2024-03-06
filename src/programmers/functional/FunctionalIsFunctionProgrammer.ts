@@ -25,11 +25,12 @@ export namespace FunctionalIsFunctionProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        ts.factory.createUnionTypeNode([
-          declaration.type ??
-            ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
-          ts.factory.createTypeReferenceNode("null"),
-        ]),
+        declaration.type
+          ? ts.factory.createUnionTypeNode([
+              declaration.type,
+              ts.factory.createTypeReferenceNode("null"),
+            ])
+          : undefined,
         undefined,
         ts.factory.createBlock(
           [

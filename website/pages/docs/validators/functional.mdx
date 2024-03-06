@@ -50,9 +50,11 @@ Also, if what you want is not just finding the first type error through assertio
 ```typescript copy filename="examples/src/assertFunction.ts" showLineNumbers
 import typia from "typia";
 
-typia.functional.assertFunction(
-  (x: number, y: number) => x + y,
-)(3, 4);
+const func = typia.functional.assertFunction(
+  (x: number, y: number): number => x + y,
+);
+func(3, 4);
+func(4, 5);
 ```
   </Tab>
   <Tab>
@@ -65,7 +67,7 @@ var __importDefault =
   };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-((x, y) => {
+const func = (x, y) => {
   const errorFactoryWrapper =
     typia_1.default.functional.assertFunction.errorFactory;
   ((
@@ -139,15 +141,29 @@ const typia_1 = __importDefault(require("typia"));
       }),
   ) => {
     const __is = (input) => {
-      return true;
+      return "number" === typeof input;
     };
     if (false === __is(input))
       ((input, _path, _exceptionable = true) => {
-        return true;
+        const $guard = typia_1.default.functional.assertFunction.guard;
+        return (
+          "number" === typeof input ||
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: "number",
+              value: input,
+            },
+            errorFactory,
+          )
+        );
       })(input, "$input", true);
     return input;
   })(((x, y) => x + y)(x, y));
-})(3, 4);
+};
+func(3, 4);
+func(4, 5);
 ```
   </Tab>
 </Tabs>
@@ -187,9 +203,11 @@ Also, if what you want is not just type checking, but want to know the detailed 
 ```typescript copy filename="examples/src/isFunction.ts" showLineNumbers
 import typia from "typia";
 
-typia.functional.isFunction(
-  (x: number, y: number) => x + y,
-)(3, 4);
+const func = typia.functional.isFunction(
+  (x: number, y: number): number => x + y,
+);
+func(3, 4);
+func(4, 5);
 ```
   </Tab>
   <Tab>
@@ -202,7 +220,7 @@ var __importDefault =
   };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-((x, y) => {
+const func = (x, y) => {
   if (
     false ===
     ((input) => {
@@ -219,60 +237,13 @@ const typia_1 = __importDefault(require("typia"));
     return null;
   const result = ((x, y) => x + y)(x, y);
   return ((input) => {
-    return true;
+    return "number" === typeof input;
   })(result)
     ? result
     : null;
-})(3, 4);
-```
-  </Tab>
-</Tabs>
-
-
-
-
-## `validateFunction()`
-<Tabs items={[
-  <code>typia</code>,
-  <code>IValidation.ts</code>
-]}>
-  <Tab>
-```typescript showLineNumbers
-export namespace functional {
-  export function validateFunction<T extends (...args: any[]) => any>(
-    func: T,
-  ): T extends (...args: infer Arguments) => infer Output
-    ? Output extends Promise<infer R>
-      ? (...args: Arguments) => Promise<IValidation<R>>
-      : (...args: Arguments) => IValidation<Output>
-    : never;
-  export function validateParameters;
-  export function validateReturn;
-
-  export function validateEqualsFunction;
-  export function validateEqualsParameters;
-  export function validateEqualsReturn;
-}
-```
-  </Tab>
-  <Tab>
-```typescript showLineNumbers
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
+};
+func(3, 4);
+func(4, 5);
 ```
   </Tab>
 </Tabs>
@@ -295,9 +266,11 @@ Also, if what you want is not retrieving every type errors, but just finding the
 ```typescript copy filename="examples/src/validateFunction.ts" showLineNumbers
 import typia from "typia";
 
-typia.functional.validateFunction(
-  (x: number, y: number) => x + y,
-)(3, 4);
+const func = typia.functional.validateFunction(
+  (x: number, y: number): number => x + y,
+);
+func(3, 4);
+func(4, 5);
 ```
   </Tab>
   <Tab>
@@ -310,7 +283,7 @@ var __importDefault =
   };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
-((x, y) => {
+const func = (x, y) => {
   const paramResults = [
     ((input) => {
       const errors = [];
@@ -380,13 +353,20 @@ const typia_1 = __importDefault(require("typia"));
   const result = ((input) => {
     const errors = [];
     const __is = (input) => {
-      return true;
+      return "number" === typeof input;
     };
     if (false === __is(input)) {
       const $report =
         typia_1.default.functional.validateFunction.report(errors);
       ((input, _path, _exceptionable = true) => {
-        return true;
+        return (
+          "number" === typeof input ||
+          $report(true, {
+            path: _path + "",
+            expected: "number",
+            value: input,
+          })
+        );
       })(input, "$input", true);
     }
     const success = 0 === errors.length;
@@ -402,7 +382,9 @@ const typia_1 = __importDefault(require("typia"));
       path: error.path.replace("$input", "$input.return"),
     }));
   return result;
-})(3, 4);
+};
+func(3, 4);
+func(4, 5);
 ```
   </Tab>
 </Tabs>
