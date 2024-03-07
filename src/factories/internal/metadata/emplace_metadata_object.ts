@@ -37,7 +37,7 @@ export const emplace_metadata_object =
           return (
             kind !== ts.SyntaxKind.PrivateKeyword &&
             kind !== ts.SyntaxKind.ProtectedKeyword &&
-            (ts.isParameter(node) || isProperty(node))
+            isProperty(node)
           );
         }
       : (node) => isProperty(node);
@@ -163,6 +163,7 @@ export const emplace_metadata_object =
   };
 
 const isProperty = (node: ts.Declaration) =>
+  ts.isParameter(node) ||
   ts.isPropertyDeclaration(node) ||
   ts.isPropertyAssignment(node) ||
   ts.isPropertySignature(node) ||
