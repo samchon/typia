@@ -37,16 +37,10 @@ export namespace FunctionalValidateParametersProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        declaration.type
-          ? ts.factory.createImportTypeNode(
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("typia"),
-              ),
-              undefined,
-              ts.factory.createIdentifier("IValidation"),
-              [declaration.type],
-            )
-          : undefined,
+        FunctionalValidateFunctionProgrammer.getReturnTypeNode(
+          declaration,
+          async,
+        ),
         undefined,
         ts.factory.createBlock(
           [

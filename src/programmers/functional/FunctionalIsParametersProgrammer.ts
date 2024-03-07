@@ -6,6 +6,7 @@ import { IProject } from "../../transformers/IProject";
 
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
+import { FunctionalIsFunctionProgrammer } from "./FunctionalIsFunctionProgrammer";
 
 export namespace FunctionalIsParametersProgrammer {
   export const write =
@@ -25,12 +26,7 @@ export namespace FunctionalIsParametersProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        declaration.type
-          ? ts.factory.createUnionTypeNode([
-              declaration.type,
-              ts.factory.createTypeReferenceNode("null"),
-            ])
-          : undefined,
+        FunctionalIsFunctionProgrammer.getReturnTypeNode(declaration, async),
         undefined,
         ts.factory.createBlock(
           [
