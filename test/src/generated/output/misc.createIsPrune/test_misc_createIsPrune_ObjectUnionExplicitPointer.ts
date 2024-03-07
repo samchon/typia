@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
-
 export const test_misc_createIsPrune_ObjectUnionExplicitPointer =
   _test_misc_isPrune("ObjectUnionExplicitPointer")<ObjectUnionExplicitPointer>(
     ObjectUnionExplicitPointer,

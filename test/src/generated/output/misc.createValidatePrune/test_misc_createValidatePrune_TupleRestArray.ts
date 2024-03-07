@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-
 export const test_misc_createValidatePrune_TupleRestArray =
   _test_misc_validatePrune("TupleRestArray")<TupleRestArray>(TupleRestArray)(
     (input: any): typia.IValidation<TupleRestArray> => {

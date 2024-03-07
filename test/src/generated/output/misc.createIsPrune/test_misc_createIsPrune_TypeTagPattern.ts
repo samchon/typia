@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TypeTagPattern } from "../../../structures/TypeTagPattern";
-
 export const test_misc_createIsPrune_TypeTagPattern = _test_misc_isPrune(
   "TypeTagPattern",
 )<TypeTagPattern>(TypeTagPattern)((input: any): input is TypeTagPattern => {

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateEqualsReturn } from "../../../internal/_test_functional_validateEqualsReturn";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-
 export const test_functional_validateEqualsReturn_ObjectUnionExplicit =
   _test_functional_validateEqualsReturn("ObjectUnionExplicit")(
     ObjectUnionExplicit,

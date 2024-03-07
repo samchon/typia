@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
-
 export const test_protobuf_isEncode_TypeTagInfinite = _test_protobuf_isEncode(
   "TypeTagInfinite",
 )<TypeTagInfinite>(TypeTagInfinite)({

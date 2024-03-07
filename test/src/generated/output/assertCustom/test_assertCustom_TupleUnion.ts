@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TupleUnion } from "../../../structures/TupleUnion";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_assertCustom_TupleUnion = _test_assert(CustomGuardError)(
   "TupleUnion",
 )<TupleUnion>(TupleUnion)((input) =>

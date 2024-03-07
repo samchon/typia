@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../../internal/_test_functional_assertFunction";
 import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_functional_assertFunctionCustom_ArrayRepeatedOptional =
   _test_functional_assertFunction(CustomGuardError)("ArrayRepeatedOptional")(
     ArrayRepeatedOptional,

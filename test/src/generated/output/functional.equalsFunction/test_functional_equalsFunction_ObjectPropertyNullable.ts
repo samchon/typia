@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_equalsFunction } from "../../../internal/_test_functional_equalsFunction";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-
 export const test_functional_equalsFunction_ObjectPropertyNullable =
   _test_functional_equalsFunction("ObjectPropertyNullable")(
     ObjectPropertyNullable,

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
-
 export const test_protobuf_createValidateEncode_ObjectUnionCompositePointer =
   _test_protobuf_validateEncode(
     "ObjectUnionCompositePointer",

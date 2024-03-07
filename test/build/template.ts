@@ -91,6 +91,7 @@ function script(
       })(create)(struct.name);
   if (false === method.toLowerCase().includes("assert")) return content;
 
+  method = method.replace("Async", "");
   const from: number = content.indexOf("export const");
   const to: number = content.indexOf("(", from + 1);
   const replacer =

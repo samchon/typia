@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_decode } from "../../../internal/_test_protobuf_decode";
 import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion";
-
 export const test_protobuf_decode_CommentTagAtomicUnion = _test_protobuf_decode(
   "CommentTagAtomicUnion",
 )<CommentTagAtomicUnion>(CommentTagAtomicUnion)({

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ClassNonPublic } from "../../../structures/ClassNonPublic";
-
 export const test_protobuf_validateEncode_ClassNonPublic =
   _test_protobuf_validateEncode("ClassNonPublic")<ClassNonPublic>(
     ClassNonPublic,

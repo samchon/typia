@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_misc_assertCloneCustom_ConstantAtomicUnion =
   _test_misc_assertClone(CustomGuardError)(

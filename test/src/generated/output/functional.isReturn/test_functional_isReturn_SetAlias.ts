@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_isReturn } from "../../../internal/_test_functional_isReturn";
 import { SetAlias } from "../../../structures/SetAlias";
-
 export const test_functional_isReturn_SetAlias = _test_functional_isReturn(
   "SetAlias",
 )(SetAlias)(

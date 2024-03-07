@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_createAssertGuardEqualsCustom_ConstantAtomicSimple =
   _test_assertGuardEquals(CustomGuardError)(
     "ConstantAtomicSimple",

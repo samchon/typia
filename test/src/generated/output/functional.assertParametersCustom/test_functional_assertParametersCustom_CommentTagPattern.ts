@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../../internal/_test_functional_assertParameters";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_functional_assertParametersCustom_CommentTagPattern =
   _test_functional_assertParameters(CustomGuardError)("CommentTagPattern")(
     CommentTagPattern,

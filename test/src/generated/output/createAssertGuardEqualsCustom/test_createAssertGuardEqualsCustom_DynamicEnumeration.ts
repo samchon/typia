@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_createAssertGuardEqualsCustom_DynamicEnumeration =
   _test_assertGuardEquals(CustomGuardError)(
     "DynamicEnumeration",

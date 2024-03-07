@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TypeTagNaN } from "../../../structures/TypeTagNaN";
-
 export const test_protobuf_createValidateEncode_TypeTagNaN =
   _test_protobuf_validateEncode("TypeTagNaN")<TypeTagNaN>(TypeTagNaN)({
     encode: (input: TypeTagNaN): typia.IValidation<Uint8Array> => {

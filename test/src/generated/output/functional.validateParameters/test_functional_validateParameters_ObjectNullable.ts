@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateParameters } from "../../../internal/_test_functional_validateParameters";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-
 export const test_functional_validateParameters_ObjectNullable =
   _test_functional_validateParameters("ObjectNullable")(ObjectNullable)(
     (p: (input: ObjectNullable) => ObjectNullable) =>

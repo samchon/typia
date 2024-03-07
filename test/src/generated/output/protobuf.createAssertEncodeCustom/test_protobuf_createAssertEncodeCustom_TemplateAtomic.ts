@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_protobuf_createAssertEncodeCustom_TemplateAtomic =
   _test_protobuf_assertEncode(CustomGuardError)(
     "TemplateAtomic",

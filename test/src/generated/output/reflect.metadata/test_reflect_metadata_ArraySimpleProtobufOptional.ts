@@ -1,8 +1,6 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../../internal/_test_reflect_metadata";
 import { ArraySimpleProtobufOptional } from "../../../structures/ArraySimpleProtobufOptional";
-
+import { _test_reflect_metadata } from "../../../internal/_test_reflect_metadata";
 export const test_reflect_metadata_ArraySimpleProtobufOptional =
   _test_reflect_metadata("ArraySimpleProtobufOptional")({
     metadatas: [

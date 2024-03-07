@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_json_createAssertParseCustom_CommentTagDefault =
   _test_json_assertParse(CustomGuardError)(

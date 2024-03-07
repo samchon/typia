@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { DynamicUnion } from "../../structures/DynamicUnion";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
 export const test_reflect_metadata_DynamicUnion = _test_reflect_metadata(
   "DynamicUnion",

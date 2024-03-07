@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_assertCustom_CommentTagObjectUnion = _test_assert(
   CustomGuardError,

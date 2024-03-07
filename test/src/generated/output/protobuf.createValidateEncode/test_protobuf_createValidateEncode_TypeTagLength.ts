@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
-
 export const test_protobuf_createValidateEncode_TypeTagLength =
   _test_protobuf_validateEncode("TypeTagLength")<TypeTagLength>(TypeTagLength)({
     encode: (input: TypeTagLength): typia.IValidation<Uint8Array> => {

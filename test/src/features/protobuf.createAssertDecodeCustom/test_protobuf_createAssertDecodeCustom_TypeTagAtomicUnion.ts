@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_createAssertDecodeCustom_TypeTagAtomicUnion =
   _test_protobuf_assertDecode(CustomGuardError)(

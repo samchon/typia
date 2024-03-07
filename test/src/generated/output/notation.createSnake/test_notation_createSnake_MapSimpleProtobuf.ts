@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
-
 export const test_notation_createValidateSnake_MapSimpleProtobuf =
   _test_notation_validateGeneral("MapSimpleProtobuf")<MapSimpleProtobuf>(
     MapSimpleProtobuf,

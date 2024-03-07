@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_assertEqualsCustom_TupleRestObject = _test_assertEquals(
   CustomGuardError,
 )("TupleRestObject")<TupleRestObject>(TupleRestObject)((input) =>

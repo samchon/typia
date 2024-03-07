@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateParameters } from "../../../internal/_test_functional_validateParameters";
 import { ObjectHttpConstant } from "../../../structures/ObjectHttpConstant";
-
 export const test_functional_validateParameters_ObjectHttpConstant =
   _test_functional_validateParameters("ObjectHttpConstant")(ObjectHttpConstant)(
     (p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>

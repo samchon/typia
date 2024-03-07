@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { TypeTagPattern } from "../../../structures/TypeTagPattern";
-
 export const test_protobuf_createIsEncode_TypeTagPattern =
   _test_protobuf_isEncode("TypeTagPattern")<TypeTagPattern>(TypeTagPattern)({
     encode: (input: TypeTagPattern): Uint8Array | null => {

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateFunction } from "../../../internal/_test_functional_validateFunction";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
-
 export const test_functional_validateFunction_ConstantAtomicAbsorbed =
   _test_functional_validateFunction("ConstantAtomicAbsorbed")(
     ConstantAtomicAbsorbed,

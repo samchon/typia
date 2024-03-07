@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_random } from "../../../internal/_test_random";
 import { NativeSimple } from "../../../structures/NativeSimple";
-
 export const test_random_NativeSimple = _test_random(
   "NativeSimple",
 )<NativeSimple>(NativeSimple)({

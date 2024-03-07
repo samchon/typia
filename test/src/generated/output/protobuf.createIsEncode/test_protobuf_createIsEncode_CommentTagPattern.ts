@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
-
 export const test_protobuf_createIsEncode_CommentTagPattern =
   _test_protobuf_isEncode("CommentTagPattern")<CommentTagPattern>(
     CommentTagPattern,

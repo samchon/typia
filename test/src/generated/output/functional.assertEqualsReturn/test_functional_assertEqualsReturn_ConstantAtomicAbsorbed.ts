@@ -1,9 +1,7 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
-
 import { _test_functional_assertEqualsReturn } from "../../../internal/_test_functional_assertEqualsReturn";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
-
+import { TypeGuardError } from "typia";
 export const test_functional_assertEqualsReturn_ConstantAtomicAbsorbed =
   _test_functional_assertEqualsReturn(TypeGuardError)("ConstantAtomicAbsorbed")(
     ConstantAtomicAbsorbed,

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectSimpleProtobuf } from "../../../structures/ObjectSimpleProtobuf";
-
 export const test_random_ObjectSimpleProtobuf = _test_random(
   "ObjectSimpleProtobuf",
 )<ObjectSimpleProtobuf>(ObjectSimpleProtobuf)({

@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_createAssertEncodeCustom_TypeTagInfinite =
   _test_protobuf_assertEncode(CustomGuardError)(

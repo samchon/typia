@@ -1,5 +1,4 @@
 import typia from "typia";
-
 export const test_issue_940_formdata = () => {
   const x = {
     schemas: [

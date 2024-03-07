@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { CommentTagNaN } from "../../../structures/CommentTagNaN";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_createAssertEqualsCustom_CommentTagNaN = _test_assertEquals(
   CustomGuardError,
 )("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)(

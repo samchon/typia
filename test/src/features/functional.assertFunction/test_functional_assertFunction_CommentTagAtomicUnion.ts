@@ -1,8 +1,9 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
+
+import { TypeGuardError } from "typia";
 
 export const test_functional_assertFunction_CommentTagAtomicUnion =
   _test_functional_assertFunction(TypeGuardError)("CommentTagAtomicUnion")(

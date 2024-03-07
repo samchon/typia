@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-
 export const test_notation_validateCamel_ObjectUnionExplicit =
   _test_notation_validateGeneral("ObjectUnionExplicit")<ObjectUnionExplicit>(
     ObjectUnionExplicit,

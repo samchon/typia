@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
-
 export const test_protobuf_encode_ObjectNullable = _test_protobuf_encode(
   "ObjectNullable",
 )<ObjectNullable>(ObjectNullable)({

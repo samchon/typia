@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectNullable } from "../../structures/ObjectNullable";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_createAssertEncodeCustom_ObjectNullable =
   _test_protobuf_assertEncode(CustomGuardError)(

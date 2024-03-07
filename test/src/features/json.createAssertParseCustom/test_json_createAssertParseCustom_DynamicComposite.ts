@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { DynamicComposite } from "../../structures/DynamicComposite";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_json_createAssertParseCustom_DynamicComposite =
   _test_json_assertParse(CustomGuardError)(

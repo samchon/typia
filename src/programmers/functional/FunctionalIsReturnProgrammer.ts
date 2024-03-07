@@ -8,6 +8,7 @@ import { StringUtil } from "../../utils/StringUtil";
 
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
+import { FunctionalIsFunctionProgrammer } from "./FunctionalIsFunctionProgrammer";
 
 export namespace FunctionalIsReturnProgrammer {
   export const write =
@@ -28,12 +29,7 @@ export namespace FunctionalIsReturnProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        declaration.type
-          ? ts.factory.createUnionTypeNode([
-              declaration.type,
-              ts.factory.createTypeReferenceNode("null"),
-            ])
-          : undefined,
+        FunctionalIsFunctionProgrammer.getReturnTypeNode(declaration, async),
         undefined,
         ts.factory.createBlock(statements, true),
       );

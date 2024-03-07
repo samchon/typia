@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateParameters } from "../../../internal/_test_functional_validateParameters";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
-
 export const test_functional_validateParameters_TupleRestAtomic =
   _test_functional_validateParameters("TupleRestAtomic")(TupleRestAtomic)(
     (p: (input: TupleRestAtomic) => TupleRestAtomic) =>

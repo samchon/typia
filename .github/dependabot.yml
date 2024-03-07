@@ -1,11 +1,32 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'daily'
+      interval: "daily"
     versioning-strategy: increase
     open-pull-requests-limit: 25
     allow:
+      - dependency-name: "ts-node"
+      - dependency-name: "typescript"
+    groups:
+      TypeScript:
+        - patterns:
+          - "ts-node"
+          - "typescript"
+  - package-ecosystem: "npm"
+    directory: "/test"
+    schedule:
+      interval: "daily"
+    versioning-strategy: increase
+    open-pull-requests-limit: 25
+    allow:
+      - dependency-name: "ts-node"
       - dependency-name: "ts-patch"
       - dependency-name: "typescript"
+    groups:
+      TypeScript:
+        - patterns:
+          - "ts-node"
+          - "ts-patch"
+          - "typescript"

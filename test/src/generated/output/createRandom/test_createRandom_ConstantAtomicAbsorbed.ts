@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_random } from "../../../internal/_test_random";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
-
 export const test_createRandom_ConstantAtomicAbsorbed = _test_random(
   "ConstantAtomicAbsorbed",
 )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({

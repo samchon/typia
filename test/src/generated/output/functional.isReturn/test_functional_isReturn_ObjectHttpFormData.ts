@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_isReturn } from "../../../internal/_test_functional_isReturn";
 import { ObjectHttpFormData } from "../../../structures/ObjectHttpFormData";
-
 export const test_functional_isReturn_ObjectHttpFormData =
   _test_functional_isReturn("ObjectHttpFormData")(ObjectHttpFormData)(
     (p: (input: ObjectHttpFormData) => ObjectHttpFormData) =>

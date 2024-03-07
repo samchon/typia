@@ -1,8 +1,9 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
+
+import { TypeGuardError } from "typia";
 
 export const test_json_createAssertStringify_ObjectHierarchical =
   _test_json_assertStringify(TypeGuardError)(

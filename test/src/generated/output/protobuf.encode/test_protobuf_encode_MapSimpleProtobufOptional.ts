@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_encode } from "../../../internal/_test_protobuf_encode";
 import { MapSimpleProtobufOptional } from "../../../structures/MapSimpleProtobufOptional";
-
 export const test_protobuf_encode_MapSimpleProtobufOptional =
   _test_protobuf_encode("MapSimpleProtobufOptional")<MapSimpleProtobufOptional>(
     MapSimpleProtobufOptional,

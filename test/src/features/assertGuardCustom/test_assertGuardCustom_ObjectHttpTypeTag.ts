@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_assertGuardCustom_ObjectHttpTypeTag = _test_assertGuard(
   CustomGuardError,

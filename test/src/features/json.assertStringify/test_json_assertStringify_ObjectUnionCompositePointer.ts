@@ -1,8 +1,9 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
 
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
+
+import { TypeGuardError } from "typia";
 
 export const test_json_assertStringify_ObjectUnionCompositePointer =
   _test_json_assertStringify(TypeGuardError)(

@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_misc_assertCloneCustom_ObjectUnionExplicit =
   _test_misc_assertClone(CustomGuardError)(
