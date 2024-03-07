@@ -85,7 +85,7 @@
     "rimraf": "^5.0.5",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   },
   "stackblitzs": {
     "startCommand": "npm install && npm run test"
