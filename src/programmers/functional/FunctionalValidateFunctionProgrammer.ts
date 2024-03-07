@@ -26,16 +26,7 @@ export namespace FunctionalValidateFunctionProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        declaration.type
-          ? ts.factory.createImportTypeNode(
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("typia"),
-              ),
-              undefined,
-              ts.factory.createIdentifier("IValidation"),
-              [declaration.type],
-            )
-          : undefined,
+        getReturnTypeNode(declaration, async),
         undefined,
         ts.factory.createBlock(
           [
@@ -88,4 +79,35 @@ export namespace FunctionalValidateFunctionProgrammer {
         ),
       ],
     );
+
+  export const getReturnTypeNode = (
+    declaration: ts.FunctionDeclaration,
+    async: boolean,
+  ): ts.TypeNode | undefined =>
+    declaration.type
+      ? async
+        ? !!(declaration.type! as ts.TypeReferenceNode).typeArguments?.[0]
+          ? ts.factory.createTypeReferenceNode("Promise", [
+              ts.factory.createImportTypeNode(
+                ts.factory.createLiteralTypeNode(
+                  ts.factory.createStringLiteral("typia"),
+                ),
+                undefined,
+                ts.factory.createIdentifier("IValidation"),
+                [
+                  (declaration.type! as ts.TypeReferenceNode)
+                    .typeArguments![0]!,
+                ],
+              ),
+            ])
+          : undefined
+        : ts.factory.createImportTypeNode(
+            ts.factory.createLiteralTypeNode(
+              ts.factory.createStringLiteral("typia"),
+            ),
+            undefined,
+            ts.factory.createIdentifier("IValidation"),
+            [declaration.type],
+          )
+      : undefined;
 }

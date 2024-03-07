@@ -25,12 +25,7 @@ export namespace FunctionalIsFunctionProgrammer {
           : undefined,
         undefined,
         declaration.parameters,
-        declaration.type
-          ? ts.factory.createUnionTypeNode([
-              declaration.type,
-              ts.factory.createTypeReferenceNode("null"),
-            ])
-          : undefined,
+        getReturnTypeNode(declaration, async),
         undefined,
         ts.factory.createBlock(
           [
@@ -43,4 +38,24 @@ export namespace FunctionalIsFunctionProgrammer {
         ),
       );
     };
+
+  export const getReturnTypeNode = (
+    declaration: ts.FunctionDeclaration,
+    async: boolean,
+  ): ts.TypeNode | undefined =>
+    declaration.type
+      ? async
+        ? !!(declaration.type! as ts.TypeReferenceNode).typeArguments?.[0]
+          ? ts.factory.createTypeReferenceNode("Promise", [
+              ts.factory.createUnionTypeNode([
+                (declaration.type! as ts.TypeReferenceNode).typeArguments![0]!,
+                ts.factory.createTypeReferenceNode("null"),
+              ]),
+            ])
+          : undefined
+        : ts.factory.createUnionTypeNode([
+            declaration.type,
+            ts.factory.createTypeReferenceNode("null"),
+          ])
+      : undefined;
 }
