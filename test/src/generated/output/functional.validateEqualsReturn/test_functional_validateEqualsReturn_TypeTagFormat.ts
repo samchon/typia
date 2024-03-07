@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateEqualsReturn } from "../../../internal/_test_functional_validateEqualsReturn";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
-
 export const test_functional_validateEqualsReturn_TypeTagFormat =
   _test_functional_validateEqualsReturn("TypeTagFormat")(TypeTagFormat)(
     (p: (input: TypeTagFormat) => TypeTagFormat) =>

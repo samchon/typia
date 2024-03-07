@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagNaN } from "../../../structures/CommentTagNaN";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_protobuf_assertEncodeCustom_CommentTagNaN =
   _test_protobuf_assertEncode(CustomGuardError)("CommentTagNaN")<CommentTagNaN>(
     CommentTagNaN,

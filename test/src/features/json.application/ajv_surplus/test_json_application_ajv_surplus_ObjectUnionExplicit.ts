@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_json_application } from "../../../internal/_test_json_application";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
+import { _test_json_application } from "../../../internal/_test_json_application";
 
 export const test_json_application_ajv_surplus_ObjectUnionExplicit =
   _test_json_application({

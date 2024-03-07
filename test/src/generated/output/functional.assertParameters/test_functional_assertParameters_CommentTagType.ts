@@ -1,9 +1,7 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
-
 import { _test_functional_assertParameters } from "../../../internal/_test_functional_assertParameters";
 import { CommentTagType } from "../../../structures/CommentTagType";
-
+import { TypeGuardError } from "typia";
 export const test_functional_assertParameters_CommentTagType =
   _test_functional_assertParameters(TypeGuardError)("CommentTagType")(
     CommentTagType,

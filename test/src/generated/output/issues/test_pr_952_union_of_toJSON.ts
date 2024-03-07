@@ -1,5 +1,4 @@
 import typia from "typia";
-
 export const test_pr_952_union_of_toJSON = () => {
   const x: X = { _: new Date(), x: new Date() };
   const y: Y = { _: new Date(), y: new Date() };

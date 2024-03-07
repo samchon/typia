@@ -1,7 +1,5 @@
 import typia, { tags } from "typia";
-
 import { protobuf_equal_to } from "../../../helpers/protobuf_equal_to";
-
 export const test_issue_912_protobuf_decode = () => {
   type Foo = {
     id: number & tags.Type<"int64">;

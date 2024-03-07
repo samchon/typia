@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { TypeTagRangeBigInt } from "../../../structures/TypeTagRangeBigInt";
-
 export const test_protobuf_validateDecode_TypeTagRangeBigInt =
   _test_protobuf_validateDecode("TypeTagRangeBigInt")<TypeTagRangeBigInt>(
     TypeTagRangeBigInt,

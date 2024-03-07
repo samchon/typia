@@ -1,4 +1,5 @@
 import { write_functional } from "../writers/write_functional";
+import { write_functionalAsync } from "../writers/write_functionalAsync";
 import { write_notation } from "../writers/write_notation";
 import { write_protobuf_decode } from "../writers/write_protobuf_decode";
 import { write_protobuf_encode } from "../writers/write_protobuf_encode";
@@ -104,13 +105,24 @@ export namespace TestFeature {
       "validateFunction",
       "validateParameters",
       "validateReturn",
-    ].map((method) => ({
-      module: "functional",
-      method,
-      creatable: false,
-      spoilable: true,
-      programmer: () => write_functional(method),
-    })),
+    ]
+      .map((method) => [
+        {
+          module: "functional",
+          method,
+          creatable: false,
+          spoilable: true,
+          programmer: () => write_functional(method),
+        },
+        {
+          module: "functional",
+          method: `${method}Async`,
+          creatable: false,
+          spoilable: true,
+          programmer: () => write_functionalAsync(method),
+        },
+      ])
+      .flat(),
     ...[
       "assertEqualsFunction",
       "assertEqualsParameters",
@@ -121,14 +133,26 @@ export namespace TestFeature {
       "validateEqualsFunction",
       "validateEqualsParameters",
       "validateEqualsReturn",
-    ].map((method) => ({
-      module: "functional",
-      method,
-      creatable: false,
-      spoilable: false,
-      strict: true,
-      programmer: () => write_functional(method),
-    })),
+    ]
+      .map((method) => [
+        {
+          module: "functional",
+          method,
+          creatable: false,
+          spoilable: false,
+          strict: true,
+          programmer: () => write_functional(method),
+        },
+        {
+          module: "functional",
+          method: `${method}Async`,
+          creatable: false,
+          spoilable: false,
+          strict: true,
+          programmer: () => write_functionalAsync(method),
+        },
+      ])
+      .flat(),
 
     //----
     // PROTOBUF FUNCTIONS

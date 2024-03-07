@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
-
 export const test_misc_createValidateClone_ObjectJsonTag =
   _test_misc_validateClone("ObjectJsonTag")<ObjectJsonTag>(ObjectJsonTag)(
     (input: any): typia.IValidation<typia.Resolved<ObjectJsonTag>> => {

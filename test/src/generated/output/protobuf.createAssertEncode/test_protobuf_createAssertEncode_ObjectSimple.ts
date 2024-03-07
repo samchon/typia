@@ -1,9 +1,7 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
-
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
-
+import { TypeGuardError } from "typia";
 export const test_protobuf_createAssertEncode_ObjectSimple =
   _test_protobuf_assertEncode(TypeGuardError)("ObjectSimple")<ObjectSimple>(
     ObjectSimple,

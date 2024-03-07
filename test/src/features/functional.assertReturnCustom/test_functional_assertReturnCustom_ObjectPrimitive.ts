@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertReturnCustom_ObjectPrimitive =
   _test_functional_assertReturn(CustomGuardError)("ObjectPrimitive")(

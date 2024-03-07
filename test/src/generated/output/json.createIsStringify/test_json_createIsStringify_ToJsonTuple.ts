@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
-
 export const test_json_createIsStringify_ToJsonTuple = _test_json_isStringify(
   "ToJsonTuple",
 )<ToJsonTuple>(ToJsonTuple)((input: ToJsonTuple): string | null => {

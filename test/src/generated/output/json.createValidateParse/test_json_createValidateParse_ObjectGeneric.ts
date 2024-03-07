@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
-
 export const test_json_createValidateParse_ObjectGeneric =
   _test_json_validateParse("ObjectGeneric")<ObjectGeneric>(ObjectGeneric)(
     (input: string): typia.IValidation<typia.Primitive<ObjectGeneric>> => {

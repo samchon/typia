@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { DynamicTree } from "../../structures/DynamicTree";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_createAssertEncodeCustom_DynamicTree =
   _test_protobuf_assertEncode(CustomGuardError)("DynamicTree")<DynamicTree>(

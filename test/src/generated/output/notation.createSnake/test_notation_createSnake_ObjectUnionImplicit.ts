@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
-
 export const test_notation_createValidateSnake_ObjectUnionImplicit =
   _test_notation_validateGeneral("ObjectUnionImplicit")<ObjectUnionImplicit>(
     ObjectUnionImplicit,

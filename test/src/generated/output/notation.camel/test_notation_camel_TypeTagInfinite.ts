@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
-
 export const test_notation_validateCamel_TypeTagInfinite =
   _test_notation_validateGeneral("TypeTagInfinite")<TypeTagInfinite>(
     TypeTagInfinite,

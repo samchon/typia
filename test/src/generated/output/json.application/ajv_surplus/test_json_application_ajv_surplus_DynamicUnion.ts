@@ -1,8 +1,6 @@
 import typia from "typia";
-
-import { _test_json_application } from "../../../../internal/_test_json_application";
 import { DynamicUnion } from "../../../../structures/DynamicUnion";
-
+import { _test_json_application } from "../../../../internal/_test_json_application";
 export const test_json_application_ajv_surplus_DynamicUnion =
   _test_json_application({
     purpose: "ajv",

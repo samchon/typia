@@ -1,9 +1,7 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
-
 import { _test_functional_assertFunction } from "../../../internal/_test_functional_assertFunction";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
-
+import { TypeGuardError } from "typia";
 export const test_functional_assertFunction_ConstantIntersection =
   _test_functional_assertFunction(TypeGuardError)("ConstantIntersection")(
     ConstantIntersection,

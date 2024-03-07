@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "5.5.1",
+  "version": "5.5.2-dev.20240307",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -62,7 +62,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "5.5.1"
+    "typia": "5.5.2-dev.20240307"
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.5.0"

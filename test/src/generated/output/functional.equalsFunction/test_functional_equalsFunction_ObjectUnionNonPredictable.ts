@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_equalsFunction } from "../../../internal/_test_functional_equalsFunction";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-
 export const test_functional_equalsFunction_ObjectUnionNonPredictable =
   _test_functional_equalsFunction("ObjectUnionNonPredictable")(
     ObjectUnionNonPredictable,

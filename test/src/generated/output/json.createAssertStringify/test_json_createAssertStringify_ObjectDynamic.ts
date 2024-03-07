@@ -1,9 +1,7 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
-
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
-
+import { TypeGuardError } from "typia";
 export const test_json_createAssertStringify_ObjectDynamic =
   _test_json_assertStringify(TypeGuardError)("ObjectDynamic")<ObjectDynamic>(
     ObjectDynamic,

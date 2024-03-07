@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateFunction } from "../../../internal/_test_functional_validateFunction";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
-
 export const test_functional_validateFunction_ConstantAtomicWrapper =
   _test_functional_validateFunction("ConstantAtomicWrapper")(
     ConstantAtomicWrapper,

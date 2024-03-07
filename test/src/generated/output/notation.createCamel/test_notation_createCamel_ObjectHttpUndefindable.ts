@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { ObjectHttpUndefindable } from "../../../structures/ObjectHttpUndefindable";
-
 export const test_notation_createValidateCamel_ObjectHttpUndefindable =
   _test_notation_validateGeneral(
     "ObjectHttpUndefindable",

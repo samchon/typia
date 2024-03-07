@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_isReturn } from "../../../internal/_test_functional_isReturn";
 import { NativeUnion } from "../../../structures/NativeUnion";
-
 export const test_functional_isReturn_NativeUnion = _test_functional_isReturn(
   "NativeUnion",
 )(NativeUnion)(

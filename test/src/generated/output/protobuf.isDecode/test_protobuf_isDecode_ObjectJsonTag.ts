@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_isDecode } from "../../../internal/_test_protobuf_isDecode";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
-
 export const test_protobuf_isDecode_ObjectJsonTag = _test_protobuf_isDecode(
   "ObjectJsonTag",
 )<ObjectJsonTag>(ObjectJsonTag)({

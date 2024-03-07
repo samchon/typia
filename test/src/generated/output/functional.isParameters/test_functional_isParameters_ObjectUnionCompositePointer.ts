@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_isParameters } from "../../../internal/_test_functional_isParameters";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
-
 export const test_functional_isParameters_ObjectUnionCompositePointer =
   _test_functional_isParameters("ObjectUnionCompositePointer")(
     ObjectUnionCompositePointer,

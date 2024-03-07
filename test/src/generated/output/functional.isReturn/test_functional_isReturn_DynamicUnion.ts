@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_isReturn } from "../../../internal/_test_functional_isReturn";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
-
 export const test_functional_isReturn_DynamicUnion = _test_functional_isReturn(
   "DynamicUnion",
 )(DynamicUnion)(

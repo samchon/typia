@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
-
 export const test_json_validateStringify_ToJsonNull =
   _test_json_validateStringify("ToJsonNull")<ToJsonNull>(ToJsonNull)((input) =>
     ((input: ToJsonNull): typia.IValidation<string> => {

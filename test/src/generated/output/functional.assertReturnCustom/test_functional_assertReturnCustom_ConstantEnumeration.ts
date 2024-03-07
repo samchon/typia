@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../../internal/_test_functional_assertReturn";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_functional_assertReturnCustom_ConstantEnumeration =
   _test_functional_assertReturn(CustomGuardError)("ConstantEnumeration")(
     ConstantEnumeration,

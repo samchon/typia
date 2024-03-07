@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_isParameters } from "../../../internal/_test_functional_isParameters";
 import { ObjectSimpleProtobufOptional } from "../../../structures/ObjectSimpleProtobufOptional";
-
 export const test_functional_isParameters_ObjectSimpleProtobufOptional =
   _test_functional_isParameters("ObjectSimpleProtobufOptional")(
     ObjectSimpleProtobufOptional,

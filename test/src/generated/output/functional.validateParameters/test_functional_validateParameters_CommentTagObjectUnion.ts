@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateParameters } from "../../../internal/_test_functional_validateParameters";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
-
 export const test_functional_validateParameters_CommentTagObjectUnion =
   _test_functional_validateParameters("CommentTagObjectUnion")(
     CommentTagObjectUnion,

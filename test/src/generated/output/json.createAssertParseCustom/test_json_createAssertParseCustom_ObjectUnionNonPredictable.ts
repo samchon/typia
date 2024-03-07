@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_json_createAssertParseCustom_ObjectUnionNonPredictable =
   _test_json_assertParse(CustomGuardError)(
     "ObjectUnionNonPredictable",

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
-
 export const test_notation_validateSnake_ArrayAtomicSimple =
   _test_notation_validateGeneral("ArrayAtomicSimple")<ArrayAtomicSimple>(
     ArrayAtomicSimple,

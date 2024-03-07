@@ -1,8 +1,9 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
+
+import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_createAssertEncodeCustom_ObjectUnionNonPredictable =
   _test_protobuf_assertEncode(CustomGuardError)(

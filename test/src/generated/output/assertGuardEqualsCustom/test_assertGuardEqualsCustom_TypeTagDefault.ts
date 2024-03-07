@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { TypeTagDefault } from "../../../structures/TypeTagDefault";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_assertGuardEqualsCustom_TypeTagDefault =
   _test_assertGuardEquals(CustomGuardError)("TypeTagDefault")<TypeTagDefault>(
     TypeTagDefault,

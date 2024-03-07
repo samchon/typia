@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_protobuf_assertEncodeCustom_ObjectPartial =
   _test_protobuf_assertEncode(CustomGuardError)("ObjectPartial")<ObjectPartial>(
     ObjectPartial,

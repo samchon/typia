@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../../internal/_test_functional_assertParameters";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_functional_assertParametersCustom_ObjectAlias =
   _test_functional_assertParameters(CustomGuardError)("ObjectAlias")(
     ObjectAlias,

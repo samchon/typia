@@ -1,9 +1,7 @@
 import typia from "typia";
-import { TypeGuardError } from "typia";
-
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TypeTagDefault } from "../../../structures/TypeTagDefault";
-
+import { TypeGuardError } from "typia";
 export const test_json_assertStringify_TypeTagDefault =
   _test_json_assertStringify(TypeGuardError)("TypeTagDefault")<TypeTagDefault>(
     TypeTagDefault,

@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_protobuf_createAssertEncodeCustom_ObjectPrimitive =
   _test_protobuf_assertEncode(CustomGuardError)(
     "ObjectPrimitive",

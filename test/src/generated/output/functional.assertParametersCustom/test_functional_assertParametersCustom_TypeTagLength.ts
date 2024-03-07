@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../../internal/_test_functional_assertParameters";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_functional_assertParametersCustom_TypeTagLength =
   _test_functional_assertParameters(CustomGuardError)("TypeTagLength")(
     TypeTagLength,

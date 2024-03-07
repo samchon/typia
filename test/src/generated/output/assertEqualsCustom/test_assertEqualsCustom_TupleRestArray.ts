@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_assertEqualsCustom_TupleRestArray = _test_assertEquals(
   CustomGuardError,
 )("TupleRestArray")<TupleRestArray>(TupleRestArray)((input) =>

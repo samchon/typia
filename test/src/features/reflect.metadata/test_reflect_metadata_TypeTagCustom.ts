@@ -1,7 +1,6 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { TypeTagCustom } from "../../structures/TypeTagCustom";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
 export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
   "TypeTagCustom",

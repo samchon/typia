@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_is } from "../../../internal/_test_is";
 import { SetUnion } from "../../../structures/SetUnion";
-
 export const test_createIs_SetUnion = _test_is("SetUnion")<SetUnion>(SetUnion)(
   (input: any): input is SetUnion => {
     const $io0 = (input: any): boolean =>

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateEqualsParameters } from "../../../internal/_test_functional_validateEqualsParameters";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
-
 export const test_functional_validateEqualsParameters_AtomicUnion =
   _test_functional_validateEqualsParameters("AtomicUnion")(AtomicUnion)(
     (p: (input: AtomicUnion) => AtomicUnion) =>

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
-
 export const test_notation_createValidateCamel_ObjectPropertyNullable =
   _test_notation_validateGeneral(
     "ObjectPropertyNullable",

@@ -1,5 +1,4 @@
 import typia from "typia";
-
 export const test_issue_951_dynamic_key_check_true = () => {
   (input: any): input is MyInterface => {
     const $io0 = (input: any): boolean =>

@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_functional_validateParameters } from "../../../internal/_test_functional_validateParameters";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
-
 export const test_functional_validateParameters_ArrayRecursiveUnionExplicitPointer =
   _test_functional_validateParameters("ArrayRecursiveUnionExplicitPointer")(
     ArrayRecursiveUnionExplicitPointer,

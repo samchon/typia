@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_protobuf_assertEncodeCustom_ArrayRecursiveUnionExplicitPointer =
   _test_protobuf_assertEncode(CustomGuardError)(
     "ArrayRecursiveUnionExplicitPointer",

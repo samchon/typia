@@ -1,8 +1,6 @@
 import typia from "typia";
-
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
-
 export const test_protobuf_isEncode_ObjectPartial = _test_protobuf_isEncode(
   "ObjectPartial",
 )<ObjectPartial>(ObjectPartial)({

@@ -37,9 +37,9 @@
     "@types/node": "^20.9.4",
     "@types/uuid": "^9.0.7",
     "rimraf": "^5.0.5",
-    "ts-node": "^10.9.1",
-    "ts-patch": "^3.1.0",
-    "typescript": "^5.3.3"
+    "ts-node": "^10.9.2",
+    "ts-patch": "^3.1.2",
+    "typescript": "^5.4.2"
   },
   "dependencies": {
     "cli": "^1.0.1",
@@ -49,6 +49,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^2.5.13",
     "uuid": "^9.0.1",
-    "typia": "D:\\github\\samchon\\typia\\typia-5.5.1.tgz"
+    "typia": "D:\\github\\samchon\\typia\\typia-5.5.2-dev.20240307.tgz"
   }
 }

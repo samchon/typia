@@ -1,9 +1,7 @@
 import typia from "typia";
-
-import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../../internal/_test_functional_assertFunction";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
-
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 export const test_functional_assertFunctionCustom_ObjectUnionExplicit =
   _test_functional_assertFunction(CustomGuardError)("ObjectUnionExplicit")(
     ObjectUnionExplicit,
