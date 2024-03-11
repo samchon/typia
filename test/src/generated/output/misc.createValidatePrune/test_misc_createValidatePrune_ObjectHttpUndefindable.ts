@@ -24,13 +24,13 @@ export const test_misc_createValidatePrune_ObjectHttpUndefindable =
             BigInt(2) === input.constantBigint ||
             BigInt(3) === input.constantBigint) &&
           (undefined === input.constantNumber ||
-            3 === input.constantNumber ||
+            1 === input.constantNumber ||
             2 === input.constantNumber ||
-            1 === input.constantNumber) &&
+            3 === input.constantNumber) &&
           (undefined === input.constantString ||
+            "one" === input.constantString ||
             "three" === input.constantString ||
-            "two" === input.constantString ||
-            "one" === input.constantString);
+            "two" === input.constantString);
         return (
           "object" === typeof input &&
           null !== input &&
@@ -97,18 +97,18 @@ export const test_misc_createValidatePrune_ObjectHttpUndefindable =
                   value: input.constantBigint,
                 }),
               undefined === input.constantNumber ||
-                3 === input.constantNumber ||
-                2 === input.constantNumber ||
                 1 === input.constantNumber ||
+                2 === input.constantNumber ||
+                3 === input.constantNumber ||
                 $report(_exceptionable, {
                   path: _path + ".constantNumber",
                   expected: "(1 | 2 | 3 | undefined)",
                   value: input.constantNumber,
                 }),
               undefined === input.constantString ||
+                "one" === input.constantString ||
                 "three" === input.constantString ||
                 "two" === input.constantString ||
-                "one" === input.constantString ||
                 $report(_exceptionable, {
                   path: _path + ".constantString",
                   expected: '("one" | "three" | "two" | undefined)',

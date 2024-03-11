@@ -117,7 +117,7 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["txt", "md", "html"],
+                  values: ["html", "md", "txt"],
                 },
               ],
               templates: [],

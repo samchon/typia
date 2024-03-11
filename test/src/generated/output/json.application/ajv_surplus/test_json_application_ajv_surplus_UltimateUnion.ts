@@ -40,7 +40,7 @@ export const test_json_application_ajv_surplus_UltimateUnion =
             },
             purpose: {
               type: "string",
-              enum: ["swagger", "ajv"],
+              enum: ["ajv", "swagger"],
               "x-typia-required": true,
               "x-typia-optional": false,
             },
@@ -433,7 +433,7 @@ export const test_json_application_ajv_surplus_UltimateUnion =
           properties: {
             target: {
               type: "string",
-              enum: ["string", "number", "bigint", "boolean", "array"],
+              enum: ["array", "bigint", "boolean", "number", "string"],
               "x-typia-required": true,
               "x-typia-optional": false,
             },

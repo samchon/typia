@@ -116,11 +116,11 @@ export const test_misc_createClone_UltimateUnion = _test_misc_clone(
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
     const $io7 = (input: any): boolean =>
-      ("string" === input.target ||
-        "number" === input.target ||
+      ("array" === input.target ||
         "bigint" === input.target ||
         "boolean" === input.target ||
-        "array" === input.target) &&
+        "number" === input.target ||
+        "string" === input.target) &&
       "string" === typeof input.name &&
       "string" === typeof input.kind &&
       null !== input.exclusive &&

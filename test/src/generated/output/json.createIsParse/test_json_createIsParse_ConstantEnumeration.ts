@@ -13,8 +13,8 @@ export const test_json_createIsParse_ConstantEnumeration = _test_json_isParse(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Three" === elem ||
-            "Four" === elem,
+            "Four" === elem ||
+            "Three" === elem,
         )
       );
     };

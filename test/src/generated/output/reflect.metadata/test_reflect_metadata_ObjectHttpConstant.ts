@@ -221,7 +221,7 @@ export const test_reflect_metadata_ObjectHttpConstant = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["something", "three", "ninety-seven"],
+                  values: ["ninety-seven", "something", "three"],
                 },
               ],
               templates: [],

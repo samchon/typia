@@ -17,9 +17,9 @@
           "extension": {
             "type": "string",
             "enum": [
-              "txt",
+              "html",
               "md",
-              "html"
+              "txt"
             ],
             "x-typia-required": true,
             "x-typia-optional": false

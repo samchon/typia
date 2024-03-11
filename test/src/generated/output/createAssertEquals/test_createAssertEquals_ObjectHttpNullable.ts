@@ -27,13 +27,13 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
           BigInt(2) === input.constantBigint ||
           BigInt(3) === input.constantBigint) &&
         (null === input.constantNumber ||
-          3 === input.constantNumber ||
+          1 === input.constantNumber ||
           2 === input.constantNumber ||
-          1 === input.constantNumber) &&
+          3 === input.constantNumber) &&
         (null === input.constantString ||
+          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString ||
-          "one" === input.constantString) &&
+          "two" === input.constantString) &&
         (null === input.nullableArray ||
           (Array.isArray(input.nullableArray) &&
             input.nullableArray.every(
@@ -164,9 +164,9 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
               errorFactory,
             )) &&
           (null === input.constantNumber ||
-            3 === input.constantNumber ||
-            2 === input.constantNumber ||
             1 === input.constantNumber ||
+            2 === input.constantNumber ||
+            3 === input.constantNumber ||
             $guard(
               _exceptionable,
               {
@@ -177,9 +177,9 @@ export const test_createAssertEquals_ObjectHttpNullable = _test_assertEquals(
               errorFactory,
             )) &&
           (null === input.constantString ||
+            "one" === input.constantString ||
             "three" === input.constantString ||
             "two" === input.constantString ||
-            "one" === input.constantString ||
             $guard(
               _exceptionable,
               {

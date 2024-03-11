@@ -2961,11 +2961,11 @@
                 {
                   "type": "string",
                   "values": [
-                    "string",
-                    "number",
+                    "array",
                     "bigint",
                     "boolean",
-                    "array"
+                    "number",
+                    "string"
                   ]
                 }
               ],

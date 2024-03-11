@@ -50,7 +50,7 @@ export const test_reflect_metadata_ConstantEnumeration = _test_reflect_metadata(
             },
             {
               type: "string",
-              values: ["Three", "Four"],
+              values: ["Four", "Three"],
             },
           ],
           templates: [],

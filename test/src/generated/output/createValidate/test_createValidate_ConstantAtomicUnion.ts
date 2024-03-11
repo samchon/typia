@@ -15,10 +15,10 @@ export const test_createValidate_ConstantAtomicUnion = _test_validate(
             null !== elem &&
             undefined !== elem &&
             (false === elem ||
-              2 === elem ||
               1 === elem ||
-              "three" === elem ||
+              2 === elem ||
               "four" === elem ||
+              "three" === elem ||
               ("object" === typeof elem && null !== elem && $io0(elem))),
         )
       );
@@ -66,10 +66,10 @@ export const test_createValidate_ConstantAtomicUnion = _test_validate(
                       value: elem,
                     })) &&
                   (false === elem ||
-                    2 === elem ||
                     1 === elem ||
-                    "three" === elem ||
+                    2 === elem ||
                     "four" === elem ||
+                    "three" === elem ||
                     ((("object" === typeof elem && null !== elem) ||
                       $report(true, {
                         path: _path + "[" + _index1 + "]",

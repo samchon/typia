@@ -14,10 +14,10 @@ export const test_misc_createIsPrune_ConstantAtomicUnion = _test_misc_isPrune(
             null !== elem &&
             undefined !== elem &&
             (false === elem ||
-              2 === elem ||
               1 === elem ||
-              "three" === elem ||
+              2 === elem ||
               "four" === elem ||
+              "three" === elem ||
               ("object" === typeof elem && null !== elem && $io0(elem))),
         )
       );

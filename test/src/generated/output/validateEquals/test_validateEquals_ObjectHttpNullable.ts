@@ -24,13 +24,13 @@ export const test_validateEquals_ObjectHttpNullable = _test_validateEquals(
           BigInt(2) === input.constantBigint ||
           BigInt(3) === input.constantBigint) &&
         (null === input.constantNumber ||
-          3 === input.constantNumber ||
+          1 === input.constantNumber ||
           2 === input.constantNumber ||
-          1 === input.constantNumber) &&
+          3 === input.constantNumber) &&
         (null === input.constantString ||
+          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString ||
-          "one" === input.constantString) &&
+          "two" === input.constantString) &&
         (null === input.nullableArray ||
           (Array.isArray(input.nullableArray) &&
             input.nullableArray.every(
@@ -130,18 +130,18 @@ export const test_validateEquals_ObjectHttpNullable = _test_validateEquals(
                 value: input.constantBigint,
               }),
             null === input.constantNumber ||
-              3 === input.constantNumber ||
-              2 === input.constantNumber ||
               1 === input.constantNumber ||
+              2 === input.constantNumber ||
+              3 === input.constantNumber ||
               $report(_exceptionable, {
                 path: _path + ".constantNumber",
                 expected: "(1 | 2 | 3 | null)",
                 value: input.constantNumber,
               }),
             null === input.constantString ||
+              "one" === input.constantString ||
               "three" === input.constantString ||
               "two" === input.constantString ||
-              "one" === input.constantString ||
               $report(_exceptionable, {
                 path: _path + ".constantString",
                 expected: '("one" | "three" | "two" | null)',

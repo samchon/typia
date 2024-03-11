@@ -458,11 +458,11 @@
           "target": {
             "type": "string",
             "enum": [
-              "string",
-              "number",
+              "array",
               "bigint",
               "boolean",
-              "array"
+              "number",
+              "string"
             ],
             "x-typia-required": true,
             "x-typia-optional": false

@@ -43,12 +43,12 @@ export const test_json_application_swagger_surplus_ObjectAlias =
               oneOf: [
                 {
                   type: "number",
-                  enum: [2, 1],
+                  enum: [1, 2],
                   nullable: true,
                 },
                 {
                   type: "string",
-                  enum: ["male", "female"],
+                  enum: ["female", "male"],
                   nullable: true,
                 },
               ],

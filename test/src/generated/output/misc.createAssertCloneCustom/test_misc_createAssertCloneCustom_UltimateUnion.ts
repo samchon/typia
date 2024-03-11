@@ -29,7 +29,7 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
             null !== input.components &&
             false === Array.isArray(input.components) &&
             $io19(input.components) &&
-            ("swagger" === input.purpose || "ajv" === input.purpose) &&
+            ("ajv" === input.purpose || "swagger" === input.purpose) &&
             "boolean" === typeof input.surplus;
           const $io1 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
@@ -149,11 +149,11 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
           const $io7 = (input: any): boolean =>
-            ("string" === input.target ||
-              "number" === input.target ||
+            ("array" === input.target ||
               "bigint" === input.target ||
               "boolean" === input.target ||
-              "array" === input.target) &&
+              "number" === input.target ||
+              "string" === input.target) &&
             "string" === typeof input.name &&
             "string" === typeof input.kind &&
             null !== input.exclusive &&
@@ -1218,8 +1218,8 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
                   },
                   errorFactory,
                 )) &&
-              ("swagger" === input.purpose ||
-                "ajv" === input.purpose ||
+              ("ajv" === input.purpose ||
+                "swagger" === input.purpose ||
                 $guard(
                   _exceptionable,
                   {
@@ -2085,11 +2085,11 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
               _path: string,
               _exceptionable: boolean = true,
             ): boolean =>
-              ("string" === input.target ||
-                "number" === input.target ||
+              ("array" === input.target ||
                 "bigint" === input.target ||
                 "boolean" === input.target ||
-                "array" === input.target ||
+                "number" === input.target ||
+                "string" === input.target ||
                 $guard(
                   _exceptionable,
                   {
@@ -8092,11 +8092,11 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
         const $io7 = (input: any): boolean =>
-          ("string" === input.target ||
-            "number" === input.target ||
+          ("array" === input.target ||
             "bigint" === input.target ||
             "boolean" === input.target ||
-            "array" === input.target) &&
+            "number" === input.target ||
+            "string" === input.target) &&
           "string" === typeof input.name &&
           "string" === typeof input.kind &&
           null !== input.exclusive &&

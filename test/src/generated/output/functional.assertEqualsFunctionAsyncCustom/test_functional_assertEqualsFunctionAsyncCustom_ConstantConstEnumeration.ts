@@ -40,8 +40,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_ConstantConstEnumer
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Three" === elem ||
-                  "Four" === elem,
+                  "Four" === elem ||
+                  "Three" === elem,
               )
             );
           };
@@ -69,8 +69,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_ConstantConstEnumer
                       0 === elem ||
                       1 === elem ||
                       2 === elem ||
-                      "Three" === elem ||
                       "Four" === elem ||
+                      "Three" === elem ||
                       $guard(
                         true,
                         {
@@ -117,8 +117,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_ConstantConstEnumer
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Three" === elem ||
-                  "Four" === elem,
+                  "Four" === elem ||
+                  "Three" === elem,
               )
             );
           };
@@ -146,8 +146,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_ConstantConstEnumer
                       0 === elem ||
                       1 === elem ||
                       2 === elem ||
-                      "Three" === elem ||
                       "Four" === elem ||
+                      "Three" === elem ||
                       $guard(
                         true,
                         {

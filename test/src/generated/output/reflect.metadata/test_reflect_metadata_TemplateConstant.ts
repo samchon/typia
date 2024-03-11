@@ -178,7 +178,7 @@ export const test_reflect_metadata_TemplateConstant = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["3_postfix", "2_postfix", "1_postfix"],
+                  values: ["1_postfix", "2_postfix", "3_postfix"],
                 },
               ],
               templates: [],
@@ -231,15 +231,15 @@ export const test_reflect_metadata_TemplateConstant = _test_reflect_metadata(
                 {
                   type: "string",
                   values: [
-                    "the_3_value_with_label_A",
-                    "the_3_value_with_label_B",
-                    "the_3_value_with_label_C",
-                    "the_2_value_with_label_A",
-                    "the_2_value_with_label_B",
-                    "the_2_value_with_label_C",
                     "the_1_value_with_label_A",
                     "the_1_value_with_label_B",
                     "the_1_value_with_label_C",
+                    "the_2_value_with_label_A",
+                    "the_2_value_with_label_B",
+                    "the_2_value_with_label_C",
+                    "the_3_value_with_label_A",
+                    "the_3_value_with_label_B",
+                    "the_3_value_with_label_C",
                   ],
                 },
               ],

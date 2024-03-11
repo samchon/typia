@@ -13,8 +13,8 @@ export const test_misc_createIsClone_ConstantConstEnumeration =
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Three" === elem ||
-            "Four" === elem,
+            "Four" === elem ||
+            "Three" === elem,
         )
       );
     };

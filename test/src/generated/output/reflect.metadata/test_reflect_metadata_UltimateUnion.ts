@@ -169,7 +169,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["swagger", "ajv"],
+                  values: ["ajv", "swagger"],
                 },
               ],
               templates: [],
@@ -2832,7 +2832,7 @@ export const test_reflect_metadata_UltimateUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["string", "number", "bigint", "boolean", "array"],
+                  values: ["array", "bigint", "boolean", "number", "string"],
                 },
               ],
               templates: [],

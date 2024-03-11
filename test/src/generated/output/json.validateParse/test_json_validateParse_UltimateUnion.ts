@@ -21,7 +21,7 @@ export const test_json_validateParse_UltimateUnion = _test_json_validateParse(
           null !== input.components &&
           false === Array.isArray(input.components) &&
           $io19(input.components) &&
-          ("swagger" === input.purpose || "ajv" === input.purpose) &&
+          ("ajv" === input.purpose || "swagger" === input.purpose) &&
           "boolean" === typeof input.surplus;
         const $io1 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
@@ -141,11 +141,11 @@ export const test_json_validateParse_UltimateUnion = _test_json_validateParse(
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
         const $io7 = (input: any): boolean =>
-          ("string" === input.target ||
-            "number" === input.target ||
+          ("array" === input.target ||
             "bigint" === input.target ||
             "boolean" === input.target ||
-            "array" === input.target) &&
+            "number" === input.target ||
+            "string" === input.target) &&
           "string" === typeof input.name &&
           "string" === typeof input.kind &&
           null !== input.exclusive &&
@@ -1180,8 +1180,8 @@ export const test_json_validateParse_UltimateUnion = _test_json_validateParse(
                   expected: "IJsonComponents",
                   value: input.components,
                 }),
-              "swagger" === input.purpose ||
-                "ajv" === input.purpose ||
+              "ajv" === input.purpose ||
+                "swagger" === input.purpose ||
                 $report(_exceptionable, {
                   path: _path + ".purpose",
                   expected: '("ajv" | "swagger")',
@@ -1783,11 +1783,11 @@ export const test_json_validateParse_UltimateUnion = _test_json_validateParse(
             _exceptionable: boolean = true,
           ): boolean =>
             [
-              "string" === input.target ||
-                "number" === input.target ||
+              "array" === input.target ||
                 "bigint" === input.target ||
                 "boolean" === input.target ||
-                "array" === input.target ||
+                "number" === input.target ||
+                "string" === input.target ||
                 $report(_exceptionable, {
                   path: _path + ".target",
                   expected:

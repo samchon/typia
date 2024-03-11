@@ -23,7 +23,7 @@ export const test_json_application_ajv_standard_ObjectPrimitive =
             },
             extension: {
               type: "string",
-              enum: ["txt", "md", "html"],
+              enum: ["html", "md", "txt"],
             },
             title: {
               type: "string",

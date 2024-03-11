@@ -344,11 +344,11 @@
           "target": {
             "type": "string",
             "enum": [
-              "string",
-              "number",
+              "array",
               "bigint",
               "boolean",
-              "array"
+              "number",
+              "string"
             ]
           },
           "name": {

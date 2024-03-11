@@ -34,7 +34,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
             },
             purpose: {
               type: "string",
-              enum: ["swagger", "ajv"],
+              enum: ["ajv", "swagger"],
             },
             surplus: {
               type: "boolean",
@@ -319,7 +319,7 @@ export const test_json_application_swagger_standard_UltimateUnion =
           properties: {
             target: {
               type: "string",
-              enum: ["string", "number", "bigint", "boolean", "array"],
+              enum: ["array", "bigint", "boolean", "number", "string"],
             },
             name: {
               type: "string",

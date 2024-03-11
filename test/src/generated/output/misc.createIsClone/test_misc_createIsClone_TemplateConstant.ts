@@ -16,18 +16,18 @@ export const test_misc_createIsClone_TemplateConstant = _test_misc_isClone(
         ("prefix_A" === input.prefix ||
           "prefix_B" === input.prefix ||
           "prefix_C" === input.prefix) &&
-        ("3_postfix" === input.postfix ||
+        ("1_postfix" === input.postfix ||
           "2_postfix" === input.postfix ||
-          "1_postfix" === input.postfix) &&
-        ("the_3_value_with_label_A" === input.combined ||
-          "the_3_value_with_label_B" === input.combined ||
-          "the_3_value_with_label_C" === input.combined ||
+          "3_postfix" === input.postfix) &&
+        ("the_1_value_with_label_A" === input.combined ||
+          "the_1_value_with_label_B" === input.combined ||
+          "the_1_value_with_label_C" === input.combined ||
           "the_2_value_with_label_A" === input.combined ||
           "the_2_value_with_label_B" === input.combined ||
           "the_2_value_with_label_C" === input.combined ||
-          "the_1_value_with_label_A" === input.combined ||
-          "the_1_value_with_label_B" === input.combined ||
-          "the_1_value_with_label_C" === input.combined);
+          "the_3_value_with_label_A" === input.combined ||
+          "the_3_value_with_label_B" === input.combined ||
+          "the_3_value_with_label_C" === input.combined);
       return "object" === typeof input && null !== input && $io0(input);
     };
     const clone = (
@@ -37,18 +37,18 @@ export const test_misc_createIsClone_TemplateConstant = _test_misc_isClone(
         ("prefix_A" === input.prefix ||
           "prefix_B" === input.prefix ||
           "prefix_C" === input.prefix) &&
-        ("3_postfix" === input.postfix ||
+        ("1_postfix" === input.postfix ||
           "2_postfix" === input.postfix ||
-          "1_postfix" === input.postfix) &&
-        ("the_3_value_with_label_A" === input.combined ||
-          "the_3_value_with_label_B" === input.combined ||
-          "the_3_value_with_label_C" === input.combined ||
+          "3_postfix" === input.postfix) &&
+        ("the_1_value_with_label_A" === input.combined ||
+          "the_1_value_with_label_B" === input.combined ||
+          "the_1_value_with_label_C" === input.combined ||
           "the_2_value_with_label_A" === input.combined ||
           "the_2_value_with_label_B" === input.combined ||
           "the_2_value_with_label_C" === input.combined ||
-          "the_1_value_with_label_A" === input.combined ||
-          "the_1_value_with_label_B" === input.combined ||
-          "the_1_value_with_label_C" === input.combined);
+          "the_3_value_with_label_A" === input.combined ||
+          "the_3_value_with_label_B" === input.combined ||
+          "the_3_value_with_label_C" === input.combined);
       const $cp0 = (input: any) =>
         input.map((elem: any) =>
           "object" === typeof elem && null !== elem

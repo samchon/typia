@@ -119,9 +119,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "txt",
+                    "html",
                     "md",
-                    "html"
+                    "txt"
                   ]
                 }
               ],

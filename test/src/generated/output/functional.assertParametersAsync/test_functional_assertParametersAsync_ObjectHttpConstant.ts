@@ -28,9 +28,9 @@ export const test_functional_assertParametersAsync_ObjectHttpConstant =
               false === input.boolean &&
               (BigInt(1) === input.bigint || BigInt(99) === input.bigint) &&
               (2 === input.number || 98 === input.number) &&
-              ("something" === input.string ||
-                "three" === input.string ||
-                "ninety-seven" === input.string) &&
+              ("ninety-seven" === input.string ||
+                "something" === input.string ||
+                "three" === input.string) &&
               "string" === typeof input.template &&
               RegExp(/^abcd_(.*)/).test(input.template);
             return "object" === typeof input && null !== input && $io0(input);
@@ -79,9 +79,9 @@ export const test_functional_assertParametersAsync_ObjectHttpConstant =
                     },
                     errorFactory,
                   )) &&
-                ("something" === input.string ||
+                ("ninety-seven" === input.string ||
+                  "something" === input.string ||
                   "three" === input.string ||
-                  "ninety-seven" === input.string ||
                   $guard(
                     _exceptionable,
                     {

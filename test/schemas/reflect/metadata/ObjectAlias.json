@@ -237,8 +237,8 @@
                 {
                   "type": "string",
                   "values": [
-                    "male",
-                    "female"
+                    "female",
+                    "male"
                   ]
                 }
               ],
