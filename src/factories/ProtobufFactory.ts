@@ -109,7 +109,15 @@ export namespace ProtobufFactory {
     )
       noSupport("optional type in array");
     // UNION IN ARRAY
-    if (meta.arrays.length && meta.arrays.some((a) => a.type.value.size() > 1))
+    if (
+      meta.arrays.length &&
+      meta.arrays.some(
+        (a) =>
+          a.type.value.size() > 1 &&
+          a.type.value.constants.length !== 1 &&
+          a.type.value.constants[0]?.values.length !== a.type.value.size(),
+      )
+    )
       noSupport("union type in array");
     // DO DYNAMIC OBJECT IN ARRAY
     if (

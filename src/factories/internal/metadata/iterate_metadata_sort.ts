@@ -58,4 +58,15 @@ const iterate =
 
         return Metadata.covers(xt, yt) ? -1 : Metadata.covers(yt, xt) ? 1 : 0;
       });
+
+    // SORT CONSTANT VALUES
+    for (const constant of meta.constants)
+      if (constant.type === "string") constant.values.sort();
+      else if (constant.type === "number")
+        constant.values.sort((a, b) => (a as number) - (b as number));
+      else if (constant.type === "bigint")
+        constant.values.sort((a, b) =>
+          (a as bigint) < (b as bigint) ? -1 : 1,
+        );
+      else constant.values.sort((a, _b) => (a === false ? -1 : 1));
   };
