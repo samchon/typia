@@ -12,9 +12,9 @@ export const test_protobuf_validateEncode_ObjectPrimitive =
           const __is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
-              ("txt" === input.extension ||
+              ("html" === input.extension ||
                 "md" === input.extension ||
-                "html" === input.extension) &&
+                "txt" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&
@@ -53,9 +53,9 @@ export const test_protobuf_validateEncode_ObjectPrimitive =
                       expected: "string",
                       value: input.id,
                     }),
-                  "txt" === input.extension ||
+                  "html" === input.extension ||
                     "md" === input.extension ||
-                    "html" === input.extension ||
+                    "txt" === input.extension ||
                     $report(_exceptionable, {
                       path: _path + ".extension",
                       expected: '("html" | "md" | "txt")',

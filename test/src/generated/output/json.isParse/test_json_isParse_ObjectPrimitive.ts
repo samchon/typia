@@ -8,9 +8,9 @@ export const test_json_isParse_ObjectPrimitive = _test_json_isParse(
     const is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
-        ("txt" === input.extension ||
+        ("html" === input.extension ||
           "md" === input.extension ||
-          "html" === input.extension) &&
+          "txt" === input.extension) &&
         "string" === typeof input.title &&
         "string" === typeof input.body &&
         Array.isArray(input.files) &&

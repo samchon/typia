@@ -18,10 +18,10 @@ export const test_createAssert_ConstantAtomicUnion = _test_assert(
             null !== elem &&
             undefined !== elem &&
             (false === elem ||
-              2 === elem ||
               1 === elem ||
-              "three" === elem ||
+              2 === elem ||
               "four" === elem ||
+              "three" === elem ||
               ("object" === typeof elem && null !== elem && $io0(elem))),
         )
       );
@@ -82,10 +82,10 @@ export const test_createAssert_ConstantAtomicUnion = _test_assert(
                     errorFactory,
                   )) &&
                 (false === elem ||
-                  2 === elem ||
                   1 === elem ||
-                  "three" === elem ||
+                  2 === elem ||
                   "four" === elem ||
+                  "three" === elem ||
                   ((("object" === typeof elem && null !== elem) ||
                     $guard(
                       true,

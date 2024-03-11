@@ -48,11 +48,11 @@ export const test_json_application_ajv_standard_ObjectAlias =
                 },
                 {
                   type: "number",
-                  enum: [2, 1],
+                  enum: [1, 2],
                 },
                 {
                   type: "string",
-                  enum: ["male", "female"],
+                  enum: ["female", "male"],
                 },
               ],
             },

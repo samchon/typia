@@ -388,7 +388,7 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "number",
-                  values: [3, 2, 1],
+                  values: [1, 2, 3],
                 },
               ],
               templates: [],
@@ -440,7 +440,7 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["three", "two", "one"],
+                  values: ["one", "three", "two"],
                 },
               ],
               templates: [],

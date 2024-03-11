@@ -107,11 +107,11 @@ export const test_json_createStringify_UltimateUnion = _test_json_stringify(
     (undefined === input["x-typia-rest"] ||
       "boolean" === typeof input["x-typia-rest"]);
   const $io7 = (input: any): boolean =>
-    ("string" === input.target ||
-      "number" === input.target ||
+    ("array" === input.target ||
       "bigint" === input.target ||
       "boolean" === input.target ||
-      "array" === input.target) &&
+      "number" === input.target ||
+      "string" === input.target) &&
     "string" === typeof input.name &&
     "string" === typeof input.kind &&
     null !== input.exclusive &&

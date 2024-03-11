@@ -16,10 +16,10 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
     return (generator?.array ?? $generator.array)(() =>
       $pick([
         () => false,
-        () => 2,
         () => 1,
-        () => "three",
+        () => 2,
         () => "four",
+        () => "three",
         () => $ro0(),
       ])(),
     );
@@ -37,10 +37,10 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
             null !== elem &&
             undefined !== elem &&
             (false === elem ||
-              2 === elem ||
               1 === elem ||
-              "three" === elem ||
+              2 === elem ||
               "four" === elem ||
+              "three" === elem ||
               ("object" === typeof elem && null !== elem && $io0(elem))),
         )
       );
@@ -101,10 +101,10 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
                     errorFactory,
                   )) &&
                 (false === elem ||
-                  2 === elem ||
                   1 === elem ||
-                  "three" === elem ||
+                  2 === elem ||
                   "four" === elem ||
+                  "three" === elem ||
                   ((("object" === typeof elem && null !== elem) ||
                     $guard(
                       true,

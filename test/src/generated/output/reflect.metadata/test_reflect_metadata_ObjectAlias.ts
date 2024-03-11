@@ -226,11 +226,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "number",
-                  values: [2, 1],
+                  values: [1, 2],
                 },
                 {
                   type: "string",
-                  values: ["male", "female"],
+                  values: ["female", "male"],
                 },
               ],
               templates: [],

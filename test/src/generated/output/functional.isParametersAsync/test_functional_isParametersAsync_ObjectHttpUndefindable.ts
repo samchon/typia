@@ -29,13 +29,13 @@ export const test_functional_isParametersAsync_ObjectHttpUndefindable =
                 BigInt(2) === input.constantBigint ||
                 BigInt(3) === input.constantBigint) &&
               (undefined === input.constantNumber ||
-                3 === input.constantNumber ||
+                1 === input.constantNumber ||
                 2 === input.constantNumber ||
-                1 === input.constantNumber) &&
+                3 === input.constantNumber) &&
               (undefined === input.constantString ||
+                "one" === input.constantString ||
                 "three" === input.constantString ||
-                "two" === input.constantString ||
-                "one" === input.constantString);
+                "two" === input.constantString);
             return (
               "object" === typeof input &&
               null !== input &&

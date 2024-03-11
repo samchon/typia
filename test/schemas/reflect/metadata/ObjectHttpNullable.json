@@ -351,9 +351,9 @@
                 {
                   "type": "bigint",
                   "values": [
-                    "3",
                     "1",
-                    "2"
+                    "2",
+                    "3"
                   ]
                 }
               ],
@@ -467,9 +467,9 @@
                 {
                   "type": "string",
                   "values": [
+                    "one",
                     "three",
-                    "two",
-                    "one"
+                    "two"
                   ]
                 }
               ],

@@ -24,7 +24,7 @@ export const test_json_application_swagger_surplus_ObjectPrimitive =
             },
             extension: {
               type: "string",
-              enum: ["txt", "md", "html"],
+              enum: ["html", "md", "txt"],
               "x-typia-required": true,
               "x-typia-optional": false,
             },

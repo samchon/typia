@@ -14,8 +14,8 @@ export const test_functional_isReturn_ConstantEnumeration =
                 0 === elem ||
                 1 === elem ||
                 2 === elem ||
-                "Three" === elem ||
-                "Four" === elem,
+                "Four" === elem ||
+                "Three" === elem,
             )
           );
         })(result)

@@ -13,8 +13,8 @@ export const test_misc_isPrune_ConstantConstEnumeration = _test_misc_isPrune(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Three" === elem ||
-            "Four" === elem,
+            "Four" === elem ||
+            "Three" === elem,
         )
       );
     };

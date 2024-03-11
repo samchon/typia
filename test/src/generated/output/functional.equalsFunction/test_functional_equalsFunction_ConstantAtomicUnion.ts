@@ -30,10 +30,10 @@ export const test_functional_equalsFunction_ConstantAtomicUnion =
                   null !== elem &&
                   undefined !== elem &&
                   (false === elem ||
-                    2 === elem ||
                     1 === elem ||
-                    "three" === elem ||
+                    2 === elem ||
                     "four" === elem ||
+                    "three" === elem ||
                     ("object" === typeof elem &&
                       null !== elem &&
                       $io0(elem, true))),
@@ -63,10 +63,10 @@ export const test_functional_equalsFunction_ConstantAtomicUnion =
                 null !== elem &&
                 undefined !== elem &&
                 (false === elem ||
-                  2 === elem ||
                   1 === elem ||
-                  "three" === elem ||
+                  2 === elem ||
                   "four" === elem ||
+                  "three" === elem ||
                   ("object" === typeof elem &&
                     null !== elem &&
                     $io0(elem, true))),

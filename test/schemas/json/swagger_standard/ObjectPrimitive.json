@@ -15,9 +15,9 @@
           "extension": {
             "type": "string",
             "enum": [
-              "txt",
+              "html",
               "md",
-              "html"
+              "txt"
             ]
           },
           "title": {

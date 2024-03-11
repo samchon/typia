@@ -38,8 +38,8 @@
               {
                 "type": "string",
                 "enum": [
-                  "male",
-                  "female"
+                  "female",
+                  "male"
                 ],
                 "nullable": true
               }

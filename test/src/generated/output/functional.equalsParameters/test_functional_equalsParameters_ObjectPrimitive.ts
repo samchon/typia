@@ -16,9 +16,9 @@ export const test_functional_equalsParameters_ObjectPrimitive =
               _exceptionable: boolean = true,
             ): boolean =>
               "string" === typeof input.id &&
-              ("txt" === input.extension ||
+              ("html" === input.extension ||
                 "md" === input.extension ||
-                "html" === input.extension) &&
+                "txt" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&

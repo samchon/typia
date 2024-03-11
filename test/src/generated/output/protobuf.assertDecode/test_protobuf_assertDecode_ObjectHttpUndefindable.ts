@@ -94,13 +94,13 @@ export const test_protobuf_assertDecode_ObjectHttpUndefindable =
                 BigInt(2) === input.constantBigint ||
                 BigInt(3) === input.constantBigint) &&
               (undefined === input.constantNumber ||
-                3 === input.constantNumber ||
+                1 === input.constantNumber ||
                 2 === input.constantNumber ||
-                1 === input.constantNumber) &&
+                3 === input.constantNumber) &&
               (undefined === input.constantString ||
+                "one" === input.constantString ||
                 "three" === input.constantString ||
-                "two" === input.constantString ||
-                "one" === input.constantString);
+                "two" === input.constantString);
             return (
               "object" === typeof input &&
               null !== input &&
@@ -190,9 +190,9 @@ export const test_protobuf_assertDecode_ObjectHttpUndefindable =
                     errorFactory,
                   )) &&
                 (undefined === input.constantNumber ||
-                  3 === input.constantNumber ||
-                  2 === input.constantNumber ||
                   1 === input.constantNumber ||
+                  2 === input.constantNumber ||
+                  3 === input.constantNumber ||
                   $guard(
                     _exceptionable,
                     {
@@ -203,9 +203,9 @@ export const test_protobuf_assertDecode_ObjectHttpUndefindable =
                     errorFactory,
                   )) &&
                 (undefined === input.constantString ||
+                  "one" === input.constantString ||
                   "three" === input.constantString ||
                   "two" === input.constantString ||
-                  "one" === input.constantString ||
                   $guard(
                     _exceptionable,
                     {

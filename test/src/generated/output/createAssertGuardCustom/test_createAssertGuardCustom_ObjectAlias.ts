@@ -16,10 +16,10 @@ export const test_createAssertGuardCustom_ObjectAlias = _test_assertGuard(
         "string" === typeof input.email &&
         "string" === typeof input.name &&
         (null === input.sex ||
-          2 === input.sex ||
           1 === input.sex ||
-          "male" === input.sex ||
-          "female" === input.sex) &&
+          2 === input.sex ||
+          "female" === input.sex ||
+          "male" === input.sex) &&
         (null === input.age ||
           ("number" === typeof input.age && Number.isFinite(input.age))) &&
         (null === input.dead || "boolean" === typeof input.dead);
@@ -75,10 +75,10 @@ export const test_createAssertGuardCustom_ObjectAlias = _test_assertGuard(
               errorFactory,
             )) &&
           (null === input.sex ||
-            2 === input.sex ||
             1 === input.sex ||
-            "male" === input.sex ||
+            2 === input.sex ||
             "female" === input.sex ||
+            "male" === input.sex ||
             $guard(
               _exceptionable,
               {

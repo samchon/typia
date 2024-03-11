@@ -15,8 +15,8 @@ export const test_equals_ConstantEnumeration = _test_equals(
           0 === elem ||
           1 === elem ||
           2 === elem ||
-          "Three" === elem ||
-          "Four" === elem,
+          "Four" === elem ||
+          "Three" === elem,
       )
     );
   })(input),
