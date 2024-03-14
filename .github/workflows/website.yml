@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - 'website/**'
+      - 'website/package.json'
 jobs:
   deploy:
     runs-on: ubuntu-latest
