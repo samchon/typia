@@ -181,9 +181,7 @@ export const test_json_createAssertStringifyCustom_TypeTagAtomicUnion =
         const $number = (typia.json.createAssertStringify as any).number;
         const $throws = (typia.json.createAssertStringify as any).throws;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map((elem: any) => $so1(elem))
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
         const $so1 = (input: any): any =>
           `{"value":${(() => {
             if (

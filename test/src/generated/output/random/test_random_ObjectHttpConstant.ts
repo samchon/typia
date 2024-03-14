@@ -19,10 +19,7 @@ export const test_random_ObjectHttpConstant = _test_random(
           () => "something",
           () => "three",
         ])(),
-        template: `abcd_${
-          (generator?.customs ?? $generator.customs)?.string?.([]) ??
-          (generator?.string ?? $generator.string)()
-        }`,
+        template: `abcd_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
       });
       return $ro0();
     })((ObjectHttpConstant as any).RANDOM),

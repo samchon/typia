@@ -43,18 +43,7 @@ export const test_json_createIsStringify_TypeTagLength = _test_json_isStringify(
       input.equal.length <= 19;
     const $string = (typia.json.createIsStringify as any).string;
     const $so0 = (input: any): any =>
-      `{"value":${`[${input.value
-        .map(
-          (elem: any) =>
-            `{"fixed":${$string((elem as any).fixed)},"minimum":${$string(
-              (elem as any).minimum,
-            )},"maximum":${$string(
-              (elem as any).maximum,
-            )},"minimum_and_maximum":${$string(
-              (elem as any).minimum_and_maximum,
-            )},"equal":${$string((elem as any).equal)}}`,
-        )
-        .join(",")}]`}}`;
+      `{"value":${`[${input.value.map((elem: any) => `{"fixed":${$string((elem as any).fixed)},"minimum":${$string((elem as any).minimum)},"maximum":${$string((elem as any).maximum)},"minimum_and_maximum":${$string((elem as any).minimum_and_maximum)},"equal":${$string((elem as any).equal)}}`).join(",")}]`}}`;
     return $so0(input);
   };
   return is(input) ? stringify(input) : null;

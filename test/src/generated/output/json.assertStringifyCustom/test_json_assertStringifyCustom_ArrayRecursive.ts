@@ -218,15 +218,7 @@ export const test_json_assertStringifyCustom_ArrayRecursive =
         const $number = (typia.json.assertStringify as any).number;
         const $string = (typia.json.assertStringify as any).string;
         const $so0 = (input: any): any =>
-          `{"children":${`[${input.children
-            .map((elem: any) => $so0(elem))
-            .join(",")}]`},"id":${$number(input.id)},"code":${$string(
-            input.code,
-          )},"sequence":${$number(
-            input.sequence,
-          )},"created_at":${`{"time":${$number(
-            (input.created_at as any).time,
-          )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+          `{"children":${`[${input.children.map((elem: any) => $so0(elem)).join(",")}]`},"id":${$number(input.id)},"code":${$string(input.code)},"sequence":${$number(input.sequence)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

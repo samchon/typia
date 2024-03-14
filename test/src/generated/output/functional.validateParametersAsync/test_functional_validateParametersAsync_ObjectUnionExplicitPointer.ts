@@ -6,10 +6,10 @@ export const test_functional_validateParametersAsync_ObjectUnionExplicitPointer 
     ObjectUnionExplicitPointer,
   )(
     (
-        p: (
-          input: ObjectUnionExplicitPointer,
-        ) => Promise<ObjectUnionExplicitPointer>,
-      ) =>
+      p: (
+        input: ObjectUnionExplicitPointer,
+      ) => Promise<ObjectUnionExplicitPointer>,
+    ) =>
       async (
         input: ObjectUnionExplicitPointer,
       ): Promise<import("typia").IValidation<ObjectUnionExplicitPointer>> => {

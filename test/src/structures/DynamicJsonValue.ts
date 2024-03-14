@@ -12,7 +12,7 @@ export namespace DynamicJsonValue {
   export interface JsonObject {
     [key: string]: JsonValue | undefined;
   }
-  export type JsonArray = Array<JsonValue>;
+  export interface JsonArray extends Array<JsonValue> {}
 
   export function generate(): DynamicJsonValue {
     return [

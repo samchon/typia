@@ -810,24 +810,24 @@ export const test_misc_createAssertClone_ArrayRepeatedUnionWithTuple =
             "boolean" === typeof elem[2]
               ? ([elem[0] as any, elem[1] as any, elem[2] as any] as any)
               : Array.isArray(elem) &&
-                elem.length === 2 &&
-                "object" === typeof elem[0] &&
-                null !== elem[0] &&
-                $io0(elem[0]) &&
-                "object" === typeof elem[1] &&
-                null !== elem[1] &&
-                $io1(elem[1])
-              ? ([
-                  "object" === typeof elem[0] && null !== elem[0]
-                    ? $co0(elem[0])
-                    : (elem[0] as any),
-                  "object" === typeof elem[1] && null !== elem[1]
-                    ? $co1(elem[1])
-                    : (elem[1] as any),
-                ] as any)
-              : Array.isArray(elem)
-              ? $cp0(elem)
-              : (elem as any),
+                  elem.length === 2 &&
+                  "object" === typeof elem[0] &&
+                  null !== elem[0] &&
+                  $io0(elem[0]) &&
+                  "object" === typeof elem[1] &&
+                  null !== elem[1] &&
+                  $io1(elem[1])
+                ? ([
+                    "object" === typeof elem[0] && null !== elem[0]
+                      ? $co0(elem[0])
+                      : (elem[0] as any),
+                    "object" === typeof elem[1] && null !== elem[1]
+                      ? $co1(elem[1])
+                      : (elem[1] as any),
+                  ] as any)
+                : Array.isArray(elem)
+                  ? $cp0(elem)
+                  : (elem as any),
           );
         return Array.isArray(input) &&
           input.length === 3 &&
@@ -836,24 +836,24 @@ export const test_misc_createAssertClone_ArrayRepeatedUnionWithTuple =
           "boolean" === typeof input[2]
           ? ([input[0] as any, input[1] as any, input[2] as any] as any)
           : Array.isArray(input) &&
-            input.length === 2 &&
-            "object" === typeof input[0] &&
-            null !== input[0] &&
-            $io0(input[0]) &&
-            "object" === typeof input[1] &&
-            null !== input[1] &&
-            $io1(input[1])
-          ? ([
-              "object" === typeof input[0] && null !== input[0]
-                ? $co0(input[0])
-                : (input[0] as any),
-              "object" === typeof input[1] && null !== input[1]
-                ? $co1(input[1])
-                : (input[1] as any),
-            ] as any)
-          : Array.isArray(input)
-          ? $cp0(input)
-          : (input as any);
+              input.length === 2 &&
+              "object" === typeof input[0] &&
+              null !== input[0] &&
+              $io0(input[0]) &&
+              "object" === typeof input[1] &&
+              null !== input[1] &&
+              $io1(input[1])
+            ? ([
+                "object" === typeof input[0] && null !== input[0]
+                  ? $co0(input[0])
+                  : (input[0] as any),
+                "object" === typeof input[1] && null !== input[1]
+                  ? $co1(input[1])
+                  : (input[1] as any),
+              ] as any)
+            : Array.isArray(input)
+              ? $cp0(input)
+              : (input as any);
       };
       assert(input, errorFactory);
       const output = clone(input);

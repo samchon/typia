@@ -162,15 +162,7 @@ export const test_json_createValidateStringify_ObjectRecursive =
       const $number = (typia.json.createValidateStringify as any).number;
       const $string = (typia.json.createValidateStringify as any).string;
       const $so0 = (input: any): any =>
-        `{"parent":${
-          null !== input.parent ? $so0(input.parent) : "null"
-        },"id":${$number(input.id)},"code":${$string(
-          input.code,
-        )},"name":${$string(input.name)},"sequence":${$number(
-          input.sequence,
-        )},"created_at":${`{"time":${$number(
-          (input.created_at as any).time,
-        )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+        `{"parent":${null !== input.parent ? $so0(input.parent) : "null"},"id":${$number(input.id)},"code":${$string(input.code)},"name":${$string(input.name)},"sequence":${$number(input.sequence)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`}}`;
       return $so0(input);
     };
     const output = validate(input) as any;

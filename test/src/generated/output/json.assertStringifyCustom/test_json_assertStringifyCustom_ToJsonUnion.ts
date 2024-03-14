@@ -244,13 +244,9 @@ export const test_json_assertStringifyCustom_ToJsonUnion =
         const $string = (typia.json.assertStringify as any).string;
         const $number = (typia.json.assertStringify as any).number;
         const $so0 = (input: any): any =>
-          `{"id":${$number(input.id)},"mobile":${$string(
-            input.mobile,
-          )},"name":${$string(input.name)}}`;
+          `{"id":${$number(input.id)},"mobile":${$string(input.mobile)},"name":${$string(input.name)}}`;
         const $so4 = (input: any): any =>
-          `{"manufacturer":${$string(input.manufacturer)},"brand":${$string(
-            input.brand,
-          )},"name":${$string(input.name)}}`;
+          `{"manufacturer":${$string(input.manufacturer)},"brand":${$string(input.brand)},"name":${$string(input.name)}}`;
         const $su0 = (input: any): any =>
           (() => {
             if (undefined !== input.id) return $so0(input);
@@ -281,9 +277,7 @@ export const test_json_assertStringifyCustom_ToJsonUnion =
               if ("string" === typeof elem) return $string(elem);
               if ("number" === typeof elem) return $number(elem);
               if ("object" === typeof elem && null !== elem)
-                return `{"id":${$number((elem as any).id)},"mobile":${$string(
-                  (elem as any).mobile,
-                )},"name":${$string((elem as any).name)}}`;
+                return `{"id":${$number((elem as any).id)},"mobile":${$string((elem as any).mobile)},"name":${$string((elem as any).name)}}`;
               $throws({
                 expected:
                   "((ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean) | ToJsonUnion.ICitizen | number | string)",

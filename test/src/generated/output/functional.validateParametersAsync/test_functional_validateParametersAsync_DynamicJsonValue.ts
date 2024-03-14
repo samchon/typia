@@ -93,7 +93,7 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                               ) ||
                                 $report(_exceptionable, {
                                   path: _path + $join(key),
-                                  expected: "DynamicJsonValue.JsonArray",
+                                  expected: "Array<DynamicJsonValue.JsonValue>",
                                   value: value,
                                 }))) ||
                             ("object" === typeof value &&
@@ -107,13 +107,13 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                             $report(_exceptionable, {
                               path: _path + $join(key),
                               expected:
-                                "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
+                                "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
                               value: value,
                             }) ||
                             $report(_exceptionable, {
                               path: _path + $join(key),
                               expected:
-                                "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
+                                "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
                               value: value,
                             })
                           );
@@ -132,7 +132,7 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                           $report(_exceptionable, {
                             path: _path + "[" + _index1 + "]",
                             expected:
-                              "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                              "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                             value: elem,
                           })) &&
                         (null === elem ||
@@ -147,7 +147,7 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                             ) ||
                               $report(_exceptionable, {
                                 path: _path + "[" + _index1 + "]",
-                                expected: "DynamicJsonValue.JsonArray",
+                                expected: "Array<DynamicJsonValue.JsonValue>",
                                 value: elem,
                               }))) ||
                           ("object" === typeof elem &&
@@ -161,13 +161,13 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                           $report(_exceptionable, {
                             path: _path + "[" + _index1 + "]",
                             expected:
-                              "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                              "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                             value: elem,
                           }) ||
                           $report(_exceptionable, {
                             path: _path + "[" + _index1 + "]",
                             expected:
-                              "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                              "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                             value: elem,
                           })),
                     )
@@ -177,7 +177,7 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                     $report(true, {
                       path: _path + "",
                       expected:
-                        "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                        "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                       value: input,
                     })) &&
                   (null === input ||
@@ -188,7 +188,7 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                       ($va0(input, _path + "", true && _exceptionable) ||
                         $report(_exceptionable, {
                           path: _path + "",
-                          expected: "DynamicJsonValue.JsonArray",
+                          expected: "Array<DynamicJsonValue.JsonValue>",
                           value: input,
                         }))) ||
                     ("object" === typeof input &&
@@ -198,13 +198,13 @@ export const test_functional_validateParametersAsync_DynamicJsonValue =
                     $report(true, {
                       path: _path + "",
                       expected:
-                        "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                        "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                       value: input,
                     }) ||
                     $report(true, {
                       path: _path + "",
                       expected:
-                        "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                        "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                       value: input,
                     }))
                 );

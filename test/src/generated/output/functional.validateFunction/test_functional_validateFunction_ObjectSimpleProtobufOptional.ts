@@ -6,10 +6,8 @@ export const test_functional_validateFunction_ObjectSimpleProtobufOptional =
     ObjectSimpleProtobufOptional,
   )(
     (
-        p: (
-          input: ObjectSimpleProtobufOptional,
-        ) => ObjectSimpleProtobufOptional,
-      ) =>
+      p: (input: ObjectSimpleProtobufOptional) => ObjectSimpleProtobufOptional,
+    ) =>
       (
         input: ObjectSimpleProtobufOptional,
       ): import("typia").IValidation<ObjectSimpleProtobufOptional> => {

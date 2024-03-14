@@ -6,10 +6,8 @@ export const test_functional_validateReturn_ObjectSimpleProtobufNullable =
     ObjectSimpleProtobufNullable,
   )(
     (
-        p: (
-          input: ObjectSimpleProtobufNullable,
-        ) => ObjectSimpleProtobufNullable,
-      ) =>
+      p: (input: ObjectSimpleProtobufNullable) => ObjectSimpleProtobufNullable,
+    ) =>
       (
         input: ObjectSimpleProtobufNullable,
       ): import("typia").IValidation<ObjectSimpleProtobufNullable> => {

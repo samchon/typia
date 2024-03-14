@@ -11,9 +11,9 @@ export const test_json_stringify_DynamicComposite = _test_json_stringify(
     const $tail = (typia.json.stringify as any).tail;
     const $so0 = (input: any): any =>
       `{${$tail(
-        `"id":${$string(input.id)},"name":${$string(
-          input.name,
-        )},${Object.entries(input)
+        `"id":${$string(input.id)},"name":${$string(input.name)},${Object.entries(
+          input,
+        )
           .map(([key, value]: [string, any]) => {
             if (undefined === value) return "";
             if (["id", "name"].some((regular: any) => regular === key))

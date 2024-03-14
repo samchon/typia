@@ -92,9 +92,7 @@ export const test_json_assertStringifyCustom_ObjectIntersection =
       };
       const stringify = (input: ObjectIntersection): string => {
         const $string = (typia.json.assertStringify as any).string;
-        return `{"email":${$string((input as any).email)},"name":${$string(
-          (input as any).name,
-        )},"vulnerable":${(input as any).vulnerable}}`;
+        return `{"email":${$string((input as any).email)},"name":${$string((input as any).name)},"vulnerable":${(input as any).vulnerable}}`;
       };
       return stringify(assert(input, errorFactory));
     })(input, (p) => new CustomGuardError(p)),

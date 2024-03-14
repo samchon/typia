@@ -15,9 +15,7 @@ export const test_json_isStringify_ObjectInternal = _test_json_isStringify(
     };
     const stringify = (input: ObjectInternal): string => {
       const $string = (typia.json.isStringify as any).string;
-      return `{"id":${$string((input as any).id)},"name":${$string(
-        (input as any).name,
-      )}}`;
+      return `{"id":${$string((input as any).id)},"name":${$string((input as any).name)}}`;
     };
     return is(input) ? stringify(input) : null;
   })(input),

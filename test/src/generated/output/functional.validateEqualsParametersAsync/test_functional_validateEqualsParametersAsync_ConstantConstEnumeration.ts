@@ -6,10 +6,8 @@ export const test_functional_validateEqualsParametersAsync_ConstantConstEnumerat
     ConstantConstEnumeration,
   )(
     (
-        p: (
-          input: ConstantConstEnumeration,
-        ) => Promise<ConstantConstEnumeration>,
-      ) =>
+      p: (input: ConstantConstEnumeration) => Promise<ConstantConstEnumeration>,
+    ) =>
       async (
         input: ConstantConstEnumeration,
       ): Promise<import("typia").IValidation<ConstantConstEnumeration>> => {

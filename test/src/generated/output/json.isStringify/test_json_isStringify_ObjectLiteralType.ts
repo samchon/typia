@@ -18,9 +18,7 @@ export const test_json_isStringify_ObjectLiteralType = _test_json_isStringify(
     const stringify = (input: ObjectLiteralType): string => {
       const $string = (typia.json.isStringify as any).string;
       const $number = (typia.json.isStringify as any).number;
-      return `{"id":${$string((input as any).id)},"name":${$string(
-        (input as any).name,
-      )},"age":${$number((input as any).age)}}`;
+      return `{"id":${$string((input as any).id)},"name":${$string((input as any).name)},"age":${$number((input as any).age)}}`;
     };
     return is(input) ? stringify(input) : null;
   })(input),

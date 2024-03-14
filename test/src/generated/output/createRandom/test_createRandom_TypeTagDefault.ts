@@ -93,10 +93,7 @@ export const test_createRandom_TypeTagDefault = _test_random(
       ])(),
       boolean_and_number_and_template: $pick([
         () =>
-          `prefix_${
-            (generator?.customs ?? $generator.customs)?.string?.([]) ??
-            (generator?.string ?? $generator.string)()
-          }`,
+          `prefix_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([
             {

@@ -6,10 +6,8 @@ export const test_functional_equalsReturnAsync_ObjectPartialAndRequired =
     ObjectPartialAndRequired,
   )(
     (
-        p: (
-          input: ObjectPartialAndRequired,
-        ) => Promise<ObjectPartialAndRequired>,
-      ) =>
+      p: (input: ObjectPartialAndRequired) => Promise<ObjectPartialAndRequired>,
+    ) =>
       async (
         input: ObjectPartialAndRequired,
       ): Promise<ObjectPartialAndRequired | null> => {

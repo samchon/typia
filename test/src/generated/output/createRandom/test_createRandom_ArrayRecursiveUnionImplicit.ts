@@ -25,17 +25,17 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() =>
-              $pick([
-                () => $ro0(true, _recursive ? 1 + _depth : _depth),
-                () => $ro1(true, _recursive ? 1 + _depth : _depth),
-                () => $ro2(true, _recursive ? 1 + _depth : _depth),
-                () => $ro3(true, _recursive ? 1 + _depth : _depth),
-                () => $ro4(true, _recursive ? 1 + _depth : _depth),
-                () => $ro5(true, _recursive ? 1 + _depth : _depth),
-              ])(),
-            )
-          : [],
+            ? (generator?.array ?? $generator.array)(() =>
+                $pick([
+                  () => $ro0(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro1(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro2(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro3(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro4(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro5(true, _recursive ? 1 + _depth : _depth),
+                ])(),
+              )
+            : [],
     });
     const $ro1 = (_recursive: boolean = true, _depth: number = 0): any => ({
       access: $pick([() => "read", () => "write"])(),
@@ -52,17 +52,17 @@ export const test_createRandom_ArrayRecursiveUnionImplicit = _test_random(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() =>
-              $pick([
-                () => $ro0(true, _recursive ? 1 + _depth : _depth),
-                () => $ro1(true, _recursive ? 1 + _depth : _depth),
-                () => $ro2(true, _recursive ? 1 + _depth : _depth),
-                () => $ro3(true, _recursive ? 1 + _depth : _depth),
-                () => $ro4(true, _recursive ? 1 + _depth : _depth),
-                () => $ro5(true, _recursive ? 1 + _depth : _depth),
-              ])(),
-            )
-          : [],
+            ? (generator?.array ?? $generator.array)(() =>
+                $pick([
+                  () => $ro0(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro1(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro2(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro3(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro4(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro5(true, _recursive ? 1 + _depth : _depth),
+                ])(),
+              )
+            : [],
     });
     const $ro2 = (_recursive: boolean = false, _depth: number = 0): any => ({
       id:

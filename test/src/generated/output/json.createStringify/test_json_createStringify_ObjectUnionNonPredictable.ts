@@ -33,9 +33,7 @@ export const test_json_createStringify_ObjectUnionNonPredictable =
     const $string = (typia.json.createStringify as any).string;
     const $throws = (typia.json.createStringify as any).throws;
     const $so0 = (input: any): any =>
-      `{"value":${`[${input.value
-        .map((elem: any) => $so1(elem))
-        .join(",")}]`}}`;
+      `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
     const $so1 = (input: any): any => `{"value":${$so2(input.value)}}`;
     const $so2 = (input: any): any => `{"value":${$su0(input.value)}}`;
     const $so3 = (input: any): any =>

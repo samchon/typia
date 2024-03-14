@@ -537,23 +537,7 @@ export const test_json_createAssertStringify_ArrayRepeatedUnion =
           });
         };
         const $so0 = (input: any): any =>
-          `{"scale":${`{"x":${$number((input.scale as any).x)},"y":${$number(
-            (input.scale as any).y,
-          )},"z":${$number(
-            (input.scale as any).z,
-          )}}`},"position":${`{"x":${$number(
-            (input.position as any).x,
-          )},"y":${$number((input.position as any).y)},"z":${$number(
-            (input.position as any).z,
-          )}}`},"rotate":${`{"x":${$number(
-            (input.rotate as any).x,
-          )},"y":${$number((input.rotate as any).y)},"z":${$number(
-            (input.rotate as any).z,
-          )}}`},"pivot":${`{"x":${$number(
-            (input.pivot as any).x,
-          )},"y":${$number((input.pivot as any).y)},"z":${$number(
-            (input.pivot as any).z,
-          )}}`}}`;
+          `{"scale":${`{"x":${$number((input.scale as any).x)},"y":${$number((input.scale as any).y)},"z":${$number((input.scale as any).z)}}`},"position":${`{"x":${$number((input.position as any).x)},"y":${$number((input.position as any).y)},"z":${$number((input.position as any).z)}}`},"rotate":${`{"x":${$number((input.rotate as any).x)},"y":${$number((input.rotate as any).y)},"z":${$number((input.rotate as any).z)}}`},"pivot":${`{"x":${$number((input.pivot as any).x)},"y":${$number((input.pivot as any).y)},"z":${$number((input.pivot as any).z)}}`}}`;
         const $sa0 = (input: any): any =>
           `[${input
             .map((elem: any) =>

@@ -6,10 +6,8 @@ export const test_functional_equalsReturnAsync_ConstantConstEnumeration =
     ConstantConstEnumeration,
   )(
     (
-        p: (
-          input: ConstantConstEnumeration,
-        ) => Promise<ConstantConstEnumeration>,
-      ) =>
+      p: (input: ConstantConstEnumeration) => Promise<ConstantConstEnumeration>,
+    ) =>
       async (
         input: ConstantConstEnumeration,
       ): Promise<ConstantConstEnumeration | null> => {

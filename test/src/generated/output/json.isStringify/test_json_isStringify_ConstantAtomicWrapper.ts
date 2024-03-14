@@ -28,11 +28,7 @@ export const test_json_isStringify_ConstantAtomicWrapper =
       const stringify = (input: ConstantAtomicWrapper): string => {
         const $number = (typia.json.isStringify as any).number;
         const $string = (typia.json.isStringify as any).string;
-        return `[${`{"value":${
-          (input[0] as any).value
-        }}`},${`{"value":${$number(
-          (input[1] as any).value,
-        )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
+        return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number((input[1] as any).value)}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
       };
       return is(input) ? stringify(input) : null;
     })(input),

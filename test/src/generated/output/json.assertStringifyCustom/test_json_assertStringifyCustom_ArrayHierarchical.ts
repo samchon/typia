@@ -463,35 +463,11 @@ export const test_json_assertStringifyCustom_ArrayHierarchical =
         const $number = (typia.json.assertStringify as any).number;
         const $string = (typia.json.assertStringify as any).string;
         const $so0 = (input: any): any =>
-          `{"id":${$number(input.id)},"serial":${$number(
-            input.serial,
-          )},"name":${$string(
-            input.name,
-          )},"established_at":${`{"time":${$number(
-            (input.established_at as any).time,
-          )},"zone":${$number(
-            (input.established_at as any).zone,
-          )}}`},"departments":${`[${input.departments
-            .map((elem: any) => $so2(elem))
-            .join(",")}]`}}`;
+          `{"id":${$number(input.id)},"serial":${$number(input.serial)},"name":${$string(input.name)},"established_at":${`{"time":${$number((input.established_at as any).time)},"zone":${$number((input.established_at as any).zone)}}`},"departments":${`[${input.departments.map((elem: any) => $so2(elem)).join(",")}]`}}`;
         const $so2 = (input: any): any =>
-          `{"id":${$number(input.id)},"code":${$string(
-            input.code,
-          )},"sales":${$number(input.sales)},"created_at":${`{"time":${$number(
-            (input.created_at as any).time,
-          )},"zone":${$number(
-            (input.created_at as any).zone,
-          )}}`},"employees":${`[${input.employees
-            .map((elem: any) => $so3(elem))
-            .join(",")}]`}}`;
+          `{"id":${$number(input.id)},"code":${$string(input.code)},"sales":${$number(input.sales)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`},"employees":${`[${input.employees.map((elem: any) => $so3(elem)).join(",")}]`}}`;
         const $so3 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"age":${$number(input.age)},"grade":${$number(
-            input.grade,
-          )},"employeed_at":${`{"time":${$number(
-            (input.employeed_at as any).time,
-          )},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"age":${$number(input.age)},"grade":${$number(input.grade)},"employeed_at":${`{"time":${$number((input.employeed_at as any).time)},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
       };
       return stringify(assert(input, errorFactory));

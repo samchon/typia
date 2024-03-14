@@ -54,12 +54,12 @@ export const test_random_ObjectPartial = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.number?.([]) ??
-                  (generator?.number ?? $generator.number)(0, 100),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                )
+              : [],
         object: $pick([
           () => null,
           () => $ro1(true, _recursive ? 1 + _depth : _depth),

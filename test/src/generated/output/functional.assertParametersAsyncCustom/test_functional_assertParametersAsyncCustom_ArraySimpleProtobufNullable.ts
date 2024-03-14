@@ -7,10 +7,10 @@ export const test_functional_assertParametersAsyncCustom_ArraySimpleProtobufNull
     "ArraySimpleProtobufNullable",
   )(ArraySimpleProtobufNullable)(
     (
-        p: (
-          input: ArraySimpleProtobufNullable,
-        ) => Promise<ArraySimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: ArraySimpleProtobufNullable,
+      ) => Promise<ArraySimpleProtobufNullable>,
+    ) =>
       async (
         input: ArraySimpleProtobufNullable,
       ): Promise<ArraySimpleProtobufNullable> => {

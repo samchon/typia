@@ -6,10 +6,10 @@ export const test_functional_validateReturnAsync_ArrayRecursiveUnionExplicitPoin
     ArrayRecursiveUnionExplicitPointer,
   )(
     (
-        p: (
-          input: ArrayRecursiveUnionExplicitPointer,
-        ) => Promise<ArrayRecursiveUnionExplicitPointer>,
-      ) =>
+      p: (
+        input: ArrayRecursiveUnionExplicitPointer,
+      ) => Promise<ArrayRecursiveUnionExplicitPointer>,
+    ) =>
       async (
         input: ArrayRecursiveUnionExplicitPointer,
       ): Promise<

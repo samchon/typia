@@ -58,9 +58,7 @@ export const test_json_assertStringifyCustom_ToJsonDouble =
       };
       const stringify = (input: ToJsonDouble): string => {
         const $number = (typia.json.assertStringify as any).number;
-        return `{"id":${$number((input.toJSON() as any).id)},"flag":${
-          (input.toJSON() as any).flag
-        }}`;
+        return `{"id":${$number((input.toJSON() as any).id)},"flag":${(input.toJSON() as any).flag}}`;
       };
       return stringify(assert(input, errorFactory));
     })(input, (p) => new CustomGuardError(p)),

@@ -51,9 +51,7 @@ export const test_json_validateStringify_ToJsonDouble =
         };
         const stringify = (input: ToJsonDouble): string => {
           const $number = (typia.json.validateStringify as any).number;
-          return `{"id":${$number((input.toJSON() as any).id)},"flag":${
-            (input.toJSON() as any).flag
-          }}`;
+          return `{"id":${$number((input.toJSON() as any).id)},"flag":${(input.toJSON() as any).flag}}`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);

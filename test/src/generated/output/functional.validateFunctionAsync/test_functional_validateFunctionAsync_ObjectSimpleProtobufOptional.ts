@@ -6,10 +6,10 @@ export const test_functional_validateFunctionAsync_ObjectSimpleProtobufOptional 
     ObjectSimpleProtobufOptional,
   )(
     (
-        p: (
-          input: ObjectSimpleProtobufOptional,
-        ) => Promise<ObjectSimpleProtobufOptional>,
-      ) =>
+      p: (
+        input: ObjectSimpleProtobufOptional,
+      ) => Promise<ObjectSimpleProtobufOptional>,
+    ) =>
       async (
         input: ObjectSimpleProtobufOptional,
       ): Promise<import("typia").IValidation<ObjectSimpleProtobufOptional>> => {

@@ -7,10 +7,10 @@ export const test_functional_assertEqualsReturnAsyncCustom_ArrayRecursiveUnionIm
     "ArrayRecursiveUnionImplicit",
   )(ArrayRecursiveUnionImplicit)(
     (
-        p: (
-          input: ArrayRecursiveUnionImplicit,
-        ) => Promise<ArrayRecursiveUnionImplicit>,
-      ) =>
+      p: (
+        input: ArrayRecursiveUnionImplicit,
+      ) => Promise<ArrayRecursiveUnionImplicit>,
+    ) =>
       async (
         input: ArrayRecursiveUnionImplicit,
       ): Promise<ArrayRecursiveUnionImplicit> => {

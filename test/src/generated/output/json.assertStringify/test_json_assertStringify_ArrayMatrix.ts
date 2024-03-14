@@ -130,17 +130,7 @@ export const test_json_assertStringify_ArrayMatrix = _test_json_assertStringify(
     };
     const stringify = (input: ArrayMatrix): string => {
       const $number = (typia.json.assertStringify as any).number;
-      return `[${input
-        .map(
-          (elem: any) =>
-            `[${elem
-              .map(
-                (elem: any) =>
-                  `[${elem.map((elem: any) => $number(elem)).join(",")}]`,
-              )
-              .join(",")}]`,
-        )
-        .join(",")}]`;
+      return `[${input.map((elem: any) => `[${elem.map((elem: any) => `[${elem.map((elem: any) => $number(elem)).join(",")}]`).join(",")}]`).join(",")}]`;
     };
     return stringify(assert(input, errorFactory));
   })(input),

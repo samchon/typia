@@ -6,10 +6,10 @@ export const test_functional_validateReturnAsync_ArrayRecursiveUnionImplicit =
     ArrayRecursiveUnionImplicit,
   )(
     (
-        p: (
-          input: ArrayRecursiveUnionImplicit,
-        ) => Promise<ArrayRecursiveUnionImplicit>,
-      ) =>
+      p: (
+        input: ArrayRecursiveUnionImplicit,
+      ) => Promise<ArrayRecursiveUnionImplicit>,
+    ) =>
       async (
         input: ArrayRecursiveUnionImplicit,
       ): Promise<import("typia").IValidation<ArrayRecursiveUnionImplicit>> => {

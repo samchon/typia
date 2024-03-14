@@ -147,16 +147,10 @@ export const test_json_createIsStringify_ArrayRecursiveUnionExplicitPointer =
         const $string = (typia.json.createIsStringify as any).string;
         const $throws = (typia.json.createIsStringify as any).throws;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map((elem: any) => $so1(elem))
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
         const $so1 = (input: any): any => `{"value":${$su0(input.value)}}`;
         const $so2 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"children":${`[${input.children
-            .map((elem: any) => $so1(elem))
-            .join(",")}]`},"type":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"children":${`[${input.children.map((elem: any) => $so1(elem)).join(",")}]`},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({
@@ -165,13 +159,7 @@ export const test_json_createIsStringify_ArrayRecursiveUnionExplicitPointer =
             });
           })()}}`;
         const $so3 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"width":${$number(
-            input.width,
-          )},"height":${$number(input.height)},"url":${$string(
-            input.url,
-          )},"size":${$number(input.size)},"type":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"width":${$number(input.width)},"height":${$number(input.height)},"url":${$string(input.url)},"size":${$number(input.size)},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({
@@ -189,11 +177,7 @@ export const test_json_createIsStringify_ArrayRecursiveUnionExplicitPointer =
             });
           })()}}`;
         const $so4 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"size":${$number(
-            input.size,
-          )},"content":${$string(input.content)},"type":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"size":${$number(input.size)},"content":${$string(input.content)},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({
@@ -211,11 +195,7 @@ export const test_json_createIsStringify_ArrayRecursiveUnionExplicitPointer =
             });
           })()}}`;
         const $so5 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"size":${$number(
-            input.size,
-          )},"count":${$number(input.count)},"type":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"size":${$number(input.size)},"count":${$number(input.count)},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({
@@ -233,11 +213,7 @@ export const test_json_createIsStringify_ArrayRecursiveUnionExplicitPointer =
             });
           })()}}`;
         const $so6 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"target":${$so1(
-            input.target,
-          )},"type":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"target":${$so1(input.target)},"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({

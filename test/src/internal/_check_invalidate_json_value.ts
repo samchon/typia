@@ -3,8 +3,8 @@ const iterate = (value: any): boolean =>
     ? value === null
       ? false
       : Array.isArray(value)
-      ? iterate_array(value)
-      : iterate_object(value)
+        ? iterate_array(value)
+        : iterate_object(value)
     : typeof value === "bigint";
 const iterate_object = (obj: any): boolean => Object.values(obj).every(iterate);
 const iterate_array = (elements: any[]): boolean =>

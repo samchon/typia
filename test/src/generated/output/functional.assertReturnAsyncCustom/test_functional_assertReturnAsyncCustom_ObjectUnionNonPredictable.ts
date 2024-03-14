@@ -7,10 +7,10 @@ export const test_functional_assertReturnAsyncCustom_ObjectUnionNonPredictable =
     "ObjectUnionNonPredictable",
   )(ObjectUnionNonPredictable)(
     (
-        p: (
-          input: ObjectUnionNonPredictable,
-        ) => Promise<ObjectUnionNonPredictable>,
-      ) =>
+      p: (
+        input: ObjectUnionNonPredictable,
+      ) => Promise<ObjectUnionNonPredictable>,
+    ) =>
       async (
         input: ObjectUnionNonPredictable,
       ): Promise<ObjectUnionNonPredictable> => {

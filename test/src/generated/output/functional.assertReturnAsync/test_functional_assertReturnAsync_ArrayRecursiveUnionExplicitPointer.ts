@@ -7,10 +7,10 @@ export const test_functional_assertReturnAsync_ArrayRecursiveUnionExplicitPointe
     "ArrayRecursiveUnionExplicitPointer",
   )(ArrayRecursiveUnionExplicitPointer)(
     (
-        p: (
-          input: ArrayRecursiveUnionExplicitPointer,
-        ) => Promise<ArrayRecursiveUnionExplicitPointer>,
-      ) =>
+      p: (
+        input: ArrayRecursiveUnionExplicitPointer,
+      ) => Promise<ArrayRecursiveUnionExplicitPointer>,
+    ) =>
       async (
         input: ArrayRecursiveUnionExplicitPointer,
       ): Promise<ArrayRecursiveUnionExplicitPointer> => {

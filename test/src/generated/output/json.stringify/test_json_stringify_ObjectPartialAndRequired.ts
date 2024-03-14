@@ -19,29 +19,7 @@ export const test_json_stringify_ObjectPartialAndRequired =
       const $string = (typia.json.stringify as any).string;
       const $number = (typia.json.stringify as any).number;
       const $so0 = (input: any): any =>
-        `{${
-          undefined === input.string
-            ? ""
-            : `"string":${
-                undefined !== input.string ? $string(input.string) : undefined
-              },`
-        }${
-          undefined === input.number
-            ? ""
-            : `"number":${
-                undefined !== input.number ? $number(input.number) : undefined
-              },`
-        }${
-          undefined === input.boolean
-            ? ""
-            : `"boolean":${
-                undefined !== input.boolean ? input.boolean : undefined
-              },`
-        }"object":${
-          null !== input.object ? $so0(input.object) : "null"
-        },"array":${`[${input.array
-          .map((elem: any) => $number(elem))
-          .join(",")}]`}}`;
+        `{${undefined === input.string ? "" : `"string":${undefined !== input.string ? $string(input.string) : undefined},`}${undefined === input.number ? "" : `"number":${undefined !== input.number ? $number(input.number) : undefined},`}${undefined === input.boolean ? "" : `"boolean":${undefined !== input.boolean ? input.boolean : undefined},`}"object":${null !== input.object ? $so0(input.object) : "null"},"array":${`[${input.array.map((elem: any) => $number(elem)).join(",")}]`}}`;
       return $so0(input);
     })(input),
   );

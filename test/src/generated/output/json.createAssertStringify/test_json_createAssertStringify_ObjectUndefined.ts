@@ -253,31 +253,7 @@ export const test_json_createAssertStringify_ObjectUndefined =
                       })()
                     : undefined
                 },`
-          }${
-            undefined === input.classroom
-              ? ""
-              : `"classroom":${
-                  undefined !== input.classroom
-                    ? `{"id":${$string(
-                        (input.classroom as any).id,
-                      )},"name":${$string((input.classroom as any).name)}}`
-                    : undefined
-                },`
-          }${
-            undefined === input.grade
-              ? ""
-              : `"grade":${
-                  undefined !== input.grade ? $number(input.grade) : undefined
-                },`
-          }${
-            undefined === input.unknown || "function" === typeof input.unknown
-              ? ""
-              : `"unknown":${
-                  undefined !== input.unknown
-                    ? JSON.stringify(input.unknown)
-                    : undefined
-                },`
-          }"name":${$string(input.name)}}`;
+          }${undefined === input.classroom ? "" : `"classroom":${undefined !== input.classroom ? `{"id":${$string((input.classroom as any).id)},"name":${$string((input.classroom as any).name)}}` : undefined},`}${undefined === input.grade ? "" : `"grade":${undefined !== input.grade ? $number(input.grade) : undefined},`}${undefined === input.unknown || "function" === typeof input.unknown ? "" : `"unknown":${undefined !== input.unknown ? JSON.stringify(input.unknown) : undefined},`}"name":${$string(input.name)}}`;
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
       };
       return stringify(assert(input, errorFactory));

@@ -18,10 +18,10 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                (generator?.boolean ?? $generator.boolean)(),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  (generator?.boolean ?? $generator.boolean)(),
+                )
+              : [],
       ])(),
       int32: $pick([
         () => undefined,
@@ -29,17 +29,17 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.number?.([
-                    {
-                      name: 'Type<"int32">',
-                      kind: "type",
-                      value: "int32",
-                    },
-                  ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                      {
+                        name: 'Type<"int32">',
+                        kind: "type",
+                        value: "int32",
+                      },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+                )
+              : [],
       ])(),
       uint32: $pick([
         () => undefined,
@@ -47,17 +47,17 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.number?.([
-                    {
-                      name: 'Type<"uint32">',
-                      kind: "type",
-                      value: "uint32",
-                    },
-                  ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                      {
+                        name: 'Type<"uint32">',
+                        kind: "type",
+                        value: "uint32",
+                      },
+                    ]) ?? (generator?.integer ?? $generator.integer)(0, 10),
+                )
+              : [],
       ])(),
       int64: $pick([
         () => undefined,
@@ -65,21 +65,21 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.bigint?.([
-                    {
-                      name: 'Type<"int64">',
-                      kind: "type",
-                      value: "int64",
-                    },
-                  ]) ??
-                  (generator?.bigint ?? $generator.bigint)(
-                    BigInt(0),
-                    BigInt(100),
-                  ),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.bigint?.([
+                      {
+                        name: 'Type<"int64">',
+                        kind: "type",
+                        value: "int64",
+                      },
+                    ]) ??
+                    (generator?.bigint ?? $generator.bigint)(
+                      BigInt(0),
+                      BigInt(100),
+                    ),
+                )
+              : [],
       ])(),
       uint64: $pick([
         () => undefined,
@@ -87,21 +87,21 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.bigint?.([
-                    {
-                      name: 'Type<"uint64">',
-                      kind: "type",
-                      value: "uint64",
-                    },
-                  ]) ??
-                  (generator?.bigint ?? $generator.bigint)(
-                    BigInt(0),
-                    BigInt(10),
-                  ),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.bigint?.([
+                      {
+                        name: 'Type<"uint64">',
+                        kind: "type",
+                        value: "uint64",
+                      },
+                    ]) ??
+                    (generator?.bigint ?? $generator.bigint)(
+                      BigInt(0),
+                      BigInt(10),
+                    ),
+                )
+              : [],
       ])(),
       float: $pick([
         () => undefined,
@@ -109,17 +109,17 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.number?.([
-                    {
-                      name: 'Type<"float">',
-                      kind: "type",
-                      value: "float",
-                    },
-                  ]) ?? (generator?.number ?? $generator.number)(0, 100),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                      {
+                        name: 'Type<"float">',
+                        kind: "type",
+                        value: "float",
+                      },
+                    ]) ?? (generator?.number ?? $generator.number)(0, 100),
+                )
+              : [],
       ])(),
       double: $pick([
         () => undefined,
@@ -127,17 +127,17 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.number?.([
-                    {
-                      name: 'Type<"double">',
-                      kind: "type",
-                      value: "double",
-                    },
-                  ]) ?? (generator?.number ?? $generator.number)(0, 100),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([
+                      {
+                        name: 'Type<"double">',
+                        kind: "type",
+                        value: "double",
+                      },
+                    ]) ?? (generator?.number ?? $generator.number)(0, 100),
+                )
+              : [],
       ])(),
       string: $pick([
         () => undefined,
@@ -145,12 +145,12 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                  (generator?.string ?? $generator.string)(),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                )
+              : [],
       ])(),
       bytes: $pick([
         () => undefined,
@@ -158,15 +158,15 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  new Uint8Array(
-                    (generator?.array ?? $generator.array)((): any =>
-                      (generator?.integer ?? $generator.integer)(0, 255),
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    new Uint8Array(
+                      (generator?.array ?? $generator.array)((): any =>
+                        (generator?.integer ?? $generator.integer)(0, 255),
+                      ),
                     ),
-                  ),
-              )
-            : [],
+                )
+              : [],
       ])(),
       object: $pick([
         () => undefined,
@@ -174,10 +174,10 @@ export const test_createRandom_ArraySimpleProtobufOptional = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro0(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro0(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
       ])(),
     });
     return $ro0();

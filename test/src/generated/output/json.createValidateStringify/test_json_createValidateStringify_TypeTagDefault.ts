@@ -175,11 +175,7 @@ export const test_json_createValidateStringify_TypeTagDefault =
       const $string = (typia.json.createValidateStringify as any).string;
       const $throws = (typia.json.createValidateStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"boolean":${input.boolean},"number":${$number(
-          input.number,
-        )},"string":${$string(input.string)},"text":${$string(
-          input.text,
-        )},"boolean_and_number_and_string":${(() => {
+        `{"boolean":${input.boolean},"number":${$number(input.number)},"string":${$string(input.string)},"text":${$string(input.text)},"boolean_and_number_and_string":${(() => {
           if ("number" === typeof input.boolean_and_number_and_string)
             return $number(input.boolean_and_number_and_string);
           if ("string" === typeof input.boolean_and_number_and_string)

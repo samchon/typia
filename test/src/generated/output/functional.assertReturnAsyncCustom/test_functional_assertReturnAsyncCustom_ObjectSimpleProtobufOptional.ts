@@ -7,10 +7,10 @@ export const test_functional_assertReturnAsyncCustom_ObjectSimpleProtobufOptiona
     "ObjectSimpleProtobufOptional",
   )(ObjectSimpleProtobufOptional)(
     (
-        p: (
-          input: ObjectSimpleProtobufOptional,
-        ) => Promise<ObjectSimpleProtobufOptional>,
-      ) =>
+      p: (
+        input: ObjectSimpleProtobufOptional,
+      ) => Promise<ObjectSimpleProtobufOptional>,
+    ) =>
       async (
         input: ObjectSimpleProtobufOptional,
       ): Promise<ObjectSimpleProtobufOptional> => {

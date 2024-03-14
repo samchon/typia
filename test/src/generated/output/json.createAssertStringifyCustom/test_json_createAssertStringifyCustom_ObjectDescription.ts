@@ -155,13 +155,7 @@ export const test_json_createAssertStringifyCustom_ObjectDescription =
         const $string = (typia.json.createAssertStringify as any).string;
         const $number = (typia.json.createAssertStringify as any).number;
         const $so0 = (input: any): any =>
-          `{"id":${$string(input.id)},"deprecated":${
-            input.deprecated
-          },"title":${$string(
-            input.title,
-          )},"descriptions":${`[${input.descriptions
-            .map((elem: any) => $string(elem))
-            .join(",")}]`},"newLine":${$number(input.newLine)}}`;
+          `{"id":${$string(input.id)},"deprecated":${input.deprecated},"title":${$string(input.title)},"descriptions":${`[${input.descriptions.map((elem: any) => $string(elem)).join(",")}]`},"newLine":${$number(input.newLine)}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

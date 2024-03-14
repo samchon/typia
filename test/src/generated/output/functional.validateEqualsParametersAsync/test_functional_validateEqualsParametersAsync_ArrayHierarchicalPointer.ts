@@ -6,10 +6,8 @@ export const test_functional_validateEqualsParametersAsync_ArrayHierarchicalPoin
     ArrayHierarchicalPointer,
   )(
     (
-        p: (
-          input: ArrayHierarchicalPointer,
-        ) => Promise<ArrayHierarchicalPointer>,
-      ) =>
+      p: (input: ArrayHierarchicalPointer) => Promise<ArrayHierarchicalPointer>,
+    ) =>
       async (
         input: ArrayHierarchicalPointer,
       ): Promise<import("typia").IValidation<ArrayHierarchicalPointer>> => {

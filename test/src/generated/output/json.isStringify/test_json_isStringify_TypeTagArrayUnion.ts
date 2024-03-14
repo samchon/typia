@@ -53,11 +53,7 @@ export const test_json_isStringify_TypeTagArrayUnion = _test_json_isStringify(
       const $number = (typia.json.isStringify as any).number;
       const $throws = (typia.json.isStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"items":${`[${input.items
-          .map((elem: any) => $string(elem))
-          .join(",")}]`},"minItems":${`[${input.minItems
-          .map((elem: any) => $number(elem))
-          .join(",")}]`},"maxItems":${`[${input.maxItems
+        `{"items":${`[${input.items.map((elem: any) => $string(elem)).join(",")}]`},"minItems":${`[${input.minItems.map((elem: any) => $number(elem)).join(",")}]`},"maxItems":${`[${input.maxItems
           .map((elem: any) =>
             (() => {
               if ("string" === typeof elem && elem.length <= 7)
@@ -69,9 +65,9 @@ export const test_json_isStringify_TypeTagArrayUnion = _test_json_isStringify(
               });
             })(),
           )
-          .join(",")}]`},"both":${`[${input.both
-          .map((elem: any) => $string(elem))
-          .join(",")}]`}}`;
+          .join(
+            ",",
+          )}]`},"both":${`[${input.both.map((elem: any) => $string(elem)).join(",")}]`}}`;
       return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
     };
     return is(input) ? stringify(input) : null;

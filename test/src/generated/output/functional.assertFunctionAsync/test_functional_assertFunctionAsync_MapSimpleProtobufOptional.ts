@@ -7,10 +7,10 @@ export const test_functional_assertFunctionAsync_MapSimpleProtobufOptional =
     "MapSimpleProtobufOptional",
   )(MapSimpleProtobufOptional)(
     (
-        p: (
-          input: MapSimpleProtobufOptional,
-        ) => Promise<MapSimpleProtobufOptional>,
-      ) =>
+      p: (
+        input: MapSimpleProtobufOptional,
+      ) => Promise<MapSimpleProtobufOptional>,
+    ) =>
       async (
         input: MapSimpleProtobufOptional,
       ): Promise<MapSimpleProtobufOptional> => {

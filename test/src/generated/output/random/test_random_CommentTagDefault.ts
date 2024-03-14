@@ -72,10 +72,7 @@ export const test_random_CommentTagDefault = _test_random(
           ]) ?? (generator?.number ?? $generator.number)(3, 5),
         boolean_and_number_and_template: $pick([
           () =>
-            `prefix_${
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-              (generator?.string ?? $generator.string)()
-            }`,
+            `prefix_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
           () =>
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
             (generator?.number ?? $generator.number)(0, 100),

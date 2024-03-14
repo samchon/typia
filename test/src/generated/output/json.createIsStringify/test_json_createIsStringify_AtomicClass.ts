@@ -34,11 +34,7 @@ export const test_json_createIsStringify_AtomicClass = _test_json_isStringify(
   const stringify = (input: AtomicClass): string => {
     const $number = (typia.json.createIsStringify as any).number;
     const $string = (typia.json.createIsStringify as any).string;
-    return `[${input[0]},${input[1]},${input[2]},${$number(input[3])},${$number(
-      input[4],
-    )},${$number(input[5])},${$string(input[6])},${$string(input[7])},${$string(
-      input[8],
-    )}]`;
+    return `[${input[0]},${input[1]},${input[2]},${$number(input[3])},${$number(input[4])},${$number(input[5])},${$string(input[6])},${$string(input[7])},${$string(input[8])}]`;
   };
   return is(input) ? stringify(input) : null;
 });

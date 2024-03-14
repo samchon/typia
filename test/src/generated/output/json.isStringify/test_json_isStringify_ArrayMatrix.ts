@@ -24,17 +24,7 @@ export const test_json_isStringify_ArrayMatrix = _test_json_isStringify(
     };
     const stringify = (input: ArrayMatrix): string => {
       const $number = (typia.json.isStringify as any).number;
-      return `[${input
-        .map(
-          (elem: any) =>
-            `[${elem
-              .map(
-                (elem: any) =>
-                  `[${elem.map((elem: any) => $number(elem)).join(",")}]`,
-              )
-              .join(",")}]`,
-        )
-        .join(",")}]`;
+      return `[${input.map((elem: any) => `[${elem.map((elem: any) => `[${elem.map((elem: any) => $number(elem)).join(",")}]`).join(",")}]`).join(",")}]`;
     };
     return is(input) ? stringify(input) : null;
   })(input),

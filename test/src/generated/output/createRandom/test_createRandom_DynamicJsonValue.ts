@@ -156,7 +156,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                     _exceptionable,
                     {
                       path: _path + $join(key),
-                      expected: "DynamicJsonValue.JsonArray",
+                      expected: "Array<DynamicJsonValue.JsonValue>",
                       value: value,
                     },
                     errorFactory,
@@ -170,7 +170,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                 {
                   path: _path + $join(key),
                   expected:
-                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
+                    "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
                   value: value,
                 },
                 errorFactory,
@@ -180,7 +180,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                 {
                   path: _path + $join(key),
                   expected:
-                    "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
+                    "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string | undefined)",
                   value: value,
                 },
                 errorFactory,
@@ -200,7 +200,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                   {
                     path: _path + "[" + _index1 + "]",
                     expected:
-                      "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                      "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                     value: elem,
                   },
                   errorFactory,
@@ -219,7 +219,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                       _exceptionable,
                       {
                         path: _path + "[" + _index1 + "]",
-                        expected: "DynamicJsonValue.JsonArray",
+                        expected: "Array<DynamicJsonValue.JsonValue>",
                         value: elem,
                       },
                       errorFactory,
@@ -237,7 +237,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                   {
                     path: _path + "[" + _index1 + "]",
                     expected:
-                      "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                      "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                     value: elem,
                   },
                   errorFactory,
@@ -247,7 +247,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                   {
                     path: _path + "[" + _index1 + "]",
                     expected:
-                      "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                      "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                     value: elem,
                   },
                   errorFactory,
@@ -260,7 +260,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
               {
                 path: _path + "",
                 expected:
-                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                  "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                 value: input,
               },
               errorFactory,
@@ -275,7 +275,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
                   _exceptionable,
                   {
                     path: _path + "",
-                    expected: "DynamicJsonValue.JsonArray",
+                    expected: "Array<DynamicJsonValue.JsonValue>",
                     value: input,
                   },
                   errorFactory,
@@ -289,7 +289,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
               {
                 path: _path + "",
                 expected:
-                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                  "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                 value: input,
               },
               errorFactory,
@@ -299,7 +299,7 @@ export const test_createRandom_DynamicJsonValue = _test_random(
               {
                 path: _path + "",
                 expected:
-                  "(DynamicJsonValue.JsonArray | DynamicJsonValue.JsonObject | boolean | null | number | string)",
+                  "(Array<DynamicJsonValue.JsonValue> | DynamicJsonValue.JsonObject | boolean | null | number | string)",
                 value: input,
               },
               errorFactory,

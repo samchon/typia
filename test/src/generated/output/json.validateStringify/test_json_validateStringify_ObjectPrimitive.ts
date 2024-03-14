@@ -194,22 +194,7 @@ export const test_json_validateStringify_ObjectPrimitive =
               expected: '("html" | "md" | "txt")',
               value: input.extension,
             });
-          })()},"title":${$string(input.title)},"body":${$string(
-            input.body,
-          )},"files":${`[${input.files
-            .map(
-              (elem: any) =>
-                `{"id":${$string((elem as any).id)},"name":${$string(
-                  (elem as any).name,
-                )},"extension":${$string(
-                  (elem as any).extension,
-                )},"url":${$string((elem as any).url)},"created_at":${$string(
-                  (elem as any).created_at,
-                )}}`,
-            )
-            .join(",")}]`},"secret":${input.secret},"created_at":${$string(
-            input.created_at,
-          )}}`;
+          })()},"title":${$string(input.title)},"body":${$string(input.body)},"files":${`[${input.files.map((elem: any) => `{"id":${$string((elem as any).id)},"name":${$string((elem as any).name)},"extension":${$string((elem as any).extension)},"url":${$string((elem as any).url)},"created_at":${$string((elem as any).created_at)}}`).join(",")}]`},"secret":${input.secret},"created_at":${$string(input.created_at)}}`;
         return $so0(input);
       };
       const output = validate(input) as any;

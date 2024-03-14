@@ -6,10 +6,10 @@ export const test_functional_isParametersAsync_MapSimpleProtobufNullable =
     MapSimpleProtobufNullable,
   )(
     (
-        p: (
-          input: MapSimpleProtobufNullable,
-        ) => Promise<MapSimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: MapSimpleProtobufNullable,
+      ) => Promise<MapSimpleProtobufNullable>,
+    ) =>
       async (
         input: MapSimpleProtobufNullable,
       ): Promise<MapSimpleProtobufNullable | null> => {

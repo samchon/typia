@@ -196,12 +196,7 @@ export const test_json_createAssertStringify_TypeTagMatrix =
       const stringify = (input: TypeTagMatrix): string => {
         const $string = (typia.json.createAssertStringify as any).string;
         const $so0 = (input: any): any =>
-          `{"matrix":${`[${input.matrix
-            .map(
-              (elem: any) =>
-                `[${elem.map((elem: any) => $string(elem)).join(",")}]`,
-            )
-            .join(",")}]`}}`;
+          `{"matrix":${`[${input.matrix.map((elem: any) => `[${elem.map((elem: any) => $string(elem)).join(",")}]`).join(",")}]`}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

@@ -44,14 +44,14 @@ export const test_random_ArrayRepeatedUnionWithTuple = _test_random(
                     _recursive && 5 < _depth
                       ? []
                       : 5 >= _depth
-                      ? (generator?.array ?? $generator.array)(
-                          () =>
-                            (
-                              generator?.customs ?? $generator.customs
-                            )?.string?.([]) ??
-                            (generator?.string ?? $generator.string)(),
-                        )
-                      : [],
+                        ? (generator?.array ?? $generator.array)(
+                            () =>
+                              (
+                                generator?.customs ?? $generator.customs
+                              )?.string?.([]) ??
+                              (generator?.string ?? $generator.string)(),
+                          )
+                        : [],
                   () =>
                     $ra0(
                       generator?.length ?? $generator.length,
@@ -62,10 +62,10 @@ export const test_random_ArrayRepeatedUnionWithTuple = _test_random(
                     _recursive && 5 < _depth
                       ? []
                       : 5 >= _depth
-                      ? (generator?.array ?? $generator.array)(() =>
-                          $ro0(true, _recursive ? 1 + _depth : _depth),
-                        )
-                      : [],
+                        ? (generator?.array ?? $generator.array)(() =>
+                            $ro0(true, _recursive ? 1 + _depth : _depth),
+                          )
+                        : [],
                   () => [
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
                       (generator?.string ?? $generator.string)(),

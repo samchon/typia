@@ -56,9 +56,7 @@ export const test_random_ObjectHttpFormData = _test_random(
               ),
             ),
           ],
-          `${(generator?.string ?? $generator.string)(8)}.${(
-            generator?.string ?? $generator.string
-          )(3)}`,
+          `${(generator?.string ?? $generator.string)(8)}.${(generator?.string ?? $generator.string)(3)}`,
         ),
         files: (generator?.array ?? $generator.array)(
           () =>
@@ -70,9 +68,7 @@ export const test_random_ObjectHttpFormData = _test_random(
                   ),
                 ),
               ],
-              `${(generator?.string ?? $generator.string)(8)}.${(
-                generator?.string ?? $generator.string
-              )(3)}`,
+              `${(generator?.string ?? $generator.string)(8)}.${(generator?.string ?? $generator.string)(3)}`,
             ),
         ),
       });

@@ -15,9 +15,7 @@ export const test_json_isStringify_ClassGetter = _test_json_isStringify(
     const stringify = (input: ClassGetter): string => {
       const $string = (typia.json.isStringify as any).string;
       const $so0 = (input: any): any =>
-        `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${
-          null !== input.dead ? input.dead : "null"
-        }}`;
+        `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${null !== input.dead ? input.dead : "null"}}`;
       return $so0(input);
     };
     return is(input) ? stringify(input) : null;

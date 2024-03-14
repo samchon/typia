@@ -84,9 +84,7 @@ export const test_json_createAssertStringifyCustom_ClassMethod =
       const stringify = (input: ClassMethod): string => {
         const $string = (typia.json.createAssertStringify as any).string;
         const $number = (typia.json.createAssertStringify as any).number;
-        return `{"name":${$string((input as any).name)},"age":${$number(
-          (input as any).age,
-        )}}`;
+        return `{"name":${$string((input as any).name)},"age":${$number((input as any).age)}}`;
       };
       return stringify(assert(input, errorFactory));
     },

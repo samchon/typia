@@ -322,13 +322,7 @@ export const test_json_createAssertStringify_TypeTagTuple =
         const $string = (typia.json.createAssertStringify as any).string;
         const $number = (typia.json.createAssertStringify as any).number;
         const $so0 = (input: any): any =>
-          `{"tuple":${`[${$string(input.tuple[0])},${$number(
-            input.tuple[1],
-          )},${`[${input.tuple[2]
-            .map((elem: any) => $string(elem))
-            .join(",")}]`},${`[${input.tuple[3]
-            .map((elem: any) => $number(elem))
-            .join(",")}]`}]`}}`;
+          `{"tuple":${`[${$string(input.tuple[0])},${$number(input.tuple[1])},${`[${input.tuple[2].map((elem: any) => $string(elem)).join(",")}]`},${`[${input.tuple[3].map((elem: any) => $number(elem)).join(",")}]`}]`}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

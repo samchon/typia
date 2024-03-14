@@ -7,10 +7,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_ConstantConstEnumer
     "ConstantConstEnumeration",
   )(ConstantConstEnumeration)(
     (
-        p: (
-          input: ConstantConstEnumeration,
-        ) => Promise<ConstantConstEnumeration>,
-      ) =>
+      p: (input: ConstantConstEnumeration) => Promise<ConstantConstEnumeration>,
+    ) =>
       async (
         input: ConstantConstEnumeration,
       ): Promise<ConstantConstEnumeration> => {

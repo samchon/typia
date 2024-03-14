@@ -7,10 +7,10 @@ export const test_functional_assertReturnAsyncCustom_ObjectUnionExplicitPointer 
     "ObjectUnionExplicitPointer",
   )(ObjectUnionExplicitPointer)(
     (
-        p: (
-          input: ObjectUnionExplicitPointer,
-        ) => Promise<ObjectUnionExplicitPointer>,
-      ) =>
+      p: (
+        input: ObjectUnionExplicitPointer,
+      ) => Promise<ObjectUnionExplicitPointer>,
+    ) =>
       async (
         input: ObjectUnionExplicitPointer,
       ): Promise<ObjectUnionExplicitPointer> => {

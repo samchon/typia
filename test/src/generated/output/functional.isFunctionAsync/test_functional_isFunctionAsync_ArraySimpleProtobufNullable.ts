@@ -6,10 +6,10 @@ export const test_functional_isFunctionAsync_ArraySimpleProtobufNullable =
     ArraySimpleProtobufNullable,
   )(
     (
-        p: (
-          input: ArraySimpleProtobufNullable,
-        ) => Promise<ArraySimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: ArraySimpleProtobufNullable,
+      ) => Promise<ArraySimpleProtobufNullable>,
+    ) =>
       async (
         input: ArraySimpleProtobufNullable,
       ): Promise<ArraySimpleProtobufNullable | null> => {

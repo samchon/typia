@@ -133,11 +133,7 @@ export const test_json_validateStringify_ObjectAlias =
           const $number = (typia.json.validateStringify as any).number;
           const $throws = (typia.json.validateStringify as any).throws;
           const $so0 = (input: any): any =>
-            `{"id":${
-              null !== input.id ? $string(input.id) : "null"
-            },"email":${$string(input.email)},"name":${$string(
-              input.name,
-            )},"sex":${
+            `{"id":${null !== input.id ? $string(input.id) : "null"},"email":${$string(input.email)},"name":${$string(input.name)},"sex":${
               null !== input.sex
                 ? (() => {
                     if ("string" === typeof input.sex)
@@ -152,9 +148,7 @@ export const test_json_validateStringify_ObjectAlias =
                     });
                   })()
                 : "null"
-            },"age":${
-              null !== input.age ? $number(input.age) : "null"
-            },"dead":${null !== input.dead ? input.dead : "null"}}`;
+            },"age":${null !== input.age ? $number(input.age) : "null"},"dead":${null !== input.dead ? input.dead : "null"}}`;
           return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         const output = validate(input) as any;

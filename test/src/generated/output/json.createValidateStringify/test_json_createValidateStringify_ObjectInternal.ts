@@ -68,9 +68,7 @@ export const test_json_createValidateStringify_ObjectInternal =
     };
     const stringify = (input: ObjectInternal): string => {
       const $string = (typia.json.createValidateStringify as any).string;
-      return `{"id":${$string((input as any).id)},"name":${$string(
-        (input as any).name,
-      )}}`;
+      return `{"id":${$string((input as any).id)},"name":${$string((input as any).name)}}`;
     };
     const output = validate(input) as any;
     if (output.success) output.data = stringify(input);

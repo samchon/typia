@@ -7,10 +7,10 @@ export const test_functional_assertFunctionAsync_MapSimpleProtobufNullable =
     "MapSimpleProtobufNullable",
   )(MapSimpleProtobufNullable)(
     (
-        p: (
-          input: MapSimpleProtobufNullable,
-        ) => Promise<MapSimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: MapSimpleProtobufNullable,
+      ) => Promise<MapSimpleProtobufNullable>,
+    ) =>
       async (
         input: MapSimpleProtobufNullable,
       ): Promise<MapSimpleProtobufNullable> => {

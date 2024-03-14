@@ -669,23 +669,7 @@ export const test_json_createValidateStringify_ArrayRepeatedUnionWithTuple =
           return false;
         };
         const $so0 = (input: any): any =>
-          `{"scale":${`{"x":${$number((input.scale as any).x)},"y":${$number(
-            (input.scale as any).y,
-          )},"z":${$number(
-            (input.scale as any).z,
-          )}}`},"position":${`{"x":${$number(
-            (input.position as any).x,
-          )},"y":${$number((input.position as any).y)},"z":${$number(
-            (input.position as any).z,
-          )}}`},"rotate":${`{"x":${$number(
-            (input.rotate as any).x,
-          )},"y":${$number((input.rotate as any).y)},"z":${$number(
-            (input.rotate as any).z,
-          )}}`},"pivot":${`{"x":${$number(
-            (input.pivot as any).x,
-          )},"y":${$number((input.pivot as any).y)},"z":${$number(
-            (input.pivot as any).z,
-          )}}`}}`;
+          `{"scale":${`{"x":${$number((input.scale as any).x)},"y":${$number((input.scale as any).y)},"z":${$number((input.scale as any).z)}}`},"position":${`{"x":${$number((input.position as any).x)},"y":${$number((input.position as any).y)},"z":${$number((input.position as any).z)}}`},"rotate":${`{"x":${$number((input.rotate as any).x)},"y":${$number((input.rotate as any).y)},"z":${$number((input.rotate as any).z)}}`},"pivot":${`{"x":${$number((input.pivot as any).x)},"y":${$number((input.pivot as any).y)},"z":${$number((input.pivot as any).z)}}`}}`;
         const $sa0 = (input: any): any =>
           `[${input
             .map((elem: any) =>
@@ -710,11 +694,7 @@ export const test_json_createValidateStringify_ArrayRepeatedUnionWithTuple =
                   null !== elem[1] &&
                   $io1(elem[1])
                 )
-                  return `[${$so0(elem[0])},${`{"x":${$number(
-                    (elem[1] as any).x,
-                  )},"y":${$number((elem[1] as any).y)},"z":${$number(
-                    (elem[1] as any).z,
-                  )}}`}]`;
+                  return `[${$so0(elem[0])},${`{"x":${$number((elem[1] as any).x)},"y":${$number((elem[1] as any).y)},"z":${$number((elem[1] as any).z)}}`}]`;
                 if (Array.isArray(elem)) return $sp0(elem);
                 $throws({
                   expected:
@@ -745,11 +725,7 @@ export const test_json_createValidateStringify_ArrayRepeatedUnionWithTuple =
             null !== input[1] &&
             $io1(input[1])
           )
-            return `[${$so0(input[0])},${`{"x":${$number(
-              (input[1] as any).x,
-            )},"y":${$number((input[1] as any).y)},"z":${$number(
-              (input[1] as any).z,
-            )}}`}]`;
+            return `[${$so0(input[0])},${`{"x":${$number((input[1] as any).x)},"y":${$number((input[1] as any).y)},"z":${$number((input[1] as any).z)}}`}]`;
           if (Array.isArray(input)) return $sp0(input);
           $throws({
             expected:

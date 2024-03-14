@@ -118,35 +118,7 @@ export const test_json_createAssertStringify_ObjectOptional =
         const $number = (typia.json.createAssertStringify as any).number;
         const $tail = (typia.json.createAssertStringify as any).tail;
         const $so0 = (input: any): any =>
-          `{${$tail(
-            `${
-              undefined === input.id
-                ? ""
-                : `"id":${
-                    undefined !== input.id ? $string(input.id) : undefined
-                  },`
-            }${
-              undefined === input.name
-                ? ""
-                : `"name":${
-                    undefined !== input.name ? $string(input.name) : undefined
-                  },`
-            }${
-              undefined === input.email
-                ? ""
-                : `"email":${
-                    undefined !== input.email ? $string(input.email) : undefined
-                  },`
-            }${
-              undefined === input.sequence
-                ? ""
-                : `"sequence":${
-                    undefined !== input.sequence
-                      ? $number(input.sequence)
-                      : undefined
-                  }`
-            }`,
-          )}}`;
+          `{${$tail(`${undefined === input.id ? "" : `"id":${undefined !== input.id ? $string(input.id) : undefined},`}${undefined === input.name ? "" : `"name":${undefined !== input.name ? $string(input.name) : undefined},`}${undefined === input.email ? "" : `"email":${undefined !== input.email ? $string(input.email) : undefined},`}${undefined === input.sequence ? "" : `"sequence":${undefined !== input.sequence ? $number(input.sequence) : undefined}`}`)}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

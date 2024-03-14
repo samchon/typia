@@ -7,10 +7,10 @@ export const test_functional_assertParametersAsyncCustom_ArraySimpleProtobufOpti
     "ArraySimpleProtobufOptional",
   )(ArraySimpleProtobufOptional)(
     (
-        p: (
-          input: ArraySimpleProtobufOptional,
-        ) => Promise<ArraySimpleProtobufOptional>,
-      ) =>
+      p: (
+        input: ArraySimpleProtobufOptional,
+      ) => Promise<ArraySimpleProtobufOptional>,
+    ) =>
       async (
         input: ArraySimpleProtobufOptional,
       ): Promise<ArraySimpleProtobufOptional> => {

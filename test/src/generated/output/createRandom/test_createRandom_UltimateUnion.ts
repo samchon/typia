@@ -606,10 +606,10 @@ export const test_createRandom_UltimateUnion = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro7(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro7(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
       ])(),
       type: "array",
       nullable: $pick([
@@ -638,10 +638,10 @@ export const test_createRandom_UltimateUnion = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro2(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro2(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
       ])(),
       "x-typia-required": $pick([
         () => undefined,
@@ -661,25 +661,25 @@ export const test_createRandom_UltimateUnion = _test_random(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() =>
-              $pick([
-                () => $ro5(true, _recursive ? 1 + _depth : _depth),
-                () => $ro4(true, _recursive ? 1 + _depth : _depth),
-                () => $ro1(true, _recursive ? 1 + _depth : _depth),
-                () => $ro6(true, _recursive ? 1 + _depth : _depth),
-                () => $ro9(true, _recursive ? 1 + _depth : _depth),
-                () => $ro8(true, _recursive ? 1 + _depth : _depth),
-                () => $ro10(true, _recursive ? 1 + _depth : _depth),
-                () => $ro11(true, _recursive ? 1 + _depth : _depth),
-                () => $ro12(true, _recursive ? 1 + _depth : _depth),
-                () => $ro13(true, _recursive ? 1 + _depth : _depth),
-                () => $ro15(true, _recursive ? 1 + _depth : _depth),
-                () => $ro16(true, _recursive ? 1 + _depth : _depth),
-                () => $ro17(true, _recursive ? 1 + _depth : _depth),
-                () => $ro18(true, _recursive ? 1 + _depth : _depth),
-              ])(),
-            )
-          : [],
+            ? (generator?.array ?? $generator.array)(() =>
+                $pick([
+                  () => $ro5(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro4(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro1(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro6(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro9(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro8(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro10(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro11(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro12(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro13(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro15(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro16(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro17(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro18(true, _recursive ? 1 + _depth : _depth),
+                ])(),
+              )
+            : [],
       minItems:
         (generator?.customs ?? $generator.customs)?.number?.([
           {
@@ -726,10 +726,10 @@ export const test_createRandom_UltimateUnion = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro2(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro2(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
       ])(),
       "x-typia-required": $pick([
         () => undefined,
@@ -752,12 +752,12 @@ export const test_createRandom_UltimateUnion = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                  (generator?.string ?? $generator.string)(),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                    (generator?.string ?? $generator.string)(),
+                )
+              : [],
       ])(),
       patternProperties: $pick([
         () => undefined,
@@ -828,10 +828,10 @@ export const test_createRandom_UltimateUnion = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro2(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro2(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
       ])(),
       "x-typia-required": $pick([
         () => undefined,
@@ -958,25 +958,25 @@ export const test_createRandom_UltimateUnion = _test_random(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() =>
-              $pick([
-                () => $ro5(true, _recursive ? 1 + _depth : _depth),
-                () => $ro4(true, _recursive ? 1 + _depth : _depth),
-                () => $ro1(true, _recursive ? 1 + _depth : _depth),
-                () => $ro6(true, _recursive ? 1 + _depth : _depth),
-                () => $ro9(true, _recursive ? 1 + _depth : _depth),
-                () => $ro8(true, _recursive ? 1 + _depth : _depth),
-                () => $ro10(true, _recursive ? 1 + _depth : _depth),
-                () => $ro11(true, _recursive ? 1 + _depth : _depth),
-                () => $ro12(true, _recursive ? 1 + _depth : _depth),
-                () => $ro13(true, _recursive ? 1 + _depth : _depth),
-                () => $ro15(true, _recursive ? 1 + _depth : _depth),
-                () => $ro16(true, _recursive ? 1 + _depth : _depth),
-                () => $ro17(true, _recursive ? 1 + _depth : _depth),
-                () => $ro18(true, _recursive ? 1 + _depth : _depth),
-              ])(),
-            )
-          : [],
+            ? (generator?.array ?? $generator.array)(() =>
+                $pick([
+                  () => $ro5(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro4(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro1(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro6(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro9(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro8(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro10(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro11(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro12(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro13(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro15(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro16(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro17(true, _recursive ? 1 + _depth : _depth),
+                  () => $ro18(true, _recursive ? 1 + _depth : _depth),
+                ])(),
+              )
+            : [],
       deprecated: $pick([
         () => undefined,
         () => (generator?.boolean ?? $generator.boolean)(),
@@ -999,10 +999,10 @@ export const test_createRandom_UltimateUnion = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro2(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro2(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
       ])(),
       "x-typia-required": $pick([
         () => undefined,

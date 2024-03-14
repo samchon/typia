@@ -71,9 +71,7 @@ export const test_json_validateStringify_ClassMethod =
         const stringify = (input: ClassMethod): string => {
           const $string = (typia.json.validateStringify as any).string;
           const $number = (typia.json.validateStringify as any).number;
-          return `{"name":${$string((input as any).name)},"age":${$number(
-            (input as any).age,
-          )}}`;
+          return `{"name":${$string((input as any).name)},"age":${$number((input as any).age)}}`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);

@@ -35,18 +35,7 @@ export const test_json_stringify_CommentTagType = _test_json_stringify(
       input.float <= 3.4028235e38;
     const $number = (typia.json.stringify as any).number;
     const $so0 = (input: any): any =>
-      `{"value":${`[${input.value
-        .map(
-          (elem: any) =>
-            `{"int":${$number((elem as any).int)},"uint":${$number(
-              (elem as any).uint,
-            )},"int32":${$number((elem as any).int32)},"uint32":${$number(
-              (elem as any).uint32,
-            )},"int64":${$number((elem as any).int64)},"uint64":${$number(
-              (elem as any).uint64,
-            )},"float":${$number((elem as any).float)}}`,
-        )
-        .join(",")}]`}}`;
+      `{"value":${`[${input.value.map((elem: any) => `{"int":${$number((elem as any).int)},"uint":${$number((elem as any).uint)},"int32":${$number((elem as any).int32)},"uint32":${$number((elem as any).uint32)},"int64":${$number((elem as any).int64)},"uint64":${$number((elem as any).uint64)},"float":${$number((elem as any).float)}}`).join(",")}]`}}`;
     return $so0(input);
   })(input),
 );

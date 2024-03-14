@@ -504,39 +504,13 @@ export const test_json_assertStringify_ArrayHierarchicalPointer =
         const $number = (typia.json.assertStringify as any).number;
         const $string = (typia.json.assertStringify as any).string;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map((elem: any) => $so1(elem))
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
         const $so1 = (input: any): any =>
-          `{"id":${$number(input.id)},"serial":${$number(
-            input.serial,
-          )},"name":${$string(
-            input.name,
-          )},"established_at":${`{"time":${$number(
-            (input.established_at as any).time,
-          )},"zone":${$number(
-            (input.established_at as any).zone,
-          )}}`},"departments":${`[${input.departments
-            .map((elem: any) => $so3(elem))
-            .join(",")}]`}}`;
+          `{"id":${$number(input.id)},"serial":${$number(input.serial)},"name":${$string(input.name)},"established_at":${`{"time":${$number((input.established_at as any).time)},"zone":${$number((input.established_at as any).zone)}}`},"departments":${`[${input.departments.map((elem: any) => $so3(elem)).join(",")}]`}}`;
         const $so3 = (input: any): any =>
-          `{"id":${$number(input.id)},"code":${$string(
-            input.code,
-          )},"sales":${$number(input.sales)},"created_at":${`{"time":${$number(
-            (input.created_at as any).time,
-          )},"zone":${$number(
-            (input.created_at as any).zone,
-          )}}`},"employees":${`[${input.employees
-            .map((elem: any) => $so4(elem))
-            .join(",")}]`}}`;
+          `{"id":${$number(input.id)},"code":${$string(input.code)},"sales":${$number(input.sales)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`},"employees":${`[${input.employees.map((elem: any) => $so4(elem)).join(",")}]`}}`;
         const $so4 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"age":${$number(input.age)},"grade":${$number(
-            input.grade,
-          )},"employeed_at":${`{"time":${$number(
-            (input.employeed_at as any).time,
-          )},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"age":${$number(input.age)},"grade":${$number(input.grade)},"employeed_at":${`{"time":${$number((input.employeed_at as any).time)},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

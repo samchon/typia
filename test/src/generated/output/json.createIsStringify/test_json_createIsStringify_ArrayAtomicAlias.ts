@@ -22,13 +22,7 @@ export const test_json_createIsStringify_ArrayAtomicAlias =
     const stringify = (input: ArrayAtomicAlias): string => {
       const $number = (typia.json.createIsStringify as any).number;
       const $string = (typia.json.createIsStringify as any).string;
-      return `[${`[${input[0]
-        .map((elem: any) => elem)
-        .join(",")}]`},${`[${input[1]
-        .map((elem: any) => $number(elem))
-        .join(",")}]`},${`[${input[2]
-        .map((elem: any) => $string(elem))
-        .join(",")}]`}]`;
+      return `[${`[${input[0].map((elem: any) => elem).join(",")}]`},${`[${input[1].map((elem: any) => $number(elem)).join(",")}]`},${`[${input[2].map((elem: any) => $string(elem)).join(",")}]`}]`;
     };
     return is(input) ? stringify(input) : null;
   });

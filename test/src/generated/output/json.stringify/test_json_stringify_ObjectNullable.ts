@@ -31,15 +31,9 @@ export const test_json_stringify_ObjectNullable = _test_json_stringify(
     const $string = (typia.json.stringify as any).string;
     const $throws = (typia.json.stringify as any).throws;
     const $so0 = (input: any): any =>
-      `{"value":${`[${input.value
-        .map((elem: any) => $so1(elem))
-        .join(",")}]`}}`;
+      `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
     const $so1 = (input: any): any =>
-      `{"name":${$string(input.name)},"manufacturer":${$so2(
-        input.manufacturer,
-      )},"brand":${
-        null !== input.brand ? $so3(input.brand) : "null"
-      },"similar":${null !== input.similar ? $su0(input.similar) : "null"}}`;
+      `{"name":${$string(input.name)},"manufacturer":${$so2(input.manufacturer)},"brand":${null !== input.brand ? $so3(input.brand) : "null"},"similar":${null !== input.similar ? $su0(input.similar) : "null"}}`;
     const $so2 = (input: any): any =>
       `{"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);

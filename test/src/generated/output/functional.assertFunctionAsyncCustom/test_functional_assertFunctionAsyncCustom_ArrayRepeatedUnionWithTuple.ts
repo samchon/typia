@@ -7,10 +7,10 @@ export const test_functional_assertFunctionAsyncCustom_ArrayRepeatedUnionWithTup
     "ArrayRepeatedUnionWithTuple",
   )(ArrayRepeatedUnionWithTuple)(
     (
-        p: (
-          input: ArrayRepeatedUnionWithTuple,
-        ) => Promise<ArrayRepeatedUnionWithTuple>,
-      ) =>
+      p: (
+        input: ArrayRepeatedUnionWithTuple,
+      ) => Promise<ArrayRepeatedUnionWithTuple>,
+    ) =>
       async (
         input: ArrayRepeatedUnionWithTuple,
       ): Promise<ArrayRepeatedUnionWithTuple> => {

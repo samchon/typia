@@ -82,9 +82,7 @@ export const test_json_createAssertStringifyCustom_ObjectInternal =
       };
       const stringify = (input: ObjectInternal): string => {
         const $string = (typia.json.createAssertStringify as any).string;
-        return `{"id":${$string((input as any).id)},"name":${$string(
-          (input as any).name,
-        )}}`;
+        return `{"id":${$string((input as any).id)},"name":${$string((input as any).name)}}`;
       };
       return stringify(assert(input, errorFactory));
     },

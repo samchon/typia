@@ -6,10 +6,10 @@ export const test_functional_validateEqualsParametersAsync_ObjectUnionNonPredict
     ObjectUnionNonPredictable,
   )(
     (
-        p: (
-          input: ObjectUnionNonPredictable,
-        ) => Promise<ObjectUnionNonPredictable>,
-      ) =>
+      p: (
+        input: ObjectUnionNonPredictable,
+      ) => Promise<ObjectUnionNonPredictable>,
+    ) =>
       async (
         input: ObjectUnionNonPredictable,
       ): Promise<import("typia").IValidation<ObjectUnionNonPredictable>> => {

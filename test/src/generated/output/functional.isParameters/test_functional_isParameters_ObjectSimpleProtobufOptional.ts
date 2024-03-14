@@ -6,10 +6,8 @@ export const test_functional_isParameters_ObjectSimpleProtobufOptional =
     ObjectSimpleProtobufOptional,
   )(
     (
-        p: (
-          input: ObjectSimpleProtobufOptional,
-        ) => ObjectSimpleProtobufOptional,
-      ) =>
+      p: (input: ObjectSimpleProtobufOptional) => ObjectSimpleProtobufOptional,
+    ) =>
       (
         input: ObjectSimpleProtobufOptional,
       ): ObjectSimpleProtobufOptional | null => {

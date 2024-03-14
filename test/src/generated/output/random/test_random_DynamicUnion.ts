@@ -24,10 +24,7 @@ export const test_random_DynamicUnion = _test_random(
         (generator?.array ?? $generator.array)(
           () =>
             (output[
-              `prefix_${
-                (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)()
-              }`
+              `prefix_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`
             ] =
               (generator?.customs ?? $generator.customs)?.string?.([]) ??
               (generator?.string ?? $generator.string)()),
@@ -36,10 +33,7 @@ export const test_random_DynamicUnion = _test_random(
         (generator?.array ?? $generator.array)(
           () =>
             (output[
-              `${
-                (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)()
-              }_postfix`
+              `${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}_postfix`
             ] =
               (generator?.customs ?? $generator.customs)?.string?.([]) ??
               (generator?.string ?? $generator.string)()),
@@ -48,13 +42,7 @@ export const test_random_DynamicUnion = _test_random(
         (generator?.array ?? $generator.array)(
           () =>
             (output[
-              `value_between_${
-                (generator?.customs ?? $generator.customs)?.number?.([]) ??
-                (generator?.number ?? $generator.number)(0, 100)
-              }_and_${
-                (generator?.customs ?? $generator.customs)?.number?.([]) ??
-                (generator?.number ?? $generator.number)(0, 100)
-              }`
+              `value_between_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}_and_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}`
             ] =
               (generator?.customs ?? $generator.customs)?.number?.([]) ??
               (generator?.number ?? $generator.number)(0, 100)),

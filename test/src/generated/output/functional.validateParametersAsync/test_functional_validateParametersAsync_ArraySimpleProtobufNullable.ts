@@ -6,10 +6,10 @@ export const test_functional_validateParametersAsync_ArraySimpleProtobufNullable
     ArraySimpleProtobufNullable,
   )(
     (
-        p: (
-          input: ArraySimpleProtobufNullable,
-        ) => Promise<ArraySimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: ArraySimpleProtobufNullable,
+      ) => Promise<ArraySimpleProtobufNullable>,
+    ) =>
       async (
         input: ArraySimpleProtobufNullable,
       ): Promise<import("typia").IValidation<ArraySimpleProtobufNullable>> => {

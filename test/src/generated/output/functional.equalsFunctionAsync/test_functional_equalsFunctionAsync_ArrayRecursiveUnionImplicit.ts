@@ -6,10 +6,10 @@ export const test_functional_equalsFunctionAsync_ArrayRecursiveUnionImplicit =
     ArrayRecursiveUnionImplicit,
   )(
     (
-        p: (
-          input: ArrayRecursiveUnionImplicit,
-        ) => Promise<ArrayRecursiveUnionImplicit>,
-      ) =>
+      p: (
+        input: ArrayRecursiveUnionImplicit,
+      ) => Promise<ArrayRecursiveUnionImplicit>,
+    ) =>
       async (
         input: ArrayRecursiveUnionImplicit,
       ): Promise<ArrayRecursiveUnionImplicit | null> => {

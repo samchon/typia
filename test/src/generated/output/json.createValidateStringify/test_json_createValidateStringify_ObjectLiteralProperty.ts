@@ -69,11 +69,7 @@ export const test_json_createValidateStringify_ObjectLiteralProperty =
     };
     const stringify = (input: ObjectLiteralProperty): string => {
       const $string = (typia.json.createValidateStringify as any).string;
-      return `{"something-interesting-do-you-want?":${$string(
-        (input as any)["something-interesting-do-you-want?"],
-      )},"or-something-crazy-do-you-want?":${$string(
-        (input as any)["or-something-crazy-do-you-want?"],
-      )}}`;
+      return `{"something-interesting-do-you-want?":${$string((input as any)["something-interesting-do-you-want?"])},"or-something-crazy-do-you-want?":${$string((input as any)["or-something-crazy-do-you-want?"])}}`;
     };
     const output = validate(input) as any;
     if (output.success) output.data = stringify(input);

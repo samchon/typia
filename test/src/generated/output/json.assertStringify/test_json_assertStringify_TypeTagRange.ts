@@ -564,26 +564,7 @@ export const test_json_assertStringify_TypeTagRange =
           input.equal <= 10;
         const $number = (typia.json.assertStringify as any).number;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map(
-              (elem: any) =>
-                `{"greater":${$number(
-                  (elem as any).greater,
-                )},"greater_equal":${$number(
-                  (elem as any).greater_equal,
-                )},"less":${$number((elem as any).less)},"less_equal":${$number(
-                  (elem as any).less_equal,
-                )},"greater_less":${$number(
-                  (elem as any).greater_less,
-                )},"greater_equal_less":${$number(
-                  (elem as any).greater_equal_less,
-                )},"greater_less_equal":${$number(
-                  (elem as any).greater_less_equal,
-                )},"greater_equal_less_equal":${$number(
-                  (elem as any).greater_equal_less_equal,
-                )},"equal":${$number((elem as any).equal)}}`,
-            )
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => `{"greater":${$number((elem as any).greater)},"greater_equal":${$number((elem as any).greater_equal)},"less":${$number((elem as any).less)},"less_equal":${$number((elem as any).less_equal)},"greater_less":${$number((elem as any).greater_less)},"greater_equal_less":${$number((elem as any).greater_equal_less)},"greater_less_equal":${$number((elem as any).greater_less_equal)},"greater_equal_less_equal":${$number((elem as any).greater_equal_less_equal)},"equal":${$number((elem as any).equal)}}`).join(",")}]`}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

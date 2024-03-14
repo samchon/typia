@@ -15,10 +15,7 @@ export const test_createRandom_ObjectHttpConstant = _test_random(
       bigint: $pick([() => BigInt(1), () => BigInt(99)])(),
       number: $pick([() => 2, () => 98])(),
       string: $pick([() => "ninety-seven", () => "something", () => "three"])(),
-      template: `abcd_${
-        (generator?.customs ?? $generator.customs)?.string?.([]) ??
-        (generator?.string ?? $generator.string)()
-      }`,
+      template: `abcd_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
     });
     return $ro0();
   },

@@ -16,9 +16,7 @@ export const test_json_createIsStringify_ClassMethod = _test_json_isStringify(
   const stringify = (input: ClassMethod): string => {
     const $string = (typia.json.createIsStringify as any).string;
     const $number = (typia.json.createIsStringify as any).number;
-    return `{"name":${$string((input as any).name)},"age":${$number(
-      (input as any).age,
-    )}}`;
+    return `{"name":${$string((input as any).name)},"age":${$number((input as any).age)}}`;
   };
   return is(input) ? stringify(input) : null;
 });

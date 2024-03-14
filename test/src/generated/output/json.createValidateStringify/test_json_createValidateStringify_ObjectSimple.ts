@@ -179,23 +179,7 @@ export const test_json_createValidateStringify_ObjectSimple =
           "number" === typeof input.y &&
           "number" === typeof input.z;
         const $number = (typia.json.createValidateStringify as any).number;
-        return `{"scale":${`{"x":${$number(
-          ((input as any).scale as any).x,
-        )},"y":${$number(((input as any).scale as any).y)},"z":${$number(
-          ((input as any).scale as any).z,
-        )}}`},"position":${`{"x":${$number(
-          ((input as any).position as any).x,
-        )},"y":${$number(((input as any).position as any).y)},"z":${$number(
-          ((input as any).position as any).z,
-        )}}`},"rotate":${`{"x":${$number(
-          ((input as any).rotate as any).x,
-        )},"y":${$number(((input as any).rotate as any).y)},"z":${$number(
-          ((input as any).rotate as any).z,
-        )}}`},"pivot":${`{"x":${$number(
-          ((input as any).pivot as any).x,
-        )},"y":${$number(((input as any).pivot as any).y)},"z":${$number(
-          ((input as any).pivot as any).z,
-        )}}`}}`;
+        return `{"scale":${`{"x":${$number(((input as any).scale as any).x)},"y":${$number(((input as any).scale as any).y)},"z":${$number(((input as any).scale as any).z)}}`},"position":${`{"x":${$number(((input as any).position as any).x)},"y":${$number(((input as any).position as any).y)},"z":${$number(((input as any).position as any).z)}}`},"rotate":${`{"x":${$number(((input as any).rotate as any).x)},"y":${$number(((input as any).rotate as any).y)},"z":${$number(((input as any).rotate as any).z)}}`},"pivot":${`{"x":${$number(((input as any).pivot as any).x)},"y":${$number(((input as any).pivot as any).y)},"z":${$number(((input as any).pivot as any).z)}}`}}`;
       };
       const output = validate(input) as any;
       if (output.success) output.data = stringify(input);

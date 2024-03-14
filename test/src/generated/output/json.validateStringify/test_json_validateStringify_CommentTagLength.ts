@@ -202,18 +202,7 @@ export const test_json_validateStringify_CommentTagLength =
           input.equal.length <= 19;
         const $string = (typia.json.validateStringify as any).string;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map(
-              (elem: any) =>
-                `{"fixed":${$string((elem as any).fixed)},"minimum":${$string(
-                  (elem as any).minimum,
-                )},"maximum":${$string(
-                  (elem as any).maximum,
-                )},"minimum_and_maximum":${$string(
-                  (elem as any).minimum_and_maximum,
-                )},"equal":${$string((elem as any).equal)}}`,
-            )
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => `{"fixed":${$string((elem as any).fixed)},"minimum":${$string((elem as any).minimum)},"maximum":${$string((elem as any).maximum)},"minimum_and_maximum":${$string((elem as any).minimum_and_maximum)},"equal":${$string((elem as any).equal)}}`).join(",")}]`}}`;
         return $so0(input);
       };
       const output = validate(input) as any;

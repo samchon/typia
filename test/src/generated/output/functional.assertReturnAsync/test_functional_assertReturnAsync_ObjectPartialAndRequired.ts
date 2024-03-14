@@ -7,10 +7,8 @@ export const test_functional_assertReturnAsync_ObjectPartialAndRequired =
     "ObjectPartialAndRequired",
   )(ObjectPartialAndRequired)(
     (
-        p: (
-          input: ObjectPartialAndRequired,
-        ) => Promise<ObjectPartialAndRequired>,
-      ) =>
+      p: (input: ObjectPartialAndRequired) => Promise<ObjectPartialAndRequired>,
+    ) =>
       async (
         input: ObjectPartialAndRequired,
       ): Promise<ObjectPartialAndRequired> => {

@@ -678,157 +678,19 @@ export const test_json_createValidateStringify_ObjectUnionImplicit =
           "number" === typeof input.area);
       const $number = (typia.json.createValidateStringify as any).number;
       const $so0 = (input: any): any =>
-        `{${
-          undefined === input.slope
-            ? ""
-            : `"slope":${
-                undefined !== input.slope
-                  ? null !== input.slope
-                    ? $number(input.slope)
-                    : "null"
-                  : undefined
-              },`
-        }"x":${$number(input.x)},"y":${$number(input.y)}}`;
+        `{${undefined === input.slope ? "" : `"slope":${undefined !== input.slope ? (null !== input.slope ? $number(input.slope) : "null") : undefined},`}"x":${$number(input.x)},"y":${$number(input.y)}}`;
       const $so1 = (input: any): any =>
-        `{${
-          undefined === input.width
-            ? ""
-            : `"width":${
-                undefined !== input.width
-                  ? null !== input.width
-                    ? $number(input.width)
-                    : "null"
-                  : undefined
-              },`
-        }${
-          undefined === input.distance
-            ? ""
-            : `"distance":${
-                undefined !== input.distance
-                  ? null !== input.distance
-                    ? $number(input.distance)
-                    : "null"
-                  : undefined
-              },`
-        }"p1":${$so0(input.p1)},"p2":${$so0(input.p2)}}`;
+        `{${undefined === input.width ? "" : `"width":${undefined !== input.width ? (null !== input.width ? $number(input.width) : "null") : undefined},`}${undefined === input.distance ? "" : `"distance":${undefined !== input.distance ? (null !== input.distance ? $number(input.distance) : "null") : undefined},`}"p1":${$so0(input.p1)},"p2":${$so0(input.p2)}}`;
       const $so2 = (input: any): any =>
-        `{${
-          undefined === input.width
-            ? ""
-            : `"width":${
-                undefined !== input.width
-                  ? null !== input.width
-                    ? $number(input.width)
-                    : "null"
-                  : undefined
-              },`
-        }${
-          undefined === input.height
-            ? ""
-            : `"height":${
-                undefined !== input.height
-                  ? null !== input.height
-                    ? $number(input.height)
-                    : "null"
-                  : undefined
-              },`
-        }${
-          undefined === input.area
-            ? ""
-            : `"area":${
-                undefined !== input.area
-                  ? null !== input.area
-                    ? $number(input.area)
-                    : "null"
-                  : undefined
-              },`
-        }"p1":${$so0(input.p1)},"p2":${$so0(input.p2)},"p3":${$so0(input.p3)}}`;
+        `{${undefined === input.width ? "" : `"width":${undefined !== input.width ? (null !== input.width ? $number(input.width) : "null") : undefined},`}${undefined === input.height ? "" : `"height":${undefined !== input.height ? (null !== input.height ? $number(input.height) : "null") : undefined},`}${undefined === input.area ? "" : `"area":${undefined !== input.area ? (null !== input.area ? $number(input.area) : "null") : undefined},`}"p1":${$so0(input.p1)},"p2":${$so0(input.p2)},"p3":${$so0(input.p3)}}`;
       const $so3 = (input: any): any =>
-        `{${
-          undefined === input.width
-            ? ""
-            : `"width":${
-                undefined !== input.width
-                  ? null !== input.width
-                    ? $number(input.width)
-                    : "null"
-                  : undefined
-              },`
-        }${
-          undefined === input.height
-            ? ""
-            : `"height":${
-                undefined !== input.height
-                  ? null !== input.height
-                    ? $number(input.height)
-                    : "null"
-                  : undefined
-              },`
-        }${
-          undefined === input.area
-            ? ""
-            : `"area":${
-                undefined !== input.area
-                  ? null !== input.area
-                    ? $number(input.area)
-                    : "null"
-                  : undefined
-              },`
-        }"p1":${$so0(input.p1)},"p2":${$so0(input.p2)},"p3":${$so0(
-          input.p3,
-        )},"p4":${$so0(input.p4)}}`;
+        `{${undefined === input.width ? "" : `"width":${undefined !== input.width ? (null !== input.width ? $number(input.width) : "null") : undefined},`}${undefined === input.height ? "" : `"height":${undefined !== input.height ? (null !== input.height ? $number(input.height) : "null") : undefined},`}${undefined === input.area ? "" : `"area":${undefined !== input.area ? (null !== input.area ? $number(input.area) : "null") : undefined},`}"p1":${$so0(input.p1)},"p2":${$so0(input.p2)},"p3":${$so0(input.p3)},"p4":${$so0(input.p4)}}`;
       const $so4 = (input: any): any =>
-        `{${
-          undefined === input.length
-            ? ""
-            : `"length":${
-                undefined !== input.length
-                  ? null !== input.length
-                    ? $number(input.length)
-                    : "null"
-                  : undefined
-              },`
-        }"points":${`[${input.points
-          .map((elem: any) => $so0(elem))
-          .join(",")}]`}}`;
+        `{${undefined === input.length ? "" : `"length":${undefined !== input.length ? (null !== input.length ? $number(input.length) : "null") : undefined},`}"points":${`[${input.points.map((elem: any) => $so0(elem)).join(",")}]`}}`;
       const $so5 = (input: any): any =>
-        `{${
-          undefined === input.inner
-            ? ""
-            : `"inner":${
-                undefined !== input.inner
-                  ? `[${input.inner.map((elem: any) => $so4(elem)).join(",")}]`
-                  : undefined
-              },`
-        }${
-          undefined === input.area
-            ? ""
-            : `"area":${
-                undefined !== input.area
-                  ? null !== input.area
-                    ? $number(input.area)
-                    : "null"
-                  : undefined
-              },`
-        }"outer":${$so4(input.outer)}}`;
+        `{${undefined === input.inner ? "" : `"inner":${undefined !== input.inner ? `[${input.inner.map((elem: any) => $so4(elem)).join(",")}]` : undefined},`}${undefined === input.area ? "" : `"area":${undefined !== input.area ? (null !== input.area ? $number(input.area) : "null") : undefined},`}"outer":${$so4(input.outer)}}`;
       const $so6 = (input: any): any =>
-        `{${
-          undefined === input.centroid
-            ? ""
-            : `"centroid":${
-                undefined !== input.centroid ? $so0(input.centroid) : undefined
-              },`
-        }${
-          undefined === input.area
-            ? ""
-            : `"area":${
-                undefined !== input.area
-                  ? null !== input.area
-                    ? $number(input.area)
-                    : "null"
-                  : undefined
-              },`
-        }"radius":${$number(input.radius)}}`;
+        `{${undefined === input.centroid ? "" : `"centroid":${undefined !== input.centroid ? $so0(input.centroid) : undefined},`}${undefined === input.area ? "" : `"area":${undefined !== input.area ? (null !== input.area ? $number(input.area) : "null") : undefined},`}"radius":${$number(input.radius)}}`;
       const $su0 = (input: any): any =>
         (() => {
           if (undefined !== input.x) return $so0(input);

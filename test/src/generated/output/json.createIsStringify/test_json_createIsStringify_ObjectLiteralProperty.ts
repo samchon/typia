@@ -16,11 +16,7 @@ export const test_json_createIsStringify_ObjectLiteralProperty =
     };
     const stringify = (input: ObjectLiteralProperty): string => {
       const $string = (typia.json.createIsStringify as any).string;
-      return `{"something-interesting-do-you-want?":${$string(
-        (input as any)["something-interesting-do-you-want?"],
-      )},"or-something-crazy-do-you-want?":${$string(
-        (input as any)["or-something-crazy-do-you-want?"],
-      )}}`;
+      return `{"something-interesting-do-you-want?":${$string((input as any)["something-interesting-do-you-want?"])},"or-something-crazy-do-you-want?":${$string((input as any)["or-something-crazy-do-you-want?"])}}`;
     };
     return is(input) ? stringify(input) : null;
   });

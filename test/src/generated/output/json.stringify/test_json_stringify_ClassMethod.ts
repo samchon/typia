@@ -7,8 +7,6 @@ export const test_json_stringify_ClassMethod = _test_json_stringify(
   ((input: ClassMethod): string => {
     const $string = (typia.json.stringify as any).string;
     const $number = (typia.json.stringify as any).number;
-    return `{"name":${$string((input as any).name)},"age":${$number(
-      (input as any).age,
-    )}}`;
+    return `{"name":${$string((input as any).name)},"age":${$number((input as any).age)}}`;
   })(input),
 );

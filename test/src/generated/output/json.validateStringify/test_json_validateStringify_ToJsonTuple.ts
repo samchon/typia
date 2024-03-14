@@ -172,11 +172,7 @@ export const test_json_validateStringify_ToJsonTuple =
         const stringify = (input: ToJsonTuple): string => {
           const $string = (typia.json.validateStringify as any).string;
           const $number = (typia.json.validateStringify as any).number;
-          return `[${$string(input[0].toJSON())},${$number(
-            input[1].toJSON(),
-          )},${input[2].toJSON()},${`{"code":${$string(
-            (input[3].toJSON() as any).code,
-          )},"name":${$string((input[3].toJSON() as any).name)}}`}]`;
+          return `[${$string(input[0].toJSON())},${$number(input[1].toJSON())},${input[2].toJSON()},${`{"code":${$string((input[3].toJSON() as any).code)},"name":${$string((input[3].toJSON() as any).name)}}`}]`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
