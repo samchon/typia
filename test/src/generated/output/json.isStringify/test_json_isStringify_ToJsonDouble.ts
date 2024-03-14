@@ -10,9 +10,7 @@ export const test_json_isStringify_ToJsonDouble = _test_json_isStringify(
     };
     const stringify = (input: ToJsonDouble): string => {
       const $number = (typia.json.isStringify as any).number;
-      return `{"id":${$number((input.toJSON() as any).id)},"flag":${
-        (input.toJSON() as any).flag
-      }}`;
+      return `{"id":${$number((input.toJSON() as any).id)},"flag":${(input.toJSON() as any).flag}}`;
     };
     return is(input) ? stringify(input) : null;
   })(input),

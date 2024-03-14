@@ -75,9 +75,7 @@ export const test_json_validateStringify_ClassGetter =
         const stringify = (input: ClassGetter): string => {
           const $string = (typia.json.validateStringify as any).string;
           const $so0 = (input: any): any =>
-            `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${
-              null !== input.dead ? input.dead : "null"
-            }}`;
+            `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${null !== input.dead ? input.dead : "null"}}`;
           return $so0(input);
         };
         const output = validate(input) as any;

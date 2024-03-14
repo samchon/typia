@@ -222,11 +222,7 @@ export const test_json_createValidateStringify_CommentTagArrayUnion =
       const $number = (typia.json.createValidateStringify as any).number;
       const $throws = (typia.json.createValidateStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"items":${`[${input.items
-          .map((elem: any) => $string(elem))
-          .join(",")}]`},"minItems":${`[${input.minItems
-          .map((elem: any) => $number(elem))
-          .join(",")}]`},"maxItems":${`[${input.maxItems
+        `{"items":${`[${input.items.map((elem: any) => $string(elem)).join(",")}]`},"minItems":${`[${input.minItems.map((elem: any) => $number(elem)).join(",")}]`},"maxItems":${`[${input.maxItems
           .map((elem: any) =>
             (() => {
               if ("string" === typeof elem) return $string(elem);
@@ -237,9 +233,9 @@ export const test_json_createValidateStringify_CommentTagArrayUnion =
               });
             })(),
           )
-          .join(",")}]`},"both":${`[${input.both
-          .map((elem: any) => $string(elem))
-          .join(",")}]`}}`;
+          .join(
+            ",",
+          )}]`},"both":${`[${input.both.map((elem: any) => $string(elem)).join(",")}]`}}`;
       return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
     };
     const output = validate(input) as any;

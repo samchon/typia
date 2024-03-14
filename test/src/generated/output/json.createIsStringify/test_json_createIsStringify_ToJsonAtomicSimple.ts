@@ -26,9 +26,7 @@ export const test_json_createIsStringify_ToJsonAtomicSimple =
     const stringify = (input: ToJsonAtomicSimple): string => {
       const $number = (typia.json.createIsStringify as any).number;
       const $string = (typia.json.createIsStringify as any).string;
-      return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(
-        input[2].toJSON(),
-      )}]`;
+      return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(input[2].toJSON())}]`;
     };
     return is(input) ? stringify(input) : null;
   });

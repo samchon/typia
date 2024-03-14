@@ -6,10 +6,10 @@ export const test_functional_validateFunctionAsync_ArrayRepeatedUnionWithTuple =
     ArrayRepeatedUnionWithTuple,
   )(
     (
-        p: (
-          input: ArrayRepeatedUnionWithTuple,
-        ) => Promise<ArrayRepeatedUnionWithTuple>,
-      ) =>
+      p: (
+        input: ArrayRepeatedUnionWithTuple,
+      ) => Promise<ArrayRepeatedUnionWithTuple>,
+    ) =>
       async (
         input: ArrayRepeatedUnionWithTuple,
       ): Promise<import("typia").IValidation<ArrayRepeatedUnionWithTuple>> => {

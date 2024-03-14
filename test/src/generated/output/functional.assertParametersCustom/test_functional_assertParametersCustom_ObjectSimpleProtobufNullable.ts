@@ -7,10 +7,8 @@ export const test_functional_assertParametersCustom_ObjectSimpleProtobufNullable
     "ObjectSimpleProtobufNullable",
   )(ObjectSimpleProtobufNullable)(
     (
-        p: (
-          input: ObjectSimpleProtobufNullable,
-        ) => ObjectSimpleProtobufNullable,
-      ) =>
+      p: (input: ObjectSimpleProtobufNullable) => ObjectSimpleProtobufNullable,
+    ) =>
       (input: ObjectSimpleProtobufNullable): ObjectSimpleProtobufNullable => {
         const errorFactoryWrapper: (
           p: import("typia").TypeGuardError.IProps,

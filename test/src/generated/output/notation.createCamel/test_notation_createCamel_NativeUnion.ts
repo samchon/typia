@@ -145,36 +145,36 @@ export const test_notation_createValidateCamel_NativeUnion =
             input.unsigned instanceof Uint8Array
               ? input.unsigned
               : input.unsigned instanceof Uint8ClampedArray
-              ? input.unsigned
-              : input.unsigned instanceof Uint16Array
-              ? input.unsigned
-              : input.unsigned instanceof Uint32Array
-              ? input.unsigned
-              : input.unsigned instanceof BigUint64Array
-              ? input.unsigned
-              : (input.unsigned as any),
+                ? input.unsigned
+                : input.unsigned instanceof Uint16Array
+                  ? input.unsigned
+                  : input.unsigned instanceof Uint32Array
+                    ? input.unsigned
+                    : input.unsigned instanceof BigUint64Array
+                      ? input.unsigned
+                      : (input.unsigned as any),
           signed:
             input.signed instanceof Int8Array
               ? input.signed
               : input.signed instanceof Int16Array
-              ? input.signed
-              : input.signed instanceof Int32Array
-              ? input.signed
-              : input.signed instanceof BigInt64Array
-              ? input.signed
-              : (input.signed as any),
+                ? input.signed
+                : input.signed instanceof Int32Array
+                  ? input.signed
+                  : input.signed instanceof BigInt64Array
+                    ? input.signed
+                    : (input.signed as any),
           float:
             input.float instanceof Float32Array
               ? input.float
               : input.float instanceof Float64Array
-              ? input.float
-              : (input.float as any),
+                ? input.float
+                : (input.float as any),
           buffer:
             input.buffer instanceof ArrayBuffer
               ? input.buffer
               : input.buffer instanceof SharedArrayBuffer
-              ? input.buffer
-              : (input.buffer as any),
+                ? input.buffer
+                : (input.buffer as any),
         });
         return Array.isArray(input) ? $cp0(input) : (input as any);
       };

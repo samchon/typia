@@ -6,10 +6,10 @@ export const test_functional_validateEqualsFunction_ArrayRecursiveUnionExplicitP
     ArrayRecursiveUnionExplicitPointer,
   )(
     (
-        p: (
-          input: ArrayRecursiveUnionExplicitPointer,
-        ) => ArrayRecursiveUnionExplicitPointer,
-      ) =>
+      p: (
+        input: ArrayRecursiveUnionExplicitPointer,
+      ) => ArrayRecursiveUnionExplicitPointer,
+    ) =>
       (
         input: ArrayRecursiveUnionExplicitPointer,
       ): import("typia").IValidation<ArrayRecursiveUnionExplicitPointer> => {

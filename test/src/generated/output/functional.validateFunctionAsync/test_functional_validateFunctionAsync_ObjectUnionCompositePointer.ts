@@ -6,10 +6,10 @@ export const test_functional_validateFunctionAsync_ObjectUnionCompositePointer =
     ObjectUnionCompositePointer,
   )(
     (
-        p: (
-          input: ObjectUnionCompositePointer,
-        ) => Promise<ObjectUnionCompositePointer>,
-      ) =>
+      p: (
+        input: ObjectUnionCompositePointer,
+      ) => Promise<ObjectUnionCompositePointer>,
+    ) =>
       async (
         input: ObjectUnionCompositePointer,
       ): Promise<import("typia").IValidation<ObjectUnionCompositePointer>> => {

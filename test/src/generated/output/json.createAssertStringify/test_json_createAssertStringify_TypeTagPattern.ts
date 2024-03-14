@@ -171,11 +171,7 @@ export const test_json_createAssertStringify_TypeTagPattern =
       };
       const stringify = (input: TypeTagPattern): string => {
         const $string = (typia.json.createAssertStringify as any).string;
-        return `{"uuid":${$string((input as any).uuid)},"email":${$string(
-          (input as any).email,
-        )},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string(
-          (input as any).ipv6,
-        )}}`;
+        return `{"uuid":${$string((input as any).uuid)},"email":${$string((input as any).email)},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string((input as any).ipv6)}}`;
       };
       return stringify(assert(input, errorFactory));
     },

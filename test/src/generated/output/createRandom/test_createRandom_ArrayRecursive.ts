@@ -13,10 +13,10 @@ export const test_createRandom_ArrayRecursive = _test_random(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() =>
-              $ro0(true, _recursive ? 1 + _depth : _depth),
-            )
-          : [],
+            ? (generator?.array ?? $generator.array)(() =>
+                $ro0(true, _recursive ? 1 + _depth : _depth),
+              )
+            : [],
       id:
         (generator?.customs ?? $generator.customs)?.number?.([]) ??
         (generator?.number ?? $generator.number)(0, 100),

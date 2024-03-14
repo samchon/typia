@@ -164,9 +164,7 @@ export const test_json_assertStringify_DynamicTree = _test_json_assertStringify(
       const $string = (typia.json.assertStringify as any).string;
       const $number = (typia.json.assertStringify as any).number;
       const $so0 = (input: any): any =>
-        `{"id":${$string(input.id)},"sequence":${$number(
-          input.sequence,
-        )},"children":${$so1(input.children)}}`;
+        `{"id":${$string(input.id)},"sequence":${$number(input.sequence)},"children":${$so1(input.children)}}`;
       const $so1 = (input: any): any =>
         `{${Object.entries(input)
           .map(([key, value]: [string, any]) => {

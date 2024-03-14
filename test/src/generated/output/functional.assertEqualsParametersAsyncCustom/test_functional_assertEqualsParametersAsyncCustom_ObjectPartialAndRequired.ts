@@ -7,10 +7,8 @@ export const test_functional_assertEqualsParametersAsyncCustom_ObjectPartialAndR
     "ObjectPartialAndRequired",
   )(ObjectPartialAndRequired)(
     (
-        p: (
-          input: ObjectPartialAndRequired,
-        ) => Promise<ObjectPartialAndRequired>,
-      ) =>
+      p: (input: ObjectPartialAndRequired) => Promise<ObjectPartialAndRequired>,
+    ) =>
       async (
         input: ObjectPartialAndRequired,
       ): Promise<ObjectPartialAndRequired> => {

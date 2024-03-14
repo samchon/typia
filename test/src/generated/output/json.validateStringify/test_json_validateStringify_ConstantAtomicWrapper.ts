@@ -147,11 +147,7 @@ export const test_json_validateStringify_ConstantAtomicWrapper =
       const stringify = (input: ConstantAtomicWrapper): string => {
         const $number = (typia.json.validateStringify as any).number;
         const $string = (typia.json.validateStringify as any).string;
-        return `[${`{"value":${
-          (input[0] as any).value
-        }}`},${`{"value":${$number(
-          (input[1] as any).value,
-        )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
+        return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number((input[1] as any).value)}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
       };
       const output = validate(input) as any;
       if (output.success) output.data = stringify(input);

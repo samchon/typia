@@ -205,59 +205,19 @@ export const test_json_isStringify_ObjectUnionComposite =
         const $so0 = (input: any): any =>
           `{"x":${$number(input.x)},"y":${$number(input.y)}}`;
         const $so1 = (input: any): any =>
-          `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
-            (input.p1 as any).y,
-          )}}`},"p2":${`{"x":${$number((input.p2 as any).x)},"y":${$number(
-            (input.p2 as any).y,
-          )}}`}}`;
+          `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number((input.p1 as any).y)}}`},"p2":${`{"x":${$number((input.p2 as any).x)},"y":${$number((input.p2 as any).y)}}`}}`;
         const $so2 = (input: any): any =>
-          `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
-            (input.p1 as any).y,
-          )}}`},"p2":${`{"x":${$number((input.p2 as any).x)},"y":${$number(
-            (input.p2 as any).y,
-          )}}`},"p3":${`{"x":${$number((input.p3 as any).x)},"y":${$number(
-            (input.p3 as any).y,
-          )}}`}}`;
+          `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number((input.p1 as any).y)}}`},"p2":${`{"x":${$number((input.p2 as any).x)},"y":${$number((input.p2 as any).y)}}`},"p3":${`{"x":${$number((input.p3 as any).x)},"y":${$number((input.p3 as any).y)}}`}}`;
         const $so3 = (input: any): any =>
-          `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
-            (input.p1 as any).y,
-          )}}`},"p2":${`{"x":${$number((input.p2 as any).x)},"y":${$number(
-            (input.p2 as any).y,
-          )}}`},"p3":${`{"x":${$number((input.p3 as any).x)},"y":${$number(
-            (input.p3 as any).y,
-          )}}`},"p4":${`{"x":${$number((input.p4 as any).x)},"y":${$number(
-            (input.p4 as any).y,
-          )}}`}}`;
+          `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number((input.p1 as any).y)}}`},"p2":${`{"x":${$number((input.p2 as any).x)},"y":${$number((input.p2 as any).y)}}`},"p3":${`{"x":${$number((input.p3 as any).x)},"y":${$number((input.p3 as any).y)}}`},"p4":${`{"x":${$number((input.p4 as any).x)},"y":${$number((input.p4 as any).y)}}`}}`;
         const $so4 = (input: any): any =>
-          `{"points":${`[${input.points
-            .map(
-              (elem: any) =>
-                `{"x":${$number((elem as any).x)},"y":${$number(
-                  (elem as any).y,
-                )}}`,
-            )
-            .join(",")}]`}}`;
+          `{"points":${`[${input.points.map((elem: any) => `{"x":${$number((elem as any).x)},"y":${$number((elem as any).y)}}`).join(",")}]`}}`;
         const $so5 = (input: any): any =>
-          `{"outer":${$so4(input.outer)},"inner":${`[${input.inner
-            .map((elem: any) => $so4(elem))
-            .join(",")}]`}}`;
+          `{"outer":${$so4(input.outer)},"inner":${`[${input.inner.map((elem: any) => $so4(elem)).join(",")}]`}}`;
         const $so6 = (input: any): any =>
-          `{"outer":${`[${input.outer
-            .map(
-              (elem: any) =>
-                `{"x":${$number((elem as any).x)},"y":${$number(
-                  (elem as any).y,
-                )}}`,
-            )
-            .join(",")}]`},"inner":${`{"x":${$number(
-            (input.inner as any).x,
-          )},"y":${$number((input.inner as any).y)}}`}}`;
+          `{"outer":${`[${input.outer.map((elem: any) => `{"x":${$number((elem as any).x)},"y":${$number((elem as any).y)}}`).join(",")}]`},"inner":${`{"x":${$number((input.inner as any).x)},"y":${$number((input.inner as any).y)}}`}}`;
         const $so7 = (input: any): any =>
-          `{"centroid":${`{"x":${$number(
-            (input.centroid as any).x,
-          )},"y":${$number((input.centroid as any).y)}}`},"radius":${$number(
-            input.radius,
-          )}}`;
+          `{"centroid":${`{"x":${$number((input.centroid as any).x)},"y":${$number((input.centroid as any).y)}}`},"radius":${$number(input.radius)}}`;
         const $su0 = (input: any): any =>
           (() => {
             if (undefined !== input.x) return $so0(input);

@@ -134,15 +134,7 @@ export const test_json_createValidateStringify_TemplateAtomic =
       const $string = (typia.json.createValidateStringify as any).string;
       const $throws = (typia.json.createValidateStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"prefix":${$string(input.prefix)},"postfix":${$string(
-          input.postfix,
-        )},"middle_string":${$string(
-          input.middle_string,
-        )},"middle_string_empty":${$string(
-          input.middle_string_empty,
-        )},"middle_numeric":${$string(
-          input.middle_numeric,
-        )},"middle_boolean":${(() => {
+        `{"prefix":${$string(input.prefix)},"postfix":${$string(input.postfix)},"middle_string":${$string(input.middle_string)},"middle_string_empty":${$string(input.middle_string_empty)},"middle_numeric":${$string(input.middle_numeric)},"middle_boolean":${(() => {
           if ("string" === typeof input.middle_boolean)
             return $string(input.middle_boolean);
           if ("string" === typeof input.middle_boolean)

@@ -6,10 +6,10 @@ export const test_functional_isReturnAsync_ArraySimpleProtobufOptional =
     ArraySimpleProtobufOptional,
   )(
     (
-        p: (
-          input: ArraySimpleProtobufOptional,
-        ) => Promise<ArraySimpleProtobufOptional>,
-      ) =>
+      p: (
+        input: ArraySimpleProtobufOptional,
+      ) => Promise<ArraySimpleProtobufOptional>,
+    ) =>
       async (
         input: ArraySimpleProtobufOptional,
       ): Promise<ArraySimpleProtobufOptional | null> => {

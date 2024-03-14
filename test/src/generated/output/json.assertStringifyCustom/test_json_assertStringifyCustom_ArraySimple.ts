@@ -205,16 +205,7 @@ export const test_json_assertStringifyCustom_ArraySimple =
         const $string = (typia.json.assertStringify as any).string;
         const $number = (typia.json.assertStringify as any).number;
         const $so0 = (input: any): any =>
-          `{"name":${$string(input.name)},"email":${$string(
-            input.email,
-          )},"hobbies":${`[${input.hobbies
-            .map(
-              (elem: any) =>
-                `{"name":${$string((elem as any).name)},"body":${$string(
-                  (elem as any).body,
-                )},"rank":${$number((elem as any).rank)}}`,
-            )
-            .join(",")}]`}}`;
+          `{"name":${$string(input.name)},"email":${$string(input.email)},"hobbies":${`[${input.hobbies.map((elem: any) => `{"name":${$string((elem as any).name)},"body":${$string((elem as any).body)},"rank":${$number((elem as any).rank)}}`).join(",")}]`}}`;
         return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
       };
       return stringify(assert(input, errorFactory));

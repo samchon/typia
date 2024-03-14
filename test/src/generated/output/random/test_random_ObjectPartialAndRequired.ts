@@ -35,12 +35,12 @@ export const test_random_ObjectPartialAndRequired = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(
-                () =>
-                  (generator?.customs ?? $generator.customs)?.number?.([]) ??
-                  (generator?.number ?? $generator.number)(0, 100),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(
+                  () =>
+                    (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                    (generator?.number ?? $generator.number)(0, 100),
+                )
+              : [],
       });
       return $ro0();
     })((ObjectPartialAndRequired as any).RANDOM),

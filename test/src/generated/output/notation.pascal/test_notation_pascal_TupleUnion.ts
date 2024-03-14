@@ -221,13 +221,13 @@ export const test_notation_validatePascal_TupleUnion =
               "boolean" === typeof elem[2]
                 ? ([elem[0] as any, elem[1] as any, elem[2] as any] as any)
                 : Array.isArray(elem) &&
-                  elem.length === 2 &&
-                  "boolean" === typeof elem[0] &&
-                  "number" === typeof elem[1]
-                ? ([elem[0] as any, elem[1] as any] as any)
-                : Array.isArray(elem) && elem.length === 0
-                ? ([] as any)
-                : (elem as any),
+                    elem.length === 2 &&
+                    "boolean" === typeof elem[0] &&
+                    "number" === typeof elem[1]
+                  ? ([elem[0] as any, elem[1] as any] as any)
+                  : Array.isArray(elem) && elem.length === 0
+                    ? ([] as any)
+                    : (elem as any),
             );
           return Array.isArray(input) ? $cp0(input) : (input as any);
         };

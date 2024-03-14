@@ -30,10 +30,7 @@ export const test_createRandom_ObjectHttpArray = _test_random(
       ),
       templates: (generator?.array ?? $generator.array)(
         () =>
-          `something_${
-            (generator?.customs ?? $generator.customs)?.string?.([]) ??
-            (generator?.string ?? $generator.string)()
-          }`,
+          `something_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
       ),
     });
     return $ro0();

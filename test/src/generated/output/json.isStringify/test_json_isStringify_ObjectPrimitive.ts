@@ -47,22 +47,7 @@ export const test_json_isStringify_ObjectPrimitive = _test_json_isStringify(
             expected: '("html" | "md" | "txt")',
             value: input.extension,
           });
-        })()},"title":${$string(input.title)},"body":${$string(
-          input.body,
-        )},"files":${`[${input.files
-          .map(
-            (elem: any) =>
-              `{"id":${$string((elem as any).id)},"name":${$string(
-                (elem as any).name,
-              )},"extension":${$string(
-                (elem as any).extension,
-              )},"url":${$string((elem as any).url)},"created_at":${$string(
-                (elem as any).created_at,
-              )}}`,
-          )
-          .join(",")}]`},"secret":${input.secret},"created_at":${$string(
-          input.created_at,
-        )}}`;
+        })()},"title":${$string(input.title)},"body":${$string(input.body)},"files":${`[${input.files.map((elem: any) => `{"id":${$string((elem as any).id)},"name":${$string((elem as any).name)},"extension":${$string((elem as any).extension)},"url":${$string((elem as any).url)},"created_at":${$string((elem as any).created_at)}}`).join(",")}]`},"secret":${input.secret},"created_at":${$string(input.created_at)}}`;
       return $so0(input);
     };
     return is(input) ? stringify(input) : null;

@@ -116,18 +116,14 @@ export const test_json_assertStringifyCustom_ClassPropertyAssignment =
         const $string = (typia.json.assertStringify as any).string;
         const $throws = (typia.json.assertStringify as any).throws;
         const $so0 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"note":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"note":${(() => {
             if ("string" === typeof input.note) return $string(input.note);
             if ("string" === typeof input.note) return '"' + input.note + '"';
             $throws({
               expected: '"assignment"',
               value: input.note,
             });
-          })()},"editable":${input.editable},"incremental":${
-            input.incremental
-          }}`;
+          })()},"editable":${input.editable},"incremental":${input.incremental}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

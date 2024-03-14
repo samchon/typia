@@ -14,102 +14,102 @@ export const test_createRandom_MapSimpleProtobuf = _test_random(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              (generator?.boolean ?? $generator.boolean)(),
-            ])
-          : [],
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                (generator?.boolean ?? $generator.boolean)(),
+              ])
+            : [],
       ),
       int32: new Map(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              (generator?.customs ?? $generator.customs)?.number?.([
-                {
-                  name: 'Type<"int32">',
-                  kind: "type",
-                  value: "int32",
-                },
-              ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-            ])
-          : [],
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                (generator?.customs ?? $generator.customs)?.number?.([
+                  {
+                    name: 'Type<"int32">',
+                    kind: "type",
+                    value: "int32",
+                  },
+                ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+              ])
+            : [],
       ),
       bigint: new Map(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              (generator?.customs ?? $generator.customs)?.bigint?.([]) ??
-                (generator?.bigint ?? $generator.bigint)(
-                  BigInt(0),
-                  BigInt(100),
-                ),
-            ])
-          : [],
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                (generator?.customs ?? $generator.customs)?.bigint?.([]) ??
+                  (generator?.bigint ?? $generator.bigint)(
+                    BigInt(0),
+                    BigInt(100),
+                  ),
+              ])
+            : [],
       ),
       double: new Map(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              (generator?.customs ?? $generator.customs)?.number?.([]) ??
-                (generator?.number ?? $generator.number)(0, 100),
-            ])
-          : [],
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                (generator?.customs ?? $generator.customs)?.number?.([]) ??
+                  (generator?.number ?? $generator.number)(0, 100),
+              ])
+            : [],
       ),
       string: new Map(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              (generator?.customs ?? $generator.customs)?.string?.([
-                {
-                  name: "MinLength<1>",
-                  kind: "minLength",
-                  value: 1,
-                },
-              ]) ??
-                (generator?.string ?? $generator.string)(
-                  (generator?.integer ?? $generator.integer)(1, 25),
-                ),
-            ])
-          : [],
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                (generator?.customs ?? $generator.customs)?.string?.([
+                  {
+                    name: "MinLength<1>",
+                    kind: "minLength",
+                    value: 1,
+                  },
+                ]) ??
+                  (generator?.string ?? $generator.string)(
+                    (generator?.integer ?? $generator.integer)(1, 25),
+                  ),
+              ])
+            : [],
       ),
       bytes: new Map(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              new Uint8Array(
-                (generator?.array ?? $generator.array)((): any =>
-                  (generator?.integer ?? $generator.integer)(0, 255),
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                new Uint8Array(
+                  (generator?.array ?? $generator.array)((): any =>
+                    (generator?.integer ?? $generator.integer)(0, 255),
+                  ),
                 ),
-              ),
-            ])
-          : [],
+              ])
+            : [],
       ),
       objects: new Map(
         _recursive && 5 < _depth
           ? []
           : 5 >= _depth
-          ? (generator?.array ?? $generator.array)(() => [
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-                (generator?.string ?? $generator.string)(),
-              $ro0(true, _recursive ? 1 + _depth : _depth),
-            ])
-          : [],
+            ? (generator?.array ?? $generator.array)(() => [
+                (generator?.customs ?? $generator.customs)?.string?.([]) ??
+                  (generator?.string ?? $generator.string)(),
+                $ro0(true, _recursive ? 1 + _depth : _depth),
+              ])
+            : [],
       ),
     });
     return $ro0();

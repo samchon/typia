@@ -71,9 +71,7 @@ export const test_json_validateStringify_ConstantAtomicAbsorbed =
       const stringify = (input: ConstantAtomicAbsorbed): string => {
         const $string = (typia.json.validateStringify as any).string;
         const $number = (typia.json.validateStringify as any).number;
-        return `{"id":${$string((input as any).id)},"age":${$number(
-          (input as any).age,
-        )}}`;
+        return `{"id":${$string((input as any).id)},"age":${$number((input as any).age)}}`;
       };
       const output = validate(input) as any;
       if (output.success) output.data = stringify(input);

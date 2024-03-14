@@ -51,53 +51,15 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
     const $number = (typia.json.stringify as any).number;
     const $string = (typia.json.stringify as any).string;
     const $so0 = (input: any): any =>
-      `{"id":${$number(input.id)},"channel":${$so1(input.channel)},"member":${
-        null !== input.member ? $so3(input.member) : "null"
-      },"account":${
-        null !== input.account ? $so4(input.account) : "null"
-      },"href":${$string(input.href)},"referrer":${$string(
-        input.referrer,
-      )},"ip":${`[${$number(input.ip[0])},${$number(input.ip[1])},${$number(
-        input.ip[2],
-      )},${$number(input.ip[3])}]`},"created_at":${`{"time":${$number(
-        (input.created_at as any).time,
-      )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+      `{"id":${$number(input.id)},"channel":${$so1(input.channel)},"member":${null !== input.member ? $so3(input.member) : "null"},"account":${null !== input.account ? $so4(input.account) : "null"},"href":${$string(input.href)},"referrer":${$string(input.referrer)},"ip":${`[${$number(input.ip[0])},${$number(input.ip[1])},${$number(input.ip[2])},${$number(input.ip[3])}]`},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`}}`;
     const $so1 = (input: any): any =>
-      `{"id":${$number(input.id)},"code":${$string(
-        input.code,
-      )},"name":${$string(input.name)},"sequence":${$number(
-        input.sequence,
-      )},"exclusive":${input.exclusive},"priority":${$number(
-        input.priority,
-      )},"created_at":${`{"time":${$number(
-        (input.created_at as any).time,
-      )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+      `{"id":${$number(input.id)},"code":${$string(input.code)},"name":${$string(input.name)},"sequence":${$number(input.sequence)},"exclusive":${input.exclusive},"priority":${$number(input.priority)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`}}`;
     const $so3 = (input: any): any =>
-      `{"id":${$number(input.id)},"account":${$so4(
-        input.account,
-      )},"enterprise":${
-        null !== input.enterprise ? $so5(input.enterprise) : "null"
-      },"emails":${`[${input.emails
-        .map((elem: any) => $string(elem))
-        .join(",")}]`},"created_at":${`{"time":${$number(
-        (input.created_at as any).time,
-      )},"zone":${$number((input.created_at as any).zone)}}`},"authorized":${
-        input.authorized
-      }}`;
+      `{"id":${$number(input.id)},"account":${$so4(input.account)},"enterprise":${null !== input.enterprise ? $so5(input.enterprise) : "null"},"emails":${`[${input.emails.map((elem: any) => $string(elem)).join(",")}]`},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`},"authorized":${input.authorized}}`;
     const $so4 = (input: any): any =>
-      `{"id":${$number(input.id)},"code":${$string(
-        input.code,
-      )},"created_at":${`{"time":${$number(
-        (input.created_at as any).time,
-      )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+      `{"id":${$number(input.id)},"code":${$string(input.code)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`}}`;
     const $so5 = (input: any): any =>
-      `{"id":${$number(input.id)},"account":${$so4(
-        input.account,
-      )},"name":${$string(input.name)},"grade":${$number(
-        input.grade,
-      )},"created_at":${`{"time":${$number(
-        (input.created_at as any).time,
-      )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+      `{"id":${$number(input.id)},"account":${$so4(input.account)},"name":${$string(input.name)},"grade":${$number(input.grade)},"created_at":${`{"time":${$number((input.created_at as any).time)},"zone":${$number((input.created_at as any).zone)}}`}}`;
     return $so0(input);
   })(input),
 );

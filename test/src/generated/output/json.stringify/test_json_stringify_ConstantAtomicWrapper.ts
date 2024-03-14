@@ -7,8 +7,6 @@ export const test_json_stringify_ConstantAtomicWrapper = _test_json_stringify(
   ((input: ConstantAtomicWrapper): string => {
     const $number = (typia.json.stringify as any).number;
     const $string = (typia.json.stringify as any).string;
-    return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number(
-      (input[1] as any).value,
-    )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
+    return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number((input[1] as any).value)}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
   })(input),
 );

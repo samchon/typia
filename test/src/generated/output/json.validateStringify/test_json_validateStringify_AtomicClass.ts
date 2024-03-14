@@ -212,11 +212,7 @@ export const test_json_validateStringify_AtomicClass =
         const stringify = (input: AtomicClass): string => {
           const $number = (typia.json.validateStringify as any).number;
           const $string = (typia.json.validateStringify as any).string;
-          return `[${input[0]},${input[1]},${input[2]},${$number(
-            input[3],
-          )},${$number(input[4])},${$number(input[5])},${$string(
-            input[6],
-          )},${$string(input[7])},${$string(input[8])}]`;
+          return `[${input[0]},${input[1]},${input[2]},${$number(input[3])},${$number(input[4])},${$number(input[5])},${$string(input[6])},${$string(input[7])},${$string(input[8])}]`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);

@@ -449,19 +449,9 @@ export const test_json_assertStringify_TypeTagArray =
         const $string = (typia.json.assertStringify as any).string;
         const $number = (typia.json.assertStringify as any).number;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map((elem: any) => $so1(elem))
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
         const $so1 = (input: any): any =>
-          `{"items":${`[${input.items
-            .map((elem: any) => $string(elem))
-            .join(",")}]`},"minItems":${`[${input.minItems
-            .map((elem: any) => $number(elem))
-            .join(",")}]`},"both":${`[${input.both
-            .map((elem: any) => $string(elem))
-            .join(",")}]`},"equal":${`[${input.equal
-            .map((elem: any) => $number(elem))
-            .join(",")}]`}}`;
+          `{"items":${`[${input.items.map((elem: any) => $string(elem)).join(",")}]`},"minItems":${`[${input.minItems.map((elem: any) => $number(elem)).join(",")}]`},"both":${`[${input.both.map((elem: any) => $string(elem)).join(",")}]`},"equal":${`[${input.equal.map((elem: any) => $number(elem)).join(",")}]`}}`;
         return $so0(input);
       };
       return stringify(assert(input, errorFactory));

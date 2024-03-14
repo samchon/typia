@@ -38,10 +38,10 @@ export const test_random_ArrayRecursiveUnionExplicitPointer = _test_random(
           _recursive && 5 < _depth
             ? []
             : 5 >= _depth
-            ? (generator?.array ?? $generator.array)(() =>
-                $ro1(true, _recursive ? 1 + _depth : _depth),
-              )
-            : [],
+              ? (generator?.array ?? $generator.array)(() =>
+                  $ro1(true, _recursive ? 1 + _depth : _depth),
+                )
+              : [],
         type: "directory",
       });
       const $ro3 = (_recursive: boolean = false, _depth: number = 0): any => ({

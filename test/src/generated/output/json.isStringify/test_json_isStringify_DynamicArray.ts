@@ -38,9 +38,7 @@ export const test_json_isStringify_DynamicArray = _test_json_isStringify(
         `{${Object.entries(input)
           .map(([key, value]: [string, any]) => {
             if (undefined === value) return "";
-            return `${JSON.stringify(key)}:${`[${value
-              .map((elem: any) => $string(elem))
-              .join(",")}]`}`;
+            return `${JSON.stringify(key)}:${`[${value.map((elem: any) => $string(elem)).join(",")}]`}`;
           })
           .filter((str: any) => "" !== str)
           .join(",")}}`;

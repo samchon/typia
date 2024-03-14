@@ -32,16 +32,7 @@ export const test_json_createIsStringify_ArraySimple = _test_json_isStringify(
     const $string = (typia.json.createIsStringify as any).string;
     const $number = (typia.json.createIsStringify as any).number;
     const $so0 = (input: any): any =>
-      `{"name":${$string(input.name)},"email":${$string(
-        input.email,
-      )},"hobbies":${`[${input.hobbies
-        .map(
-          (elem: any) =>
-            `{"name":${$string((elem as any).name)},"body":${$string(
-              (elem as any).body,
-            )},"rank":${$number((elem as any).rank)}}`,
-        )
-        .join(",")}]`}}`;
+      `{"name":${$string(input.name)},"email":${$string(input.email)},"hobbies":${`[${input.hobbies.map((elem: any) => `{"name":${$string((elem as any).name)},"body":${$string((elem as any).body)},"rank":${$number((elem as any).rank)}}`).join(",")}]`}}`;
     return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
   };
   return is(input) ? stringify(input) : null;

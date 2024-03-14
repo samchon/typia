@@ -15,22 +15,7 @@ export const test_json_stringify_ObjectGenericArray = _test_json_stringify(
     const $number = (typia.json.stringify as any).number;
     const $string = (typia.json.stringify as any).string;
     const $so0 = (input: any): any =>
-      `{"pagination":${`{"page":${$number(
-        (input.pagination as any).page,
-      )},"limit":${$number(
-        (input.pagination as any).limit,
-      )},"total_count":${$number(
-        (input.pagination as any).total_count,
-      )},"total_pages":${$number(
-        (input.pagination as any).total_pages,
-      )}}`},"data":${`[${input.data
-        .map(
-          (elem: any) =>
-            `{"name":${$string((elem as any).name)},"age":${$number(
-              (elem as any).age,
-            )}}`,
-        )
-        .join(",")}]`}}`;
+      `{"pagination":${`{"page":${$number((input.pagination as any).page)},"limit":${$number((input.pagination as any).limit)},"total_count":${$number((input.pagination as any).total_count)},"total_pages":${$number((input.pagination as any).total_pages)}}`},"data":${`[${input.data.map((elem: any) => `{"name":${$string((elem as any).name)},"age":${$number((elem as any).age)}}`).join(",")}]`}}`;
     return $so0(input);
   })(input),
 );

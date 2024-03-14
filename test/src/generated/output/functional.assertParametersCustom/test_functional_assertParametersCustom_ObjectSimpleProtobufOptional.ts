@@ -7,10 +7,8 @@ export const test_functional_assertParametersCustom_ObjectSimpleProtobufOptional
     "ObjectSimpleProtobufOptional",
   )(ObjectSimpleProtobufOptional)(
     (
-        p: (
-          input: ObjectSimpleProtobufOptional,
-        ) => ObjectSimpleProtobufOptional,
-      ) =>
+      p: (input: ObjectSimpleProtobufOptional) => ObjectSimpleProtobufOptional,
+    ) =>
       (input: ObjectSimpleProtobufOptional): ObjectSimpleProtobufOptional => {
         const errorFactoryWrapper: (
           p: import("typia").TypeGuardError.IProps,

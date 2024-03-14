@@ -161,9 +161,7 @@ export const test_json_createValidateStringify_TemplateConstant =
       const $string = (typia.json.createValidateStringify as any).string;
       const $throws = (typia.json.createValidateStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"value":${`[${input.value
-          .map((elem: any) => $so1(elem))
-          .join(",")}]`}}`;
+        `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
       const $so1 = (input: any): any =>
         `{"prefix":${(() => {
           if ("string" === typeof input.prefix) return $string(input.prefix);

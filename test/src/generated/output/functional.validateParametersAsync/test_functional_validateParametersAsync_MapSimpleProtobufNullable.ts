@@ -6,10 +6,10 @@ export const test_functional_validateParametersAsync_MapSimpleProtobufNullable =
     MapSimpleProtobufNullable,
   )(
     (
-        p: (
-          input: MapSimpleProtobufNullable,
-        ) => Promise<MapSimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: MapSimpleProtobufNullable,
+      ) => Promise<MapSimpleProtobufNullable>,
+    ) =>
       async (
         input: MapSimpleProtobufNullable,
       ): Promise<import("typia").IValidation<MapSimpleProtobufNullable>> => {

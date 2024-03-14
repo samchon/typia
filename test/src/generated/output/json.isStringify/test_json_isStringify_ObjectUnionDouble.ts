@@ -114,17 +114,13 @@ export const test_json_isStringify_ObjectUnionDouble = _test_json_isStringify(
       const $string = (typia.json.isStringify as any).string;
       const $throws = (typia.json.isStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"value":${`{"x":${$number((input.value as any).x)}}`},"child":${$su1(
-          input.child,
-        )}}`;
+        `{"value":${`{"x":${$number((input.value as any).x)}}`},"child":${$su1(input.child)}}`;
       const $so2 = (input: any): any =>
         `{"value":${`{"y":${(input.value as any).y}}`}}`;
       const $so4 = (input: any): any =>
         `{"value":${`{"y":${$number((input.value as any).y)}}`}}`;
       const $so6 = (input: any): any =>
-        `{"value":${`{"x":${$string((input.value as any).x)}}`},"child":${$su2(
-          input.child,
-        )}}`;
+        `{"value":${`{"x":${$string((input.value as any).x)}}`},"child":${$su2(input.child)}}`;
       const $so8 = (input: any): any =>
         `{"value":${`{"y":${$string((input.value as any).y)}}`}}`;
       const $so10 = (input: any): any => `{"value":${$so11(input.value)}}`;

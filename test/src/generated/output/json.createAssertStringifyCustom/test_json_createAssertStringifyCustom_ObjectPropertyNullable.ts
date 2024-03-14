@@ -442,36 +442,8 @@ export const test_json_createAssertStringifyCustom_ObjectPropertyNullable =
         const $so3 = (input: any): any =>
           `{"value":${null !== input.value ? $so4(input.value) : "null"}}`;
         const $so4 = (input: any): any =>
-          `{${
-            undefined === input.grade
-              ? ""
-              : `"grade":${
-                  undefined !== input.grade ? $number(input.grade) : undefined
-                },`
-          }${
-            undefined === input.serial
-              ? ""
-              : `"serial":${
-                  undefined !== input.serial
-                    ? null !== input.serial
-                      ? $number(input.serial)
-                      : "null"
-                    : undefined
-                },`
-          }"id":${$string(input.id)},"name":${
-            null !== input.name ? $string(input.name) : "null"
-          },"activated":${
-            null !== input.activated ? input.activated : "null"
-          }}`;
-        return `[${`[${input[0]
-          .map((elem: any) => $so0(elem))
-          .join(",")}]`},${`[${input[1]
-          .map((elem: any) => $so1(elem))
-          .join(",")}]`},${`[${input[2]
-          .map((elem: any) => $so2(elem))
-          .join(",")}]`},${`[${input[3]
-          .map((elem: any) => $so3(elem))
-          .join(",")}]`}]`;
+          `{${undefined === input.grade ? "" : `"grade":${undefined !== input.grade ? $number(input.grade) : undefined},`}${undefined === input.serial ? "" : `"serial":${undefined !== input.serial ? (null !== input.serial ? $number(input.serial) : "null") : undefined},`}"id":${$string(input.id)},"name":${null !== input.name ? $string(input.name) : "null"},"activated":${null !== input.activated ? input.activated : "null"}}`;
+        return `[${`[${input[0].map((elem: any) => $so0(elem)).join(",")}]`},${`[${input[1].map((elem: any) => $so1(elem)).join(",")}]`},${`[${input[2].map((elem: any) => $so2(elem)).join(",")}]`},${`[${input[3].map((elem: any) => $so3(elem)).join(",")}]`}]`;
       };
       return stringify(assert(input, errorFactory));
     },

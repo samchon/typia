@@ -104,13 +104,7 @@ export const test_json_createAssertStringifyCustom_ObjectJsonTag =
       };
       const stringify = (input: ObjectJsonTag): string => {
         const $string = (typia.json.createAssertStringify as any).string;
-        return `{"vulnerable":${$string(
-          (input as any).vulnerable,
-        )},"description":${$string(
-          (input as any).description,
-        )},"title":${$string(
-          (input as any).title,
-        )},"complicate_title":${$string((input as any).complicate_title)}}`;
+        return `{"vulnerable":${$string((input as any).vulnerable)},"description":${$string((input as any).description)},"title":${$string((input as any).title)},"complicate_title":${$string((input as any).complicate_title)}}`;
       };
       return stringify(assert(input, errorFactory));
     },

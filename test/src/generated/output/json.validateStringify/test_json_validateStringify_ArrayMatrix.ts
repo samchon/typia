@@ -121,17 +121,7 @@ export const test_json_validateStringify_ArrayMatrix =
         };
         const stringify = (input: ArrayMatrix): string => {
           const $number = (typia.json.validateStringify as any).number;
-          return `[${input
-            .map(
-              (elem: any) =>
-                `[${elem
-                  .map(
-                    (elem: any) =>
-                      `[${elem.map((elem: any) => $number(elem)).join(",")}]`,
-                  )
-                  .join(",")}]`,
-            )
-            .join(",")}]`;
+          return `[${input.map((elem: any) => `[${elem.map((elem: any) => `[${elem.map((elem: any) => $number(elem)).join(",")}]`).join(",")}]`).join(",")}]`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);

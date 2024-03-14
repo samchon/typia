@@ -94,18 +94,14 @@ export const test_json_createValidateStringify_ClassPropertyAssignment =
         const $string = (typia.json.createValidateStringify as any).string;
         const $throws = (typia.json.createValidateStringify as any).throws;
         const $so0 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"note":${(() => {
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"note":${(() => {
             if ("string" === typeof input.note) return $string(input.note);
             if ("string" === typeof input.note) return '"' + input.note + '"';
             $throws({
               expected: '"assignment"',
               value: input.note,
             });
-          })()},"editable":${input.editable},"incremental":${
-            input.incremental
-          }}`;
+          })()},"editable":${input.editable},"incremental":${input.incremental}}`;
         return $so0(input);
       };
       const output = validate(input) as any;

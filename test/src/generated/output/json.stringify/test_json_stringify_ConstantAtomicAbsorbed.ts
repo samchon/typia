@@ -7,8 +7,6 @@ export const test_json_stringify_ConstantAtomicAbsorbed = _test_json_stringify(
   ((input: ConstantAtomicAbsorbed): string => {
     const $string = (typia.json.stringify as any).string;
     const $number = (typia.json.stringify as any).number;
-    return `{"id":${$string((input as any).id)},"age":${$number(
-      (input as any).age,
-    )}}`;
+    return `{"id":${$string((input as any).id)},"age":${$number((input as any).age)}}`;
   })(input),
 );

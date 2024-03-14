@@ -74,9 +74,7 @@ export const test_json_validateStringify_ObjectIntersection =
       };
       const stringify = (input: ObjectIntersection): string => {
         const $string = (typia.json.validateStringify as any).string;
-        return `{"email":${$string((input as any).email)},"name":${$string(
-          (input as any).name,
-        )},"vulnerable":${(input as any).vulnerable}}`;
+        return `{"email":${$string((input as any).email)},"name":${$string((input as any).name)},"vulnerable":${(input as any).vulnerable}}`;
       };
       const output = validate(input) as any;
       if (output.success) output.data = stringify(input);

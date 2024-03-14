@@ -32,9 +32,7 @@ export const test_json_isStringify_CommentTagAtomicUnion =
         const $number = (typia.json.isStringify as any).number;
         const $throws = (typia.json.isStringify as any).throws;
         const $so0 = (input: any): any =>
-          `{"value":${`[${input.value
-            .map((elem: any) => $so1(elem))
-            .join(",")}]`}}`;
+          `{"value":${`[${input.value.map((elem: any) => $so1(elem)).join(",")}]`}}`;
         const $so1 = (input: any): any =>
           `{"value":${(() => {
             if (

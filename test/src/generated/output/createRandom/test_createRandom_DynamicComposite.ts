@@ -32,10 +32,7 @@ export const test_createRandom_DynamicComposite = _test_random(
       (generator?.array ?? $generator.array)(
         () =>
           (output[
-            `prefix_${
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-              (generator?.string ?? $generator.string)()
-            }`
+            `prefix_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`
           ] =
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)()),
@@ -44,10 +41,7 @@ export const test_createRandom_DynamicComposite = _test_random(
       (generator?.array ?? $generator.array)(
         () =>
           (output[
-            `${
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-              (generator?.string ?? $generator.string)()
-            }_postfix`
+            `${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}_postfix`
           ] =
             (generator?.customs ?? $generator.customs)?.string?.([]) ??
             (generator?.string ?? $generator.string)()),
@@ -56,10 +50,7 @@ export const test_createRandom_DynamicComposite = _test_random(
       (generator?.array ?? $generator.array)(
         () =>
           (output[
-            `value_${
-              (generator?.customs ?? $generator.customs)?.number?.([]) ??
-              (generator?.number ?? $generator.number)(0, 100)
-            }`
+            `value_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}`
           ] = $pick([
             () =>
               (generator?.customs ?? $generator.customs)?.string?.([]) ??
@@ -74,13 +65,7 @@ export const test_createRandom_DynamicComposite = _test_random(
       (generator?.array ?? $generator.array)(
         () =>
           (output[
-            `between_${
-              (generator?.customs ?? $generator.customs)?.string?.([]) ??
-              (generator?.string ?? $generator.string)()
-            }_and_${
-              (generator?.customs ?? $generator.customs)?.number?.([]) ??
-              (generator?.number ?? $generator.number)(0, 100)
-            }`
+            `between_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}_and_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}`
           ] = (generator?.boolean ?? $generator.boolean)()),
         (generator?.integer ?? $generator.integer)(0, 3),
       );

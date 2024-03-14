@@ -17,45 +17,27 @@ export const test_createRandom_TemplateUnion = _test_random(
     const $ro1 = (_recursive: boolean = false, _depth: number = 0): any => ({
       prefix: $pick([
         () =>
-          `prefix_${
-            (generator?.customs ?? $generator.customs)?.string?.([]) ??
-            (generator?.string ?? $generator.string)()
-          }`,
+          `prefix_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
         () =>
-          `prefix_${
-            (generator?.customs ?? $generator.customs)?.number?.([]) ??
-            (generator?.number ?? $generator.number)(0, 100)
-          }`,
+          `prefix_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}`,
       ])(),
       postfix: $pick([
         () =>
-          `${
-            (generator?.customs ?? $generator.customs)?.string?.([]) ??
-            (generator?.string ?? $generator.string)()
-          }_postfix`,
+          `${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}_postfix`,
         () =>
-          `${
-            (generator?.customs ?? $generator.customs)?.number?.([]) ??
-            (generator?.number ?? $generator.number)(0, 100)
-          }_postfix`,
+          `${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}_postfix`,
       ])(),
       middle: $pick([
         () => "the_false_value",
         () => "the_true_value",
         () =>
-          `the_${
-            (generator?.customs ?? $generator.customs)?.number?.([]) ??
-            (generator?.number ?? $generator.number)(0, 100)
-          }_value`,
+          `the_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}_value`,
       ])(),
       mixed: $pick([
         () => "the_A_value",
         () => "the_B_value",
         () =>
-          `the_${
-            (generator?.customs ?? $generator.customs)?.number?.([]) ??
-            (generator?.number ?? $generator.number)(0, 100)
-          }_value`,
+          `the_${(generator?.customs ?? $generator.customs)?.number?.([]) ?? (generator?.number ?? $generator.number)(0, 100)}_value`,
         () =>
           (generator?.customs ?? $generator.customs)?.number?.([]) ??
           (generator?.number ?? $generator.number)(0, 100),

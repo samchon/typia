@@ -6,10 +6,8 @@ export const test_functional_isFunction_ObjectSimpleProtobufNullable =
     ObjectSimpleProtobufNullable,
   )(
     (
-        p: (
-          input: ObjectSimpleProtobufNullable,
-        ) => ObjectSimpleProtobufNullable,
-      ) =>
+      p: (input: ObjectSimpleProtobufNullable) => ObjectSimpleProtobufNullable,
+    ) =>
       (
         input: ObjectSimpleProtobufNullable,
       ): ObjectSimpleProtobufNullable | null => {

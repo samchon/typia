@@ -7,10 +7,10 @@ export const test_functional_assertReturnAsync_ArraySimpleProtobufNullable =
     "ArraySimpleProtobufNullable",
   )(ArraySimpleProtobufNullable)(
     (
-        p: (
-          input: ArraySimpleProtobufNullable,
-        ) => Promise<ArraySimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: ArraySimpleProtobufNullable,
+      ) => Promise<ArraySimpleProtobufNullable>,
+    ) =>
       async (
         input: ArraySimpleProtobufNullable,
       ): Promise<ArraySimpleProtobufNullable> => {

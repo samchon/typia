@@ -7,10 +7,10 @@ export const test_functional_assertEqualsFunctionAsyncCustom_ObjectUnionComposit
     "ObjectUnionCompositePointer",
   )(ObjectUnionCompositePointer)(
     (
-        p: (
-          input: ObjectUnionCompositePointer,
-        ) => Promise<ObjectUnionCompositePointer>,
-      ) =>
+      p: (
+        input: ObjectUnionCompositePointer,
+      ) => Promise<ObjectUnionCompositePointer>,
+    ) =>
       async (
         input: ObjectUnionCompositePointer,
       ): Promise<ObjectUnionCompositePointer> => {

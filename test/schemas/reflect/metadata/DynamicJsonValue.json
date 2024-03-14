@@ -26,7 +26,7 @@
       "rest": null,
       "arrays": [
         {
-          "name": "DynamicJsonValue.JsonArray",
+          "name": "Array<DynamicJsonValue.JsonValue>",
           "tags": []
         }
       ],
@@ -96,7 +96,7 @@
               "rest": null,
               "arrays": [
                 {
-                  "name": "DynamicJsonValue.JsonArray",
+                  "name": "Array<DynamicJsonValue.JsonValue>",
                   "tags": []
                 }
               ],
@@ -124,7 +124,7 @@
     "aliases": [],
     "arrays": [
       {
-        "name": "DynamicJsonValue.JsonArray",
+        "name": "Array<DynamicJsonValue.JsonValue>",
         "value": {
           "any": false,
           "required": true,
@@ -151,7 +151,7 @@
           "rest": null,
           "arrays": [
             {
-              "name": "DynamicJsonValue.JsonArray",
+              "name": "Array<DynamicJsonValue.JsonValue>",
               "tags": []
             }
           ],

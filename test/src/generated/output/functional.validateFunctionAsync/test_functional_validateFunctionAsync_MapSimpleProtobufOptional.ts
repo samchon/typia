@@ -6,10 +6,10 @@ export const test_functional_validateFunctionAsync_MapSimpleProtobufOptional =
     MapSimpleProtobufOptional,
   )(
     (
-        p: (
-          input: MapSimpleProtobufOptional,
-        ) => Promise<MapSimpleProtobufOptional>,
-      ) =>
+      p: (
+        input: MapSimpleProtobufOptional,
+      ) => Promise<MapSimpleProtobufOptional>,
+    ) =>
       async (
         input: MapSimpleProtobufOptional,
       ): Promise<import("typia").IValidation<MapSimpleProtobufOptional>> => {

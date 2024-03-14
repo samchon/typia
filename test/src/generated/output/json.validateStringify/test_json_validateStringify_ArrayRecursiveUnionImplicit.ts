@@ -509,11 +509,7 @@ export const test_json_validateStringify_ArrayRecursiveUnionImplicit =
         const $string = (typia.json.validateStringify as any).string;
         const $throws = (typia.json.validateStringify as any).throws;
         const $so0 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"children":${`[${input.children
-            .map((elem: any) => $su0(elem))
-            .join(",")}]`}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"children":${`[${input.children.map((elem: any) => $su0(elem)).join(",")}]`}}`;
         const $so1 = (input: any): any =>
           `{"access":${(() => {
             if ("string" === typeof input.access) return $string(input.access);
@@ -523,35 +519,15 @@ export const test_json_validateStringify_ArrayRecursiveUnionImplicit =
               expected: '("read" | "write")',
               value: input.access,
             });
-          })()},"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"children":${`[${input.children
-            .map((elem: any) => $su0(elem))
-            .join(",")}]`}}`;
+          })()},"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"children":${`[${input.children.map((elem: any) => $su0(elem)).join(",")}]`}}`;
         const $so2 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"width":${$number(
-            input.width,
-          )},"height":${$number(input.height)},"url":${$string(
-            input.url,
-          )},"size":${$number(input.size)}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"width":${$number(input.width)},"height":${$number(input.height)},"url":${$string(input.url)},"size":${$number(input.size)}}`;
         const $so3 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"size":${$number(
-            input.size,
-          )},"content":${$string(input.content)}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"size":${$number(input.size)},"content":${$string(input.content)}}`;
         const $so4 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"size":${$number(
-            input.size,
-          )},"count":${$number(input.count)}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"size":${$number(input.size)},"count":${$number(input.count)}}`;
         const $so5 = (input: any): any =>
-          `{"id":${$number(input.id)},"name":${$string(
-            input.name,
-          )},"path":${$string(input.path)},"target":${$su0(input.target)}}`;
+          `{"id":${$number(input.id)},"name":${$string(input.name)},"path":${$string(input.path)},"target":${$su0(input.target)}}`;
         const $su0 = (input: any): any =>
           (() => {
             if (undefined !== input.access) return $so1(input);

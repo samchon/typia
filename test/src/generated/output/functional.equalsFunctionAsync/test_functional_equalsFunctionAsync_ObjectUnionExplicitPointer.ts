@@ -6,10 +6,10 @@ export const test_functional_equalsFunctionAsync_ObjectUnionExplicitPointer =
     ObjectUnionExplicitPointer,
   )(
     (
-        p: (
-          input: ObjectUnionExplicitPointer,
-        ) => Promise<ObjectUnionExplicitPointer>,
-      ) =>
+      p: (
+        input: ObjectUnionExplicitPointer,
+      ) => Promise<ObjectUnionExplicitPointer>,
+    ) =>
       async (
         input: ObjectUnionExplicitPointer,
       ): Promise<ObjectUnionExplicitPointer | null> => {

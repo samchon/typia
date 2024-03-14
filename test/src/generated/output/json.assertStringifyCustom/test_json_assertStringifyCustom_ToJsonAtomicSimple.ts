@@ -182,9 +182,7 @@ export const test_json_assertStringifyCustom_ToJsonAtomicSimple =
       const stringify = (input: ToJsonAtomicSimple): string => {
         const $number = (typia.json.assertStringify as any).number;
         const $string = (typia.json.assertStringify as any).string;
-        return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(
-          input[2].toJSON(),
-        )}]`;
+        return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(input[2].toJSON())}]`;
       };
       return stringify(assert(input, errorFactory));
     })(input, (p) => new CustomGuardError(p)),

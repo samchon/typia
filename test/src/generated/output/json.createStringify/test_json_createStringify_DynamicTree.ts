@@ -20,9 +20,7 @@ export const test_json_createStringify_DynamicTree = _test_json_stringify(
   const $string = (typia.json.createStringify as any).string;
   const $number = (typia.json.createStringify as any).number;
   const $so0 = (input: any): any =>
-    `{"id":${$string(input.id)},"sequence":${$number(
-      input.sequence,
-    )},"children":${$so1(input.children)}}`;
+    `{"id":${$string(input.id)},"sequence":${$number(input.sequence)},"children":${$so1(input.children)}}`;
   const $so1 = (input: any): any =>
     `{${Object.entries(input)
       .map(([key, value]: [string, any]) => {

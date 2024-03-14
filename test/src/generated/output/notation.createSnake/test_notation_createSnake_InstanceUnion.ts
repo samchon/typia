@@ -1146,26 +1146,30 @@ export const test_notation_createValidateSnake_InstanceUnion =
             "string" === typeof elem[1]
               ? ([elem[0] as any, elem[1] as any] as any)
               : Array.isArray(elem) &&
-                elem.length === 3 &&
-                "boolean" === typeof elem[0] &&
-                "number" === typeof elem[1] &&
-                "number" === typeof elem[2]
-              ? ([elem[0] as any, elem[1] as any, elem[2] as any] as any)
-              : Array.isArray(elem) && elem.length === 0
-              ? ([] as any)
-              : Array.isArray(elem)
-              ? $cp0(elem)
-              : elem instanceof Set
-              ? (() =>
-                  new Set<any>([...elem].map((elem: any) => elem as any)))()
-              : elem instanceof Map
-              ? (() =>
-                  new Map<any, any>([...elem].map((elem: any) => $any(elem))))()
-              : elem instanceof Uint8Array
-              ? elem
-              : "object" === typeof elem && null !== elem
-              ? $co0(elem)
-              : (elem as any),
+                  elem.length === 3 &&
+                  "boolean" === typeof elem[0] &&
+                  "number" === typeof elem[1] &&
+                  "number" === typeof elem[2]
+                ? ([elem[0] as any, elem[1] as any, elem[2] as any] as any)
+                : Array.isArray(elem) && elem.length === 0
+                  ? ([] as any)
+                  : Array.isArray(elem)
+                    ? $cp0(elem)
+                    : elem instanceof Set
+                      ? (() =>
+                          new Set<any>(
+                            [...elem].map((elem: any) => elem as any),
+                          ))()
+                      : elem instanceof Map
+                        ? (() =>
+                            new Map<any, any>(
+                              [...elem].map((elem: any) => $any(elem)),
+                            ))()
+                        : elem instanceof Uint8Array
+                          ? elem
+                          : "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
           );
         const $cp2 = (input: any) =>
           input.map((elem: any) =>

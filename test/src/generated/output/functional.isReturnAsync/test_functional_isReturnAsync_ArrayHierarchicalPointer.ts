@@ -6,10 +6,8 @@ export const test_functional_isReturnAsync_ArrayHierarchicalPointer =
     ArrayHierarchicalPointer,
   )(
     (
-        p: (
-          input: ArrayHierarchicalPointer,
-        ) => Promise<ArrayHierarchicalPointer>,
-      ) =>
+      p: (input: ArrayHierarchicalPointer) => Promise<ArrayHierarchicalPointer>,
+    ) =>
       async (
         input: ArrayHierarchicalPointer,
       ): Promise<ArrayHierarchicalPointer | null> => {

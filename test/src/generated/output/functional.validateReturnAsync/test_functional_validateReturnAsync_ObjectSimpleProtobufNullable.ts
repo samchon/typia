@@ -6,10 +6,10 @@ export const test_functional_validateReturnAsync_ObjectSimpleProtobufNullable =
     ObjectSimpleProtobufNullable,
   )(
     (
-        p: (
-          input: ObjectSimpleProtobufNullable,
-        ) => Promise<ObjectSimpleProtobufNullable>,
-      ) =>
+      p: (
+        input: ObjectSimpleProtobufNullable,
+      ) => Promise<ObjectSimpleProtobufNullable>,
+    ) =>
       async (
         input: ObjectSimpleProtobufNullable,
       ): Promise<import("typia").IValidation<ObjectSimpleProtobufNullable>> => {

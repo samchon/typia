@@ -31,7 +31,7 @@ export const test_reflect_metadata_DynamicJsonValue = _test_reflect_metadata(
       rest: null,
       arrays: [
         {
-          name: "DynamicJsonValue.JsonArray",
+          name: "Array<DynamicJsonValue.JsonValue>",
           tags: [],
         },
       ],
@@ -99,7 +99,7 @@ export const test_reflect_metadata_DynamicJsonValue = _test_reflect_metadata(
               rest: null,
               arrays: [
                 {
-                  name: "DynamicJsonValue.JsonArray",
+                  name: "Array<DynamicJsonValue.JsonValue>",
                   tags: [],
                 },
               ],
@@ -123,7 +123,7 @@ export const test_reflect_metadata_DynamicJsonValue = _test_reflect_metadata(
     aliases: [],
     arrays: [
       {
-        name: "DynamicJsonValue.JsonArray",
+        name: "Array<DynamicJsonValue.JsonValue>",
         value: {
           any: false,
           required: true,
@@ -150,7 +150,7 @@ export const test_reflect_metadata_DynamicJsonValue = _test_reflect_metadata(
           rest: null,
           arrays: [
             {
-              name: "DynamicJsonValue.JsonArray",
+              name: "Array<DynamicJsonValue.JsonValue>",
               tags: [],
             },
           ],

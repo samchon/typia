@@ -47,11 +47,7 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
       const $string = (typia.json.isStringify as any).string;
       const $throws = (typia.json.isStringify as any).throws;
       const $so0 = (input: any): any =>
-        `{"boolean":${input.boolean},"number":${$number(
-          input.number,
-        )},"string":${$string(input.string)},"text":${$string(
-          input.text,
-        )},"boolean_and_number_and_string":${(() => {
+        `{"boolean":${input.boolean},"number":${$number(input.number)},"string":${$string(input.string)},"text":${$string(input.text)},"boolean_and_number_and_string":${(() => {
           if ("string" === typeof input.boolean_and_number_and_string)
             return $string(input.boolean_and_number_and_string);
           if ("number" === typeof input.boolean_and_number_and_string)
@@ -95,9 +91,7 @@ export const test_json_isStringify_CommentTagDefault = _test_json_isStringify(
             expected: "(boolean | number | string)",
             value: input.union_but_string,
           });
-        })()},"vulnerable_range":${$number(
-          input.vulnerable_range,
-        )},"boolean_and_number_and_template":${(() => {
+        })()},"vulnerable_range":${$number(input.vulnerable_range)},"boolean_and_number_and_template":${(() => {
           if ("string" === typeof input.boolean_and_number_and_template)
             return $string(input.boolean_and_number_and_template);
           if ("number" === typeof input.boolean_and_number_and_template)

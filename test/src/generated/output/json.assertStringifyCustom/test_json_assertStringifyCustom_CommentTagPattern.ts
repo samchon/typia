@@ -171,11 +171,7 @@ export const test_json_assertStringifyCustom_CommentTagPattern =
       };
       const stringify = (input: CommentTagPattern): string => {
         const $string = (typia.json.assertStringify as any).string;
-        return `{"uuid":${$string((input as any).uuid)},"email":${$string(
-          (input as any).email,
-        )},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string(
-          (input as any).ipv6,
-        )}}`;
+        return `{"uuid":${$string((input as any).uuid)},"email":${$string((input as any).email)},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string((input as any).ipv6)}}`;
       };
       return stringify(assert(input, errorFactory));
     })(input, (p) => new CustomGuardError(p)),

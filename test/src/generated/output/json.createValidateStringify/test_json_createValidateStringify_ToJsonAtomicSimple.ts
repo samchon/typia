@@ -143,9 +143,7 @@ export const test_json_createValidateStringify_ToJsonAtomicSimple =
     const stringify = (input: ToJsonAtomicSimple): string => {
       const $number = (typia.json.createValidateStringify as any).number;
       const $string = (typia.json.createValidateStringify as any).string;
-      return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(
-        input[2].toJSON(),
-      )}]`;
+      return `[${input[0].toJSON()},${$number(input[1].toJSON())},${$string(input[2].toJSON())}]`;
     };
     const output = validate(input) as any;
     if (output.success) output.data = stringify(input);

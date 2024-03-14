@@ -28,11 +28,7 @@ export const test_json_isStringify_DynamicConstant = _test_json_isStringify(
         "number" === typeof input.c &&
         "number" === typeof input.d;
       const $number = (typia.json.isStringify as any).number;
-      return `{"value":${`{"a":${$number(
-        ((input as any).value as any).a,
-      )},"b":${$number(((input as any).value as any).b)},"c":${$number(
-        ((input as any).value as any).c,
-      )},"d":${$number(((input as any).value as any).d)}}`}}`;
+      return `{"value":${`{"a":${$number(((input as any).value as any).a)},"b":${$number(((input as any).value as any).b)},"c":${$number(((input as any).value as any).c)},"d":${$number(((input as any).value as any).d)}}`}}`;
     };
     return is(input) ? stringify(input) : null;
   })(input),

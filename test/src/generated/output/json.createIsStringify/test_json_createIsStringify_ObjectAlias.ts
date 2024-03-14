@@ -29,9 +29,7 @@ export const test_json_createIsStringify_ObjectAlias = _test_json_isStringify(
     const $number = (typia.json.createIsStringify as any).number;
     const $throws = (typia.json.createIsStringify as any).throws;
     const $so0 = (input: any): any =>
-      `{"id":${
-        null !== input.id ? $string(input.id) : "null"
-      },"email":${$string(input.email)},"name":${$string(input.name)},"sex":${
+      `{"id":${null !== input.id ? $string(input.id) : "null"},"email":${$string(input.email)},"name":${$string(input.name)},"sex":${
         null !== input.sex
           ? (() => {
               if ("string" === typeof input.sex) return $string(input.sex);
@@ -43,9 +41,7 @@ export const test_json_createIsStringify_ObjectAlias = _test_json_isStringify(
               });
             })()
           : "null"
-      },"age":${null !== input.age ? $number(input.age) : "null"},"dead":${
-        null !== input.dead ? input.dead : "null"
-      }}`;
+      },"age":${null !== input.age ? $number(input.age) : "null"},"dead":${null !== input.dead ? input.dead : "null"}}`;
     return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
   };
   return is(input) ? stringify(input) : null;

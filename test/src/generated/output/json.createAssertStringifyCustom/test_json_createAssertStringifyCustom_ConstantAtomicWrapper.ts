@@ -186,11 +186,7 @@ export const test_json_createAssertStringifyCustom_ConstantAtomicWrapper =
       const stringify = (input: ConstantAtomicWrapper): string => {
         const $number = (typia.json.createAssertStringify as any).number;
         const $string = (typia.json.createAssertStringify as any).string;
-        return `[${`{"value":${
-          (input[0] as any).value
-        }}`},${`{"value":${$number(
-          (input[1] as any).value,
-        )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
+        return `[${`{"value":${(input[0] as any).value}}`},${`{"value":${$number((input[1] as any).value)}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
       };
       return stringify(assert(input, errorFactory));
     },
