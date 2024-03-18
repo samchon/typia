@@ -20,7 +20,6 @@ export namespace TypeScriptBundler {
           {
             name: "virtual",
             resolveId(id) {
-              console.log(id);
               if (id in modules) return id;
               return new URL(id, "https://esm.sh").href;
             },

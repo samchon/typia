@@ -101,7 +101,7 @@ fs.mkdirSync(__dirname + "/../raw");
 const bucket = [];
 external(bucket)({
   packageJson: true,
-  javaScript: true,
+  javaScript: false,
   index: true,
 })("typia")("lib");
 external(bucket)({
@@ -134,29 +134,19 @@ interface IMember {
     tags.Type<"uint32"> &
     tags.Minimum<20> &
     tags.ExclusiveMaximum<100>;
-  parent: IMember | null;
-  children: IMember[];
 }
 
-//----
-// VALIDATION
-//----
-typia.createIs<IMember>();
+const member: IMember = typia.random<IMember>();
+const check: boolean = typia.is(member);
+const json: string = typia.json.stringify(member);
+const binary: Uint8Array = typia.protobuf.encode(member);
 
-//----
-// RANDOM
-//----
-typia.createRandom<IMember>();
-
-//----
-// JSON
-//----
-typia.json.createStringify<IMember>();
-
-//----
-// PROTOCOL BUFFER
-//----
-typia.protobuf.createEncode<IMember>();  
+console.log({
+  member,
+  check,
+  json,
+  binary,
+}); 
 \``,
   "utf8",
 );
