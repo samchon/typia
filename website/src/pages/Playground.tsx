@@ -8,8 +8,9 @@ import prettierTsPlugin from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
 import ts from "typescript";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
-import { Compiler } from "../utils/Compiler";
+import { TypeScriptCompiler } from "../utils/TypeScriptCompiler";
 
 import { RAW } from "../../raw/RAW";
 import { SCRIPT } from "../../raw/SCRIPT";
@@ -17,13 +18,19 @@ import LanguageButton from "../components/playground/LanguageButton";
 import OutputViewer from "../components/playground/OutputViewer";
 import SourceEditor from "../components/playground/SourceEditor";
 import Splitter from "../components/playground/Splitter";
+import { Button } from "@mui/material";
+import { TypeScriptBundler } from "../utils/TypeScriptBundler";
+import ConsoleViewer from "../components/playground/ConsoleViewer";
 
 const Playground = () => {
   const [source, setSource] = useState<string | null>(null);
   const [target, setTarget] = useState<"typescript" | "javascript">(
     "javascript",
   );
-  const [output, setOutput] = useState<Compiler.IOutput | null>(null);
+  const [output, setOutput] = useState<TypeScriptCompiler.IOutput | null>(null);
+  const [consoleBox, setConsoleBox] = useState<ConsoleViewer.IProps>({
+    messages: [],
+  });
 
   useEffect(() => {
     // PARSE QUERY PARAMETER
@@ -38,7 +45,9 @@ const Playground = () => {
 
   const handleChange = (code: string | undefined) => {
     setSource(code ?? "");
-    const output: Compiler.IOutput = Compiler.compile(target)(code ?? "");
+    const output: TypeScriptCompiler.IOutput = TypeScriptCompiler.build(target)(
+      code ?? "",
+    );
     if (code?.length && output.type === "success" && code !== SCRIPT)
       window.history.replaceState(
         null,
@@ -52,11 +61,13 @@ const Playground = () => {
 
   const handleTarget = (target: "typescript" | "javascript") => {
     setTarget(target);
-    const output: Compiler.IOutput = Compiler.compile(target)(source ?? "");
+    const output: TypeScriptCompiler.IOutput = TypeScriptCompiler.build(target)(
+      source ?? "",
+    );
     setBeautifiedOutput(output);
   };
 
-  const setBeautifiedOutput = (output: Compiler.IOutput) => {
+  const setBeautifiedOutput = (output: TypeScriptCompiler.IOutput) => {
     if (output.type === "error") return setOutput(output);
     format(
       output.content,
@@ -82,11 +93,43 @@ const Playground = () => {
       });
   };
 
+  const execute = async () => {
+    const output: TypeScriptCompiler.IOutput = TypeScriptCompiler.build(
+      "javascript",
+    )(source ?? "");
+    if (output.type === "error")
+      return setConsoleBox({
+        messages: [
+          {
+            type: "error",
+            value: output.error,
+          },
+        ],
+      });
+
+    const messages: ConsoleViewer.IMessage[] = [];
+    await TypeScriptBundler.builder({
+      error: (...args: any[]) => {
+        console.error(...args);
+        args.forEach((value) => messages.push({ type: "error", value }));
+      },
+      log: (...args: any[]) => {
+        console.log(...args);
+        args.forEach((value) => messages.push({ type: "log", value }));
+      },
+      warn: (...args: any[]) => {
+        console.warn(...args);
+        args.forEach((value) => messages.push({ type: "warn", value }));
+      },
+    })(output.content ?? "");
+    setConsoleBox({ messages });
+  };
+
   return (
     <Splitter>
       {source !== null && (
         <SourceEditor
-          options={Compiler.OPTIONS}
+          options={TypeScriptCompiler.OPTIONS}
           imports={RAW}
           script={source}
           setScript={handleChange}
@@ -132,42 +175,75 @@ const Playground = () => {
         >
           {target === "javascript" ? "Transformation Mode" : "Generation Mode"}
         </div>
-        <OutputViewer
-          language={target}
-          content={
-            output === null
-              ? ""
-              : output.type === "success"
-              ? output.diagnostics.length
-                ? output.diagnostics
-                    .map((diag) => {
-                      const file: string = "main.ts";
-                      const category: string =
-                        diag.category === ts.DiagnosticCategory.Warning
-                          ? "warning"
-                          : diag.category === ts.DiagnosticCategory.Error
-                          ? "error"
-                          : diag.category === ts.DiagnosticCategory.Suggestion
-                          ? "suggestion"
-                          : diag.category === ts.DiagnosticCategory.Message
-                          ? "message"
-                          : "unkown";
-                      const [line, pos] = diag.file
-                        ? (() => {
-                            const lines: string[] = diag
-                              .file!.text.substring(0, diag.start)
-                              .split("\n");
-                            if (lines.length === 0) return [0, 0];
-                            return [lines.length, lines.at(-1)!.length + 1];
-                          })()
-                        : [0, 0];
-                      return `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`;
-                    })
-                    .join("\n\n")
-                : output.content
-              : output.error.message
-          }
-        />
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            flexDirection: "column",
+            overflowY: "hidden",
+          }}
+        >
+          <OutputViewer
+            language={target}
+            width="100%"
+            height="60%"
+            content={
+              output === null
+                ? ""
+                : output.type === "success"
+                  ? output.diagnostics.length
+                    ? output.diagnostics
+                        .map((diag) => {
+                          const file: string = "main.ts";
+                          const category: string =
+                            diag.category === ts.DiagnosticCategory.Warning
+                              ? "warning"
+                              : diag.category === ts.DiagnosticCategory.Error
+                                ? "error"
+                                : diag.category ===
+                                    ts.DiagnosticCategory.Suggestion
+                                  ? "suggestion"
+                                  : diag.category ===
+                                      ts.DiagnosticCategory.Message
+                                    ? "message"
+                                    : "unkown";
+                          const [line, pos] = diag.file
+                            ? (() => {
+                                const lines: string[] = diag
+                                  .file!.text.substring(0, diag.start)
+                                  .split("\n");
+                                if (lines.length === 0) return [0, 0];
+                                return [lines.length, lines.at(-1)!.length + 1];
+                              })()
+                            : [0, 0];
+                          return `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`;
+                        })
+                        .join("\n\n")
+                    : output.content
+                  : output.error.message
+            }
+          />
+          <div
+            style={{
+              width: "100%",
+              height: "40%",
+              flexDirection: "row",
+            }}
+          >
+            <Button
+              fullWidth
+              size="large"
+              color="primary"
+              variant="outlined"
+              startIcon={<PlayArrowIcon />}
+              style={{ fontWeight: "bold", textDecoration: "underline" }}
+              onClick={() => execute()}
+            >
+              Execute
+            </Button>
+            <ConsoleViewer messages={consoleBox.messages} />
+          </div>
+        </div>
       </div>
     </Splitter>
   );

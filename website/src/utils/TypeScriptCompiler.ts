@@ -3,8 +3,8 @@ import transform from "typia/lib/transform";
 
 import { RAW } from "../../raw/RAW";
 
-export namespace Compiler {
-  export const compile =
+export namespace TypeScriptCompiler {
+  export const build =
     (target: "typescript" | "javascript") =>
     (script: string): IOutput => {
       //----
@@ -77,11 +77,11 @@ export namespace Compiler {
               ),
             ],
           });
-          return { 
-            type: "success", 
-            target, 
-            content: output.value, 
-            diagnostics 
+          return {
+            type: "success",
+            target,
+            content: output.value,
+            diagnostics,
           };
         } else {
           const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
@@ -123,12 +123,13 @@ export namespace Compiler {
   }
 
   export const OPTIONS: ts.CompilerOptions = {
-    target: ts.ScriptTarget.ESNext,
-    module: ts.ModuleKind.CommonJS,
+    target: ts.ScriptTarget.ES2015,
+    module: ts.ModuleKind.ES2015,
     // lib: ["DOM", "ES2015"],
     esModuleInterop: true,
     downlevelIteration: true,
     forceConsistentCasingInFileNames: true,
+    moduleResolution: ts.ModuleResolutionKind.Bundler,
     strict: true,
     skipLibCheck: true,
   };

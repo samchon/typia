@@ -43,7 +43,7 @@ const SourceEditor = (props: {
   return (
     <Editor
       height="100%"
-      theme={props.darkMode ? "vs-dark" : "vs-light"}
+      theme={"vs-dark"}
       options={{
         tabSize: 2,
         minimap: {
