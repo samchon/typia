@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 
-import { Singleton } from "../../utils/Singleton";
+import { Singleton } from "tstl";
 
 import { typia_packageJson } from "../../../raw/typia/packageJson";
 

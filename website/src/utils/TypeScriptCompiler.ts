@@ -3,7 +3,7 @@ import transform from "typia/lib/transform";
 
 import { RAW } from "../../raw/RAW";
 
-export namespace Compiler {
+export namespace TypeScriptCompiler {
   export const build =
     (target: "typescript" | "javascript") =>
     (script: string): IOutput => {
