@@ -11,9 +11,12 @@ const version = new Singleton(
 const OutputViewer = (props: {
   language: "typescript" | "javascript";
   content: string;
+  width: string;
+  height: string;
 }) => (
   <Editor
-    height="100%"
+    width={props.width}
+    height={props.height}
     theme="vs-dark"
     options={{
       minimap: {
