@@ -8,6 +8,7 @@ import prettierTsPlugin from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
 import ts from "typescript";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 import { TypeScriptCompiler } from "../utils/TypeScriptCompiler";
 
@@ -179,12 +180,13 @@ const Playground = () => {
             width: "100%",
             height: "100%",
             flexDirection: "column",
+            overflowY: "hidden",
           }}
         >
           <OutputViewer
             language={target}
             width="100%"
-            height="calc(100% - 300px)"
+            height="60%"
             content={
               output === null
                 ? ""
@@ -223,14 +225,24 @@ const Playground = () => {
           />
           <div
             style={{
+              width: "100%",
+              height: "40%",
               flexDirection: "row",
             }}
           >
-            <Button variant="outlined" fullWidth onClick={() => execute()}>
+            <Button
+              fullWidth
+              size="large"
+              color="primary"
+              variant="outlined"
+              startIcon={<PlayArrowIcon />}
+              style={{ fontWeight: "bold", textDecoration: "underline" }}
+              onClick={() => execute()}
+            >
               Execute
             </Button>
+            <ConsoleViewer messages={consoleBox.messages} />
           </div>
-          <ConsoleViewer messages={consoleBox.messages} />
         </div>
       </div>
     </Splitter>

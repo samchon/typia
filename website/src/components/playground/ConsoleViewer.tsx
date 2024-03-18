@@ -6,9 +6,11 @@ const ConsoleViewer = (props: ConsoleViewer.IProps) => {
     <div
       style={{
         width: "100%",
-        height: "265px",
+        height: "calc(100% - 40px)",
         overflowX: "hidden",
         overflowY: "auto",
+        padding: 15,
+        backgroundColor: "#171717",
       }}
     >
       {props.messages
@@ -95,17 +97,7 @@ function formatObjectLike(
 
 function formatValue(obj: unknown, nestIdent = 0): JSX.Element {
   if (typeof obj === "string")
-    return (
-      <span className={`${styles.code} ${styles.string}`}>
-        "
-        {obj
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")}
-        "
-      </span>
-    );
+    return <span className={`${styles.code} ${styles.string}`}>{obj}</span>;
   else if (typeof obj === "number")
     return <span className={`${styles.code} ${styles.number}`}>{obj}</span>;
   else if (typeof obj === "function")

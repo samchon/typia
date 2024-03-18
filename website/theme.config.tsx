@@ -17,6 +17,9 @@ const config: DocsThemeConfig = {
       </span>
     </>
   ),
+  nextThemes: {
+    defaultTheme: "dark",
+  },
   project: {
     link: "https://github.com/samchon/typia",
     // icon: <img
