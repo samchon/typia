@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 
-import { Singleton } from "../../utils/Singleton";
+import { Singleton } from "tstl";
 
 import { typia_packageJson } from "../../../raw/typia/packageJson";
 
@@ -11,9 +11,12 @@ const version = new Singleton(
 const OutputViewer = (props: {
   language: "typescript" | "javascript";
   content: string;
+  width: string;
+  height: string;
 }) => (
   <Editor
-    height="100%"
+    width={props.width}
+    height={props.height}
     theme="vs-dark"
     options={{
       minimap: {
