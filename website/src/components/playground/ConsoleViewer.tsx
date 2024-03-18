@@ -53,51 +53,51 @@ namespace ConsoleViewer {
   }
 }
 
-function formatObjectLike(
+const formatObjectLike = (
   obj: [string | number | symbol, unknown][],
   original: any,
   nestIdent?: number,
   extraCode?: string,
-): JSX.Element {
-  return (
-    <>
-      <span className={styles.code}>
-        <span className={styles.classNameIdent}>
-          {(original.constructor &&
-            original.constructor.name &&
-            original.constructor.name !== "Object" &&
-            original.constructor.name + " ") ||
-            ""}
+): JSX.Element => (
+  <span className={styles.code}>
+    <span className={styles.classNameIdent}>
+      {(original.constructor &&
+        original.constructor.name &&
+        original.constructor.name !== "Object" &&
+        original.constructor.name + " ") ||
+        ""}
+    </span>
+    {extraCode ?? ""}
+    {"{"}
+    <br />
+    <span>
+      {obj.map(([key, val], index) => (
+        <span key={index}>
+          {!!index && (
+            <>
+              <span className={styles.comma}>, </span>
+              <br />
+            </>
+          )}
+          <span>
+            {"  ".repeat(nestIdent || 2)}
+            {key.toString()}: {formatValue(val, (nestIdent || 2) + 1)}
+          </span>
         </span>
-        {extraCode ?? ""}
-        {"{"}
-        <br />
-        <span>
-          {obj.map(([key, val], index) => (
-            <span key={index}>
-              {!!index && (
-                <>
-                  <span className={styles.comma}>, </span>
-                  <br />
-                </>
-              )}
-              <span>
-                {"  ".repeat(nestIdent || 2)}
-                {key.toString()}: {formatValue(val, (nestIdent || 2) + 1)}
-              </span>
-            </span>
-          ))}
-        </span>
-        <br />
-        {"  ".repeat(nestIdent ? nestIdent - 1 : 1) + "}"}
-      </span>
-    </>
-  );
-}
+      ))}
+    </span>
+    <br />
+    {"  ".repeat(nestIdent ? nestIdent - 1 : 1) + "}"}
+  </span>
+);
 
-function formatValue(obj: unknown, nestIdent = 0): JSX.Element {
+const formatValue = (obj: unknown, nestIdent = 0): JSX.Element => {
   if (typeof obj === "string")
-    return <span className={`${styles.code} ${styles.string}`}>{obj}</span>;
+    return (
+      <span className={`${styles.code} ${styles.string}`}>
+        {JSON.stringify(obj)}
+      </span>
+    );
   else if (typeof obj === "number")
     return <span className={`${styles.code} ${styles.number}`}>{obj}</span>;
   else if (typeof obj === "function")
@@ -150,6 +150,6 @@ function formatValue(obj: unknown, nestIdent = 0): JSX.Element {
     if (entries.length === 0) return <>{"{}"}</>;
     else return formatObjectLike(entries, obj, nestIdent);
   }
-}
+};
 
 export default ConsoleViewer;
