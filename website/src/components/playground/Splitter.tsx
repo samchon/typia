@@ -19,12 +19,12 @@ const Splitter = (props: Splitter.IProps) => {
   const styles: IStyles = {
     container: {
       borderTop: "2px solid skyblue",
-      height: "calc(100vh - 80px)",
+      height: "calc(100vh - 70px)",
       display: "flex",
       width: "100%",
       position: "relative",
       flexDirection: "row",
-      overflow: "hidden",
+      // overflow: "hidden",
     },
     left: {
       height: "100%",
@@ -36,6 +36,7 @@ const Splitter = (props: Splitter.IProps) => {
       height: "100%",
       width: `${100 - width}%`,
       position: "relative",
+      overflow: "hidden",
       zIndex: 1,
     },
     gutter: {
@@ -59,7 +60,16 @@ const Splitter = (props: Splitter.IProps) => {
       onMouseMove={handleMouseMove}
       onMouseUp={() => setDragging(false)}
     >
-      <div style={styles.left}>{props.children[0]}</div>
+      <div style={styles.left}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {props.children[0]}
+        </div>
+      </div>
       <div
         className="gutter"
         style={styles.gutter}
@@ -67,7 +77,16 @@ const Splitter = (props: Splitter.IProps) => {
         onMouseOver={() => setHovering(true)}
         onMouseOut={() => setHovering(false)}
       />
-      <div style={styles.right}>{props.children[1]}</div>
+      <div style={styles.right}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {props.children[1]}
+        </div>
+      </div>
     </div>
   );
 };

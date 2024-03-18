@@ -1,0 +1,33 @@
+.code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    white-space: pre;
+}
+
+.number {
+    color: #b5cea8;
+}
+
+.string {
+    color: #ce9178;
+}
+
+.keyword {
+    color: #569cd6;
+}
+
+.comma {
+    color: #777;
+}
+
+.classNameIdent {
+    color: #3dc9b0;
+}
+
+.logSeparator {
+    color: #777;
+    border-bottom-style: dotted;
+    border-bottom-width: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
