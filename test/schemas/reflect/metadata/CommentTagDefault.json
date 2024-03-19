@@ -636,7 +636,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "number",
@@ -647,7 +650,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 5
+                        }
                       }
                     ]
                   ]

@@ -74,6 +74,9 @@ export const test_reflect_metadata_ObjectDescription = _test_reflect_metadata(
                         validate:
                           "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "uuid",
+                        },
                       },
                     ],
                   ],

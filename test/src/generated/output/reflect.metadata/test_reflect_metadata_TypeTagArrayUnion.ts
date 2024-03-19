@@ -83,6 +83,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minItems: 3,
+                        },
                       },
                       {
                         target: "array",
@@ -91,6 +94,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                         value: 3,
                         validate: "$input.length <= 3",
                         exclusive: true,
+                        schema: {
+                          maxItems: 3,
+                        },
                       },
                     ],
                   ],
@@ -154,6 +160,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minItems: 3,
+                        },
                       },
                     ],
                   ],
@@ -217,6 +226,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                         value: 7,
                         validate: "$input.length <= 7",
                         exclusive: true,
+                        schema: {
+                          maxItems: 7,
+                        },
                       },
                     ],
                   ],
@@ -280,6 +292,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minItems: 3,
+                        },
                       },
                       {
                         target: "array",
@@ -288,6 +303,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                         value: 7,
                         validate: "$input.length <= 7",
                         exclusive: true,
+                        schema: {
+                          maxItems: 7,
+                        },
                       },
                     ],
                   ],
@@ -358,6 +376,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                     validate:
                       "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                     exclusive: ["format", "pattern"],
+                    schema: {
+                      format: "uuid",
+                    },
                   },
                 ],
               ],
@@ -399,6 +420,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                     value: 3,
                     validate: "3 <= $input",
                     exclusive: ["minimum", "exclusiveMinimum"],
+                    schema: {
+                      minimum: 3,
+                    },
                   },
                 ],
               ],
@@ -440,6 +464,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                     value: 7,
                     validate: "$input.length <= 7",
                     exclusive: true,
+                    schema: {
+                      maxLength: 7,
+                    },
                   },
                 ],
               ],
@@ -455,6 +482,9 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
                     value: 7,
                     validate: "$input <= 7",
                     exclusive: ["maximum", "exclusiveMaximum"],
+                    schema: {
+                      maximum: 7,
+                    },
                   },
                 ],
               ],

@@ -27,6 +27,9 @@ export const test_json_application_swagger_surplus_TypeTagDefault =
                   kind: "default",
                   value: false,
                   exclusive: true,
+                  schema: {
+                    default: false,
+                  },
                 },
               ],
               "x-typia-required": true,
@@ -115,6 +118,9 @@ export const test_json_application_swagger_surplus_TypeTagDefault =
                       kind: "default",
                       value: false,
                       exclusive: true,
+                      schema: {
+                        default: false,
+                      },
                     },
                   ],
                 },
@@ -140,6 +146,9 @@ export const test_json_application_swagger_surplus_TypeTagDefault =
                       kind: "default",
                       value: false,
                       exclusive: true,
+                      schema: {
+                        default: false,
+                      },
                     },
                   ],
                 },
@@ -227,6 +236,9 @@ export const test_json_application_swagger_surplus_TypeTagDefault =
                       kind: "default",
                       value: false,
                       exclusive: true,
+                      schema: {
+                        default: false,
+                      },
                     },
                   ],
                 },

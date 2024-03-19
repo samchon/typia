@@ -7,6 +7,9 @@ export type Format<Value extends keyof Format.Validator> = TagBase<{
   value: Value;
   validate: Format.Validator[Value];
   exclusive: ["format", "pattern"];
+  schema: {
+    format: Value;
+  };
 }>;
 export namespace Format {
   export type Validator = typeof FormatCheatSheet;

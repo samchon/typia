@@ -74,7 +74,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uuid"
+                        }
                       }
                     ]
                   ]
@@ -157,7 +160,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 100
+                        }
                       }
                     ]
                   ]

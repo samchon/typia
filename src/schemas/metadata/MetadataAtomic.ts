@@ -77,6 +77,7 @@ export class MetadataAtomic {
               : tag.value,
           validate: tag.validate,
           exclusive: tag.exclusive,
+          schema: this.type !== "bigint" ? tag.schema : undefined,
         })),
       ),
     };

@@ -519,6 +519,9 @@ export const test_reflect_metadata_MapSimpleProtobufNullable =
                                 value: 1,
                                 validate: "1 <= $input.length",
                                 exclusive: true,
+                                schema: {
+                                  minLength: 1,
+                                },
                               },
                             ],
                           ],

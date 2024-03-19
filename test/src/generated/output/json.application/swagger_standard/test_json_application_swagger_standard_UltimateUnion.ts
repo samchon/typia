@@ -344,9 +344,17 @@ export const test_json_application_swagger_standard_UltimateUnion =
             validate: {
               type: "string",
             },
+            schema: {
+              $ref: "#/components/schemas/object",
+            },
           },
           nullable: false,
           required: ["target", "name", "kind", "exclusive"],
+        },
+        object: {
+          type: "object",
+          properties: {},
+          nullable: false,
         },
         "IJsonSchema.IInteger": {
           type: "object",

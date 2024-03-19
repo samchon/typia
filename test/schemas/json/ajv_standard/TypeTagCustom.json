@@ -15,13 +15,16 @@
             "format": "uuid"
           },
           "dollar": {
-            "type": "string"
+            "type": "string",
+            "x-typia-monetary": "dollar"
           },
           "postfix": {
-            "type": "string"
+            "type": "string",
+            "x-typia-postfix": "abcd"
           },
           "powerOf": {
-            "type": "number"
+            "type": "number",
+            "x-typia-powerOf": 2
           }
         },
         "required": [

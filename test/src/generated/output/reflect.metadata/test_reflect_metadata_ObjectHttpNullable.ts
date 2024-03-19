@@ -177,6 +177,9 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
                         value: 1,
                         validate: "1 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 1,
+                        },
                       },
                     ],
                   ],

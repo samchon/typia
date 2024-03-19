@@ -3252,10 +3252,71 @@
             },
             "description": null,
             "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "schema"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": false,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [
+                "object"
+              ],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
           }
         ],
         "jsDocTags": [],
         "index": 7,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "object",
+        "properties": [],
+        "jsDocTags": [],
+        "index": 8,
         "recursive": false,
         "nullables": [
           false
@@ -4165,7 +4226,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 8,
+        "index": 9,
         "recursive": false,
         "nullables": [
           false
@@ -5042,7 +5103,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 9,
+        "index": 10,
         "recursive": false,
         "nullables": [
           false
@@ -5887,7 +5948,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 10,
+        "index": 11,
         "recursive": false,
         "nullables": [
           false
@@ -6685,7 +6746,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 11,
+        "index": 12,
         "recursive": true,
         "nullables": [
           false
@@ -7368,7 +7429,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 12,
+        "index": 13,
         "recursive": true,
         "nullables": [
           false
@@ -8202,7 +8263,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 13,
+        "index": 14,
         "recursive": true,
         "nullables": [
           false
@@ -8276,7 +8337,7 @@
         ],
         "description": "Construct a type with a set of properties K of type T",
         "jsDocTags": [],
-        "index": 14,
+        "index": 15,
         "recursive": true,
         "nullables": [
           false
@@ -8719,7 +8780,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 15,
+        "index": 16,
         "recursive": false,
         "nullables": [
           false
@@ -9164,7 +9225,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 16,
+        "index": 17,
         "recursive": false,
         "nullables": [
           false
@@ -9607,7 +9668,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 17,
+        "index": 18,
         "recursive": true,
         "nullables": [
           false
@@ -10045,7 +10106,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 18,
+        "index": 19,
         "recursive": false,
         "nullables": [
           false
@@ -10107,7 +10168,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 19,
+        "index": 20,
         "recursive": false,
         "nullables": [
           false
@@ -10181,7 +10242,7 @@
         ],
         "description": "Construct a type with a set of properties K of type T",
         "jsDocTags": [],
-        "index": 20,
+        "index": 21,
         "recursive": false,
         "nullables": [
           false
@@ -10896,7 +10957,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 21,
+        "index": 22,
         "recursive": false,
         "nullables": [
           false
@@ -11611,7 +11672,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 22,
+        "index": 23,
         "recursive": false,
         "nullables": [
           false
@@ -12326,7 +12387,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 23,
+        "index": 24,
         "recursive": false,
         "nullables": [
           false
@@ -13041,7 +13102,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 24,
+        "index": 25,
         "recursive": false,
         "nullables": [
           false
@@ -14059,7 +14120,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 25,
+        "index": 26,
         "recursive": false,
         "nullables": [
           false
@@ -15044,7 +15105,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 26,
+        "index": 27,
         "recursive": false,
         "nullables": [
           false
@@ -15997,7 +16058,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 27,
+        "index": 28,
         "recursive": false,
         "nullables": [
           false
@@ -16903,7 +16964,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 28,
+        "index": 29,
         "recursive": false,
         "nullables": [
           false
@@ -17694,7 +17755,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 29,
+        "index": 30,
         "recursive": false,
         "nullables": [
           false
@@ -18636,7 +18697,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 30,
+        "index": 31,
         "recursive": false,
         "nullables": [
           false
@@ -19187,7 +19248,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 31,
+        "index": 32,
         "recursive": false,
         "nullables": [
           false
@@ -19740,7 +19801,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 32,
+        "index": 33,
         "recursive": false,
         "nullables": [
           false
@@ -20291,7 +20352,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 33,
+        "index": 34,
         "recursive": false,
         "nullables": [
           false
@@ -20837,7 +20898,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 34,
+        "index": 35,
         "recursive": false,
         "nullables": [
           false

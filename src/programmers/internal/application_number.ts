@@ -83,6 +83,7 @@ const application_number_tags =
         base.multipleOf = tag.value;
       else if (tag.kind === "default" && typeof tag.value === "number")
         base.default = tag.value;
+      if (tag.schema) Object.assign(base, tag.schema);
     }
     if (options.surplus)
       base["x-typia-typeTags"] = row.map((tag) => ({

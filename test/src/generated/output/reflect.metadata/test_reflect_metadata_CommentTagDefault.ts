@@ -620,6 +620,9 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 3,
+                        },
                       },
                       {
                         target: "number",
@@ -628,6 +631,9 @@ export const test_reflect_metadata_CommentTagDefault = _test_reflect_metadata(
                         value: 5,
                         validate: "$input <= 5",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 5,
+                        },
                       },
                     ],
                   ],

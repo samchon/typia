@@ -6,6 +6,11 @@ export type Maximum<Value extends number | bigint> = TagBase<{
   value: Value;
   validate: `$input <= ${Numeric<Value>}`;
   exclusive: ["maximum", "exclusiveMaximum"];
+  schema: Value extends number
+    ? {
+        maximum: Value;
+      }
+    : undefined;
 }>;
 
 type Numeric<Value extends number | bigint> = Value extends number

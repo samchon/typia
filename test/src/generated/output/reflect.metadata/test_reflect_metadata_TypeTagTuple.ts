@@ -111,6 +111,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                     value: 1,
                     validate: "1 <= $input.length",
                     exclusive: true,
+                    schema: {
+                      minLength: 1,
+                    },
                   },
                   {
                     target: "string",
@@ -119,6 +122,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                     value: 2,
                     validate: "$input.length <= 2",
                     exclusive: true,
+                    schema: {
+                      maxLength: 2,
+                    },
                   },
                 ],
               ],
@@ -160,6 +166,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                     value: 1,
                     validate: "1 <= $input",
                     exclusive: ["minimum", "exclusiveMinimum"],
+                    schema: {
+                      minimum: 1,
+                    },
                   },
                   {
                     target: "number",
@@ -168,6 +177,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                     value: 2,
                     validate: "$input <= 2",
                     exclusive: ["maximum", "exclusiveMaximum"],
+                    schema: {
+                      maximum: 2,
+                    },
                   },
                 ],
               ],
@@ -213,6 +225,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 3,
                       validate: "3 <= $input.length",
                       exclusive: true,
+                      schema: {
+                        minLength: 3,
+                      },
                     },
                     {
                       target: "string",
@@ -221,6 +236,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 7,
                       validate: "$input.length <= 7",
                       exclusive: true,
+                      schema: {
+                        maxLength: 7,
+                      },
                     },
                   ],
                 ],
@@ -256,6 +274,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 3,
                       validate: "3 <= $input",
                       exclusive: ["minimum", "exclusiveMinimum"],
+                      schema: {
+                        minimum: 3,
+                      },
                     },
                     {
                       target: "number",
@@ -264,6 +285,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 7,
                       validate: "$input <= 7",
                       exclusive: ["maximum", "exclusiveMaximum"],
+                      schema: {
+                        maximum: 7,
+                      },
                     },
                   ],
                 ],
@@ -304,6 +328,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 3,
                       validate: "3 <= $input.length",
                       exclusive: true,
+                      schema: {
+                        minItems: 3,
+                      },
                     },
                     {
                       target: "array",
@@ -312,6 +339,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 7,
                       validate: "$input.length <= 7",
                       exclusive: true,
+                      schema: {
+                        maxItems: 7,
+                      },
                     },
                   ],
                 ],
@@ -347,6 +377,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 3,
                       validate: "3 <= $input.length",
                       exclusive: true,
+                      schema: {
+                        minItems: 3,
+                      },
                     },
                     {
                       target: "array",
@@ -355,6 +388,9 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
                       value: 7,
                       validate: "$input.length <= 7",
                       exclusive: true,
+                      schema: {
+                        maxItems: 7,
+                      },
                     },
                   ],
                 ],

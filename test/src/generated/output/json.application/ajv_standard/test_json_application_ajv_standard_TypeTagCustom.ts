@@ -24,12 +24,15 @@ export const test_json_application_ajv_standard_TypeTagCustom =
             },
             dollar: {
               type: "string",
+              "x-typia-monetary": "dollar",
             },
             postfix: {
               type: "string",
+              "x-typia-postfix": "abcd",
             },
             powerOf: {
               type: "number",
+              "x-typia-powerOf": 2,
             },
           },
           required: ["id", "dollar", "postfix", "powerOf"],

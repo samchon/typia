@@ -134,6 +134,9 @@ export const test_reflect_metadata_TypeTagAtomicUnion = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minLength: 3,
+                        },
                       },
                       {
                         target: "string",
@@ -142,6 +145,9 @@ export const test_reflect_metadata_TypeTagAtomicUnion = _test_reflect_metadata(
                         value: 7,
                         validate: "$input.length <= 7",
                         exclusive: true,
+                        schema: {
+                          maxLength: 7,
+                        },
                       },
                     ],
                   ],
@@ -157,6 +163,9 @@ export const test_reflect_metadata_TypeTagAtomicUnion = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 3,
+                        },
                       },
                     ],
                   ],

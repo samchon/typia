@@ -128,7 +128,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 0
+                        }
                       },
                       {
                         "target": "number",
@@ -139,7 +142,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 100
+                        }
                       }
                     ]
                   ]
@@ -207,7 +213,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 0
+                        }
                       }
                     ]
                   ]
@@ -275,7 +284,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 100
+                        }
                       }
                     ]
                   ]
@@ -340,7 +352,10 @@
                         "kind": "multipleOf",
                         "value": 3,
                         "validate": "$input % 3 === 0",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "multipleOf": 3
+                        }
                       }
                     ]
                   ]

@@ -143,6 +143,10 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 3,
                         validate: "3 < $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          exclusiveMinimum: true,
+                          minimum: 3,
+                        },
                       },
                     ],
                   ],
@@ -234,6 +238,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 3,
+                        },
                       },
                     ],
                   ],
@@ -325,6 +332,10 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 7,
                         validate: "$input < 7",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          exclusiveMaximum: true,
+                          maximum: 7,
+                        },
                       },
                     ],
                   ],
@@ -416,6 +427,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 7,
                         validate: "$input <= 7",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 7,
+                        },
                       },
                     ],
                   ],
@@ -507,6 +521,10 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 3,
                         validate: "3 < $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          exclusiveMinimum: true,
+                          minimum: 3,
+                        },
                       },
                       {
                         target: "number",
@@ -515,6 +533,10 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 7,
                         validate: "$input < 7",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          exclusiveMaximum: true,
+                          maximum: 7,
+                        },
                       },
                     ],
                   ],
@@ -615,6 +637,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 3,
+                        },
                       },
                       {
                         target: "number",
@@ -623,6 +648,10 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 7,
                         validate: "$input < 7",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          exclusiveMaximum: true,
+                          maximum: 7,
+                        },
                       },
                     ],
                   ],
@@ -723,6 +752,10 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 3,
                         validate: "3 < $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          exclusiveMinimum: true,
+                          minimum: 3,
+                        },
                       },
                       {
                         target: "number",
@@ -731,6 +764,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 7,
                         validate: "$input <= 7",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 7,
+                        },
                       },
                     ],
                   ],
@@ -831,6 +867,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 3,
+                        },
                       },
                       {
                         target: "number",
@@ -839,6 +878,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 7,
                         validate: "$input <= 7",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 7,
+                        },
                       },
                     ],
                   ],
@@ -939,6 +981,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 10,
                         validate: "10 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 10,
+                        },
                       },
                       {
                         target: "number",
@@ -947,6 +992,9 @@ export const test_reflect_metadata_CommentTagRange = _test_reflect_metadata(
                         value: 10,
                         validate: "$input <= 10",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 10,
+                        },
                       },
                     ],
                   ],

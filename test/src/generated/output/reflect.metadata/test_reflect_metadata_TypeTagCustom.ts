@@ -74,6 +74,9 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
                         validate:
                           "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "uuid",
+                        },
                       },
                     ],
                   ],
@@ -133,10 +136,14 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
                       {
                         target: "string",
                         name: "Dollar",
-                        kind: "dollar",
+                        kind: "monetary",
+                        value: "dollar",
                         validate:
                           '$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))',
                         exclusive: false,
+                        schema: {
+                          "x-typia-monetary": "dollar",
+                        },
                       },
                     ],
                   ],
@@ -200,6 +207,9 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
                         value: "abcd",
                         validate: '$input.endsWith("abcd")',
                         exclusive: false,
+                        schema: {
+                          "x-typia-postfix": "abcd",
+                        },
                       },
                     ],
                   ],
@@ -264,6 +274,9 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
                         validate:
                           "(() => {\n        const denominator: number = Math.log(2);\n        const value: number = Math.log($input) / denominator;\n        return Math.abs(value - Math.round(value)) < 0.00000001;\n    })()",
                         exclusive: false,
+                        schema: {
+                          "x-typia-powerOf": 2,
+                        },
                       },
                     ],
                   ],

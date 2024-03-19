@@ -34,10 +34,10 @@
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tgrid": "^0.9.3-dev.20240319",
+    "tgrid": "^0.9.3",
     "tstl": "^2.5.13",
     "typescript": "^5.4.2",
-    "typia": "^5.5.5"
+    "typia": "^5.5.7"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

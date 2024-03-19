@@ -117,8 +117,9 @@ type TagRecord = {
   [P in Target]?: NotDeterminedTypeTag[];
 };
 type Target = "bigint" | "number" | "string" | "array";
-type NotDeterminedTypeTag = Omit<IMetadataTypeTag, "validate"> & {
+type NotDeterminedTypeTag = Omit<IMetadataTypeTag, "validate" | "schema"> & {
   validate: string | null;
+  schema: object | undefined;
 };
 
 const PARSER: Record<
@@ -139,6 +140,9 @@ const PARSER: Record<
         value: parse_integer(report)(true)(Value),
         validate: `${Value} <= $input.length`,
         exclusive: true,
+        schema: {
+          minItems: parse_integer(report)(true)(Value),
+        },
       },
       {
         name: `MaxItems<${Value}>`,
@@ -147,6 +151,9 @@ const PARSER: Record<
         value: parse_integer(report)(true)(Value),
         validate: `$input.length <= ${Value}`,
         exclusive: true,
+        schema: {
+          maxItems: parse_integer(report)(true)(Value),
+        },
       },
     ],
   }),
@@ -159,6 +166,9 @@ const PARSER: Record<
         value: parse_integer(report)(true)(Value),
         validate: `${Value} <= $input.length`,
         exclusive: true,
+        schema: {
+          minItems: parse_integer(report)(true)(Value),
+        },
       },
     ],
   }),
@@ -171,6 +181,9 @@ const PARSER: Record<
         value: parse_integer(report)(true)(Value),
         validate: `$input.length <= ${Value}`,
         exclusive: true,
+        schema: {
+          maxItems: parse_integer(report)(true)(Value),
+        },
       },
     ],
   }),
@@ -203,15 +216,16 @@ const PARSER: Record<
             Value === "int32"
               ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
               : Value === "uint32"
-              ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
-              : Value === "int64"
-              ? `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`
-              : Value === "uint64"
-              ? `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`
-              : Value === "float"
-              ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
-              : `true`,
+                ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
+                : Value === "int64"
+                  ? `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`
+                  : Value === "uint64"
+                    ? `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`
+                    : Value === "float"
+                      ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
+                      : `true`,
           exclusive: true,
+          schema: undefined,
         },
       ],
       bigint:
@@ -224,6 +238,7 @@ const PARSER: Record<
                 value: Value,
                 validate: Value === "int64" ? "true" : "BigInt(0) <= $input",
                 exclusive: true,
+                schema: undefined,
               },
             ]
           : [],
@@ -238,6 +253,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `${Value} <= $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
+        schema: {
+          minimum: parse_number(report)(Value),
+        },
       },
     ],
     bigint: [
@@ -251,6 +269,7 @@ const PARSER: Record<
         })(),
         validate: `${Value} <= $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
+        schema: undefined,
       },
     ],
   }),
@@ -263,6 +282,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `$input <= ${Value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
+        schema: {
+          maximum: parse_number(report)(Value),
+        },
       },
     ],
     bigint: [
@@ -276,6 +298,7 @@ const PARSER: Record<
         })(),
         validate: `$input <= ${Value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
+        schema: undefined,
       },
     ],
   }),
@@ -288,6 +311,10 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `${Value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
+        schema: {
+          exclusiveMinimum: true,
+          minimum: parse_number(report)(Value),
+        },
       },
     ],
     bigint: [
@@ -301,6 +328,7 @@ const PARSER: Record<
         })(),
         validate: `${Value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
+        schema: undefined,
       },
     ],
   }),
@@ -313,6 +341,10 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `$input < ${Value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
+        schema: {
+          exclusiveMaximum: true,
+          maximum: parse_number(report)(Value),
+        },
       },
     ],
     bigint: [
@@ -326,6 +358,7 @@ const PARSER: Record<
         })(),
         validate: `$input < ${Value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
+        schema: undefined,
       },
     ],
   }),
@@ -338,6 +371,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `$input % ${Value} === 0`,
         exclusive: true,
+        schema: {
+          multipleOf: parse_number(report)(Value),
+        },
       },
     ],
     bigint: [
@@ -351,6 +387,7 @@ const PARSER: Record<
         })(),
         validate: `$input % ${Value}n === 0n`,
         exclusive: true,
+        schema: undefined,
       },
     ],
   }),
@@ -370,6 +407,9 @@ const PARSER: Record<
           value: matched[0],
           validate: matched[1],
           exclusive: true,
+          schema: {
+            format: matched[0],
+          },
         },
       ],
     };
@@ -383,6 +423,9 @@ const PARSER: Record<
         value: Value,
         validate: `RegExp(/${Value}/).test($input)`,
         exclusive: ["format"],
+        schema: {
+          pattern: Value,
+        },
       },
     ],
   }),
@@ -395,6 +438,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `${Value} <= $input.length`,
         exclusive: true,
+        schema: {
+          minLength: parse_number(report)(Value),
+        },
       },
       {
         name: `MaxLength<${Value}>`,
@@ -403,6 +449,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `$input.length <= ${Value}`,
         exclusive: true,
+        schema: {
+          maxLength: parse_number(report)(Value),
+        },
       },
     ],
   }),
@@ -415,6 +464,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `${Value} <= $input.length`,
         exclusive: true,
+        schema: {
+          minLength: parse_number(report)(Value),
+        },
       },
     ],
   }),
@@ -427,6 +479,9 @@ const PARSER: Record<
         value: parse_number(report)(Value),
         validate: `$input.length <= ${Value}`,
         exclusive: true,
+        schema: {
+          maxLength: parse_number(report)(Value),
+        },
       },
     ],
   }),

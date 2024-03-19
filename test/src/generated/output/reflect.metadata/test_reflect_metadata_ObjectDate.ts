@@ -164,6 +164,9 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
                         value: "date",
                         validate: "/^(\\d{4})-(\\d{2})-(\\d{2})$/.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "date",
+                        },
                       },
                     ],
                   ],
@@ -227,6 +230,9 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
                         value: "date-time",
                         validate: "!isNaN(new Date($input).getTime())",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "date-time",
+                        },
                       },
                     ],
                   ],
@@ -291,6 +297,9 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
                         validate:
                           "/^(\\d\\d):(\\d\\d):(\\d\\d(?:\\.\\d+)?)(z|([+-])(\\d\\d)(?::?(\\d\\d))?)?$/i.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "time",
+                        },
                       },
                     ],
                   ],
@@ -355,6 +364,9 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
                         validate:
                           "/^P(?!$)((\\d+Y)?(\\d+M)?(\\d+D)?(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?|(\\d+W)?)$/.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "duration",
+                        },
                       },
                     ],
                   ],

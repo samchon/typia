@@ -43,7 +43,10 @@ export namespace TypeTagCustom {
     ...TestRandomGenerator,
     customs: {
       string: (tags) => {
-        if (tags.find((t) => t.kind === "dollar") !== undefined)
+        if (
+          tags.find((t) => t.kind === "monetary" && t.value === "dollar") !==
+          undefined
+        )
           return "$" + TestRandomGenerator.integer();
         const postfix = tags.find((t) => t.kind === "postfix");
         if (postfix !== undefined)
@@ -64,10 +67,13 @@ export namespace TypeTagCustom {
 }
 
 type Dollar = typia.tags.TagBase<{
-  kind: "dollar";
+  kind: "monetary";
   target: "string";
-  value: undefined;
+  value: "dollar";
   validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
+  schema: {
+    "x-typia-monetary": "dollar";
+  };
 }>;
 
 type Postfix<Value extends string> = typia.tags.TagBase<{
@@ -75,6 +81,9 @@ type Postfix<Value extends string> = typia.tags.TagBase<{
   target: "string";
   value: Value;
   validate: `$input.endsWith("${Value}")`;
+  schema: {
+    "x-typia-postfix": Value;
+  };
 }>;
 
 type PowerOf<Value extends number> = typia.tags.TagBase<{
@@ -86,4 +95,7 @@ type PowerOf<Value extends number> = typia.tags.TagBase<{
         const value: number = Math.log($input) / denominator;
         return Math.abs(value - Math.round(value)) < 0.00000001;
     })()`;
+  schema: {
+    "x-typia-powerOf": Value;
+  };
 }>;

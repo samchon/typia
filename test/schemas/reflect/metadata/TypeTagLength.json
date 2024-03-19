@@ -136,7 +136,10 @@
                         "kind": "minLength",
                         "value": 5,
                         "validate": "5 <= $input.length",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minLength": 5
+                        }
                       },
                       {
                         "target": "string",
@@ -144,7 +147,10 @@
                         "kind": "maxLength",
                         "value": 5,
                         "validate": "$input.length <= 5",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "maxLength": 5
+                        }
                       }
                     ]
                   ]
@@ -209,7 +215,10 @@
                         "kind": "minLength",
                         "value": 3,
                         "validate": "3 <= $input.length",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minLength": 3
+                        }
                       }
                     ]
                   ]
@@ -274,7 +283,10 @@
                         "kind": "maxLength",
                         "value": 7,
                         "validate": "$input.length <= 7",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "maxLength": 7
+                        }
                       }
                     ]
                   ]
@@ -339,7 +351,10 @@
                         "kind": "minLength",
                         "value": 3,
                         "validate": "3 <= $input.length",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minLength": 3
+                        }
                       },
                       {
                         "target": "string",
@@ -347,7 +362,10 @@
                         "kind": "maxLength",
                         "value": 7,
                         "validate": "$input.length <= 7",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "maxLength": 7
+                        }
                       }
                     ]
                   ]
@@ -412,7 +430,10 @@
                         "kind": "minLength",
                         "value": 10,
                         "validate": "10 <= $input.length",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minLength": 10
+                        }
                       },
                       {
                         "target": "string",
@@ -420,7 +441,10 @@
                         "kind": "maxLength",
                         "value": 19,
                         "validate": "$input.length <= 19",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "maxLength": 19
+                        }
                       }
                     ]
                   ]

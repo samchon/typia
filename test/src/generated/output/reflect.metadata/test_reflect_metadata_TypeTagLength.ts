@@ -134,6 +134,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 5,
                         validate: "5 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minLength: 5,
+                        },
                       },
                       {
                         target: "string",
@@ -142,6 +145,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 5,
                         validate: "$input.length <= 5",
                         exclusive: true,
+                        schema: {
+                          maxLength: 5,
+                        },
                       },
                     ],
                   ],
@@ -205,6 +211,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minLength: 3,
+                        },
                       },
                     ],
                   ],
@@ -268,6 +277,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 7,
                         validate: "$input.length <= 7",
                         exclusive: true,
+                        schema: {
+                          maxLength: 7,
+                        },
                       },
                     ],
                   ],
@@ -331,6 +343,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 3,
                         validate: "3 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minLength: 3,
+                        },
                       },
                       {
                         target: "string",
@@ -339,6 +354,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 7,
                         validate: "$input.length <= 7",
                         exclusive: true,
+                        schema: {
+                          maxLength: 7,
+                        },
                       },
                     ],
                   ],
@@ -402,6 +420,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 10,
                         validate: "10 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minLength: 10,
+                        },
                       },
                       {
                         target: "string",
@@ -410,6 +431,9 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
                         value: 19,
                         validate: "$input.length <= 19",
                         exclusive: true,
+                        schema: {
+                          maxLength: 19,
+                        },
                       },
                     ],
                   ],

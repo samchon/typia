@@ -74,7 +74,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "byte"
+                        }
                       }
                     ]
                   ]
@@ -142,7 +145,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "password"
+                        }
                       }
                     ]
                   ]
@@ -210,7 +216,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "regex"
+                        }
                       }
                     ]
                   ]
@@ -278,7 +287,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uuid"
+                        }
                       }
                     ]
                   ]
@@ -346,7 +358,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "email"
+                        }
                       }
                     ]
                   ]
@@ -414,7 +429,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "hostname"
+                        }
                       }
                     ]
                   ]
@@ -482,7 +500,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "idn-email"
+                        }
                       }
                     ]
                   ]
@@ -550,7 +571,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "idn-hostname"
+                        }
                       }
                     ]
                   ]
@@ -618,7 +642,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "iri"
+                        }
                       }
                     ]
                   ]
@@ -686,7 +713,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "iri-reference"
+                        }
                       }
                     ]
                   ]
@@ -754,7 +784,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "ipv4"
+                        }
                       }
                     ]
                   ]
@@ -822,7 +855,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "ipv6"
+                        }
                       }
                     ]
                   ]
@@ -890,7 +926,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uri"
+                        }
                       }
                     ]
                   ]
@@ -958,7 +997,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uri-reference"
+                        }
                       }
                     ]
                   ]
@@ -1026,7 +1068,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uri-template"
+                        }
                       }
                     ]
                   ]
@@ -1094,7 +1139,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "url"
+                        }
                       }
                     ]
                   ]
@@ -1162,7 +1210,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "date-time"
+                        }
                       }
                     ]
                   ]
@@ -1230,7 +1281,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "date"
+                        }
                       }
                     ]
                   ]
@@ -1298,7 +1352,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "time"
+                        }
                       }
                     ]
                   ]
@@ -1366,7 +1423,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "duration"
+                        }
                       }
                     ]
                   ]
@@ -1434,7 +1494,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "json-pointer"
+                        }
                       }
                     ]
                   ]
@@ -1502,7 +1565,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "relative-json-pointer"
+                        }
                       }
                     ]
                   ]

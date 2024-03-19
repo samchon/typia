@@ -22,7 +22,8 @@ export const test_random_TypeTagCustom = _test_random(
           (generator?.customs ?? $generator.customs)?.string?.([
             {
               name: "Dollar",
-              kind: "dollar",
+              kind: "monetary",
+              value: "dollar",
             },
           ]) ?? (generator?.string ?? $generator.string)(),
         postfix:

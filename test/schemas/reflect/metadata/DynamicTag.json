@@ -48,7 +48,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 0
+                        }
                       },
                       {
                         "target": "number",
@@ -59,7 +62,11 @@
                         "exclusive": [
                           "exclusiveMaximum",
                           "maximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 10
+                        }
                       }
                     ]
                   ]
@@ -136,7 +143,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uuid"
+                        }
                       }
                     ]
                   ]
@@ -174,7 +184,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "email"
+                        }
                       }
                     ]
                   ]

@@ -19,7 +19,10 @@
                 "name": "Default<false>",
                 "kind": "default",
                 "value": false,
-                "exclusive": true
+                "exclusive": true,
+                "schema": {
+                  "default": false
+                }
               }
             ],
             "x-typia-required": true,
@@ -107,7 +110,10 @@
                     "name": "Default<false>",
                     "kind": "default",
                     "value": false,
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "default": false
+                    }
                   }
                 ]
               }
@@ -132,7 +138,10 @@
                     "name": "Default<false>",
                     "kind": "default",
                     "value": false,
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "default": false
+                    }
                   }
                 ]
               }
@@ -218,7 +227,10 @@
                     "name": "Default<false>",
                     "kind": "default",
                     "value": false,
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "default": false
+                    }
                   }
                 ]
               }

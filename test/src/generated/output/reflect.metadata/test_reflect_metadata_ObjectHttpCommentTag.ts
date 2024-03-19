@@ -220,6 +220,9 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                           validate:
                             "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                           exclusive: true,
+                          schema: {
+                            format: "uuid",
+                          },
                         },
                       ],
                     ],
@@ -298,6 +301,9 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                           value: 10,
                           validate: "10 <= $input.length",
                           exclusive: true,
+                          schema: {
+                            minItems: 10,
+                          },
                         },
                         {
                           name: "MaxItems<100>",
@@ -306,6 +312,9 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                           value: 100,
                           validate: "$input.length <= 100",
                           exclusive: true,
+                          schema: {
+                            maxItems: 100,
+                          },
                         },
                       ],
                     ],
