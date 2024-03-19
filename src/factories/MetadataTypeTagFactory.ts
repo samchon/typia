@@ -4,6 +4,7 @@ import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 
 import { MetadataFactory } from "./MetadataFactory";
+import { MetadataTypeTagSchemaFactory } from "./MetadataTypeTagSchemaFactory";
 
 export namespace MetadataTypeTagFactory {
   export const analyze =
@@ -83,6 +84,7 @@ export namespace MetadataTypeTagFactory {
             value: tag.value,
             validate: tag.validate[type]!,
             exclusive: tag.exclusive,
+            schema: tag.schema,
           });
       validate(report)(type)(output);
 
@@ -256,7 +258,22 @@ export namespace MetadataTypeTagFactory {
           ]),
         );
       })();
-
+      const schema: object | undefined = (() => {
+        const p: Metadata | undefined = find("schema")?.value;
+        if (p === undefined) return undefined;
+        else if (p.size() === 0 && p.isRequired() === false) return undefined;
+        else if (
+          p.size() === 1 &&
+          p.nullable === false &&
+          p.isRequired() === true &&
+          p.any === false
+        )
+          return MetadataTypeTagSchemaFactory.object((msg) =>
+            report("schema")(msg),
+          )(p.objects[0]!);
+        report("schema")("must be an object type");
+        return undefined;
+      })();
       return {
         name: obj.name,
         target,
@@ -264,6 +281,7 @@ export namespace MetadataTypeTagFactory {
         value,
         validate,
         exclusive: exclusive ?? false,
+        schema,
       };
     };
 
@@ -307,6 +325,7 @@ interface ITypeTag {
   value?: undefined | boolean | bigint | number | string;
   validate: Record<string, string>;
   exclusive: boolean | string[];
+  schema?: undefined | any;
 }
 
 const ESSENTIAL_FIELDS = ["target", "kind", "value"];

@@ -291,8 +291,6 @@ exports.MemberSchema = {
 
 
 
-
-
 ## Specialization
 You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
 
@@ -475,6 +473,78 @@ exports.SpecialTagSchema = {
 
 
 
+## Customization
+If what you want is not just filling special properties of JSON schema spec, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type. 
+
+For reference, the custom property must be started with `x-` prefix. It's a rule of JSON schema.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/json-schema-custom.ts" copy showLineNumbers {7-9, 16-18, 22-23}
+import typia, { tags } from "typia";
+ 
+type Monetary<Value extends string> = tags.TagBase<{
+  target: "number";
+  kind: "monetary";
+  value: Value;
+  schema: {
+    "x-monetary": Value;
+  };
+}>;
+
+type Placeholder<Value extends string> = tags.TagBase<{
+  target: "string";
+  kind: "placeholder";
+  value: Value;
+  schema: {
+    "x-placeholder": Value;
+  };
+}>;
+
+interface IAccount {
+  code: string & Placeholder<"Write you account code please">;
+  balance: number & Monetary<"dollar">;
+};
+ 
+typia.json.application<[IAccount]>();
+```
+  </Tab>
+  <Tab>
+```javascript copy filename="examples/bin/json-schema-custom.js" showLineNumbers {14, 18}
+({
+  schemas: [
+    {
+      $ref: "#/components/schemas/IAccount",
+    },
+  ],
+  components: {
+    schemas: {
+      IAccount: {
+        type: "object",
+        properties: {
+          code: {
+            type: "string",
+            "x-placeholder": "Write you account code please",
+          },
+          balance: {
+            type: "number",
+            "x-monetary": "dollar",
+          },
+        },
+        nullable: false,
+        required: ["code", "balance"],
+      },
+    },
+  },
+  purpose: "swagger",
+  surplus: false,
+});
+```
+  </Tab>
+</Tabs>
+
+
+
 
 ## Restrictions
 JSON schema does not support `bigint` type.
@@ -483,7 +553,7 @@ So if you use `bigint` type in one of your onetarget schemas, `typia` will make 
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tab>
-```typescript filename="json.application.ts" showLineNumbers copy
+```typescript filename="json.application.ts" copy showLineNumbers 
 import typia, { tags } from "typia";
 
 interface Something {

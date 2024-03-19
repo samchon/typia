@@ -41,11 +41,15 @@ const application_array_tags =
   (options: JsonApplicationProgrammer.IOptions) =>
   (schema: IJsonSchema.IArray) =>
   (row: IMetadataTypeTag[]): IJsonSchema.IArray => {
-    for (const tag of row.slice().sort((a, b) => a.kind.localeCompare(b.kind)))
+    for (const tag of row
+      .slice()
+      .sort((a, b) => a.kind.localeCompare(b.kind))) {
       if (tag.kind === "minItems" && typeof tag.value === "number")
         schema.minItems = tag.value;
       else if (tag.kind === "maxItems" && typeof tag.value === "number")
         schema.maxItems = tag.value;
+      if (tag.schema) Object.assign(schema, tag.schema);
+    }
     if (options.surplus)
       schema["x-typia-typeTags"] = row.map((tag) => ({
         target: tag.target,
