@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "outDir": "./bin",
     "incremental": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -22,8 +22,8 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "raw",
+    "src",
   ],
   "exclude": [
     "node_modules"
