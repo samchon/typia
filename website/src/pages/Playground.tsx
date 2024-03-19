@@ -8,26 +8,33 @@ import prettierTsPlugin from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
 import ts from "typescript";
+import { Button } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
-import { TypeScriptCompiler } from "../utils/TypeScriptCompiler";
-
-import { RAW } from "../../raw/RAW";
-import { SCRIPT } from "../../raw/SCRIPT";
 import LanguageButton from "../components/playground/LanguageButton";
 import OutputViewer from "../components/playground/OutputViewer";
 import SourceEditor from "../components/playground/SourceEditor";
 import Splitter from "../components/playground/Splitter";
-import { Button } from "@mui/material";
-import { TypeScriptBundler } from "../utils/TypeScriptBundler";
 import ConsoleViewer from "../components/playground/ConsoleViewer";
+import { ICompilerService } from "../compilers/ICompilerService";
+import { Singleton } from "tstl";
+import { WorkerConnector } from "tgrid/lib/protocols/workers/WorkerConnector";
+import { COMPILER_OPTIONS } from "../compilers/COMPILER_OPTIONS";
+import { SCRIPT } from "../../raw/SCRIPT";
+import { RAW } from "../../raw/RAW";
+
+const createCompilerService = new Singleton(async () => {
+  const connector = new WorkerConnector(null, null);
+  await connector.connect("/compilers/index.js");
+  return connector.getDriver<ICompilerService>();
+});
 
 const Playground = () => {
   const [source, setSource] = useState<string | null>(null);
   const [target, setTarget] = useState<"typescript" | "javascript">(
     "javascript",
   );
-  const [output, setOutput] = useState<TypeScriptCompiler.IOutput | null>(null);
+  const [output, setOutput] = useState<ICompilerService.IOutput | null>(null);
   const [consoleBox, setConsoleBox] = useState<ConsoleViewer.IProps>({
     messages: [],
   });
@@ -43,12 +50,14 @@ const Playground = () => {
     } else handleChange(SCRIPT);
   }, []);
 
-  const handleChange = (code: string | undefined) => {
+  const handleChange = async (code: string | undefined) => {
     setSource(code ?? "");
-    const output: TypeScriptCompiler.IOutput = TypeScriptCompiler.build(target)(
+    const service = await createCompilerService.get();
+    const output: ICompilerService.IOutput = await service.compile(
+      target,
       code ?? "",
     );
-    if (code?.length && output.type === "success" && code !== SCRIPT)
+    if (code?.length && output.success && code !== SCRIPT)
       window.history.replaceState(
         null,
         "Typia Playground",
@@ -59,16 +68,18 @@ const Playground = () => {
     setBeautifiedOutput(output);
   };
 
-  const handleTarget = (target: "typescript" | "javascript") => {
+  const handleTarget = async (target: "typescript" | "javascript") => {
     setTarget(target);
-    const output: TypeScriptCompiler.IOutput = TypeScriptCompiler.build(target)(
+    const service = await createCompilerService.get();
+    const output: ICompilerService.IOutput = await service.compile(
+      target,
       source ?? "",
     );
     setBeautifiedOutput(output);
   };
 
-  const setBeautifiedOutput = (output: TypeScriptCompiler.IOutput) => {
-    if (output.type === "error") return setOutput(output);
+  const setBeautifiedOutput = (output: ICompilerService.IOutput) => {
+    if (output.success === false) return setOutput(output);
     format(
       output.content,
       output.target === "javascript"
@@ -87,28 +98,25 @@ const Playground = () => {
           content,
         });
       })
-      .catch((err) => {
-        console.log(err);
-        setOutput(output);
-      });
+      .catch(() => setOutput(output));
   };
 
   const execute = async () => {
-    const output: TypeScriptCompiler.IOutput = TypeScriptCompiler.build(
-      "javascript",
-    )(source ?? "");
-    if (output.type === "error")
+    const service = await createCompilerService.get();
+    const res: ICompilerService.IOutput = await service.bundle(source ?? "");
+    if (res.success === false)
       return setConsoleBox({
         messages: [
           {
             type: "error",
-            value: output.error,
+            value: res.error,
           },
         ],
       });
 
+    const func: Function = new Function("console", res.content);
     const messages: ConsoleViewer.IMessage[] = [];
-    await TypeScriptBundler.builder({
+    func({
       error: (...args: any[]) => {
         console.error(...args);
         args.forEach((value) => messages.push({ type: "error", value }));
@@ -121,7 +129,7 @@ const Playground = () => {
         console.warn(...args);
         args.forEach((value) => messages.push({ type: "warn", value }));
       },
-    })(output.content ?? "");
+    });
     setConsoleBox({ messages });
   };
 
@@ -129,7 +137,7 @@ const Playground = () => {
     <Splitter>
       {source !== null && (
         <SourceEditor
-          options={TypeScriptCompiler.OPTIONS}
+          options={COMPILER_OPTIONS}
           imports={RAW}
           script={source}
           setScript={handleChange}
@@ -190,7 +198,7 @@ const Playground = () => {
             content={
               output === null
                 ? ""
-                : output.type === "success"
+                : output.success === true
                   ? output.diagnostics.length
                     ? output.diagnostics
                         .map((diag) => {
