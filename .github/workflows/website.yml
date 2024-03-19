@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 20.x
       - name: Build
-        working-directory: website 
+        working-directory: website
         run: npm install && npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3

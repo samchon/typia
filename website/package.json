@@ -6,8 +6,8 @@
   "scripts": {
     "build": "rimraf .next && rimraf out && next build && next export && next-sitemap",
     "deploy": "node build/deploy",
-    "dev": "npm run prepare && next dev",
-    "prepare": "node build/raw"
+    "dev": "next dev",
+    "prepare": "node build/raw && webpack"
   },
   "repository": {
     "type": "git",
@@ -30,10 +30,11 @@
     "next": "^13.0.6",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
+    "path": "^0.12.7",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^4.13.0",
+    "tgrid": "^0.9.3-dev.20240319",
     "tstl": "^2.5.13",
     "typescript": "^5.4.2",
     "typia": "^5.5.5"
@@ -45,7 +46,12 @@
     "@types/react": "^18.0.35",
     "gh-pages": "^5.0.0",
     "next-sitemap": "^4.0.7",
+    "process": "^0.11.10",
     "rimraf": "^5.0.0",
-    "ts-node": "^10.9.1"
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.1",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "write-file-webpack-plugin": "^4.5.1"
   }
 }
