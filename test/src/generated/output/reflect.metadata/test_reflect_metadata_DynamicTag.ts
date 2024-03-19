@@ -49,6 +49,9 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
                         value: 0,
                         validate: "0 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 0,
+                        },
                       },
                       {
                         target: "number",
@@ -57,6 +60,10 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
                         value: 10,
                         validate: "$input < 10",
                         exclusive: ["exclusiveMaximum", "maximum"],
+                        schema: {
+                          exclusiveMaximum: true,
+                          maximum: 10,
+                        },
                       },
                     ],
                   ],
@@ -132,6 +139,9 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
                         validate:
                           "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "uuid",
+                        },
                       },
                     ],
                   ],
@@ -168,6 +178,9 @@ export const test_reflect_metadata_DynamicTag = _test_reflect_metadata(
                         validate:
                           "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "email",
+                        },
                       },
                     ],
                   ],

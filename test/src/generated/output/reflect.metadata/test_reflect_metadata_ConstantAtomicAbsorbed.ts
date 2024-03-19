@@ -71,6 +71,9 @@ export const test_reflect_metadata_ConstantAtomicAbsorbed =
                           kind: "default",
                           value: "something",
                           exclusive: true,
+                          schema: {
+                            default: "something",
+                          },
                         },
                       ],
                     ],
@@ -133,6 +136,9 @@ export const test_reflect_metadata_ConstantAtomicAbsorbed =
                           kind: "default",
                           value: 20,
                           exclusive: true,
+                          schema: {
+                            default: 20,
+                          },
                         },
                       ],
                     ],

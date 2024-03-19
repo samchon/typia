@@ -201,6 +201,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                         validate:
                           "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                         exclusive: ["format", "pattern"],
+                        schema: {
+                          format: "uuid",
+                        },
                       },
                     ],
                   ],
@@ -269,6 +272,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                         value: 10,
                         validate: "10 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minItems: 10,
+                        },
                       },
                       {
                         target: "array",
@@ -277,6 +283,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                         value: 100,
                         validate: "$input.length <= 100",
                         exclusive: true,
+                        schema: {
+                          maxItems: 100,
+                        },
                       },
                     ],
                   ],
@@ -340,6 +349,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                         value: 10,
                         validate: "10 <= $input.length",
                         exclusive: true,
+                        schema: {
+                          minItems: 10,
+                        },
                       },
                       {
                         target: "array",
@@ -348,6 +360,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                         value: 100,
                         validate: "$input.length <= 100",
                         exclusive: true,
+                        schema: {
+                          maxItems: 100,
+                        },
                       },
                     ],
                   ],
@@ -392,6 +407,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                     value: 3,
                     validate: "3 <= $input",
                     exclusive: ["minimum", "exclusiveMinimum"],
+                    schema: {
+                      minimum: 3,
+                    },
                   },
                   {
                     target: "number",
@@ -400,6 +418,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                     value: 7,
                     validate: "$input <= 7",
                     exclusive: ["maximum", "exclusiveMaximum"],
+                    schema: {
+                      maximum: 7,
+                    },
                   },
                 ],
               ],
@@ -441,6 +462,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                     value: 3,
                     validate: "3 <= $input.length",
                     exclusive: true,
+                    schema: {
+                      minLength: 3,
+                    },
                   },
                   {
                     target: "string",
@@ -449,6 +473,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                     value: 7,
                     validate: "$input.length <= 7",
                     exclusive: true,
+                    schema: {
+                      maxLength: 7,
+                    },
                   },
                 ],
               ],

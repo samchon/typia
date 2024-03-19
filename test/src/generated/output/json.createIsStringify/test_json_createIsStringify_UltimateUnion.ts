@@ -17,7 +17,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       "object" === typeof input.components &&
       null !== input.components &&
       false === Array.isArray(input.components) &&
-      $io19(input.components) &&
+      $io20(input.components) &&
       ("ajv" === input.purpose || "swagger" === input.purpose) &&
       "boolean" === typeof input.surplus;
     const $io1 = (input: any): boolean =>
@@ -147,8 +147,14 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         (Array.isArray(input.exclusive) &&
           input.exclusive.every((elem: any) => "string" === typeof elem))) &&
       true &&
-      (undefined === input.validate || "string" === typeof input.validate);
-    const $io8 = (input: any): boolean =>
+      (undefined === input.validate || "string" === typeof input.validate) &&
+      (undefined === input.schema ||
+        ("object" === typeof input.schema &&
+          null !== input.schema &&
+          false === Array.isArray(input.schema) &&
+          $io8(input.schema)));
+    const $io8 = (input: any): boolean => true;
+    const $io9 = (input: any): boolean =>
       (undefined === input.minimum ||
         ("number" === typeof input.minimum &&
           Math.floor(input.minimum) === input.minimum &&
@@ -196,7 +202,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io9 = (input: any): boolean =>
+    const $io10 = (input: any): boolean =>
       (undefined === input.minimum ||
         ("number" === typeof input.minimum &&
           Number.isFinite(input.minimum))) &&
@@ -238,7 +244,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io10 = (input: any): boolean =>
+    const $io11 = (input: any): boolean =>
       (undefined === input.minLength ||
         ("number" === typeof input.minLength &&
           Math.floor(input.minLength) === input.minLength &&
@@ -278,7 +284,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io11 = (input: any): boolean =>
+    const $io12 = (input: any): boolean =>
       "object" === typeof input.items &&
       null !== input.items &&
       false === Array.isArray(input.items) &&
@@ -296,7 +302,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input["x-typia-tuple"] ||
         ("object" === typeof input["x-typia-tuple"] &&
           null !== input["x-typia-tuple"] &&
-          $io12(input["x-typia-tuple"]))) &&
+          $io13(input["x-typia-tuple"]))) &&
       (undefined === input["x-typia-typeTags"] ||
         (Array.isArray(input["x-typia-typeTags"]) &&
           input["x-typia-typeTags"].every(
@@ -322,7 +328,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io12 = (input: any): boolean =>
+    const $io13 = (input: any): boolean =>
       Array.isArray(input.items) &&
       input.items.every(
         (elem: any) =>
@@ -359,11 +365,11 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io13 = (input: any): boolean =>
+    const $io14 = (input: any): boolean =>
       "object" === typeof input.properties &&
       null !== input.properties &&
       false === Array.isArray(input.properties) &&
-      $io14(input.properties) &&
+      $io15(input.properties) &&
       (undefined === input.required ||
         (Array.isArray(input.required) &&
           input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -371,7 +377,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input.patternProperties &&
           null !== input.patternProperties &&
           false === Array.isArray(input.patternProperties) &&
-          $io14(input.patternProperties))) &&
+          $io15(input.patternProperties))) &&
       (undefined === input.additionalProperties ||
         ("object" === typeof input.additionalProperties &&
           null !== input.additionalProperties &&
@@ -381,7 +387,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input["x-typia-patternProperties"] &&
           null !== input["x-typia-patternProperties"] &&
           false === Array.isArray(input["x-typia-patternProperties"]) &&
-          $io14(input["x-typia-patternProperties"]))) &&
+          $io15(input["x-typia-patternProperties"]))) &&
       (undefined === input["x-typia-additionalProperties"] ||
         ("object" === typeof input["x-typia-additionalProperties"] &&
           null !== input["x-typia-additionalProperties"] &&
@@ -406,7 +412,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io14 = (input: any): boolean =>
+    const $io15 = (input: any): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
@@ -417,7 +423,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           $iu0(value)
         );
       });
-    const $io15 = (input: any): boolean =>
+    const $io16 = (input: any): boolean =>
       "string" === typeof input.$ref &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -436,7 +442,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io16 = (input: any): boolean =>
+    const $io17 = (input: any): boolean =>
       "null" === input.type &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -455,7 +461,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io17 = (input: any): boolean =>
+    const $io18 = (input: any): boolean =>
       Array.isArray(input.oneOf) &&
       input.oneOf.every(
         (elem: any) =>
@@ -481,7 +487,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io18 = (input: any): boolean =>
+    const $io19 = (input: any): boolean =>
       null !== input.type &&
       undefined === input.type &&
       (undefined === input.deprecated ||
@@ -501,13 +507,13 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io19 = (input: any): boolean =>
+    const $io20 = (input: any): boolean =>
       undefined === input.schemas ||
       ("object" === typeof input.schemas &&
         null !== input.schemas &&
         false === Array.isArray(input.schemas) &&
-        $io20(input.schemas));
-    const $io20 = (input: any): boolean =>
+        $io21(input.schemas));
+    const $io21 = (input: any): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
@@ -518,7 +524,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           $iu1(value)
         );
       });
-    const $io21 = (input: any): boolean =>
+    const $io22 = (input: any): boolean =>
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "boolean" === typeof elem) &&
       "boolean" === input.type &&
@@ -545,7 +551,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io22 = (input: any): boolean =>
+    const $io23 = (input: any): boolean =>
       Array.isArray(input["enum"]) &&
       input["enum"].every(
         (elem: any) => "number" === typeof elem && Number.isFinite(elem),
@@ -575,7 +581,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io23 = (input: any): boolean =>
+    const $io24 = (input: any): boolean =>
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "string" === typeof elem) &&
       "string" === input.type &&
@@ -602,7 +608,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io24 = (input: any): boolean =>
+    const $io25 = (input: any): boolean =>
       (undefined === input["x-typia-typeTags"] ||
         (Array.isArray(input["x-typia-typeTags"]) &&
           input["x-typia-typeTags"].every(
@@ -633,7 +639,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io25 = (input: any): boolean =>
+    const $io26 = (input: any): boolean =>
       (undefined === input.minimum ||
         ("number" === typeof input.minimum &&
           Math.floor(input.minimum) === input.minimum &&
@@ -684,7 +690,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io26 = (input: any): boolean =>
+    const $io27 = (input: any): boolean =>
       (undefined === input.minimum ||
         ("number" === typeof input.minimum &&
           Number.isFinite(input.minimum))) &&
@@ -729,7 +735,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io27 = (input: any): boolean =>
+    const $io28 = (input: any): boolean =>
       (undefined === input.minLength ||
         ("number" === typeof input.minLength &&
           Math.floor(input.minLength) === input.minLength &&
@@ -772,7 +778,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io28 = (input: any): boolean =>
+    const $io29 = (input: any): boolean =>
       "object" === typeof input.items &&
       null !== input.items &&
       false === Array.isArray(input.items) &&
@@ -790,7 +796,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input["x-typia-tuple"] ||
         ("object" === typeof input["x-typia-tuple"] &&
           null !== input["x-typia-tuple"] &&
-          $io12(input["x-typia-tuple"]))) &&
+          $io13(input["x-typia-tuple"]))) &&
       (undefined === input["x-typia-typeTags"] ||
         (Array.isArray(input["x-typia-typeTags"]) &&
           input["x-typia-typeTags"].every(
@@ -819,7 +825,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io29 = (input: any): boolean =>
+    const $io30 = (input: any): boolean =>
       Array.isArray(input.items) &&
       input.items.every(
         (elem: any) =>
@@ -859,11 +865,11 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io30 = (input: any): boolean =>
+    const $io31 = (input: any): boolean =>
       "object" === typeof input.properties &&
       null !== input.properties &&
       false === Array.isArray(input.properties) &&
-      $io14(input.properties) &&
+      $io15(input.properties) &&
       (undefined === input.required ||
         (Array.isArray(input.required) &&
           input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -871,7 +877,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input.patternProperties &&
           null !== input.patternProperties &&
           false === Array.isArray(input.patternProperties) &&
-          $io14(input.patternProperties))) &&
+          $io15(input.patternProperties))) &&
       (undefined === input.additionalProperties ||
         ("object" === typeof input.additionalProperties &&
           null !== input.additionalProperties &&
@@ -881,7 +887,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input["x-typia-patternProperties"] &&
           null !== input["x-typia-patternProperties"] &&
           false === Array.isArray(input["x-typia-patternProperties"]) &&
-          $io14(input["x-typia-patternProperties"]))) &&
+          $io15(input["x-typia-patternProperties"]))) &&
       (undefined === input["x-typia-additionalProperties"] ||
         ("object" === typeof input["x-typia-additionalProperties"] &&
           null !== input["x-typia-additionalProperties"] &&
@@ -909,7 +915,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io31 = (input: any): boolean =>
+    const $io32 = (input: any): boolean =>
       "string" === typeof input.$ref &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -931,7 +937,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io32 = (input: any): boolean =>
+    const $io33 = (input: any): boolean =>
       "null" === input.type &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -953,7 +959,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io33 = (input: any): boolean =>
+    const $io34 = (input: any): boolean =>
       Array.isArray(input.oneOf) &&
       input.oneOf.every(
         (elem: any) =>
@@ -982,7 +988,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io34 = (input: any): boolean =>
+    const $io35 = (input: any): boolean =>
       null !== input.type &&
       undefined === input.type &&
       (undefined === input.deprecated ||
@@ -1007,14 +1013,14 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input.$recursiveAnchor);
     const $iu0 = (input: any): any =>
       (() => {
-        if ("integer" === input.type) return $io8(input);
+        if ("integer" === input.type) return $io9(input);
         else if (
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
           $iu0(input.items)
         )
-          return $io11(input);
+          return $io12(input);
         else if (
           Array.isArray(input.items) &&
           input.items.every(
@@ -1025,33 +1031,33 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
               $iu0(elem),
           )
         )
-          return $io12(input);
-        else if ("object" === input.type) return $io13(input);
-        else if (undefined !== input.$ref) return $io15(input);
-        else if ("null" === input.type) return $io16(input);
-        else if (undefined !== input.oneOf) return $io17(input);
+          return $io13(input);
+        else if ("object" === input.type) return $io14(input);
+        else if (undefined !== input.$ref) return $io16(input);
+        else if ("null" === input.type) return $io17(input);
+        else if (undefined !== input.oneOf) return $io18(input);
         else
           return (() => {
             if ($io5(input)) return $io5(input);
             if ($io4(input)) return $io4(input);
             if ($io1(input)) return $io1(input);
             if ($io6(input)) return $io6(input);
-            if ($io9(input)) return $io9(input);
             if ($io10(input)) return $io10(input);
-            if ($io18(input)) return $io18(input);
+            if ($io11(input)) return $io11(input);
+            if ($io19(input)) return $io19(input);
             return false;
           })();
       })();
     const $iu1 = (input: any): any =>
       (() => {
-        if ("integer" === input.type) return $io25(input);
+        if ("integer" === input.type) return $io26(input);
         else if (
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
           $iu0(input.items)
         )
-          return $io28(input);
+          return $io29(input);
         else if (
           Array.isArray(input.items) &&
           input.items.every(
@@ -1062,20 +1068,20 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
               $iu0(elem),
           )
         )
-          return $io29(input);
-        else if ("object" === input.type) return $io30(input);
-        else if (undefined !== input.$ref) return $io31(input);
-        else if ("null" === input.type) return $io32(input);
-        else if (undefined !== input.oneOf) return $io33(input);
+          return $io30(input);
+        else if ("object" === input.type) return $io31(input);
+        else if (undefined !== input.$ref) return $io32(input);
+        else if ("null" === input.type) return $io33(input);
+        else if (undefined !== input.oneOf) return $io34(input);
         else
           return (() => {
+            if ($io24(input)) return $io24(input);
             if ($io23(input)) return $io23(input);
             if ($io22(input)) return $io22(input);
-            if ($io21(input)) return $io21(input);
-            if ($io24(input)) return $io24(input);
-            if ($io26(input)) return $io26(input);
+            if ($io25(input)) return $io25(input);
             if ($io27(input)) return $io27(input);
-            if ($io34(input)) return $io34(input);
+            if ($io28(input)) return $io28(input);
+            if ($io35(input)) return $io35(input);
             return false;
           })();
       })();
@@ -1211,8 +1217,14 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         (Array.isArray(input.exclusive) &&
           input.exclusive.every((elem: any) => "string" === typeof elem))) &&
       true &&
-      (undefined === input.validate || "string" === typeof input.validate);
-    const $io8 = (input: any): boolean =>
+      (undefined === input.validate || "string" === typeof input.validate) &&
+      (undefined === input.schema ||
+        ("object" === typeof input.schema &&
+          null !== input.schema &&
+          false === Array.isArray(input.schema) &&
+          $io8(input.schema)));
+    const $io8 = (input: any): boolean => true;
+    const $io9 = (input: any): boolean =>
       (undefined === input.minimum ||
         ("number" === typeof input.minimum &&
           Math.floor(input.minimum) === input.minimum &&
@@ -1259,7 +1271,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io9 = (input: any): boolean =>
+    const $io10 = (input: any): boolean =>
       (undefined === input.minimum || "number" === typeof input.minimum) &&
       (undefined === input.maximum || "number" === typeof input.maximum) &&
       (undefined === input.exclusiveMinimum ||
@@ -1295,7 +1307,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io10 = (input: any): boolean =>
+    const $io11 = (input: any): boolean =>
       (undefined === input.minLength ||
         ("number" === typeof input.minLength &&
           Math.floor(input.minLength) === input.minLength &&
@@ -1335,7 +1347,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io11 = (input: any): boolean =>
+    const $io12 = (input: any): boolean =>
       "object" === typeof input.items &&
       null !== input.items &&
       false === Array.isArray(input.items) &&
@@ -1353,7 +1365,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input["x-typia-tuple"] ||
         ("object" === typeof input["x-typia-tuple"] &&
           null !== input["x-typia-tuple"] &&
-          $io12(input["x-typia-tuple"]))) &&
+          $io13(input["x-typia-tuple"]))) &&
       (undefined === input["x-typia-typeTags"] ||
         (Array.isArray(input["x-typia-typeTags"]) &&
           input["x-typia-typeTags"].every(
@@ -1379,7 +1391,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io12 = (input: any): boolean =>
+    const $io13 = (input: any): boolean =>
       Array.isArray(input.items) &&
       input.items.every(
         (elem: any) =>
@@ -1416,11 +1428,11 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io13 = (input: any): boolean =>
+    const $io14 = (input: any): boolean =>
       "object" === typeof input.properties &&
       null !== input.properties &&
       false === Array.isArray(input.properties) &&
-      $io14(input.properties) &&
+      $io15(input.properties) &&
       (undefined === input.required ||
         (Array.isArray(input.required) &&
           input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -1428,7 +1440,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input.patternProperties &&
           null !== input.patternProperties &&
           false === Array.isArray(input.patternProperties) &&
-          $io14(input.patternProperties))) &&
+          $io15(input.patternProperties))) &&
       (undefined === input.additionalProperties ||
         ("object" === typeof input.additionalProperties &&
           null !== input.additionalProperties &&
@@ -1438,7 +1450,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input["x-typia-patternProperties"] &&
           null !== input["x-typia-patternProperties"] &&
           false === Array.isArray(input["x-typia-patternProperties"]) &&
-          $io14(input["x-typia-patternProperties"]))) &&
+          $io15(input["x-typia-patternProperties"]))) &&
       (undefined === input["x-typia-additionalProperties"] ||
         ("object" === typeof input["x-typia-additionalProperties"] &&
           null !== input["x-typia-additionalProperties"] &&
@@ -1463,7 +1475,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io14 = (input: any): boolean =>
+    const $io15 = (input: any): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
@@ -1474,7 +1486,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           $iu0(value)
         );
       });
-    const $io15 = (input: any): boolean =>
+    const $io16 = (input: any): boolean =>
       "string" === typeof input.$ref &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -1493,7 +1505,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io16 = (input: any): boolean =>
+    const $io17 = (input: any): boolean =>
       "null" === input.type &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -1512,7 +1524,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io17 = (input: any): boolean =>
+    const $io18 = (input: any): boolean =>
       Array.isArray(input.oneOf) &&
       input.oneOf.every(
         (elem: any) =>
@@ -1538,7 +1550,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io18 = (input: any): boolean =>
+    const $io19 = (input: any): boolean =>
       null !== input.type &&
       undefined === input.type &&
       (undefined === input.deprecated ||
@@ -1558,13 +1570,13 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input["x-typia-optional"]) &&
       (undefined === input["x-typia-rest"] ||
         "boolean" === typeof input["x-typia-rest"]);
-    const $io19 = (input: any): boolean =>
+    const $io20 = (input: any): boolean =>
       undefined === input.schemas ||
       ("object" === typeof input.schemas &&
         null !== input.schemas &&
         false === Array.isArray(input.schemas) &&
-        $io20(input.schemas));
-    const $io20 = (input: any): boolean =>
+        $io21(input.schemas));
+    const $io21 = (input: any): boolean =>
       Object.keys(input).every((key: any) => {
         const value = input[key];
         if (undefined === value) return true;
@@ -1575,7 +1587,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           $iu1(value)
         );
       });
-    const $io21 = (input: any): boolean =>
+    const $io22 = (input: any): boolean =>
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "boolean" === typeof elem) &&
       "boolean" === input.type &&
@@ -1602,7 +1614,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io22 = (input: any): boolean =>
+    const $io23 = (input: any): boolean =>
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "number" === typeof elem) &&
       "number" === input.type &&
@@ -1629,7 +1641,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io23 = (input: any): boolean =>
+    const $io24 = (input: any): boolean =>
       Array.isArray(input["enum"]) &&
       input["enum"].every((elem: any) => "string" === typeof elem) &&
       "string" === input.type &&
@@ -1656,7 +1668,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io24 = (input: any): boolean =>
+    const $io25 = (input: any): boolean =>
       (undefined === input["x-typia-typeTags"] ||
         (Array.isArray(input["x-typia-typeTags"]) &&
           input["x-typia-typeTags"].every(
@@ -1687,7 +1699,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io25 = (input: any): boolean =>
+    const $io26 = (input: any): boolean =>
       (undefined === input.minimum ||
         ("number" === typeof input.minimum &&
           Math.floor(input.minimum) === input.minimum &&
@@ -1737,7 +1749,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io26 = (input: any): boolean =>
+    const $io27 = (input: any): boolean =>
       (undefined === input.minimum || "number" === typeof input.minimum) &&
       (undefined === input.maximum || "number" === typeof input.maximum) &&
       (undefined === input.exclusiveMinimum ||
@@ -1776,7 +1788,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io27 = (input: any): boolean =>
+    const $io28 = (input: any): boolean =>
       (undefined === input.minLength ||
         ("number" === typeof input.minLength &&
           Math.floor(input.minLength) === input.minLength &&
@@ -1819,7 +1831,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io28 = (input: any): boolean =>
+    const $io29 = (input: any): boolean =>
       "object" === typeof input.items &&
       null !== input.items &&
       false === Array.isArray(input.items) &&
@@ -1837,7 +1849,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input["x-typia-tuple"] ||
         ("object" === typeof input["x-typia-tuple"] &&
           null !== input["x-typia-tuple"] &&
-          $io12(input["x-typia-tuple"]))) &&
+          $io13(input["x-typia-tuple"]))) &&
       (undefined === input["x-typia-typeTags"] ||
         (Array.isArray(input["x-typia-typeTags"]) &&
           input["x-typia-typeTags"].every(
@@ -1866,7 +1878,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io29 = (input: any): boolean =>
+    const $io30 = (input: any): boolean =>
       Array.isArray(input.items) &&
       input.items.every(
         (elem: any) =>
@@ -1906,11 +1918,11 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io30 = (input: any): boolean =>
+    const $io31 = (input: any): boolean =>
       "object" === typeof input.properties &&
       null !== input.properties &&
       false === Array.isArray(input.properties) &&
-      $io14(input.properties) &&
+      $io15(input.properties) &&
       (undefined === input.required ||
         (Array.isArray(input.required) &&
           input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -1918,7 +1930,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input.patternProperties &&
           null !== input.patternProperties &&
           false === Array.isArray(input.patternProperties) &&
-          $io14(input.patternProperties))) &&
+          $io15(input.patternProperties))) &&
       (undefined === input.additionalProperties ||
         ("object" === typeof input.additionalProperties &&
           null !== input.additionalProperties &&
@@ -1928,7 +1940,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         ("object" === typeof input["x-typia-patternProperties"] &&
           null !== input["x-typia-patternProperties"] &&
           false === Array.isArray(input["x-typia-patternProperties"]) &&
-          $io14(input["x-typia-patternProperties"]))) &&
+          $io15(input["x-typia-patternProperties"]))) &&
       (undefined === input["x-typia-additionalProperties"] ||
         ("object" === typeof input["x-typia-additionalProperties"] &&
           null !== input["x-typia-additionalProperties"] &&
@@ -1956,7 +1968,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io31 = (input: any): boolean =>
+    const $io32 = (input: any): boolean =>
       "string" === typeof input.$ref &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -1978,7 +1990,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io32 = (input: any): boolean =>
+    const $io33 = (input: any): boolean =>
       "null" === input.type &&
       (undefined === input.deprecated ||
         "boolean" === typeof input.deprecated) &&
@@ -2000,7 +2012,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io33 = (input: any): boolean =>
+    const $io34 = (input: any): boolean =>
       Array.isArray(input.oneOf) &&
       input.oneOf.every(
         (elem: any) =>
@@ -2029,7 +2041,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       (undefined === input.$id || "string" === typeof input.$id) &&
       (undefined === input.$recursiveAnchor ||
         "boolean" === typeof input.$recursiveAnchor);
-    const $io34 = (input: any): boolean =>
+    const $io35 = (input: any): boolean =>
       null !== input.type &&
       undefined === input.type &&
       (undefined === input.deprecated ||
@@ -2054,14 +2066,14 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         "boolean" === typeof input.$recursiveAnchor);
     const $iu0 = (input: any): any =>
       (() => {
-        if ("integer" === input.type) return $io8(input);
+        if ("integer" === input.type) return $io9(input);
         else if (
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
           $iu0(input.items)
         )
-          return $io11(input);
+          return $io12(input);
         else if (
           Array.isArray(input.items) &&
           input.items.every(
@@ -2072,32 +2084,32 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
               $iu0(elem),
           )
         )
-          return $io12(input);
-        else if ("object" === input.type) return $io13(input);
-        else if (undefined !== input.$ref) return $io15(input);
-        else if ("null" === input.type) return $io16(input);
-        else if (undefined !== input.oneOf) return $io17(input);
+          return $io13(input);
+        else if ("object" === input.type) return $io14(input);
+        else if (undefined !== input.$ref) return $io16(input);
+        else if ("null" === input.type) return $io17(input);
+        else if (undefined !== input.oneOf) return $io18(input);
         else
           return (
             $io5(input) ||
             $io4(input) ||
             $io1(input) ||
             $io6(input) ||
-            $io9(input) ||
             $io10(input) ||
-            $io18(input)
+            $io11(input) ||
+            $io19(input)
           );
       })();
     const $iu1 = (input: any): any =>
       (() => {
-        if ("integer" === input.type) return $io25(input);
+        if ("integer" === input.type) return $io26(input);
         else if (
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
           $iu0(input.items)
         )
-          return $io28(input);
+          return $io29(input);
         else if (
           Array.isArray(input.items) &&
           input.items.every(
@@ -2108,20 +2120,20 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
               $iu0(elem),
           )
         )
-          return $io29(input);
-        else if ("object" === input.type) return $io30(input);
-        else if (undefined !== input.$ref) return $io31(input);
-        else if ("null" === input.type) return $io32(input);
-        else if (undefined !== input.oneOf) return $io33(input);
+          return $io30(input);
+        else if ("object" === input.type) return $io31(input);
+        else if (undefined !== input.$ref) return $io32(input);
+        else if ("null" === input.type) return $io33(input);
+        else if (undefined !== input.oneOf) return $io34(input);
         else
           return (
+            $io24(input) ||
             $io23(input) ||
             $io22(input) ||
-            $io21(input) ||
-            $io24(input) ||
-            $io26(input) ||
+            $io25(input) ||
             $io27(input) ||
-            $io34(input)
+            $io28(input) ||
+            $io35(input)
           );
       })();
     const $string = (typia.json.createIsStringify as any).string;
@@ -2129,7 +2141,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
     const $number = (typia.json.createIsStringify as any).number;
     const $tail = (typia.json.createIsStringify as any).tail;
     const $so0 = (input: any): any =>
-      `{"schemas":${`[${input.schemas.map((elem: any) => $su0(elem)).join(",")}]`},"components":${$so19(input.components)},"purpose":${(() => {
+      `{"schemas":${`[${input.schemas.map((elem: any) => $su0(elem)).join(",")}]`},"components":${$so20(input.components)},"purpose":${(() => {
         if ("string" === typeof input.purpose) return $string(input.purpose);
         if ("string" === typeof input.purpose) return '"' + input.purpose + '"';
         $throws({
@@ -2176,7 +2188,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         });
       })()}}`;
     const $so7 = (input: any): any =>
-      `{${undefined === input.value || "function" === typeof input.value ? "" : `"value":${undefined !== input.value ? JSON.stringify(input.value) : undefined},`}${undefined === input.validate ? "" : `"validate":${undefined !== input.validate ? $string(input.validate) : undefined},`}"target":${(() => {
+      `{${undefined === input.value || "function" === typeof input.value ? "" : `"value":${undefined !== input.value ? JSON.stringify(input.value) : undefined},`}${undefined === input.validate ? "" : `"validate":${undefined !== input.validate ? $string(input.validate) : undefined},`}${undefined === input.schema ? "" : `"schema":${undefined !== input.schema ? "{}" : undefined},`}"target":${(() => {
         if ("string" === typeof input.target) return $string(input.target);
         if ("string" === typeof input.target) return '"' + input.target + '"';
         $throws({
@@ -2192,7 +2204,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.exclusive,
         });
       })()}}`;
-    const $so8 = (input: any): any =>
+    const $so9 = (input: any): any =>
       `{${undefined === input.minimum ? "" : `"minimum":${undefined !== input.minimum ? $number(input.minimum) : undefined},`}${undefined === input.maximum ? "" : `"maximum":${undefined !== input.maximum ? $number(input.maximum) : undefined},`}${undefined === input.exclusiveMinimum ? "" : `"exclusiveMinimum":${undefined !== input.exclusiveMinimum ? input.exclusiveMinimum : undefined},`}${undefined === input.exclusiveMaximum ? "" : `"exclusiveMaximum":${undefined !== input.exclusiveMaximum ? input.exclusiveMaximum : undefined},`}${undefined === input.multipleOf ? "" : `"multipleOf":${undefined !== input.multipleOf ? $number(input.multipleOf) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $number(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2201,7 +2213,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so9 = (input: any): any =>
+    const $so10 = (input: any): any =>
       `{${undefined === input.minimum ? "" : `"minimum":${undefined !== input.minimum ? $number(input.minimum) : undefined},`}${undefined === input.maximum ? "" : `"maximum":${undefined !== input.maximum ? $number(input.maximum) : undefined},`}${undefined === input.exclusiveMinimum ? "" : `"exclusiveMinimum":${undefined !== input.exclusiveMinimum ? input.exclusiveMinimum : undefined},`}${undefined === input.exclusiveMaximum ? "" : `"exclusiveMaximum":${undefined !== input.exclusiveMaximum ? input.exclusiveMaximum : undefined},`}${undefined === input.multipleOf ? "" : `"multipleOf":${undefined !== input.multipleOf ? $number(input.multipleOf) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $number(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2210,7 +2222,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so10 = (input: any): any =>
+    const $so11 = (input: any): any =>
       `{${undefined === input.minLength ? "" : `"minLength":${undefined !== input.minLength ? $number(input.minLength) : undefined},`}${undefined === input.maxLength ? "" : `"maxLength":${undefined !== input.maxLength ? $number(input.maxLength) : undefined},`}${undefined === input.pattern ? "" : `"pattern":${undefined !== input.pattern ? $string(input.pattern) : undefined},`}${undefined === input.format ? "" : `"format":${undefined !== input.format ? $string(input.format) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2219,17 +2231,8 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so11 = (input: any): any =>
-      `{${undefined === input.minItems ? "" : `"minItems":${undefined !== input.minItems ? $number(input.minItems) : undefined},`}${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input["x-typia-tuple"] ? "" : `"x-typia-tuple":${undefined !== input["x-typia-tuple"] ? $so12(input["x-typia-tuple"]) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"items":${$su0(input.items)},"type":${(() => {
-        if ("string" === typeof input.type) return $string(input.type);
-        if ("string" === typeof input.type) return '"' + input.type + '"';
-        $throws({
-          expected: '"array"',
-          value: input.type,
-        });
-      })()}}`;
     const $so12 = (input: any): any =>
-      `{${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"items":${`[${input.items.map((elem: any) => $su0(elem)).join(",")}]`},"minItems":${$number(input.minItems)},"type":${(() => {
+      `{${undefined === input.minItems ? "" : `"minItems":${undefined !== input.minItems ? $number(input.minItems) : undefined},`}${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input["x-typia-tuple"] ? "" : `"x-typia-tuple":${undefined !== input["x-typia-tuple"] ? $so13(input["x-typia-tuple"]) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"items":${$su0(input.items)},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
         $throws({
@@ -2238,7 +2241,16 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         });
       })()}}`;
     const $so13 = (input: any): any =>
-      `{${undefined === input.required ? "" : `"required":${undefined !== input.required ? `[${input.required.map((elem: any) => $string(elem)).join(",")}]` : undefined},`}${undefined === input.patternProperties ? "" : `"patternProperties":${undefined !== input.patternProperties ? $so14(input.patternProperties) : undefined},`}${undefined === input.additionalProperties ? "" : `"additionalProperties":${undefined !== input.additionalProperties ? $su0(input.additionalProperties) : undefined},`}${undefined === input["x-typia-patternProperties"] ? "" : `"x-typia-patternProperties":${undefined !== input["x-typia-patternProperties"] ? $so14(input["x-typia-patternProperties"]) : undefined},`}${undefined === input["x-typia-additionalProperties"] ? "" : `"x-typia-additionalProperties":${undefined !== input["x-typia-additionalProperties"] ? $su0(input["x-typia-additionalProperties"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"properties":${$so14(input.properties)},"type":${(() => {
+      `{${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"items":${`[${input.items.map((elem: any) => $su0(elem)).join(",")}]`},"minItems":${$number(input.minItems)},"type":${(() => {
+        if ("string" === typeof input.type) return $string(input.type);
+        if ("string" === typeof input.type) return '"' + input.type + '"';
+        $throws({
+          expected: '"array"',
+          value: input.type,
+        });
+      })()}}`;
+    const $so14 = (input: any): any =>
+      `{${undefined === input.required ? "" : `"required":${undefined !== input.required ? `[${input.required.map((elem: any) => $string(elem)).join(",")}]` : undefined},`}${undefined === input.patternProperties ? "" : `"patternProperties":${undefined !== input.patternProperties ? $so15(input.patternProperties) : undefined},`}${undefined === input.additionalProperties ? "" : `"additionalProperties":${undefined !== input.additionalProperties ? $su0(input.additionalProperties) : undefined},`}${undefined === input["x-typia-patternProperties"] ? "" : `"x-typia-patternProperties":${undefined !== input["x-typia-patternProperties"] ? $so15(input["x-typia-patternProperties"]) : undefined},`}${undefined === input["x-typia-additionalProperties"] ? "" : `"x-typia-additionalProperties":${undefined !== input["x-typia-additionalProperties"] ? $su0(input["x-typia-additionalProperties"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"properties":${$so15(input.properties)},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
         $throws({
@@ -2246,7 +2258,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so14 = (input: any): any =>
+    const $so15 = (input: any): any =>
       `{${Object.entries(input)
         .map(([key, value]: [string, any]) => {
           if (undefined === value) return "";
@@ -2254,9 +2266,9 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         })
         .filter((str: any) => "" !== str)
         .join(",")}}`;
-    const $so15 = (input: any): any =>
-      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"$ref":${$string(input.$ref)}}`;
     const $so16 = (input: any): any =>
+      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"$ref":${$string(input.$ref)}}`;
+    const $so17 = (input: any): any =>
       `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2265,13 +2277,13 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so17 = (input: any): any =>
-      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"oneOf":${`[${input.oneOf.map((elem: any) => $su0(elem)).join(",")}]`}}`;
     const $so18 = (input: any): any =>
-      `{${$tail(`${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined}`}`)}}`;
+      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"oneOf":${`[${input.oneOf.map((elem: any) => $su0(elem)).join(",")}]`}}`;
     const $so19 = (input: any): any =>
-      `{${$tail(`${undefined === input.schemas ? "" : `"schemas":${undefined !== input.schemas ? $so20(input.schemas) : undefined}`}`)}}`;
+      `{${$tail(`${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined}`}`)}}`;
     const $so20 = (input: any): any =>
+      `{${$tail(`${undefined === input.schemas ? "" : `"schemas":${undefined !== input.schemas ? $so21(input.schemas) : undefined}`}`)}}`;
+    const $so21 = (input: any): any =>
       `{${Object.entries(input)
         .map(([key, value]: [string, any]) => {
           if (undefined === value) return "";
@@ -2279,7 +2291,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         })
         .filter((str: any) => "" !== str)
         .join(",")}}`;
-    const $so21 = (input: any): any =>
+    const $so22 = (input: any): any =>
       `{${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? input["default"] : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"enum":${`[${input["enum"].map((elem: any) => elem).join(",")}]`},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2288,7 +2300,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so22 = (input: any): any =>
+    const $so23 = (input: any): any =>
       `{${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $number(input["default"]) : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"enum":${`[${input["enum"].map((elem: any) => $number(elem)).join(",")}]`},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2297,7 +2309,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so23 = (input: any): any =>
+    const $so24 = (input: any): any =>
       `{${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"enum":${`[${input["enum"].map((elem: any) => $string(elem)).join(",")}]`},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2306,7 +2318,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so24 = (input: any): any =>
+    const $so25 = (input: any): any =>
       `{${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? input["default"] : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2315,7 +2327,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so25 = (input: any): any =>
+    const $so26 = (input: any): any =>
       `{${undefined === input.minimum ? "" : `"minimum":${undefined !== input.minimum ? $number(input.minimum) : undefined},`}${undefined === input.maximum ? "" : `"maximum":${undefined !== input.maximum ? $number(input.maximum) : undefined},`}${undefined === input.exclusiveMinimum ? "" : `"exclusiveMinimum":${undefined !== input.exclusiveMinimum ? input.exclusiveMinimum : undefined},`}${undefined === input.exclusiveMaximum ? "" : `"exclusiveMaximum":${undefined !== input.exclusiveMaximum ? input.exclusiveMaximum : undefined},`}${undefined === input.multipleOf ? "" : `"multipleOf":${undefined !== input.multipleOf ? $number(input.multipleOf) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $number(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2324,7 +2336,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so26 = (input: any): any =>
+    const $so27 = (input: any): any =>
       `{${undefined === input.minimum ? "" : `"minimum":${undefined !== input.minimum ? $number(input.minimum) : undefined},`}${undefined === input.maximum ? "" : `"maximum":${undefined !== input.maximum ? $number(input.maximum) : undefined},`}${undefined === input.exclusiveMinimum ? "" : `"exclusiveMinimum":${undefined !== input.exclusiveMinimum ? input.exclusiveMinimum : undefined},`}${undefined === input.exclusiveMaximum ? "" : `"exclusiveMaximum":${undefined !== input.exclusiveMaximum ? input.exclusiveMaximum : undefined},`}${undefined === input.multipleOf ? "" : `"multipleOf":${undefined !== input.multipleOf ? $number(input.multipleOf) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $number(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2333,7 +2345,7 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so27 = (input: any): any =>
+    const $so28 = (input: any): any =>
       `{${undefined === input.minLength ? "" : `"minLength":${undefined !== input.minLength ? $number(input.minLength) : undefined},`}${undefined === input.maxLength ? "" : `"maxLength":${undefined !== input.maxLength ? $number(input.maxLength) : undefined},`}${undefined === input.pattern ? "" : `"pattern":${undefined !== input.pattern ? $string(input.pattern) : undefined},`}${undefined === input.format ? "" : `"format":${undefined !== input.format ? $string(input.format) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2342,17 +2354,8 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so28 = (input: any): any =>
-      `{${undefined === input.minItems ? "" : `"minItems":${undefined !== input.minItems ? $number(input.minItems) : undefined},`}${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input["x-typia-tuple"] ? "" : `"x-typia-tuple":${undefined !== input["x-typia-tuple"] ? $so12(input["x-typia-tuple"]) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"items":${$su0(input.items)},"type":${(() => {
-        if ("string" === typeof input.type) return $string(input.type);
-        if ("string" === typeof input.type) return '"' + input.type + '"';
-        $throws({
-          expected: '"array"',
-          value: input.type,
-        });
-      })()}}`;
     const $so29 = (input: any): any =>
-      `{${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"items":${`[${input.items.map((elem: any) => $su0(elem)).join(",")}]`},"minItems":${$number(input.minItems)},"type":${(() => {
+      `{${undefined === input.minItems ? "" : `"minItems":${undefined !== input.minItems ? $number(input.minItems) : undefined},`}${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input["x-typia-tuple"] ? "" : `"x-typia-tuple":${undefined !== input["x-typia-tuple"] ? $so13(input["x-typia-tuple"]) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"items":${$su0(input.items)},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
         $throws({
@@ -2361,7 +2364,16 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
         });
       })()}}`;
     const $so30 = (input: any): any =>
-      `{${undefined === input.required ? "" : `"required":${undefined !== input.required ? `[${input.required.map((elem: any) => $string(elem)).join(",")}]` : undefined},`}${undefined === input.patternProperties ? "" : `"patternProperties":${undefined !== input.patternProperties ? $so14(input.patternProperties) : undefined},`}${undefined === input.additionalProperties ? "" : `"additionalProperties":${undefined !== input.additionalProperties ? $su0(input.additionalProperties) : undefined},`}${undefined === input["x-typia-patternProperties"] ? "" : `"x-typia-patternProperties":${undefined !== input["x-typia-patternProperties"] ? $so14(input["x-typia-patternProperties"]) : undefined},`}${undefined === input["x-typia-additionalProperties"] ? "" : `"x-typia-additionalProperties":${undefined !== input["x-typia-additionalProperties"] ? $su0(input["x-typia-additionalProperties"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"properties":${$so14(input.properties)},"type":${(() => {
+      `{${undefined === input.maxItems ? "" : `"maxItems":${undefined !== input.maxItems ? $number(input.maxItems) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"items":${`[${input.items.map((elem: any) => $su0(elem)).join(",")}]`},"minItems":${$number(input.minItems)},"type":${(() => {
+        if ("string" === typeof input.type) return $string(input.type);
+        if ("string" === typeof input.type) return '"' + input.type + '"';
+        $throws({
+          expected: '"array"',
+          value: input.type,
+        });
+      })()}}`;
+    const $so31 = (input: any): any =>
+      `{${undefined === input.required ? "" : `"required":${undefined !== input.required ? `[${input.required.map((elem: any) => $string(elem)).join(",")}]` : undefined},`}${undefined === input.patternProperties ? "" : `"patternProperties":${undefined !== input.patternProperties ? $so15(input.patternProperties) : undefined},`}${undefined === input.additionalProperties ? "" : `"additionalProperties":${undefined !== input.additionalProperties ? $su0(input.additionalProperties) : undefined},`}${undefined === input["x-typia-patternProperties"] ? "" : `"x-typia-patternProperties":${undefined !== input["x-typia-patternProperties"] ? $so15(input["x-typia-patternProperties"]) : undefined},`}${undefined === input["x-typia-additionalProperties"] ? "" : `"x-typia-additionalProperties":${undefined !== input["x-typia-additionalProperties"] ? $su0(input["x-typia-additionalProperties"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"properties":${$so15(input.properties)},"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
         $throws({
@@ -2369,9 +2381,9 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so31 = (input: any): any =>
-      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"$ref":${$string(input.$ref)}}`;
     const $so32 = (input: any): any =>
+      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"$ref":${$string(input.$ref)}}`;
+    const $so33 = (input: any): any =>
       `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
         if ("string" === typeof input.type) return $string(input.type);
         if ("string" === typeof input.type) return '"' + input.type + '"';
@@ -2380,20 +2392,20 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
           value: input.type,
         });
       })()}}`;
-    const $so33 = (input: any): any =>
-      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"oneOf":${`[${input.oneOf.map((elem: any) => $su0(elem)).join(",")}]`}}`;
     const $so34 = (input: any): any =>
+      `{${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"oneOf":${`[${input.oneOf.map((elem: any) => $su0(elem)).join(",")}]`}}`;
+    const $so35 = (input: any): any =>
       `{${$tail(`${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined}`}`)}}`;
     const $su0 = (input: any): any =>
       (() => {
-        if ("integer" === input.type) return $so8(input);
+        if ("integer" === input.type) return $so9(input);
         else if (
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
           $iu0(input.items)
         )
-          return $so11(input);
+          return $so12(input);
         else if (
           Array.isArray(input.items) &&
           input.items.every(
@@ -2404,20 +2416,20 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
               $iu0(elem),
           )
         )
-          return $so12(input);
-        else if ("object" === input.type) return $so13(input);
-        else if (undefined !== input.$ref) return $so15(input);
-        else if ("null" === input.type) return $so16(input);
-        else if (undefined !== input.oneOf) return $so17(input);
+          return $so13(input);
+        else if ("object" === input.type) return $so14(input);
+        else if (undefined !== input.$ref) return $so16(input);
+        else if ("null" === input.type) return $so17(input);
+        else if (undefined !== input.oneOf) return $so18(input);
         else
           return (() => {
             if ($io5(input)) return $so5(input);
             if ($io4(input)) return $so4(input);
             if ($io1(input)) return $so1(input);
             if ($io6(input)) return $so6(input);
-            if ($io9(input)) return $so9(input);
             if ($io10(input)) return $so10(input);
-            if ($io18(input)) return $so18(input);
+            if ($io11(input)) return $so11(input);
+            if ($io19(input)) return $so19(input);
             $throws({
               expected:
                 '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
@@ -2427,14 +2439,14 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
       })();
     const $su1 = (input: any): any =>
       (() => {
-        if ("integer" === input.type) return $so25(input);
+        if ("integer" === input.type) return $so26(input);
         else if (
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
           $iu0(input.items)
         )
-          return $so28(input);
+          return $so29(input);
         else if (
           Array.isArray(input.items) &&
           input.items.every(
@@ -2445,20 +2457,20 @@ export const test_json_createIsStringify_UltimateUnion = _test_json_isStringify(
               $iu0(elem),
           )
         )
-          return $so29(input);
-        else if ("object" === input.type) return $so30(input);
-        else if (undefined !== input.$ref) return $so31(input);
-        else if ("null" === input.type) return $so32(input);
-        else if (undefined !== input.oneOf) return $so33(input);
+          return $so30(input);
+        else if ("object" === input.type) return $so31(input);
+        else if (undefined !== input.$ref) return $so32(input);
+        else if ("null" === input.type) return $so33(input);
+        else if (undefined !== input.oneOf) return $so34(input);
         else
           return (() => {
+            if ($io24(input)) return $so24(input);
             if ($io23(input)) return $so23(input);
             if ($io22(input)) return $so22(input);
-            if ($io21(input)) return $so21(input);
-            if ($io24(input)) return $so24(input);
-            if ($io26(input)) return $so26(input);
+            if ($io25(input)) return $so25(input);
             if ($io27(input)) return $so27(input);
-            if ($io34(input)) return $so34(input);
+            if ($io28(input)) return $so28(input);
+            if ($io35(input)) return $so35(input);
             $throws({
               expected:
                 '(IEnumeration<"string"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"boolean"> & IIdentified | IBoolean & IIdentified | INumber & IIdentified | IString & IIdentified | IUnknown & IIdentified)',

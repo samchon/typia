@@ -23,12 +23,15 @@ export const test_json_application_swagger_standard_TypeTagCustom =
             },
             dollar: {
               type: "string",
+              "x-typia-monetary": "dollar",
             },
             postfix: {
               type: "string",
+              "x-typia-postfix": "abcd",
             },
             powerOf: {
               type: "number",
+              "x-typia-powerOf": 2,
             },
           },
           nullable: false,

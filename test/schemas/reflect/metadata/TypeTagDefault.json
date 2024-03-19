@@ -70,7 +70,10 @@
                         "name": "Default<false>",
                         "kind": "default",
                         "value": false,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": false
+                        }
                       }
                     ]
                   ]
@@ -134,7 +137,10 @@
                         "name": "Default<1>",
                         "kind": "default",
                         "value": 1,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": 1
+                        }
                       }
                     ]
                   ]
@@ -198,7 +204,10 @@
                         "name": "Default<\"two\">",
                         "kind": "default",
                         "value": "two",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": "two"
+                        }
                       }
                     ]
                   ]
@@ -262,7 +271,10 @@
                         "name": "Default<\"Very long text, can you understand it?\">",
                         "kind": "default",
                         "value": "Very long text, can you understand it?",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": "Very long text, can you understand it?"
+                        }
                       }
                     ]
                   ]
@@ -326,7 +338,10 @@
                         "name": "Default<1>",
                         "kind": "default",
                         "value": 1,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": 1
+                        }
                       }
                     ]
                   ]
@@ -340,7 +355,10 @@
                         "name": "Default<\"two\">",
                         "kind": "default",
                         "value": "two",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": "two"
+                        }
                       }
                     ]
                   ]
@@ -354,7 +372,10 @@
                         "name": "Default<false>",
                         "kind": "default",
                         "value": false,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": false
+                        }
                       }
                     ]
                   ]
@@ -426,7 +447,10 @@
                         "name": "Default<false>",
                         "kind": "default",
                         "value": false,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": false
+                        }
                       }
                     ]
                   ]
@@ -494,7 +518,10 @@
                         "name": "Default<1>",
                         "kind": "default",
                         "value": 1,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": 1
+                        }
                       }
                     ]
                   ]
@@ -566,7 +593,10 @@
                         "name": "Default<\"two\">",
                         "kind": "default",
                         "value": "two",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": "two"
+                        }
                       }
                     ]
                   ]
@@ -634,7 +664,10 @@
                         "name": "Default<2>",
                         "kind": "default",
                         "value": 2,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": 2
+                        }
                       }
                     ]
                   ]
@@ -648,7 +681,10 @@
                         "name": "Default<false>",
                         "kind": "default",
                         "value": false,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": false
+                        }
                       }
                     ]
                   ]

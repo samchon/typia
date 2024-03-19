@@ -70,7 +70,10 @@
                         "name": "Default<\"something\">",
                         "kind": "default",
                         "value": "something",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": "something"
+                        }
                       }
                     ]
                   ]
@@ -134,7 +137,10 @@
                         "name": "Default<20>",
                         "kind": "default",
                         "value": 20,
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "default": 20
+                        }
                       }
                     ]
                   ]

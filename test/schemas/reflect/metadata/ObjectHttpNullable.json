@@ -182,7 +182,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 1
+                        }
                       }
                     ]
                   ]

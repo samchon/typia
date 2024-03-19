@@ -1,4 +1,6 @@
-export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
+export type TagBase<
+  Props extends TagBase.IProps<any, any, any, any, any, any>,
+> = {
   /**
    * This is a dummy property for compilation.
    *
@@ -17,6 +19,7 @@ export namespace TagBase {
           [key in Target]?: string;
         },
     Exclusive extends boolean | string[],
+    Schema extends object | undefined,
   > {
     /**
      * Target type.
@@ -64,5 +67,10 @@ export namespace TagBase {
      * @default false
      */
     exclusive?: Exclusive | string[];
+
+    /**
+     * Additional schema info assigned to the {@link IJsonSchema} object.
+     */
+    schema?: Schema;
   }
 }

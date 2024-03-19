@@ -72,6 +72,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: false,
                         exclusive: true,
+                        schema: {
+                          default: false,
+                        },
                       },
                     ],
                   ],
@@ -134,6 +137,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: 1,
                         exclusive: true,
+                        schema: {
+                          default: 1,
+                        },
                       },
                     ],
                   ],
@@ -196,6 +202,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: "two",
                         exclusive: true,
+                        schema: {
+                          default: "two",
+                        },
                       },
                     ],
                   ],
@@ -258,6 +267,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: "Very long text, can you understand it?",
                         exclusive: true,
+                        schema: {
+                          default: "Very long text, can you understand it?",
+                        },
                       },
                     ],
                   ],
@@ -320,6 +332,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: 1,
                         exclusive: true,
+                        schema: {
+                          default: 1,
+                        },
                       },
                     ],
                   ],
@@ -334,6 +349,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: "two",
                         exclusive: true,
+                        schema: {
+                          default: "two",
+                        },
                       },
                     ],
                   ],
@@ -348,6 +366,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: false,
                         exclusive: true,
+                        schema: {
+                          default: false,
+                        },
                       },
                     ],
                   ],
@@ -418,6 +439,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: false,
                         exclusive: true,
+                        schema: {
+                          default: false,
+                        },
                       },
                     ],
                   ],
@@ -484,6 +508,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: 1,
                         exclusive: true,
+                        schema: {
+                          default: 1,
+                        },
                       },
                     ],
                   ],
@@ -554,6 +581,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: "two",
                         exclusive: true,
+                        schema: {
+                          default: "two",
+                        },
                       },
                     ],
                   ],
@@ -620,6 +650,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: 2,
                         exclusive: true,
+                        schema: {
+                          default: 2,
+                        },
                       },
                     ],
                   ],
@@ -634,6 +667,9 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                         kind: "default",
                         value: false,
                         exclusive: true,
+                        schema: {
+                          default: false,
+                        },
                       },
                     ],
                   ],

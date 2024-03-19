@@ -147,7 +147,11 @@
                         "exclusive": [
                           "exclusiveMinimum",
                           "minimum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 3
+                        }
                       }
                     ]
                   ]
@@ -223,7 +227,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       }
                     ]
                   ]
@@ -299,7 +306,11 @@
                         "exclusive": [
                           "exclusiveMaximum",
                           "maximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -375,7 +386,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -451,7 +465,11 @@
                         "exclusive": [
                           "exclusiveMinimum",
                           "minimum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "number",
@@ -462,7 +480,11 @@
                         "exclusive": [
                           "exclusiveMaximum",
                           "maximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -538,7 +560,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "number",
@@ -549,7 +574,11 @@
                         "exclusive": [
                           "exclusiveMaximum",
                           "maximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -625,7 +654,11 @@
                         "exclusive": [
                           "exclusiveMinimum",
                           "minimum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "number",
@@ -636,7 +669,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -712,7 +748,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "number",
@@ -723,7 +762,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -799,7 +841,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 10
+                        }
                       },
                       {
                         "target": "number",
@@ -810,7 +855,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 10
+                        }
                       }
                     ]
                   ]

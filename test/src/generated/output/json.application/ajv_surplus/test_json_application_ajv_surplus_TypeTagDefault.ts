@@ -28,6 +28,9 @@ export const test_json_application_ajv_surplus_TypeTagDefault =
                   kind: "default",
                   value: false,
                   exclusive: true,
+                  schema: {
+                    default: false,
+                  },
                 },
               ],
               "x-typia-required": true,
@@ -116,6 +119,9 @@ export const test_json_application_ajv_surplus_TypeTagDefault =
                       kind: "default",
                       value: false,
                       exclusive: true,
+                      schema: {
+                        default: false,
+                      },
                     },
                   ],
                 },
@@ -141,6 +147,9 @@ export const test_json_application_ajv_surplus_TypeTagDefault =
                       kind: "default",
                       value: false,
                       exclusive: true,
+                      schema: {
+                        default: false,
+                      },
                     },
                   ],
                 },
@@ -228,6 +237,9 @@ export const test_json_application_ajv_surplus_TypeTagDefault =
                       kind: "default",
                       value: false,
                       exclusive: true,
+                      schema: {
+                        default: false,
+                      },
                     },
                   ],
                 },

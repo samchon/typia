@@ -82,6 +82,9 @@ export const test_reflect_metadata_CommentTagArrayUnion =
                           value: 3,
                           validate: "3 <= $input.length",
                           exclusive: true,
+                          schema: {
+                            minItems: 3,
+                          },
                         },
                         {
                           name: "MaxItems<3>",
@@ -90,6 +93,9 @@ export const test_reflect_metadata_CommentTagArrayUnion =
                           value: 3,
                           validate: "$input.length <= 3",
                           exclusive: true,
+                          schema: {
+                            maxItems: 3,
+                          },
                         },
                       ],
                     ],
@@ -163,6 +169,9 @@ export const test_reflect_metadata_CommentTagArrayUnion =
                           value: 3,
                           validate: "3 <= $input.length",
                           exclusive: true,
+                          schema: {
+                            minItems: 3,
+                          },
                         },
                       ],
                     ],
@@ -236,6 +245,9 @@ export const test_reflect_metadata_CommentTagArrayUnion =
                           value: 7,
                           validate: "$input.length <= 7",
                           exclusive: true,
+                          schema: {
+                            maxItems: 7,
+                          },
                         },
                       ],
                     ],
@@ -309,6 +321,9 @@ export const test_reflect_metadata_CommentTagArrayUnion =
                           value: 3,
                           validate: "3 <= $input.length",
                           exclusive: true,
+                          schema: {
+                            minItems: 3,
+                          },
                         },
                         {
                           name: "MaxItems<7>",
@@ -317,6 +332,9 @@ export const test_reflect_metadata_CommentTagArrayUnion =
                           value: 7,
                           validate: "$input.length <= 7",
                           exclusive: true,
+                          schema: {
+                            maxItems: 7,
+                          },
                         },
                       ],
                     ],

@@ -468,9 +468,20 @@ export const test_json_application_swagger_surplus_UltimateUnion =
               "x-typia-required": false,
               "x-typia-optional": true,
             },
+            schema: {
+              $ref: "#/components/schemas/object",
+              "x-typia-required": false,
+              "x-typia-optional": true,
+            },
           },
           nullable: false,
           required: ["target", "name", "kind", "exclusive"],
+          "x-typia-jsDocTags": [],
+        },
+        object: {
+          type: "object",
+          properties: {},
+          nullable: false,
           "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IInteger": {

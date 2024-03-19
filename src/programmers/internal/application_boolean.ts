@@ -19,17 +19,26 @@ export const application_boolean =
       type: "boolean",
     };
     const defaultTags: IMetadataTypeTag[] = atomic.tags
-      .filter((row) => row.some((tag) => tag.kind === "default"))
-      .map((row) => row.filter((tag) => tag.kind === "default"))
+      .filter((row) =>
+        row.some((tag) => tag.kind === "default" || tag.schema !== undefined),
+      )
+      .map((row) =>
+        row.filter((tag) => tag.kind === "default" || tag.schema !== undefined),
+      )
       .flat();
     if (defaultTags.length === 0) return [base];
     return defaultTags.map((tag) => ({
       ...base,
-      default: tag.value,
+      ...(tag.kind === "default"
+        ? {
+            default: tag.value,
+          }
+        : {}),
       ...(options.surplus
         ? {
             "x-typia-typeTags": defaultTags,
           }
         : {}),
+      ...tag.schema,
     }));
   };

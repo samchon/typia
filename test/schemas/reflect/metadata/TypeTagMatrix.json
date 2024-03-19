@@ -76,7 +76,10 @@
                         "kind": "minItems",
                         "value": 3,
                         "validate": "3 <= $input.length",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minItems": 3
+                        }
                       },
                       {
                         "target": "array",
@@ -84,7 +87,10 @@
                         "kind": "maxItems",
                         "value": 3,
                         "validate": "$input.length <= 3",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "maxItems": 3
+                        }
                       }
                     ]
                   ]
@@ -135,7 +141,10 @@
                     "kind": "minItems",
                     "value": 4,
                     "validate": "4 <= $input.length",
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "minItems": 4
+                    }
                   },
                   {
                     "target": "array",
@@ -143,7 +152,10 @@
                     "kind": "maxItems",
                     "value": 4,
                     "validate": "$input.length <= 4",
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "maxItems": 4
+                    }
                   }
                 ]
               ]
@@ -184,7 +196,10 @@
                     "exclusive": [
                       "format",
                       "pattern"
-                    ]
+                    ],
+                    "schema": {
+                      "format": "uuid"
+                    }
                   }
                 ]
               ]

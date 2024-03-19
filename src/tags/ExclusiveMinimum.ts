@@ -6,6 +6,12 @@ export type ExclusiveMinimum<Value extends number | bigint> = TagBase<{
   value: Value;
   validate: `${Numeric<Value>} < $input`;
   exclusive: ["exclusiveMinimum", "minimum"];
+  schema: Value extends number
+    ? {
+        exclusiveMinimum: true;
+        minimum: Value;
+      }
+    : undefined;
 }>;
 
 type Numeric<Value extends number | bigint> = Value extends number

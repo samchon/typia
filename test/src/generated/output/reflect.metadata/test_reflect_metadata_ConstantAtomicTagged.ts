@@ -73,6 +73,9 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                           validate:
                             "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
                           exclusive: ["format", "pattern"],
+                          schema: {
+                            format: "uuid",
+                          },
                         },
                       ],
                     ],
@@ -150,6 +153,9 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                           value: 100,
                           validate: "$input <= 100",
                           exclusive: ["maximum", "exclusiveMaximum"],
+                          schema: {
+                            maximum: 100,
+                          },
                         },
                       ],
                     ],

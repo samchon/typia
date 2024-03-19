@@ -26,7 +26,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "object" === typeof input.components &&
           null !== input.components &&
           false === Array.isArray(input.components) &&
-          $io19(input.components) &&
+          $io20(input.components) &&
           ("ajv" === input.purpose || "swagger" === input.purpose) &&
           "boolean" === typeof input.surplus;
         const $io1 = (input: any): boolean =>
@@ -162,8 +162,15 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 (elem: any) => "string" === typeof elem,
               ))) &&
           true &&
-          (undefined === input.validate || "string" === typeof input.validate);
-        const $io8 = (input: any): boolean =>
+          (undefined === input.validate ||
+            "string" === typeof input.validate) &&
+          (undefined === input.schema ||
+            ("object" === typeof input.schema &&
+              null !== input.schema &&
+              false === Array.isArray(input.schema) &&
+              $io8(input.schema)));
+        const $io8 = (input: any): boolean => true;
+        const $io9 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Math.floor(input.minimum) === input.minimum &&
@@ -212,7 +219,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io9 = (input: any): boolean =>
+        const $io10 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Number.isFinite(input.minimum))) &&
@@ -255,7 +262,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io10 = (input: any): boolean =>
+        const $io11 = (input: any): boolean =>
           (undefined === input.minLength ||
             ("number" === typeof input.minLength &&
               Math.floor(input.minLength) === input.minLength &&
@@ -296,7 +303,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io11 = (input: any): boolean =>
+        const $io12 = (input: any): boolean =>
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
@@ -314,7 +321,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input["x-typia-tuple"] ||
             ("object" === typeof input["x-typia-tuple"] &&
               null !== input["x-typia-tuple"] &&
-              $io12(input["x-typia-tuple"]))) &&
+              $io13(input["x-typia-tuple"]))) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -341,7 +348,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io12 = (input: any): boolean =>
+        const $io13 = (input: any): boolean =>
           Array.isArray(input.items) &&
           input.items.every(
             (elem: any) =>
@@ -379,11 +386,11 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io13 = (input: any): boolean =>
+        const $io14 = (input: any): boolean =>
           "object" === typeof input.properties &&
           null !== input.properties &&
           false === Array.isArray(input.properties) &&
-          $io14(input.properties) &&
+          $io15(input.properties) &&
           (undefined === input.required ||
             (Array.isArray(input.required) &&
               input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -391,7 +398,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             ("object" === typeof input.patternProperties &&
               null !== input.patternProperties &&
               false === Array.isArray(input.patternProperties) &&
-              $io14(input.patternProperties))) &&
+              $io15(input.patternProperties))) &&
           (undefined === input.additionalProperties ||
             ("object" === typeof input.additionalProperties &&
               null !== input.additionalProperties &&
@@ -401,7 +408,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             ("object" === typeof input["x-typia-patternProperties"] &&
               null !== input["x-typia-patternProperties"] &&
               false === Array.isArray(input["x-typia-patternProperties"]) &&
-              $io14(input["x-typia-patternProperties"]))) &&
+              $io15(input["x-typia-patternProperties"]))) &&
           (undefined === input["x-typia-additionalProperties"] ||
             ("object" === typeof input["x-typia-additionalProperties"] &&
               null !== input["x-typia-additionalProperties"] &&
@@ -427,7 +434,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io14 = (input: any): boolean =>
+        const $io15 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
@@ -438,7 +445,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
               $iu0(value)
             );
           });
-        const $io15 = (input: any): boolean =>
+        const $io16 = (input: any): boolean =>
           "string" === typeof input.$ref &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -457,7 +464,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io16 = (input: any): boolean =>
+        const $io17 = (input: any): boolean =>
           "null" === input.type &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -476,7 +483,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io17 = (input: any): boolean =>
+        const $io18 = (input: any): boolean =>
           Array.isArray(input.oneOf) &&
           input.oneOf.every(
             (elem: any) =>
@@ -502,7 +509,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io18 = (input: any): boolean =>
+        const $io19 = (input: any): boolean =>
           null !== input.type &&
           undefined === input.type &&
           (undefined === input.deprecated ||
@@ -522,13 +529,13 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io19 = (input: any): boolean =>
+        const $io20 = (input: any): boolean =>
           undefined === input.schemas ||
           ("object" === typeof input.schemas &&
             null !== input.schemas &&
             false === Array.isArray(input.schemas) &&
-            $io20(input.schemas));
-        const $io20 = (input: any): boolean =>
+            $io21(input.schemas));
+        const $io21 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
@@ -539,7 +546,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
               $iu1(value)
             );
           });
-        const $io21 = (input: any): boolean =>
+        const $io22 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every((elem: any) => "boolean" === typeof elem) &&
           "boolean" === input.type &&
@@ -567,7 +574,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io22 = (input: any): boolean =>
+        const $io23 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every(
             (elem: any) => "number" === typeof elem && Number.isFinite(elem),
@@ -598,7 +605,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io23 = (input: any): boolean =>
+        const $io24 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every((elem: any) => "string" === typeof elem) &&
           "string" === input.type &&
@@ -626,7 +633,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io24 = (input: any): boolean =>
+        const $io25 = (input: any): boolean =>
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -658,7 +665,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io25 = (input: any): boolean =>
+        const $io26 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Math.floor(input.minimum) === input.minimum &&
@@ -710,7 +717,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io26 = (input: any): boolean =>
+        const $io27 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Number.isFinite(input.minimum))) &&
@@ -756,7 +763,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io27 = (input: any): boolean =>
+        const $io28 = (input: any): boolean =>
           (undefined === input.minLength ||
             ("number" === typeof input.minLength &&
               Math.floor(input.minLength) === input.minLength &&
@@ -800,7 +807,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io28 = (input: any): boolean =>
+        const $io29 = (input: any): boolean =>
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
@@ -818,7 +825,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input["x-typia-tuple"] ||
             ("object" === typeof input["x-typia-tuple"] &&
               null !== input["x-typia-tuple"] &&
-              $io12(input["x-typia-tuple"]))) &&
+              $io13(input["x-typia-tuple"]))) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -848,7 +855,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io29 = (input: any): boolean =>
+        const $io30 = (input: any): boolean =>
           Array.isArray(input.items) &&
           input.items.every(
             (elem: any) =>
@@ -889,11 +896,11 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io30 = (input: any): boolean =>
+        const $io31 = (input: any): boolean =>
           "object" === typeof input.properties &&
           null !== input.properties &&
           false === Array.isArray(input.properties) &&
-          $io14(input.properties) &&
+          $io15(input.properties) &&
           (undefined === input.required ||
             (Array.isArray(input.required) &&
               input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -901,7 +908,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             ("object" === typeof input.patternProperties &&
               null !== input.patternProperties &&
               false === Array.isArray(input.patternProperties) &&
-              $io14(input.patternProperties))) &&
+              $io15(input.patternProperties))) &&
           (undefined === input.additionalProperties ||
             ("object" === typeof input.additionalProperties &&
               null !== input.additionalProperties &&
@@ -911,7 +918,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             ("object" === typeof input["x-typia-patternProperties"] &&
               null !== input["x-typia-patternProperties"] &&
               false === Array.isArray(input["x-typia-patternProperties"]) &&
-              $io14(input["x-typia-patternProperties"]))) &&
+              $io15(input["x-typia-patternProperties"]))) &&
           (undefined === input["x-typia-additionalProperties"] ||
             ("object" === typeof input["x-typia-additionalProperties"] &&
               null !== input["x-typia-additionalProperties"] &&
@@ -940,7 +947,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io31 = (input: any): boolean =>
+        const $io32 = (input: any): boolean =>
           "string" === typeof input.$ref &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -962,7 +969,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io32 = (input: any): boolean =>
+        const $io33 = (input: any): boolean =>
           "null" === input.type &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -984,7 +991,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io33 = (input: any): boolean =>
+        const $io34 = (input: any): boolean =>
           Array.isArray(input.oneOf) &&
           input.oneOf.every(
             (elem: any) =>
@@ -1013,7 +1020,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io34 = (input: any): boolean =>
+        const $io35 = (input: any): boolean =>
           null !== input.type &&
           undefined === input.type &&
           (undefined === input.deprecated ||
@@ -1038,14 +1045,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             "boolean" === typeof input.$recursiveAnchor);
         const $iu0 = (input: any): any =>
           (() => {
-            if ("integer" === input.type) return $io8(input);
+            if ("integer" === input.type) return $io9(input);
             else if (
               "object" === typeof input.items &&
               null !== input.items &&
               false === Array.isArray(input.items) &&
               $iu0(input.items)
             )
-              return $io11(input);
+              return $io12(input);
             else if (
               Array.isArray(input.items) &&
               input.items.every(
@@ -1056,33 +1063,33 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   $iu0(elem),
               )
             )
-              return $io12(input);
-            else if ("object" === input.type) return $io13(input);
-            else if (undefined !== input.$ref) return $io15(input);
-            else if ("null" === input.type) return $io16(input);
-            else if (undefined !== input.oneOf) return $io17(input);
+              return $io13(input);
+            else if ("object" === input.type) return $io14(input);
+            else if (undefined !== input.$ref) return $io16(input);
+            else if ("null" === input.type) return $io17(input);
+            else if (undefined !== input.oneOf) return $io18(input);
             else
               return (() => {
                 if ($io5(input)) return $io5(input);
                 if ($io4(input)) return $io4(input);
                 if ($io1(input)) return $io1(input);
                 if ($io6(input)) return $io6(input);
-                if ($io9(input)) return $io9(input);
                 if ($io10(input)) return $io10(input);
-                if ($io18(input)) return $io18(input);
+                if ($io11(input)) return $io11(input);
+                if ($io19(input)) return $io19(input);
                 return false;
               })();
           })();
         const $iu1 = (input: any): any =>
           (() => {
-            if ("integer" === input.type) return $io25(input);
+            if ("integer" === input.type) return $io26(input);
             else if (
               "object" === typeof input.items &&
               null !== input.items &&
               false === Array.isArray(input.items) &&
               $iu0(input.items)
             )
-              return $io28(input);
+              return $io29(input);
             else if (
               Array.isArray(input.items) &&
               input.items.every(
@@ -1093,20 +1100,20 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   $iu0(elem),
               )
             )
-              return $io29(input);
-            else if ("object" === input.type) return $io30(input);
-            else if (undefined !== input.$ref) return $io31(input);
-            else if ("null" === input.type) return $io32(input);
-            else if (undefined !== input.oneOf) return $io33(input);
+              return $io30(input);
+            else if ("object" === input.type) return $io31(input);
+            else if (undefined !== input.$ref) return $io32(input);
+            else if ("null" === input.type) return $io33(input);
+            else if (undefined !== input.oneOf) return $io34(input);
             else
               return (() => {
+                if ($io24(input)) return $io24(input);
                 if ($io23(input)) return $io23(input);
                 if ($io22(input)) return $io22(input);
-                if ($io21(input)) return $io21(input);
-                if ($io24(input)) return $io24(input);
-                if ($io26(input)) return $io26(input);
+                if ($io25(input)) return $io25(input);
                 if ($io27(input)) return $io27(input);
-                if ($io34(input)) return $io34(input);
+                if ($io28(input)) return $io28(input);
+                if ($io35(input)) return $io35(input);
                 return false;
               })();
           })();
@@ -1193,7 +1200,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               )) &&
-              $ao19(
+              $ao20(
                 input.components,
                 _path + ".components",
                 true && _exceptionable,
@@ -2168,8 +2175,40 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   value: input.validate,
                 },
                 errorFactory,
+              )) &&
+            (undefined === input.schema ||
+              ((("object" === typeof input.schema &&
+                null !== input.schema &&
+                false === Array.isArray(input.schema)) ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".schema",
+                    expected: "(object | undefined)",
+                    value: input.schema,
+                  },
+                  errorFactory,
+                )) &&
+                $ao8(
+                  input.schema,
+                  _path + ".schema",
+                  true && _exceptionable,
+                )) ||
+              $guard(
+                _exceptionable,
+                {
+                  path: _path + ".schema",
+                  expected: "(object | undefined)",
+                  value: input.schema,
+                },
+                errorFactory,
               ));
           const $ao8 = (
+            input: any,
+            _path: string,
+            _exceptionable: boolean = true,
+          ): boolean => true;
+          const $ao9 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -2460,7 +2499,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao9 = (
+          const $ao10 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -2718,7 +2757,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao10 = (
+          const $ao11 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -2985,7 +3024,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao11 = (
+          const $ao12 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -3072,7 +3111,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   },
                   errorFactory,
                 )) &&
-                $ao12(
+                $ao13(
                   input["x-typia-tuple"],
                   _path + '["x-typia-tuple"]',
                   true && _exceptionable,
@@ -3269,7 +3308,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao12 = (
+          const $ao13 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -3504,7 +3543,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao13 = (
+          const $ao14 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -3521,7 +3560,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               )) &&
-              $ao14(
+              $ao15(
                 input.properties,
                 _path + ".properties",
                 true && _exceptionable,
@@ -3581,7 +3620,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   },
                   errorFactory,
                 )) &&
-                $ao14(
+                $ao15(
                   input.patternProperties,
                   _path + ".patternProperties",
                   true && _exceptionable,
@@ -3637,7 +3676,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   },
                   errorFactory,
                 )) &&
-                $ao14(
+                $ao15(
                   input["x-typia-patternProperties"],
                   _path + '["x-typia-patternProperties"]',
                   true && _exceptionable,
@@ -3816,7 +3855,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao14 = (
+          const $ao15 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -3852,7 +3891,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 )
               );
             });
-          const $ao15 = (
+          const $ao16 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -3981,7 +4020,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao16 = (
+          const $ao17 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4110,7 +4149,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao17 = (
+          const $ao18 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4279,7 +4318,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao18 = (
+          const $ao19 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4418,7 +4457,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao19 = (
+          const $ao20 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4437,7 +4476,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               )) &&
-              $ao20(
+              $ao21(
                 input.schemas,
                 _path + ".schemas",
                 true && _exceptionable,
@@ -4452,7 +4491,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
               },
               errorFactory,
             );
-          const $ao20 = (
+          const $ao21 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4488,7 +4527,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 )
               );
             });
-          const $ao21 = (
+          const $ao22 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4693,7 +4732,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao22 = (
+          const $ao23 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -4899,7 +4938,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao23 = (
+          const $ao24 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -5104,7 +5143,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao24 = (
+          const $ao25 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -5325,7 +5364,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao25 = (
+          const $ao26 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -5638,7 +5677,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao26 = (
+          const $ao27 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -5918,7 +5957,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao27 = (
+          const $ao28 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -6207,7 +6246,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao28 = (
+          const $ao29 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -6294,7 +6333,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   },
                   errorFactory,
                 )) &&
-                $ao12(
+                $ao13(
                   input["x-typia-tuple"],
                   _path + '["x-typia-tuple"]',
                   true && _exceptionable,
@@ -6513,7 +6552,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao29 = (
+          const $ao30 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -6770,7 +6809,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao30 = (
+          const $ao31 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -6787,7 +6826,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               )) &&
-              $ao14(
+              $ao15(
                 input.properties,
                 _path + ".properties",
                 true && _exceptionable,
@@ -6847,7 +6886,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   },
                   errorFactory,
                 )) &&
-                $ao14(
+                $ao15(
                   input.patternProperties,
                   _path + ".patternProperties",
                   true && _exceptionable,
@@ -6903,7 +6942,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                   },
                   errorFactory,
                 )) &&
-                $ao14(
+                $ao15(
                   input["x-typia-patternProperties"],
                   _path + '["x-typia-patternProperties"]',
                   true && _exceptionable,
@@ -7104,7 +7143,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao31 = (
+          const $ao32 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -7255,7 +7294,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao32 = (
+          const $ao33 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -7406,7 +7445,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao33 = (
+          const $ao34 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -7597,7 +7636,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 },
                 errorFactory,
               ));
-          const $ao34 = (
+          const $ao35 = (
             input: any,
             _path: string,
             _exceptionable: boolean = true,
@@ -7765,14 +7804,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           ): any =>
             (() => {
               if ("integer" === input.type)
-                return $ao8(input, _path, true && _exceptionable);
+                return $ao9(input, _path, true && _exceptionable);
               else if (
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
                 $au0(input.items, _path + ".items", false && _exceptionable)
               )
-                return $ao11(input, _path, true && _exceptionable);
+                return $ao12(input, _path, true && _exceptionable);
               else if (
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -7787,24 +7826,24 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                     ),
                 )
               )
-                return $ao12(input, _path, true && _exceptionable);
-              else if ("object" === input.type)
                 return $ao13(input, _path, true && _exceptionable);
+              else if ("object" === input.type)
+                return $ao14(input, _path, true && _exceptionable);
               else if (undefined !== input.$ref)
-                return $ao15(input, _path, true && _exceptionable);
-              else if ("null" === input.type)
                 return $ao16(input, _path, true && _exceptionable);
-              else if (undefined !== input.oneOf)
+              else if ("null" === input.type)
                 return $ao17(input, _path, true && _exceptionable);
+              else if (undefined !== input.oneOf)
+                return $ao18(input, _path, true && _exceptionable);
               else
                 return (
                   $ao5(input, _path, false && _exceptionable) ||
                   $ao4(input, _path, false && _exceptionable) ||
                   $ao1(input, _path, false && _exceptionable) ||
                   $ao6(input, _path, false && _exceptionable) ||
-                  $ao9(input, _path, false && _exceptionable) ||
                   $ao10(input, _path, false && _exceptionable) ||
-                  $ao18(input, _path, false && _exceptionable) ||
+                  $ao11(input, _path, false && _exceptionable) ||
+                  $ao19(input, _path, false && _exceptionable) ||
                   $guard(
                     _exceptionable,
                     {
@@ -7824,14 +7863,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           ): any =>
             (() => {
               if ("integer" === input.type)
-                return $ao25(input, _path, true && _exceptionable);
+                return $ao26(input, _path, true && _exceptionable);
               else if (
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
                 $au0(input.items, _path + ".items", false && _exceptionable)
               )
-                return $ao28(input, _path, true && _exceptionable);
+                return $ao29(input, _path, true && _exceptionable);
               else if (
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -7846,24 +7885,24 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                     ),
                 )
               )
-                return $ao29(input, _path, true && _exceptionable);
-              else if ("object" === input.type)
                 return $ao30(input, _path, true && _exceptionable);
-              else if (undefined !== input.$ref)
+              else if ("object" === input.type)
                 return $ao31(input, _path, true && _exceptionable);
-              else if ("null" === input.type)
+              else if (undefined !== input.$ref)
                 return $ao32(input, _path, true && _exceptionable);
-              else if (undefined !== input.oneOf)
+              else if ("null" === input.type)
                 return $ao33(input, _path, true && _exceptionable);
+              else if (undefined !== input.oneOf)
+                return $ao34(input, _path, true && _exceptionable);
               else
                 return (
+                  $ao24(input, _path, false && _exceptionable) ||
                   $ao23(input, _path, false && _exceptionable) ||
                   $ao22(input, _path, false && _exceptionable) ||
-                  $ao21(input, _path, false && _exceptionable) ||
-                  $ao24(input, _path, false && _exceptionable) ||
-                  $ao26(input, _path, false && _exceptionable) ||
+                  $ao25(input, _path, false && _exceptionable) ||
                   $ao27(input, _path, false && _exceptionable) ||
-                  $ao34(input, _path, false && _exceptionable) ||
+                  $ao28(input, _path, false && _exceptionable) ||
+                  $ao35(input, _path, false && _exceptionable) ||
                   $guard(
                     _exceptionable,
                     {
@@ -8050,8 +8089,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           (Array.isArray(input.exclusive) &&
             input.exclusive.every((elem: any) => "string" === typeof elem))) &&
         true &&
-        (undefined === input.validate || "string" === typeof input.validate);
-      const $io8 = (input: any): boolean =>
+        (undefined === input.validate || "string" === typeof input.validate) &&
+        (undefined === input.schema ||
+          ("object" === typeof input.schema &&
+            null !== input.schema &&
+            false === Array.isArray(input.schema) &&
+            $io8(input.schema)));
+      const $io8 = (input: any): boolean => true;
+      const $io9 = (input: any): boolean =>
         (undefined === input.minimum ||
           ("number" === typeof input.minimum &&
             Math.floor(input.minimum) === input.minimum &&
@@ -8098,7 +8143,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io9 = (input: any): boolean =>
+      const $io10 = (input: any): boolean =>
         (undefined === input.minimum || "number" === typeof input.minimum) &&
         (undefined === input.maximum || "number" === typeof input.maximum) &&
         (undefined === input.exclusiveMinimum ||
@@ -8134,7 +8179,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io10 = (input: any): boolean =>
+      const $io11 = (input: any): boolean =>
         (undefined === input.minLength ||
           ("number" === typeof input.minLength &&
             Math.floor(input.minLength) === input.minLength &&
@@ -8174,7 +8219,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io11 = (input: any): boolean =>
+      const $io12 = (input: any): boolean =>
         "object" === typeof input.items &&
         null !== input.items &&
         false === Array.isArray(input.items) &&
@@ -8192,7 +8237,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input["x-typia-tuple"] ||
           ("object" === typeof input["x-typia-tuple"] &&
             null !== input["x-typia-tuple"] &&
-            $io12(input["x-typia-tuple"]))) &&
+            $io13(input["x-typia-tuple"]))) &&
         (undefined === input["x-typia-typeTags"] ||
           (Array.isArray(input["x-typia-typeTags"]) &&
             input["x-typia-typeTags"].every(
@@ -8218,7 +8263,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io12 = (input: any): boolean =>
+      const $io13 = (input: any): boolean =>
         Array.isArray(input.items) &&
         input.items.every(
           (elem: any) =>
@@ -8255,11 +8300,11 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io13 = (input: any): boolean =>
+      const $io14 = (input: any): boolean =>
         "object" === typeof input.properties &&
         null !== input.properties &&
         false === Array.isArray(input.properties) &&
-        $io14(input.properties) &&
+        $io15(input.properties) &&
         (undefined === input.required ||
           (Array.isArray(input.required) &&
             input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -8267,7 +8312,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           ("object" === typeof input.patternProperties &&
             null !== input.patternProperties &&
             false === Array.isArray(input.patternProperties) &&
-            $io14(input.patternProperties))) &&
+            $io15(input.patternProperties))) &&
         (undefined === input.additionalProperties ||
           ("object" === typeof input.additionalProperties &&
             null !== input.additionalProperties &&
@@ -8277,7 +8322,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           ("object" === typeof input["x-typia-patternProperties"] &&
             null !== input["x-typia-patternProperties"] &&
             false === Array.isArray(input["x-typia-patternProperties"]) &&
-            $io14(input["x-typia-patternProperties"]))) &&
+            $io15(input["x-typia-patternProperties"]))) &&
         (undefined === input["x-typia-additionalProperties"] ||
           ("object" === typeof input["x-typia-additionalProperties"] &&
             null !== input["x-typia-additionalProperties"] &&
@@ -8302,7 +8347,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io14 = (input: any): boolean =>
+      const $io15 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
@@ -8313,7 +8358,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             $iu0(value)
           );
         });
-      const $io15 = (input: any): boolean =>
+      const $io16 = (input: any): boolean =>
         "string" === typeof input.$ref &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated) &&
@@ -8332,7 +8377,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io16 = (input: any): boolean =>
+      const $io17 = (input: any): boolean =>
         "null" === input.type &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated) &&
@@ -8351,7 +8396,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io17 = (input: any): boolean =>
+      const $io18 = (input: any): boolean =>
         Array.isArray(input.oneOf) &&
         input.oneOf.every(
           (elem: any) =>
@@ -8377,7 +8422,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io18 = (input: any): boolean =>
+      const $io19 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.deprecated ||
@@ -8397,13 +8442,13 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input["x-typia-optional"]) &&
         (undefined === input["x-typia-rest"] ||
           "boolean" === typeof input["x-typia-rest"]);
-      const $io19 = (input: any): boolean =>
+      const $io20 = (input: any): boolean =>
         undefined === input.schemas ||
         ("object" === typeof input.schemas &&
           null !== input.schemas &&
           false === Array.isArray(input.schemas) &&
-          $io20(input.schemas));
-      const $io20 = (input: any): boolean =>
+          $io21(input.schemas));
+      const $io21 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
@@ -8414,7 +8459,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
             $iu1(value)
           );
         });
-      const $io21 = (input: any): boolean =>
+      const $io22 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "boolean" === typeof elem) &&
         "boolean" === input.type &&
@@ -8441,7 +8486,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io22 = (input: any): boolean =>
+      const $io23 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "number" === typeof elem) &&
         "number" === input.type &&
@@ -8468,7 +8513,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io23 = (input: any): boolean =>
+      const $io24 = (input: any): boolean =>
         Array.isArray(input["enum"]) &&
         input["enum"].every((elem: any) => "string" === typeof elem) &&
         "string" === input.type &&
@@ -8495,7 +8540,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io24 = (input: any): boolean =>
+      const $io25 = (input: any): boolean =>
         (undefined === input["x-typia-typeTags"] ||
           (Array.isArray(input["x-typia-typeTags"]) &&
             input["x-typia-typeTags"].every(
@@ -8526,7 +8571,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io25 = (input: any): boolean =>
+      const $io26 = (input: any): boolean =>
         (undefined === input.minimum ||
           ("number" === typeof input.minimum &&
             Math.floor(input.minimum) === input.minimum &&
@@ -8576,7 +8621,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io26 = (input: any): boolean =>
+      const $io27 = (input: any): boolean =>
         (undefined === input.minimum || "number" === typeof input.minimum) &&
         (undefined === input.maximum || "number" === typeof input.maximum) &&
         (undefined === input.exclusiveMinimum ||
@@ -8615,7 +8660,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io27 = (input: any): boolean =>
+      const $io28 = (input: any): boolean =>
         (undefined === input.minLength ||
           ("number" === typeof input.minLength &&
             Math.floor(input.minLength) === input.minLength &&
@@ -8658,7 +8703,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io28 = (input: any): boolean =>
+      const $io29 = (input: any): boolean =>
         "object" === typeof input.items &&
         null !== input.items &&
         false === Array.isArray(input.items) &&
@@ -8676,7 +8721,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input["x-typia-tuple"] ||
           ("object" === typeof input["x-typia-tuple"] &&
             null !== input["x-typia-tuple"] &&
-            $io12(input["x-typia-tuple"]))) &&
+            $io13(input["x-typia-tuple"]))) &&
         (undefined === input["x-typia-typeTags"] ||
           (Array.isArray(input["x-typia-typeTags"]) &&
             input["x-typia-typeTags"].every(
@@ -8705,7 +8750,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io29 = (input: any): boolean =>
+      const $io30 = (input: any): boolean =>
         Array.isArray(input.items) &&
         input.items.every(
           (elem: any) =>
@@ -8745,11 +8790,11 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io30 = (input: any): boolean =>
+      const $io31 = (input: any): boolean =>
         "object" === typeof input.properties &&
         null !== input.properties &&
         false === Array.isArray(input.properties) &&
-        $io14(input.properties) &&
+        $io15(input.properties) &&
         (undefined === input.required ||
           (Array.isArray(input.required) &&
             input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -8757,7 +8802,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           ("object" === typeof input.patternProperties &&
             null !== input.patternProperties &&
             false === Array.isArray(input.patternProperties) &&
-            $io14(input.patternProperties))) &&
+            $io15(input.patternProperties))) &&
         (undefined === input.additionalProperties ||
           ("object" === typeof input.additionalProperties &&
             null !== input.additionalProperties &&
@@ -8767,7 +8812,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           ("object" === typeof input["x-typia-patternProperties"] &&
             null !== input["x-typia-patternProperties"] &&
             false === Array.isArray(input["x-typia-patternProperties"]) &&
-            $io14(input["x-typia-patternProperties"]))) &&
+            $io15(input["x-typia-patternProperties"]))) &&
         (undefined === input["x-typia-additionalProperties"] ||
           ("object" === typeof input["x-typia-additionalProperties"] &&
             null !== input["x-typia-additionalProperties"] &&
@@ -8795,7 +8840,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io31 = (input: any): boolean =>
+      const $io32 = (input: any): boolean =>
         "string" === typeof input.$ref &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated) &&
@@ -8817,7 +8862,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io32 = (input: any): boolean =>
+      const $io33 = (input: any): boolean =>
         "null" === input.type &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated) &&
@@ -8839,7 +8884,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io33 = (input: any): boolean =>
+      const $io34 = (input: any): boolean =>
         Array.isArray(input.oneOf) &&
         input.oneOf.every(
           (elem: any) =>
@@ -8868,7 +8913,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         (undefined === input.$id || "string" === typeof input.$id) &&
         (undefined === input.$recursiveAnchor ||
           "boolean" === typeof input.$recursiveAnchor);
-      const $io34 = (input: any): boolean =>
+      const $io35 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.deprecated ||
@@ -8893,14 +8938,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           "boolean" === typeof input.$recursiveAnchor);
       const $iu0 = (input: any): any =>
         (() => {
-          if ("integer" === input.type) return $io8(input);
+          if ("integer" === input.type) return $io9(input);
           else if (
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
             $iu0(input.items)
           )
-            return $io11(input);
+            return $io12(input);
           else if (
             Array.isArray(input.items) &&
             input.items.every(
@@ -8911,32 +8956,32 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 $iu0(elem),
             )
           )
-            return $io12(input);
-          else if ("object" === input.type) return $io13(input);
-          else if (undefined !== input.$ref) return $io15(input);
-          else if ("null" === input.type) return $io16(input);
-          else if (undefined !== input.oneOf) return $io17(input);
+            return $io13(input);
+          else if ("object" === input.type) return $io14(input);
+          else if (undefined !== input.$ref) return $io16(input);
+          else if ("null" === input.type) return $io17(input);
+          else if (undefined !== input.oneOf) return $io18(input);
           else
             return (
               $io5(input) ||
               $io4(input) ||
               $io1(input) ||
               $io6(input) ||
-              $io9(input) ||
               $io10(input) ||
-              $io18(input)
+              $io11(input) ||
+              $io19(input)
             );
         })();
       const $iu1 = (input: any): any =>
         (() => {
-          if ("integer" === input.type) return $io25(input);
+          if ("integer" === input.type) return $io26(input);
           else if (
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
             $iu0(input.items)
           )
-            return $io28(input);
+            return $io29(input);
           else if (
             Array.isArray(input.items) &&
             input.items.every(
@@ -8947,20 +8992,20 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 $iu0(elem),
             )
           )
-            return $io29(input);
-          else if ("object" === input.type) return $io30(input);
-          else if (undefined !== input.$ref) return $io31(input);
-          else if ("null" === input.type) return $io32(input);
-          else if (undefined !== input.oneOf) return $io33(input);
+            return $io30(input);
+          else if ("object" === input.type) return $io31(input);
+          else if (undefined !== input.$ref) return $io32(input);
+          else if ("null" === input.type) return $io33(input);
+          else if (undefined !== input.oneOf) return $io34(input);
           else
             return (
+              $io24(input) ||
               $io23(input) ||
               $io22(input) ||
-              $io21(input) ||
-              $io24(input) ||
-              $io26(input) ||
+              $io25(input) ||
               $io27(input) ||
-              $io34(input)
+              $io28(input) ||
+              $io35(input)
             );
         })();
       const $any = (typia.misc.createAssertClone as any).any;
@@ -9004,7 +9049,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           : (input.schemas as any),
         components:
           "object" === typeof input.components && null !== input.components
-            ? $co19(input.components)
+            ? $co20(input.components)
             : (input.components as any),
         purpose: input.purpose as any,
         surplus: input.surplus as any,
@@ -9096,29 +9141,12 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
           : (input.exclusive as any),
         value: $any(input.value),
         validate: input.validate as any,
+        schema:
+          "object" === typeof input.schema && null !== input.schema
+            ? $co8(input.schema)
+            : (input.schema as any),
       });
-      const $co8 = (input: any): any => ({
-        minimum: input.minimum as any,
-        maximum: input.maximum as any,
-        exclusiveMinimum: input.exclusiveMinimum as any,
-        exclusiveMaximum: input.exclusiveMaximum as any,
-        multipleOf: input.multipleOf as any,
-        "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
-          ? $cp7(input["x-typia-typeTags"])
-          : (input["x-typia-typeTags"] as any),
-        default: input["default"] as any,
-        type: input.type as any,
-        nullable: input.nullable as any,
-        deprecated: input.deprecated as any,
-        title: input.title as any,
-        description: input.description as any,
-        "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
-          ? $cp3(input["x-typia-jsDocTags"])
-          : (input["x-typia-jsDocTags"] as any),
-        "x-typia-required": input["x-typia-required"] as any,
-        "x-typia-optional": input["x-typia-optional"] as any,
-        "x-typia-rest": input["x-typia-rest"] as any,
-      });
+      const $co8 = (input: any): any => {};
       const $co9 = (input: any): any => ({
         minimum: input.minimum as any,
         maximum: input.maximum as any,
@@ -9142,6 +9170,28 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-rest": input["x-typia-rest"] as any,
       });
       const $co10 = (input: any): any => ({
+        minimum: input.minimum as any,
+        maximum: input.maximum as any,
+        exclusiveMinimum: input.exclusiveMinimum as any,
+        exclusiveMaximum: input.exclusiveMaximum as any,
+        multipleOf: input.multipleOf as any,
+        "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
+          ? $cp7(input["x-typia-typeTags"])
+          : (input["x-typia-typeTags"] as any),
+        default: input["default"] as any,
+        type: input.type as any,
+        nullable: input.nullable as any,
+        deprecated: input.deprecated as any,
+        title: input.title as any,
+        description: input.description as any,
+        "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
+          ? $cp3(input["x-typia-jsDocTags"])
+          : (input["x-typia-jsDocTags"] as any),
+        "x-typia-required": input["x-typia-required"] as any,
+        "x-typia-optional": input["x-typia-optional"] as any,
+        "x-typia-rest": input["x-typia-rest"] as any,
+      });
+      const $co11 = (input: any): any => ({
         minLength: input.minLength as any,
         maxLength: input.maxLength as any,
         pattern: input.pattern as any,
@@ -9162,7 +9212,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co11 = (input: any): any => ({
+      const $co12 = (input: any): any => ({
         items:
           "object" === typeof input.items && null !== input.items
             ? $cu0(input.items)
@@ -9172,7 +9222,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-tuple":
           "object" === typeof input["x-typia-tuple"] &&
           null !== input["x-typia-tuple"]
-            ? $co12(input["x-typia-tuple"])
+            ? $co13(input["x-typia-tuple"])
             : (input["x-typia-tuple"] as any),
         "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
           ? $cp7(input["x-typia-typeTags"])
@@ -9189,7 +9239,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co12 = (input: any): any => ({
+      const $co13 = (input: any): any => ({
         items: Array.isArray(input.items)
           ? $cp1(input.items)
           : (input.items as any),
@@ -9207,10 +9257,10 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co13 = (input: any): any => ({
+      const $co14 = (input: any): any => ({
         properties:
           "object" === typeof input.properties && null !== input.properties
-            ? $co14(input.properties)
+            ? $co15(input.properties)
             : (input.properties as any),
         required: Array.isArray(input.required)
           ? $cp6(input.required)
@@ -9218,7 +9268,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         patternProperties:
           "object" === typeof input.patternProperties &&
           null !== input.patternProperties
-            ? $co14(input.patternProperties)
+            ? $co15(input.patternProperties)
             : (input.patternProperties as any),
         additionalProperties:
           "object" === typeof input.additionalProperties &&
@@ -9228,7 +9278,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-patternProperties":
           "object" === typeof input["x-typia-patternProperties"] &&
           null !== input["x-typia-patternProperties"]
-            ? $co14(input["x-typia-patternProperties"])
+            ? $co15(input["x-typia-patternProperties"])
             : (input["x-typia-patternProperties"] as any),
         "x-typia-additionalProperties":
           "object" === typeof input["x-typia-additionalProperties"] &&
@@ -9247,7 +9297,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co14 = (input: any): any => {
+      const $co15 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {
           if (RegExp(/(.*)/).test(key)) {
@@ -9260,7 +9310,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         }
         return output;
       };
-      const $co15 = (input: any): any => ({
+      const $co16 = (input: any): any => ({
         $ref: input.$ref as any,
         deprecated: input.deprecated as any,
         title: input.title as any,
@@ -9272,7 +9322,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co16 = (input: any): any => ({
+      const $co17 = (input: any): any => ({
         type: input.type as any,
         deprecated: input.deprecated as any,
         title: input.title as any,
@@ -9284,7 +9334,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co17 = (input: any): any => ({
+      const $co18 = (input: any): any => ({
         oneOf: Array.isArray(input.oneOf)
           ? $cp1(input.oneOf)
           : (input.oneOf as any),
@@ -9298,7 +9348,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co18 = (input: any): any => ({
+      const $co19 = (input: any): any => ({
         type: input.type as any,
         deprecated: input.deprecated as any,
         title: input.title as any,
@@ -9310,13 +9360,13 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-optional": input["x-typia-optional"] as any,
         "x-typia-rest": input["x-typia-rest"] as any,
       });
-      const $co19 = (input: any): any => ({
+      const $co20 = (input: any): any => ({
         schemas:
           "object" === typeof input.schemas && null !== input.schemas
-            ? $co20(input.schemas)
+            ? $co21(input.schemas)
             : (input.schemas as any),
       });
-      const $co20 = (input: any): any => {
+      const $co21 = (input: any): any => {
         const output = {} as any;
         for (const [key, value] of Object.entries(input)) {
           if (RegExp(/(.*)/).test(key)) {
@@ -9329,7 +9379,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         }
         return output;
       };
-      const $co21 = (input: any): any => ({
+      const $co22 = (input: any): any => ({
         enum: Array.isArray(input["enum"])
           ? $cp2(input["enum"])
           : (input["enum"] as any),
@@ -9348,7 +9398,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co22 = (input: any): any => ({
+      const $co23 = (input: any): any => ({
         enum: Array.isArray(input["enum"])
           ? $cp5(input["enum"])
           : (input["enum"] as any),
@@ -9367,7 +9417,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co23 = (input: any): any => ({
+      const $co24 = (input: any): any => ({
         enum: Array.isArray(input["enum"])
           ? $cp6(input["enum"])
           : (input["enum"] as any),
@@ -9386,31 +9436,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co24 = (input: any): any => ({
-        "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
-          ? $cp7(input["x-typia-typeTags"])
-          : (input["x-typia-typeTags"] as any),
-        default: input["default"] as any,
-        type: input.type as any,
-        nullable: input.nullable as any,
-        deprecated: input.deprecated as any,
-        title: input.title as any,
-        description: input.description as any,
-        "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
-          ? $cp3(input["x-typia-jsDocTags"])
-          : (input["x-typia-jsDocTags"] as any),
-        "x-typia-required": input["x-typia-required"] as any,
-        "x-typia-optional": input["x-typia-optional"] as any,
-        "x-typia-rest": input["x-typia-rest"] as any,
-        $id: input.$id as any,
-        $recursiveAnchor: input.$recursiveAnchor as any,
-      });
       const $co25 = (input: any): any => ({
-        minimum: input.minimum as any,
-        maximum: input.maximum as any,
-        exclusiveMinimum: input.exclusiveMinimum as any,
-        exclusiveMaximum: input.exclusiveMaximum as any,
-        multipleOf: input.multipleOf as any,
         "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
           ? $cp7(input["x-typia-typeTags"])
           : (input["x-typia-typeTags"] as any),
@@ -9454,6 +9480,30 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
       const $co27 = (input: any): any => ({
+        minimum: input.minimum as any,
+        maximum: input.maximum as any,
+        exclusiveMinimum: input.exclusiveMinimum as any,
+        exclusiveMaximum: input.exclusiveMaximum as any,
+        multipleOf: input.multipleOf as any,
+        "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
+          ? $cp7(input["x-typia-typeTags"])
+          : (input["x-typia-typeTags"] as any),
+        default: input["default"] as any,
+        type: input.type as any,
+        nullable: input.nullable as any,
+        deprecated: input.deprecated as any,
+        title: input.title as any,
+        description: input.description as any,
+        "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
+          ? $cp3(input["x-typia-jsDocTags"])
+          : (input["x-typia-jsDocTags"] as any),
+        "x-typia-required": input["x-typia-required"] as any,
+        "x-typia-optional": input["x-typia-optional"] as any,
+        "x-typia-rest": input["x-typia-rest"] as any,
+        $id: input.$id as any,
+        $recursiveAnchor: input.$recursiveAnchor as any,
+      });
+      const $co28 = (input: any): any => ({
         minLength: input.minLength as any,
         maxLength: input.maxLength as any,
         pattern: input.pattern as any,
@@ -9476,7 +9526,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co28 = (input: any): any => ({
+      const $co29 = (input: any): any => ({
         items:
           "object" === typeof input.items && null !== input.items
             ? $cu0(input.items)
@@ -9486,7 +9536,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-tuple":
           "object" === typeof input["x-typia-tuple"] &&
           null !== input["x-typia-tuple"]
-            ? $co12(input["x-typia-tuple"])
+            ? $co13(input["x-typia-tuple"])
             : (input["x-typia-tuple"] as any),
         "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
           ? $cp7(input["x-typia-typeTags"])
@@ -9505,7 +9555,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co29 = (input: any): any => ({
+      const $co30 = (input: any): any => ({
         items: Array.isArray(input.items)
           ? $cp1(input.items)
           : (input.items as any),
@@ -9525,10 +9575,10 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co30 = (input: any): any => ({
+      const $co31 = (input: any): any => ({
         properties:
           "object" === typeof input.properties && null !== input.properties
-            ? $co14(input.properties)
+            ? $co15(input.properties)
             : (input.properties as any),
         required: Array.isArray(input.required)
           ? $cp6(input.required)
@@ -9536,7 +9586,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         patternProperties:
           "object" === typeof input.patternProperties &&
           null !== input.patternProperties
-            ? $co14(input.patternProperties)
+            ? $co15(input.patternProperties)
             : (input.patternProperties as any),
         additionalProperties:
           "object" === typeof input.additionalProperties &&
@@ -9546,7 +9596,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         "x-typia-patternProperties":
           "object" === typeof input["x-typia-patternProperties"] &&
           null !== input["x-typia-patternProperties"]
-            ? $co14(input["x-typia-patternProperties"])
+            ? $co15(input["x-typia-patternProperties"])
             : (input["x-typia-patternProperties"] as any),
         "x-typia-additionalProperties":
           "object" === typeof input["x-typia-additionalProperties"] &&
@@ -9567,7 +9617,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co31 = (input: any): any => ({
+      const $co32 = (input: any): any => ({
         $ref: input.$ref as any,
         deprecated: input.deprecated as any,
         title: input.title as any,
@@ -9581,7 +9631,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co32 = (input: any): any => ({
+      const $co33 = (input: any): any => ({
         type: input.type as any,
         deprecated: input.deprecated as any,
         title: input.title as any,
@@ -9595,7 +9645,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co33 = (input: any): any => ({
+      const $co34 = (input: any): any => ({
         oneOf: Array.isArray(input.oneOf)
           ? $cp1(input.oneOf)
           : (input.oneOf as any),
@@ -9611,7 +9661,7 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         $id: input.$id as any,
         $recursiveAnchor: input.$recursiveAnchor as any,
       });
-      const $co34 = (input: any): any => ({
+      const $co35 = (input: any): any => ({
         type: input.type as any,
         deprecated: input.deprecated as any,
         title: input.title as any,
@@ -9627,14 +9677,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
       });
       const $cu0 = (input: any): any =>
         (() => {
-          if ("integer" === input.type) return $co8(input);
+          if ("integer" === input.type) return $co9(input);
           else if (
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
             $iu0(input.items)
           )
-            return $co11(input);
+            return $co12(input);
           else if (
             Array.isArray(input.items) &&
             input.items.every(
@@ -9645,20 +9695,20 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 $iu0(elem),
             )
           )
-            return $co12(input);
-          else if ("object" === input.type) return $co13(input);
-          else if (undefined !== input.$ref) return $co15(input);
-          else if ("null" === input.type) return $co16(input);
-          else if (undefined !== input.oneOf) return $co17(input);
+            return $co13(input);
+          else if ("object" === input.type) return $co14(input);
+          else if (undefined !== input.$ref) return $co16(input);
+          else if ("null" === input.type) return $co17(input);
+          else if (undefined !== input.oneOf) return $co18(input);
           else
             return (() => {
               if ($io5(input)) return $co5(input);
               if ($io4(input)) return $co4(input);
               if ($io1(input)) return $co1(input);
               if ($io6(input)) return $co6(input);
-              if ($io9(input)) return $co9(input);
               if ($io10(input)) return $co10(input);
-              if ($io18(input)) return $co18(input);
+              if ($io11(input)) return $co11(input);
+              if ($io19(input)) return $co19(input);
               $throws({
                 expected:
                   '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
@@ -9668,14 +9718,14 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
         })();
       const $cu1 = (input: any): any =>
         (() => {
-          if ("integer" === input.type) return $co25(input);
+          if ("integer" === input.type) return $co26(input);
           else if (
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
             $iu0(input.items)
           )
-            return $co28(input);
+            return $co29(input);
           else if (
             Array.isArray(input.items) &&
             input.items.every(
@@ -9686,20 +9736,20 @@ export const test_misc_createAssertClone_UltimateUnion = _test_misc_assertClone(
                 $iu0(elem),
             )
           )
-            return $co29(input);
-          else if ("object" === input.type) return $co30(input);
-          else if (undefined !== input.$ref) return $co31(input);
-          else if ("null" === input.type) return $co32(input);
-          else if (undefined !== input.oneOf) return $co33(input);
+            return $co30(input);
+          else if ("object" === input.type) return $co31(input);
+          else if (undefined !== input.$ref) return $co32(input);
+          else if ("null" === input.type) return $co33(input);
+          else if (undefined !== input.oneOf) return $co34(input);
           else
             return (() => {
+              if ($io24(input)) return $co24(input);
               if ($io23(input)) return $co23(input);
               if ($io22(input)) return $co22(input);
-              if ($io21(input)) return $co21(input);
-              if ($io24(input)) return $co24(input);
-              if ($io26(input)) return $co26(input);
+              if ($io25(input)) return $co25(input);
               if ($io27(input)) return $co27(input);
-              if ($io34(input)) return $co34(input);
+              if ($io28(input)) return $co28(input);
+              if ($io35(input)) return $co35(input);
               $throws({
                 expected:
                   '(IEnumeration<"string"> & IIdentified | IEnumeration<"number"> & IIdentified | IEnumeration<"boolean"> & IIdentified | IBoolean & IIdentified | INumber & IIdentified | IString & IIdentified | IUnknown & IIdentified)',

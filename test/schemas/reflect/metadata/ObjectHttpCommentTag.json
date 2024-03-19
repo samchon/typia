@@ -221,7 +221,10 @@
                         "kind": "format",
                         "value": "uuid",
                         "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "format": "uuid"
+                        }
                       }
                     ]
                   ]
@@ -301,7 +304,10 @@
                         "kind": "minItems",
                         "value": 10,
                         "validate": "10 <= $input.length",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minItems": 10
+                        }
                       },
                       {
                         "name": "MaxItems<100>",
@@ -309,7 +315,10 @@
                         "kind": "maxItems",
                         "value": 100,
                         "validate": "$input.length <= 100",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "maxItems": 100
+                        }
                       }
                     ]
                   ]

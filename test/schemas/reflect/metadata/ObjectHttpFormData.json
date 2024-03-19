@@ -74,7 +74,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "uuid"
+                        }
                       }
                     ]
                   ]

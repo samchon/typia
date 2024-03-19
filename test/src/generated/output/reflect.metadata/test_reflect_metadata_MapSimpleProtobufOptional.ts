@@ -519,6 +519,9 @@ export const test_reflect_metadata_MapSimpleProtobufOptional =
                                 value: 1,
                                 validate: "1 <= $input.length",
                                 exclusive: true,
+                                schema: {
+                                  minLength: 1,
+                                },
                               },
                             ],
                           ],

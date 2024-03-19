@@ -19,7 +19,7 @@ export const test_json_createValidateParse_UltimateUnion =
             "object" === typeof input.components &&
             null !== input.components &&
             false === Array.isArray(input.components) &&
-            $io19(input.components) &&
+            $io20(input.components) &&
             ("ajv" === input.purpose || "swagger" === input.purpose) &&
             "boolean" === typeof input.surplus;
           const $io1 = (input: any): boolean =>
@@ -156,8 +156,14 @@ export const test_json_createValidateParse_UltimateUnion =
                 ))) &&
             true &&
             (undefined === input.validate ||
-              "string" === typeof input.validate);
-          const $io8 = (input: any): boolean =>
+              "string" === typeof input.validate) &&
+            (undefined === input.schema ||
+              ("object" === typeof input.schema &&
+                null !== input.schema &&
+                false === Array.isArray(input.schema) &&
+                $io8(input.schema)));
+          const $io8 = (input: any): boolean => true;
+          const $io9 = (input: any): boolean =>
             (undefined === input.minimum ||
               ("number" === typeof input.minimum &&
                 Math.floor(input.minimum) === input.minimum &&
@@ -206,7 +212,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io9 = (input: any): boolean =>
+          const $io10 = (input: any): boolean =>
             (undefined === input.minimum ||
               ("number" === typeof input.minimum &&
                 Number.isFinite(input.minimum))) &&
@@ -249,7 +255,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io10 = (input: any): boolean =>
+          const $io11 = (input: any): boolean =>
             (undefined === input.minLength ||
               ("number" === typeof input.minLength &&
                 Math.floor(input.minLength) === input.minLength &&
@@ -291,7 +297,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io11 = (input: any): boolean =>
+          const $io12 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -309,7 +315,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input["x-typia-tuple"] ||
               ("object" === typeof input["x-typia-tuple"] &&
                 null !== input["x-typia-tuple"] &&
-                $io12(input["x-typia-tuple"]))) &&
+                $io13(input["x-typia-tuple"]))) &&
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -336,7 +342,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io12 = (input: any): boolean =>
+          const $io13 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
               (elem: any) =>
@@ -374,11 +380,11 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io13 = (input: any): boolean =>
+          const $io14 = (input: any): boolean =>
             "object" === typeof input.properties &&
             null !== input.properties &&
             false === Array.isArray(input.properties) &&
-            $io14(input.properties) &&
+            $io15(input.properties) &&
             (undefined === input.required ||
               (Array.isArray(input.required) &&
                 input.required.every(
@@ -388,7 +394,7 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.patternProperties &&
                 null !== input.patternProperties &&
                 false === Array.isArray(input.patternProperties) &&
-                $io14(input.patternProperties))) &&
+                $io15(input.patternProperties))) &&
             (undefined === input.additionalProperties ||
               ("object" === typeof input.additionalProperties &&
                 null !== input.additionalProperties &&
@@ -398,7 +404,7 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input["x-typia-patternProperties"] &&
                 null !== input["x-typia-patternProperties"] &&
                 false === Array.isArray(input["x-typia-patternProperties"]) &&
-                $io14(input["x-typia-patternProperties"]))) &&
+                $io15(input["x-typia-patternProperties"]))) &&
             (undefined === input["x-typia-additionalProperties"] ||
               ("object" === typeof input["x-typia-additionalProperties"] &&
                 null !== input["x-typia-additionalProperties"] &&
@@ -425,7 +431,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io14 = (input: any): boolean =>
+          const $io15 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
@@ -436,7 +442,7 @@ export const test_json_createValidateParse_UltimateUnion =
                 $iu0(value)
               );
             });
-          const $io15 = (input: any): boolean =>
+          const $io16 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated) &&
@@ -455,7 +461,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io16 = (input: any): boolean =>
+          const $io17 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated) &&
@@ -474,7 +480,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io17 = (input: any): boolean =>
+          const $io18 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
               (elem: any) =>
@@ -500,7 +506,7 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io18 = (input: any): boolean =>
+          const $io19 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -520,13 +526,13 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
               "boolean" === typeof input["x-typia-rest"]);
-          const $io19 = (input: any): boolean =>
+          const $io20 = (input: any): boolean =>
             undefined === input.schemas ||
             ("object" === typeof input.schemas &&
               null !== input.schemas &&
               false === Array.isArray(input.schemas) &&
-              $io20(input.schemas));
-          const $io20 = (input: any): boolean =>
+              $io21(input.schemas));
+          const $io21 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
@@ -537,7 +543,7 @@ export const test_json_createValidateParse_UltimateUnion =
                 $iu1(value)
               );
             });
-          const $io21 = (input: any): boolean =>
+          const $io22 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
             "boolean" === input.type &&
@@ -565,7 +571,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io22 = (input: any): boolean =>
+          const $io23 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every(
               (elem: any) => "number" === typeof elem && Number.isFinite(elem),
@@ -596,7 +602,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io23 = (input: any): boolean =>
+          const $io24 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
             "string" === input.type &&
@@ -624,7 +630,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io24 = (input: any): boolean =>
+          const $io25 = (input: any): boolean =>
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -656,7 +662,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io25 = (input: any): boolean =>
+          const $io26 = (input: any): boolean =>
             (undefined === input.minimum ||
               ("number" === typeof input.minimum &&
                 Math.floor(input.minimum) === input.minimum &&
@@ -708,7 +714,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io26 = (input: any): boolean =>
+          const $io27 = (input: any): boolean =>
             (undefined === input.minimum ||
               ("number" === typeof input.minimum &&
                 Number.isFinite(input.minimum))) &&
@@ -754,7 +760,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io27 = (input: any): boolean =>
+          const $io28 = (input: any): boolean =>
             (undefined === input.minLength ||
               ("number" === typeof input.minLength &&
                 Math.floor(input.minLength) === input.minLength &&
@@ -799,7 +805,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io28 = (input: any): boolean =>
+          const $io29 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -817,7 +823,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input["x-typia-tuple"] ||
               ("object" === typeof input["x-typia-tuple"] &&
                 null !== input["x-typia-tuple"] &&
-                $io12(input["x-typia-tuple"]))) &&
+                $io13(input["x-typia-tuple"]))) &&
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -847,7 +853,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io29 = (input: any): boolean =>
+          const $io30 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
               (elem: any) =>
@@ -888,11 +894,11 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io30 = (input: any): boolean =>
+          const $io31 = (input: any): boolean =>
             "object" === typeof input.properties &&
             null !== input.properties &&
             false === Array.isArray(input.properties) &&
-            $io14(input.properties) &&
+            $io15(input.properties) &&
             (undefined === input.required ||
               (Array.isArray(input.required) &&
                 input.required.every(
@@ -902,7 +908,7 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.patternProperties &&
                 null !== input.patternProperties &&
                 false === Array.isArray(input.patternProperties) &&
-                $io14(input.patternProperties))) &&
+                $io15(input.patternProperties))) &&
             (undefined === input.additionalProperties ||
               ("object" === typeof input.additionalProperties &&
                 null !== input.additionalProperties &&
@@ -912,7 +918,7 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input["x-typia-patternProperties"] &&
                 null !== input["x-typia-patternProperties"] &&
                 false === Array.isArray(input["x-typia-patternProperties"]) &&
-                $io14(input["x-typia-patternProperties"]))) &&
+                $io15(input["x-typia-patternProperties"]))) &&
             (undefined === input["x-typia-additionalProperties"] ||
               ("object" === typeof input["x-typia-additionalProperties"] &&
                 null !== input["x-typia-additionalProperties"] &&
@@ -942,7 +948,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io31 = (input: any): boolean =>
+          const $io32 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated) &&
@@ -964,7 +970,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io32 = (input: any): boolean =>
+          const $io33 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated) &&
@@ -986,7 +992,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io33 = (input: any): boolean =>
+          const $io34 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
               (elem: any) =>
@@ -1015,7 +1021,7 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
               "boolean" === typeof input.$recursiveAnchor);
-          const $io34 = (input: any): boolean =>
+          const $io35 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -1040,14 +1046,14 @@ export const test_json_createValidateParse_UltimateUnion =
               "boolean" === typeof input.$recursiveAnchor);
           const $iu0 = (input: any): any =>
             (() => {
-              if ("integer" === input.type) return $io8(input);
+              if ("integer" === input.type) return $io9(input);
               else if (
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
                 $iu0(input.items)
               )
-                return $io11(input);
+                return $io12(input);
               else if (
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -1058,33 +1064,33 @@ export const test_json_createValidateParse_UltimateUnion =
                     $iu0(elem),
                 )
               )
-                return $io12(input);
-              else if ("object" === input.type) return $io13(input);
-              else if (undefined !== input.$ref) return $io15(input);
-              else if ("null" === input.type) return $io16(input);
-              else if (undefined !== input.oneOf) return $io17(input);
+                return $io13(input);
+              else if ("object" === input.type) return $io14(input);
+              else if (undefined !== input.$ref) return $io16(input);
+              else if ("null" === input.type) return $io17(input);
+              else if (undefined !== input.oneOf) return $io18(input);
               else
                 return (() => {
                   if ($io5(input)) return $io5(input);
                   if ($io4(input)) return $io4(input);
                   if ($io1(input)) return $io1(input);
                   if ($io6(input)) return $io6(input);
-                  if ($io9(input)) return $io9(input);
                   if ($io10(input)) return $io10(input);
-                  if ($io18(input)) return $io18(input);
+                  if ($io11(input)) return $io11(input);
+                  if ($io19(input)) return $io19(input);
                   return false;
                 })();
             })();
           const $iu1 = (input: any): any =>
             (() => {
-              if ("integer" === input.type) return $io25(input);
+              if ("integer" === input.type) return $io26(input);
               else if (
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
                 $iu0(input.items)
               )
-                return $io28(input);
+                return $io29(input);
               else if (
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -1095,20 +1101,20 @@ export const test_json_createValidateParse_UltimateUnion =
                     $iu0(elem),
                 )
               )
-                return $io29(input);
-              else if ("object" === input.type) return $io30(input);
-              else if (undefined !== input.$ref) return $io31(input);
-              else if ("null" === input.type) return $io32(input);
-              else if (undefined !== input.oneOf) return $io33(input);
+                return $io30(input);
+              else if ("object" === input.type) return $io31(input);
+              else if (undefined !== input.$ref) return $io32(input);
+              else if ("null" === input.type) return $io33(input);
+              else if (undefined !== input.oneOf) return $io34(input);
               else
                 return (() => {
+                  if ($io24(input)) return $io24(input);
                   if ($io23(input)) return $io23(input);
                   if ($io22(input)) return $io22(input);
-                  if ($io21(input)) return $io21(input);
-                  if ($io24(input)) return $io24(input);
-                  if ($io26(input)) return $io26(input);
+                  if ($io25(input)) return $io25(input);
                   if ($io27(input)) return $io27(input);
-                  if ($io34(input)) return $io34(input);
+                  if ($io28(input)) return $io28(input);
+                  if ($io35(input)) return $io35(input);
                   return false;
                 })();
             })();
@@ -1180,7 +1186,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     expected: "IJsonComponents",
                     value: input.components,
                   })) &&
-                  $vo19(
+                  $vo20(
                     input.components,
                     _path + ".components",
                     true && _exceptionable,
@@ -1874,8 +1880,32 @@ export const test_json_createValidateParse_UltimateUnion =
                     expected: "(string | undefined)",
                     value: input.validate,
                   }),
+                undefined === input.schema ||
+                  ((("object" === typeof input.schema &&
+                    null !== input.schema &&
+                    false === Array.isArray(input.schema)) ||
+                    $report(_exceptionable, {
+                      path: _path + ".schema",
+                      expected: "(object | undefined)",
+                      value: input.schema,
+                    })) &&
+                    $vo8(
+                      input.schema,
+                      _path + ".schema",
+                      true && _exceptionable,
+                    )) ||
+                  $report(_exceptionable, {
+                    path: _path + ".schema",
+                    expected: "(object | undefined)",
+                    value: input.schema,
+                  }),
               ].every((flag: boolean) => flag);
             const $vo8 = (
+              input: any,
+              _path: string,
+              _exceptionable: boolean = true,
+            ): boolean => true;
+            const $vo9 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -2080,7 +2110,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo9 = (
+            const $vo10 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -2264,7 +2294,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo10 = (
+            const $vo11 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -2453,7 +2483,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo11 = (
+            const $vo12 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -2517,7 +2547,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(IJsonSchema.ITuple | undefined)",
                       value: input["x-typia-tuple"],
                     })) &&
-                    $vo12(
+                    $vo13(
                       input["x-typia-tuple"],
                       _path + '["x-typia-tuple"]',
                       true && _exceptionable,
@@ -2659,7 +2689,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo12 = (
+            const $vo13 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -2824,7 +2854,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo13 = (
+            const $vo14 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -2838,7 +2868,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     expected: "Record<string, IJsonSchema>",
                     value: input.properties,
                   })) &&
-                  $vo14(
+                  $vo15(
                     input.properties,
                     _path + ".properties",
                     true && _exceptionable,
@@ -2880,7 +2910,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, IJsonSchema> | undefined)",
                       value: input.patternProperties,
                     })) &&
-                    $vo14(
+                    $vo15(
                       input.patternProperties,
                       _path + ".patternProperties",
                       true && _exceptionable,
@@ -2921,7 +2951,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, IJsonSchema> | undefined)",
                       value: input["x-typia-patternProperties"],
                     })) &&
-                    $vo14(
+                    $vo15(
                       input["x-typia-patternProperties"],
                       _path + '["x-typia-patternProperties"]',
                       true && _exceptionable,
@@ -3048,7 +3078,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo14 = (
+            const $vo15 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3084,7 +3114,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);
-            const $vo15 = (
+            const $vo16 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3177,7 +3207,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo16 = (
+            const $vo17 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3270,7 +3300,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo17 = (
+            const $vo18 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3393,7 +3423,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo18 = (
+            const $vo19 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3492,7 +3522,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input["x-typia-rest"],
                   }),
               ].every((flag: boolean) => flag);
-            const $vo19 = (
+            const $vo20 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3508,7 +3538,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         "(Record<string, IJsonComponents.IAlias> | undefined)",
                       value: input.schemas,
                     })) &&
-                    $vo20(
+                    $vo21(
                       input.schemas,
                       _path + ".schemas",
                       true && _exceptionable,
@@ -3520,7 +3550,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.schemas,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo20 = (
+            const $vo21 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3556,7 +3586,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);
-            const $vo21 = (
+            const $vo22 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3699,7 +3729,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo22 = (
+            const $vo23 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3843,7 +3873,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo23 = (
+            const $vo24 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -3986,7 +4016,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo24 = (
+            const $vo25 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -4145,7 +4175,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo25 = (
+            const $vo26 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -4364,7 +4394,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo26 = (
+            const $vo27 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -4562,7 +4592,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo27 = (
+            const $vo28 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -4765,7 +4795,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo28 = (
+            const $vo29 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -4829,7 +4859,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(IJsonSchema.ITuple | undefined)",
                       value: input["x-typia-tuple"],
                     })) &&
-                    $vo12(
+                    $vo13(
                       input["x-typia-tuple"],
                       _path + '["x-typia-tuple"]',
                       true && _exceptionable,
@@ -4985,7 +5015,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo29 = (
+            const $vo30 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -5164,7 +5194,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo30 = (
+            const $vo31 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -5178,7 +5208,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     expected: "Record<string, IJsonSchema>",
                     value: input.properties,
                   })) &&
-                  $vo14(
+                  $vo15(
                     input.properties,
                     _path + ".properties",
                     true && _exceptionable,
@@ -5220,7 +5250,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, IJsonSchema> | undefined)",
                       value: input.patternProperties,
                     })) &&
-                    $vo14(
+                    $vo15(
                       input.patternProperties,
                       _path + ".patternProperties",
                       true && _exceptionable,
@@ -5261,7 +5291,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, IJsonSchema> | undefined)",
                       value: input["x-typia-patternProperties"],
                     })) &&
-                    $vo14(
+                    $vo15(
                       input["x-typia-patternProperties"],
                       _path + '["x-typia-patternProperties"]',
                       true && _exceptionable,
@@ -5402,7 +5432,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo31 = (
+            const $vo32 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -5509,7 +5539,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo32 = (
+            const $vo33 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -5616,7 +5646,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo33 = (
+            const $vo34 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -5753,7 +5783,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.$recursiveAnchor,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo34 = (
+            const $vo35 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -5873,14 +5903,14 @@ export const test_json_createValidateParse_UltimateUnion =
             ): any =>
               (() => {
                 if ("integer" === input.type)
-                  return $vo8(input, _path, true && _exceptionable);
+                  return $vo9(input, _path, true && _exceptionable);
                 else if (
                   "object" === typeof input.items &&
                   null !== input.items &&
                   false === Array.isArray(input.items) &&
                   $vu0(input.items, _path + ".items", false && _exceptionable)
                 )
-                  return $vo11(input, _path, true && _exceptionable);
+                  return $vo12(input, _path, true && _exceptionable);
                 else if (
                   Array.isArray(input.items) &&
                   input.items
@@ -5897,24 +5927,24 @@ export const test_json_createValidateParse_UltimateUnion =
                     )
                     .every((flag: boolean) => flag)
                 )
-                  return $vo12(input, _path, true && _exceptionable);
-                else if ("object" === input.type)
                   return $vo13(input, _path, true && _exceptionable);
+                else if ("object" === input.type)
+                  return $vo14(input, _path, true && _exceptionable);
                 else if (undefined !== input.$ref)
-                  return $vo15(input, _path, true && _exceptionable);
-                else if ("null" === input.type)
                   return $vo16(input, _path, true && _exceptionable);
-                else if (undefined !== input.oneOf)
+                else if ("null" === input.type)
                   return $vo17(input, _path, true && _exceptionable);
+                else if (undefined !== input.oneOf)
+                  return $vo18(input, _path, true && _exceptionable);
                 else
                   return (
                     $vo5(input, _path, false && _exceptionable) ||
                     $vo4(input, _path, false && _exceptionable) ||
                     $vo1(input, _path, false && _exceptionable) ||
                     $vo6(input, _path, false && _exceptionable) ||
-                    $vo9(input, _path, false && _exceptionable) ||
                     $vo10(input, _path, false && _exceptionable) ||
-                    $vo18(input, _path, false && _exceptionable)
+                    $vo11(input, _path, false && _exceptionable) ||
+                    $vo19(input, _path, false && _exceptionable)
                   );
               })();
             const $vu1 = (
@@ -5924,14 +5954,14 @@ export const test_json_createValidateParse_UltimateUnion =
             ): any =>
               (() => {
                 if ("integer" === input.type)
-                  return $vo25(input, _path, true && _exceptionable);
+                  return $vo26(input, _path, true && _exceptionable);
                 else if (
                   "object" === typeof input.items &&
                   null !== input.items &&
                   false === Array.isArray(input.items) &&
                   $vu0(input.items, _path + ".items", false && _exceptionable)
                 )
-                  return $vo28(input, _path, true && _exceptionable);
+                  return $vo29(input, _path, true && _exceptionable);
                 else if (
                   Array.isArray(input.items) &&
                   input.items
@@ -5948,24 +5978,24 @@ export const test_json_createValidateParse_UltimateUnion =
                     )
                     .every((flag: boolean) => flag)
                 )
-                  return $vo29(input, _path, true && _exceptionable);
-                else if ("object" === input.type)
                   return $vo30(input, _path, true && _exceptionable);
-                else if (undefined !== input.$ref)
+                else if ("object" === input.type)
                   return $vo31(input, _path, true && _exceptionable);
-                else if ("null" === input.type)
+                else if (undefined !== input.$ref)
                   return $vo32(input, _path, true && _exceptionable);
-                else if (undefined !== input.oneOf)
+                else if ("null" === input.type)
                   return $vo33(input, _path, true && _exceptionable);
+                else if (undefined !== input.oneOf)
+                  return $vo34(input, _path, true && _exceptionable);
                 else
                   return (
+                    $vo24(input, _path, false && _exceptionable) ||
                     $vo23(input, _path, false && _exceptionable) ||
                     $vo22(input, _path, false && _exceptionable) ||
-                    $vo21(input, _path, false && _exceptionable) ||
-                    $vo24(input, _path, false && _exceptionable) ||
-                    $vo26(input, _path, false && _exceptionable) ||
+                    $vo25(input, _path, false && _exceptionable) ||
                     $vo27(input, _path, false && _exceptionable) ||
-                    $vo34(input, _path, false && _exceptionable)
+                    $vo28(input, _path, false && _exceptionable) ||
+                    $vo35(input, _path, false && _exceptionable)
                   );
               })();
             return (

@@ -37,11 +37,13 @@ export const test_json_application_ajv_surplus_TypeTagCustom =
             },
             dollar: {
               type: "string",
+              "x-typia-monetary": "dollar",
               "x-typia-typeTags": [
                 {
                   target: "string",
                   name: "Dollar",
-                  kind: "dollar",
+                  kind: "monetary",
+                  value: "dollar",
                   validate:
                     '$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))',
                   exclusive: false,
@@ -52,6 +54,7 @@ export const test_json_application_ajv_surplus_TypeTagCustom =
             },
             postfix: {
               type: "string",
+              "x-typia-postfix": "abcd",
               "x-typia-typeTags": [
                 {
                   target: "string",
@@ -67,6 +70,7 @@ export const test_json_application_ajv_surplus_TypeTagCustom =
             },
             powerOf: {
               type: "number",
+              "x-typia-powerOf": 2,
               "x-typia-typeTags": [
                 {
                   target: "number",

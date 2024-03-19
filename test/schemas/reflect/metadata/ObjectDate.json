@@ -169,7 +169,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "date"
+                        }
                       }
                     ]
                   ]
@@ -237,7 +240,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "date-time"
+                        }
                       }
                     ]
                   ]
@@ -305,7 +311,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "time"
+                        }
                       }
                     ]
                   ]
@@ -373,7 +382,10 @@
                         "exclusive": [
                           "format",
                           "pattern"
-                        ]
+                        ],
+                        "schema": {
+                          "format": "duration"
+                        }
                       }
                     ]
                   ]

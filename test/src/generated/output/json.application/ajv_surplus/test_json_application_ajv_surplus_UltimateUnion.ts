@@ -471,8 +471,19 @@ export const test_json_application_ajv_surplus_UltimateUnion =
               "x-typia-required": false,
               "x-typia-optional": true,
             },
+            schema: {
+              $ref: "#/components/schemas/object",
+              "x-typia-required": false,
+              "x-typia-optional": true,
+            },
           },
           required: ["target", "name", "kind", "exclusive"],
+          "x-typia-jsDocTags": [],
+        },
+        object: {
+          $id: "#/components/schemas/object",
+          type: "object",
+          properties: {},
           "x-typia-jsDocTags": [],
         },
         "IJsonSchema.IInteger": {

@@ -20,7 +20,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           "object" === typeof input.components &&
           null !== input.components &&
           false === Array.isArray(input.components) &&
-          $io19(input.components) &&
+          $io20(input.components) &&
           ("ajv" === input.purpose || "swagger" === input.purpose) &&
           "boolean" === typeof input.surplus;
         const $io1 = (input: any): boolean =>
@@ -156,8 +156,15 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
                 (elem: any) => "string" === typeof elem,
               ))) &&
           true &&
-          (undefined === input.validate || "string" === typeof input.validate);
-        const $io8 = (input: any): boolean =>
+          (undefined === input.validate ||
+            "string" === typeof input.validate) &&
+          (undefined === input.schema ||
+            ("object" === typeof input.schema &&
+              null !== input.schema &&
+              false === Array.isArray(input.schema) &&
+              $io8(input.schema)));
+        const $io8 = (input: any): boolean => true;
+        const $io9 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Math.floor(input.minimum) === input.minimum &&
@@ -206,7 +213,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io9 = (input: any): boolean =>
+        const $io10 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Number.isFinite(input.minimum))) &&
@@ -249,7 +256,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io10 = (input: any): boolean =>
+        const $io11 = (input: any): boolean =>
           (undefined === input.minLength ||
             ("number" === typeof input.minLength &&
               Math.floor(input.minLength) === input.minLength &&
@@ -290,7 +297,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io11 = (input: any): boolean =>
+        const $io12 = (input: any): boolean =>
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
@@ -308,7 +315,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input["x-typia-tuple"] ||
             ("object" === typeof input["x-typia-tuple"] &&
               null !== input["x-typia-tuple"] &&
-              $io12(input["x-typia-tuple"]))) &&
+              $io13(input["x-typia-tuple"]))) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -335,7 +342,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io12 = (input: any): boolean =>
+        const $io13 = (input: any): boolean =>
           Array.isArray(input.items) &&
           input.items.every(
             (elem: any) =>
@@ -373,11 +380,11 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io13 = (input: any): boolean =>
+        const $io14 = (input: any): boolean =>
           "object" === typeof input.properties &&
           null !== input.properties &&
           false === Array.isArray(input.properties) &&
-          $io14(input.properties) &&
+          $io15(input.properties) &&
           (undefined === input.required ||
             (Array.isArray(input.required) &&
               input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -385,7 +392,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             ("object" === typeof input.patternProperties &&
               null !== input.patternProperties &&
               false === Array.isArray(input.patternProperties) &&
-              $io14(input.patternProperties))) &&
+              $io15(input.patternProperties))) &&
           (undefined === input.additionalProperties ||
             ("object" === typeof input.additionalProperties &&
               null !== input.additionalProperties &&
@@ -395,7 +402,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             ("object" === typeof input["x-typia-patternProperties"] &&
               null !== input["x-typia-patternProperties"] &&
               false === Array.isArray(input["x-typia-patternProperties"]) &&
-              $io14(input["x-typia-patternProperties"]))) &&
+              $io15(input["x-typia-patternProperties"]))) &&
           (undefined === input["x-typia-additionalProperties"] ||
             ("object" === typeof input["x-typia-additionalProperties"] &&
               null !== input["x-typia-additionalProperties"] &&
@@ -421,7 +428,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io14 = (input: any): boolean =>
+        const $io15 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
@@ -432,7 +439,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
               $iu0(value)
             );
           });
-        const $io15 = (input: any): boolean =>
+        const $io16 = (input: any): boolean =>
           "string" === typeof input.$ref &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -451,7 +458,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io16 = (input: any): boolean =>
+        const $io17 = (input: any): boolean =>
           "null" === input.type &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -470,7 +477,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io17 = (input: any): boolean =>
+        const $io18 = (input: any): boolean =>
           Array.isArray(input.oneOf) &&
           input.oneOf.every(
             (elem: any) =>
@@ -496,7 +503,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io18 = (input: any): boolean =>
+        const $io19 = (input: any): boolean =>
           null !== input.type &&
           undefined === input.type &&
           (undefined === input.deprecated ||
@@ -516,13 +523,13 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input["x-typia-optional"]) &&
           (undefined === input["x-typia-rest"] ||
             "boolean" === typeof input["x-typia-rest"]);
-        const $io19 = (input: any): boolean =>
+        const $io20 = (input: any): boolean =>
           undefined === input.schemas ||
           ("object" === typeof input.schemas &&
             null !== input.schemas &&
             false === Array.isArray(input.schemas) &&
-            $io20(input.schemas));
-        const $io20 = (input: any): boolean =>
+            $io21(input.schemas));
+        const $io21 = (input: any): boolean =>
           Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
@@ -533,7 +540,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
               $iu1(value)
             );
           });
-        const $io21 = (input: any): boolean =>
+        const $io22 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every((elem: any) => "boolean" === typeof elem) &&
           "boolean" === input.type &&
@@ -561,7 +568,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io22 = (input: any): boolean =>
+        const $io23 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every(
             (elem: any) => "number" === typeof elem && Number.isFinite(elem),
@@ -592,7 +599,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io23 = (input: any): boolean =>
+        const $io24 = (input: any): boolean =>
           Array.isArray(input["enum"]) &&
           input["enum"].every((elem: any) => "string" === typeof elem) &&
           "string" === input.type &&
@@ -620,7 +627,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io24 = (input: any): boolean =>
+        const $io25 = (input: any): boolean =>
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -652,7 +659,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io25 = (input: any): boolean =>
+        const $io26 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Math.floor(input.minimum) === input.minimum &&
@@ -704,7 +711,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io26 = (input: any): boolean =>
+        const $io27 = (input: any): boolean =>
           (undefined === input.minimum ||
             ("number" === typeof input.minimum &&
               Number.isFinite(input.minimum))) &&
@@ -750,7 +757,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io27 = (input: any): boolean =>
+        const $io28 = (input: any): boolean =>
           (undefined === input.minLength ||
             ("number" === typeof input.minLength &&
               Math.floor(input.minLength) === input.minLength &&
@@ -794,7 +801,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io28 = (input: any): boolean =>
+        const $io29 = (input: any): boolean =>
           "object" === typeof input.items &&
           null !== input.items &&
           false === Array.isArray(input.items) &&
@@ -812,7 +819,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input["x-typia-tuple"] ||
             ("object" === typeof input["x-typia-tuple"] &&
               null !== input["x-typia-tuple"] &&
-              $io12(input["x-typia-tuple"]))) &&
+              $io13(input["x-typia-tuple"]))) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -842,7 +849,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io29 = (input: any): boolean =>
+        const $io30 = (input: any): boolean =>
           Array.isArray(input.items) &&
           input.items.every(
             (elem: any) =>
@@ -883,11 +890,11 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io30 = (input: any): boolean =>
+        const $io31 = (input: any): boolean =>
           "object" === typeof input.properties &&
           null !== input.properties &&
           false === Array.isArray(input.properties) &&
-          $io14(input.properties) &&
+          $io15(input.properties) &&
           (undefined === input.required ||
             (Array.isArray(input.required) &&
               input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -895,7 +902,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             ("object" === typeof input.patternProperties &&
               null !== input.patternProperties &&
               false === Array.isArray(input.patternProperties) &&
-              $io14(input.patternProperties))) &&
+              $io15(input.patternProperties))) &&
           (undefined === input.additionalProperties ||
             ("object" === typeof input.additionalProperties &&
               null !== input.additionalProperties &&
@@ -905,7 +912,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             ("object" === typeof input["x-typia-patternProperties"] &&
               null !== input["x-typia-patternProperties"] &&
               false === Array.isArray(input["x-typia-patternProperties"]) &&
-              $io14(input["x-typia-patternProperties"]))) &&
+              $io15(input["x-typia-patternProperties"]))) &&
           (undefined === input["x-typia-additionalProperties"] ||
             ("object" === typeof input["x-typia-additionalProperties"] &&
               null !== input["x-typia-additionalProperties"] &&
@@ -934,7 +941,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io31 = (input: any): boolean =>
+        const $io32 = (input: any): boolean =>
           "string" === typeof input.$ref &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -956,7 +963,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io32 = (input: any): boolean =>
+        const $io33 = (input: any): boolean =>
           "null" === input.type &&
           (undefined === input.deprecated ||
             "boolean" === typeof input.deprecated) &&
@@ -978,7 +985,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io33 = (input: any): boolean =>
+        const $io34 = (input: any): boolean =>
           Array.isArray(input.oneOf) &&
           input.oneOf.every(
             (elem: any) =>
@@ -1007,7 +1014,7 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
           (undefined === input.$id || "string" === typeof input.$id) &&
           (undefined === input.$recursiveAnchor ||
             "boolean" === typeof input.$recursiveAnchor);
-        const $io34 = (input: any): boolean =>
+        const $io35 = (input: any): boolean =>
           null !== input.type &&
           undefined === input.type &&
           (undefined === input.deprecated ||
@@ -1032,14 +1039,14 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
             "boolean" === typeof input.$recursiveAnchor);
         const $iu0 = (input: any): any =>
           (() => {
-            if ("integer" === input.type) return $io8(input);
+            if ("integer" === input.type) return $io9(input);
             else if (
               "object" === typeof input.items &&
               null !== input.items &&
               false === Array.isArray(input.items) &&
               $iu0(input.items)
             )
-              return $io11(input);
+              return $io12(input);
             else if (
               Array.isArray(input.items) &&
               input.items.every(
@@ -1050,33 +1057,33 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
                   $iu0(elem),
               )
             )
-              return $io12(input);
-            else if ("object" === input.type) return $io13(input);
-            else if (undefined !== input.$ref) return $io15(input);
-            else if ("null" === input.type) return $io16(input);
-            else if (undefined !== input.oneOf) return $io17(input);
+              return $io13(input);
+            else if ("object" === input.type) return $io14(input);
+            else if (undefined !== input.$ref) return $io16(input);
+            else if ("null" === input.type) return $io17(input);
+            else if (undefined !== input.oneOf) return $io18(input);
             else
               return (() => {
                 if ($io5(input)) return $io5(input);
                 if ($io4(input)) return $io4(input);
                 if ($io1(input)) return $io1(input);
                 if ($io6(input)) return $io6(input);
-                if ($io9(input)) return $io9(input);
                 if ($io10(input)) return $io10(input);
-                if ($io18(input)) return $io18(input);
+                if ($io11(input)) return $io11(input);
+                if ($io19(input)) return $io19(input);
                 return false;
               })();
           })();
         const $iu1 = (input: any): any =>
           (() => {
-            if ("integer" === input.type) return $io25(input);
+            if ("integer" === input.type) return $io26(input);
             else if (
               "object" === typeof input.items &&
               null !== input.items &&
               false === Array.isArray(input.items) &&
               $iu0(input.items)
             )
-              return $io28(input);
+              return $io29(input);
             else if (
               Array.isArray(input.items) &&
               input.items.every(
@@ -1087,20 +1094,20 @@ export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
                   $iu0(elem),
               )
             )
-              return $io29(input);
-            else if ("object" === input.type) return $io30(input);
-            else if (undefined !== input.$ref) return $io31(input);
-            else if ("null" === input.type) return $io32(input);
-            else if (undefined !== input.oneOf) return $io33(input);
+              return $io30(input);
+            else if ("object" === input.type) return $io31(input);
+            else if (undefined !== input.$ref) return $io32(input);
+            else if ("null" === input.type) return $io33(input);
+            else if (undefined !== input.oneOf) return $io34(input);
             else
               return (() => {
+                if ($io24(input)) return $io24(input);
                 if ($io23(input)) return $io23(input);
                 if ($io22(input)) return $io22(input);
-                if ($io21(input)) return $io21(input);
-                if ($io24(input)) return $io24(input);
-                if ($io26(input)) return $io26(input);
+                if ($io25(input)) return $io25(input);
                 if ($io27(input)) return $io27(input);
-                if ($io34(input)) return $io34(input);
+                if ($io28(input)) return $io28(input);
+                if ($io35(input)) return $io35(input);
                 return false;
               })();
           })();

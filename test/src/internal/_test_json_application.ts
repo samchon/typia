@@ -5,7 +5,7 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_application =
   (props: { purpose: "ajv" | "swagger"; surplus: boolean; name: string }) =>
-  (app: IJsonApplication) => {
+  <App extends IJsonApplication>(app: App) => {
     const actual: IJsonApplication = JSON.parse(
       fs.readFileSync(
         `${__dirname}/../../schemas/json/${props.purpose}_${

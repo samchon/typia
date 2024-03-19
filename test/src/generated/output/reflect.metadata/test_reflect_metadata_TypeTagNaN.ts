@@ -125,6 +125,9 @@ export const test_reflect_metadata_TypeTagNaN = _test_reflect_metadata(
                         value: 0,
                         validate: "0 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 0,
+                        },
                       },
                       {
                         target: "number",
@@ -133,6 +136,9 @@ export const test_reflect_metadata_TypeTagNaN = _test_reflect_metadata(
                         value: 100,
                         validate: "$input <= 100",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 100,
+                        },
                       },
                     ],
                   ],
@@ -196,6 +202,9 @@ export const test_reflect_metadata_TypeTagNaN = _test_reflect_metadata(
                         value: 0,
                         validate: "0 <= $input",
                         exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 0,
+                        },
                       },
                     ],
                   ],
@@ -259,6 +268,9 @@ export const test_reflect_metadata_TypeTagNaN = _test_reflect_metadata(
                         value: 100,
                         validate: "$input <= 100",
                         exclusive: ["maximum", "exclusiveMaximum"],
+                        schema: {
+                          maximum: 100,
+                        },
                       },
                     ],
                   ],
@@ -322,6 +334,9 @@ export const test_reflect_metadata_TypeTagNaN = _test_reflect_metadata(
                         value: 3,
                         validate: "$input % 3 === 0",
                         exclusive: true,
+                        schema: {
+                          multipleOf: 3,
+                        },
                       },
                     ],
                   ],

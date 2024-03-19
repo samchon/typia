@@ -347,8 +347,16 @@ export const test_json_application_ajv_standard_UltimateUnion =
             validate: {
               type: "string",
             },
+            schema: {
+              $ref: "#/components/schemas/object",
+            },
           },
           required: ["target", "name", "kind", "exclusive"],
+        },
+        object: {
+          $id: "#/components/schemas/object",
+          type: "object",
+          properties: {},
         },
         "IJsonSchema.IInteger": {
           $id: "#/components/schemas/IJsonSchema.IInteger",

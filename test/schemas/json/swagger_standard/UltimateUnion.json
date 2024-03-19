@@ -373,6 +373,9 @@
           "value": {},
           "validate": {
             "type": "string"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/object"
           }
         },
         "nullable": false,
@@ -382,6 +385,11 @@
           "kind",
           "exclusive"
         ]
+      },
+      "object": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
       },
       "IJsonSchema.IInteger": {
         "type": "object",
