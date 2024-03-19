@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const CENTER = 100 / 2;
+
 // https://github.com/sinclairzx81/typebox-workbench/blob/main/src/layout/splitter.tsx
 const Splitter = (props: Splitter.IProps) => {
   const [hovering, setHovering] = useState<boolean>(false);
@@ -9,7 +11,7 @@ const Splitter = (props: Splitter.IProps) => {
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (dragging === false) return;
 
-    const next: number = (e.clientX / window.innerWidth) * 100;
+    const next: number = ((e.clientX + CENTER) / window.innerWidth) * 100;
     const min: number = props.minWidth ?? 10;
     const max: number = 100 - min;
 
@@ -19,24 +21,23 @@ const Splitter = (props: Splitter.IProps) => {
   const styles: IStyles = {
     container: {
       borderTop: "2px solid skyblue",
-      height: "calc(100vh - 70px)",
+      height: "calc(100vh - 80px)",
       display: "flex",
       width: "100%",
       position: "relative",
       flexDirection: "row",
-      // overflow: "hidden",
+      overflow: "hidden",
     },
     left: {
       height: "100%",
-      width: `${width}%`,
+      width: `calc(${width}% - ${CENTER}px)`,
       position: "relative",
       zIndex: 1,
     },
     right: {
       height: "100%",
-      width: `${100 - width}%`,
+      width: `calc(${100 - width}% + ${CENTER}px)`,
       position: "relative",
-      overflow: "hidden",
       zIndex: 1,
     },
     gutter: {
@@ -44,7 +45,7 @@ const Splitter = (props: Splitter.IProps) => {
       position: "absolute",
       top: 0,
       bottom: 0,
-      left: `${width}%`,
+      left: `calc(${width}% - ${CENTER}px)`,
       width: "10px",
       cursor: "col-resize",
       zIndex: 2,
@@ -60,16 +61,7 @@ const Splitter = (props: Splitter.IProps) => {
       onMouseMove={handleMouseMove}
       onMouseUp={() => setDragging(false)}
     >
-      <div style={styles.left}>
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          {props.children[0]}
-        </div>
-      </div>
+      <div style={styles.left}>{props.children[0]}</div>
       <div
         className="gutter"
         style={styles.gutter}
@@ -77,16 +69,7 @@ const Splitter = (props: Splitter.IProps) => {
         onMouseOver={() => setHovering(true)}
         onMouseOut={() => setHovering(false)}
       />
-      <div style={styles.right}>
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          {props.children[1]}
-        </div>
-      </div>
+      <div style={styles.right}>{props.children[1]}</div>
     </div>
   );
 };
