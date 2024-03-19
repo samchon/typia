@@ -7,6 +7,7 @@ export interface IMetadataTypeTag {
   exclusive: boolean | string[];
   value?: any;
   validate?: string | undefined;
+  schema?: object | undefined;
 
   /**
    * @internal

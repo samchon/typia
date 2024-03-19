@@ -5,11 +5,14 @@ export type Default<Value extends boolean | bigint | number | string> =
     target: Value extends boolean
       ? "boolean"
       : Value extends bigint
-      ? "bigint"
-      : Value extends number
-      ? "number"
-      : "string";
+        ? "bigint"
+        : Value extends number
+          ? "number"
+          : "string";
     kind: "default";
     value: Value;
     exclusive: true;
+    schema: {
+      default: Value;
+    };
   }>;

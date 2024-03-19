@@ -38,7 +38,9 @@ const application_string_tags =
   (options: JsonApplicationProgrammer.IOptions) =>
   (base: IJsonSchema.IString) =>
   (row: IMetadataTypeTag[]): IJsonSchema.IString | null => {
-    for (const tag of row.slice().sort((a, b) => a.kind.localeCompare(b.kind)))
+    for (const tag of row
+      .slice()
+      .sort((a, b) => a.kind.localeCompare(b.kind))) {
       if (tag.kind === "minLength" && typeof tag.value === "number")
         base.minLength = tag.value;
       else if (tag.kind === "maxLength" && typeof tag.value === "number")
@@ -48,6 +50,8 @@ const application_string_tags =
       else if (tag.kind === "pattern") base.pattern = tag.value;
       else if (tag.kind === "default" && typeof tag.value === "string")
         base.default = tag.value;
+      if (tag.schema) Object.assign(base, tag.schema);
+    }
     if (options.surplus)
       base["x-typia-typeTags"] = row.map((tag) => ({
         target: tag.target,
