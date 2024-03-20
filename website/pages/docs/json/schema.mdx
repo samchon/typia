@@ -493,7 +493,7 @@ type Monetary<Value extends string> = tags.TagBase<{
 }>;
 
 type Placeholder<Value extends string> = tags.TagBase<{
-  target: "string";
+  target: "boolean" | "number" | "string";
   kind: "placeholder";
   value: Value;
   schema: {
