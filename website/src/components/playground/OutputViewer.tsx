@@ -30,16 +30,7 @@ const OutputViewer = (props: {
     }}
     language={props.language}
     path={`output.${props.language === "typescript" ? "ts" : "js"}`}
-    value={[
-      "/* -----------------------------------------------------------",
-      ` Typia Playground`,
-      `   - mode: ${
-        props.language === "typescript" ? "generation" : "transformation"
-      }`,
-      `   - version: ${version.get()}`,
-      "----------------------------------------------------------- */",
-      props.content,
-    ].join("\n")}
+    value={props.content}
   />
 );
 export default OutputViewer;

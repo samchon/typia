@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import ts from "typescript";
 import { Button } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { version } from "../../../package.json";
 
 import LanguageButton from "../components/playground/LanguageButton";
 import OutputViewer from "../components/playground/OutputViewer";
@@ -134,126 +135,159 @@ const Playground = () => {
   };
 
   return (
-    <Splitter>
-      {source !== null && (
-        <SourceEditor
-          options={COMPILER_OPTIONS}
-          imports={RAW}
-          script={source}
-          setScript={handleChange}
-        />
-      )}
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            backgroundColor: "#222222",
-          }}
-        >
-          <LanguageButton
-            language="javascript"
-            title="Transformation Mode"
-            selected={target === "javascript"}
-            onClick={() => handleTarget("javascript")}
+    <div>
+      <Splitter>
+        {source !== null && (
+          <SourceEditor
+            options={COMPILER_OPTIONS}
+            imports={RAW}
+            script={source}
+            setScript={handleChange}
           />
-          <LanguageButton
-            language="typescript"
-            title="Generation Mode"
-            selected={target === "typescript"}
-            onClick={() => handleTarget("typescript")}
-          />
-        </div>
-        <div
-          style={{
-            width: 20,
-            textOrientation: "sideways",
-            writingMode: "vertical-rl",
-            backgroundColor: "#222222",
-            paddingTop: 10,
-            color: "white",
-          }}
-        >
-          {target === "javascript" ? "Transformation Mode" : "Generation Mode"}
-        </div>
+        )}
         <div
           style={{
             width: "100%",
             height: "100%",
-            flexDirection: "column",
-            overflowY: "hidden",
+            display: "flex",
+            flexDirection: "row",
           }}
         >
-          <OutputViewer
-            language={target}
-            width="100%"
-            height="60%"
-            content={
-              output === null
-                ? ""
-                : output.success === true
-                  ? output.diagnostics.length
-                    ? output.diagnostics
-                        .map((diag) => {
-                          const file: string = "main.ts";
-                          const category: string =
-                            diag.category === ts.DiagnosticCategory.Warning
-                              ? "warning"
-                              : diag.category === ts.DiagnosticCategory.Error
-                                ? "error"
-                                : diag.category ===
-                                    ts.DiagnosticCategory.Suggestion
-                                  ? "suggestion"
-                                  : diag.category ===
-                                      ts.DiagnosticCategory.Message
-                                    ? "message"
-                                    : "unkown";
-                          const [line, pos] = diag.file
-                            ? (() => {
-                                const lines: string[] = diag
-                                  .file!.text.substring(0, diag.start)
-                                  .split("\n");
-                                if (lines.length === 0) return [0, 0];
-                                return [lines.length, lines.at(-1)!.length + 1];
-                              })()
-                            : [0, 0];
-                          return `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`;
-                        })
-                        .join("\n\n")
-                    : output.content
-                  : output.error.message
-            }
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "#222222",
+            }}
+          >
+            <LanguageButton
+              language="javascript"
+              title="Transformation Mode"
+              selected={target === "javascript"}
+              onClick={() => handleTarget("javascript")}
+            />
+            <LanguageButton
+              language="typescript"
+              title="Generation Mode"
+              selected={target === "typescript"}
+              onClick={() => handleTarget("typescript")}
+            />
+          </div>
+          <div
+            style={{
+              width: 20,
+              textOrientation: "sideways",
+              writingMode: "vertical-rl",
+              backgroundColor: "#222222",
+              paddingTop: 10,
+              color: "white",
+            }}
+          >
+            {target === "javascript"
+              ? "Transformation Mode"
+              : "Generation Mode"}
+          </div>
           <div
             style={{
               width: "100%",
-              height: "40%",
-              flexDirection: "row",
+              height: "100%",
+              flexDirection: "column",
+              overflowY: "hidden",
             }}
           >
-            <Button
-              fullWidth
-              size="large"
-              color="primary"
-              variant="outlined"
-              startIcon={<PlayArrowIcon />}
-              style={{ fontWeight: "bold", textDecoration: "underline" }}
-              onClick={() => execute()}
+            <OutputViewer
+              language={target}
+              width="100%"
+              height="60%"
+              content={
+                output === null
+                  ? ""
+                  : output.success === true
+                    ? output.diagnostics.length
+                      ? output.diagnostics
+                          .map((diag) => {
+                            const file: string = "main.ts";
+                            const category: string =
+                              diag.category === ts.DiagnosticCategory.Warning
+                                ? "warning"
+                                : diag.category === ts.DiagnosticCategory.Error
+                                  ? "error"
+                                  : diag.category ===
+                                      ts.DiagnosticCategory.Suggestion
+                                    ? "suggestion"
+                                    : diag.category ===
+                                        ts.DiagnosticCategory.Message
+                                      ? "message"
+                                      : "unkown";
+                            const [line, pos] = diag.file
+                              ? (() => {
+                                  const lines: string[] = diag
+                                    .file!.text.substring(0, diag.start)
+                                    .split("\n");
+                                  if (lines.length === 0) return [0, 0];
+                                  return [
+                                    lines.length,
+                                    lines.at(-1)!.length + 1,
+                                  ];
+                                })()
+                              : [0, 0];
+                            return `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`;
+                          })
+                          .join("\n\n")
+                      : output.content
+                    : output.error.message
+              }
+            />
+            <div
+              style={{
+                width: "100%",
+                height: "40%",
+                flexDirection: "row",
+              }}
             >
-              Execute
-            </Button>
-            <ConsoleViewer messages={consoleBox.messages} />
+              <Button
+                fullWidth
+                size="large"
+                color="primary"
+                variant="outlined"
+                startIcon={<PlayArrowIcon />}
+                style={{ fontWeight: "bold", textDecoration: "underline" }}
+                onClick={() => execute()}
+              >
+                Execute
+              </Button>
+              <ConsoleViewer messages={consoleBox.messages} />
+            </div>
           </div>
         </div>
-      </div>
-    </Splitter>
+      </Splitter>
+      <footer
+        style={{
+          display: "flex",
+          width: "100%",
+          height: "35px",
+          backgroundColor: "#222222",
+          justifyContent: "center",
+          alignItems: "center",
+          borderTop: "2px solid skyblue",
+          fontSize: "0.9em",
+        }}
+      >
+        <p>
+          <code className="nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+            typia@{version}
+          </code>{" "}
+          - Made with ❤️ by{" "}
+          <a
+            href="https://github.com/samchon"
+            target="_blank"
+            className="nx-text-primary-600 nx-underline nx-decoration-from-font [text-underline-position:from-font]"
+          >
+            Samchon
+          </a>
+        </p>
+      </footer>
+    </div>
   );
 };
 
