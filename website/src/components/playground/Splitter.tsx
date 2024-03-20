@@ -21,7 +21,7 @@ const Splitter = (props: Splitter.IProps) => {
   const styles: IStyles = {
     container: {
       borderTop: "2px solid skyblue",
-      height: "calc(100vh - 80px)",
+      height: "calc(100vh - 100px)",
       display: "flex",
       width: "100%",
       position: "relative",
@@ -56,7 +56,6 @@ const Splitter = (props: Splitter.IProps) => {
   };
   return (
     <div
-      className="splitter"
       style={styles.container}
       onMouseMove={handleMouseMove}
       onMouseUp={() => setDragging(false)}
