@@ -1,6 +1,5 @@
 import fs from "fs";
-import tgrid from "tgrid";
-import { Driver } from "tgrid/components/Driver";
+import { Driver, WorkerConnector } from "tgrid";
 
 import { IBenchmarkProgram } from "../programs/IBenchmarkProgram";
 import { Spoiler } from "../structures/Spoiler";
@@ -83,11 +82,7 @@ export namespace BenchmarkServer {
     <T>(type: string) =>
     async (file: string): Promise<IBenchmarkProgram.IMeasurement | null> => {
       const factory = FACTORIES[type];
-      const connector = new tgrid.protocols.workers.WorkerConnector(
-        null,
-        null,
-        "process",
-      );
+      const connector = new WorkerConnector(null, null, "process");
       await connector.connect(file);
 
       const base = connector.getDriver<IBenchmarkProgram<T>>();

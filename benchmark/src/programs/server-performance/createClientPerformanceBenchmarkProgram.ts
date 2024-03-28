@@ -14,11 +14,7 @@ export const createClientPerformanceBenchmarkProgram = async <T>(
     validate: () => true,
     skip: () => true,
     success: async (input: T): Promise<IBenchmarkProgram.IMeasurement> => {
-      const connector = new tgrid.protocols.workers.WorkerConnector(
-        null,
-        null,
-        "process",
-      );
+      const connector = new tgrid.WorkerConnector(null, null, "process");
       await connector.connect(location);
 
       const driver = connector.getDriver<IServerPerformanceProgram>();
@@ -35,7 +31,7 @@ export const createClientPerformanceBenchmarkProgram = async <T>(
       return result;
     },
   };
-  const worker = new tgrid.protocols.workers.WorkerServer();
+  const worker = new tgrid.WorkerServer();
   await worker.open(provider);
 };
 
