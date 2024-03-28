@@ -117,10 +117,10 @@ export namespace TypiaSetupWizard {
           x === "tsconfig.json"
             ? -1
             : y === "tsconfig.json"
-            ? 1
-            : x < y
-            ? -1
-            : 1,
+              ? 1
+              : x < y
+                ? -1
+                : 1,
         );
       if (fileList.length === 0) {
         if (process.cwd() !== pack.directory)

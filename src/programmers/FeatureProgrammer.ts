@@ -406,33 +406,33 @@ export namespace FeatureProgrammer {
         config.path === false && config.trace === false
           ? []
           : config.path === true && config.trace === true
-          ? [
-              ts.factory.createIdentifier(
-                explore.postfix ? `_path + ${explore.postfix}` : "_path",
-              ),
-              explore.source === "function"
-                ? ts.factory.createIdentifier(
-                    `${explore.tracable} && _exceptionable`,
-                  )
-                : explore.tracable
-                ? ts.factory.createTrue()
-                : ts.factory.createFalse(),
-            ]
-          : config.path === true
-          ? [
-              ts.factory.createIdentifier(
-                explore.postfix ? `_path + ${explore.postfix}` : "_path",
-              ),
-            ]
-          : [
-              explore.source === "function"
-                ? ts.factory.createIdentifier(
-                    `${explore.tracable} && _exceptionable`,
-                  )
-                : explore.tracable
-                ? ts.factory.createTrue()
-                : ts.factory.createFalse(),
-            ];
+            ? [
+                ts.factory.createIdentifier(
+                  explore.postfix ? `_path + ${explore.postfix}` : "_path",
+                ),
+                explore.source === "function"
+                  ? ts.factory.createIdentifier(
+                      `${explore.tracable} && _exceptionable`,
+                    )
+                  : explore.tracable
+                    ? ts.factory.createTrue()
+                    : ts.factory.createFalse(),
+              ]
+            : config.path === true
+              ? [
+                  ts.factory.createIdentifier(
+                    explore.postfix ? `_path + ${explore.postfix}` : "_path",
+                  ),
+                ]
+              : [
+                  explore.source === "function"
+                    ? ts.factory.createIdentifier(
+                        `${explore.tracable} && _exceptionable`,
+                      )
+                    : explore.tracable
+                      ? ts.factory.createTrue()
+                      : ts.factory.createFalse(),
+                ];
       return (input: ts.Expression) => [input, ...tail];
     };
 

@@ -27,6 +27,6 @@ type MethodOnly<T> = {
   [P in keyof T]: T[P] extends Function
     ? T[P]
     : P extends "method"
-    ? T[P]
-    : never;
+      ? T[P]
+      : never;
 };

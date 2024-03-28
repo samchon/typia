@@ -5,8 +5,8 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { IProject } from "../../transformers/IProject";
 
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 import { FunctionalIsFunctionProgrammer } from "./FunctionalIsFunctionProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionalIsParametersProgrammer {
   export const write =

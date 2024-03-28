@@ -166,8 +166,8 @@ export const iterate_metadata_intersection =
       booleanLiteral
         ? "boolean"
         : atomics.size
-        ? atomics.values().next().value
-        : "array";
+          ? atomics.values().next().value
+          : "array";
     if (
       target === "boolean" ||
       target === "bigint" ||

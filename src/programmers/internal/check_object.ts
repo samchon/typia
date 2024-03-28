@@ -54,7 +54,8 @@ export namespace check_object {
 /**
  * @internal
  */
-const reduce = (props: check_object.IProps) => (expressions: ts.Expression[]) =>
-  props.assert
-    ? expressions.reduce(props.reduce)
-    : check_everything(ts.factory.createArrayLiteralExpression(expressions));
+const reduce =
+  (props: check_object.IProps) => (expressions: ts.Expression[]) =>
+    props.assert
+      ? expressions.reduce(props.reduce)
+      : check_everything(ts.factory.createArrayLiteralExpression(expressions));

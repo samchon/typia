@@ -219,18 +219,19 @@ export namespace HttpHeadersProgrammer {
       const [type, isArray]: [Atomic.Literal, boolean] = value.atomics.length
         ? [value.atomics[0]!.type, false]
         : value.constants.length
-        ? [value.constants[0]!.type, false]
-        : value.templates.length
-        ? ["string", false]
-        : (() => {
-            const meta: Metadata =
-              value.arrays[0]?.type.value ?? value.tuples[0]!.type.elements[0]!;
-            return meta.atomics.length
-              ? [meta.atomics[0]!.type, true]
-              : meta.templates.length
-              ? ["string", true]
-              : [meta.constants[0]!.type, true];
-          })();
+          ? [value.constants[0]!.type, false]
+          : value.templates.length
+            ? ["string", false]
+            : (() => {
+                const meta: Metadata =
+                  value.arrays[0]?.type.value ??
+                  value.tuples[0]!.type.elements[0]!;
+                return meta.atomics.length
+                  ? [meta.atomics[0]!.type, true]
+                  : meta.templates.length
+                    ? ["string", true]
+                    : [meta.constants[0]!.type, true];
+              })();
       const accessor = IdentifierFactory.access(
         ts.factory.createIdentifier("input"),
       )(key.toLowerCase());

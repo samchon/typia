@@ -11,10 +11,10 @@ export namespace TypeFactory {
     return ts.isFunctionLike(node)
       ? node
       : ts.isPropertyAssignment(node) || ts.isPropertyDeclaration(node)
-      ? ts.isFunctionLike(node.initializer)
-        ? node.initializer
-        : null
-      : null;
+        ? ts.isFunctionLike(node.initializer)
+          ? node.initializer
+          : null
+        : null;
   };
 
   export const getReturnType =
@@ -103,16 +103,16 @@ export namespace TypeFactory {
       type === "void"
         ? ts.SyntaxKind.VoidKeyword
         : type === "any"
-        ? ts.SyntaxKind.AnyKeyword
-        : type === "unknown"
-        ? ts.SyntaxKind.UnknownKeyword
-        : type === "boolean"
-        ? ts.SyntaxKind.BooleanKeyword
-        : type === "number"
-        ? ts.SyntaxKind.NumberKeyword
-        : type === "bigint"
-        ? ts.SyntaxKind.BigIntKeyword
-        : ts.SyntaxKind.StringKeyword,
+          ? ts.SyntaxKind.AnyKeyword
+          : type === "unknown"
+            ? ts.SyntaxKind.UnknownKeyword
+            : type === "boolean"
+              ? ts.SyntaxKind.BooleanKeyword
+              : type === "number"
+                ? ts.SyntaxKind.NumberKeyword
+                : type === "bigint"
+                  ? ts.SyntaxKind.BigIntKeyword
+                  : ts.SyntaxKind.StringKeyword,
     );
   };
 }

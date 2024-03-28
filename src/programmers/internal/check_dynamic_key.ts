@@ -153,8 +153,8 @@ export const check_dynamic_key =
     return conditions.length === 0
       ? ts.factory.createTrue()
       : conditions.length === 1
-      ? conditions[0]!
-      : conditions.reduce(ts.factory.createLogicalOr);
+        ? conditions[0]!
+        : conditions.reduce(ts.factory.createLogicalOr);
   };
 
 const atomist = (entry: ICheckEntry) =>
