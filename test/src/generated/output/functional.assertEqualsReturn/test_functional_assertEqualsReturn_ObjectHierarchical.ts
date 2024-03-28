@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_functional_assertEqualsReturn } from "../../../internal/_test_functional_assertEqualsReturn";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
-import { TypeGuardError } from "typia";
+
 export const test_functional_assertEqualsReturn_ObjectHierarchical =
   _test_functional_assertEqualsReturn(TypeGuardError)("ObjectHierarchical")(
     ObjectHierarchical,

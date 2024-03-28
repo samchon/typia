@@ -1,6 +1,8 @@
 import typia from "typia";
-import { ClassPropertyAssignment } from "../../../../structures/ClassPropertyAssignment";
+
 import { _test_json_application } from "../../../../internal/_test_json_application";
+import { ClassPropertyAssignment } from "../../../../structures/ClassPropertyAssignment";
+
 export const test_json_application_ajv_surplus_ClassPropertyAssignment =
   _test_json_application({
     purpose: "ajv",

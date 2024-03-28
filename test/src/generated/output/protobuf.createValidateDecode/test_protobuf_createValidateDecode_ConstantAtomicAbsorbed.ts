@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
+
 export const test_protobuf_createValidateDecode_ConstantAtomicAbsorbed =
   _test_protobuf_validateDecode(
     "ConstantAtomicAbsorbed",

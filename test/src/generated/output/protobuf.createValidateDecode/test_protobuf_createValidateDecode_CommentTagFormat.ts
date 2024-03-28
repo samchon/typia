@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { CommentTagFormat } from "../../../structures/CommentTagFormat";
+
 export const test_protobuf_createValidateDecode_CommentTagFormat =
   _test_protobuf_validateDecode("CommentTagFormat")<CommentTagFormat>(
     CommentTagFormat,

@@ -1,6 +1,7 @@
 import typia from "typia";
-import { TemplateUnion } from "../../../structures/TemplateUnion";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { TemplateUnion } from "../../../structures/TemplateUnion";
 
 export const test_json_application_swagger_standard_TemplateUnion =
   _test_json_application({

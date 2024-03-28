@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateParametersAsync } from "../../../internal/_test_functional_validateParametersAsync";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
+
 export const test_functional_validateParametersAsync_AtomicIntersection =
   _test_functional_validateParametersAsync("AtomicIntersection")(
     AtomicIntersection,

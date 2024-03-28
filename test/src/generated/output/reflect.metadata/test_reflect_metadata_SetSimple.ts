@@ -1,6 +1,8 @@
 import typia from "typia";
-import { SetSimple } from "../../../structures/SetSimple";
+
 import { _test_reflect_metadata } from "../../../internal/_test_reflect_metadata";
+import { SetSimple } from "../../../structures/SetSimple";
+
 export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
   "SetSimple",
 )({

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isFunction } from "../../../internal/_test_functional_isFunction";
 import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional";
+
 export const test_functional_isFunction_ArrayRepeatedOptional =
   _test_functional_isFunction("ArrayRepeatedOptional")(ArrayRepeatedOptional)(
     (p: (input: ArrayRepeatedOptional) => ArrayRepeatedOptional) =>

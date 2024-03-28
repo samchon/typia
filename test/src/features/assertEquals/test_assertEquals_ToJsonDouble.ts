@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
-
-import { TypeGuardError } from "typia";
 
 export const test_assertEquals_ToJsonDouble = _test_assertEquals(
   TypeGuardError,

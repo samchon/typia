@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertFunctionAsync } from "../../../internal/_test_functional_assertFunctionAsync";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_functional_assertFunctionAsyncCustom_ConstantIntersection =
   _test_functional_assertFunctionAsync(CustomGuardError)(
     "ConstantIntersection",

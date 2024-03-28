@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsFunctionAsync } from "../../../internal/_test_functional_validateEqualsFunctionAsync";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
+
 export const test_functional_validateEqualsFunctionAsync_ObjectUndefined =
   _test_functional_validateEqualsFunctionAsync("ObjectUndefined")(
     ObjectUndefined,

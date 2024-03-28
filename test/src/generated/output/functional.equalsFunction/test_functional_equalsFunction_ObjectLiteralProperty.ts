@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_equalsFunction } from "../../../internal/_test_functional_equalsFunction";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
+
 export const test_functional_equalsFunction_ObjectLiteralProperty =
   _test_functional_equalsFunction("ObjectLiteralProperty")(
     ObjectLiteralProperty,

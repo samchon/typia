@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectSimpleProtobuf } from "../../../structures/ObjectSimpleProtobuf";
+
 export const test_protobuf_isEncode_ObjectSimpleProtobuf =
   _test_protobuf_isEncode("ObjectSimpleProtobuf")<ObjectSimpleProtobuf>(
     ObjectSimpleProtobuf,

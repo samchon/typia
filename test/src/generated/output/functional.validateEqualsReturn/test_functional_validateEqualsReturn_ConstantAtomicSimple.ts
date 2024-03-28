@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsReturn } from "../../../internal/_test_functional_validateEqualsReturn";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
+
 export const test_functional_validateEqualsReturn_ConstantAtomicSimple =
   _test_functional_validateEqualsReturn("ConstantAtomicSimple")(
     ConstantAtomicSimple,

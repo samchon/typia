@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertParametersAsync } from "../../../internal/_test_functional_assertParametersAsync";
 import { ObjectClosure } from "../../../structures/ObjectClosure";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_functional_assertParametersAsyncCustom_ObjectClosure =
   _test_functional_assertParametersAsync(CustomGuardError)("ObjectClosure")(
     ObjectClosure,

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsParameters } from "../../../internal/_test_functional_validateEqualsParameters";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
+
 export const test_functional_validateEqualsParameters_ObjectHierarchical =
   _test_functional_validateEqualsParameters("ObjectHierarchical")(
     ObjectHierarchical,

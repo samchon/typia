@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
-
-import { TypeGuardError } from "typia";
 
 export const test_assert_TypeTagBigInt = _test_assert(TypeGuardError)(
   "TypeTagBigInt",

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsReturnAsync } from "../../../internal/_test_functional_validateEqualsReturnAsync";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
+
 export const test_functional_validateEqualsReturnAsync_ObjectUnionExplicit =
   _test_functional_validateEqualsReturnAsync("ObjectUnionExplicit")(
     ObjectUnionExplicit,

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsParametersAsync } from "../../../internal/_test_functional_validateEqualsParametersAsync";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
+
 export const test_functional_validateEqualsParametersAsync_CommentTagInfinite =
   _test_functional_validateEqualsParametersAsync("CommentTagInfinite")(
     CommentTagInfinite,

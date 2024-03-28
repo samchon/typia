@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
-import { TypeGuardError } from "typia";
+
 export const test_json_assertParse_ObjectPartial = _test_json_assertParse(
   TypeGuardError,
 )("ObjectPartial")<ObjectPartial>(ObjectPartial)((input) =>

@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { CommentTagRangeBigInt } from "../../../structures/CommentTagRangeBigInt";
-import { TypeGuardError } from "typia";
+
 export const test_protobuf_createAssertEncode_CommentTagRangeBigInt =
   _test_protobuf_assertEncode(TypeGuardError)(
     "CommentTagRangeBigInt",

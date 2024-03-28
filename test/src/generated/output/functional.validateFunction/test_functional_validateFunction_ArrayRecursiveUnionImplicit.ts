@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateFunction } from "../../../internal/_test_functional_validateFunction";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
+
 export const test_functional_validateFunction_ArrayRecursiveUnionImplicit =
   _test_functional_validateFunction("ArrayRecursiveUnionImplicit")(
     ArrayRecursiveUnionImplicit,

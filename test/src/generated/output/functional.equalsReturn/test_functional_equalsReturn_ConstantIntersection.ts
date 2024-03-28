@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_equalsReturn } from "../../../internal/_test_functional_equalsReturn";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
+
 export const test_functional_equalsReturn_ConstantIntersection =
   _test_functional_equalsReturn("ConstantIntersection")(ConstantIntersection)(
     (p: (input: ConstantIntersection) => ConstantIntersection) =>

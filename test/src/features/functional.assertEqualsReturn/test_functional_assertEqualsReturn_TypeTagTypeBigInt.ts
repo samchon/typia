@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
-
-import { TypeGuardError } from "typia";
 
 export const test_functional_assertEqualsReturn_TypeTagTypeBigInt =
   _test_functional_assertEqualsReturn(TypeGuardError)("TypeTagTypeBigInt")(

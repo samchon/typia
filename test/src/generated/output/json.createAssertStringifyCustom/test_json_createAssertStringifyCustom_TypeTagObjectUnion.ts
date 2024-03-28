@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_json_createAssertStringifyCustom_TypeTagObjectUnion =
   _test_json_assertStringify(CustomGuardError)(
     "TypeTagObjectUnion",

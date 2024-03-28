@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_assertEncodeCustom_ObjectGenericAlias =
   _test_protobuf_assertEncode(CustomGuardError)(

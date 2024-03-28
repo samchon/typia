@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_application_ajv_surplus_ArrayRepeatedNullable =
   _test_json_application({

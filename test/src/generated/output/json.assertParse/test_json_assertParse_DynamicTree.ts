@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicTree } from "../../../structures/DynamicTree";
-import { TypeGuardError } from "typia";
+
 export const test_json_assertParse_DynamicTree = _test_json_assertParse(
   TypeGuardError,
 )("DynamicTree")<DynamicTree>(DynamicTree)((input) =>

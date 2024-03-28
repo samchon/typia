@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_json_assertParseCustom_AtomicIntersection =
   _test_json_assertParse(CustomGuardError)(
     "AtomicIntersection",

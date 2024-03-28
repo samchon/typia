@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectDate } from "../../../structures/ObjectDate";
+
 export const test_createRandom_ObjectDate = _test_random(
   "ObjectDate",
 )<ObjectDate>(ObjectDate)({

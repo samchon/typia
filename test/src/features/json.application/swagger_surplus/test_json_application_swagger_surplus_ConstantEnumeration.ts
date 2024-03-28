@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_json_application_swagger_surplus_ConstantEnumeration =
   _test_json_application({

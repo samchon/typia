@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test_functional_assertEqualsFunctionAsync";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_ObjectHierarchical =
   _test_functional_assertEqualsFunctionAsync(CustomGuardError)(

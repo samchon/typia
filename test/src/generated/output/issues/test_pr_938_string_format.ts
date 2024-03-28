@@ -1,4 +1,5 @@
 import typia, { tags } from "typia";
+
 export const test_pr_938_string_format = () => {
   const validators = {
     regex: (input: any): input is string & tags.Format<"regex"> => {

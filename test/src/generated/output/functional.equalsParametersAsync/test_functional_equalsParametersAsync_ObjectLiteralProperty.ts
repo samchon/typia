@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_equalsParametersAsync } from "../../../internal/_test_functional_equalsParametersAsync";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
+
 export const test_functional_equalsParametersAsync_ObjectLiteralProperty =
   _test_functional_equalsParametersAsync("ObjectLiteralProperty")(
     ObjectLiteralProperty,

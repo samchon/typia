@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_createAssertCustom_ObjectUnionNonPredictable = _test_assert(
   CustomGuardError,

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
+
 export const test_misc_createClone_ArrayRecursiveUnionExplicitPointer =
   _test_misc_clone(
     "ArrayRecursiveUnionExplicitPointer",

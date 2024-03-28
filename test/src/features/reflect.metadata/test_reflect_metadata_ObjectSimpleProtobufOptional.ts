@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
+
 import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
+import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
 export const test_reflect_metadata_ObjectSimpleProtobufOptional =
   _test_reflect_metadata("ObjectSimpleProtobufOptional")(

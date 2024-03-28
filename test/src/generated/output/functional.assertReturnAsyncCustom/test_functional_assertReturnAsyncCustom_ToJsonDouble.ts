@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertReturnAsync } from "../../../internal/_test_functional_assertReturnAsync";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_functional_assertReturnAsyncCustom_ToJsonDouble =
   _test_functional_assertReturnAsync(CustomGuardError)("ToJsonDouble")(
     ToJsonDouble,

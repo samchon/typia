@@ -1,6 +1,8 @@
 import typia from "typia";
-import { TypeTagTuple } from "../../../../structures/TypeTagTuple";
+
 import { _test_json_application } from "../../../../internal/_test_json_application";
+import { TypeTagTuple } from "../../../../structures/TypeTagTuple";
+
 export const test_json_application_ajv_surplus_TypeTagTuple =
   _test_json_application({
     purpose: "ajv",

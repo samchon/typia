@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
+
 export const test_misc_createValidateClone_ObjectIntersection =
   _test_misc_validateClone("ObjectIntersection")<ObjectIntersection>(
     ObjectIntersection,

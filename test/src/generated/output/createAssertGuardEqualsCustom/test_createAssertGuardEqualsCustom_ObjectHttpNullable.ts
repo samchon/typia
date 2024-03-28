@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ObjectHttpNullable } from "../../../structures/ObjectHttpNullable";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_createAssertGuardEqualsCustom_ObjectHttpNullable =
   _test_assertGuardEquals(CustomGuardError)(
     "ObjectHttpNullable",

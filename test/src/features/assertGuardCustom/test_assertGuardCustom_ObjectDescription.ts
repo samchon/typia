@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectDescription } from "../../structures/ObjectDescription";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_assertGuardCustom_ObjectDescription = _test_assertGuard(
   CustomGuardError,

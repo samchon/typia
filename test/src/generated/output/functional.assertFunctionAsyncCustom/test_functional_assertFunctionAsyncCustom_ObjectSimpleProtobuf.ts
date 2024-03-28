@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertFunctionAsync } from "../../../internal/_test_functional_assertFunctionAsync";
 import { ObjectSimpleProtobuf } from "../../../structures/ObjectSimpleProtobuf";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_functional_assertFunctionAsyncCustom_ObjectSimpleProtobuf =
   _test_functional_assertFunctionAsync(CustomGuardError)(
     "ObjectSimpleProtobuf",

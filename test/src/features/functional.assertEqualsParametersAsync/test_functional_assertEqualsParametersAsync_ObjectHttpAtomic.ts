@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertEqualsParametersAsync } from "../../internal/_test_functional_assertEqualsParametersAsync";
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
-
-import { TypeGuardError } from "typia";
 
 export const test_functional_assertEqualsParametersAsync_ObjectHttpAtomic =
   _test_functional_assertEqualsParametersAsync(TypeGuardError)(

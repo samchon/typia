@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
+
 export const test_json_stringify_ObjectRequired = _test_json_stringify(
   "ObjectRequired",
 )<ObjectRequired>(ObjectRequired)((input) =>

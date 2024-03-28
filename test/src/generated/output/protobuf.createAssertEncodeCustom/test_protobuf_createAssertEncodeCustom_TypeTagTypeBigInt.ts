@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { TypeTagTypeBigInt } from "../../../structures/TypeTagTypeBigInt";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_protobuf_createAssertEncodeCustom_TypeTagTypeBigInt =
   _test_protobuf_assertEncode(CustomGuardError)(
     "TypeTagTypeBigInt",

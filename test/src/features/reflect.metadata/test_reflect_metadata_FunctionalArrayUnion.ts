@@ -1,6 +1,7 @@
 import typia from "typia";
-import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
+
 import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
+import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_reflect_metadata_FunctionalArrayUnion =
   _test_reflect_metadata("FunctionalArrayUnion")(

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ObjectHttpAtomic } from "../../../structures/ObjectHttpAtomic";
+
 export const test_protobuf_isEncode_ObjectHttpAtomic = _test_protobuf_isEncode(
   "ObjectHttpAtomic",
 )<ObjectHttpAtomic>(ObjectHttpAtomic)({

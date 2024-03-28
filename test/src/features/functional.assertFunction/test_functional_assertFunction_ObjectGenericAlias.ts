@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
-
-import { TypeGuardError } from "typia";
 
 export const test_functional_assertFunction_ObjectGenericAlias =
   _test_functional_assertFunction(TypeGuardError)("ObjectGenericAlias")(

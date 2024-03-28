@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateReturnAsync } from "../../../internal/_test_functional_validateReturnAsync";
 import { CommentTagTypeBigInt } from "../../../structures/CommentTagTypeBigInt";
+
 export const test_functional_validateReturnAsync_CommentTagTypeBigInt =
   _test_functional_validateReturnAsync("CommentTagTypeBigInt")(
     CommentTagTypeBigInt,

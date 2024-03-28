@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isFunction } from "../../../internal/_test_functional_isFunction";
 import { SetSimple } from "../../../structures/SetSimple";
+
 export const test_functional_isFunction_SetSimple = _test_functional_isFunction(
   "SetSimple",
 )(SetSimple)(

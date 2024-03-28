@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateDecode } from "../../../internal/_test_protobuf_validateDecode";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
+
 export const test_protobuf_validateDecode_ObjectGenericArray =
   _test_protobuf_validateDecode("ObjectGenericArray")<ObjectGenericArray>(
     ObjectGenericArray,

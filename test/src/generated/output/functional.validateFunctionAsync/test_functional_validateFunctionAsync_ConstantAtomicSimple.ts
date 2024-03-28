@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateFunctionAsync } from "../../../internal/_test_functional_validateFunctionAsync";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
+
 export const test_functional_validateFunctionAsync_ConstantAtomicSimple =
   _test_functional_validateFunctionAsync("ConstantAtomicSimple")(
     ConstantAtomicSimple,

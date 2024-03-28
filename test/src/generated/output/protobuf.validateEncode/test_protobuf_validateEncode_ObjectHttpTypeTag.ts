@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectHttpTypeTag } from "../../../structures/ObjectHttpTypeTag";
+
 export const test_protobuf_validateEncode_ObjectHttpTypeTag =
   _test_protobuf_validateEncode("ObjectHttpTypeTag")<ObjectHttpTypeTag>(
     ObjectHttpTypeTag,

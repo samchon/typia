@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunctionAsync } from "../../internal/_test_functional_assertFunctionAsync";
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertFunctionAsyncCustom_CommentTagArrayUnion =
   _test_functional_assertFunctionAsync(CustomGuardError)(

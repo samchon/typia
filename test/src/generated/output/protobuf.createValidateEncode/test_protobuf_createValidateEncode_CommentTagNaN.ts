@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { CommentTagNaN } from "../../../structures/CommentTagNaN";
+
 export const test_protobuf_createValidateEncode_CommentTagNaN =
   _test_protobuf_validateEncode("CommentTagNaN")<CommentTagNaN>(CommentTagNaN)({
     encode: (input: CommentTagNaN): typia.IValidation<Uint8Array> => {

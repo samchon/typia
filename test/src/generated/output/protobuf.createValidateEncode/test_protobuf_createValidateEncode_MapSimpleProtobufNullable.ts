@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
+
 export const test_protobuf_createValidateEncode_MapSimpleProtobufNullable =
   _test_protobuf_validateEncode(
     "MapSimpleProtobufNullable",

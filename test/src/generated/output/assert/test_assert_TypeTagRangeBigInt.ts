@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_assert } from "../../../internal/_test_assert";
 import { TypeTagRangeBigInt } from "../../../structures/TypeTagRangeBigInt";
-import { TypeGuardError } from "typia";
+
 export const test_assert_TypeTagRangeBigInt = _test_assert(TypeGuardError)(
   "TypeTagRangeBigInt",
 )<TypeTagRangeBigInt>(TypeTagRangeBigInt)((input) =>

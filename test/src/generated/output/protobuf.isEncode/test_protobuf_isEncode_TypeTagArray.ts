@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
+
 export const test_protobuf_isEncode_TypeTagArray = _test_protobuf_isEncode(
   "TypeTagArray",
 )<TypeTagArray>(TypeTagArray)({

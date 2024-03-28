@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectDescription } from "../../../structures/ObjectDescription";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectDescription } from "../../../structures/ObjectDescription";
 
 export const test_json_application_swagger_surplus_ObjectDescription =
   _test_json_application({

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsFunctionAsync } from "../../../internal/_test_functional_validateEqualsFunctionAsync";
 import { TypeTagObjectUnion } from "../../../structures/TypeTagObjectUnion";
+
 export const test_functional_validateEqualsFunctionAsync_TypeTagObjectUnion =
   _test_functional_validateEqualsFunctionAsync("TypeTagObjectUnion")(
     TypeTagObjectUnion,

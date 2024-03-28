@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
+
 export const test_protobuf_isEncode_ArrayRecursive = _test_protobuf_isEncode(
   "ArrayRecursive",
 )<ArrayRecursive>(ArrayRecursive)({

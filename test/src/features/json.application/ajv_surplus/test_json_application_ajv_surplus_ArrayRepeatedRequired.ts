@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_application_ajv_surplus_ArrayRepeatedRequired =
   _test_json_application({

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateParameters } from "../../../internal/_test_functional_validateParameters";
 import { ObjectSimpleProtobufNullable } from "../../../structures/ObjectSimpleProtobufNullable";
+
 export const test_functional_validateParameters_ObjectSimpleProtobufNullable =
   _test_functional_validateParameters("ObjectSimpleProtobufNullable")(
     ObjectSimpleProtobufNullable,

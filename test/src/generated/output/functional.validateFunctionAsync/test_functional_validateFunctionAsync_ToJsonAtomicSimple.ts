@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateFunctionAsync } from "../../../internal/_test_functional_validateFunctionAsync";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
+
 export const test_functional_validateFunctionAsync_ToJsonAtomicSimple =
   _test_functional_validateFunctionAsync("ToJsonAtomicSimple")(
     ToJsonAtomicSimple,

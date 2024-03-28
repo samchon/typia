@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_functional_assertReturnAsync } from "../../../internal/_test_functional_assertReturnAsync";
 import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
-import { TypeGuardError } from "typia";
+
 export const test_functional_assertReturnAsync_MapSimpleProtobuf =
   _test_functional_assertReturnAsync(TypeGuardError)("MapSimpleProtobuf")(
     MapSimpleProtobuf,
