@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_json_assertParseCustom_ObjectGenericUnion =
   _test_json_assertParse(CustomGuardError)(

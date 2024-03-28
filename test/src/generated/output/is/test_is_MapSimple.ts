@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_is } from "../../../internal/_test_is";
 import { MapSimple } from "../../../structures/MapSimple";
+
 export const test_is_MapSimple = _test_is("MapSimple")<MapSimple>(MapSimple)(
   (input) =>
     ((input: any): input is MapSimple => {

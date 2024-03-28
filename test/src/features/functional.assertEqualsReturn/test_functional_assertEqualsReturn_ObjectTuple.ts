@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { ObjectTuple } from "../../structures/ObjectTuple";
-
-import { TypeGuardError } from "typia";
 
 export const test_functional_assertEqualsReturn_ObjectTuple =
   _test_functional_assertEqualsReturn(TypeGuardError)("ObjectTuple")(

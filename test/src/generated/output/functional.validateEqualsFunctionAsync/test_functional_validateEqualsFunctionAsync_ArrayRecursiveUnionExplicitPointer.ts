@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsFunctionAsync } from "../../../internal/_test_functional_validateEqualsFunctionAsync";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
+
 export const test_functional_validateEqualsFunctionAsync_ArrayRecursiveUnionExplicitPointer =
   _test_functional_validateEqualsFunctionAsync(
     "ArrayRecursiveUnionExplicitPointer",

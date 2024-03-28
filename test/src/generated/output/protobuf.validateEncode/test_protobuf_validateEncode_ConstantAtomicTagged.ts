@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
+
 export const test_protobuf_validateEncode_ConstantAtomicTagged =
   _test_protobuf_validateEncode("ConstantAtomicTagged")<ConstantAtomicTagged>(
     ConstantAtomicTagged,

@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_json_application_swagger_surplus_ObjectUnionCompositePointer =
   _test_json_application({

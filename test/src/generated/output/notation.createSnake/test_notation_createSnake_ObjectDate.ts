@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_notation_validateGeneral } from "../../../internal/_test_notation_validateGeneral";
 import { ObjectDate } from "../../../structures/ObjectDate";
+
 export const test_notation_createValidateSnake_ObjectDate =
   _test_notation_validateGeneral("ObjectDate")<ObjectDate>(ObjectDate)<
     typia.SnakeCase<ObjectDate>

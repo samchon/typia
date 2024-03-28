@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsFunction } from "../../../internal/_test_functional_validateEqualsFunction";
 import { TypeTagTuple } from "../../../structures/TypeTagTuple";
+
 export const test_functional_validateEqualsFunction_TypeTagTuple =
   _test_functional_validateEqualsFunction("TypeTagTuple")(TypeTagTuple)(
     (p: (input: TypeTagTuple) => TypeTagTuple) =>

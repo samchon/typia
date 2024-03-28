@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_misc_createAssertCloneCustom_ObjectPrimitive =
   _test_misc_assertClone(CustomGuardError)("ObjectPrimitive")<ObjectPrimitive>(

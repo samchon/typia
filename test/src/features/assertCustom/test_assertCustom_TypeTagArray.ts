@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { TypeTagArray } from "../../structures/TypeTagArray";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_assertCustom_TypeTagArray = _test_assert(CustomGuardError)(
   "TypeTagArray",

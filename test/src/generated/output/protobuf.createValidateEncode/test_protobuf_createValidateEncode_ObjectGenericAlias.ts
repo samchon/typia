@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
+
 export const test_protobuf_createValidateEncode_ObjectGenericAlias =
   _test_protobuf_validateEncode("ObjectGenericAlias")<ObjectGenericAlias>(
     ObjectGenericAlias,

@@ -1,5 +1,4 @@
-import { back_inserter } from "tstl";
-import { sample as _Sample } from "tstl/ranges";
+import { back_inserter, ranges } from "tstl";
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
 
 export const TestRandomGenerator = {
@@ -13,7 +12,7 @@ export const TestRandomGenerator = {
     <T>(array: T[]) =>
     (count: number): T[] => {
       const ret: T[] = [];
-      _Sample(array, back_inserter(ret), count);
+      ranges.sample(array, back_inserter(ret), count);
       return ret;
     },
 };

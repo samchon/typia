@@ -1,6 +1,8 @@
 import typia from "typia";
-import { NativeAlias } from "../../../structures/NativeAlias";
+
 import { _test_reflect_metadata } from "../../../internal/_test_reflect_metadata";
+import { NativeAlias } from "../../../structures/NativeAlias";
+
 export const test_reflect_metadata_NativeAlias = _test_reflect_metadata(
   "NativeAlias",
 )({

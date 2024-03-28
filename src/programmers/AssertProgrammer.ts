@@ -37,48 +37,50 @@ export namespace AssertProgrammer {
             ...(entry.conditions.length === 0
               ? []
               : entry.conditions.length === 1
-              ? entry.conditions[0]!.map((cond) =>
-                  ts.factory.createLogicalOr(
-                    cond.expression,
-                    create_guard_call(importer)(
-                      explore.from === "top"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("_exceptionable"),
-                    )(
-                      ts.factory.createIdentifier(
-                        explore.postfix
-                          ? `_path + ${explore.postfix}`
-                          : "_path",
+                ? entry.conditions[0]!.map((cond) =>
+                    ts.factory.createLogicalOr(
+                      cond.expression,
+                      create_guard_call(importer)(
+                        explore.from === "top"
+                          ? ts.factory.createTrue()
+                          : ts.factory.createIdentifier("_exceptionable"),
+                      )(
+                        ts.factory.createIdentifier(
+                          explore.postfix
+                            ? `_path + ${explore.postfix}`
+                            : "_path",
+                        ),
+                        cond.expected,
+                        input,
                       ),
-                      cond.expected,
-                      input,
                     ),
-                  ),
-                )
-              : [
-                  ts.factory.createLogicalOr(
-                    entry.conditions
-                      .map((set) =>
-                        set
-                          .map((s) => s.expression)
-                          .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
-                      )
-                      .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-                    create_guard_call(importer)(
-                      explore.from === "top"
-                        ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("_exceptionable"),
-                    )(
-                      ts.factory.createIdentifier(
-                        explore.postfix
-                          ? `_path + ${explore.postfix}`
-                          : "_path",
+                  )
+                : [
+                    ts.factory.createLogicalOr(
+                      entry.conditions
+                        .map((set) =>
+                          set
+                            .map((s) => s.expression)
+                            .reduce((a, b) =>
+                              ts.factory.createLogicalAnd(a, b),
+                            ),
+                        )
+                        .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
+                      create_guard_call(importer)(
+                        explore.from === "top"
+                          ? ts.factory.createTrue()
+                          : ts.factory.createIdentifier("_exceptionable"),
+                      )(
+                        ts.factory.createIdentifier(
+                          explore.postfix
+                            ? `_path + ${explore.postfix}`
+                            : "_path",
+                        ),
+                        entry.expected,
+                        input,
                       ),
-                      entry.expected,
-                      input,
                     ),
-                  ),
-                ]),
+                  ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
         combiner: combiner(props.equals)(project)(importer),
         joiner: joiner(props.equals)(project)(importer),

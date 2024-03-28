@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsReturn } from "../../../internal/_test_functional_validateEqualsReturn";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
+
 export const test_functional_validateEqualsReturn_DynamicTemplate =
   _test_functional_validateEqualsReturn("DynamicTemplate")(DynamicTemplate)(
     (p: (input: DynamicTemplate) => DynamicTemplate) =>

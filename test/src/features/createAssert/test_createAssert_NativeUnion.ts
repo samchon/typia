@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { NativeUnion } from "../../structures/NativeUnion";
-
-import { TypeGuardError } from "typia";
 
 export const test_createAssert_NativeUnion = _test_assert(TypeGuardError)(
   "NativeUnion",

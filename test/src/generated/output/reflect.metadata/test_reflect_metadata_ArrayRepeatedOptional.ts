@@ -1,6 +1,8 @@
 import typia from "typia";
-import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional";
+
 import { _test_reflect_metadata } from "../../../internal/_test_reflect_metadata";
+import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional";
+
 export const test_reflect_metadata_ArrayRepeatedOptional =
   _test_reflect_metadata("ArrayRepeatedOptional")({
     metadatas: [

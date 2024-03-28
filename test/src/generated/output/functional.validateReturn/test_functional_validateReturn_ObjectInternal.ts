@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateReturn } from "../../../internal/_test_functional_validateReturn";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
+
 export const test_functional_validateReturn_ObjectInternal =
   _test_functional_validateReturn("ObjectInternal")(ObjectInternal)(
     (p: (input: ObjectInternal) => ObjectInternal) =>

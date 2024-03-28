@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateReturnAsync } from "../../../internal/_test_functional_validateReturnAsync";
 import { ObjectSimpleProtobuf } from "../../../structures/ObjectSimpleProtobuf";
+
 export const test_functional_validateReturnAsync_ObjectSimpleProtobuf =
   _test_functional_validateReturnAsync("ObjectSimpleProtobuf")(
     ObjectSimpleProtobuf,

@@ -3,7 +3,7 @@
 > - Memory: 31,954 MB
 > - OS: win32
 > - NodeJS version: v20.10.0
-> - Typia version: v5.3.5
+> - Typia version: v5.5.7
 
 
 ## is
@@ -11,15 +11,15 @@
 
  Types | typia | typebox | ajv | io-ts | zod | class-validator 
 -------|------|------|------|------|------|------
- object (simple) | 202,897 | 206,304 | 7,997 | 841 | 125 | 10 
- object (hierarchical) | 51,903 | 36,816 | 10,211 | 1,307 | 65 | 20 
- object (recursive) | 20,193 | 21,930 | 4,870 | 1,185 | 11 | 19 
- object (union, explicit) | 4,455 | 2,781 | 233 | 685 | 6.24 |  -  
- object (union, implicit) | 4,523 |  -  |  -  |  -  |  -  |  -  
- array (recursive) | 10,170 | 11,859 | 4,143 | 1,272 | 15 | 15 
- array (union, explicit) | 4,496 | 2,614 | 418 | 463 | 2.93 |  -  
- array (union, implicit) | 3,440 |  -  |  -  |  -  |  -  |  -  
- ultimate union | 2,111 |  -  |  -  |  -  |  -  |  -  
+ object (simple) | 195,390 | 193,280 | 7,197 | 772 | 114 | 9.75 
+ object (hierarchical) | 45,820 | 35,137 | 9,326 | 1,194 | 60 | 18 
+ object (recursive) | 18,841 | 20,681 | 4,444 | 1,133 | 10 | 17 
+ object (union, explicit) | 4,296 | 2,708 | 211 | 637 | 6.09 |  -  
+ object (union, implicit) | 3,564 |  -  |  -  |  -  |  -  |  -  
+ array (recursive) | 9,015 | 10,436 | 3,934 | 1,218 | 13 | 14 
+ array (union, explicit) | 4,050 | 2,433 | 363 | 375 | 2.76 |  -  
+ array (union, implicit) | 3,092 |  -  |  -  |  -  |  -  |  -  
+ ultimate union | 1,216 |  -  |  -  |  -  |  -  |  -  
 
 > Unit: Megabytes/sec
 
@@ -31,15 +31,15 @@
 
  Types | typia | typebox | ajv | io-ts | zod | class-validator 
 -------|------|------|------|------|------|------
- object (simple) | 204,764 | 206,391 | 8,031 | 843 | 126 | 11 
- object (hierarchical) | 45,892 | 35,662 | 10,116 | 1,315 | 64 | 14 
- object (recursive) | 19,025 | 21,820 | 4,900 | 1,200 | 12 | 19 
- object (union, explicit) | 4,474 | 2,900 | 229 | 675 | 6.28 |  -  
- object (union, implicit) | 4,413 |  -  |  -  |  -  |  -  |  -  
- array (recursive) | 10,003 | 11,707 | 4,220 | 1,280 | 16 | 15 
- array (union, explicit) | 4,550 | 2,637 | 397 | 463 | 2.95 |  -  
- array (union, implicit) | 3,440 |  -  |  -  |  -  |  -  |  -  
- ultimate union | 2,057 |  -  |  -  |  -  |  -  |  -  
+ object (simple) | 195,462 | 193,615 | 7,569 | 788 | 115 | 9.90 
+ object (hierarchical) | 33,581 | 34,058 | 9,239 | 1,249 | 60 | 18 
+ object (recursive) | 18,397 | 20,035 | 4,251 | 1,120 | 10 | 17 
+ object (union, explicit) | 4,219 | 2,652 | 211 | 652 | 5.96 |  -  
+ object (union, implicit) | 3,458 |  -  |  -  |  -  |  -  |  -  
+ array (recursive) | 9,261 | 10,336 | 3,796 | 1,233 | 14 | 14 
+ array (union, explicit) | 4,119 | 2,420 | 366 | 425 | 2.82 |  -  
+ array (union, implicit) | 3,118 |  -  |  -  |  -  |  -  |  -  
+ ultimate union | 1,251 |  -  |  -  |  -  |  -  |  -  
 
 > Unit: Megabytes/sec
 
@@ -51,15 +51,15 @@
 
  Types | typia | typebox | ajv | io-ts | zod | class-validator 
 -------|------|------|------|------|------|------
- object (simple) | 200,840 | 202,730 | 7,922 | 851 | 126 | 10 
- object (hierarchical) | 28,741 | 35,827 | 9,397 | 1,296 | 65 | 20 
- object (recursive) | 19,742 | 21,589 | 4,953 | 1,216 | 11 | 19 
- object (union, explicit) | 4,471 | 3,016 | 139 | 639 | 6.29 |  -  
- object (union, implicit) | 4,054 |  -  |  -  |  -  |  -  |  -  
- array (recursive) | 10,611 | 11,684 | 3,809 | 1,266 | 15 | 15 
- array (union, explicit) | 4,541 | 2,641 | 182 | 463 | 2.93 |  -  
- array (union, implicit) | 3,474 |  -  |  -  |  -  |  -  |  -  
- ultimate union | 2,069 |  -  |  -  |  -  |  -  |  -  
+ object (simple) | 196,831 | 197,262 | 7,185 | 799 | 115 | 10 
+ object (hierarchical) | 26,938 | 33,723 | 9,455 | 1,210 | 61 | 18 
+ object (recursive) | 18,146 | 20,418 | 4,464 | 1,143 | 11 | 12 
+ object (union, explicit) | 3,996 | 2,661 | 132 | 642 | 6.00 |  -  
+ object (union, implicit) | 3,894 |  -  |  -  |  -  |  -  |  -  
+ array (recursive) | 9,444 | 10,549 | 3,543 | 1,217 | 14 | 14 
+ array (union, explicit) | 4,115 | 2,306 | 174 | 432 | 2.73 |  -  
+ array (union, implicit) | 3,001 |  -  |  -  |  -  |  -  |  -  
+ ultimate union | 1,207 |  -  |  -  |  -  |  -  |  -  
 
 > Unit: Megabytes/sec
 
@@ -71,15 +71,15 @@
 
  Types | typia | typebox | io-ts | zod | class-validator 
 -------|------|------|------|------|------
- object (simple) | 875 | 36 | 200 | 119 | 7.00 
- object (hierarchical) | 3,401 | 81 | 326 | 62 | 12 
- object (recursive) | 2,754 | 58 | 213 | 11 | 12 
- object (union, explicit) | 790 | 21 | 144 | 5.92 |  -  
- object (union, implicit) | 596 |  -  |  -  |  -  |  -  
- array (recursive) | 1,644 | 53 | 138 | 12 | 5.89 
- array (union, explicit) | 1,498 | 15 | 64 | 2.36 |  -  
- array (union, implicit) | 1,283 |  -  |  -  |  -  |  -  
- ultimate union | 465 |  -  |  -  |  -  |  -  
+ object (simple) | 750 | 32 | 198 | 113 | 6.45 
+ object (hierarchical) | 3,070 | 76 | 296 | 58 | 12 
+ object (recursive) | 2,724 | 54 | 196 | 9.72 | 11 
+ object (union, explicit) | 726 | 19 | 130 | 5.80 |  -  
+ object (union, implicit) | 569 |  -  |  -  |  -  |  -  
+ array (recursive) | 1,728 | 49 | 198 | 12 | 9.12 
+ array (union, explicit) | 1,543 | 15 | 60 | 2.72 |  -  
+ array (union, implicit) | 1,256 |  -  |  -  |  -  |  -  
+ ultimate union | 317 |  -  |  -  |  -  |  -  
 
 > Unit: Megabytes/sec
 
@@ -91,15 +91,15 @@
 
  Types | typia | typebox | io-ts | zod | class-validator 
 -------|------|------|------|------|------
- object (simple) | 1,774 | 34 | 235 | 118 | 6.84 
- object (hierarchical) | 3,501 | 78 | 333 | 60 | 12 
- object (recursive) | 2,483 | 57 | 216 | 10 | 11 
- object (union, explicit) | 703 | 20 | 140 | 5.90 |  -  
- object (union, implicit) | 495 |  -  |  -  |  -  |  -  
- array (recursive) | 1,190 | 54 | 195 | 13 | 6.39 
- array (union, explicit) | 1,343 | 15 | 67 | 2.85 |  -  
- array (union, implicit) | 1,018 |  -  |  -  |  -  |  -  
- ultimate union | 330 |  -  |  -  |  -  |  -  
+ object (simple) | 1,598 | 32 | 217 | 110 | 6.56 
+ object (hierarchical) | 3,419 | 74 | 310 | 58 | 12 
+ object (recursive) | 2,414 | 55 | 204 | 9.52 | 11 
+ object (union, explicit) | 693 | 19 | 134 | 5.77 |  -  
+ object (union, implicit) | 444 |  -  |  -  |  -  |  -  
+ array (recursive) | 1,331 | 50 | 198 | 12 | 9.10 
+ array (union, explicit) | 1,291 | 14 | 62 | 2.71 |  -  
+ array (union, implicit) | 946 |  -  |  -  |  -  |  -  
+ ultimate union | 246 |  -  |  -  |  -  |  -  
 
 > Unit: Megabytes/sec
 
@@ -111,14 +111,14 @@
 
  Types | typia | typebox | ajv | class-validator 
 -------|------|------|------|------
- object (simple) | 199,683 | 8.76 | 0.03 | 10 
- object (hierarchical) | 49,403 | 16 | 0.15 | 19 
- object (recursive) | 22,383 | 88 | 0.32 | 18 
- object (union, explicit) | 4,405 | 19 | 0.16 | 19 
- array (simple) | 16,308 | 223 | 0.61 | 42 
- array (hierarchical) | 34,076 | 576 | 5.61 | 34 
- array (recursive) | 10,450 | 945 | 3.37 | 15 
- array (union, explicit) | 7,166 | 190 | 1.05 | 49 
+ object (simple) | 196,647 | 8.63 | 0.03 | 9.70 
+ object (hierarchical) | 37,822 | 16 | 0.15 | 18 
+ object (recursive) | 21,422 | 89 | 0.31 | 17 
+ object (union, explicit) | 4,117 | 18 | 0.16 | 18 
+ array (simple) | 16,005 | 95 | 0.16 | 43 
+ array (hierarchical) | 26,830 | 1,510 | 8.01 | 33 
+ array (recursive) | 9,580 | 923 | 3.23 | 9.46 
+ array (union, explicit) | 7,200 | 185 | 1.06 | 25 
 
 > Unit: Megabytes/sec
 
@@ -130,14 +130,14 @@
 
  Types | typia.stringify | typia.isStringify | typia.assertStringify | fast-json-stringify | JSON.stringify | class-transformer 
 -------|------|------|------|------|------|------
- object (simple) | 2,358 | 1,711 | 1,715 | 714 | 121 | 9.63 
- object (hierarchical) | 840 | 847 | 815 | 519 | 193 | 19 
- object (recursive) | 957 | 823 | 901 | 274 | 196 | 18 
- object (union, explicit) | 299 | 254 | 261 | 222 | 112 | 7.52 
- array (simple) | 360 | 352 | 351 | 627 | 237 | 18 
- array (hierarchical) | 452 | 444 | 452 | 801 | 204 | 15 
- array (recursive) | 408 | 396 | 378 | 823 | 192 | 16 
- array (union, explicit) | 321 | 300 | 306 | 81 | 258 | 15 
+ object (simple) | 2,115 | 1,813 | 1,711 | 693 | 119 | 9.52 
+ object (hierarchical) | 836 | 780 | 776 | 471 | 186 | 19 
+ object (recursive) | 980 | 964 | 932 | 256 | 189 | 17 
+ object (union, explicit) | 295 | 267 | 253 | 212 | 119 | 7.51 
+ array (simple) | 377 | 362 | 344 | 587 | 227 | 19 
+ array (hierarchical) | 476 | 455 | 452 | 753 | 195 | 14 
+ array (recursive) | 397 | 391 | 385 | 825 | 190 | 15 
+ array (union, explicit) | 337 | 306 | 313 | 77 | 250 | 15 
 
 > Unit: Megabytes/sec
 
@@ -149,14 +149,14 @@
 
  Types | fastify-typia | fastify-pure | fastify-class-transformer | express-typia | express-class-transformer 
 -------|------|------|------|------|------
- object (simple) | 90 | 85 | 7.13 | 51 | 6.10 
- object (hierarchical) | 165 | 162 | 12 | 134 | 12 
- object (recursive) | 165 | 154 | 11 | 137 | 10 
- object (union, explicit) | 107 | 69 | 4.35 | 83 | 4.20 
- array (simple) | 152 | 149 | 11 | 129 | 9.73 
- array (hierarchical) | 94 | 96 | 5.95 | 128 | 7.47 
- array (recursive) | 122 | 122 | 8.29 | 115 | 8.02 
- array (union, explicit) | 139 | 100 | 7.97 | 141 | 7.77 
+ object (simple) | 93 | 88 | 7.35 | 56 | 6.77 
+ object (hierarchical) | 173 | 166 | 13 | 136 | 12 
+ object (recursive) | 160 | 154 | 11 | 136 | 10 
+ object (union, explicit) | 105 | 69 | 4.39 | 83 | 4.23 
+ array (simple) | 149 | 142 | 10 | 125 | 9.78 
+ array (hierarchical) | 56 | 107 | 5.64 | 95 | 6.48 
+ array (recursive) | 136 | 131 | 8.56 | 116 | 8.12 
+ array (union, explicit) | 155 | 102 | 8.20 | 145 | 8.00 
 
 > Unit: Megabytes/sec
 
@@ -168,14 +168,14 @@
 
  Types | fastify-typia | fastify-pure | fastify-class-transformer | express-typia | express-pure | express-class-transformer 
 -------|------|------|------|------|------|------
- object (simple) | 139 | 136 | 8.57 | 71 | 53 | 7.28 
- object (hierarchical) | 199 | 179 | 16 | 176 | 120 | 15 
- object (recursive) | 222 | 119 | 14 | 182 | 131 | 11 
- object (union, explicit) | 158 | 93 | 5.52 | 135 | 90 | 5.80 
- array (simple) | 152 | 167 | 14 | 150 | 141 | 13 
- array (hierarchical) | 163 | 75 | 12 | 169 | 128 | 11 
- array (recursive) | 137 | 85 | 11 | 141 | 124 | 11 
- array (union, explicit) | 150 | 35 | 12 | 136 | 151 | 12 
+ object (simple) | 154 | 142 | 9.02 | 80 | 58 | 8.32 
+ object (hierarchical) | 223 | 179 | 13 | 175 | 123 | 16 
+ object (recursive) | 230 | 117 | 14 | 191 | 134 | 14 
+ object (union, explicit) | 168 | 99 | 5.96 | 144 | 90 | 5.99 
+ array (simple) | 161 | 167 | 14 | 146 | 140 | 14 
+ array (hierarchical) | 173 | 80 | 12 | 177 | 129 | 12 
+ array (recursive) | 149 | 92 | 12 | 148 | 120 | 12 
+ array (union, explicit) | 150 | 38 | 13 | 151 | 155 | 13 
 
 > Unit: Megabytes/sec
 
@@ -187,14 +187,14 @@
 
  Types | fastify-typia | fastify-pure | fastify-class-transformer | express-typia | express-class-transformer 
 -------|------|------|------|------|------
- object (simple) | 126 | 118 | 9.38 | 78 | 12 
- object (hierarchical) | 198 | 176 | 17 | 159 | 23 
- object (recursive) | 187 | 130 | 15 | 160 | 22 
- object (union, explicit) | 128 | 77 | 4.23 | 105 | 4.23 
- array (simple) | 157 | 154 | 11 | 141 | 11 
- array (hierarchical) | 145 | 105 | 7.95 | 147 | 6.37 
- array (recursive) | 131 | 131 | 11 | 129 | 16 
- array (union, explicit) | 151 | 54 | 8.11 | 136 | 7.96 
+ object (simple) | 131 | 123 | 9.94 | 82 | 13 
+ object (hierarchical) | 202 | 177 | 18 | 162 | 25 
+ object (recursive) | 194 | 132 | 15 | 167 | 21 
+ object (union, explicit) | 130 | 80 | 4.42 | 107 | 4.24 
+ array (simple) | 160 | 144 | 10 | 146 | 9.90 
+ array (hierarchical) | 132 | 80 | 6.13 | 148 | 6.01 
+ array (recursive) | 143 | 139 | 12 | 135 | 17 
+ array (union, explicit) | 159 | 56 | 8.23 | 149 | 8.05 
 
 > Unit: Megabytes/sec
 
@@ -204,4 +204,4 @@
 
 
 
-Total elapsed time: 4,365,887 ms
+Total elapsed time: 4,354,260 ms

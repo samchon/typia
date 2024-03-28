@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ArraySimple } from "../../structures/ArraySimple";
-
-import { TypeGuardError } from "typia";
 
 export const test_assertGuard_ArraySimple = _test_assertGuard(TypeGuardError)(
   "ArraySimple",

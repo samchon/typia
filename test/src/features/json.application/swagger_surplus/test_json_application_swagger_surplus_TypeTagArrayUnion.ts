@@ -1,6 +1,7 @@
 import typia from "typia";
-import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
 export const test_json_application_swagger_surplus_TypeTagArrayUnion =
   _test_json_application({

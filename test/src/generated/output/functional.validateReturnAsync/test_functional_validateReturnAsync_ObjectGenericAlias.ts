@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateReturnAsync } from "../../../internal/_test_functional_validateReturnAsync";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
+
 export const test_functional_validateReturnAsync_ObjectGenericAlias =
   _test_functional_validateReturnAsync("ObjectGenericAlias")(
     ObjectGenericAlias,

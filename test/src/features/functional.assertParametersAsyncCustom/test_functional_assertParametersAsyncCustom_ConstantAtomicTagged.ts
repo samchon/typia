@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParametersAsync } from "../../internal/_test_functional_assertParametersAsync";
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertParametersAsyncCustom_ConstantAtomicTagged =
   _test_functional_assertParametersAsync(CustomGuardError)(

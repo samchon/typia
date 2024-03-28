@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_equalsParameters } from "../../../internal/_test_functional_equalsParameters";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
+
 export const test_functional_equalsParameters_ToJsonNull =
   _test_functional_equalsParameters("ToJsonNull")(ToJsonNull)(
     (p: (input: ToJsonNull) => ToJsonNull) =>

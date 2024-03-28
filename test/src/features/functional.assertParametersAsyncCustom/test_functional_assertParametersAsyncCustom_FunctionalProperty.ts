@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParametersAsync } from "../../internal/_test_functional_assertParametersAsync";
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertParametersAsyncCustom_FunctionalProperty =
   _test_functional_assertParametersAsync(CustomGuardError)(

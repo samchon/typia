@@ -28,14 +28,14 @@ export const feature_object_entries =
         sole === null
           ? ts.factory.createIdentifier("value")
           : Escaper.variable(sole)
-          ? ts.factory.createPropertyAccessExpression(
-              input,
-              ts.factory.createIdentifier(sole),
-            )
-          : ts.factory.createElementAccessExpression(
-              input,
-              ts.factory.createStringLiteral(sole),
-            );
+            ? ts.factory.createPropertyAccessExpression(
+                input,
+                ts.factory.createIdentifier(sole),
+              )
+            : ts.factory.createElementAccessExpression(
+                input,
+                ts.factory.createStringLiteral(sole),
+              );
 
       return {
         input: propInput,

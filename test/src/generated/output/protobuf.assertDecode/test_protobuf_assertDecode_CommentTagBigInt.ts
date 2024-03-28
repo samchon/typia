@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
-import { TypeGuardError } from "typia";
+
 export const test_protobuf_assertDecode_CommentTagBigInt =
   _test_protobuf_assertDecode(TypeGuardError)(
     "CommentTagBigInt",

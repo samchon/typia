@@ -1,6 +1,7 @@
 import typia from "typia";
-import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_application_ajv_standard_ObjectPrimitive =
   _test_json_application({

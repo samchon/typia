@@ -1,9 +1,8 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assert } from "../../internal/_test_assert";
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
-
-import { TypeGuardError } from "typia";
 
 export const test_createAssert_DynamicTemplate = _test_assert(TypeGuardError)(
   "DynamicTemplate",

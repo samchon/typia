@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateReturnAsync } from "../../../internal/_test_functional_validateReturnAsync";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
+
 export const test_functional_validateReturnAsync_ObjectHierarchical =
   _test_functional_validateReturnAsync("ObjectHierarchical")(
     ObjectHierarchical,

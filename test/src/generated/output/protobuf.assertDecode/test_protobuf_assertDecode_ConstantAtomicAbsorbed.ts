@@ -1,7 +1,9 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
+
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
-import { TypeGuardError } from "typia";
+
 export const test_protobuf_assertDecode_ConstantAtomicAbsorbed =
   _test_protobuf_assertDecode(TypeGuardError)(
     "ConstantAtomicAbsorbed",

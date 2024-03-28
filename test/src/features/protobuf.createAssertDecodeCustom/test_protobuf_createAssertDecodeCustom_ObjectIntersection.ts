@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_protobuf_createAssertDecodeCustom_ObjectIntersection =
   _test_protobuf_assertDecode(CustomGuardError)(

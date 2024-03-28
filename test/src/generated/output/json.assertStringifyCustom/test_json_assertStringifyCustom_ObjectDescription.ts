@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_json_assertStringifyCustom_ObjectDescription =
   _test_json_assertStringify(CustomGuardError)(
     "ObjectDescription",

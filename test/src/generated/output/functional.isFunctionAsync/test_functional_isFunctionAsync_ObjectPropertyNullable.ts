@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isFunctionAsync } from "../../../internal/_test_functional_isFunctionAsync";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
+
 export const test_functional_isFunctionAsync_ObjectPropertyNullable =
   _test_functional_isFunctionAsync("ObjectPropertyNullable")(
     ObjectPropertyNullable,

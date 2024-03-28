@@ -1,4 +1,5 @@
 import typia from "typia";
+
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1004_array_inheritance = (): void => {

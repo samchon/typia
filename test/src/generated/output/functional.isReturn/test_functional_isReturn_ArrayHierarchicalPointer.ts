@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isReturn } from "../../../internal/_test_functional_isReturn";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
+
 export const test_functional_isReturn_ArrayHierarchicalPointer =
   _test_functional_isReturn("ArrayHierarchicalPointer")(
     ArrayHierarchicalPointer,

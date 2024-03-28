@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ClassGetter } from "../../../structures/ClassGetter";
+
 export const test_json_createStringify_ClassGetter = _test_json_stringify(
   "ClassGetter",
 )<ClassGetter>(ClassGetter)((input: ClassGetter): string => {

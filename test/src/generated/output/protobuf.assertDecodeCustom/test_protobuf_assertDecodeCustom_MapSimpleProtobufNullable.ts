@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { MapSimpleProtobufNullable } from "../../../structures/MapSimpleProtobufNullable";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_protobuf_assertDecodeCustom_MapSimpleProtobufNullable =
   _test_protobuf_assertDecode(CustomGuardError)(
     "MapSimpleProtobufNullable",

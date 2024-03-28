@@ -1,6 +1,8 @@
 import typia from "typia";
-import { ObjectDynamic } from "../../../../structures/ObjectDynamic";
+
 import { _test_json_application } from "../../../../internal/_test_json_application";
+import { ObjectDynamic } from "../../../../structures/ObjectDynamic";
+
 export const test_json_application_ajv_surplus_ObjectDynamic =
   _test_json_application({
     purpose: "ajv",

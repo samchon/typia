@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isParametersAsync } from "../../../internal/_test_functional_isParametersAsync";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
+
 export const test_functional_isParametersAsync_ObjectUnionCompositePointer =
   _test_functional_isParametersAsync("ObjectUnionCompositePointer")(
     ObjectUnionCompositePointer,

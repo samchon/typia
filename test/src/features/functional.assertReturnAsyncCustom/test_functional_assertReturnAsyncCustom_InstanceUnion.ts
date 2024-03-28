@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturnAsync } from "../../internal/_test_functional_assertReturnAsync";
 import { InstanceUnion } from "../../structures/InstanceUnion";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertReturnAsyncCustom_InstanceUnion =
   _test_functional_assertReturnAsync(CustomGuardError)("InstanceUnion")(

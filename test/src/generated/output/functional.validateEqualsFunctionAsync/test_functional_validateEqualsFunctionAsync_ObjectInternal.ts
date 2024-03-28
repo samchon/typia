@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsFunctionAsync } from "../../../internal/_test_functional_validateEqualsFunctionAsync";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
+
 export const test_functional_validateEqualsFunctionAsync_ObjectInternal =
   _test_functional_validateEqualsFunctionAsync("ObjectInternal")(
     ObjectInternal,

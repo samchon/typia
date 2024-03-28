@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_functional_assertEqualsReturnAsync";
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertEqualsReturnAsyncCustom_CommentTagRangeBigInt =
   _test_functional_assertEqualsReturnAsync(CustomGuardError)(

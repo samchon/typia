@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_equalsReturnAsync } from "../../../internal/_test_functional_equalsReturnAsync";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
+
 export const test_functional_equalsReturnAsync_ToJsonDouble =
   _test_functional_equalsReturnAsync("ToJsonDouble")(ToJsonDouble)(
     (p: (input: ToJsonDouble) => Promise<ToJsonDouble>) =>

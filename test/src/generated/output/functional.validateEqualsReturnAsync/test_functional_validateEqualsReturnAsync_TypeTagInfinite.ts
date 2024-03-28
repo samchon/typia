@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsReturnAsync } from "../../../internal/_test_functional_validateEqualsReturnAsync";
 import { TypeTagInfinite } from "../../../structures/TypeTagInfinite";
+
 export const test_functional_validateEqualsReturnAsync_TypeTagInfinite =
   _test_functional_validateEqualsReturnAsync("TypeTagInfinite")(
     TypeTagInfinite,

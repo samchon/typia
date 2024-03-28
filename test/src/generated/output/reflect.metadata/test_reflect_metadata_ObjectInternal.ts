@@ -1,6 +1,8 @@
 import typia from "typia";
-import { ObjectInternal } from "../../../structures/ObjectInternal";
+
 import { _test_reflect_metadata } from "../../../internal/_test_reflect_metadata";
+import { ObjectInternal } from "../../../structures/ObjectInternal";
+
 export const test_reflect_metadata_ObjectInternal = _test_reflect_metadata(
   "ObjectInternal",
 )({

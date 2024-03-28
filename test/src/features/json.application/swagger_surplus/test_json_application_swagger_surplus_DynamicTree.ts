@@ -1,6 +1,7 @@
 import typia from "typia";
-import { DynamicTree } from "../../../structures/DynamicTree";
+
 import { _test_json_application } from "../../../internal/_test_json_application";
+import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_json_application_swagger_surplus_DynamicTree =
   _test_json_application({

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isParameters } from "../../../internal/_test_functional_isParameters";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
+
 export const test_functional_isParameters_ObjectUnionDouble =
   _test_functional_isParameters("ObjectUnionDouble")(ObjectUnionDouble)(
     (p: (input: ObjectUnionDouble) => ObjectUnionDouble) =>

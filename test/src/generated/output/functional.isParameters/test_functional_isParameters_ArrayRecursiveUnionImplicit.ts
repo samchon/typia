@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isParameters } from "../../../internal/_test_functional_isParameters";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
+
 export const test_functional_isParameters_ArrayRecursiveUnionImplicit =
   _test_functional_isParameters("ArrayRecursiveUnionImplicit")(
     ArrayRecursiveUnionImplicit,

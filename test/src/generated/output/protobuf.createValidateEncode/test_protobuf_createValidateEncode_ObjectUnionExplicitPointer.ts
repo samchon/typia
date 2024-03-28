@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_validateEncode } from "../../../internal/_test_protobuf_validateEncode";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
+
 export const test_protobuf_createValidateEncode_ObjectUnionExplicitPointer =
   _test_protobuf_validateEncode(
     "ObjectUnionExplicitPointer",

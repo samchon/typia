@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpCommentTag } from "../../../structures/ObjectHttpCommentTag";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_protobuf_createAssertEncodeCustom_ObjectHttpCommentTag =
   _test_protobuf_assertEncode(CustomGuardError)(
     "ObjectHttpCommentTag",

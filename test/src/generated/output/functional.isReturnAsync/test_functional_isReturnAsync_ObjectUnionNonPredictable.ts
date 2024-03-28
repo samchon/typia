@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isReturnAsync } from "../../../internal/_test_functional_isReturnAsync";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
+
 export const test_functional_isReturnAsync_ObjectUnionNonPredictable =
   _test_functional_isReturnAsync("ObjectUnionNonPredictable")(
     ObjectUnionNonPredictable,

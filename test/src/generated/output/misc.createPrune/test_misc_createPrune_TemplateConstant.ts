@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
+
 export const test_misc_createPrune_TemplateConstant = _test_misc_prune(
   "TemplateConstant",
 )<TemplateConstant>(TemplateConstant)((input: TemplateConstant): void => {

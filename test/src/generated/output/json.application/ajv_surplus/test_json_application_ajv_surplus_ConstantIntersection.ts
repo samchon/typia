@@ -1,6 +1,8 @@
 import typia from "typia";
-import { ConstantIntersection } from "../../../../structures/ConstantIntersection";
+
 import { _test_json_application } from "../../../../internal/_test_json_application";
+import { ConstantIntersection } from "../../../../structures/ConstantIntersection";
+
 export const test_json_application_ajv_surplus_ConstantIntersection =
   _test_json_application({
     purpose: "ajv",

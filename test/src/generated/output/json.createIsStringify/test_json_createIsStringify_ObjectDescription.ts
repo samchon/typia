@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
+
 export const test_json_createIsStringify_ObjectDescription =
   _test_json_isStringify("ObjectDescription")<ObjectDescription>(
     ObjectDescription,

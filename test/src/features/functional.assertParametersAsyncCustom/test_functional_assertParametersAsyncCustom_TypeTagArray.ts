@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParametersAsync } from "../../internal/_test_functional_assertParametersAsync";
 import { TypeTagArray } from "../../structures/TypeTagArray";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertParametersAsyncCustom_TypeTagArray =
   _test_functional_assertParametersAsync(CustomGuardError)("TypeTagArray")(

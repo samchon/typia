@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_misc_assertPruneCustom_ObjectPropertyNullable =
   _test_misc_assertPrune(CustomGuardError)(

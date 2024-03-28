@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertEqualsParametersAsync } from "../../internal/_test_functional_assertEqualsParametersAsync";
 import { FunctionalTuple } from "../../structures/FunctionalTuple";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertEqualsParametersAsyncCustom_FunctionalTuple =
   _test_functional_assertEqualsParametersAsync(CustomGuardError)(

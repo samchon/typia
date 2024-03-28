@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertFunctionCustom_ArrayHierarchical =
   _test_functional_assertFunction(CustomGuardError)("ArrayHierarchical")(

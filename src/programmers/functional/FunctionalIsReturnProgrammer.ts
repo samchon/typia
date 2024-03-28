@@ -7,8 +7,8 @@ import { IProject } from "../../transformers/IProject";
 import { StringUtil } from "../../utils/StringUtil";
 
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 import { FunctionalIsFunctionProgrammer } from "./FunctionalIsFunctionProgrammer";
+import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgrammer";
 
 export namespace FunctionalIsReturnProgrammer {
   export const write =

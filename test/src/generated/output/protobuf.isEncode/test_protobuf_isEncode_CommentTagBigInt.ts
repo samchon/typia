@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_protobuf_isEncode } from "../../../internal/_test_protobuf_isEncode";
 import { CommentTagBigInt } from "../../../structures/CommentTagBigInt";
+
 export const test_protobuf_isEncode_CommentTagBigInt = _test_protobuf_isEncode(
   "CommentTagBigInt",
 )<CommentTagBigInt>(CommentTagBigInt)({

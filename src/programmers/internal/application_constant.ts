@@ -17,9 +17,9 @@ export const application_constant =
       constant.type === "string"
         ? (str) => str
         : constant.type === "number"
-        ? (str) => Number(str)
-        : constant.type === "boolean"
-        ? (str) => Boolean(str)
-        : (str) => BigInt(str) as any,
+          ? (str) => Number(str)
+          : constant.type === "boolean"
+            ? (str) => Boolean(str)
+            : (str) => BigInt(str) as any,
     ),
   });

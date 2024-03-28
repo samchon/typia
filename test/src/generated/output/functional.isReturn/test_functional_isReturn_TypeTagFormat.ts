@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isReturn } from "../../../internal/_test_functional_isReturn";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
+
 export const test_functional_isReturn_TypeTagFormat = _test_functional_isReturn(
   "TypeTagFormat",
 )(TypeTagFormat)(

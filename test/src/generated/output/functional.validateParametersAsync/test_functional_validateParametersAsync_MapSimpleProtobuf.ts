@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateParametersAsync } from "../../../internal/_test_functional_validateParametersAsync";
 import { MapSimpleProtobuf } from "../../../structures/MapSimpleProtobuf";
+
 export const test_functional_validateParametersAsync_MapSimpleProtobuf =
   _test_functional_validateParametersAsync("MapSimpleProtobuf")(
     MapSimpleProtobuf,

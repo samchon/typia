@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../../internal/_test_assertGuardEquals";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_assertGuardEqualsCustom_ArrayRecursiveUnionExplicit =
   _test_assertGuardEquals(CustomGuardError)(
     "ArrayRecursiveUnionExplicit",

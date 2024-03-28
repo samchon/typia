@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsParametersAsync } from "../../../internal/_test_functional_validateEqualsParametersAsync";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
+
 export const test_functional_validateEqualsParametersAsync_ObjectDescription =
   _test_functional_validateEqualsParametersAsync("ObjectDescription")(
     ObjectDescription,

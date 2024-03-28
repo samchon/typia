@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_isFunction } from "../../../internal/_test_functional_isFunction";
 import { ArraySimpleProtobufNullable } from "../../../structures/ArraySimpleProtobufNullable";
+
 export const test_functional_isFunction_ArraySimpleProtobufNullable =
   _test_functional_isFunction("ArraySimpleProtobufNullable")(
     ArraySimpleProtobufNullable,

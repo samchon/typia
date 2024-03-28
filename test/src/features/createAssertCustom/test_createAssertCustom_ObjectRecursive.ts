@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_createAssertCustom_ObjectRecursive = _test_assert(
   CustomGuardError,

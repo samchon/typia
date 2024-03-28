@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_functional_assertParametersAsync } from "../../../internal/_test_functional_assertParametersAsync";
 import { CommentTagInfinite } from "../../../structures/CommentTagInfinite";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_functional_assertParametersAsyncCustom_CommentTagInfinite =
   _test_functional_assertParametersAsync(CustomGuardError)(
     "CommentTagInfinite",

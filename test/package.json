@@ -49,8 +49,8 @@
     "randexp": "^0.5.3",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
-    "tstl": "^2.5.13",
+    "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "D:\\github\\samchon\\typia@master\\typia-5.5.7.tgz"
+    "typia": "D:\\github\\samchon\\typia\\typia-5.5.7.tgz"
   }
 }

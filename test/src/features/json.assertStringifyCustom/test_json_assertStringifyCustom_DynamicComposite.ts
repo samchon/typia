@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { DynamicComposite } from "../../structures/DynamicComposite";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_json_assertStringifyCustom_DynamicComposite =
   _test_json_assertStringify(CustomGuardError)(

@@ -1,7 +1,9 @@
 import ts from "typescript";
+
+import { TypeFactory } from "../../../factories/TypeFactory";
+
 import { IProject } from "../../IProject";
 import { TransformerError } from "../../TransformerError";
-import { TypeFactory } from "../../../factories/TypeFactory";
 
 export namespace FunctionalGenericTransformer {
   export const transform =

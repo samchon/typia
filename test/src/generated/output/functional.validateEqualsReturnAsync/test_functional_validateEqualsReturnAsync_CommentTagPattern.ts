@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsReturnAsync } from "../../../internal/_test_functional_validateEqualsReturnAsync";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
+
 export const test_functional_validateEqualsReturnAsync_CommentTagPattern =
   _test_functional_validateEqualsReturnAsync("CommentTagPattern")(
     CommentTagPattern,

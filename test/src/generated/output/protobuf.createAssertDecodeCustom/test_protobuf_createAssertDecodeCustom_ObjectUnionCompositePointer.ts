@@ -1,7 +1,9 @@
 import typia from "typia";
+
+import { CustomGuardError } from "../../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../../internal/_test_protobuf_assertDecode";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
-import { CustomGuardError } from "../../../internal/CustomGuardError";
+
 export const test_protobuf_createAssertDecodeCustom_ObjectUnionCompositePointer =
   _test_protobuf_assertDecode(CustomGuardError)(
     "ObjectUnionCompositePointer",

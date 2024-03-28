@@ -2,14 +2,14 @@ export const boolean = (str: string | null): boolean | null | undefined =>
   str === null
     ? undefined
     : str === "null"
-    ? null
-    : str.length === 0
-    ? true
-    : str === "true" || str === "1"
-    ? true
-    : str === "false" || str === "0"
-    ? false
-    : (str as any); // wrong type
+      ? null
+      : str.length === 0
+        ? true
+        : str === "true" || str === "1"
+          ? true
+          : str === "false" || str === "0"
+            ? false
+            : (str as any); // wrong type
 
 export const number = (str: string | null): number | null | undefined =>
   !!str?.length ? (str === "null" ? null : (toNumber(str) as any)) : undefined;

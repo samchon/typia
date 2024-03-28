@@ -18,6 +18,7 @@ import { IProject } from "../transformers/IProject";
 import { TransformerError } from "../transformers/TransformerError";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
+import { IsProgrammer } from "./IsProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
 import { FunctionImporter } from "./helpers/FunctionImporter";
 import { ICheckEntry } from "./helpers/ICheckEntry";
@@ -32,7 +33,6 @@ import { check_string } from "./internal/check_string";
 import { check_template } from "./internal/check_template";
 import { decode_union_object } from "./internal/decode_union_object";
 import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
-import { IsProgrammer } from "./IsProgrammer";
 
 export namespace CheckerProgrammer {
   export interface IConfig {
@@ -596,8 +596,8 @@ export namespace CheckerProgrammer {
             meta.getName(),
           )
         : binaries.length
-        ? config.combiner(explore)("or")(input, binaries, meta.getName())
-        : config.success;
+          ? config.combiner(explore)("or")(input, binaries, meta.getName())
+          : config.success;
     };
 
   export const decode_object =

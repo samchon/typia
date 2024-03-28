@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { TupleRestArray } from "../../structures/TupleRestArray";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_functional_assertParametersCustom_TupleRestArray =
   _test_functional_assertParameters(CustomGuardError)("TupleRestArray")(

@@ -1,6 +1,8 @@
 import typia from "typia";
+
 import { _test_functional_validateEqualsParameters } from "../../../internal/_test_functional_validateEqualsParameters";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
+
 export const test_functional_validateEqualsParameters_ObjectIntersection =
   _test_functional_validateEqualsParameters("ObjectIntersection")(
     ObjectIntersection,

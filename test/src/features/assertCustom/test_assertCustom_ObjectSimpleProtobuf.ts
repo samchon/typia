@@ -1,9 +1,8 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectSimpleProtobuf } from "../../structures/ObjectSimpleProtobuf";
-
-import { CustomGuardError } from "../../internal/CustomGuardError";
 
 export const test_assertCustom_ObjectSimpleProtobuf = _test_assert(
   CustomGuardError,
