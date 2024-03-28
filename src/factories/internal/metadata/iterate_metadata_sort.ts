@@ -45,8 +45,8 @@ const iterate =
         Metadata.covers(x.type.value, y.type.value)
           ? -1
           : Metadata.covers(y.type.value, x.type.value)
-          ? 1
-          : 0,
+            ? 1
+            : 0,
       );
     if (meta.tuples.length > 1)
       meta.tuples.sort((x, y) => {

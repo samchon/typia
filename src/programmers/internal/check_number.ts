@@ -29,14 +29,14 @@ export const check_number =
               [input],
             )
           : OptionPredicator.numeric(project.options)
-          ? ts.factory.createLogicalNot(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Number.isNaN"),
-                undefined,
-                [input],
-              ),
-            )
-          : null
+            ? ts.factory.createLogicalNot(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("Number.isNaN"),
+                  undefined,
+                  [input],
+                ),
+              )
+            : null
         : null;
 
     const conditions: ICheckEntry.ICondition[][] =
@@ -67,35 +67,36 @@ const check_numeric_type_tags =
         ...(addition === null
           ? []
           : row.some(
-              (tag) =>
-                tag.kind === "type" &&
-                (tag.value === "int32" ||
-                  tag.value === "uint32" ||
-                  tag.value === "int64" ||
-                  tag.value === "uint64" ||
-                  tag.value === "float"),
-            ) ||
-            row.some(
-              (tag) =>
-                tag.kind === "multipleOf" && typeof tag.value === "number",
-            ) ||
-            (row.some(
-              (tag) =>
-                (tag.kind === "minimum" || tag.kind === "exclusiveMinimum") &&
-                typeof tag.value === "number",
-            ) &&
+                (tag) =>
+                  tag.kind === "type" &&
+                  (tag.value === "int32" ||
+                    tag.value === "uint32" ||
+                    tag.value === "int64" ||
+                    tag.value === "uint64" ||
+                    tag.value === "float"),
+              ) ||
               row.some(
                 (tag) =>
-                  (tag.kind === "maximum" || tag.kind === "exclusiveMaximum") &&
+                  tag.kind === "multipleOf" && typeof tag.value === "number",
+              ) ||
+              (row.some(
+                (tag) =>
+                  (tag.kind === "minimum" || tag.kind === "exclusiveMinimum") &&
                   typeof tag.value === "number",
-              ))
-          ? []
-          : [
-              {
-                expected: "number",
-                expression: addition!,
-              },
-            ]),
+              ) &&
+                row.some(
+                  (tag) =>
+                    (tag.kind === "maximum" ||
+                      tag.kind === "exclusiveMaximum") &&
+                    typeof tag.value === "number",
+                ))
+            ? []
+            : [
+                {
+                  expected: "number",
+                  expression: addition!,
+                },
+              ]),
         ...row.map((tag) => ({
           expected: `number & ${tag.name}`,
           expression: (

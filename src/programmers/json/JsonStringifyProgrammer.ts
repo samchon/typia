@@ -322,17 +322,21 @@ export namespace JsonStringifyProgrammer {
                   from: "array",
                 })
             : meta.arrays.some((elem) => elem.type.value.any)
-            ? () =>
-                ts.factory.createCallExpression(
-                  ts.factory.createIdentifier("JSON.stringify"),
-                  undefined,
-                  [input],
-                )
-            : () =>
-                explore_arrays(project)(config)(importer)(input, meta.arrays, {
-                  ...explore,
-                  from: "array",
-                });
+              ? () =>
+                  ts.factory.createCallExpression(
+                    ts.factory.createIdentifier("JSON.stringify"),
+                    undefined,
+                    [input],
+                  )
+              : () =>
+                  explore_arrays(project)(config)(importer)(
+                    input,
+                    meta.arrays,
+                    {
+                      ...explore,
+                      from: "array",
+                    },
+                  );
 
         unions.push({
           type: "array",

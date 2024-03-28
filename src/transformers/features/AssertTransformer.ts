@@ -10,7 +10,7 @@ export namespace AssertTransformer {
           ? "assertGuardEquals"
           : "assertEquals"
         : props.guard
-        ? "assertGuard"
-        : "assert",
+          ? "assertGuard"
+          : "assert",
     )((project) => (modulo) => AssertProgrammer.write(project)(modulo)(props));
 }

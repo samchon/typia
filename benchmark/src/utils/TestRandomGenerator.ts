@@ -1,6 +1,6 @@
 import RandExp from "randexp";
 import { back_inserter } from "tstl";
-import { sample as _Sample } from "tstl/ranges";
+import { ranges } from "tstl";
 
 export namespace TestRandomGenerator {
   const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
@@ -17,7 +17,7 @@ export namespace TestRandomGenerator {
     <T>(array: T[]) =>
     (count: number): T[] => {
       const ret: T[] = [];
-      _Sample(array, back_inserter(ret), count);
+      ranges.sample(array, back_inserter(ret), count);
       return ret;
     };
 

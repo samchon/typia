@@ -162,26 +162,27 @@ export namespace HttpFormDataProgrammer {
         .atomics.length
         ? [value.atomics[0]!.type, false]
         : value.constants.length
-        ? [value.constants[0]!.type, false]
-        : value.templates.length
-        ? ["string", false]
-        : value.natives.includes("Blob")
-        ? ["blob", false]
-        : value.natives.includes("File")
-        ? ["file", false]
-        : (() => {
-            const meta =
-              value.arrays[0]?.type.value ?? value.tuples[0]!.type.elements[0]!;
-            return meta.atomics.length
-              ? [meta.atomics[0]!.type, true]
-              : meta.templates.length
-              ? ["string", true]
-              : meta.natives.includes("Blob")
-              ? ["blob", true]
-              : meta.natives.includes("File")
-              ? ["file", true]
-              : [meta.constants[0]!.type, true];
-          })();
+          ? [value.constants[0]!.type, false]
+          : value.templates.length
+            ? ["string", false]
+            : value.natives.includes("Blob")
+              ? ["blob", false]
+              : value.natives.includes("File")
+                ? ["file", false]
+                : (() => {
+                    const meta =
+                      value.arrays[0]?.type.value ??
+                      value.tuples[0]!.type.elements[0]!;
+                    return meta.atomics.length
+                      ? [meta.atomics[0]!.type, true]
+                      : meta.templates.length
+                        ? ["string", true]
+                        : meta.natives.includes("Blob")
+                          ? ["blob", true]
+                          : meta.natives.includes("File")
+                            ? ["file", true]
+                            : [meta.constants[0]!.type, true];
+                  })();
       return ts.factory.createPropertyAssignment(
         Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
         isArray

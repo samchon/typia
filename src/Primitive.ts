@@ -32,61 +32,62 @@
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @author Michael - https://github.com/8471919
  */
-export type Primitive<T> = Equal<T, PrimitiveMain<T>> extends true
-  ? T
-  : PrimitiveMain<T>;
+export type Primitive<T> =
+  Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type PrimitiveMain<Instance> = Instance extends [never]
   ? never // (special trick for jsonable | null) type
   : ValueOf<Instance> extends bigint
-  ? never
-  : ValueOf<Instance> extends boolean | number | string
-  ? ValueOf<Instance>
-  : Instance extends Function
-  ? never
-  : ValueOf<Instance> extends object
-  ? Instance extends object
-    ? Instance extends NativeClass
-      ? never
-      : Instance extends IJsonable<infer Raw>
-      ? ValueOf<Raw> extends object
-        ? Raw extends object
-          ? PrimitiveObject<Raw> // object would be primitified
-          : never // cannot be
-        : ValueOf<Raw> // atomic value
-      : PrimitiveObject<Instance> // object would be primitified
-    : never // cannot be
-  : ValueOf<Instance>;
+    ? never
+    : ValueOf<Instance> extends boolean | number | string
+      ? ValueOf<Instance>
+      : Instance extends Function
+        ? never
+        : ValueOf<Instance> extends object
+          ? Instance extends object
+            ? Instance extends NativeClass
+              ? never
+              : Instance extends IJsonable<infer Raw>
+                ? ValueOf<Raw> extends object
+                  ? Raw extends object
+                    ? PrimitiveObject<Raw> // object would be primitified
+                    : never // cannot be
+                  : ValueOf<Raw> // atomic value
+                : PrimitiveObject<Instance> // object would be primitified
+            : never // cannot be
+          : ValueOf<Instance>;
 
-type PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
-  ? IsTuple<Instance> extends true
-    ? PrimitiveTuple<Instance>
-    : PrimitiveMain<T>[]
-  : {
-      [P in keyof Instance]: PrimitiveMain<Instance[P]>;
-    };
+type PrimitiveObject<Instance extends object> =
+  Instance extends Array<infer T>
+    ? IsTuple<Instance> extends true
+      ? PrimitiveTuple<Instance>
+      : PrimitiveMain<T>[]
+    : {
+        [P in keyof Instance]: PrimitiveMain<Instance[P]>;
+      };
 
 type PrimitiveTuple<T extends readonly any[]> = T extends []
   ? []
   : T extends [infer F]
-  ? [PrimitiveMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [PrimitiveMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
-  : [];
+    ? [PrimitiveMain<F>]
+    : T extends [infer F, ...infer Rest extends readonly any[]]
+      ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
+      : T extends [(infer F)?]
+        ? [PrimitiveMain<F>?]
+        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
+          ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
+          : [];
 
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
+type ValueOf<Instance> =
+  IsValueOf<Instance, Boolean> extends true
+    ? boolean
+    : IsValueOf<Instance, Number> extends true
+      ? number
+      : IsValueOf<Instance, String> extends true
+        ? string
+        : Instance;
 
 type NativeClass =
   | Set<any>
@@ -113,10 +114,10 @@ type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
 ]
   ? false
   : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
+    ? number extends T["length"]
+      ? false
+      : true
+    : false;
 
 type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
   ? Object extends IValueOf<infer U>

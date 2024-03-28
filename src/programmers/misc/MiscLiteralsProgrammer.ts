@@ -50,14 +50,14 @@ export namespace MiscLiteralsProgrammer {
           v === null
             ? ts.factory.createNull()
             : typeof v === "boolean"
-            ? v
-              ? ts.factory.createTrue()
-              : ts.factory.createFalse()
-            : typeof v === "number"
-            ? ExpressionFactory.number(v)
-            : typeof v === "bigint"
-            ? ExpressionFactory.bigint(Number(v))
-            : ts.factory.createStringLiteral(v),
+              ? v
+                ? ts.factory.createTrue()
+                : ts.factory.createFalse()
+              : typeof v === "number"
+                ? ExpressionFactory.number(v)
+                : typeof v === "bigint"
+                  ? ExpressionFactory.bigint(Number(v))
+                  : ts.factory.createStringLiteral(v),
         ),
         true,
       ),
