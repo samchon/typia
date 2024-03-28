@@ -19,7 +19,7 @@ import Splitter from "../components/playground/Splitter";
 import ConsoleViewer from "../components/playground/ConsoleViewer";
 import { ICompilerService } from "../compilers/ICompilerService";
 import { Singleton } from "tstl";
-import { WorkerConnector } from "tgrid/lib/protocols/workers/WorkerConnector";
+import { WorkerConnector } from "tgrid";
 import { COMPILER_OPTIONS } from "../compilers/COMPILER_OPTIONS";
 import { SCRIPT } from "../../raw/SCRIPT";
 import { RAW } from "../../raw/RAW";

@@ -44,7 +44,7 @@ export const createExpressServerPerformanceBenchmarkProgram = async <T, U>(
   };
 
   // OPEN WORKER
-  const worker = new tgrid.protocols.workers.WorkerServer();
+  const worker = new tgrid.WorkerServer();
   await worker.open(provider);
 };
 
