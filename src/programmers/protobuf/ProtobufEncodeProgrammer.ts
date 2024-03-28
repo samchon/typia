@@ -200,52 +200,52 @@ export namespace ProtobufEncodeProgrammer {
         meta.isRequired() && meta.nullable === false
           ? (block) => block
           : meta.isRequired() === false && meta.nullable === true
-          ? (block) =>
-              ts.factory.createBlock(
-                [
-                  ts.factory.createIfStatement(
-                    ts.factory.createLogicalAnd(
-                      ts.factory.createStrictInequality(
-                        ts.factory.createIdentifier("undefined"),
-                        input,
+            ? (block) =>
+                ts.factory.createBlock(
+                  [
+                    ts.factory.createIfStatement(
+                      ts.factory.createLogicalAnd(
+                        ts.factory.createStrictInequality(
+                          ts.factory.createIdentifier("undefined"),
+                          input,
+                        ),
+                        ts.factory.createStrictInequality(
+                          ts.factory.createNull(),
+                          input,
+                        ),
                       ),
-                      ts.factory.createStrictInequality(
-                        ts.factory.createNull(),
-                        input,
+                      block,
+                    ),
+                  ],
+                  true,
+                )
+            : meta.isRequired() === false
+              ? (block) =>
+                  ts.factory.createBlock(
+                    [
+                      ts.factory.createIfStatement(
+                        ts.factory.createStrictInequality(
+                          ts.factory.createIdentifier("undefined"),
+                          input,
+                        ),
+                        block,
                       ),
-                    ),
-                    block,
-                  ),
-                ],
-                true,
-              )
-          : meta.isRequired() === false
-          ? (block) =>
-              ts.factory.createBlock(
-                [
-                  ts.factory.createIfStatement(
-                    ts.factory.createStrictInequality(
-                      ts.factory.createIdentifier("undefined"),
-                      input,
-                    ),
-                    block,
-                  ),
-                ],
-                true,
-              )
-          : (block) =>
-              ts.factory.createBlock(
-                [
-                  ts.factory.createIfStatement(
-                    ts.factory.createStrictInequality(
-                      ts.factory.createNull(),
-                      input,
-                    ),
-                    block,
-                  ),
-                ],
-                true,
-              );
+                    ],
+                    true,
+                  )
+              : (block) =>
+                  ts.factory.createBlock(
+                    [
+                      ts.factory.createIfStatement(
+                        ts.factory.createStrictInequality(
+                          ts.factory.createNull(),
+                          input,
+                        ),
+                        block,
+                      ),
+                    ],
+                    true,
+                  );
 
       // STARTS FROM ATOMIC TYPES
       const unions: IUnion[] = [];
@@ -684,8 +684,8 @@ export namespace ProtobufEncodeProgrammer {
     type === "double"
       ? ProtobufWire.I64
       : type === "float"
-      ? ProtobufWire.I32
-      : ProtobufWire.VARIANT;
+        ? ProtobufWire.I32
+        : ProtobufWire.VARIANT;
 
   /* -----------------------------------------------------------
         EXPLORERS

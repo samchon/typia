@@ -89,12 +89,12 @@ export namespace TypiaProgrammer {
         diag.category === ts.DiagnosticCategory.Warning
           ? "warning"
           : diag.category === ts.DiagnosticCategory.Error
-          ? "error"
-          : diag.category === ts.DiagnosticCategory.Suggestion
-          ? "suggestion"
-          : diag.category === ts.DiagnosticCategory.Message
-          ? "message"
-          : "unkown";
+            ? "error"
+            : diag.category === ts.DiagnosticCategory.Suggestion
+              ? "suggestion"
+              : diag.category === ts.DiagnosticCategory.Message
+                ? "message"
+                : "unkown";
       const [line, pos] = diag.file
         ? (() => {
             const lines: string[] = diag

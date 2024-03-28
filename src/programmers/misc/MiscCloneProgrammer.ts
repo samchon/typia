@@ -381,14 +381,14 @@ export namespace MiscCloneProgrammer {
     type === "Float64Array"
       ? decode_native_copyable(type)(input)
       : type === "ArrayBuffer" || type === "SharedArrayBuffer"
-      ? decode_native_buffer(type)(input)
-      : type === "DataView"
-      ? decode_native_data_view(input)
-      : ts.factory.createCallExpression(
-          ts.factory.createIdentifier(type),
-          undefined,
-          [],
-        );
+        ? decode_native_buffer(type)(input)
+        : type === "DataView"
+          ? decode_native_data_view(input)
+          : ts.factory.createCallExpression(
+              ts.factory.createIdentifier(type),
+              undefined,
+              [],
+            );
 
   const decode_native_copyable = (type: string) => (input: ts.Expression) =>
     ts.factory.createNewExpression(

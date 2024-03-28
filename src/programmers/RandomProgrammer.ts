@@ -305,10 +305,10 @@ export namespace RandomProgrammer {
     typeof value === "boolean"
       ? ts.factory.createIdentifier(value.toString())
       : typeof value === "number"
-      ? ExpressionFactory.number(value)
-      : typeof value === "string"
-      ? ts.factory.createStringLiteral(value)
-      : ExpressionFactory.bigint(Number(value));
+        ? ExpressionFactory.number(value)
+        : typeof value === "string"
+          ? ts.factory.createStringLiteral(value)
+          : ExpressionFactory.bigint(Number(value));
 
   const decode_template =
     (importer: FunctionImporter) =>
@@ -328,12 +328,12 @@ export namespace RandomProgrammer {
         )
           ? "int"
           : tags.find(
-              (t) =>
-                t.kind === "type" &&
-                (t.value === "uint32" || t.value === "uint64"),
-            )
-          ? "uint"
-          : "double";
+                (t) =>
+                  t.kind === "type" &&
+                  (t.value === "uint32" || t.value === "uint64"),
+              )
+            ? "uint"
+            : "double";
         const multiply = tags.find((t) => t.kind === "multipleOf");
         return random_custom(COALESCE(importer))("number")(tags)(
           RandomRanger.number({
@@ -706,8 +706,8 @@ export namespace RandomProgrammer {
                     type === "Float32Array" || type === "Float64Array"
                       ? "number"
                       : type === "BigInt64Array" || type === "BigUint64Array"
-                      ? "bigint"
-                      : "integer",
+                        ? "bigint"
+                        : "integer",
                   ),
                   undefined,
                   [literal(minimum), literal(maximum)],

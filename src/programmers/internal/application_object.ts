@@ -153,13 +153,13 @@ const create_object_schema =
       ...(options.purpose === "ajv"
         ? extraProps
         : options.surplus
-        ? {
-            // swagger can't express patternProperties
-            "x-typia-additionalProperties": extraProps.additionalProperties,
-            "x-typia-patternProperties": extraProps.patternProperties,
-            additionalProperties: join(options)(components)(extraMeta),
-          }
-        : {}),
+          ? {
+              // swagger can't express patternProperties
+              "x-typia-additionalProperties": extraProps.additionalProperties,
+              "x-typia-patternProperties": extraProps.patternProperties,
+              additionalProperties: join(options)(components)(extraMeta),
+            }
+          : {}),
     };
   };
 

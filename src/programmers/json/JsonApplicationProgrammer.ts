@@ -4,8 +4,8 @@ import { IJsonSchema } from "../../schemas/json/IJsonSchema";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { TransformerError } from "../../transformers/TransformerError";
-import { AtomicPredicator } from "../helpers/AtomicPredicator";
 
+import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_schema } from "../internal/application_schema";
 
 export namespace JsonApplicationProgrammer {

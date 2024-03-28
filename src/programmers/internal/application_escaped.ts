@@ -19,8 +19,8 @@ export const application_escaped =
       const string: IJsonSchema.IString | undefined = is_string(output)
         ? output
         : is_one_of(output)
-        ? output.oneOf.find(is_string)
-        : undefined;
+          ? output.oneOf.find(is_string)
+          : undefined;
       if (
         string !== undefined &&
         string.format !== "date" &&
