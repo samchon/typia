@@ -23,6 +23,9 @@ export const test_json_application_swagger_standard_DynamicSimple =
               type: "object",
               properties: {},
               nullable: false,
+              additionalProperties: {
+                type: "number",
+              },
             },
           },
           nullable: false,

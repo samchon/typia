@@ -37,6 +37,9 @@ export const test_json_application_swagger_standard_DynamicTree =
           properties: {},
           nullable: false,
           description: "Construct a type with a set of properties K of type T",
+          additionalProperties: {
+            $ref: "#/components/schemas/DynamicTree",
+          },
         },
       },
     },

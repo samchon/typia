@@ -20,6 +20,16 @@ export const test_json_application_swagger_standard_DynamicUnion =
           type: "object",
           properties: {},
           nullable: false,
+          additionalProperties: {
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "number",
+              },
+            ],
+          },
         },
       },
     },

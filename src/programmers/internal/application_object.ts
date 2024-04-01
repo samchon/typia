@@ -159,7 +159,9 @@ const create_object_schema =
               "x-typia-patternProperties": extraProps.patternProperties,
               additionalProperties: join(options)(components)(extraMeta),
             }
-          : {}),
+          : {
+              additionalProperties: join(options)(components)(extraMeta),
+            }),
     };
   };
 
