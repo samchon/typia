@@ -12,7 +12,13 @@
           "value": {
             "type": "object",
             "properties": {},
-            "nullable": false
+            "nullable": false,
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         },
         "nullable": false,

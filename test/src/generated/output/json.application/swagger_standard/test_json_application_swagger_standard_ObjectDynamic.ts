@@ -20,6 +20,19 @@ export const test_json_application_swagger_standard_ObjectDynamic =
           type: "object",
           properties: {},
           nullable: false,
+          additionalProperties: {
+            oneOf: [
+              {
+                type: "string",
+              },
+              {
+                type: "number",
+              },
+              {
+                type: "boolean",
+              },
+            ],
+          },
         },
       },
     },

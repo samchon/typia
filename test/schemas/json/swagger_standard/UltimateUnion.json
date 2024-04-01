@@ -869,7 +869,10 @@
         "type": "object",
         "properties": {},
         "nullable": false,
-        "description": "Construct a type with a set of properties K of type T"
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/IJsonSchema"
+        }
       },
       "IJsonSchema.IReference": {
         "type": "object",
@@ -1028,7 +1031,10 @@
         "type": "object",
         "properties": {},
         "nullable": false,
-        "description": "Construct a type with a set of properties K of type T"
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/IJsonComponents.IAlias"
+        }
       },
       "IJsonComponents.IAlias": {
         "oneOf": [

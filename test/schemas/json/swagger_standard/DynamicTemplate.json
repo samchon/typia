@@ -9,7 +9,20 @@
       "DynamicTemplate": {
         "type": "object",
         "properties": {},
-        "nullable": false
+        "nullable": false,
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
       }
     }
   },

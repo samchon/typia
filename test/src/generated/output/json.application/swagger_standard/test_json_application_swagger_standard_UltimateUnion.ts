@@ -809,6 +809,9 @@ export const test_json_application_swagger_standard_UltimateUnion =
           properties: {},
           nullable: false,
           description: "Construct a type with a set of properties K of type T",
+          additionalProperties: {
+            $ref: "#/components/schemas/IJsonSchema",
+          },
         },
         "IJsonSchema.IReference": {
           type: "object",
@@ -960,6 +963,9 @@ export const test_json_application_swagger_standard_UltimateUnion =
           properties: {},
           nullable: false,
           description: "Construct a type with a set of properties K of type T",
+          additionalProperties: {
+            $ref: "#/components/schemas/IJsonComponents.IAlias",
+          },
         },
         "IJsonComponents.IAlias": {
           oneOf: [
