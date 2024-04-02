@@ -280,6 +280,8 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
             (undefined === input.pattern ||
               "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input.contentMediaType ||
+              "string" === typeof input.contentMediaType) &&
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -785,6 +787,8 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
             (undefined === input.pattern ||
               "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input.contentMediaType ||
+              "string" === typeof input.contentMediaType) &&
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -2848,6 +2852,17 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
                     path: _path + ".format",
                     expected: "(string | undefined)",
                     value: input.format,
+                  },
+                  errorFactory,
+                )) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".contentMediaType",
+                    expected: "(string | undefined)",
+                    value: input.contentMediaType,
                   },
                   errorFactory,
                 )) &&
@@ -6071,6 +6086,17 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
                   },
                   errorFactory,
                 )) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".contentMediaType",
+                    expected: "(string | undefined)",
+                    value: input.contentMediaType,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input["x-typia-typeTags"] ||
                 ((Array.isArray(input["x-typia-typeTags"]) ||
                   $guard(
@@ -8253,6 +8279,8 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
               input.maxLength <= 4294967295)) &&
           (undefined === input.pattern || "string" === typeof input.pattern) &&
           (undefined === input.format || "string" === typeof input.format) &&
+          (undefined === input.contentMediaType ||
+            "string" === typeof input.contentMediaType) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -8744,6 +8772,8 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
               input.maxLength <= 4294967295)) &&
           (undefined === input.pattern || "string" === typeof input.pattern) &&
           (undefined === input.format || "string" === typeof input.format) &&
+          (undefined === input.contentMediaType ||
+            "string" === typeof input.contentMediaType) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -9271,6 +9301,7 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
           maxLength: input.maxLength as any,
           pattern: input.pattern as any,
           format: input.format as any,
+          contentMediaType: input.contentMediaType as any,
           "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
             ? $cp7(input["x-typia-typeTags"])
             : (input["x-typia-typeTags"] as any),
@@ -9583,6 +9614,7 @@ export const test_misc_createAssertCloneCustom_UltimateUnion =
           maxLength: input.maxLength as any,
           pattern: input.pattern as any,
           format: input.format as any,
+          contentMediaType: input.contentMediaType as any,
           "x-typia-typeTags": Array.isArray(input["x-typia-typeTags"])
             ? $cp7(input["x-typia-typeTags"])
             : (input["x-typia-typeTags"] as any),

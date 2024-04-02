@@ -510,6 +510,12 @@ export const test_createRandom_UltimateUnion = _test_random(
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
+      contentMediaType: $pick([
+        () => undefined,
+        () =>
+          (generator?.customs ?? $generator.customs)?.string?.([]) ??
+          (generator?.string ?? $generator.string)(),
+      ])(),
       "x-typia-typeTags": $pick([
         () => undefined,
         () =>
@@ -1575,6 +1581,12 @@ export const test_createRandom_UltimateUnion = _test_random(
           (generator?.customs ?? $generator.customs)?.string?.([]) ??
           (generator?.string ?? $generator.string)(),
       ])(),
+      contentMediaType: $pick([
+        () => undefined,
+        () =>
+          (generator?.customs ?? $generator.customs)?.string?.([]) ??
+          (generator?.string ?? $generator.string)(),
+      ])(),
       "x-typia-typeTags": $pick([
         () => undefined,
         () =>
@@ -2403,6 +2415,8 @@ export const test_createRandom_UltimateUnion = _test_random(
             input.maxLength <= 4294967295)) &&
         (undefined === input.pattern || "string" === typeof input.pattern) &&
         (undefined === input.format || "string" === typeof input.format) &&
+        (undefined === input.contentMediaType ||
+          "string" === typeof input.contentMediaType) &&
         (undefined === input["x-typia-typeTags"] ||
           (Array.isArray(input["x-typia-typeTags"]) &&
             input["x-typia-typeTags"].every(
@@ -2894,6 +2908,8 @@ export const test_createRandom_UltimateUnion = _test_random(
             input.maxLength <= 4294967295)) &&
         (undefined === input.pattern || "string" === typeof input.pattern) &&
         (undefined === input.format || "string" === typeof input.format) &&
+        (undefined === input.contentMediaType ||
+          "string" === typeof input.contentMediaType) &&
         (undefined === input["x-typia-typeTags"] ||
           (Array.isArray(input["x-typia-typeTags"]) &&
             input["x-typia-typeTags"].every(
@@ -4928,6 +4944,17 @@ export const test_createRandom_UltimateUnion = _test_random(
                 path: _path + ".format",
                 expected: "(string | undefined)",
                 value: input.format,
+              },
+              errorFactory,
+            )) &&
+          (undefined === input.contentMediaType ||
+            "string" === typeof input.contentMediaType ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".contentMediaType",
+                expected: "(string | undefined)",
+                value: input.contentMediaType,
               },
               errorFactory,
             )) &&
@@ -8103,6 +8130,17 @@ export const test_createRandom_UltimateUnion = _test_random(
                 path: _path + ".format",
                 expected: "(string | undefined)",
                 value: input.format,
+              },
+              errorFactory,
+            )) &&
+          (undefined === input.contentMediaType ||
+            "string" === typeof input.contentMediaType ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".contentMediaType",
+                expected: "(string | undefined)",
+                value: input.contentMediaType,
               },
               errorFactory,
             )) &&

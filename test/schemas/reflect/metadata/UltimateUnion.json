@@ -5362,6 +5362,60 @@
                 {
                   "type": "string",
                   "values": [
+                    "contentMediaType"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": false,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
                     "x-typia-typeTags"
                   ]
                 }
@@ -15311,6 +15365,60 @@
                   "type": "string",
                   "values": [
                     "format"
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": false,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    "contentMediaType"
                   ]
                 }
               ],

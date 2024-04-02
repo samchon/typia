@@ -761,6 +761,11 @@ export const test_json_application_ajv_surplus_UltimateUnion =
               "x-typia-required": false,
               "x-typia-optional": true,
             },
+            contentMediaType: {
+              type: "string",
+              "x-typia-required": false,
+              "x-typia-optional": true,
+            },
             "x-typia-typeTags": {
               type: "array",
               items: {
@@ -2117,6 +2122,11 @@ export const test_json_application_ajv_surplus_UltimateUnion =
               "x-typia-optional": true,
             },
             format: {
+              type: "string",
+              "x-typia-required": false,
+              "x-typia-optional": true,
+            },
+            contentMediaType: {
               type: "string",
               "x-typia-required": false,
               "x-typia-optional": true,

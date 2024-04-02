@@ -274,6 +274,8 @@ export const test_functional_isParameters_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -781,6 +783,8 @@ export const test_functional_isParameters_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(

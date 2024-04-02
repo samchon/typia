@@ -280,6 +280,8 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
             (undefined === input.pattern ||
               "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input.contentMediaType ||
+              "string" === typeof input.contentMediaType) &&
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -785,6 +787,8 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
             (undefined === input.pattern ||
               "string" === typeof input.pattern) &&
             (undefined === input.format || "string" === typeof input.format) &&
+            (undefined === input.contentMediaType ||
+              "string" === typeof input.contentMediaType) &&
             (undefined === input["x-typia-typeTags"] ||
               (Array.isArray(input["x-typia-typeTags"]) &&
                 input["x-typia-typeTags"].every(
@@ -2848,6 +2852,17 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
                     path: _path + ".format",
                     expected: "(string | undefined)",
                     value: input.format,
+                  },
+                  errorFactory,
+                )) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".contentMediaType",
+                    expected: "(string | undefined)",
+                    value: input.contentMediaType,
                   },
                   errorFactory,
                 )) &&
@@ -6071,6 +6086,17 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
                   },
                   errorFactory,
                 )) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType ||
+                $guard(
+                  _exceptionable,
+                  {
+                    path: _path + ".contentMediaType",
+                    expected: "(string | undefined)",
+                    value: input.contentMediaType,
+                  },
+                  errorFactory,
+                )) &&
               (undefined === input["x-typia-typeTags"] ||
                 ((Array.isArray(input["x-typia-typeTags"]) ||
                   $guard(
@@ -8251,6 +8277,8 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
               input.maxLength <= 4294967295)) &&
           (undefined === input.pattern || "string" === typeof input.pattern) &&
           (undefined === input.format || "string" === typeof input.format) &&
+          (undefined === input.contentMediaType ||
+            "string" === typeof input.contentMediaType) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -8742,6 +8770,8 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
               input.maxLength <= 4294967295)) &&
           (undefined === input.pattern || "string" === typeof input.pattern) &&
           (undefined === input.format || "string" === typeof input.format) &&
+          (undefined === input.contentMediaType ||
+            "string" === typeof input.contentMediaType) &&
           (undefined === input["x-typia-typeTags"] ||
             (Array.isArray(input["x-typia-typeTags"]) &&
               input["x-typia-typeTags"].every(
@@ -9172,7 +9202,7 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
             });
           })()}}`;
         const $so11 = (input: any): any =>
-          `{${undefined === input.minLength ? "" : `"minLength":${undefined !== input.minLength ? $number(input.minLength) : undefined},`}${undefined === input.maxLength ? "" : `"maxLength":${undefined !== input.maxLength ? $number(input.maxLength) : undefined},`}${undefined === input.pattern ? "" : `"pattern":${undefined !== input.pattern ? $string(input.pattern) : undefined},`}${undefined === input.format ? "" : `"format":${undefined !== input.format ? $string(input.format) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"type":${(() => {
+          `{${undefined === input.minLength ? "" : `"minLength":${undefined !== input.minLength ? $number(input.minLength) : undefined},`}${undefined === input.maxLength ? "" : `"maxLength":${undefined !== input.maxLength ? $number(input.maxLength) : undefined},`}${undefined === input.pattern ? "" : `"pattern":${undefined !== input.pattern ? $string(input.pattern) : undefined},`}${undefined === input.format ? "" : `"format":${undefined !== input.format ? $string(input.format) : undefined},`}${undefined === input.contentMediaType ? "" : `"contentMediaType":${undefined !== input.contentMediaType ? $string(input.contentMediaType) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({
@@ -9295,7 +9325,7 @@ export const test_json_createAssertStringifyCustom_UltimateUnion =
             });
           })()}}`;
         const $so28 = (input: any): any =>
-          `{${undefined === input.minLength ? "" : `"minLength":${undefined !== input.minLength ? $number(input.minLength) : undefined},`}${undefined === input.maxLength ? "" : `"maxLength":${undefined !== input.maxLength ? $number(input.maxLength) : undefined},`}${undefined === input.pattern ? "" : `"pattern":${undefined !== input.pattern ? $string(input.pattern) : undefined},`}${undefined === input.format ? "" : `"format":${undefined !== input.format ? $string(input.format) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
+          `{${undefined === input.minLength ? "" : `"minLength":${undefined !== input.minLength ? $number(input.minLength) : undefined},`}${undefined === input.maxLength ? "" : `"maxLength":${undefined !== input.maxLength ? $number(input.maxLength) : undefined},`}${undefined === input.pattern ? "" : `"pattern":${undefined !== input.pattern ? $string(input.pattern) : undefined},`}${undefined === input.format ? "" : `"format":${undefined !== input.format ? $string(input.format) : undefined},`}${undefined === input.contentMediaType ? "" : `"contentMediaType":${undefined !== input.contentMediaType ? $string(input.contentMediaType) : undefined},`}${undefined === input["x-typia-typeTags"] ? "" : `"x-typia-typeTags":${undefined !== input["x-typia-typeTags"] ? `[${input["x-typia-typeTags"].map((elem: any) => $so7(elem)).join(",")}]` : undefined},`}${undefined === input["default"] ? "" : `"default":${undefined !== input["default"] ? $string(input["default"]) : undefined},`}${undefined === input.nullable ? "" : `"nullable":${undefined !== input.nullable ? input.nullable : undefined},`}${undefined === input.deprecated ? "" : `"deprecated":${undefined !== input.deprecated ? input.deprecated : undefined},`}${undefined === input.title ? "" : `"title":${undefined !== input.title ? $string(input.title) : undefined},`}${undefined === input.description ? "" : `"description":${undefined !== input.description ? $string(input.description) : undefined},`}${undefined === input["x-typia-jsDocTags"] ? "" : `"x-typia-jsDocTags":${undefined !== input["x-typia-jsDocTags"] ? `[${input["x-typia-jsDocTags"].map((elem: any) => $so2(elem)).join(",")}]` : undefined},`}${undefined === input["x-typia-required"] ? "" : `"x-typia-required":${undefined !== input["x-typia-required"] ? input["x-typia-required"] : undefined},`}${undefined === input["x-typia-optional"] ? "" : `"x-typia-optional":${undefined !== input["x-typia-optional"] ? input["x-typia-optional"] : undefined},`}${undefined === input["x-typia-rest"] ? "" : `"x-typia-rest":${undefined !== input["x-typia-rest"] ? input["x-typia-rest"] : undefined},`}${undefined === input.$id ? "" : `"$id":${undefined !== input.$id ? $string(input.$id) : undefined},`}${undefined === input.$recursiveAnchor ? "" : `"$recursiveAnchor":${undefined !== input.$recursiveAnchor ? input.$recursiveAnchor : undefined},`}"type":${(() => {
             if ("string" === typeof input.type) return $string(input.type);
             if ("string" === typeof input.type) return '"' + input.type + '"';
             $throws({

@@ -247,6 +247,8 @@ export const test_createIs_UltimateUnion = _test_is(
         input.maxLength <= 4294967295)) &&
     (undefined === input.pattern || "string" === typeof input.pattern) &&
     (undefined === input.format || "string" === typeof input.format) &&
+    (undefined === input.contentMediaType ||
+      "string" === typeof input.contentMediaType) &&
     (undefined === input["x-typia-typeTags"] ||
       (Array.isArray(input["x-typia-typeTags"]) &&
         input["x-typia-typeTags"].every(
@@ -718,6 +720,8 @@ export const test_createIs_UltimateUnion = _test_is(
         input.maxLength <= 4294967295)) &&
     (undefined === input.pattern || "string" === typeof input.pattern) &&
     (undefined === input.format || "string" === typeof input.format) &&
+    (undefined === input.contentMediaType ||
+      "string" === typeof input.contentMediaType) &&
     (undefined === input["x-typia-typeTags"] ||
       (Array.isArray(input["x-typia-typeTags"]) &&
         input["x-typia-typeTags"].every(

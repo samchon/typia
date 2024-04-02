@@ -545,6 +545,9 @@
           "format": {
             "type": "string"
           },
+          "contentMediaType": {
+            "type": "string"
+          },
           "x-typia-typeTags": {
             "type": "array",
             "items": {
@@ -1486,6 +1489,9 @@
             "type": "string"
           },
           "format": {
+            "type": "string"
+          },
+          "contentMediaType": {
             "type": "string"
           },
           "x-typia-typeTags": {
