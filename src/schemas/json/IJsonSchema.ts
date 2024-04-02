@@ -68,6 +68,7 @@ export namespace IJsonSchema {
       | "json-pointer"
       | "relative-json-pointer"
       | (string & {});
+    contentMediaType?: undefined | string;
     "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
   }
   export interface INumber extends IAtomic<"number"> {
