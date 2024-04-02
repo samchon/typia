@@ -276,6 +276,8 @@ export const test_functional_validateReturnAsync_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -783,6 +785,8 @@ export const test_functional_validateReturnAsync_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -2406,6 +2410,13 @@ export const test_functional_validateReturnAsync_UltimateUnion =
                       path: _path + ".format",
                       expected: "(string | undefined)",
                       value: input.format,
+                    }),
+                  undefined === input.contentMediaType ||
+                    "string" === typeof input.contentMediaType ||
+                    $report(_exceptionable, {
+                      path: _path + ".contentMediaType",
+                      expected: "(string | undefined)",
+                      value: input.contentMediaType,
                     }),
                   undefined === input["x-typia-typeTags"] ||
                     ((Array.isArray(input["x-typia-typeTags"]) ||
@@ -4818,6 +4829,13 @@ export const test_functional_validateReturnAsync_UltimateUnion =
                       path: _path + ".format",
                       expected: "(string | undefined)",
                       value: input.format,
+                    }),
+                  undefined === input.contentMediaType ||
+                    "string" === typeof input.contentMediaType ||
+                    $report(_exceptionable, {
+                      path: _path + ".contentMediaType",
+                      expected: "(string | undefined)",
+                      value: input.contentMediaType,
                     }),
                   undefined === input["x-typia-typeTags"] ||
                     ((Array.isArray(input["x-typia-typeTags"]) ||

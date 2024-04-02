@@ -504,6 +504,9 @@ export const test_json_application_ajv_standard_UltimateUnion =
             format: {
               type: "string",
             },
+            contentMediaType: {
+              type: "string",
+            },
             "x-typia-typeTags": {
               type: "array",
               items: {
@@ -1390,6 +1393,9 @@ export const test_json_application_ajv_standard_UltimateUnion =
               type: "string",
             },
             format: {
+              type: "string",
+            },
+            contentMediaType: {
               type: "string",
             },
             "x-typia-typeTags": {

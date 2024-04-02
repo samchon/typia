@@ -290,6 +290,8 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -797,6 +799,8 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -2887,6 +2891,17 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                       path: _path + ".format",
                       expected: "(string | undefined)",
                       value: input.format,
+                    },
+                    errorFactory,
+                  )) &&
+                (undefined === input.contentMediaType ||
+                  "string" === typeof input.contentMediaType ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".contentMediaType",
+                      expected: "(string | undefined)",
+                      value: input.contentMediaType,
                     },
                     errorFactory,
                   )) &&
@@ -6177,6 +6192,17 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                       path: _path + ".format",
                       expected: "(string | undefined)",
                       value: input.format,
+                    },
+                    errorFactory,
+                  )) &&
+                (undefined === input.contentMediaType ||
+                  "string" === typeof input.contentMediaType ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".contentMediaType",
+                      expected: "(string | undefined)",
+                      value: input.contentMediaType,
                     },
                     errorFactory,
                   )) &&
@@ -8435,6 +8461,8 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -8942,6 +8970,8 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                 "string" === typeof input.pattern) &&
               (undefined === input.format ||
                 "string" === typeof input.format) &&
+              (undefined === input.contentMediaType ||
+                "string" === typeof input.contentMediaType) &&
               (undefined === input["x-typia-typeTags"] ||
                 (Array.isArray(input["x-typia-typeTags"]) &&
                   input["x-typia-typeTags"].every(
@@ -11032,6 +11062,17 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                       path: _path + ".format",
                       expected: "(string | undefined)",
                       value: input.format,
+                    },
+                    errorFactory,
+                  )) &&
+                (undefined === input.contentMediaType ||
+                  "string" === typeof input.contentMediaType ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".contentMediaType",
+                      expected: "(string | undefined)",
+                      value: input.contentMediaType,
                     },
                     errorFactory,
                   )) &&
@@ -14322,6 +14363,17 @@ export const test_functional_assertFunctionAsync_UltimateUnion =
                       path: _path + ".format",
                       expected: "(string | undefined)",
                       value: input.format,
+                    },
+                    errorFactory,
+                  )) &&
+                (undefined === input.contentMediaType ||
+                  "string" === typeof input.contentMediaType ||
+                  $guard(
+                    _exceptionable,
+                    {
+                      path: _path + ".contentMediaType",
+                      expected: "(string | undefined)",
+                      value: input.contentMediaType,
                     },
                     errorFactory,
                   )) &&
