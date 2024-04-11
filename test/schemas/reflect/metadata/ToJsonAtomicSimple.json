@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],
@@ -102,7 +104,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],
@@ -162,7 +166,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],

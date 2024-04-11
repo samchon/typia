@@ -15,8 +15,8 @@ export const test_misc_createIsClone_ConstantEnumeration = _test_misc_isClone(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Four" === elem ||
-            "Three" === elem,
+            "Three" === elem ||
+            "Four" === elem,
         )
       );
     };

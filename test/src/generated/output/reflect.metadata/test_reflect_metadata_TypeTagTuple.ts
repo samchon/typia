@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["tuple"],
+                  values: [
+                    {
+                      value: "tuple",
+                    },
+                  ],
                 },
               ],
               templates: [],

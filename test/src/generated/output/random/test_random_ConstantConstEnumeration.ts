@@ -13,7 +13,7 @@ export const test_random_ConstantConstEnumeration = _test_random(
       const $generator = (typia.random as any).generator;
       const $pick = (typia.random as any).pick;
       return (generator?.array ?? $generator.array)(() =>
-        $pick([() => 0, () => 1, () => 2, () => "Four", () => "Three"])(),
+        $pick([() => 0, () => 1, () => 2, () => "Three", () => "Four"])(),
       );
     })((ConstantConstEnumeration as any).RANDOM),
   assert: (
@@ -28,8 +28,8 @@ export const test_random_ConstantConstEnumeration = _test_random(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Four" === elem ||
-            "Three" === elem,
+            "Three" === elem ||
+            "Four" === elem,
         )
       );
     };
@@ -56,8 +56,8 @@ export const test_random_ConstantConstEnumeration = _test_random(
                 0 === elem ||
                 1 === elem ||
                 2 === elem ||
-                "Four" === elem ||
                 "Three" === elem ||
+                "Four" === elem ||
                 $guard(
                   true,
                   {

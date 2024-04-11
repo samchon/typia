@@ -43,7 +43,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean"],
+                  values: [
+                    {
+                      value: "boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -141,7 +145,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["number"],
+                  values: [
+                    {
+                      value: "number",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -239,7 +247,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["strings"],
+                  values: [
+                    {
+                      value: "strings",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -337,7 +349,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["arrays"],
+                  values: [
+                    {
+                      value: "arrays",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -435,7 +451,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["objects"],
+                  values: [
+                    {
+                      value: "objects",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -537,7 +557,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -589,7 +613,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -641,7 +669,11 @@ export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["age"],
+                  values: [
+                    {
+                      value: "age",
+                    },
+                  ],
                 },
               ],
               templates: [],

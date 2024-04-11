@@ -16,7 +16,7 @@ export const test_createRandom_ObjectPrimitive = _test_random(
       id:
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
-      extension: $pick([() => "html", () => "md", () => "txt"])(),
+      extension: $pick([() => "txt", () => "md", () => "html"])(),
       title:
         (generator?.customs ?? $generator.customs)?.string?.([]) ??
         (generator?.string ?? $generator.string)(),
@@ -57,9 +57,9 @@ export const test_createRandom_ObjectPrimitive = _test_random(
     const __is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
-        ("html" === input.extension ||
+        ("txt" === input.extension ||
           "md" === input.extension ||
-          "txt" === input.extension) &&
+          "html" === input.extension) &&
         "string" === typeof input.title &&
         "string" === typeof input.body &&
         Array.isArray(input.files) &&
@@ -99,9 +99,9 @@ export const test_createRandom_ObjectPrimitive = _test_random(
               },
               errorFactory,
             )) &&
-          ("html" === input.extension ||
+          ("txt" === input.extension ||
             "md" === input.extension ||
-            "txt" === input.extension ||
+            "html" === input.extension ||
             $guard(
               _exceptionable,
               {

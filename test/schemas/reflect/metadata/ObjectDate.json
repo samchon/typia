@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "classDate"
+                    {
+                      "value": "classDate"
+                    }
                   ]
                 }
               ],
@@ -134,7 +136,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "date"
+                    {
+                      "value": "date"
+                    }
                   ]
                 }
               ],
@@ -205,7 +209,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "datetime"
+                    {
+                      "value": "datetime"
+                    }
                   ]
                 }
               ],
@@ -276,7 +282,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "time"
+                    {
+                      "value": "time"
+                    }
                   ]
                 }
               ],
@@ -347,7 +355,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "duration"
+                    {
+                      "value": "duration"
+                    }
                   ]
                 }
               ],

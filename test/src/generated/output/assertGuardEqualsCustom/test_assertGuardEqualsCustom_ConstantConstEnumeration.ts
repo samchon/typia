@@ -23,8 +23,8 @@ export const test_assertGuardEqualsCustom_ConstantConstEnumeration =
               0 === elem ||
               1 === elem ||
               2 === elem ||
-              "Four" === elem ||
-              "Three" === elem,
+              "Three" === elem ||
+              "Four" === elem,
           )
         );
       };
@@ -51,8 +51,8 @@ export const test_assertGuardEqualsCustom_ConstantConstEnumeration =
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Four" === elem ||
                   "Three" === elem ||
+                  "Four" === elem ||
                   $guard(
                     true,
                     {

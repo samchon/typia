@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -102,7 +104,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "writer"
+                    {
+                      "value": "writer"
+                    }
                   ]
                 }
               ],
@@ -156,7 +160,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "answer"
+                    {
+                      "value": "answer"
+                    }
                   ]
                 }
               ],
@@ -207,7 +213,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -261,7 +269,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "hit"
+                    {
+                      "value": "hit"
+                    }
                   ]
                 }
               ],
@@ -315,7 +325,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "contents"
+                    {
+                      "value": "contents"
+                    }
                   ]
                 }
               ],
@@ -369,7 +381,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -434,7 +448,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -488,7 +504,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "hit"
+                    {
+                      "value": "hit"
+                    }
                   ]
                 }
               ],
@@ -542,7 +560,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "contents"
+                    {
+                      "value": "contents"
+                    }
                   ]
                 }
               ],
@@ -596,7 +616,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -661,7 +683,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -715,7 +739,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -769,7 +795,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "title"
+                    {
+                      "value": "title"
+                    }
                   ]
                 }
               ],
@@ -823,7 +851,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "body"
+                    {
+                      "value": "body"
+                    }
                   ]
                 }
               ],
@@ -877,7 +907,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "files"
+                    {
+                      "value": "files"
+                    }
                   ]
                 }
               ],
@@ -942,7 +974,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -996,7 +1030,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "extension"
+                    {
+                      "value": "extension"
+                    }
                   ]
                 }
               ],
@@ -1050,7 +1086,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "url"
+                    {
+                      "value": "url"
+                    }
                   ]
                 }
               ],
@@ -1115,7 +1153,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "writer"
+                    {
+                      "value": "writer"
+                    }
                   ]
                 }
               ],
@@ -1169,7 +1209,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "answer"
+                    {
+                      "value": "answer"
+                    }
                   ]
                 }
               ],
@@ -1220,7 +1262,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -1274,7 +1318,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "hit"
+                    {
+                      "value": "hit"
+                    }
                   ]
                 }
               ],
@@ -1328,7 +1374,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "contents"
+                    {
+                      "value": "contents"
+                    }
                   ]
                 }
               ],
@@ -1382,7 +1430,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -1447,7 +1497,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "score"
+                    {
+                      "value": "score"
+                    }
                   ]
                 }
               ],
@@ -1501,7 +1553,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -1555,7 +1609,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -1609,7 +1665,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "title"
+                    {
+                      "value": "title"
+                    }
                   ]
                 }
               ],
@@ -1663,7 +1721,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "body"
+                    {
+                      "value": "body"
+                    }
                   ]
                 }
               ],
@@ -1717,7 +1777,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "files"
+                    {
+                      "value": "files"
+                    }
                   ]
                 }
               ],

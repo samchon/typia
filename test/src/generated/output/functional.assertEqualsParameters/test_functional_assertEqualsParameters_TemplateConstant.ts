@@ -55,18 +55,18 @@ export const test_functional_assertEqualsParameters_TemplateConstant =
               ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||
                 "prefix_C" === input.prefix) &&
-              ("1_postfix" === input.postfix ||
+              ("3_postfix" === input.postfix ||
                 "2_postfix" === input.postfix ||
-                "3_postfix" === input.postfix) &&
-              ("the_1_value_with_label_A" === input.combined ||
-                "the_1_value_with_label_B" === input.combined ||
-                "the_1_value_with_label_C" === input.combined ||
+                "1_postfix" === input.postfix) &&
+              ("the_3_value_with_label_A" === input.combined ||
+                "the_3_value_with_label_B" === input.combined ||
+                "the_3_value_with_label_C" === input.combined ||
                 "the_2_value_with_label_A" === input.combined ||
                 "the_2_value_with_label_B" === input.combined ||
                 "the_2_value_with_label_C" === input.combined ||
-                "the_3_value_with_label_A" === input.combined ||
-                "the_3_value_with_label_B" === input.combined ||
-                "the_3_value_with_label_C" === input.combined) &&
+                "the_1_value_with_label_A" === input.combined ||
+                "the_1_value_with_label_B" === input.combined ||
+                "the_1_value_with_label_C" === input.combined) &&
               (3 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                   if (
@@ -178,9 +178,9 @@ export const test_functional_assertEqualsParameters_TemplateConstant =
                     },
                     errorFactory,
                   )) &&
-                ("1_postfix" === input.postfix ||
+                ("3_postfix" === input.postfix ||
                   "2_postfix" === input.postfix ||
-                  "3_postfix" === input.postfix ||
+                  "1_postfix" === input.postfix ||
                   $guard(
                     _exceptionable,
                     {
@@ -190,15 +190,15 @@ export const test_functional_assertEqualsParameters_TemplateConstant =
                     },
                     errorFactory,
                   )) &&
-                ("the_1_value_with_label_A" === input.combined ||
-                  "the_1_value_with_label_B" === input.combined ||
-                  "the_1_value_with_label_C" === input.combined ||
+                ("the_3_value_with_label_A" === input.combined ||
+                  "the_3_value_with_label_B" === input.combined ||
+                  "the_3_value_with_label_C" === input.combined ||
                   "the_2_value_with_label_A" === input.combined ||
                   "the_2_value_with_label_B" === input.combined ||
                   "the_2_value_with_label_C" === input.combined ||
-                  "the_3_value_with_label_A" === input.combined ||
-                  "the_3_value_with_label_B" === input.combined ||
-                  "the_3_value_with_label_C" === input.combined ||
+                  "the_1_value_with_label_A" === input.combined ||
+                  "the_1_value_with_label_B" === input.combined ||
+                  "the_1_value_with_label_C" === input.combined ||
                   $guard(
                     _exceptionable,
                     {

@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_TypeTagBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ranged"],
+                  values: [
+                    {
+                      value: "ranged",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -172,7 +180,11 @@ export const test_reflect_metadata_TypeTagBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["minimum"],
+                  values: [
+                    {
+                      value: "minimum",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -238,7 +250,11 @@ export const test_reflect_metadata_TypeTagBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["maximum"],
+                  values: [
+                    {
+                      value: "maximum",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -304,7 +320,11 @@ export const test_reflect_metadata_TypeTagBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["multipleOf"],
+                  values: [
+                    {
+                      value: "multipleOf",
+                    },
+                  ],
                 },
               ],
               templates: [],

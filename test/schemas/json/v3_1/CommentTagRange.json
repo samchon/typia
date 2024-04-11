@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "CommentTagRange": {
+        "$ref": "#/components/schemas/CommentTagRange"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/CommentTagRange"
+    }
+  ]
+}

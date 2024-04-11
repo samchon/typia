@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["fixed"],
+                  values: [
+                    {
+                      value: "fixed",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -181,7 +189,11 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["minimum"],
+                  values: [
+                    {
+                      value: "minimum",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -247,7 +259,11 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["maximum"],
+                  values: [
+                    {
+                      value: "maximum",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -313,7 +329,11 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["minimum_and_maximum"],
+                  values: [
+                    {
+                      value: "minimum_and_maximum",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -390,7 +410,11 @@ export const test_reflect_metadata_TypeTagLength = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["equal"],
+                  values: [
+                    {
+                      value: "equal",
+                    },
+                  ],
                 },
               ],
               templates: [],

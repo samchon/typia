@@ -1,0 +1,40 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ArrayUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayUnion.IUnion"
+        }
+      },
+      "ArrayUnion.IUnion": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayUnion"
+    }
+  ]
+}

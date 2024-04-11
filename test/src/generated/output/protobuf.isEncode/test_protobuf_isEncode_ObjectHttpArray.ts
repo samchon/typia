@@ -127,7 +127,7 @@ export const test_protobuf_isEncode_ObjectHttpArray = _test_protobuf_isEncode(
             output.strings.push(reader.string());
             break;
           case 5:
-            // type: Array<`something_${string}`>;
+            // type: Array<`[object Object]${string}`>;
             output.templates.push(reader.string());
             break;
           default:

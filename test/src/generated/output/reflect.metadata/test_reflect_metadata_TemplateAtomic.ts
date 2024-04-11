@@ -43,7 +43,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["prefix"],
+                  values: [
+                    {
+                      value: "prefix",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -77,7 +81,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["prefix_"],
+                        values: [
+                          {
+                            value: "prefix_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -141,7 +149,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["postfix"],
+                  values: [
+                    {
+                      value: "postfix",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +211,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_postfix"],
+                        values: [
+                          {
+                            value: "_postfix",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -239,7 +255,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["middle_string"],
+                  values: [
+                    {
+                      value: "middle_string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -273,7 +293,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["the_"],
+                        values: [
+                          {
+                            value: "the_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -321,7 +345,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_value"],
+                        values: [
+                          {
+                            value: "_value",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -361,7 +389,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["middle_string_empty"],
+                  values: [
+                    {
+                      value: "middle_string_empty",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -395,7 +427,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["the_"],
+                        values: [
+                          {
+                            value: "the_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -443,7 +479,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_value"],
+                        values: [
+                          {
+                            value: "_value",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -483,7 +523,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["middle_numeric"],
+                  values: [
+                    {
+                      value: "middle_numeric",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -517,7 +561,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["the_"],
+                        values: [
+                          {
+                            value: "the_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -565,7 +613,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_value"],
+                        values: [
+                          {
+                            value: "_value",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -605,7 +657,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["middle_boolean"],
+                  values: [
+                    {
+                      value: "middle_boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -629,7 +685,16 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["the_false_value", "the_true_value"],
+                  values: [
+                    {
+                      value: "the_false_value",
+                      tags: [],
+                    },
+                    {
+                      value: "the_true_value",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -657,7 +722,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ipv4"],
+                  values: [
+                    {
+                      value: "ipv4",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -715,7 +784,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["."],
+                        values: [
+                          {
+                            value: ".",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -763,7 +836,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["."],
+                        values: [
+                          {
+                            value: ".",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -811,7 +888,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["."],
+                        values: [
+                          {
+                            value: ".",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -875,7 +956,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -933,7 +1018,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["@"],
+                        values: [
+                          {
+                            value: "@",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -981,7 +1070,11 @@ export const test_reflect_metadata_TemplateAtomic = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["."],
+                        values: [
+                          {
+                            value: ".",
+                          },
+                        ],
                       },
                     ],
                     templates: [],

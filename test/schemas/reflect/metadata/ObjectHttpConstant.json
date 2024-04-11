@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "boolean"
+                    {
+                      "value": "boolean"
+                    }
                   ]
                 }
               ],
@@ -65,7 +67,10 @@
                 {
                   "type": "boolean",
                   "values": [
-                    false
+                    {
+                      "value": false,
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -95,7 +100,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bigint"
+                    {
+                      "value": "bigint"
+                    }
                   ]
                 }
               ],
@@ -121,8 +128,14 @@
                 {
                   "type": "bigint",
                   "values": [
-                    "1",
-                    "99"
+                    {
+                      "value": "1",
+                      "tags": []
+                    },
+                    {
+                      "value": "99",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -152,7 +165,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "number"
+                    {
+                      "value": "number"
+                    }
                   ]
                 }
               ],
@@ -178,8 +193,14 @@
                 {
                   "type": "number",
                   "values": [
-                    2,
-                    98
+                    {
+                      "value": 2,
+                      "tags": []
+                    },
+                    {
+                      "value": 98,
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -209,7 +230,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "string"
+                    {
+                      "value": "string"
+                    }
                   ]
                 }
               ],
@@ -235,9 +258,18 @@
                 {
                   "type": "string",
                   "values": [
-                    "ninety-seven",
-                    "something",
-                    "three"
+                    {
+                      "value": "three",
+                      "tags": []
+                    },
+                    {
+                      "value": "something",
+                      "tags": []
+                    },
+                    {
+                      "value": "ninety-seven",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -267,7 +299,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "template"
+                    {
+                      "value": "template"
+                    }
                   ]
                 }
               ],
@@ -303,7 +337,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "abcd_"
+                          {
+                            "value": "abcd_"
+                          }
                         ]
                       }
                     ],

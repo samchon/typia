@@ -1,0 +1,24 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectGenericAlias.Alias": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+    }
+  ]
+}

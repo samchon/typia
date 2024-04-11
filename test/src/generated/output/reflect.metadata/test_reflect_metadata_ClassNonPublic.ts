@@ -43,7 +43,11 @@ export const test_reflect_metadata_ClassNonPublic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["implicit"],
+                  values: [
+                    {
+                      value: "implicit",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ClassNonPublic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["shown"],
+                  values: [
+                    {
+                      value: "shown",
+                    },
+                  ],
                 },
               ],
               templates: [],

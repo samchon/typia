@@ -43,7 +43,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["anys"],
+                  values: [
+                    {
+                      value: "anys",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,59 +99,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["undefindable1"],
-                },
-              ],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            value: {
-              any: false,
-              required: false,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [],
-              constants: [],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [
-                {
-                  name: "Array<any>",
-                  tags: [],
-                },
-              ],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            description: null,
-            jsDocTags: [],
-          },
-          {
-            key: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [],
-              constants: [
-                {
-                  type: "string",
-                  values: ["undefindable2"],
+                  values: [
+                    {
+                      value: "undefindable1",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +155,67 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["nullables1"],
+                  values: [
+                    {
+                      value: "undefindable2",
+                    },
+                  ],
+                },
+              ],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            value: {
+              any: false,
+              required: false,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [],
+              constants: [],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [
+                {
+                  name: "Array<any>",
+                  tags: [],
+                },
+              ],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            description: null,
+            jsDocTags: [],
+          },
+          {
+            key: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [],
+              constants: [
+                {
+                  type: "string",
+                  values: [
+                    {
+                      value: "nullables1",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -251,7 +267,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["nullables2"],
+                  values: [
+                    {
+                      value: "nullables2",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -303,7 +323,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["both1"],
+                  values: [
+                    {
+                      value: "both1",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -355,7 +379,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["both2"],
+                  values: [
+                    {
+                      value: "both2",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -407,7 +435,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["both3"],
+                  values: [
+                    {
+                      value: "both3",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -459,7 +491,11 @@ export const test_reflect_metadata_ArrayAny = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["union"],
+                  values: [
+                    {
+                      value: "union",
+                    },
+                  ],
                 },
               ],
               templates: [],

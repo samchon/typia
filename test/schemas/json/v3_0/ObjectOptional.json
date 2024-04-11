@@ -1,0 +1,30 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectOptional": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          }
+        },
+        "nullable": false
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectOptional"
+    }
+  ]
+}

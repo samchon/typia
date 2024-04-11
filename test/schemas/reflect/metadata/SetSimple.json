@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "booleans"
+                    {
+                      "value": "booleans"
+                    }
                   ]
                 }
               ],
@@ -113,7 +115,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "numbers"
+                    {
+                      "value": "numbers"
+                    }
                   ]
                 }
               ],
@@ -187,7 +191,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "strings"
+                    {
+                      "value": "strings"
+                    }
                   ]
                 }
               ],
@@ -261,7 +267,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "arrays"
+                    {
+                      "value": "arrays"
+                    }
                   ]
                 }
               ],
@@ -335,7 +343,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "objects"
+                    {
+                      "value": "objects"
+                    }
                   ]
                 }
               ],
@@ -417,7 +427,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -471,7 +483,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -525,7 +539,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "age"
+                    {
+                      "value": "age"
+                    }
                   ]
                 }
               ],

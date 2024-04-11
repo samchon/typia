@@ -42,7 +42,11 @@ export const test_reflect_metadata_ObjectLiteralProperty =
                 constants: [
                   {
                     type: "string",
-                    values: ["something-interesting-do-you-want?"],
+                    values: [
+                      {
+                        value: "something-interesting-do-you-want?",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -94,7 +98,11 @@ export const test_reflect_metadata_ObjectLiteralProperty =
                 constants: [
                   {
                     type: "string",
-                    values: ["or-something-crazy-do-you-want?"],
+                    values: [
+                      {
+                        value: "or-something-crazy-do-you-want?",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

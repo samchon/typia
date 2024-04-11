@@ -164,7 +164,7 @@ export const test_validateEquals_ObjectHttpArray = _test_validateEquals(
                       RegExp(/^something_(.*)/).test(elem)) ||
                     $report(_exceptionable, {
                       path: _path + ".templates[" + _index5 + "]",
-                      expected: "`something_${string}`",
+                      expected: "`[object Object]${string}`",
                       value: elem,
                     }),
                 )

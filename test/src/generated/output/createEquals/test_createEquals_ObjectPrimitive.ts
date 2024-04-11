@@ -9,9 +9,9 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
   (input: any, _exceptionable: boolean = true): input is ObjectPrimitive => {
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
       "string" === typeof input.id &&
-      ("html" === input.extension ||
+      ("txt" === input.extension ||
         "md" === input.extension ||
-        "txt" === input.extension) &&
+        "html" === input.extension) &&
       "string" === typeof input.title &&
       "string" === typeof input.body &&
       Array.isArray(input.files) &&

@@ -56,9 +56,9 @@ export const test_functional_assertEqualsFunctionAsync_ObjectHttpUndefindable =
                 2 === input.constantNumber ||
                 3 === input.constantNumber) &&
               (undefined === input.constantString ||
-                "one" === input.constantString ||
                 "three" === input.constantString ||
-                "two" === input.constantString) &&
+                "two" === input.constantString ||
+                "one" === input.constantString) &&
               (0 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                   if (
@@ -182,9 +182,9 @@ export const test_functional_assertEqualsFunctionAsync_ObjectHttpUndefindable =
                     errorFactory,
                   )) &&
                 (undefined === input.constantString ||
-                  "one" === input.constantString ||
                   "three" === input.constantString ||
                   "two" === input.constantString ||
+                  "one" === input.constantString ||
                   $guard(
                     _exceptionable,
                     {
@@ -289,9 +289,9 @@ export const test_functional_assertEqualsFunctionAsync_ObjectHttpUndefindable =
                 2 === input.constantNumber ||
                 3 === input.constantNumber) &&
               (undefined === input.constantString ||
-                "one" === input.constantString ||
                 "three" === input.constantString ||
-                "two" === input.constantString) &&
+                "two" === input.constantString ||
+                "one" === input.constantString) &&
               (0 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                   if (
@@ -415,9 +415,9 @@ export const test_functional_assertEqualsFunctionAsync_ObjectHttpUndefindable =
                     errorFactory,
                   )) &&
                 (undefined === input.constantString ||
-                  "one" === input.constantString ||
                   "three" === input.constantString ||
                   "two" === input.constantString ||
+                  "one" === input.constantString ||
                   $guard(
                     _exceptionable,
                     {

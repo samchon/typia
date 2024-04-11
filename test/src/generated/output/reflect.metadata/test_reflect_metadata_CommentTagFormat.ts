@@ -43,7 +43,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["byte"],
+                  values: [
+                    {
+                      value: "byte",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -120,7 +124,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["password"],
+                  values: [
+                    {
+                      value: "password",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -196,7 +204,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["regex"],
+                  values: [
+                    {
+                      value: "regex",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -273,7 +285,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uuid"],
+                  values: [
+                    {
+                      value: "uuid",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -350,7 +366,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -427,7 +447,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["hostname"],
+                  values: [
+                    {
+                      value: "hostname",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -504,7 +528,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["idnEmail"],
+                  values: [
+                    {
+                      value: "idnEmail",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -581,7 +609,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["idnHostname"],
+                  values: [
+                    {
+                      value: "idnHostname",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -658,7 +690,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["iri"],
+                  values: [
+                    {
+                      value: "iri",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -735,7 +771,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["iriReference"],
+                  values: [
+                    {
+                      value: "iriReference",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -812,7 +852,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ipv4"],
+                  values: [
+                    {
+                      value: "ipv4",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -889,7 +933,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ipv6"],
+                  values: [
+                    {
+                      value: "ipv6",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -966,7 +1014,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uri"],
+                  values: [
+                    {
+                      value: "uri",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1043,7 +1095,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uriReference"],
+                  values: [
+                    {
+                      value: "uriReference",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1120,7 +1176,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uriTemplate"],
+                  values: [
+                    {
+                      value: "uriTemplate",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1197,7 +1257,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["url"],
+                  values: [
+                    {
+                      value: "url",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1274,7 +1338,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["datetime"],
+                  values: [
+                    {
+                      value: "datetime",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1350,7 +1418,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["date"],
+                  values: [
+                    {
+                      value: "date",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1426,7 +1498,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["time"],
+                  values: [
+                    {
+                      value: "time",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1503,7 +1579,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["duration"],
+                  values: [
+                    {
+                      value: "duration",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1580,7 +1660,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["jsonPointer"],
+                  values: [
+                    {
+                      value: "jsonPointer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1656,7 +1740,11 @@ export const test_reflect_metadata_CommentTagFormat = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["relativeJsonPointer"],
+                  values: [
+                    {
+                      value: "relativeJsonPointer",
+                    },
+                  ],
                 },
               ],
               templates: [],

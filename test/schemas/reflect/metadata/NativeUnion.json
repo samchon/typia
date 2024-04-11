@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "date"
+                    {
+                      "value": "date"
+                    }
                   ]
                 }
               ],
@@ -137,7 +139,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "unsigned"
+                    {
+                      "value": "unsigned"
+                    }
                   ]
                 }
               ],
@@ -192,7 +196,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "signed"
+                    {
+                      "value": "signed"
+                    }
                   ]
                 }
               ],
@@ -246,7 +252,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "float"
+                    {
+                      "value": "float"
+                    }
                   ]
                 }
               ],
@@ -298,7 +306,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "buffer"
+                    {
+                      "value": "buffer"
+                    }
                   ]
                 }
               ],

@@ -4,8 +4,6 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
-
 import { metadata_to_pattern } from "../internal/metadata_to_pattern";
 import { prune_object_properties } from "../internal/prune_object_properties";
 import { IExpressionEntry } from "./IExpressionEntry";
@@ -20,13 +18,13 @@ export namespace PruneJoiner {
     const regular = entries.filter((entry) => entry.key.isSoleLiteral());
     const dynamic = entries.filter((entry) => !entry.key.isSoleLiteral());
 
-    const statements: ts.Statement[] = ArrayUtil.flat(
-      regular.map((entry) =>
+    const statements: ts.Statement[] = regular
+      .map((entry) =>
         ts.isBlock(entry.expression)
           ? [...entry.expression.statements]
           : [ts.factory.createExpressionStatement(entry.expression)],
-      ),
-    );
+      )
+      .flat();
     if (dynamic.length)
       statements.push(
         ts.factory.createExpressionStatement(
@@ -52,13 +50,13 @@ export namespace PruneJoiner {
     const entire: ts.ConciseBody[] = [...children];
     if (rest !== null) entire.push(rest);
 
-    const statements: ts.Statement[] = ArrayUtil.flat(
-      entire.map((elem) =>
+    const statements: ts.Statement[] = entire
+      .map((elem) =>
         ts.isBlock(elem)
           ? [...elem.statements]
           : [ts.factory.createExpressionStatement(elem)],
-      ),
-    );
+      )
+      .flat();
     return ts.factory.createBlock(statements, true);
   };
 }

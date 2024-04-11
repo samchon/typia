@@ -21,9 +21,9 @@ export const test_functional_validateEqualsFunction_ObjectPrimitive =
                 _exceptionable: boolean = true,
               ): boolean =>
                 "string" === typeof input.id &&
-                ("html" === input.extension ||
+                ("txt" === input.extension ||
                   "md" === input.extension ||
-                  "txt" === input.extension) &&
+                  "html" === input.extension) &&
                 "string" === typeof input.title &&
                 "string" === typeof input.body &&
                 Array.isArray(input.files) &&
@@ -101,9 +101,9 @@ export const test_functional_validateEqualsFunction_ObjectPrimitive =
                         expected: "string",
                         value: input.id,
                       }),
-                    "html" === input.extension ||
+                    "txt" === input.extension ||
                       "md" === input.extension ||
-                      "txt" === input.extension ||
+                      "html" === input.extension ||
                       $report(_exceptionable, {
                         path: _path + ".extension",
                         expected: '("html" | "md" | "txt")',
@@ -300,9 +300,9 @@ export const test_functional_validateEqualsFunction_ObjectPrimitive =
               _exceptionable: boolean = true,
             ): boolean =>
               "string" === typeof input.id &&
-              ("html" === input.extension ||
+              ("txt" === input.extension ||
                 "md" === input.extension ||
-                "txt" === input.extension) &&
+                "html" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&
@@ -380,9 +380,9 @@ export const test_functional_validateEqualsFunction_ObjectPrimitive =
                       expected: "string",
                       value: input.id,
                     }),
-                  "html" === input.extension ||
+                  "txt" === input.extension ||
                     "md" === input.extension ||
-                    "txt" === input.extension ||
+                    "html" === input.extension ||
                     $report(_exceptionable, {
                       path: _path + ".extension",
                       expected: '("html" | "md" | "txt")',

@@ -47,7 +47,11 @@ export const test_reflect_metadata_ConstantAtomicWrapper =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -108,7 +112,11 @@ export const test_reflect_metadata_ConstantAtomicWrapper =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -169,7 +177,11 @@ export const test_reflect_metadata_ConstantAtomicWrapper =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

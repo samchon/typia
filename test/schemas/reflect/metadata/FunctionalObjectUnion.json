@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "x"
+                    {
+                      "value": "x"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "y"
+                    {
+                      "value": "y"
+                    }
                   ]
                 }
               ],
@@ -150,7 +154,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "distance"
+                    {
+                      "value": "distance"
+                    }
                   ]
                 }
               ],
@@ -210,7 +216,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "p1"
+                    {
+                      "value": "p1"
+                    }
                   ]
                 }
               ],
@@ -261,7 +269,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "p2"
+                    {
+                      "value": "p2"
+                    }
                   ]
                 }
               ],
@@ -312,7 +322,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "length"
+                    {
+                      "value": "length"
+                    }
                   ]
                 }
               ],
@@ -372,7 +384,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "points"
+                    {
+                      "value": "points"
+                    }
                   ]
                 }
               ],
@@ -426,7 +440,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "length"
+                    {
+                      "value": "length"
+                    }
                   ]
                 }
               ],
@@ -486,7 +502,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "points"
+                    {
+                      "value": "points"
+                    }
                   ]
                 }
               ],
@@ -540,7 +558,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "length"
+                    {
+                      "value": "length"
+                    }
                   ]
                 }
               ],
@@ -589,7 +609,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "area"
+                    {
+                      "value": "area"
+                    }
                   ]
                 }
               ],

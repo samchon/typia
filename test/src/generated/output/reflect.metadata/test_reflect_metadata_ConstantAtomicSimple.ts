@@ -50,7 +50,12 @@ export const test_reflect_metadata_ConstantAtomicSimple =
               constants: [
                 {
                   type: "boolean",
-                  values: [false],
+                  values: [
+                    {
+                      value: false,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -74,7 +79,12 @@ export const test_reflect_metadata_ConstantAtomicSimple =
               constants: [
                 {
                   type: "boolean",
-                  values: [true],
+                  values: [
+                    {
+                      value: true,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -98,7 +108,12 @@ export const test_reflect_metadata_ConstantAtomicSimple =
               constants: [
                 {
                   type: "number",
-                  values: [2],
+                  values: [
+                    {
+                      value: 2,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -122,7 +137,12 @@ export const test_reflect_metadata_ConstantAtomicSimple =
               constants: [
                 {
                   type: "string",
-                  values: ["three"],
+                  values: [
+                    {
+                      value: "three",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],

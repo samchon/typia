@@ -73,7 +73,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["scale"],
+                    values: [
+                      {
+                        value: "scale",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -120,7 +124,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["position"],
+                    values: [
+                      {
+                        value: "position",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -167,7 +175,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["rotate"],
+                    values: [
+                      {
+                        value: "rotate",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -214,7 +226,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["pivot"],
+                    values: [
+                      {
+                        value: "pivot",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -270,7 +286,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["x"],
+                    values: [
+                      {
+                        value: "x",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -322,7 +342,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["y"],
+                    values: [
+                      {
+                        value: "y",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -374,7 +398,11 @@ export const test_reflect_metadata_ArrayRepeatedUnionWithTuple =
                 constants: [
                   {
                     type: "string",
-                    values: ["z"],
+                    values: [
+                      {
+                        value: "z",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

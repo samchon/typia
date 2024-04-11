@@ -34,9 +34,9 @@ export const test_assertEquals_ObjectHttpUndefindable = _test_assertEquals(
             2 === input.constantNumber ||
             3 === input.constantNumber) &&
           (undefined === input.constantString ||
-            "one" === input.constantString ||
             "three" === input.constantString ||
-            "two" === input.constantString) &&
+            "two" === input.constantString ||
+            "one" === input.constantString) &&
           (0 === Object.keys(input).length ||
             Object.keys(input).every((key: any) => {
               if (
@@ -159,9 +159,9 @@ export const test_assertEquals_ObjectHttpUndefindable = _test_assertEquals(
                 errorFactory,
               )) &&
             (undefined === input.constantString ||
-              "one" === input.constantString ||
               "three" === input.constantString ||
               "two" === input.constantString ||
+              "one" === input.constantString ||
               $guard(
                 _exceptionable,
                 {

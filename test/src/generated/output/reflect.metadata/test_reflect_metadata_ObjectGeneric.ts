@@ -48,7 +48,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child"],
+                  values: [
+                    {
+                      value: "child",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["elements"],
+                  values: [
+                    {
+                      value: "elements",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -208,7 +220,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child_value"],
+                  values: [
+                    {
+                      value: "child_value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -260,7 +276,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child_next"],
+                  values: [
+                    {
+                      value: "child_next",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -321,7 +341,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -373,7 +397,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child"],
+                  values: [
+                    {
+                      value: "child",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -420,7 +448,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["elements"],
+                  values: [
+                    {
+                      value: "elements",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -481,7 +513,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child_value"],
+                  values: [
+                    {
+                      value: "child_value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -533,7 +569,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child_next"],
+                  values: [
+                    {
+                      value: "child_next",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -594,7 +634,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -646,7 +690,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child"],
+                  values: [
+                    {
+                      value: "child",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -693,7 +741,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["elements"],
+                  values: [
+                    {
+                      value: "elements",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -754,7 +806,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child_value"],
+                  values: [
+                    {
+                      value: "child_value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -806,7 +862,11 @@ export const test_reflect_metadata_ObjectGeneric = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["child_next"],
+                  values: [
+                    {
+                      value: "child_next",
+                    },
+                  ],
                 },
               ],
               templates: [],

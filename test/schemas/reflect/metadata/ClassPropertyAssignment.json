@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -147,7 +151,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "note"
+                    {
+                      "value": "note"
+                    }
                   ]
                 }
               ],
@@ -173,7 +179,10 @@
                 {
                   "type": "string",
                   "values": [
-                    "assignment"
+                    {
+                      "value": "assignment",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -203,7 +212,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "editable"
+                    {
+                      "value": "editable"
+                    }
                   ]
                 }
               ],
@@ -229,7 +240,10 @@
                 {
                   "type": "boolean",
                   "values": [
-                    false
+                    {
+                      "value": false,
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -259,7 +273,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "incremental"
+                    {
+                      "value": "incremental"
+                    }
                   ]
                 }
               ],

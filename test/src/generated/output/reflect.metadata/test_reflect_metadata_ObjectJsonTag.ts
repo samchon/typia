@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectJsonTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["vulnerable"],
+                  values: [
+                    {
+                      value: "vulnerable",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -99,7 +103,11 @@ export const test_reflect_metadata_ObjectJsonTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["description"],
+                  values: [
+                    {
+                      value: "description",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -151,7 +159,11 @@ export const test_reflect_metadata_ObjectJsonTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: [
+                    {
+                      value: "title",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -213,7 +225,11 @@ export const test_reflect_metadata_ObjectJsonTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["complicate_title"],
+                  values: [
+                    {
+                      value: "complicate_title",
+                    },
+                  ],
                 },
               ],
               templates: [],

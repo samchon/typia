@@ -48,7 +48,11 @@ export const test_reflect_metadata_ToJsonAtomicUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],

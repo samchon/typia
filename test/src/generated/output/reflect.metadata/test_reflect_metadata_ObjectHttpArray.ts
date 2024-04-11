@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectHttpArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["booleans"],
+                  values: [
+                    {
+                      value: "booleans",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectHttpArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bigints"],
+                  values: [
+                    {
+                      value: "bigints",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ObjectHttpArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["numbers"],
+                  values: [
+                    {
+                      value: "numbers",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +211,11 @@ export const test_reflect_metadata_ObjectHttpArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["strings"],
+                  values: [
+                    {
+                      value: "strings",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -251,7 +267,11 @@ export const test_reflect_metadata_ObjectHttpArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["templates"],
+                  values: [
+                    {
+                      value: "templates",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -443,7 +463,11 @@ export const test_reflect_metadata_ObjectHttpArray = _test_reflect_metadata(
                 constants: [
                   {
                     type: "string",
-                    values: ["something_"],
+                    values: [
+                      {
+                        value: "something_",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

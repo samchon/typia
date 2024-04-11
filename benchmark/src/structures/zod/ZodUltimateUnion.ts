@@ -1,7 +1,8 @@
-import { IJsonApplication, IJsonComponents, IJsonSchema } from "typia";
+import { OpenApi } from "@samchon/openapi";
+import { IJsonApplication } from "typia";
 import { z } from "zod";
 
-const Schema: z.ZodType<IJsonSchema> = z.lazy(
+const Schema: z.ZodType<OpenApi.IJsonSchema> = z.lazy(
   () =>
     z.union([Atomic, Constant, Array, Tuple, Reference, OneOf, Unknown]) as any,
 );
@@ -41,41 +42,40 @@ const Constant = Atomic.extend({
   constant: z.array(z.union([z.boolean(), z.number(), z.bigint(), z.string()])),
 });
 
-const Array: z.ZodType<IJsonSchema.IArray> = z.lazy(() =>
+const Array: z.ZodType<OpenApi.IJsonSchema.IArray> = z.lazy(() =>
   z.object({
     type: z.literal("array"),
     items: Schema,
-    nullable: z.boolean(),
     description: z.union([z.string(), z.undefined()]),
   }),
 );
-const Tuple: z.ZodType<IJsonSchema.ITuple> = z.lazy(() =>
-  z.object({
-    type: z.literal("array"),
-    items: z.array(Schema),
-    nullable: z.boolean(),
-    minItems: z.number(),
-    maxItems: z.number().optional(),
-    description: z.union([z.string(), z.undefined()]),
-  }),
+const Tuple: z.ZodType<OpenApi.IJsonSchema.ITuple> = z.lazy(
+  () =>
+    z.object({
+      type: z.literal("array"),
+      prefixItems: z.array(Schema),
+      additionalItems: z.union([Schema, z.undefined(), z.boolean()]),
+      minItems: z.number().optional(),
+      maxItems: z.number().optional(),
+      description: z.union([z.string(), z.undefined()]),
+    }) as any,
 );
 
-const Reference: z.ZodType<IJsonSchema.IReference> = z.object({
+const Reference: z.ZodType<OpenApi.IJsonSchema.IReference> = z.object({
   $ref: z.string(),
   description: z.union([z.string(), z.undefined()]),
 });
-const OneOf: z.ZodType<IJsonSchema.IOneOf> = z.lazy(() =>
+const OneOf: z.ZodType<OpenApi.IJsonSchema.IOneOf> = z.lazy(() =>
   z.object({
     oneOf: z.array(Schema),
     description: z.union([z.string(), z.undefined()]),
   }),
 );
 
-const ObjectDef: z.ZodType<IJsonComponents.IObject> = z.lazy(() =>
+const ObjectDef: z.ZodType<OpenApi.IJsonSchema.IObject> = z.lazy(() =>
   z.object({
     $id: z.string(),
     type: z.literal("object"),
-    nullable: z.boolean(),
 
     properties: z.record(Schema),
     patternProperties: z.union([z.undefined(), z.record(Schema)]),
@@ -83,20 +83,19 @@ const ObjectDef: z.ZodType<IJsonComponents.IObject> = z.lazy(() =>
     description: z.union([z.string(), z.undefined()]),
   }),
 );
-const Components: z.ZodType<IJsonComponents> = z.lazy(() =>
+const Components: z.ZodType<OpenApi.IComponents> = z.lazy(() =>
   z.object({
     schemas: z.record(ObjectDef),
   }),
 );
 
-const Application: z.ZodType<IJsonApplication> = z.lazy(() =>
-  z.object({
-    schemas: z.array(Schema),
-    components: Components,
-    purpose: z.union([z.literal("ajv"), z.literal("swagger")]),
-    prefix: z.string(),
-    surplus: z.boolean(),
-  }),
+const Application: z.ZodType<IJsonApplication> = z.lazy(
+  () =>
+    z.object({
+      schemas: z.array(Schema),
+      components: Components,
+      version: z.union([z.literal("3.0"), z.literal("3.1")]),
+    }) as any,
 );
 
 export const ZodUltimateUnion = z.array(Application);

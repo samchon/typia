@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
+import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -28,7 +29,14 @@ export const iterate_metadata_constant =
             values: [],
           }),
       );
-      ArrayUtil.add(constant.values as Array<any>, value, (a, b) => a === b);
+      ArrayUtil.add(
+        constant.values,
+        MetadataConstantValue.create({
+          value,
+          tags: [],
+        }),
+        (a, b) => a.value === b.value,
+      );
       return true;
     } else if (filter(ts.TypeFlags.BooleanLiteral)) {
       const value: boolean = checker.typeToString(type) === "true";
@@ -41,7 +49,14 @@ export const iterate_metadata_constant =
             values: [],
           }),
       );
-      ArrayUtil.add(constant.values as boolean[], value, (a, b) => a === b);
+      ArrayUtil.add(
+        constant.values,
+        MetadataConstantValue.create({
+          value,
+          tags: [],
+        }),
+        (a, b) => a.value === b.value,
+      );
       return true;
     }
     return false;

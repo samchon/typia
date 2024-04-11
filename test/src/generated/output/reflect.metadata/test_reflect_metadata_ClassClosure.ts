@@ -43,7 +43,11 @@ export const test_reflect_metadata_ClassClosure = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ClassClosure = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["type"],
+                  values: [
+                    {
+                      value: "type",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -119,7 +127,12 @@ export const test_reflect_metadata_ClassClosure = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["something"],
+                  values: [
+                    {
+                      value: "something",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +160,11 @@ export const test_reflect_metadata_ClassClosure = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["closure"],
+                  values: [
+                    {
+                      value: "closure",
+                    },
+                  ],
                 },
               ],
               templates: [],

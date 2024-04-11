@@ -23,8 +23,8 @@ export const test_functional_equalsParametersAsync_ObjectAlias =
               (null === input.sex ||
                 1 === input.sex ||
                 2 === input.sex ||
-                "female" === input.sex ||
-                "male" === input.sex) &&
+                "male" === input.sex ||
+                "female" === input.sex) &&
               (null === input.age ||
                 ("number" === typeof input.age &&
                   Number.isFinite(input.age))) &&

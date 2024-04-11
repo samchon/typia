@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child"
+                    {
+                      "value": "child"
+                    }
                   ]
                 }
               ],
@@ -147,7 +151,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "elements"
+                    {
+                      "value": "elements"
+                    }
                   ]
                 }
               ],
@@ -212,7 +218,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child_value"
+                    {
+                      "value": "child_value"
+                    }
                   ]
                 }
               ],
@@ -266,7 +274,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child_next"
+                    {
+                      "value": "child_next"
+                    }
                   ]
                 }
               ],
@@ -331,7 +341,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -385,7 +397,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child"
+                    {
+                      "value": "child"
+                    }
                   ]
                 }
               ],
@@ -436,7 +450,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "elements"
+                    {
+                      "value": "elements"
+                    }
                   ]
                 }
               ],
@@ -501,7 +517,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child_value"
+                    {
+                      "value": "child_value"
+                    }
                   ]
                 }
               ],
@@ -555,7 +573,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child_next"
+                    {
+                      "value": "child_next"
+                    }
                   ]
                 }
               ],
@@ -620,7 +640,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -674,7 +696,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child"
+                    {
+                      "value": "child"
+                    }
                   ]
                 }
               ],
@@ -725,7 +749,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "elements"
+                    {
+                      "value": "elements"
+                    }
                   ]
                 }
               ],
@@ -790,7 +816,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child_value"
+                    {
+                      "value": "child_value"
+                    }
                   ]
                 }
               ],
@@ -844,7 +872,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "child_next"
+                    {
+                      "value": "child_next"
+                    }
                   ]
                 }
               ],

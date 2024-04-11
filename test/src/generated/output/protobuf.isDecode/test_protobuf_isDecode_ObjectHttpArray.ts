@@ -72,7 +72,7 @@ export const test_protobuf_isDecode_ObjectHttpArray = _test_protobuf_isDecode(
                 output.strings.push(reader.string());
                 break;
               case 5:
-                // type: Array<`something_${string}`>;
+                // type: Array<`[object Object]${string}`>;
                 output.templates.push(reader.string());
                 break;
               default:

@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagPattern = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uuid"],
+                  values: [
+                    {
+                      value: "uuid",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -112,7 +116,11 @@ export const test_reflect_metadata_TypeTagPattern = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -181,7 +189,11 @@ export const test_reflect_metadata_TypeTagPattern = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ipv4"],
+                  values: [
+                    {
+                      value: "ipv4",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -250,7 +262,11 @@ export const test_reflect_metadata_TypeTagPattern = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ipv6"],
+                  values: [
+                    {
+                      value: "ipv6",
+                    },
+                  ],
                 },
               ],
               templates: [],

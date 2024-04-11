@@ -42,7 +42,11 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -86,7 +90,12 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                 constants: [
                   {
                     type: "string",
-                    values: ["latest"],
+                    values: [
+                      {
+                        value: "latest",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -114,7 +123,11 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                 constants: [
                   {
                     type: "string",
-                    values: ["age"],
+                    values: [
+                      {
+                        value: "age",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -147,6 +160,9 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                           validate:
                             "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                           exclusive: true,
+                          schema: {
+                            type: "integer",
+                          },
                         },
                         {
                           target: "number",
@@ -166,7 +182,12 @@ export const test_reflect_metadata_ConstantAtomicTagged =
                 constants: [
                   {
                     type: "number",
-                    values: [-1],
+                    values: [
+                      {
+                        value: -1,
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],

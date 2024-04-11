@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -107,7 +109,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -172,7 +176,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -237,7 +243,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -299,7 +307,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -353,7 +363,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -407,7 +419,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "grade"
+                    {
+                      "value": "grade"
+                    }
                   ]
                 }
               ],
@@ -461,7 +475,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "serial"
+                    {
+                      "value": "serial"
+                    }
                   ]
                 }
               ],
@@ -515,7 +531,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "activated"
+                    {
+                      "value": "activated"
+                    }
                   ]
                 }
               ],

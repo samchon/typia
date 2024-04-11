@@ -53,7 +53,11 @@ export const test_reflect_metadata_DynamicTemplate = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["prefix_"],
+                        values: [
+                          {
+                            value: "prefix_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -175,7 +179,11 @@ export const test_reflect_metadata_DynamicTemplate = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_postfix"],
+                        values: [
+                          {
+                            value: "_postfix",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -249,7 +257,11 @@ export const test_reflect_metadata_DynamicTemplate = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["value_"],
+                        values: [
+                          {
+                            value: "value_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -347,7 +359,11 @@ export const test_reflect_metadata_DynamicTemplate = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["between_"],
+                        values: [
+                          {
+                            value: "between_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -395,7 +411,11 @@ export const test_reflect_metadata_DynamicTemplate = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_and_"],
+                        values: [
+                          {
+                            value: "_and_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],

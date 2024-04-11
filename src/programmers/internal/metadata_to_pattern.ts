@@ -1,6 +1,5 @@
 import { Metadata } from "../../schemas/metadata/Metadata";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { template_to_pattern } from "./template_to_pattern";
@@ -14,12 +13,14 @@ export const metadata_to_pattern =
     if (meta.atomics.find((a) => a.type === "string") !== undefined)
       return "(.*)";
 
-    const values: string[] = ArrayUtil.flat(
-      meta.constants.map((c) => {
+    const values: string[] = meta.constants
+      .map((c) => {
         if (c.type !== "string") return c.values.map((v) => v.toString());
-        return (c.values as string[]).map((str) => PatternUtil.escape(str));
-      }),
-    );
+        return (c.values.map((v) => v.value) as string[]).map((str) =>
+          PatternUtil.escape(str),
+        );
+      })
+      .flat();
     for (const a of meta.atomics)
       if (a.type === "number" || a.type === "bigint")
         values.push(PatternUtil.NUMBER);

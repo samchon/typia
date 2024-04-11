@@ -105,7 +105,11 @@ export const test_reflect_metadata_DynamicUnion = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["prefix_"],
+                        values: [
+                          {
+                            value: "prefix_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -227,7 +231,11 @@ export const test_reflect_metadata_DynamicUnion = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_postfix"],
+                        values: [
+                          {
+                            value: "_postfix",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -301,7 +309,11 @@ export const test_reflect_metadata_DynamicUnion = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["value_between_"],
+                        values: [
+                          {
+                            value: "value_between_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],
@@ -349,7 +361,11 @@ export const test_reflect_metadata_DynamicUnion = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["_and_"],
+                        values: [
+                          {
+                            value: "_and_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],

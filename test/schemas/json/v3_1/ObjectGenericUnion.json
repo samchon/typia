@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectGenericUnion": {
+        "$ref": "#/components/schemas/ObjectGenericUnion"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericUnion"
+    }
+  ]
+}

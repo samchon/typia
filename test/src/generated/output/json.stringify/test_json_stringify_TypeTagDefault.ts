@@ -65,7 +65,7 @@ export const test_json_stringify_TypeTagDefault = _test_json_stringify(
           return input.boolean_and_number_and_template;
         $throws({
           expected:
-            "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+            "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
           value: input.boolean_and_number_and_template,
         });
       })()}}`;

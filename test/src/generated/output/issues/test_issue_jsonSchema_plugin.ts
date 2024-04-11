@@ -4,17 +4,16 @@ import { TestValidator } from "../../../helpers/TestValidator";
 
 export const test_issue_jsonSchema_plugin = () => {
   const app: typia.IJsonApplication = {
+    version: "3.1",
+    components: {
+      schemas: {},
+    },
     schemas: [
       {
         type: "string",
         "x-typia-easy-to-learn": true,
       },
     ],
-    components: {
-      schemas: {},
-    },
-    purpose: "swagger",
-    surplus: false,
   };
   TestValidator.equals("plugin")(app.schemas[0])({
     type: "string",

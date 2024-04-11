@@ -10,9 +10,9 @@ export const test_misc_isClone_ObjectPrimitive = _test_misc_isClone(
     const is = (input: any): input is ObjectPrimitive => {
       const $io0 = (input: any): boolean =>
         "string" === typeof input.id &&
-        ("html" === input.extension ||
+        ("txt" === input.extension ||
           "md" === input.extension ||
-          "txt" === input.extension) &&
+          "html" === input.extension) &&
         "string" === typeof input.title &&
         "string" === typeof input.body &&
         Array.isArray(input.files) &&

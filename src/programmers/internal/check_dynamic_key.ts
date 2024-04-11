@@ -97,7 +97,7 @@ export const check_dynamic_key =
 
     // CONSTANTS
     for (const constant of metadata.constants)
-      for (const value of constant.values)
+      for (const { value } of constant.values)
         conditions.push(
           ts.factory.createStrictEquality(
             ts.factory.createStringLiteral(String(value)),

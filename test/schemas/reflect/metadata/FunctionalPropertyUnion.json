@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "closure"
+                    {
+                      "value": "closure"
+                    }
                   ]
                 }
               ],

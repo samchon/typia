@@ -43,7 +43,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["children"],
+                  values: [
+                    {
+                      value: "children",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["code"],
+                  values: [
+                    {
+                      value: "code",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +211,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sequence"],
+                  values: [
+                    {
+                      value: "sequence",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -251,7 +267,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -307,7 +327,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["time"],
+                  values: [
+                    {
+                      value: "time",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -359,7 +383,11 @@ export const test_reflect_metadata_ArrayRecursive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["zone"],
+                  values: [
+                    {
+                      value: "zone",
+                    },
+                  ],
                 },
               ],
               templates: [],

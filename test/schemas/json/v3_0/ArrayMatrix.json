@@ -1,0 +1,24 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ArrayMatrix": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayMatrix"
+    }
+  ]
+}

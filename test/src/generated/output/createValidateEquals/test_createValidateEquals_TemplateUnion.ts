@@ -156,7 +156,8 @@ export const test_createValidateEquals_TemplateUnion = _test_validateEquals(
                 ))) ||
               $report(_exceptionable, {
                 path: _path + ".prefix",
-                expected: "(`prefix_${number}` | `prefix_${string}`)",
+                expected:
+                  "(`[object Object]${number}` | `[object Object]${string}`)",
                 value: input.prefix,
               }),
             ("string" === typeof input.postfix &&
@@ -166,21 +167,22 @@ export const test_createValidateEquals_TemplateUnion = _test_validateEquals(
                 ))) ||
               $report(_exceptionable, {
                 path: _path + ".postfix",
-                expected: "(`${number}_postfix` | `${string}_postfix`)",
+                expected:
+                  "(`${number}[object Object]` | `${string}[object Object]`)",
                 value: input.postfix,
               }),
             (null !== input.middle ||
               $report(_exceptionable, {
                 path: _path + ".middle",
                 expected:
-                  '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                  '("the_false_value" | "the_true_value" | `[object Object]${number}[object Object]`)',
                 value: input.middle,
               })) &&
               (undefined !== input.middle ||
                 $report(_exceptionable, {
                   path: _path + ".middle",
                   expected:
-                    '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                    '("the_false_value" | "the_true_value" | `[object Object]${number}[object Object]`)',
                   value: input.middle,
                 })) &&
               ("the_false_value" === input.middle ||
@@ -192,21 +194,21 @@ export const test_createValidateEquals_TemplateUnion = _test_validateEquals(
                 $report(_exceptionable, {
                   path: _path + ".middle",
                   expected:
-                    '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                    '("the_false_value" | "the_true_value" | `[object Object]${number}[object Object]`)',
                   value: input.middle,
                 })),
             (null !== input.mixed ||
               $report(_exceptionable, {
                 path: _path + ".mixed",
                 expected:
-                  '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                  '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                 value: input.mixed,
               })) &&
               (undefined !== input.mixed ||
                 $report(_exceptionable, {
                   path: _path + ".mixed",
                   expected:
-                    '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                    '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                   value: input.mixed,
                 })) &&
               ("the_A_value" === input.mixed ||
@@ -222,7 +224,7 @@ export const test_createValidateEquals_TemplateUnion = _test_validateEquals(
                   $report(_exceptionable, {
                     path: _path + ".mixed",
                     expected:
-                      '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                      '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                     value: input.mixed,
                   })) &&
                   $vo2(
@@ -233,7 +235,7 @@ export const test_createValidateEquals_TemplateUnion = _test_validateEquals(
                 $report(_exceptionable, {
                   path: _path + ".mixed",
                   expected:
-                    '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                    '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                   value: input.mixed,
                 })),
             4 === Object.keys(input).length ||

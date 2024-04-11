@@ -22,10 +22,9 @@ export const emend_metadata_atomics = (meta: Metadata) => {
         () =>
           MetadataAtomic.create({
             type: "boolean" as const,
-            tags: temp.tags ?? [],
+            tags: temp.values[0]!.tags ?? [],
           }),
       );
-      temp.tags = undefined;
     }
   }
 

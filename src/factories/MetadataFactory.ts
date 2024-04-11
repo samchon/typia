@@ -80,7 +80,12 @@ export namespace MetadataFactory {
     const meta: Metadata = Metadata.initialize();
     meta.constants.push(
       MetadataConstant.from({
-        values: [value],
+        values: [
+          {
+            value,
+            tags: undefined,
+          },
+        ],
         type: "string",
       }),
     );

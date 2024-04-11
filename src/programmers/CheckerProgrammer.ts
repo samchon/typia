@@ -336,7 +336,7 @@ export namespace CheckerProgrammer {
       // CONSTANT VALUES
       for (const constant of meta.constants)
         if (AtomicPredicator.constant(meta)(constant.type))
-          for (const val of constant.values) add(true, getConstantValue(val));
+          for (const v of constant.values) add(true, getConstantValue(v.value));
       if (meta.escaped !== null)
         binaries.push({
           combined: false,

@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ranged"
+                    {
+                      "value": "ranged"
+                    }
                   ]
                 }
               ],
@@ -197,7 +201,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "minimum"
+                    {
+                      "value": "minimum"
+                    }
                   ]
                 }
               ],
@@ -278,7 +284,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "maximum"
+                    {
+                      "value": "maximum"
+                    }
                   ]
                 }
               ],
@@ -359,7 +367,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "multipleOf"
+                    {
+                      "value": "multipleOf"
+                    }
                   ]
                 }
               ],

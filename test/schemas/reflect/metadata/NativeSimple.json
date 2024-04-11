@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "date"
+                    {
+                      "value": "date"
+                    }
                   ]
                 }
               ],
@@ -134,7 +136,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint8Array"
+                    {
+                      "value": "uint8Array"
+                    }
                   ]
                 }
               ],
@@ -185,7 +189,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint8ClampedArray"
+                    {
+                      "value": "uint8ClampedArray"
+                    }
                   ]
                 }
               ],
@@ -236,7 +242,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint16Array"
+                    {
+                      "value": "uint16Array"
+                    }
                   ]
                 }
               ],
@@ -287,7 +295,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint32Array"
+                    {
+                      "value": "uint32Array"
+                    }
                   ]
                 }
               ],
@@ -338,7 +348,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bigUint64Array"
+                    {
+                      "value": "bigUint64Array"
+                    }
                   ]
                 }
               ],
@@ -389,7 +401,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int8Array"
+                    {
+                      "value": "int8Array"
+                    }
                   ]
                 }
               ],
@@ -440,7 +454,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int16Array"
+                    {
+                      "value": "int16Array"
+                    }
                   ]
                 }
               ],
@@ -491,7 +507,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32Array"
+                    {
+                      "value": "int32Array"
+                    }
                   ]
                 }
               ],
@@ -542,7 +560,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bigInt64Array"
+                    {
+                      "value": "bigInt64Array"
+                    }
                   ]
                 }
               ],
@@ -593,7 +613,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "float32Array"
+                    {
+                      "value": "float32Array"
+                    }
                   ]
                 }
               ],
@@ -644,7 +666,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "float64Array"
+                    {
+                      "value": "float64Array"
+                    }
                   ]
                 }
               ],
@@ -695,7 +719,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "arrayBuffer"
+                    {
+                      "value": "arrayBuffer"
+                    }
                   ]
                 }
               ],
@@ -746,7 +772,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "sharedArrayBuffer"
+                    {
+                      "value": "sharedArrayBuffer"
+                    }
                   ]
                 }
               ],
@@ -797,7 +825,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "dataView"
+                    {
+                      "value": "dataView"
+                    }
                   ]
                 }
               ],

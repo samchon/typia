@@ -43,7 +43,11 @@ export const test_reflect_metadata_CommentTagArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_CommentTagArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["items"],
+                  values: [
+                    {
+                      value: "items",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -191,7 +199,11 @@ export const test_reflect_metadata_CommentTagArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["minItems"],
+                  values: [
+                    {
+                      value: "minItems",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -267,7 +279,11 @@ export const test_reflect_metadata_CommentTagArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["both"],
+                  values: [
+                    {
+                      value: "both",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -363,7 +379,11 @@ export const test_reflect_metadata_CommentTagArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["equal"],
+                  values: [
+                    {
+                      value: "equal",
+                    },
+                  ],
                 },
               ],
               templates: [],

@@ -1,0 +1,16 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "RequiredObjectRequired.IBase": {
+        "$ref": "#/components/schemas/RequiredObjectRequired.IBase",
+        "description": "Make all properties in T required"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+    }
+  ]
+}

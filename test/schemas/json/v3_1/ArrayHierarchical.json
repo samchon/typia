@@ -1,0 +1,120 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ArrayHierarchical": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayHierarchical.ICompany"
+        }
+      },
+      "ArrayHierarchical.ICompany": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "serial": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "established_at": {
+            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
+          },
+          "departments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayHierarchical.IDepartment"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "serial",
+          "name",
+          "established_at",
+          "departments"
+        ]
+      },
+      "ArrayHierarchical.ITimestamp": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "zone": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "time",
+          "zone"
+        ]
+      },
+      "ArrayHierarchical.IDepartment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "sales": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
+          },
+          "employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayHierarchical.IEmployee"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "sales",
+          "created_at",
+          "employees"
+        ]
+      },
+      "ArrayHierarchical.IEmployee": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "grade": {
+            "type": "number"
+          },
+          "employeed_at": {
+            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "age",
+          "grade",
+          "employeed_at"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayHierarchical"
+    }
+  ]
+}

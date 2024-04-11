@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "byte"
+                    {
+                      "value": "byte"
+                    }
                   ]
                 }
               ],
@@ -117,7 +119,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "password"
+                    {
+                      "value": "password"
+                    }
                   ]
                 }
               ],
@@ -195,7 +199,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "regex"
+                    {
+                      "value": "regex"
+                    }
                   ]
                 }
               ],
@@ -273,7 +279,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uuid"
+                    {
+                      "value": "uuid"
+                    }
                   ]
                 }
               ],
@@ -351,7 +359,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "email"
+                    {
+                      "value": "email"
+                    }
                   ]
                 }
               ],
@@ -429,7 +439,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "hostname"
+                    {
+                      "value": "hostname"
+                    }
                   ]
                 }
               ],
@@ -507,7 +519,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "idnEmail"
+                    {
+                      "value": "idnEmail"
+                    }
                   ]
                 }
               ],
@@ -585,7 +599,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "idnHostname"
+                    {
+                      "value": "idnHostname"
+                    }
                   ]
                 }
               ],
@@ -663,7 +679,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "iri"
+                    {
+                      "value": "iri"
+                    }
                   ]
                 }
               ],
@@ -741,7 +759,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "iriReference"
+                    {
+                      "value": "iriReference"
+                    }
                   ]
                 }
               ],
@@ -819,7 +839,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ipv4"
+                    {
+                      "value": "ipv4"
+                    }
                   ]
                 }
               ],
@@ -897,7 +919,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ipv6"
+                    {
+                      "value": "ipv6"
+                    }
                   ]
                 }
               ],
@@ -975,7 +999,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uri"
+                    {
+                      "value": "uri"
+                    }
                   ]
                 }
               ],
@@ -1053,7 +1079,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uriReference"
+                    {
+                      "value": "uriReference"
+                    }
                   ]
                 }
               ],
@@ -1131,7 +1159,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uriTemplate"
+                    {
+                      "value": "uriTemplate"
+                    }
                   ]
                 }
               ],
@@ -1209,7 +1239,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "url"
+                    {
+                      "value": "url"
+                    }
                   ]
                 }
               ],
@@ -1287,7 +1319,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "datetime"
+                    {
+                      "value": "datetime"
+                    }
                   ]
                 }
               ],
@@ -1365,7 +1399,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "date"
+                    {
+                      "value": "date"
+                    }
                   ]
                 }
               ],
@@ -1443,7 +1479,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "time"
+                    {
+                      "value": "time"
+                    }
                   ]
                 }
               ],
@@ -1521,7 +1559,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "duration"
+                    {
+                      "value": "duration"
+                    }
                   ]
                 }
               ],
@@ -1599,7 +1639,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "jsonPointer"
+                    {
+                      "value": "jsonPointer"
+                    }
                   ]
                 }
               ],
@@ -1677,7 +1719,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "relativeJsonPointer"
+                    {
+                      "value": "relativeJsonPointer"
+                    }
                   ]
                 }
               ],

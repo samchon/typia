@@ -26,8 +26,8 @@ export const test_functional_equalsFunctionAsync_ConstantConstEnumeration =
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Four" === elem ||
-                  "Three" === elem,
+                  "Three" === elem ||
+                  "Four" === elem,
               )
             );
           })(input)
@@ -45,8 +45,8 @@ export const test_functional_equalsFunctionAsync_ConstantConstEnumeration =
                 0 === elem ||
                 1 === elem ||
                 2 === elem ||
-                "Four" === elem ||
-                "Three" === elem,
+                "Three" === elem ||
+                "Four" === elem,
             )
           );
         })(result)

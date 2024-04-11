@@ -30,9 +30,9 @@ export const test_createValidateEquals_ObjectHttpUndefindable =
           2 === input.constantNumber ||
           3 === input.constantNumber) &&
         (undefined === input.constantString ||
-          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString) &&
+          "two" === input.constantString ||
+          "one" === input.constantString) &&
         (0 === Object.keys(input).length ||
           Object.keys(input).every((key: any) => {
             if (
@@ -128,9 +128,9 @@ export const test_createValidateEquals_ObjectHttpUndefindable =
                 value: input.constantNumber,
               }),
             undefined === input.constantString ||
-              "one" === input.constantString ||
               "three" === input.constantString ||
               "two" === input.constantString ||
+              "one" === input.constantString ||
               $report(_exceptionable, {
                 path: _path + ".constantString",
                 expected: '("one" | "three" | "two" | undefined)',

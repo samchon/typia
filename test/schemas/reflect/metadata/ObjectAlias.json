@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "email"
+                    {
+                      "value": "email"
+                    }
                   ]
                 }
               ],
@@ -150,7 +154,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -204,7 +210,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "sex"
+                    {
+                      "value": "sex"
+                    }
                   ]
                 }
               ],
@@ -230,15 +238,27 @@
                 {
                   "type": "number",
                   "values": [
-                    1,
-                    2
+                    {
+                      "value": 1,
+                      "tags": []
+                    },
+                    {
+                      "value": 2,
+                      "tags": []
+                    }
                   ]
                 },
                 {
                   "type": "string",
                   "values": [
-                    "female",
-                    "male"
+                    {
+                      "value": "male",
+                      "tags": []
+                    },
+                    {
+                      "value": "female",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -268,7 +288,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "age"
+                    {
+                      "value": "age"
+                    }
                   ]
                 }
               ],
@@ -322,7 +344,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "dead"
+                    {
+                      "value": "dead"
+                    }
                   ]
                 }
               ],

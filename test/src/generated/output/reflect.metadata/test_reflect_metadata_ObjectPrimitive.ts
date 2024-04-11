@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["extension"],
+                  values: [
+                    {
+                      value: "extension",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -119,7 +127,20 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["html", "md", "txt"],
+                  values: [
+                    {
+                      value: "txt",
+                      tags: [],
+                    },
+                    {
+                      value: "md",
+                      tags: [],
+                    },
+                    {
+                      value: "html",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,59 +168,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
-                },
-              ],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            value: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [
-                {
-                  type: "string",
-                  tags: [],
-                },
-              ],
-              constants: [],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            description: null,
-            jsDocTags: [],
-          },
-          {
-            key: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [],
-              constants: [
-                {
-                  type: "string",
-                  values: ["body"],
+                  values: [
+                    {
+                      value: "title",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -251,7 +224,67 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["files"],
+                  values: [
+                    {
+                      value: "body",
+                    },
+                  ],
+                },
+              ],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            value: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [
+                {
+                  type: "string",
+                  tags: [],
+                },
+              ],
+              constants: [],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            description: null,
+            jsDocTags: [],
+          },
+          {
+            key: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [],
+              constants: [
+                {
+                  type: "string",
+                  values: [
+                    {
+                      value: "files",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -303,7 +336,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["secret"],
+                  values: [
+                    {
+                      value: "secret",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -355,7 +392,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -416,7 +457,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -468,7 +513,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -520,7 +569,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["extension"],
+                  values: [
+                    {
+                      value: "extension",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -572,7 +625,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["url"],
+                  values: [
+                    {
+                      value: "url",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -624,7 +681,11 @@ export const test_reflect_metadata_ObjectPrimitive = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],

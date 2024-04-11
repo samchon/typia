@@ -152,7 +152,7 @@ export const test_functional_validateFunctionAsync_ObjectHttpArray =
                               RegExp(/^something_(.*)/).test(elem)) ||
                             $report(_exceptionable, {
                               path: _path + ".templates[" + _index5 + "]",
-                              expected: "`something_${string}`",
+                              expected: "`[object Object]${string}`",
                               value: elem,
                             }),
                         )
@@ -338,7 +338,7 @@ export const test_functional_validateFunctionAsync_ObjectHttpArray =
                             RegExp(/^something_(.*)/).test(elem)) ||
                           $report(_exceptionable, {
                             path: _path + ".templates[" + _index5 + "]",
-                            expected: "`something_${string}`",
+                            expected: "`[object Object]${string}`",
                             value: elem,
                           }),
                       )

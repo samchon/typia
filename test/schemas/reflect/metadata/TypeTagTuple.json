@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "tuple"
+                    {
+                      "value": "tuple"
+                    }
                   ]
                 }
               ],

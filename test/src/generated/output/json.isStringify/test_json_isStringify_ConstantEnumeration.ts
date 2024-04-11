@@ -15,8 +15,8 @@ export const test_json_isStringify_ConstantEnumeration = _test_json_isStringify(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Four" === elem ||
-            "Three" === elem,
+            "Three" === elem ||
+            "Four" === elem,
         )
       );
     };

@@ -48,7 +48,11 @@ export const test_reflect_metadata_ToJsonAtomicSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_ToJsonAtomicSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -160,7 +168,11 @@ export const test_reflect_metadata_ToJsonAtomicSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],

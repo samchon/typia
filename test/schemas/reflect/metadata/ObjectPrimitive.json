@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "extension"
+                    {
+                      "value": "extension"
+                    }
                   ]
                 }
               ],
@@ -119,9 +123,18 @@
                 {
                   "type": "string",
                   "values": [
-                    "html",
-                    "md",
-                    "txt"
+                    {
+                      "value": "txt",
+                      "tags": []
+                    },
+                    {
+                      "value": "md",
+                      "tags": []
+                    },
+                    {
+                      "value": "html",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -151,61 +164,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "title"
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    "body"
+                    {
+                      "value": "title"
+                    }
                   ]
                 }
               ],
@@ -259,7 +220,65 @@
                 {
                   "type": "string",
                   "values": [
-                    "files"
+                    {
+                      "value": "body"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "files"
+                    }
                   ]
                 }
               ],
@@ -313,7 +332,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "secret"
+                    {
+                      "value": "secret"
+                    }
                   ]
                 }
               ],
@@ -367,7 +388,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -432,7 +455,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -486,7 +511,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -540,7 +567,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "extension"
+                    {
+                      "value": "extension"
+                    }
                   ]
                 }
               ],
@@ -594,7 +623,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "url"
+                    {
+                      "value": "url"
+                    }
                   ]
                 }
               ],
@@ -648,7 +679,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],

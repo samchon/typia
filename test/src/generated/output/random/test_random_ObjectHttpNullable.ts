@@ -50,9 +50,9 @@ export const test_random_ObjectHttpNullable = _test_random(
         constantNumber: $pick([() => null, () => 1, () => 2, () => 3])(),
         constantString: $pick([
           () => null,
-          () => "one",
           () => "three",
           () => "two",
+          () => "one",
         ])(),
         nullableArray: $pick([
           () => null,
@@ -89,9 +89,9 @@ export const test_random_ObjectHttpNullable = _test_random(
           2 === input.constantNumber ||
           3 === input.constantNumber) &&
         (null === input.constantString ||
-          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString) &&
+          "two" === input.constantString ||
+          "one" === input.constantString) &&
         (null === input.nullableArray ||
           (Array.isArray(input.nullableArray) &&
             input.nullableArray.every(
@@ -213,9 +213,9 @@ export const test_random_ObjectHttpNullable = _test_random(
               errorFactory,
             )) &&
           (null === input.constantString ||
-            "one" === input.constantString ||
             "three" === input.constantString ||
             "two" === input.constantString ||
+            "one" === input.constantString ||
             $guard(
               _exceptionable,
               {

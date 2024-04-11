@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "vulnerable"
+                    {
+                      "value": "vulnerable"
+                    }
                   ]
                 }
               ],
@@ -97,7 +99,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "description"
+                    {
+                      "value": "description"
+                    }
                   ]
                 }
               ],
@@ -151,7 +155,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "title"
+                    {
+                      "value": "title"
+                    }
                   ]
                 }
               ],
@@ -215,7 +221,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "complicate_title"
+                    {
+                      "value": "complicate_title"
+                    }
                   ]
                 }
               ],

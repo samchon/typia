@@ -45,7 +45,10 @@
               {
                 "type": "boolean",
                 "values": [
-                  false
+                  {
+                    "value": false,
+                    "tags": []
+                  }
                 ]
               }
             ],
@@ -71,7 +74,10 @@
               {
                 "type": "boolean",
                 "values": [
-                  true
+                  {
+                    "value": true,
+                    "tags": []
+                  }
                 ]
               }
             ],
@@ -97,7 +103,10 @@
               {
                 "type": "number",
                 "values": [
-                  2
+                  {
+                    "value": 2,
+                    "tags": []
+                  }
                 ]
               }
             ],
@@ -123,7 +132,10 @@
               {
                 "type": "string",
                 "values": [
-                  "three"
+                  {
+                    "value": "three",
+                    "tags": []
+                  }
                 ]
               }
             ],

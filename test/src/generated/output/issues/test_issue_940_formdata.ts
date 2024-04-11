@@ -2,32 +2,28 @@ import typia from "typia";
 
 export const test_issue_940_formdata = () => {
   const x = {
+    version: "3.1",
+    components: {
+      schemas: {},
+    },
     schemas: [
       {
         type: "string",
         format: "binary",
-        nullable: false,
       },
     ],
-    components: {
-      schemas: {},
-    },
-    purpose: "swagger",
-    surplus: false,
   };
   const y = {
+    version: "3.1",
+    components: {
+      schemas: {},
+    },
     schemas: [
       {
         type: "string",
         format: "binary",
-        nullable: false,
       },
     ],
-    components: {
-      schemas: {},
-    },
-    purpose: "swagger",
-    surplus: false,
   };
   ((
     input: any,

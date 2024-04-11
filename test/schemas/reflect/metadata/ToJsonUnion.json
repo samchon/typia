@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "mobile"
+                    {
+                      "value": "mobile"
+                    }
                   ]
                 }
               ],
@@ -150,7 +154,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -215,7 +221,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],
@@ -275,7 +283,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],
@@ -335,7 +345,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],
@@ -395,7 +407,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "manufacturer"
+                    {
+                      "value": "manufacturer"
+                    }
                   ]
                 }
               ],
@@ -449,7 +463,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "brand"
+                    {
+                      "value": "brand"
+                    }
                   ]
                 }
               ],
@@ -503,7 +519,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],

@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["classDate"],
+                  values: [
+                    {
+                      value: "classDate",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -134,7 +138,11 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["date"],
+                  values: [
+                    {
+                      value: "date",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -200,7 +208,11 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["datetime"],
+                  values: [
+                    {
+                      value: "datetime",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -266,7 +278,11 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["time"],
+                  values: [
+                    {
+                      value: "time",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -333,7 +349,11 @@ export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["duration"],
+                  values: [
+                    {
+                      value: "duration",
+                    },
+                  ],
                 },
               ],
               templates: [],

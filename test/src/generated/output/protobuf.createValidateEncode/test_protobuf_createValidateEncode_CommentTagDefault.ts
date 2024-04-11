@@ -144,13 +144,14 @@ export const test_protobuf_createValidateEncode_CommentTagDefault =
                 (null !== input.boolean_and_number_and_template ||
                   $report(_exceptionable, {
                     path: _path + ".boolean_and_number_and_template",
-                    expected: "(`prefix_${string}` | boolean | number)",
+                    expected: "(`[object Object]${string}` | boolean | number)",
                     value: input.boolean_and_number_and_template,
                   })) &&
                   (undefined !== input.boolean_and_number_and_template ||
                     $report(_exceptionable, {
                       path: _path + ".boolean_and_number_and_template",
-                      expected: "(`prefix_${string}` | boolean | number)",
+                      expected:
+                        "(`[object Object]${string}` | boolean | number)",
                       value: input.boolean_and_number_and_template,
                     })) &&
                   (("number" === typeof input.boolean_and_number_and_template &&
@@ -164,7 +165,8 @@ export const test_protobuf_createValidateEncode_CommentTagDefault =
                       )) ||
                     $report(_exceptionable, {
                       path: _path + ".boolean_and_number_and_template",
-                      expected: "(`prefix_${string}` | boolean | number)",
+                      expected:
+                        "(`[object Object]${string}` | boolean | number)",
                       value: input.boolean_and_number_and_template,
                     })),
               ].every((flag: boolean) => flag);
@@ -292,7 +294,7 @@ export const test_protobuf_createValidateEncode_CommentTagDefault =
               writer.string(input.boolean_and_number_and_template);
             } else
               $throws({
-                expected: "(`prefix_${string}` | boolean | number)",
+                expected: "(`[object Object]${string}` | boolean | number)",
                 value: input.boolean_and_number_and_template,
               });
           };

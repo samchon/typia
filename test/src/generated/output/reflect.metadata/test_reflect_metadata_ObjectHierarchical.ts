@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["channel"],
+                  values: [
+                    {
+                      value: "channel",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -142,7 +150,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["member"],
+                  values: [
+                    {
+                      value: "member",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -189,7 +201,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["account"],
+                  values: [
+                    {
+                      value: "account",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -236,7 +252,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["href"],
+                  values: [
+                    {
+                      value: "href",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -288,7 +308,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["referrer"],
+                  values: [
+                    {
+                      value: "referrer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -340,7 +364,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["ip"],
+                  values: [
+                    {
+                      value: "ip",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -392,7 +420,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -448,7 +480,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -500,7 +536,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["code"],
+                  values: [
+                    {
+                      value: "code",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -552,7 +592,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -604,7 +648,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sequence"],
+                  values: [
+                    {
+                      value: "sequence",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -656,7 +704,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["exclusive"],
+                  values: [
+                    {
+                      value: "exclusive",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -708,7 +760,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["priority"],
+                  values: [
+                    {
+                      value: "priority",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -760,7 +816,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -816,7 +876,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["time"],
+                  values: [
+                    {
+                      value: "time",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -868,7 +932,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["zone"],
+                  values: [
+                    {
+                      value: "zone",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -929,7 +997,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -981,7 +1053,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["account"],
+                  values: [
+                    {
+                      value: "account",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1028,7 +1104,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["enterprise"],
+                  values: [
+                    {
+                      value: "enterprise",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1075,7 +1155,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["emails"],
+                  values: [
+                    {
+                      value: "emails",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1127,7 +1211,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1174,7 +1262,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["authorized"],
+                  values: [
+                    {
+                      value: "authorized",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1235,7 +1327,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1287,7 +1383,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["code"],
+                  values: [
+                    {
+                      value: "code",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1339,7 +1439,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1395,7 +1499,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1447,7 +1555,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["account"],
+                  values: [
+                    {
+                      value: "account",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1494,7 +1606,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1546,7 +1662,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["grade"],
+                  values: [
+                    {
+                      value: "grade",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1598,7 +1718,11 @@ export const test_reflect_metadata_ObjectHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],

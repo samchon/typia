@@ -50,7 +50,12 @@ export const test_reflect_metadata_ConstantIntersection =
               constants: [
                 {
                   type: "boolean",
-                  values: [false],
+                  values: [
+                    {
+                      value: false,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -74,7 +79,12 @@ export const test_reflect_metadata_ConstantIntersection =
               constants: [
                 {
                   type: "number",
-                  values: [1],
+                  values: [
+                    {
+                      value: 1,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -98,7 +108,12 @@ export const test_reflect_metadata_ConstantIntersection =
               constants: [
                 {
                   type: "string",
-                  values: ["two"],
+                  values: [
+                    {
+                      value: "two",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],

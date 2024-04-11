@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -110,7 +114,11 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["dollar"],
+                  values: [
+                    {
+                      value: "dollar",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -177,7 +185,11 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["postfix"],
+                  values: [
+                    {
+                      value: "postfix",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -243,7 +255,11 @@ export const test_reflect_metadata_TypeTagCustom = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["powerOf"],
+                  values: [
+                    {
+                      value: "powerOf",
+                    },
+                  ],
                 },
               ],
               templates: [],

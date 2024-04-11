@@ -1,0 +1,34 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "AtomicUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AtomicUnion.Union"
+        }
+      },
+      "AtomicUnion.Union": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/AtomicUnion"
+    }
+  ]
+}

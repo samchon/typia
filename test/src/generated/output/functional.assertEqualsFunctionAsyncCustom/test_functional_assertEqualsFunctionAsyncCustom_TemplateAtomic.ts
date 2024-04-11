@@ -96,7 +96,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".prefix",
-                      expected: "`prefix_${string}`",
+                      expected: "`[object Object]${string}`",
                       value: input.prefix,
                     },
                     errorFactory,
@@ -107,7 +107,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".postfix",
-                      expected: "`${string}_postfix`",
+                      expected: "`${string}[object Object]`",
                       value: input.postfix,
                     },
                     errorFactory,
@@ -118,7 +118,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".middle_string",
-                      expected: "`the_${string}_value`",
+                      expected: "`[object Object]${string}[object Object]`",
                       value: input.middle_string,
                     },
                     errorFactory,
@@ -129,7 +129,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".middle_string_empty",
-                      expected: "`the_${string}_value`",
+                      expected: "`[object Object]${string}[object Object]`",
                       value: input.middle_string_empty,
                     },
                     errorFactory,
@@ -142,7 +142,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".middle_numeric",
-                      expected: "`the_${number}_value`",
+                      expected: "`[object Object]${number}[object Object]`",
                       value: input.middle_numeric,
                     },
                     errorFactory,
@@ -166,7 +166,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".ipv4",
-                      expected: "`${number}.${number}.${number}.${number}`",
+                      expected:
+                        "`${number}[object Object]${number}[object Object]${number}[object Object]${number}`",
                       value: input.ipv4,
                     },
                     errorFactory,
@@ -177,7 +178,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".email",
-                      expected: "`${string}@${string}.${string}`",
+                      expected:
+                        "`${string}[object Object]${string}[object Object]${string}`",
                       value: input.email,
                     },
                     errorFactory,
@@ -318,7 +320,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".prefix",
-                      expected: "`prefix_${string}`",
+                      expected: "`[object Object]${string}`",
                       value: input.prefix,
                     },
                     errorFactory,
@@ -329,7 +331,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".postfix",
-                      expected: "`${string}_postfix`",
+                      expected: "`${string}[object Object]`",
                       value: input.postfix,
                     },
                     errorFactory,
@@ -340,7 +342,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".middle_string",
-                      expected: "`the_${string}_value`",
+                      expected: "`[object Object]${string}[object Object]`",
                       value: input.middle_string,
                     },
                     errorFactory,
@@ -351,7 +353,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".middle_string_empty",
-                      expected: "`the_${string}_value`",
+                      expected: "`[object Object]${string}[object Object]`",
                       value: input.middle_string_empty,
                     },
                     errorFactory,
@@ -364,7 +366,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".middle_numeric",
-                      expected: "`the_${number}_value`",
+                      expected: "`[object Object]${number}[object Object]`",
                       value: input.middle_numeric,
                     },
                     errorFactory,
@@ -388,7 +390,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".ipv4",
-                      expected: "`${number}.${number}.${number}.${number}`",
+                      expected:
+                        "`${number}[object Object]${number}[object Object]${number}[object Object]${number}`",
                       value: input.ipv4,
                     },
                     errorFactory,
@@ -399,7 +402,8 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TemplateAtomic =
                     _exceptionable,
                     {
                       path: _path + ".email",
-                      expected: "`${string}@${string}.${string}`",
+                      expected:
+                        "`${string}[object Object]${string}[object Object]${string}`",
                       value: input.email,
                     },
                     errorFactory,

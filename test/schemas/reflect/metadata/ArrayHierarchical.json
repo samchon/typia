@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "serial"
+                    {
+                      "value": "serial"
+                    }
                   ]
                 }
               ],
@@ -150,7 +154,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -204,7 +210,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "established_at"
+                    {
+                      "value": "established_at"
+                    }
                   ]
                 }
               ],
@@ -255,7 +263,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "departments"
+                    {
+                      "value": "departments"
+                    }
                   ]
                 }
               ],
@@ -320,7 +330,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "time"
+                    {
+                      "value": "time"
+                    }
                   ]
                 }
               ],
@@ -374,7 +386,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "zone"
+                    {
+                      "value": "zone"
+                    }
                   ]
                 }
               ],
@@ -439,7 +453,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -493,7 +509,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "code"
+                    {
+                      "value": "code"
+                    }
                   ]
                 }
               ],
@@ -547,7 +565,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "sales"
+                    {
+                      "value": "sales"
+                    }
                   ]
                 }
               ],
@@ -601,7 +621,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -652,7 +674,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "employees"
+                    {
+                      "value": "employees"
+                    }
                   ]
                 }
               ],
@@ -717,7 +741,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -771,7 +797,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -825,61 +853,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "age"
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    "grade"
+                    {
+                      "value": "age"
+                    }
                   ]
                 }
               ],
@@ -933,7 +909,65 @@
                 {
                   "type": "string",
                   "values": [
-                    "employeed_at"
+                    {
+                      "value": "grade"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "employeed_at"
+                    }
                   ]
                 }
               ],

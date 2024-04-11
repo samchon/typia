@@ -18,9 +18,9 @@ export const test_createAssertEqualsCustom_ObjectPrimitive = _test_assertEquals(
     ): input is ObjectPrimitive => {
       const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.id &&
-        ("html" === input.extension ||
+        ("txt" === input.extension ||
           "md" === input.extension ||
-          "txt" === input.extension) &&
+          "html" === input.extension) &&
         "string" === typeof input.title &&
         "string" === typeof input.body &&
         Array.isArray(input.files) &&
@@ -93,9 +93,9 @@ export const test_createAssertEqualsCustom_ObjectPrimitive = _test_assertEquals(
               },
               errorFactory,
             )) &&
-          ("html" === input.extension ||
+          ("txt" === input.extension ||
             "md" === input.extension ||
-            "txt" === input.extension ||
+            "html" === input.extension ||
             $guard(
               _exceptionable,
               {

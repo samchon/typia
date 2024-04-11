@@ -17,9 +17,9 @@ export const test_random_ObjectHttpConstant = _test_random(
         bigint: $pick([() => BigInt(1), () => BigInt(99)])(),
         number: $pick([() => 2, () => 98])(),
         string: $pick([
-          () => "ninety-seven",
           () => "something",
           () => "three",
+          () => "ninety-seven",
         ])(),
         template: `abcd_${(generator?.customs ?? $generator.customs)?.string?.([]) ?? (generator?.string ?? $generator.string)()}`,
       });
@@ -34,9 +34,9 @@ export const test_random_ObjectHttpConstant = _test_random(
         false === input.boolean &&
         (BigInt(1) === input.bigint || BigInt(99) === input.bigint) &&
         (2 === input.number || 98 === input.number) &&
-        ("ninety-seven" === input.string ||
-          "something" === input.string ||
-          "three" === input.string) &&
+        ("something" === input.string ||
+          "three" === input.string ||
+          "ninety-seven" === input.string) &&
         "string" === typeof input.template &&
         RegExp(/^abcd_(.*)/).test(input.template);
       return "object" === typeof input && null !== input && $io0(input);
@@ -85,9 +85,9 @@ export const test_random_ObjectHttpConstant = _test_random(
               },
               errorFactory,
             )) &&
-          ("ninety-seven" === input.string ||
-            "something" === input.string ||
+          ("something" === input.string ||
             "three" === input.string ||
+            "ninety-seven" === input.string ||
             $guard(
               _exceptionable,
               {
@@ -103,7 +103,7 @@ export const test_random_ObjectHttpConstant = _test_random(
               _exceptionable,
               {
                 path: _path + ".template",
-                expected: "`abcd_${string}`",
+                expected: "`[object Object]${string}`",
                 value: input.template,
               },
               errorFactory,

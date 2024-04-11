@@ -48,7 +48,11 @@ export const test_reflect_metadata_NativeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["date"],
+                  values: [
+                    {
+                      value: "date",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -139,7 +143,11 @@ export const test_reflect_metadata_NativeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["unsigned"],
+                  values: [
+                    {
+                      value: "unsigned",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -192,7 +200,11 @@ export const test_reflect_metadata_NativeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["signed"],
+                  values: [
+                    {
+                      value: "signed",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -244,7 +256,11 @@ export const test_reflect_metadata_NativeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float"],
+                  values: [
+                    {
+                      value: "float",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -291,7 +307,11 @@ export const test_reflect_metadata_NativeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["buffer"],
+                  values: [
+                    {
+                      value: "buffer",
+                    },
+                  ],
                 },
               ],
               templates: [],

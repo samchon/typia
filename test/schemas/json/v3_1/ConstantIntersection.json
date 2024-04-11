@@ -1,0 +1,38 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ConstantIntersection": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapperfalse"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper1"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
+          }
+        ],
+        "additionalItems": {
+          "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
+        }
+      },
+      "ConstantIntersection.Wrapperfalse": {
+        "const": false
+      },
+      "ConstantIntersection.Wrapper1": {
+        "const": 1
+      },
+      "ConstantIntersection.Wrappertwo": {
+        "const": "two"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantIntersection"
+    }
+  ]
+}

@@ -42,16 +42,31 @@
             {
               "type": "number",
               "values": [
-                0,
-                1,
-                2
+                {
+                  "value": 0,
+                  "tags": []
+                },
+                {
+                  "value": 1,
+                  "tags": []
+                },
+                {
+                  "value": 2,
+                  "tags": []
+                }
               ]
             },
             {
               "type": "string",
               "values": [
-                "Four",
-                "Three"
+                {
+                  "value": "Three",
+                  "tags": []
+                },
+                {
+                  "value": "Four",
+                  "tags": []
+                }
               ]
             }
           ],

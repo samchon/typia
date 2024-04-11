@@ -156,14 +156,14 @@ export const test_functional_validateEqualsReturn_TypeTagDefault =
                     $report(_exceptionable, {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     })) &&
                     (undefined !== input.boolean_and_number_and_template ||
                       $report(_exceptionable, {
                         path: _path + ".boolean_and_number_and_template",
                         expected:
-                          "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                          "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                         value: input.boolean_and_number_and_template,
                       })) &&
                     (("number" ===
@@ -179,7 +179,7 @@ export const test_functional_validateEqualsReturn_TypeTagDefault =
                       $report(_exceptionable, {
                         path: _path + ".boolean_and_number_and_template",
                         expected:
-                          "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                          "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                         value: input.boolean_and_number_and_template,
                       })),
                   9 === Object.keys(input).length ||

@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "implicit"
+                    {
+                      "value": "implicit"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "shown"
+                    {
+                      "value": "shown"
+                    }
                   ]
                 }
               ],

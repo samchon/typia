@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectDescription = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -120,7 +124,11 @@ export const test_reflect_metadata_ObjectDescription = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["deprecated"],
+                  values: [
+                    {
+                      value: "deprecated",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -177,7 +185,11 @@ export const test_reflect_metadata_ObjectDescription = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["title"],
+                  values: [
+                    {
+                      value: "title",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -239,7 +251,11 @@ export const test_reflect_metadata_ObjectDescription = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["descriptions"],
+                  values: [
+                    {
+                      value: "descriptions",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -292,7 +308,11 @@ export const test_reflect_metadata_ObjectDescription = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["newLine"],
+                  values: [
+                    {
+                      value: "newLine",
+                    },
+                  ],
                 },
               ],
               templates: [],

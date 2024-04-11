@@ -78,7 +78,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "toJSON"
+                    {
+                      "value": "toJSON"
+                    }
                   ]
                 }
               ],

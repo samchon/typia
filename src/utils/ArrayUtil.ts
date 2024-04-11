@@ -38,6 +38,4 @@ export namespace ArrayUtil {
     count: number,
     closure: (index: number, count: number) => T,
   ): T[] => new Array(count).fill("").map((_, index) => closure(index, count));
-
-  export const flat = <T>(matrix: T[][]): T[] => ([] as T[]).concat(...matrix);
 }

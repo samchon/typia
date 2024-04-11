@@ -23,8 +23,8 @@ export const test_notation_validatePascal_ConstantEnumeration =
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Four" === elem ||
-                  "Three" === elem,
+                  "Three" === elem ||
+                  "Four" === elem,
               )
             );
           };
@@ -50,8 +50,8 @@ export const test_notation_validatePascal_ConstantEnumeration =
                         0 === elem ||
                         1 === elem ||
                         2 === elem ||
-                        "Four" === elem ||
                         "Three" === elem ||
+                        "Four" === elem ||
                         $report(true, {
                           path: _path + "[" + _index1 + "]",
                           expected: '("Four" | "Three" | 0 | 1 | 2)',
@@ -98,8 +98,8 @@ export const test_notation_validatePascal_ConstantEnumeration =
               0 === elem ||
               1 === elem ||
               2 === elem ||
-              "Four" === elem ||
-              "Three" === elem,
+              "Three" === elem ||
+              "Four" === elem,
           )
         );
       };
@@ -126,8 +126,8 @@ export const test_notation_validatePascal_ConstantEnumeration =
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Four" === elem ||
                   "Three" === elem ||
+                  "Four" === elem ||
                   $guard(
                     true,
                     {

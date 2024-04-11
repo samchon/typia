@@ -1,0 +1,25 @@
+import typia from "typia";
+
+import { _test_json_application } from "../../../../internal/_test_json_application";
+import { DynamicUndefined } from "../../../../structures/DynamicUndefined";
+
+export const test_json_application_v3_1_DynamicUndefined =
+  _test_json_application({
+    version: "3.1",
+    name: "DynamicUndefined",
+  })({
+    version: "3.1",
+    components: {
+      schemas: {
+        DynamicUndefined: {
+          type: "object",
+          properties: {},
+        },
+      },
+    },
+    schemas: [
+      {
+        $ref: "#/components/schemas/DynamicUndefined",
+      },
+    ],
+  });

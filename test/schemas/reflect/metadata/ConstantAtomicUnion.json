@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "key"
+                    {
+                      "value": "key"
+                    }
                   ]
                 }
               ],
@@ -68,7 +70,10 @@
                 {
                   "type": "string",
                   "values": [
-                    "key"
+                    {
+                      "value": "key",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -110,21 +115,36 @@
             {
               "type": "boolean",
               "values": [
-                false
+                {
+                  "value": false,
+                  "tags": []
+                }
               ]
             },
             {
               "type": "number",
               "values": [
-                1,
-                2
+                {
+                  "value": 1,
+                  "tags": []
+                },
+                {
+                  "value": 2,
+                  "tags": []
+                }
               ]
             },
             {
               "type": "string",
               "values": [
-                "four",
-                "three"
+                {
+                  "value": "three",
+                  "tags": []
+                },
+                {
+                  "value": "four",
+                  "tags": []
+                }
               ]
             }
           ],

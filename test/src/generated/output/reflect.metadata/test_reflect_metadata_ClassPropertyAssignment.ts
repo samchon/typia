@@ -42,7 +42,11 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -94,7 +98,11 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -146,7 +154,11 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "string",
-                    values: ["note"],
+                    values: [
+                      {
+                        value: "note",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -170,7 +182,12 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "string",
-                    values: ["assignment"],
+                    values: [
+                      {
+                        value: "assignment",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -198,7 +215,11 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "string",
-                    values: ["editable"],
+                    values: [
+                      {
+                        value: "editable",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -222,7 +243,12 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "boolean",
-                    values: [false],
+                    values: [
+                      {
+                        value: false,
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -250,7 +276,11 @@ export const test_reflect_metadata_ClassPropertyAssignment =
                 constants: [
                   {
                     type: "string",
-                    values: ["incremental"],
+                    values: [
+                      {
+                        value: "incremental",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

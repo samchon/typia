@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "boolean"
+                    {
+                      "value": "boolean"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bigint"
+                    {
+                      "value": "bigint"
+                    }
                   ]
                 }
               ],
@@ -147,7 +151,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "number"
+                    {
+                      "value": "number"
+                    }
                   ]
                 }
               ],
@@ -218,7 +224,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "string"
+                    {
+                      "value": "string"
+                    }
                   ]
                 }
               ],
@@ -272,7 +280,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "constantBoolean"
+                    {
+                      "value": "constantBoolean"
+                    }
                   ]
                 }
               ],
@@ -298,7 +308,10 @@
                 {
                   "type": "boolean",
                   "values": [
-                    true
+                    {
+                      "value": true,
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -328,7 +341,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "constantBigint"
+                    {
+                      "value": "constantBigint"
+                    }
                   ]
                 }
               ],
@@ -354,9 +369,18 @@
                 {
                   "type": "bigint",
                   "values": [
-                    "1",
-                    "2",
-                    "3"
+                    {
+                      "value": "1",
+                      "tags": []
+                    },
+                    {
+                      "value": "2",
+                      "tags": []
+                    },
+                    {
+                      "value": "3",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -386,7 +410,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "constantNumber"
+                    {
+                      "value": "constantNumber"
+                    }
                   ]
                 }
               ],
@@ -412,9 +438,18 @@
                 {
                   "type": "number",
                   "values": [
-                    1,
-                    2,
-                    3
+                    {
+                      "value": 1,
+                      "tags": []
+                    },
+                    {
+                      "value": 2,
+                      "tags": []
+                    },
+                    {
+                      "value": 3,
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -444,7 +479,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "constantString"
+                    {
+                      "value": "constantString"
+                    }
                   ]
                 }
               ],
@@ -470,9 +507,18 @@
                 {
                   "type": "string",
                   "values": [
-                    "one",
-                    "three",
-                    "two"
+                    {
+                      "value": "three",
+                      "tags": []
+                    },
+                    {
+                      "value": "two",
+                      "tags": []
+                    },
+                    {
+                      "value": "one",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -502,7 +548,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "nullableArray"
+                    {
+                      "value": "nullableArray"
+                    }
                   ]
                 }
               ],

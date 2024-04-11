@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -120,7 +122,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "deprecated"
+                    {
+                      "value": "deprecated"
+                    }
                   ]
                 }
               ],
@@ -178,7 +182,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "title"
+                    {
+                      "value": "title"
+                    }
                   ]
                 }
               ],
@@ -242,7 +248,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "descriptions"
+                    {
+                      "value": "descriptions"
+                    }
                   ]
                 }
               ],
@@ -296,7 +304,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "newLine"
+                    {
+                      "value": "newLine"
+                    }
                   ]
                 }
               ],

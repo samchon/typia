@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ArrayRecursiveUnionExplicitPointer": {
+        "$ref": "#/components/schemas/ArrayRecursiveUnionExplicitPointer"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayRecursiveUnionExplicitPointer"
+    }
+  ]
+}

@@ -35,8 +35,8 @@ export const test_createAssertEqualsCustom_ConstantAtomicUnion =
               (false === elem ||
                 1 === elem ||
                 2 === elem ||
-                "four" === elem ||
                 "three" === elem ||
+                "four" === elem ||
                 ("object" === typeof elem &&
                   null !== elem &&
                   $io0(elem, true))),
@@ -118,8 +118,8 @@ export const test_createAssertEqualsCustom_ConstantAtomicUnion =
                   (false === elem ||
                     1 === elem ||
                     2 === elem ||
-                    "four" === elem ||
                     "three" === elem ||
+                    "four" === elem ||
                     ((("object" === typeof elem && null !== elem) ||
                       $guard(
                         true,

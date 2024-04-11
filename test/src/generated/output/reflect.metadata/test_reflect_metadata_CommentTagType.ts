@@ -43,7 +43,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int"],
+                  values: [
+                    {
+                      value: "int",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -178,7 +186,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint"],
+                  values: [
+                    {
+                      value: "uint",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -252,7 +264,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32"],
+                  values: [
+                    {
+                      value: "int32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -326,7 +342,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint32"],
+                  values: [
+                    {
+                      value: "uint32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -400,7 +420,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int64"],
+                  values: [
+                    {
+                      value: "int64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -474,7 +498,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint64"],
+                  values: [
+                    {
+                      value: "uint64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -548,7 +576,11 @@ export const test_reflect_metadata_CommentTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float"],
+                  values: [
+                    {
+                      value: "float",
+                    },
+                  ],
                 },
               ],
               templates: [],

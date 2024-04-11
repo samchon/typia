@@ -43,7 +43,11 @@ export const test_reflect_metadata_ClassGetter = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ClassGetter = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ClassGetter = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["dead"],
+                  values: [
+                    {
+                      value: "dead",
+                    },
+                  ],
                 },
               ],
               templates: [],

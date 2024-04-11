@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "TypeTagArray": {
+        "$ref": "#/components/schemas/TypeTagArray"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagArray"
+    }
+  ]
+}

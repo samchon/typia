@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32"
+                    {
+                      "value": "int32"
+                    }
                   ]
                 }
               ],
@@ -71,7 +73,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -104,7 +109,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint64"
+                    {
+                      "value": "uint64"
+                    }
                   ]
                 }
               ],
@@ -169,7 +176,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uuid"
+                    {
+                      "value": "uuid"
+                    }
                   ]
                 }
               ],
@@ -240,7 +249,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "range"
+                    {
+                      "value": "range"
+                    }
                   ]
                 }
               ],
@@ -319,7 +330,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "length"
+                    {
+                      "value": "length"
+                    }
                   ]
                 }
               ],

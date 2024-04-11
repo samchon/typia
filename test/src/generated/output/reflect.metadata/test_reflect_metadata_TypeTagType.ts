@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int"],
+                  values: [
+                    {
+                      value: "int",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -137,6 +145,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -168,7 +179,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint"],
+                  values: [
+                    {
+                      value: "uint",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -201,6 +216,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -232,7 +250,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32"],
+                  values: [
+                    {
+                      value: "int32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -265,6 +287,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -296,7 +321,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint32"],
+                  values: [
+                    {
+                      value: "uint32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -329,6 +358,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -360,7 +392,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int64"],
+                  values: [
+                    {
+                      value: "int64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -393,6 +429,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -424,7 +463,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint64"],
+                  values: [
+                    {
+                      value: "uint64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -457,6 +500,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -488,7 +534,11 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float"],
+                  values: [
+                    {
+                      value: "float",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -521,6 +571,9 @@ export const test_reflect_metadata_TypeTagType = _test_reflect_metadata(
                         validate:
                           "-1.175494351e38 <= $input && $input <= 3.4028235e38",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                   ],

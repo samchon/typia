@@ -90,7 +90,11 @@ export const test_reflect_metadata_ToJsonDouble = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -142,7 +146,11 @@ export const test_reflect_metadata_ToJsonDouble = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["flag"],
+                  values: [
+                    {
+                      value: "flag",
+                    },
+                  ],
                 },
               ],
               templates: [],

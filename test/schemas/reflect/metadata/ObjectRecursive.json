@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "parent"
+                    {
+                      "value": "parent"
+                    }
                   ]
                 }
               ],
@@ -90,7 +92,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -144,7 +148,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "code"
+                    {
+                      "value": "code"
+                    }
                   ]
                 }
               ],
@@ -198,7 +204,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -252,7 +260,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "sequence"
+                    {
+                      "value": "sequence"
+                    }
                   ]
                 }
               ],
@@ -306,7 +316,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "created_at"
+                    {
+                      "value": "created_at"
+                    }
                   ]
                 }
               ],
@@ -369,7 +381,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "time"
+                    {
+                      "value": "time"
+                    }
                   ]
                 }
               ],
@@ -423,7 +437,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "zone"
+                    {
+                      "value": "zone"
+                    }
                   ]
                 }
               ],

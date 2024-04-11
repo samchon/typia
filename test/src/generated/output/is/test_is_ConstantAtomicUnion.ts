@@ -17,8 +17,8 @@ export const test_is_ConstantAtomicUnion = _test_is(
           (false === elem ||
             1 === elem ||
             2 === elem ||
-            "four" === elem ||
             "three" === elem ||
+            "four" === elem ||
             ("object" === typeof elem && null !== elem && $io0(elem))),
       )
     );

@@ -1,65 +1,25 @@
-import { IJsonSchema } from "../../schemas/json/IJsonSchema";
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
-import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
-import { application_default_string } from "./application_default_string";
+import { application_plugin } from "./application_plugin";
 
 /**
  * @internal
  */
-export const application_string =
-  (options: JsonApplicationProgrammer.IOptions) =>
-  (meta: Metadata) =>
-  (atomic: MetadataAtomic) =>
-  (attribute: IJsonSchema.IAttribute): IJsonSchema.IString[] => {
-    // DEFAULT CONFIGURATION
-    const base: IJsonSchema.IString = {
+export const application_string = <Version extends "3.0" | "3.1">(
+  atomic: MetadataAtomic,
+): Schema<Version>[] =>
+  application_plugin(
+    {
       type: "string",
-    };
-    const out = (schema: IJsonSchema.IString) => {
-      schema.default ??= application_default_string(meta)(attribute)(base);
-      return schema;
-    };
-    if (atomic.tags.length === 0) return [out(base)];
+    } satisfies Schema<Version>,
+    atomic.tags,
+  );
 
-    // CONSIDER TYPE TAGS
-    const union: IJsonSchema.IString[] = atomic.tags.map(
-      (row) => application_string_tags(options)({ ...base })(row)!,
-    );
-    const map: Map<string, IJsonSchema.IString> = new Map(
-      union.map((u) => [JSON.stringify(u), u]),
-    );
-    return [...map.values()].map((s) => out(s));
-  };
-
-const application_string_tags =
-  (options: JsonApplicationProgrammer.IOptions) =>
-  (base: IJsonSchema.IString) =>
-  (row: IMetadataTypeTag[]): IJsonSchema.IString | null => {
-    for (const tag of row
-      .slice()
-      .sort((a, b) => a.kind.localeCompare(b.kind))) {
-      if (tag.kind === "minLength" && typeof tag.value === "number")
-        base.minLength = tag.value;
-      else if (tag.kind === "maxLength" && typeof tag.value === "number")
-        base.maxLength = tag.value;
-      else if (tag.kind === "format" && typeof tag.value === "string")
-        base.format = tag.value;
-      else if (tag.kind === "pattern") base.pattern = tag.value;
-      else if (tag.kind === "default" && typeof tag.value === "string")
-        base.default = tag.value;
-      if (tag.schema) Object.assign(base, tag.schema);
-    }
-    if (options.surplus)
-      base["x-typia-typeTags"] = row.map((tag) => ({
-        target: tag.target,
-        name: tag.name,
-        kind: tag.kind,
-        value: tag.value,
-        validate: tag.validate,
-        exclusive: tag.exclusive,
-      }));
-    return base;
-  };
+/**
+ * @internal
+ */
+type Schema<Version extends "3.0" | "3.1"> = Version extends "3.0"
+  ? OpenApiV3.IJsonSchema.IString
+  : OpenApi.IJsonSchema.IString;

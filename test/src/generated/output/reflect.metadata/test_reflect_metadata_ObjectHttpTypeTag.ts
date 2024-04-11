@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32"],
+                  values: [
+                    {
+                      value: "int32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -76,6 +80,9 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -107,7 +114,11 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint64"],
+                  values: [
+                    {
+                      value: "uint64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -170,7 +181,11 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uuid"],
+                  values: [
+                    {
+                      value: "uuid",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -237,7 +252,11 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["range"],
+                  values: [
+                    {
+                      value: "range",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -314,7 +333,11 @@ export const test_reflect_metadata_ObjectHttpTypeTag = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["length"],
+                  values: [
+                    {
+                      value: "length",
+                    },
+                  ],
                 },
               ],
               templates: [],

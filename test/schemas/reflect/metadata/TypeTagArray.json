@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -104,7 +106,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "items"
+                    {
+                      "value": "items"
+                    }
                   ]
                 }
               ],
@@ -183,7 +187,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "minItems"
+                    {
+                      "value": "minItems"
+                    }
                   ]
                 }
               ],
@@ -251,7 +257,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "both"
+                    {
+                      "value": "both"
+                    }
                   ]
                 }
               ],
@@ -330,7 +338,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "equal"
+                    {
+                      "value": "equal"
+                    }
                   ]
                 }
               ],

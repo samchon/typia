@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -156,7 +164,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["manufacturer"],
+                  values: [
+                    {
+                      value: "manufacturer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -203,7 +215,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["brand"],
+                  values: [
+                    {
+                      value: "brand",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -250,7 +266,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["similar"],
+                  values: [
+                    {
+                      value: "similar",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -309,7 +329,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["type"],
+                  values: [
+                    {
+                      value: "type",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -333,7 +357,12 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["manufacturer"],
+                  values: [
+                    {
+                      value: "manufacturer",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -361,7 +390,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -422,7 +455,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["type"],
+                  values: [
+                    {
+                      value: "type",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -446,7 +483,12 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["brand"],
+                  values: [
+                    {
+                      value: "brand",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -474,7 +516,11 @@ export const test_reflect_metadata_ObjectNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],

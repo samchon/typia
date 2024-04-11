@@ -47,11 +47,33 @@ export const test_reflect_metadata_ConstantConstEnumeration =
             constants: [
               {
                 type: "number",
-                values: [0, 1, 2],
+                values: [
+                  {
+                    value: 0,
+                    tags: [],
+                  },
+                  {
+                    value: 1,
+                    tags: [],
+                  },
+                  {
+                    value: 2,
+                    tags: [],
+                  },
+                ],
               },
               {
                 type: "string",
-                values: ["Four", "Three"],
+                values: [
+                  {
+                    value: "Three",
+                    tags: [],
+                  },
+                  {
+                    value: "Four",
+                    tags: [],
+                  },
+                ],
               },
             ],
             templates: [],

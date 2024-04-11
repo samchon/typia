@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "CommentTagArray": {
+        "$ref": "#/components/schemas/CommentTagArray"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/CommentTagArray"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectGenericArray": {
+        "$ref": "#/components/schemas/ObjectGenericArray"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectGenericArray"
+    }
+  ]
+}

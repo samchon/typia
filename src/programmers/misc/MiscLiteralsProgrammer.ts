@@ -11,8 +11,6 @@ import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
 
-import { ArrayUtil } from "../../utils/ArrayUtil";
-
 export namespace MiscLiteralsProgrammer {
   export const write = (project: IProject) => (type: ts.Type) => {
     const result = MetadataFactory.analyze(
@@ -38,7 +36,7 @@ export namespace MiscLiteralsProgrammer {
 
     const meta: Metadata = result.data;
     const values: Set<Atomic.Type | null> = new Set([
-      ...ArrayUtil.flat<Atomic.Type>(meta.constants.map((c) => c.values)),
+      ...meta.constants.map((c) => c.values.map((v) => v.value)).flat(),
       ...(meta.atomics.filter((a) => a.type === "boolean").length
         ? [true, false]
         : []),

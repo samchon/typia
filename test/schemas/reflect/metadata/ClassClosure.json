@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "type"
+                    {
+                      "value": "type"
+                    }
                   ]
                 }
               ],
@@ -119,7 +123,10 @@
                 {
                   "type": "string",
                   "values": [
-                    "something"
+                    {
+                      "value": "something",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -149,7 +156,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "closure"
+                    {
+                      "value": "closure"
+                    }
                   ]
                 }
               ],

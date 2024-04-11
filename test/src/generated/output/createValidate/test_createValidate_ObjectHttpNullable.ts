@@ -27,9 +27,9 @@ export const test_createValidate_ObjectHttpNullable = _test_validate(
           2 === input.constantNumber ||
           3 === input.constantNumber) &&
         (null === input.constantString ||
-          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString) &&
+          "two" === input.constantString ||
+          "one" === input.constantString) &&
         (null === input.nullableArray ||
           (Array.isArray(input.nullableArray) &&
             input.nullableArray.every(
@@ -116,9 +116,9 @@ export const test_createValidate_ObjectHttpNullable = _test_validate(
                 value: input.constantNumber,
               }),
             null === input.constantString ||
-              "one" === input.constantString ||
               "three" === input.constantString ||
               "two" === input.constantString ||
+              "one" === input.constantString ||
               $report(_exceptionable, {
                 path: _path + ".constantString",
                 expected: '("one" | "three" | "two" | null)',

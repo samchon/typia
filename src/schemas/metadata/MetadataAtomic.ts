@@ -43,21 +43,7 @@ export class MetadataAtomic {
   }
 
   public getName(): string {
-    return (this.name_ ??= (() => {
-      if (this.tags.length === 0) return this.type;
-      else if (this.tags.length === 1) {
-        const str: string = [
-          this.type,
-          ...this.tags[0]!.map((t) => t.name),
-        ].join(" & ");
-        return `(${str})`;
-      }
-      const rows: string[] = this.tags.map((row) => {
-        const str: string = row.map((t) => t.name).join(" & ");
-        return row.length === 1 ? str : `(${str})`;
-      });
-      return `(${this.type} & (${rows.join(" | ")}))`;
-    })());
+    return (this.name_ ??= getName(this));
   }
 
   public toJSON(): IMetadataAtomic {
@@ -83,3 +69,18 @@ export class MetadataAtomic {
     };
   }
 }
+
+const getName = (obj: MetadataAtomic): string => {
+  if (obj.tags.length === 0) return obj.type;
+  else if (obj.tags.length === 1) {
+    const str: string = [obj.type, ...obj.tags[0]!.map((t) => t.name)].join(
+      " & ",
+    );
+    return `(${str})`;
+  }
+  const rows: string[] = obj.tags.map((row) => {
+    const str: string = row.map((t) => t.name).join(" & ");
+    return row.length === 1 ? str : `(${str})`;
+  });
+  return `(${obj.type} & (${rows.join(" | ")}))`;
+};

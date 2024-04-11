@@ -25,8 +25,8 @@ export const test_misc_createAssertPruneCustom_ConstantEnumeration =
                 0 === elem ||
                 1 === elem ||
                 2 === elem ||
-                "Four" === elem ||
-                "Three" === elem,
+                "Three" === elem ||
+                "Four" === elem,
             )
           );
         };
@@ -53,8 +53,8 @@ export const test_misc_createAssertPruneCustom_ConstantEnumeration =
                     0 === elem ||
                     1 === elem ||
                     2 === elem ||
-                    "Four" === elem ||
                     "Three" === elem ||
+                    "Four" === elem ||
                     $guard(
                       true,
                       {
