@@ -1,52 +1,15 @@
+import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+
 import { IJsonApplication } from "../../schemas/json/IJsonApplication";
-import { IJsonComponents } from "../../schemas/json/IJsonComponents";
-import { IJsonSchema } from "../../schemas/json/IJsonSchema";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { application_schema } from "../internal/application_schema";
+import { application_v30_schema } from "../internal/application_v30_schema";
+import { application_v31_schema } from "../internal/application_v31_schema";
 
 export namespace JsonApplicationProgrammer {
-  export interface IOptions {
-    purpose: "ajv" | "swagger";
-    surplus: boolean;
-  }
-
-  /**
-   * @internal
-   */
-  export namespace IOptions {
-    export const complement = (options?: Partial<IOptions>): IOptions => ({
-      purpose: options?.purpose ?? "swagger",
-      surplus: options?.surplus ?? false,
-    });
-  }
-
-  export const write =
-    (options?: Partial<IOptions>) =>
-    (metadatas: Array<Metadata>): IJsonApplication => {
-      const fullOptions: IOptions = IOptions.complement(options);
-      const components: IJsonComponents = {
-        schemas: {},
-      };
-      const generator = application_schema(fullOptions)(true)(components);
-      return {
-        schemas: metadatas.map((meta, i) => {
-          const schema: IJsonSchema | null = generator(meta)({});
-          if (schema === null)
-            throw new TransformerError({
-              code: "typia.json.application",
-              message: `invalid type on argument - (${meta.getName()}, ${i})`,
-            });
-          return schema;
-        }),
-        components,
-        ...fullOptions,
-      };
-    };
-
   export const validate = (meta: Metadata) => {
     const output: string[] = [];
     if (
@@ -72,5 +35,48 @@ export namespace JsonApplicationProgrammer {
       )
         output.push(`JSON schema does not support ${native} type.`);
     return output;
+  };
+
+  export const write = <Version extends "3.0" | "3.1">(version: Version) =>
+    version === "3.0" ? v30 : v31;
+
+  const v30 = (metadatas: Array<Metadata>): IJsonApplication<"3.0"> => {
+    const components: OpenApiV3.IComponents = {};
+    const generator = (meta: Metadata): OpenApiV3.IJsonSchema | null =>
+      application_v30_schema(true)(components)({})(meta);
+    return {
+      version: "3.0",
+      components,
+      schemas: metadatas.map((meta, i) => {
+        const schema: OpenApiV3.IJsonSchema | null = generator(meta);
+        if (schema === null)
+          throw new TransformerError({
+            code: "typia.json.application",
+            message: `invalid type on argument - (${meta.getName()}, ${i})`,
+          });
+        return schema;
+      }),
+    };
+  };
+
+  const v31 = (metadatas: Array<Metadata>): IJsonApplication<"3.1"> => {
+    const components: OpenApi.IComponents = {
+      schemas: {},
+    };
+    const generator = (meta: Metadata): OpenApi.IJsonSchema | null =>
+      application_v31_schema(true)(components)({})(meta);
+    return {
+      version: "3.1",
+      components,
+      schemas: metadatas.map((meta, i) => {
+        const schema: OpenApi.IJsonSchema | null = generator(meta);
+        if (schema === null)
+          throw new TransformerError({
+            code: "typia.json.application",
+            message: `invalid type on argument - (${meta.getName()}, ${i})`,
+          });
+        return schema;
+      }),
+    };
   };
 }

@@ -24,16 +24,9 @@ import { TypeGuardError } from "./TypeGuardError";
  * components. Note that, all of the named types are stored in the
  * {@link IJsonApplication.components} property for the `$ref` referencing.
  *
- * Also, `typia.json.application()` has two additional generic arguments.
- *
- * The 1st *Purpose* means the purpose determines the JSON schema definition spec.
- * For an example, `ajv` has an extra property "$recursiveRef"  that are not
- * exists in the standard JSON schema definition spec. Otherwise, `swagger`
- * can't identify the tuple definition.
- *
- * The next *Surplus* means whether to allow surplus properties starting with
- * `x-typia-` or not. If `true`, the surplus properties like `x-typia-jsDocTags`
- * would be registered into the JSON schema, otherwise, not.
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
  *
  * @template Types Tuple of target types
  * @template Purpose Purpose of the JSON schema
@@ -51,29 +44,20 @@ export function application(): never;
  * components. Note that, all of the named types are stored in the
  * {@link IJsonApplication.components} property for the `$ref` referencing.
  *
- * Also, `typia.json.application()` has two additional generic arguments.
- *
- * The 1st *Purpose* means the purpose determines the JSON schema definition spec.
- * For an example, `ajv` has an extra property "$recursiveRef"  that are not
- * exists in the standard JSON schema definition spec. Otherwise, `swagger`
- * can't identify the tuple definition.
- *
- * The next *Surplus* means whether to allow surplus properties starting with
- * `x-typia-` or not. If `true`, the surplus properties like `x-typia-jsDocTags`
- * would be registered into the JSON schema, otherwise, not.
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
  *
  * @template Types Tuple of target types
- * @template Purpose Purpose of the JSON schema
- * @template Surplus Allow surplus properties starting with `x-typia-` or not
+ * @template Version Version of OpenAPI specification. Default is 3.1
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
   Types extends unknown[],
-  Purpose extends "ajv" | "swagger" = "swagger",
-  Surplus extends boolean = false,
->(): IJsonApplication;
+  Version extends "3.0" | "3.1" = "3.1",
+>(): IJsonApplication<Version>;
 
 /**
  * @internal

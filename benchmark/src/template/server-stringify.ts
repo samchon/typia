@@ -93,7 +93,7 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
         `import { createFastifyPureServerStringifyBenchmarkProgram } from "../createFastifyPureServerStringifyBenchmarkProgram";`,
         ``,
         `createFastifyPureServerStringifyBenchmarkProgram(`,
-        `  typia.json.application<[ICollection<${type}>], "ajv">()`,
+        `  typia.json.application<[ICollection<${type}>]>()`,
         `);`,
       ].join("\n"),
   },

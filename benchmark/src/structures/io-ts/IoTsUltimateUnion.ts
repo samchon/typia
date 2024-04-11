@@ -1,7 +1,8 @@
+import { OpenApi } from "@samchon/openapi";
 import * as t from "io-ts";
-import { IJsonApplication, IJsonComponents, IJsonSchema } from "typia";
+import { IJsonApplication } from "typia";
 
-const Schema: t.Type<IJsonSchema> = t.recursion(
+const Schema: t.Type<OpenApi.IJsonSchema> = t.recursion(
   "Schema",
   () =>
     t.union([Atomic, Constant, Array, Tuple, Reference, OneOf, Unknown]) as any,
@@ -24,7 +25,7 @@ const Constant = t.type({
   constant: t.array(t.union([t.boolean, t.number, t.bigint, t.string])),
 });
 
-const Array: t.Type<IJsonSchema.IArray> = t.recursion(
+const Array: t.Type<OpenApi.IJsonSchema.IArray> = t.recursion(
   "Array",
   () =>
     t.type({
@@ -34,7 +35,7 @@ const Array: t.Type<IJsonSchema.IArray> = t.recursion(
       description: t.union([t.string, t.undefined]),
     }) as any,
 );
-const Tuple: t.Type<IJsonSchema.ITuple> = t.recursion(
+const Tuple: t.Type<OpenApi.IJsonSchema.ITuple> = t.recursion(
   "Tuple",
   () =>
     t.type({
@@ -49,7 +50,7 @@ const Reference = t.type({
   $ref: t.string,
   description: t.union([t.string, t.undefined]),
 });
-const OneOf: t.Type<IJsonSchema.IOneOf> = t.recursion(
+const OneOf: t.Type<OpenApi.IJsonSchema.IOneOf> = t.recursion(
   "OneOf",
   () =>
     t.type({
@@ -58,7 +59,7 @@ const OneOf: t.Type<IJsonSchema.IOneOf> = t.recursion(
     }) as any,
 );
 
-const ObjectDef: t.Type<IJsonComponents.IObject> = t.recursion(
+const ObjectDef: t.Type<OpenApi.IJsonSchema.IObject> = t.recursion(
   "ObjectDef",
   () =>
     t.type({
@@ -73,7 +74,7 @@ const ObjectDef: t.Type<IJsonComponents.IObject> = t.recursion(
       description: t.union([t.string, t.undefined]),
     }) as any,
 );
-const Components: t.Type<IJsonComponents> = t.recursion(
+const Components: t.Type<OpenApi.IComponents> = t.recursion(
   "Components",
   () =>
     t.type({

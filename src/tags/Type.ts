@@ -24,4 +24,9 @@ export type Type<
             ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
             : `true`;
   exclusive: true;
+  schema: {
+    type: Value extends "int32" | "uint32" | "int64" | "uint64"
+      ? "integer"
+      : "number";
+  };
 }>;

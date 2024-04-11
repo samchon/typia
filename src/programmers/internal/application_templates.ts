@@ -1,24 +1,25 @@
-import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+
 import { Metadata } from "../../schemas/metadata/Metadata";
 
-import { application_default_string } from "./application_default_string";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /**
  * @internal
  */
-export const application_templates =
-  (meta: Metadata) =>
-  (attribute: IJsonSchema.IAttribute): IJsonSchema.IString => {
-    // CONSTRUCT PATTERN
-    const output: IJsonSchema.IString = {
-      type: "string",
-    };
-    output.pattern = metadata_to_pattern(true)(meta);
-
-    // DEFAULT VALUE
-    output.default = application_default_string(meta)(attribute)(output);
-
-    // RETURNS
-    return output;
+export const application_templates = <Version extends "3.0" | "3.1">(
+  meta: Metadata,
+): Schema<Version> => {
+  const output: Schema<Version> = {
+    type: "string",
   };
+  output.pattern = metadata_to_pattern(true)(meta);
+  return output;
+};
+
+/**
+ * @internal
+ */
+type Schema<Version extends "3.0" | "3.1"> = Version extends "3.0"
+  ? OpenApiV3.IJsonSchema.IString
+  : OpenApi.IJsonSchema.IString;

@@ -223,9 +223,7 @@ export namespace HorizontalBarChart {
 
   const compute_maximum = (data: IMeasure[]) =>
     Math.max(
-      ...ArrayUtil.flat(
-        data.map((elem) => Object.values(elem.result) as number[]),
-      ),
+      ...data.map((elem) => Object.values(elem.result) as number[]).flat(),
     );
 
   const create_svg_dom = (width: number, height: number) =>

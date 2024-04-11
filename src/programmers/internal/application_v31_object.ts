@@ -1,0 +1,141 @@
+import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+
+import { CommentFactory } from "../../factories/CommentFactory";
+
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+
+import { PatternUtil } from "../../utils/PatternUtil";
+
+import { application_v31_schema } from "./application_v31_schema";
+import { metadata_to_pattern } from "./metadata_to_pattern";
+
+/**
+ * @internal
+ */
+export const application_v31_object =
+  (components: OpenApi.IComponents) =>
+  (
+    obj: MetadataObject,
+  ): OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject => {
+    const $ref: string = `#/components/schemas/${obj.name}`;
+    if (components.schemas?.[obj.name] !== undefined) return { $ref };
+
+    const object: OpenApiV3.IJsonSchema = {};
+    components.schemas ??= {};
+    components.schemas[obj.name] = object;
+    Object.assign(object, create_object_schema(components)(obj));
+    return { $ref };
+  };
+
+/**
+ * @internal
+ */
+const create_object_schema =
+  (components: OpenApi.IComponents) =>
+  (obj: MetadataObject): OpenApi.IJsonSchema.IObject => {
+    // ITERATE PROPERTIES
+    const properties: Record<string, any> = {};
+    const extraMeta: ISuperfluous = {
+      patternProperties: {},
+      additionalProperties: undefined,
+    };
+    const required: string[] = [];
+
+    for (const property of obj.properties) {
+      if (
+        // FUNCTIONAL TYPE
+        property.value.functional === true &&
+        property.value.nullable === false &&
+        property.value.isRequired() === true &&
+        property.value.size() === 0
+      )
+        continue;
+      else if (property.jsDocTags.find((tag) => tag.name === "hidden"))
+        continue; // THE HIDDEN TAG
+
+      const key: string | null = property.key.getSoleLiteral();
+      const schema: OpenApi.IJsonSchema | null = application_v31_schema(true)(
+        components,
+      )({
+        deprecated:
+          property.jsDocTags.some((tag) => tag.name === "deprecated") ||
+          undefined,
+        title: (() => {
+          const info: IJsDocTagInfo | undefined = property.jsDocTags.find(
+            (tag) => tag.name === "title",
+          );
+          if (info?.text?.length) return CommentFactory.merge(info.text);
+          else if (!property.description?.length) return undefined;
+
+          const index: number = property.description.indexOf("\n");
+          const top: string = (
+            index === -1
+              ? property.description
+              : property.description.substring(0, index)
+          ).trim();
+          return top.endsWith(".")
+            ? top.substring(0, top.length - 1)
+            : undefined;
+        })(),
+        description: property.description ?? undefined,
+      })(property.value);
+
+      if (schema === null) continue;
+      if (key !== null) {
+        properties[key] = schema;
+        if (property.value.isRequired() === true) required.push(key);
+      } else {
+        const pattern: string = metadata_to_pattern(true)(property.key);
+        if (pattern === PatternUtil.STRING)
+          extraMeta.additionalProperties = [property.value, schema];
+        else extraMeta.patternProperties[pattern] = [property.value, schema];
+      }
+    }
+
+    return {
+      type: "object",
+      properties,
+      required: required.length ? required : undefined,
+      title: (() => {
+        const info: IJsDocTagInfo | undefined = obj.jsDocTags.find(
+          (tag) => tag.name === "title",
+        );
+        return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
+      })(),
+      description: obj.description,
+      additionalProperties: join(components)(extraMeta),
+    };
+  };
+
+/**
+ * @internal
+ */
+const join =
+  (components: OpenApi.IComponents) =>
+  (extra: ISuperfluous): OpenApi.IJsonSchema | undefined => {
+    // LIST UP METADATA
+    const elements: [Metadata, OpenApi.IJsonSchema][] = Object.values(
+      extra.patternProperties || {},
+    );
+    if (extra.additionalProperties) elements.push(extra.additionalProperties);
+
+    // SHORT RETURN
+    if (elements.length === 0) return undefined;
+    else if (elements.length === 1) return elements[0]![1]!;
+
+    // MERGE METADATA AND GENERATE VULNERABLE SCHEMA
+    const meta: Metadata = elements
+      .map((tuple) => tuple[0])
+      .reduce((x, y) => Metadata.merge(x, y));
+    return application_v31_schema(true)(components)({})(meta) ?? undefined;
+  };
+
+/**
+ * @internal
+ */
+interface ISuperfluous {
+  additionalProperties?: undefined | [Metadata, OpenApi.IJsonSchema];
+  patternProperties: Record<string, [Metadata, OpenApi.IJsonSchema]>;
+}

@@ -169,7 +169,7 @@ export namespace HttpQueryProgrammer {
   const decode_regular_property =
     (importer: FunctionImporter) =>
     (property: MetadataProperty): ts.PropertyAssignment => {
-      const key: string = property.key.constants[0]!.values[0] as string;
+      const key: string = property.key.constants[0]!.values[0]!.value as string;
       const value: Metadata = property.value;
 
       const [type, isArray]: [Atomic.Literal, boolean] = value.atomics.length

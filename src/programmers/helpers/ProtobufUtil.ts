@@ -26,7 +26,7 @@ export namespace ProtobufUtil {
       if (c.type === "boolean") set.add("bool");
       else if (c.type === "bigint") set.add("uint64");
       else if (c.type === "number")
-        set.add(deduce_numeric_type(c.values as number[]));
+        set.add(deduce_numeric_type(c.values.map((v) => v.value) as number[]));
       else if (c.type === "string") set.add("string");
     for (const atomic of meta.atomics)
       if (atomic.type === "boolean") set.add("bool");
@@ -43,7 +43,7 @@ export namespace ProtobufUtil {
     const set: Set<ProtobufAtomic.Numeric> = new Set();
     for (const c of meta.constants)
       if (c.type === "number")
-        set.add(deduce_numeric_type(c.values as number[]));
+        set.add(deduce_numeric_type(c.values.map((v) => v.value) as number[]));
     for (const atomic of meta.atomics)
       if (atomic.type === "number")
         decode_number(atomic.tags).forEach((t) => set.add(t));

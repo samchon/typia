@@ -48,7 +48,7 @@ export const check_template =
             tpl
               .map((child) =>
                 child.isConstant() && child.size() === 1
-                  ? child.constants[0]!.values[0]!
+                  ? child.constants[0]!.values[0]!.value
                   : `$\{${child.getName()}\}`,
               )
               .join("")

@@ -281,7 +281,7 @@ export class Metadata {
       this.constants[0]!.type === "string" &&
       this.constants[0]!.values.length === 1
     )
-      return this.constants[0]!.values[0] as string;
+      return this.constants[0]!.values[0]!.value as string;
     else return null;
   }
 
@@ -347,8 +347,8 @@ export namespace Metadata {
       if (opposite === undefined) continue;
 
       const values: Set<any> = new Set([
-        ...constant.values,
-        ...opposite.values,
+        ...constant.values.map((e) => e.value),
+        ...opposite.values.map((e) => e.value),
       ]);
       if (values.size !== constant.values.length + opposite.values.length)
         return true;
@@ -452,7 +452,7 @@ export namespace Metadata {
       );
       if (xc === undefined) return false;
       else if (
-        (yc.values as number[]).some(
+        (yc.values.map((e) => e.value) as number[]).some(
           (yv) => xc.values.includes(yv as never) === false,
         )
       )
@@ -524,7 +524,8 @@ export namespace Metadata {
             values: [],
           }),
       );
-      for (const value of constant.values) ArrayUtil.add(target.values, value);
+      for (const value of constant.values)
+        ArrayUtil.add(target.values, value, (a, b) => a.value === b.value);
     }
     for (const obj of y.objects)
       ArrayUtil.set(output.objects, obj, (elem) => elem.name);
@@ -549,10 +550,7 @@ const getName = (metadata: Metadata): string => {
     elements.push(atom.getName());
   }
   for (const constant of metadata.constants)
-    for (const value of constant.values)
-      elements.push(
-        constant.type === "string" ? JSON.stringify(value) : value.toString(),
-      );
+    for (const value of constant.values) elements.push(value.getName());
   for (const template of metadata.templates)
     elements.push(
       "`" +

@@ -4,6 +4,7 @@ import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
 import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
+import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -68,30 +69,6 @@ export const iterate_metadata_intersection =
     } else if (children.every((c) => c.objects.length === c.size()))
       return false;
 
-    // CONSIDER BOOLEAN TYPE CASE
-    const booleanLiteral: boolean | null = (() => {
-      const found = children.find(
-        (c) =>
-          c.size() === 1 &&
-          c.constants.length === 1 &&
-          c.constants[0]!.type === "boolean",
-      )?.constants[0]?.values[0];
-      if (found === undefined) return null;
-      return children.every(
-        (c) =>
-          c.atomics.length === 0 ||
-          c.atomics.every((a) => a.type !== "boolean"),
-      )
-        ? (found as boolean)
-        : null;
-    })();
-    if (booleanLiteral !== null && meta.boolean_literal_intersected_ === true) {
-      (
-        meta.constants.find((c) => c.type === "boolean")!.values as boolean[]
-      ).push(booleanLiteral);
-      return true;
-    }
-
     // VALIDATE EACH TYPES
     const individuals: (readonly [Metadata, number])[] = children
       .map((child, i) => [child, i] as const)
@@ -99,16 +76,11 @@ export const iterate_metadata_intersection =
         ([c]) =>
           c.size() === 1 &&
           (c.atomics.length === 1 ||
-            (c.constants.length === 1 && c.constants[0]!.type === "boolean") ||
+            (c.constants.length === 1 && c.constants[0]!.values.length === 1) ||
             c.arrays.length === 1),
       );
-    const constants: Metadata[] = children.filter(
-      (m) =>
-        m.size() ===
-          m.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0) +
-            m.templates.length &&
-        !(m.size() === 1 && m.constants[0]!.type === "boolean"),
-    );
+    if (individuals.length !== 1) return false;
+
     const objects: Metadata[] = children.filter(
       (c) =>
         c.nullable === false &&
@@ -117,22 +89,20 @@ export const iterate_metadata_intersection =
         c.objects.length === c.size() &&
         c.objects.every((o) => o.properties.every((p) => p.value.optional)),
     );
-    const atomics: Set<"boolean" | "bigint" | "number" | "string"> = new Set(
-      individuals
-        .map(([c]) => [
-          ...c.atomics.map((a) => a.type),
-          ...c.constants.filter((l) => l.type === "boolean").map((l) => l.type),
-        ])
-        .flat(),
-    );
     const arrays: Set<string> = new Set(
       individuals.map(([c]) => c.arrays.map((a) => a.type.name)).flat(),
     );
+    const atomics: Set<"boolean" | "bigint" | "number" | "string"> = new Set(
+      individuals.map(([c]) => [...c.atomics.map((a) => a.type)]).flat(),
+    );
+    const constants: Metadata[] = individuals
+      .filter((i) => i[0].constants.length === 1)
+      .map(([c]) => c);
 
     // ESCAPE WHEN ONLY CONSTANT TYPES EXIST
     if (
-      atomics.size + arrays.size > 1 ||
-      individuals.length + objects.length + constants.length !== children.length
+      atomics.size + constants.length + arrays.size > 1 ||
+      individuals.length + objects.length !== children.length
     ) {
       errors.push({
         name: children.map((c) => c.getName()).join(" & "),
@@ -140,60 +110,16 @@ export const iterate_metadata_intersection =
         messages: ["nonsensible intersection"],
       });
       return true;
-    } else if (atomics.size === 0 && arrays.size === 0 && constants.length) {
-      for (const m of constants) {
-        for (const tpl of m.templates)
-          ArrayUtil.add(
-            meta.templates,
-            tpl,
-            (a, b) =>
-              a.map((ab) => ab.getName()).join(" | ") ===
-              b.map((bb) => bb.getName()).join(" | "),
-          );
-        for (const c of m.constants) {
-          const oldbie = meta.constants.find((o) => o.type === c.type);
-          if (oldbie)
-            for (const elem of c.values)
-              ArrayUtil.add(oldbie.values, elem, (a, b) => a === b);
-          else meta.constants.push(MetadataConstant.create(c));
-        }
-      }
-      return true;
     }
 
     // RE-GENERATE TYPE
     const target: "boolean" | "bigint" | "number" | "string" | "array" =
-      booleanLiteral
-        ? "boolean"
+      arrays.size
+        ? "array"
         : atomics.size
           ? atomics.values().next().value
-          : "array";
-    if (
-      target === "boolean" ||
-      target === "bigint" ||
-      target === "number" ||
-      target === "string"
-    )
-      if (booleanLiteral === null)
-        ArrayUtil.add(
-          meta.atomics,
-          MetadataAtomic.create({
-            type: atomics.values().next().value as "string",
-            tags: [],
-          }),
-          (a, b) => a.type === b.type,
-        );
-      else
-        ArrayUtil.take<MetadataConstant>(
-          meta.constants,
-          (x) => x.type === "boolean",
-          () =>
-            MetadataConstant.create({
-              type: "boolean",
-              values: [booleanLiteral],
-            }),
-        );
-    else if (target === "array") {
+          : constants[0]!.constants[0]!.type;
+    if (target === "array") {
       const name: string = arrays.values().next().value;
       if (!meta.arrays.some((a) => a.type.name === name)) {
         iterate_metadata_array(checker)(options)(collection)(errors)(
@@ -206,7 +132,33 @@ export const iterate_metadata_intersection =
           },
         );
       }
-    }
+    } else if (atomics.size)
+      ArrayUtil.add(
+        meta.atomics,
+        MetadataAtomic.create({
+          type: atomics.values().next().value as "string",
+          tags: [],
+        }),
+        (a, b) => a.type === b.type,
+      );
+    else
+      ArrayUtil.take(
+        ArrayUtil.take(
+          meta.constants,
+          (o) => o.type === target,
+          () =>
+            MetadataConstant.create({
+              type: target,
+              values: [],
+            }),
+        ).values,
+        (o) => o.value === constants[0]!.constants[0]!.values[0]!.value,
+        () =>
+          MetadataConstantValue.create({
+            value: constants[0]!.constants[0]!.values[0]!.value,
+            tags: [],
+          }),
+      );
 
     // ASSIGN TAGS
     if (objects.length) {
@@ -215,16 +167,18 @@ export const iterate_metadata_intersection =
       )(objects.map((om) => om.objects).flat(), explore);
       if (tags.length)
         if (target === "array") meta.arrays.at(-1)!.tags.push(tags);
-        else if (booleanLiteral === null)
+        else if (atomics.size)
           meta.atomics.find((a) => a.type === target)!.tags.push(tags);
         else {
           const constant: MetadataConstant = meta.constants.find(
-            (c) => c.type === "boolean",
+            (c) => c.type === target,
           )!;
-          constant.tags ??= [];
-          constant.tags.push(tags);
+          const value: MetadataConstantValue = constant.values.find(
+            (v) => v.value === constants[0]!.constants[0]!.values[0]!.value,
+          )!;
+          value.tags ??= [];
+          value.tags.push(tags);
         }
     }
-    if (booleanLiteral !== null) meta.boolean_literal_intersected_ = true;
     return true;
   };

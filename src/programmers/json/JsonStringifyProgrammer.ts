@@ -270,7 +270,7 @@ export namespace JsonStringifyProgrammer {
             value: () =>
               decode_constant_string(project)(importer)(
                 input,
-                [...constant.values] as string[],
+                [...constant.values.map((v) => v.value)] as string[],
                 explore,
               ),
           });

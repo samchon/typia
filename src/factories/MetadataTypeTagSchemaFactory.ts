@@ -40,7 +40,8 @@ export namespace MetadataTypeTagSchemaFactory {
         else if (meta.isRequired() === true)
           report(`${parent.object.name}.${parent.key} has non-literal type`);
         else return undefined;
-      else if (meta.constants.length) return meta.constants[0]!.values[0]!;
+      else if (meta.constants.length)
+        return meta.constants[0]!.values[0]!.value;
       else if (meta.tuples.length) {
         const tuple = meta.tuples[0]!;
         if (tuple.type.isRest())
