@@ -19,8 +19,8 @@ export const test_assert_ConstantEnumeration = _test_assert(TypeGuardError)(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Four" === elem ||
-            "Three" === elem,
+            "Three" === elem ||
+            "Four" === elem,
         )
       );
     };
@@ -47,8 +47,8 @@ export const test_assert_ConstantEnumeration = _test_assert(TypeGuardError)(
                 0 === elem ||
                 1 === elem ||
                 2 === elem ||
-                "Four" === elem ||
                 "Three" === elem ||
+                "Four" === elem ||
                 $guard(
                   true,
                   {

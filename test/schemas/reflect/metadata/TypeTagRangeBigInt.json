@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -104,7 +106,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "greater"
+                    {
+                      "value": "greater"
+                    }
                   ]
                 }
               ],
@@ -175,7 +179,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "greater_equal"
+                    {
+                      "value": "greater_equal"
+                    }
                   ]
                 }
               ],
@@ -246,7 +252,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "less"
+                    {
+                      "value": "less"
+                    }
                   ]
                 }
               ],
@@ -317,7 +325,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "less_equal"
+                    {
+                      "value": "less_equal"
+                    }
                   ]
                 }
               ],
@@ -388,7 +398,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "greater_less"
+                    {
+                      "value": "greater_less"
+                    }
                   ]
                 }
               ],
@@ -473,7 +485,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "greater_equal_less"
+                    {
+                      "value": "greater_equal_less"
+                    }
                   ]
                 }
               ],
@@ -558,7 +572,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "greater_less_equal"
+                    {
+                      "value": "greater_less_equal"
+                    }
                   ]
                 }
               ],
@@ -643,7 +659,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "greater_equal_less_equal"
+                    {
+                      "value": "greater_equal_less_equal"
+                    }
                   ]
                 }
               ],
@@ -728,7 +746,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "equal"
+                    {
+                      "value": "equal"
+                    }
                   ]
                 }
               ],

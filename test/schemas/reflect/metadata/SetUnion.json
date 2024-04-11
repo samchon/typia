@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -150,7 +154,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "age"
+                    {
+                      "value": "age"
+                    }
                   ]
                 }
               ],

@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "TemplateConstant": {
+        "$ref": "#/components/schemas/TemplateConstant"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TemplateConstant"
+    }
+  ]
+}

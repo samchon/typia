@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "prefix"
+                    {
+                      "value": "prefix"
+                    }
                   ]
                 }
               ],
@@ -75,7 +77,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "prefix_"
+                          {
+                            "value": "prefix_"
+                          }
                         ]
                       }
                     ],
@@ -141,7 +145,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "postfix"
+                    {
+                      "value": "postfix"
+                    }
                   ]
                 }
               ],
@@ -201,7 +207,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "_postfix"
+                          {
+                            "value": "_postfix"
+                          }
                         ]
                       }
                     ],
@@ -243,7 +251,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "middle_string"
+                    {
+                      "value": "middle_string"
+                    }
                   ]
                 }
               ],
@@ -279,7 +289,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "the_"
+                          {
+                            "value": "the_"
+                          }
                         ]
                       }
                     ],
@@ -329,7 +341,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "_value"
+                          {
+                            "value": "_value"
+                          }
                         ]
                       }
                     ],
@@ -371,7 +385,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "middle_string_empty"
+                    {
+                      "value": "middle_string_empty"
+                    }
                   ]
                 }
               ],
@@ -407,7 +423,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "the_"
+                          {
+                            "value": "the_"
+                          }
                         ]
                       }
                     ],
@@ -457,7 +475,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "_value"
+                          {
+                            "value": "_value"
+                          }
                         ]
                       }
                     ],
@@ -499,7 +519,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "middle_numeric"
+                    {
+                      "value": "middle_numeric"
+                    }
                   ]
                 }
               ],
@@ -535,7 +557,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "the_"
+                          {
+                            "value": "the_"
+                          }
                         ]
                       }
                     ],
@@ -585,7 +609,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "_value"
+                          {
+                            "value": "_value"
+                          }
                         ]
                       }
                     ],
@@ -627,7 +653,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "middle_boolean"
+                    {
+                      "value": "middle_boolean"
+                    }
                   ]
                 }
               ],
@@ -653,8 +681,14 @@
                 {
                   "type": "string",
                   "values": [
-                    "the_false_value",
-                    "the_true_value"
+                    {
+                      "value": "the_false_value",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_true_value",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -684,7 +718,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ipv4"
+                    {
+                      "value": "ipv4"
+                    }
                   ]
                 }
               ],
@@ -744,7 +780,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "."
+                          {
+                            "value": "."
+                          }
                         ]
                       }
                     ],
@@ -794,7 +832,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "."
+                          {
+                            "value": "."
+                          }
                         ]
                       }
                     ],
@@ -844,7 +884,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "."
+                          {
+                            "value": "."
+                          }
                         ]
                       }
                     ],
@@ -910,7 +952,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "email"
+                    {
+                      "value": "email"
+                    }
                   ]
                 }
               ],
@@ -970,7 +1014,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "@"
+                          {
+                            "value": "@"
+                          }
                         ]
                       }
                     ],
@@ -1020,7 +1066,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "."
+                          {
+                            "value": "."
+                          }
                         ]
                       }
                     ],

@@ -48,7 +48,11 @@ export const test_reflect_metadata_ToJsonTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_ToJsonTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -160,7 +168,11 @@ export const test_reflect_metadata_ToJsonTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -216,7 +228,11 @@ export const test_reflect_metadata_ToJsonTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -272,7 +288,11 @@ export const test_reflect_metadata_ToJsonTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["code"],
+                  values: [
+                    {
+                      value: "code",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -324,7 +344,11 @@ export const test_reflect_metadata_ToJsonTuple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],

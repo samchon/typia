@@ -42,7 +42,11 @@ export const test_reflect_metadata_CommentTagAtomicUnion =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -103,7 +107,11 @@ export const test_reflect_metadata_CommentTagAtomicUnion =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

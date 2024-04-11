@@ -211,7 +211,7 @@ export const test_createAssertEquals_ObjectHttpArray = _test_assertEquals(
                   _exceptionable,
                   {
                     path: _path + ".templates[" + _index5 + "]",
-                    expected: "`something_${string}`",
+                    expected: "`[object Object]${string}`",
                     value: elem,
                   },
                   errorFactory,

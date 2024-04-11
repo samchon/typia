@@ -1,22 +1,21 @@
+import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
 
-import { IJsonComponents, IJsonSchema } from "../../module";
-import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
-import { application_schema } from "./application_schema";
-
+/**
+ * @internal
+ */
 export const application_escaped =
-  (options: JsonApplicationProgrammer.IOptions) =>
-  <BlockNever extends boolean>(blockNever: BlockNever) =>
-  (components: IJsonComponents) =>
-  (resolved: MetadataEscaped): IJsonSchema[] => {
-    const output = application_schema(options)(blockNever)(components)(
-      resolved.returns,
-    )({});
+  <Version extends "3.0" | "3.1">(
+    generator: (meta: Metadata) => Schema<Version>,
+  ) =>
+  (resolved: MetadataEscaped): Schema<Version>[] => {
+    const output: Schema<Version> | null = generator(resolved.returns);
     if (output === null) return [];
 
     if (is_date(new Set())(resolved.original)) {
-      const string: IJsonSchema.IString | undefined = is_string(output)
+      const string: StringSchema<Version> | undefined = is_string(output)
         ? output
         : is_one_of(output)
           ? output.oneOf.find(is_string)
@@ -31,12 +30,25 @@ export const application_escaped =
     return is_one_of(output) ? output.oneOf : [output];
   };
 
-const is_string = (elem: IJsonSchema): elem is IJsonSchema.IString =>
-  (elem as IJsonSchema.IString).type === "string";
+/**
+ * @internal
+ */
+const is_string = <Version extends "3.0" | "3.1">(
+  elem: Schema<Version>,
+): elem is StringSchema<Version> =>
+  (elem as StringSchema<Version>).type === "string";
 
-const is_one_of = (elem: IJsonSchema): elem is IJsonSchema.IOneOf =>
-  Array.isArray((elem as IJsonSchema.IOneOf).oneOf);
+/**
+ * @internal
+ */
+const is_one_of = <Version extends "3.0" | "3.1">(
+  elem: Schema<Version>,
+): elem is OneOfSchema<Version> =>
+  Array.isArray((elem as OneOfSchema<Version>).oneOf);
 
+/**
+ * @internal
+ */
 const is_date =
   (visited: Set<Metadata>) =>
   (meta: Metadata): boolean => {
@@ -50,3 +62,13 @@ const is_date =
       meta.aliases.some((alias) => is_date(visited)(alias.value))
     );
   };
+
+type Schema<Version extends "3.0" | "3.1"> = Version extends "3.0"
+  ? OpenApiV3.IJsonSchema
+  : OpenApi.IJsonSchema;
+type StringSchema<Version extends "3.0" | "3.1"> = Version extends "3.0"
+  ? OpenApiV3.IJsonSchema.IString
+  : OpenApi.IJsonSchema.IString;
+type OneOfSchema<Version extends "3.0" | "3.1"> = Version extends "3.0"
+  ? OpenApiV3.IJsonSchema.IOneOf
+  : OpenApi.IJsonSchema.IOneOf;

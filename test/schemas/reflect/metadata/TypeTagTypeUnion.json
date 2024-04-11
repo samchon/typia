@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32_or_uint32"
+                    {
+                      "value": "int32_or_uint32"
+                    }
                   ]
                 }
               ],
@@ -71,7 +73,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -81,7 +86,10 @@
                         "kind": "type",
                         "value": "uint32",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -114,7 +122,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32_or_int64"
+                    {
+                      "value": "int32_or_int64"
+                    }
                   ]
                 }
               ],
@@ -146,7 +156,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -156,7 +169,10 @@
                         "kind": "type",
                         "value": "int64",
                         "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -189,7 +205,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32_or_uint64"
+                    {
+                      "value": "int32_or_uint64"
+                    }
                   ]
                 }
               ],
@@ -221,7 +239,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -231,7 +252,10 @@
                         "kind": "type",
                         "value": "uint64",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -264,7 +288,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32_or_float"
+                    {
+                      "value": "int32_or_float"
+                    }
                   ]
                 }
               ],
@@ -296,7 +322,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -306,7 +335,10 @@
                         "kind": "type",
                         "value": "float",
                         "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ]
                   ]
@@ -339,7 +371,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32_or_double"
+                    {
+                      "value": "int32_or_double"
+                    }
                   ]
                 }
               ],
@@ -371,7 +405,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -381,7 +418,10 @@
                         "kind": "type",
                         "value": "double",
                         "validate": "true",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ]
                   ]
@@ -414,7 +454,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int64_or_uint64"
+                    {
+                      "value": "int64_or_uint64"
+                    }
                   ]
                 }
               ],
@@ -446,7 +488,10 @@
                         "kind": "type",
                         "value": "int64",
                         "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -456,7 +501,10 @@
                         "kind": "type",
                         "value": "uint64",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -489,7 +537,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int64_or_float"
+                    {
+                      "value": "int64_or_float"
+                    }
                   ]
                 }
               ],
@@ -521,7 +571,10 @@
                         "kind": "type",
                         "value": "float",
                         "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ],
                     [
@@ -531,7 +584,10 @@
                         "kind": "type",
                         "value": "int64",
                         "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -564,7 +620,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int64_or_double"
+                    {
+                      "value": "int64_or_double"
+                    }
                   ]
                 }
               ],
@@ -596,7 +654,10 @@
                         "kind": "type",
                         "value": "double",
                         "validate": "true",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ],
                     [
@@ -606,7 +667,10 @@
                         "kind": "type",
                         "value": "int64",
                         "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -639,7 +703,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "float_or_double"
+                    {
+                      "value": "float_or_double"
+                    }
                   ]
                 }
               ],
@@ -671,7 +737,10 @@
                         "kind": "type",
                         "value": "float",
                         "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ],
                     [
@@ -681,7 +750,10 @@
                         "kind": "type",
                         "value": "double",
                         "validate": "true",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ]
                   ]
@@ -714,7 +786,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "everything"
+                    {
+                      "value": "everything"
+                    }
                   ]
                 }
               ],
@@ -746,7 +820,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -756,7 +833,10 @@
                         "kind": "type",
                         "value": "uint32",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -766,7 +846,10 @@
                         "kind": "type",
                         "value": "float",
                         "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ],
                     [
@@ -776,7 +859,10 @@
                         "kind": "type",
                         "value": "double",
                         "validate": "true",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ],
                     [
@@ -786,7 +872,10 @@
                         "kind": "type",
                         "value": "int64",
                         "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ],
                     [
@@ -796,7 +885,10 @@
                         "kind": "type",
                         "value": "uint64",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]

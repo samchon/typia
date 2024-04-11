@@ -36,9 +36,9 @@ export const test_protobuf_createAssertEncode_ObjectHttpNullable =
               2 === input.constantNumber ||
               3 === input.constantNumber) &&
             (null === input.constantString ||
-              "one" === input.constantString ||
               "three" === input.constantString ||
-              "two" === input.constantString) &&
+              "two" === input.constantString ||
+              "one" === input.constantString) &&
             (null === input.nullableArray ||
               (Array.isArray(input.nullableArray) &&
                 input.nullableArray.every(
@@ -161,9 +161,9 @@ export const test_protobuf_createAssertEncode_ObjectHttpNullable =
                   errorFactory,
                 )) &&
               (null === input.constantString ||
-                "one" === input.constantString ||
                 "three" === input.constantString ||
                 "two" === input.constantString ||
+                "one" === input.constantString ||
                 $guard(
                   _exceptionable,
                   {

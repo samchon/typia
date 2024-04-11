@@ -218,7 +218,7 @@ export const test_createRandom_ObjectHttpArray = _test_random(
                   _exceptionable,
                   {
                     path: _path + ".templates[" + _index5 + "]",
-                    expected: "`something_${string}`",
+                    expected: "`[object Object]${string}`",
                     value: elem,
                   },
                   errorFactory,

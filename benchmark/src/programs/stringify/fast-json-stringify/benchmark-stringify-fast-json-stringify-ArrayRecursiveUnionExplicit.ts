@@ -4,5 +4,5 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/pure/ArrayRecur
 import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";
 
 createStringifyFastBenchmarkProgram(
-  typia.json.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+  typia.json.application<[ArrayRecursiveUnionExplicit]>(),
 );

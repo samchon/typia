@@ -43,7 +43,11 @@ export const test_reflect_metadata_ClassMethod = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ClassMethod = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["age"],
+                  values: [
+                    {
+                      value: "age",
+                    },
+                  ],
                 },
               ],
               templates: [],

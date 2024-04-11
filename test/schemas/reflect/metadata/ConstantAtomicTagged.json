@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -87,7 +89,10 @@
                 {
                   "type": "string",
                   "values": [
-                    "latest"
+                    {
+                      "value": "latest",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -117,7 +122,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "age"
+                    {
+                      "value": "age"
+                    }
                   ]
                 }
               ],
@@ -149,7 +156,10 @@
                         "kind": "type",
                         "value": "uint32",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       },
                       {
                         "target": "number",
@@ -173,7 +183,10 @@
                 {
                   "type": "number",
                   "values": [
-                    -1
+                    {
+                      "value": -1,
+                      "tags": []
+                    }
                   ]
                 }
               ],

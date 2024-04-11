@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectGenericAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],

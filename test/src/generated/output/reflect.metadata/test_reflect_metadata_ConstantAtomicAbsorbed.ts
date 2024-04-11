@@ -42,7 +42,11 @@ export const test_reflect_metadata_ConstantAtomicAbsorbed =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -107,7 +111,11 @@ export const test_reflect_metadata_ConstantAtomicAbsorbed =
                 constants: [
                   {
                     type: "string",
-                    values: ["age"],
+                    values: [
+                      {
+                        value: "age",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

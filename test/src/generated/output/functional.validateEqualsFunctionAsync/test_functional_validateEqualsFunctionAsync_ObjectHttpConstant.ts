@@ -25,9 +25,9 @@ export const test_functional_validateEqualsFunctionAsync_ObjectHttpConstant =
                 false === input.boolean &&
                 (BigInt(1) === input.bigint || BigInt(99) === input.bigint) &&
                 (2 === input.number || 98 === input.number) &&
-                ("ninety-seven" === input.string ||
-                  "something" === input.string ||
-                  "three" === input.string) &&
+                ("something" === input.string ||
+                  "three" === input.string ||
+                  "ninety-seven" === input.string) &&
                 "string" === typeof input.template &&
                 RegExp(/^abcd_(.*)/).test(input.template) &&
                 (5 === Object.keys(input).length ||
@@ -87,9 +87,9 @@ export const test_functional_validateEqualsFunctionAsync_ObjectHttpConstant =
                         expected: "(2 | 98)",
                         value: input.number,
                       }),
-                    "ninety-seven" === input.string ||
-                      "something" === input.string ||
+                    "something" === input.string ||
                       "three" === input.string ||
+                      "ninety-seven" === input.string ||
                       $report(_exceptionable, {
                         path: _path + ".string",
                         expected: '("ninety-seven" | "something" | "three")',
@@ -99,7 +99,7 @@ export const test_functional_validateEqualsFunctionAsync_ObjectHttpConstant =
                       RegExp(/^abcd_(.*)/).test(input.template)) ||
                       $report(_exceptionable, {
                         path: _path + ".template",
-                        expected: "`abcd_${string}`",
+                        expected: "`[object Object]${string}`",
                         value: input.template,
                       }),
                     5 === Object.keys(input).length ||
@@ -175,9 +175,9 @@ export const test_functional_validateEqualsFunctionAsync_ObjectHttpConstant =
               false === input.boolean &&
               (BigInt(1) === input.bigint || BigInt(99) === input.bigint) &&
               (2 === input.number || 98 === input.number) &&
-              ("ninety-seven" === input.string ||
-                "something" === input.string ||
-                "three" === input.string) &&
+              ("something" === input.string ||
+                "three" === input.string ||
+                "ninety-seven" === input.string) &&
               "string" === typeof input.template &&
               RegExp(/^abcd_(.*)/).test(input.template) &&
               (5 === Object.keys(input).length ||
@@ -233,9 +233,9 @@ export const test_functional_validateEqualsFunctionAsync_ObjectHttpConstant =
                       expected: "(2 | 98)",
                       value: input.number,
                     }),
-                  "ninety-seven" === input.string ||
-                    "something" === input.string ||
+                  "something" === input.string ||
                     "three" === input.string ||
+                    "ninety-seven" === input.string ||
                     $report(_exceptionable, {
                       path: _path + ".string",
                       expected: '("ninety-seven" | "something" | "three")',
@@ -245,7 +245,7 @@ export const test_functional_validateEqualsFunctionAsync_ObjectHttpConstant =
                     RegExp(/^abcd_(.*)/).test(input.template)) ||
                     $report(_exceptionable, {
                       path: _path + ".template",
-                      expected: "`abcd_${string}`",
+                      expected: "`[object Object]${string}`",
                       value: input.template,
                     }),
                   5 === Object.keys(input).length ||

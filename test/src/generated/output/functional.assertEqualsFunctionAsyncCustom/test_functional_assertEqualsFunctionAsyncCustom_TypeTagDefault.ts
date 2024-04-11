@@ -204,7 +204,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagDefault =
                     {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -215,7 +215,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagDefault =
                     {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -232,7 +232,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagDefault =
                     {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -482,7 +482,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagDefault =
                     {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -493,7 +493,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagDefault =
                     {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -510,7 +510,7 @@ export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagDefault =
                     {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,

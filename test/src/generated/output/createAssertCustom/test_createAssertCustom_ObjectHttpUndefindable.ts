@@ -31,9 +31,9 @@ export const test_createAssertCustom_ObjectHttpUndefindable = _test_assert(
           2 === input.constantNumber ||
           3 === input.constantNumber) &&
         (undefined === input.constantString ||
-          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString);
+          "two" === input.constantString ||
+          "one" === input.constantString);
       return (
         "object" === typeof input &&
         null !== input &&
@@ -136,9 +136,9 @@ export const test_createAssertCustom_ObjectHttpUndefindable = _test_assert(
               errorFactory,
             )) &&
           (undefined === input.constantString ||
-            "one" === input.constantString ||
             "three" === input.constantString ||
             "two" === input.constantString ||
+            "one" === input.constantString ||
             $guard(
               _exceptionable,
               {

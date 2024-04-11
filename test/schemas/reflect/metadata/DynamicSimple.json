@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],

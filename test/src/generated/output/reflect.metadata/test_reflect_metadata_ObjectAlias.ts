@@ -48,7 +48,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -152,7 +160,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -204,7 +216,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sex"],
+                  values: [
+                    {
+                      value: "sex",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -228,11 +244,29 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "number",
-                  values: [1, 2],
+                  values: [
+                    {
+                      value: 1,
+                      tags: [],
+                    },
+                    {
+                      value: 2,
+                      tags: [],
+                    },
+                  ],
                 },
                 {
                   type: "string",
-                  values: ["female", "male"],
+                  values: [
+                    {
+                      value: "male",
+                      tags: [],
+                    },
+                    {
+                      value: "female",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -260,7 +294,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["age"],
+                  values: [
+                    {
+                      value: "age",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -312,7 +350,11 @@ export const test_reflect_metadata_ObjectAlias = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["dead"],
+                  values: [
+                    {
+                      value: "dead",
+                    },
+                  ],
                 },
               ],
               templates: [],

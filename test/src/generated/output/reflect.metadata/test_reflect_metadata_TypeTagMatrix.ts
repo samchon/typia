@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagMatrix = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["matrix"],
+                  values: [
+                    {
+                      value: "matrix",
+                    },
+                  ],
                 },
               ],
               templates: [],

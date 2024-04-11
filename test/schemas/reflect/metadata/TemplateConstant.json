@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -104,7 +106,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "prefix"
+                    {
+                      "value": "prefix"
+                    }
                   ]
                 }
               ],
@@ -130,9 +134,18 @@
                 {
                   "type": "string",
                   "values": [
-                    "prefix_A",
-                    "prefix_B",
-                    "prefix_C"
+                    {
+                      "value": "prefix_A",
+                      "tags": []
+                    },
+                    {
+                      "value": "prefix_B",
+                      "tags": []
+                    },
+                    {
+                      "value": "prefix_C",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -162,7 +175,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "postfix"
+                    {
+                      "value": "postfix"
+                    }
                   ]
                 }
               ],
@@ -188,9 +203,18 @@
                 {
                   "type": "string",
                   "values": [
-                    "1_postfix",
-                    "2_postfix",
-                    "3_postfix"
+                    {
+                      "value": "1_postfix",
+                      "tags": []
+                    },
+                    {
+                      "value": "2_postfix",
+                      "tags": []
+                    },
+                    {
+                      "value": "3_postfix",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -220,7 +244,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "combined"
+                    {
+                      "value": "combined"
+                    }
                   ]
                 }
               ],
@@ -246,15 +272,42 @@
                 {
                   "type": "string",
                   "values": [
-                    "the_1_value_with_label_A",
-                    "the_1_value_with_label_B",
-                    "the_1_value_with_label_C",
-                    "the_2_value_with_label_A",
-                    "the_2_value_with_label_B",
-                    "the_2_value_with_label_C",
-                    "the_3_value_with_label_A",
-                    "the_3_value_with_label_B",
-                    "the_3_value_with_label_C"
+                    {
+                      "value": "the_1_value_with_label_A",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_1_value_with_label_B",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_1_value_with_label_C",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_2_value_with_label_A",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_2_value_with_label_B",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_2_value_with_label_C",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_3_value_with_label_A",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_3_value_with_label_B",
+                      "tags": []
+                    },
+                    {
+                      "value": "the_3_value_with_label_C",
+                      "tags": []
+                    }
                   ]
                 }
               ],

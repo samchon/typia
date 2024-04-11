@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "DynamicArray": {
+        "$ref": "#/components/schemas/DynamicArray"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicArray"
+    }
+  ]
+}

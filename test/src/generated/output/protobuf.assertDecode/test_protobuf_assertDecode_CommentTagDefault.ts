@@ -305,7 +305,8 @@ export const test_protobuf_assertDecode_CommentTagDefault =
                     _exceptionable,
                     {
                       path: _path + ".boolean_and_number_and_template",
-                      expected: "(`prefix_${string}` | boolean | number)",
+                      expected:
+                        "(`[object Object]${string}` | boolean | number)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -315,7 +316,8 @@ export const test_protobuf_assertDecode_CommentTagDefault =
                     _exceptionable,
                     {
                       path: _path + ".boolean_and_number_and_template",
-                      expected: "(`prefix_${string}` | boolean | number)",
+                      expected:
+                        "(`[object Object]${string}` | boolean | number)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -331,7 +333,8 @@ export const test_protobuf_assertDecode_CommentTagDefault =
                     _exceptionable,
                     {
                       path: _path + ".boolean_and_number_and_template",
-                      expected: "(`prefix_${string}` | boolean | number)",
+                      expected:
+                        "(`[object Object]${string}` | boolean | number)",
                       value: input.boolean_and_number_and_template,
                     },
                     errorFactory,
@@ -461,7 +464,7 @@ export const test_protobuf_assertDecode_CommentTagDefault =
             writer.string(input.boolean_and_number_and_template);
           } else
             $throws({
-              expected: "(`prefix_${string}` | boolean | number)",
+              expected: "(`[object Object]${string}` | boolean | number)",
               value: input.boolean_and_number_and_template,
             });
         };

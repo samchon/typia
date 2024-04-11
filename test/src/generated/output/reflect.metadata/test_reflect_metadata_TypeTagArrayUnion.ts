@@ -48,7 +48,11 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["items"],
+                  values: [
+                    {
+                      value: "items",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -125,7 +129,11 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["minItems"],
+                  values: [
+                    {
+                      value: "minItems",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -191,7 +199,11 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["maxItems"],
+                  values: [
+                    {
+                      value: "maxItems",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -257,7 +269,11 @@ export const test_reflect_metadata_TypeTagArrayUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["both"],
+                  values: [
+                    {
+                      value: "both",
+                    },
+                  ],
                 },
               ],
               templates: [],

@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "booleans"
+                    {
+                      "value": "booleans"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bigints"
+                    {
+                      "value": "bigints"
+                    }
                   ]
                 }
               ],
@@ -147,7 +151,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "numbers"
+                    {
+                      "value": "numbers"
+                    }
                   ]
                 }
               ],
@@ -201,7 +207,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "strings"
+                    {
+                      "value": "strings"
+                    }
                   ]
                 }
               ],
@@ -255,7 +263,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "templates"
+                    {
+                      "value": "templates"
+                    }
                   ]
                 }
               ],
@@ -459,7 +469,9 @@
                   {
                     "type": "string",
                     "values": [
-                      "something_"
+                      {
+                        "value": "something_"
+                      }
                     ]
                   }
                 ],

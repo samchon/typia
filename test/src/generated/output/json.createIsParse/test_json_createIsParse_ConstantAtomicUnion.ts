@@ -18,8 +18,8 @@ export const test_json_createIsParse_ConstantAtomicUnion = _test_json_isParse(
             (false === elem ||
               1 === elem ||
               2 === elem ||
-              "four" === elem ||
               "three" === elem ||
+              "four" === elem ||
               ("object" === typeof elem && null !== elem && $io0(elem))),
         )
       );

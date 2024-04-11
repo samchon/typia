@@ -42,7 +42,11 @@ export const test_reflect_metadata_CommentTagTypeBigInt =
                 constants: [
                   {
                     type: "string",
-                    values: ["in64"],
+                    values: [
+                      {
+                        value: "in64",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -94,7 +98,11 @@ export const test_reflect_metadata_CommentTagTypeBigInt =
                 constants: [
                   {
                     type: "string",
-                    values: ["uint64"],
+                    values: [
+                      {
+                        value: "uint64",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

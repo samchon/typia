@@ -35,9 +35,9 @@ export const test_protobuf_validateEncode_ObjectHttpUndefindable =
                 2 === input.constantNumber ||
                 3 === input.constantNumber) &&
               (undefined === input.constantString ||
-                "one" === input.constantString ||
                 "three" === input.constantString ||
-                "two" === input.constantString);
+                "two" === input.constantString ||
+                "one" === input.constantString);
             return (
               "object" === typeof input &&
               null !== input &&
@@ -115,9 +115,9 @@ export const test_protobuf_validateEncode_ObjectHttpUndefindable =
                       value: input.constantNumber,
                     }),
                   undefined === input.constantString ||
-                    "one" === input.constantString ||
                     "three" === input.constantString ||
                     "two" === input.constantString ||
+                    "one" === input.constantString ||
                     $report(_exceptionable, {
                       path: _path + ".constantString",
                       expected: '("one" | "three" | "two" | undefined)',

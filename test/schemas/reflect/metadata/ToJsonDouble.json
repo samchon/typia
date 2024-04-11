@@ -90,7 +90,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -144,7 +146,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "flag"
+                    {
+                      "value": "flag"
+                    }
                   ]
                 }
               ],

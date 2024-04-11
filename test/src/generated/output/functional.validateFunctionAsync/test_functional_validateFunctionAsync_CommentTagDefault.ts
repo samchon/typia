@@ -150,13 +150,15 @@ export const test_functional_validateFunctionAsync_CommentTagDefault =
                     (null !== input.boolean_and_number_and_template ||
                       $report(_exceptionable, {
                         path: _path + ".boolean_and_number_and_template",
-                        expected: "(`prefix_${string}` | boolean | number)",
+                        expected:
+                          "(`[object Object]${string}` | boolean | number)",
                         value: input.boolean_and_number_and_template,
                       })) &&
                       (undefined !== input.boolean_and_number_and_template ||
                         $report(_exceptionable, {
                           path: _path + ".boolean_and_number_and_template",
-                          expected: "(`prefix_${string}` | boolean | number)",
+                          expected:
+                            "(`[object Object]${string}` | boolean | number)",
                           value: input.boolean_and_number_and_template,
                         })) &&
                       (("number" ===
@@ -173,7 +175,8 @@ export const test_functional_validateFunctionAsync_CommentTagDefault =
                           )) ||
                         $report(_exceptionable, {
                           path: _path + ".boolean_and_number_and_template",
-                          expected: "(`prefix_${string}` | boolean | number)",
+                          expected:
+                            "(`[object Object]${string}` | boolean | number)",
                           value: input.boolean_and_number_and_template,
                         })),
                   ].every((flag: boolean) => flag);
@@ -349,13 +352,15 @@ export const test_functional_validateFunctionAsync_CommentTagDefault =
                   (null !== input.boolean_and_number_and_template ||
                     $report(_exceptionable, {
                       path: _path + ".boolean_and_number_and_template",
-                      expected: "(`prefix_${string}` | boolean | number)",
+                      expected:
+                        "(`[object Object]${string}` | boolean | number)",
                       value: input.boolean_and_number_and_template,
                     })) &&
                     (undefined !== input.boolean_and_number_and_template ||
                       $report(_exceptionable, {
                         path: _path + ".boolean_and_number_and_template",
-                        expected: "(`prefix_${string}` | boolean | number)",
+                        expected:
+                          "(`[object Object]${string}` | boolean | number)",
                         value: input.boolean_and_number_and_template,
                       })) &&
                     (("number" ===
@@ -370,7 +375,8 @@ export const test_functional_validateFunctionAsync_CommentTagDefault =
                         )) ||
                       $report(_exceptionable, {
                         path: _path + ".boolean_and_number_and_template",
-                        expected: "(`prefix_${string}` | boolean | number)",
+                        expected:
+                          "(`[object Object]${string}` | boolean | number)",
                         value: input.boolean_and_number_and_template,
                       })),
                 ].every((flag: boolean) => flag);

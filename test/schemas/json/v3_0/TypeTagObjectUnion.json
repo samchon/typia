@@ -1,0 +1,55 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "TypeTagObjectUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TypeTagObjectUnion.Type"
+        }
+      },
+      "TypeTagObjectUnion.Type": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TypeTagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/TypeTagObjectUnion.Literal"
+          }
+        ]
+      },
+      "TypeTagObjectUnion.Numeric": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ]
+      },
+      "TypeTagObjectUnion.Literal": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagObjectUnion"
+    }
+  ]
+}

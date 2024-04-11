@@ -1,5 +1,6 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
+import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
 
 export namespace MetadataHelper {
   export const literal_to_metadata = (key: string): Metadata => {
@@ -7,7 +8,12 @@ export namespace MetadataHelper {
     metadata.constants.push(
       MetadataConstant.create({
         type: "string",
-        values: [key],
+        values: [
+          MetadataConstantValue.create({
+            value: key,
+            tags: undefined,
+          }),
+        ],
       }),
     );
     return metadata;

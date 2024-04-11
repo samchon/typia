@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "boolean"
+                    {
+                      "value": "boolean"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bigint"
+                    {
+                      "value": "bigint"
+                    }
                   ]
                 }
               ],
@@ -147,7 +151,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "number"
+                    {
+                      "value": "number"
+                    }
                   ]
                 }
               ],
@@ -201,7 +207,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "string"
+                    {
+                      "value": "string"
+                    }
                   ]
                 }
               ],

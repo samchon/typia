@@ -1,0 +1,47 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ArrayAtomicAlias": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+          }
+        ],
+        "additionalItems": {
+          "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+        }
+      },
+      "ArrayAtomicAlias.Aliasboolean": {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "ArrayAtomicAlias.Aliasnumber": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "ArrayAtomicAlias.Aliasstring": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayAtomicAlias"
+    }
+  ]
+}

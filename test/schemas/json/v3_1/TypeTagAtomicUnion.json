@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "TypeTagAtomicUnion": {
+        "$ref": "#/components/schemas/TypeTagAtomicUnion"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagAtomicUnion"
+    }
+  ]
+}

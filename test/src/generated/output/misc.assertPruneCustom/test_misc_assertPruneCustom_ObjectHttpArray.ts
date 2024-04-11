@@ -194,7 +194,7 @@ export const test_misc_assertPruneCustom_ObjectHttpArray =
                       _exceptionable,
                       {
                         path: _path + ".templates[" + _index5 + "]",
-                        expected: "`something_${string}`",
+                        expected: "`[object Object]${string}`",
                         value: elem,
                       },
                       errorFactory,

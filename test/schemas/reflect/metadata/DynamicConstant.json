@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -101,7 +103,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "a"
+                    {
+                      "value": "a"
+                    }
                   ]
                 }
               ],
@@ -155,7 +159,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "b"
+                    {
+                      "value": "b"
+                    }
                   ]
                 }
               ],
@@ -209,7 +215,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "c"
+                    {
+                      "value": "c"
+                    }
                   ]
                 }
               ],
@@ -263,7 +271,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "d"
+                    {
+                      "value": "d"
+                    }
                   ]
                 }
               ],

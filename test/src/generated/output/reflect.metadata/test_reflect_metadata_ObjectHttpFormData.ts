@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -110,7 +114,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["number"],
+                  values: [
+                    {
+                      value: "number",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -162,7 +170,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["integers"],
+                  values: [
+                    {
+                      value: "integers",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -214,7 +226,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["blob"],
+                  values: [
+                    {
+                      value: "blob",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -261,7 +277,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["blobs"],
+                  values: [
+                    {
+                      value: "blobs",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -313,7 +333,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["file"],
+                  values: [
+                    {
+                      value: "file",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -360,7 +384,11 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["files"],
+                  values: [
+                    {
+                      value: "files",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -431,6 +459,9 @@ export const test_reflect_metadata_ObjectHttpFormData = _test_reflect_metadata(
                     validate:
                       "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                     exclusive: true,
+                    schema: {
+                      type: "integer",
+                    },
                   },
                 ],
               ],

@@ -14,9 +14,9 @@ export const test_functional_equalsReturnAsync_ObjectPrimitive =
         ): input is ObjectPrimitive.IArticle => {
           const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
-            ("html" === input.extension ||
+            ("txt" === input.extension ||
               "md" === input.extension ||
-              "txt" === input.extension) &&
+              "html" === input.extension) &&
             "string" === typeof input.title &&
             "string" === typeof input.body &&
             Array.isArray(input.files) &&

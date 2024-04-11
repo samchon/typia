@@ -165,13 +165,13 @@ export const test_validateEquals_CommentTagDefault = _test_validateEquals(
             (null !== input.boolean_and_number_and_template ||
               $report(_exceptionable, {
                 path: _path + ".boolean_and_number_and_template",
-                expected: "(`prefix_${string}` | boolean | number)",
+                expected: "(`[object Object]${string}` | boolean | number)",
                 value: input.boolean_and_number_and_template,
               })) &&
               (undefined !== input.boolean_and_number_and_template ||
                 $report(_exceptionable, {
                   path: _path + ".boolean_and_number_and_template",
-                  expected: "(`prefix_${string}` | boolean | number)",
+                  expected: "(`[object Object]${string}` | boolean | number)",
                   value: input.boolean_and_number_and_template,
                 })) &&
               (("number" === typeof input.boolean_and_number_and_template &&
@@ -183,7 +183,7 @@ export const test_validateEquals_CommentTagDefault = _test_validateEquals(
                   )) ||
                 $report(_exceptionable, {
                   path: _path + ".boolean_and_number_and_template",
-                  expected: "(`prefix_${string}` | boolean | number)",
+                  expected: "(`[object Object]${string}` | boolean | number)",
                   value: input.boolean_and_number_and_template,
                 })),
             10 === Object.keys(input).length ||

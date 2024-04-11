@@ -42,7 +42,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -103,7 +107,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -159,7 +167,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -219,7 +231,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -275,7 +291,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -336,7 +356,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -392,7 +416,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -453,7 +481,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -509,7 +541,11 @@ export const test_reflect_metadata_ObjectUnionNonPredictable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

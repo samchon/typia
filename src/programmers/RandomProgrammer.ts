@@ -239,7 +239,7 @@ export namespace RandomProgrammer {
 
       // CONSTANT TYPES
       for (const constant of meta.constants)
-        for (const value of constant.values)
+        for (const { value } of constant.values)
           expressions.push(decode_atomic(value));
 
       // ATOMIC VARIABLES

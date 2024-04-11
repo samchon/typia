@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagAtomicUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_TypeTagAtomicUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],

@@ -196,7 +196,7 @@ export const test_protobuf_assertEncode_ObjectHttpArray =
                         _exceptionable,
                         {
                           path: _path + ".templates[" + _index5 + "]",
-                          expected: "`something_${string}`",
+                          expected: "`[object Object]${string}`",
                           value: elem,
                         },
                         errorFactory,
@@ -336,7 +336,7 @@ export const test_protobuf_assertEncode_ObjectHttpArray =
               output.strings.push(reader.string());
               break;
             case 5:
-              // type: Array<`something_${string}`>;
+              // type: Array<`[object Object]${string}`>;
               output.templates.push(reader.string());
               break;
             default:

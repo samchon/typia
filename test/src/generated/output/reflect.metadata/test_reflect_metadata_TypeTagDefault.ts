@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean"],
+                  values: [
+                    {
+                      value: "boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -108,7 +112,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["number"],
+                  values: [
+                    {
+                      value: "number",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -173,7 +181,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["string"],
+                  values: [
+                    {
+                      value: "string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -238,7 +250,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["text"],
+                  values: [
+                    {
+                      value: "text",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -303,7 +319,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean_and_number_and_string"],
+                  values: [
+                    {
+                      value: "boolean_and_number_and_string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -402,7 +422,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["union_but_boolean"],
+                  values: [
+                    {
+                      value: "union_but_boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -475,7 +499,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["union_but_number"],
+                  values: [
+                    {
+                      value: "union_but_number",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -548,7 +576,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["union_but_string"],
+                  values: [
+                    {
+                      value: "union_but_string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -621,7 +653,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean_and_number_and_template"],
+                  values: [
+                    {
+                      value: "boolean_and_number_and_template",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -690,7 +726,11 @@ export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
                     constants: [
                       {
                         type: "string",
-                        values: ["prefix_"],
+                        values: [
+                          {
+                            value: "prefix_",
+                          },
+                        ],
                       },
                     ],
                     templates: [],

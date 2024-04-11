@@ -101,7 +101,7 @@ export const test_json_createIsStringify_CommentTagDefault =
           if ("boolean" === typeof input.boolean_and_number_and_template)
             return input.boolean_and_number_and_template;
           $throws({
-            expected: "(`prefix_${string}` | boolean | number)",
+            expected: "(`[object Object]${string}` | boolean | number)",
             value: input.boolean_and_number_and_template,
           });
         })()}}`;

@@ -37,8 +37,8 @@ export const test_functional_assertEqualsParameters_ConstantConstEnumeration =
                   0 === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "Four" === elem ||
-                  "Three" === elem,
+                  "Three" === elem ||
+                  "Four" === elem,
               )
             );
           };
@@ -66,8 +66,8 @@ export const test_functional_assertEqualsParameters_ConstantConstEnumeration =
                       0 === elem ||
                       1 === elem ||
                       2 === elem ||
-                      "Four" === elem ||
                       "Three" === elem ||
+                      "Four" === elem ||
                       $guard(
                         true,
                         {

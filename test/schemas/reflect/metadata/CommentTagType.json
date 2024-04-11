@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -104,7 +106,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int"
+                    {
+                      "value": "int"
+                    }
                   ]
                 }
               ],
@@ -179,7 +183,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint"
+                    {
+                      "value": "uint"
+                    }
                   ]
                 }
               ],
@@ -254,7 +260,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32"
+                    {
+                      "value": "int32"
+                    }
                   ]
                 }
               ],
@@ -329,7 +337,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint32"
+                    {
+                      "value": "uint32"
+                    }
                   ]
                 }
               ],
@@ -404,7 +414,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int64"
+                    {
+                      "value": "int64"
+                    }
                   ]
                 }
               ],
@@ -479,7 +491,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint64"
+                    {
+                      "value": "uint64"
+                    }
                   ]
                 }
               ],
@@ -554,7 +568,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "float"
+                    {
+                      "value": "float"
+                    }
                   ]
                 }
               ],

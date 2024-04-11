@@ -22,9 +22,9 @@ export const test_protobuf_assertEncode_ObjectHttpConstant =
               false === input.boolean &&
               (BigInt(1) === input.bigint || BigInt(99) === input.bigint) &&
               (2 === input.number || 98 === input.number) &&
-              ("ninety-seven" === input.string ||
-                "something" === input.string ||
-                "three" === input.string) &&
+              ("something" === input.string ||
+                "three" === input.string ||
+                "ninety-seven" === input.string) &&
               "string" === typeof input.template &&
               RegExp(/^abcd_(.*)/).test(input.template);
             return "object" === typeof input && null !== input && $io0(input);
@@ -73,9 +73,9 @@ export const test_protobuf_assertEncode_ObjectHttpConstant =
                     },
                     errorFactory,
                   )) &&
-                ("ninety-seven" === input.string ||
-                  "something" === input.string ||
+                ("something" === input.string ||
                   "three" === input.string ||
+                  "ninety-seven" === input.string ||
                   $guard(
                     _exceptionable,
                     {
@@ -91,7 +91,7 @@ export const test_protobuf_assertEncode_ObjectHttpConstant =
                     _exceptionable,
                     {
                       path: _path + ".template",
-                      expected: "`abcd_${string}`",
+                      expected: "`[object Object]${string}`",
                       value: input.template,
                     },
                     errorFactory,

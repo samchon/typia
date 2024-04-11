@@ -43,7 +43,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean"],
+                  values: [
+                    {
+                      value: "boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32"],
+                  values: [
+                    {
+                      value: "int32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint32"],
+                  values: [
+                    {
+                      value: "uint32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +211,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int64"],
+                  values: [
+                    {
+                      value: "int64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -251,7 +267,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint64"],
+                  values: [
+                    {
+                      value: "uint64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -303,7 +323,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float"],
+                  values: [
+                    {
+                      value: "float",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -355,7 +379,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["double"],
+                  values: [
+                    {
+                      value: "double",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -407,7 +435,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["string"],
+                  values: [
+                    {
+                      value: "string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -459,7 +491,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bytes"],
+                  values: [
+                    {
+                      value: "bytes",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -511,7 +547,11 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["object"],
+                  values: [
+                    {
+                      value: "object",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -612,6 +652,9 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
                     validate:
                       "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                     exclusive: true,
+                    schema: {
+                      type: "integer",
+                    },
                   },
                 ],
               ],
@@ -654,6 +697,9 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
                     validate:
                       "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                     exclusive: true,
+                    schema: {
+                      type: "integer",
+                    },
                   },
                 ],
               ],
@@ -778,6 +824,9 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
                     validate:
                       "-1.175494351e38 <= $input && $input <= 3.4028235e38",
                     exclusive: true,
+                    schema: {
+                      type: "number",
+                    },
                   },
                 ],
               ],
@@ -819,6 +868,9 @@ export const test_reflect_metadata_ArraySimpleProtobuf = _test_reflect_metadata(
                     value: "double",
                     validate: "true",
                     exclusive: true,
+                    schema: {
+                      type: "number",
+                    },
                   },
                 ],
               ],

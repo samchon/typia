@@ -1,0 +1,28 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ClassMethod.Animal": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "age"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassMethod.Animal"
+    }
+  ]
+}

@@ -43,7 +43,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["date"],
+                  values: [
+                    {
+                      value: "date",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -134,7 +138,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint8Array"],
+                  values: [
+                    {
+                      value: "uint8Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -181,7 +189,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint8ClampedArray"],
+                  values: [
+                    {
+                      value: "uint8ClampedArray",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -228,7 +240,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint16Array"],
+                  values: [
+                    {
+                      value: "uint16Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -275,7 +291,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["uint32Array"],
+                  values: [
+                    {
+                      value: "uint32Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -322,7 +342,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bigUint64Array"],
+                  values: [
+                    {
+                      value: "bigUint64Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -369,7 +393,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int8Array"],
+                  values: [
+                    {
+                      value: "int8Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -416,7 +444,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int16Array"],
+                  values: [
+                    {
+                      value: "int16Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -463,7 +495,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32Array"],
+                  values: [
+                    {
+                      value: "int32Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -510,7 +546,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bigInt64Array"],
+                  values: [
+                    {
+                      value: "bigInt64Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -557,7 +597,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float32Array"],
+                  values: [
+                    {
+                      value: "float32Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -604,7 +648,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float64Array"],
+                  values: [
+                    {
+                      value: "float64Array",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -651,7 +699,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["arrayBuffer"],
+                  values: [
+                    {
+                      value: "arrayBuffer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -698,7 +750,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sharedArrayBuffer"],
+                  values: [
+                    {
+                      value: "sharedArrayBuffer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -745,7 +801,11 @@ export const test_reflect_metadata_NativeSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["dataView"],
+                  values: [
+                    {
+                      value: "dataView",
+                    },
+                  ],
                 },
               ],
               templates: [],

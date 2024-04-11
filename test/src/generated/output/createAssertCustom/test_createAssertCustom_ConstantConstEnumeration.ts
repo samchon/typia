@@ -22,8 +22,8 @@ export const test_createAssertCustom_ConstantConstEnumeration = _test_assert(
             0 === elem ||
             1 === elem ||
             2 === elem ||
-            "Four" === elem ||
-            "Three" === elem,
+            "Three" === elem ||
+            "Four" === elem,
         )
       );
     };
@@ -50,8 +50,8 @@ export const test_createAssertCustom_ConstantConstEnumeration = _test_assert(
                 0 === elem ||
                 1 === elem ||
                 2 === elem ||
-                "Four" === elem ||
                 "Three" === elem ||
+                "Four" === elem ||
                 $guard(
                   true,
                   {

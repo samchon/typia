@@ -4,13 +4,11 @@ import { IJsonApplication } from "typia";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_application =
-  (props: { purpose: "ajv" | "swagger"; surplus: boolean; name: string }) =>
-  <App extends IJsonApplication>(app: App) => {
-    const actual: IJsonApplication = JSON.parse(
+  (props: { version: string; name: string }) =>
+  <App extends IJsonApplication<any>>(app: App) => {
+    const actual: IJsonApplication<any> = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/json/${props.purpose}_${
-          props.surplus ? "surplus" : "standard"
-        }/${props.name}.json`,
+        `${__dirname}/../../schemas/json/v${props.version.replace(".", "_")}/${props.name}.json`,
         "utf8",
       ),
     );
@@ -19,11 +17,11 @@ export const _test_json_application =
 
     if (primitive_equal_to(app, actual) === false)
       throw new Error(
-        `Bug on typia.json.application<[${props.name}], "${props.purpose}", ${props.surplus}>(): failed to understand the ${props.name} type.`,
+        `Bug on typia.json.application<[${props.name}], "${props.version}">(): failed to understand the ${props.name} type.`,
       );
   };
 
-function sort(app: IJsonApplication): void {
+function sort(app: IJsonApplication<any>): void {
   function object(elem: object) {
     for (const value of Object.values(elem)) iterate(value);
   }

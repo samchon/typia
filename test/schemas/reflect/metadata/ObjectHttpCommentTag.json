@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int"
+                    {
+                      "value": "int"
+                    }
                   ]
                 }
               ],
@@ -114,7 +116,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint64"
+                    {
+                      "value": "uint64"
+                    }
                   ]
                 }
               ],
@@ -189,7 +193,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uuid"
+                    {
+                      "value": "uuid"
+                    }
                   ]
                 }
               ],
@@ -267,7 +273,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "items"
+                    {
+                      "value": "items"
+                    }
                   ]
                 }
               ],

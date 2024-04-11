@@ -174,7 +174,8 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               _exceptionable,
               {
                 path: _path + ".prefix",
-                expected: "(`prefix_${number}` | `prefix_${string}`)",
+                expected:
+                  "(`[object Object]${number}` | `[object Object]${string}`)",
                 value: input.prefix,
               },
               errorFactory,
@@ -188,7 +189,8 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               _exceptionable,
               {
                 path: _path + ".postfix",
-                expected: "(`${number}_postfix` | `${string}_postfix`)",
+                expected:
+                  "(`${number}[object Object]` | `${string}[object Object]`)",
                 value: input.postfix,
               },
               errorFactory,
@@ -199,7 +201,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               {
                 path: _path + ".middle",
                 expected:
-                  '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                  '("the_false_value" | "the_true_value" | `[object Object]${number}[object Object]`)',
                 value: input.middle,
               },
               errorFactory,
@@ -210,7 +212,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               {
                 path: _path + ".middle",
                 expected:
-                  '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                  '("the_false_value" | "the_true_value" | `[object Object]${number}[object Object]`)',
                 value: input.middle,
               },
               errorFactory,
@@ -226,7 +228,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               {
                 path: _path + ".middle",
                 expected:
-                  '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                  '("the_false_value" | "the_true_value" | `[object Object]${number}[object Object]`)',
                 value: input.middle,
               },
               errorFactory,
@@ -237,7 +239,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               {
                 path: _path + ".mixed",
                 expected:
-                  '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                  '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                 value: input.mixed,
               },
               errorFactory,
@@ -248,7 +250,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               {
                 path: _path + ".mixed",
                 expected:
-                  '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                  '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                 value: input.mixed,
               },
               errorFactory,
@@ -267,7 +269,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
                 {
                   path: _path + ".mixed",
                   expected:
-                    '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                    '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                   value: input.mixed,
                 },
                 errorFactory,
@@ -278,7 +280,7 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
               {
                 path: _path + ".mixed",
                 expected:
-                  '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                  '("the_A_value" | "the_B_value" | __type | `[object Object]${number}[object Object]` | boolean | number)',
                 value: input.mixed,
               },
               errorFactory,

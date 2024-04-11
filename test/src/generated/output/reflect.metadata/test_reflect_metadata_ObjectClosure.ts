@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectClosure = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectClosure = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["open"],
+                  values: [
+                    {
+                      value: "open",
+                    },
+                  ],
                 },
               ],
               templates: [],

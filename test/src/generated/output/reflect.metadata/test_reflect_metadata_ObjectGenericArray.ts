@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["pagination"],
+                  values: [
+                    {
+                      value: "pagination",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -90,7 +94,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["data"],
+                  values: [
+                    {
+                      value: "data",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -151,7 +159,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["page"],
+                  values: [
+                    {
+                      value: "page",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -203,7 +215,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["limit"],
+                  values: [
+                    {
+                      value: "limit",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -255,7 +271,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["total_count"],
+                  values: [
+                    {
+                      value: "total_count",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -307,7 +327,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["total_pages"],
+                  values: [
+                    {
+                      value: "total_pages",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -368,7 +392,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -420,7 +448,11 @@ export const test_reflect_metadata_ObjectGenericArray = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["age"],
+                  values: [
+                    {
+                      value: "age",
+                    },
+                  ],
                 },
               ],
               templates: [],

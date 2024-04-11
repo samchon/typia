@@ -209,7 +209,7 @@ export const test_protobuf_decode_CommentTagDefault = _test_protobuf_decode(
           writer.string(input.boolean_and_number_and_template);
         } else
           $throws({
-            expected: "(`prefix_${string}` | boolean | number)",
+            expected: "(`[object Object]${string}` | boolean | number)",
             value: input.boolean_and_number_and_template,
           });
       };

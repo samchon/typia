@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectOptional = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectOptional = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ObjectOptional = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +211,11 @@ export const test_reflect_metadata_ObjectOptional = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sequence"],
+                  values: [
+                    {
+                      value: "sequence",
+                    },
+                  ],
                 },
               ],
               templates: [],

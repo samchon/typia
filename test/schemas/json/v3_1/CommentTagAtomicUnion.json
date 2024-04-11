@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "CommentTagAtomicUnion": {
+        "$ref": "#/components/schemas/CommentTagAtomicUnion"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/CommentTagAtomicUnion"
+    }
+  ]
+}

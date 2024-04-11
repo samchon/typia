@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ranged"
+                    {
+                      "value": "ranged"
+                    }
                   ]
                 }
               ],
@@ -178,7 +182,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "minimum"
+                    {
+                      "value": "minimum"
+                    }
                   ]
                 }
               ],
@@ -249,7 +255,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "maximum"
+                    {
+                      "value": "maximum"
+                    }
                   ]
                 }
               ],
@@ -320,7 +328,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "multipleOf"
+                    {
+                      "value": "multipleOf"
+                    }
                   ]
                 }
               ],
@@ -388,7 +398,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "typed"
+                    {
+                      "value": "typed"
+                    }
                   ]
                 }
               ],
@@ -420,7 +432,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]

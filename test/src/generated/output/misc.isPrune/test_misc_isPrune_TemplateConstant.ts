@@ -18,18 +18,18 @@ export const test_misc_isPrune_TemplateConstant = _test_misc_isPrune(
         ("prefix_A" === input.prefix ||
           "prefix_B" === input.prefix ||
           "prefix_C" === input.prefix) &&
-        ("1_postfix" === input.postfix ||
+        ("3_postfix" === input.postfix ||
           "2_postfix" === input.postfix ||
-          "3_postfix" === input.postfix) &&
-        ("the_1_value_with_label_A" === input.combined ||
-          "the_1_value_with_label_B" === input.combined ||
-          "the_1_value_with_label_C" === input.combined ||
+          "1_postfix" === input.postfix) &&
+        ("the_3_value_with_label_A" === input.combined ||
+          "the_3_value_with_label_B" === input.combined ||
+          "the_3_value_with_label_C" === input.combined ||
           "the_2_value_with_label_A" === input.combined ||
           "the_2_value_with_label_B" === input.combined ||
           "the_2_value_with_label_C" === input.combined ||
-          "the_3_value_with_label_A" === input.combined ||
-          "the_3_value_with_label_B" === input.combined ||
-          "the_3_value_with_label_C" === input.combined);
+          "the_1_value_with_label_A" === input.combined ||
+          "the_1_value_with_label_B" === input.combined ||
+          "the_1_value_with_label_C" === input.combined);
       return "object" === typeof input && null !== input && $io0(input);
     };
     const prune = (input: TemplateConstant): void => {
@@ -37,18 +37,18 @@ export const test_misc_isPrune_TemplateConstant = _test_misc_isPrune(
         ("prefix_A" === input.prefix ||
           "prefix_B" === input.prefix ||
           "prefix_C" === input.prefix) &&
-        ("1_postfix" === input.postfix ||
+        ("3_postfix" === input.postfix ||
           "2_postfix" === input.postfix ||
-          "3_postfix" === input.postfix) &&
-        ("the_1_value_with_label_A" === input.combined ||
-          "the_1_value_with_label_B" === input.combined ||
-          "the_1_value_with_label_C" === input.combined ||
+          "1_postfix" === input.postfix) &&
+        ("the_3_value_with_label_A" === input.combined ||
+          "the_3_value_with_label_B" === input.combined ||
+          "the_3_value_with_label_C" === input.combined ||
           "the_2_value_with_label_A" === input.combined ||
           "the_2_value_with_label_B" === input.combined ||
           "the_2_value_with_label_C" === input.combined ||
-          "the_3_value_with_label_A" === input.combined ||
-          "the_3_value_with_label_B" === input.combined ||
-          "the_3_value_with_label_C" === input.combined);
+          "the_1_value_with_label_A" === input.combined ||
+          "the_1_value_with_label_B" === input.combined ||
+          "the_1_value_with_label_C" === input.combined);
       const $pp0 = (input: any) =>
         input.forEach((elem: any) => {
           if ("object" === typeof elem && null !== elem) $po1(elem);

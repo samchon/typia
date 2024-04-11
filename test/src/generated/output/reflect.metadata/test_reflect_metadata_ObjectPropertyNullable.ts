@@ -47,7 +47,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -108,7 +112,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -169,7 +177,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -230,7 +242,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -286,7 +302,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -338,7 +358,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -390,7 +414,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["grade"],
+                    values: [
+                      {
+                        value: "grade",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -442,7 +470,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["serial"],
+                    values: [
+                      {
+                        value: "serial",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -494,7 +526,11 @@ export const test_reflect_metadata_ObjectPropertyNullable =
                 constants: [
                   {
                     type: "string",
-                    values: ["activated"],
+                    values: [
+                      {
+                        value: "activated",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

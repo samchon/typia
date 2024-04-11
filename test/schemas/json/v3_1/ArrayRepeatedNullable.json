@@ -1,0 +1,31 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ArrayRepeatedNullable": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRepeatedNullable"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayRepeatedNullable"
+    }
+  ]
+}

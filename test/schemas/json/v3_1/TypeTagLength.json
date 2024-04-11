@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "TypeTagLength": {
+        "$ref": "#/components/schemas/TypeTagLength"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TypeTagLength"
+    }
+  ]
+}

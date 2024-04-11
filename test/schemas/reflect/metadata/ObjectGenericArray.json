@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "pagination"
+                    {
+                      "value": "pagination"
+                    }
                   ]
                 }
               ],
@@ -90,7 +92,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "data"
+                    {
+                      "value": "data"
+                    }
                   ]
                 }
               ],
@@ -155,7 +159,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "page"
+                    {
+                      "value": "page"
+                    }
                   ]
                 }
               ],
@@ -209,7 +215,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "limit"
+                    {
+                      "value": "limit"
+                    }
                   ]
                 }
               ],
@@ -263,7 +271,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "total_count"
+                    {
+                      "value": "total_count"
+                    }
                   ]
                 }
               ],
@@ -317,7 +327,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "total_pages"
+                    {
+                      "value": "total_pages"
+                    }
                   ]
                 }
               ],
@@ -382,7 +394,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -436,7 +450,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "age"
+                    {
+                      "value": "age"
+                    }
                   ]
                 }
               ],

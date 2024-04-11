@@ -42,7 +42,11 @@ export const test_reflect_metadata_ObjectPartialAndRequired =
                 constants: [
                   {
                     type: "string",
-                    values: ["string"],
+                    values: [
+                      {
+                        value: "string",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -94,7 +98,11 @@ export const test_reflect_metadata_ObjectPartialAndRequired =
                 constants: [
                   {
                     type: "string",
-                    values: ["number"],
+                    values: [
+                      {
+                        value: "number",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -146,7 +154,11 @@ export const test_reflect_metadata_ObjectPartialAndRequired =
                 constants: [
                   {
                     type: "string",
-                    values: ["boolean"],
+                    values: [
+                      {
+                        value: "boolean",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -198,7 +210,11 @@ export const test_reflect_metadata_ObjectPartialAndRequired =
                 constants: [
                   {
                     type: "string",
-                    values: ["object"],
+                    values: [
+                      {
+                        value: "object",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -245,7 +261,11 @@ export const test_reflect_metadata_ObjectPartialAndRequired =
                 constants: [
                   {
                     type: "string",
-                    values: ["array"],
+                    values: [
+                      {
+                        value: "array",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

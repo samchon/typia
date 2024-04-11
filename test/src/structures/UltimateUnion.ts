@@ -1,4 +1,4 @@
-import typia, { IJsonComponents } from "typia";
+import typia from "typia";
 
 import { Spoiler } from "../helpers/Spoiler";
 import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
@@ -9,14 +9,12 @@ export type UltimateUnion = typia.IJsonApplication[];
 export namespace UltimateUnion {
   export function generate(): typia.IJsonApplication[] {
     const output = [
-      typia.json.application<[ObjectUnionExplicit], "ajv">(),
-      typia.json.application<[ObjectUnionImplicit], "ajv">(),
-      typia.json.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+      typia.json.application<[ObjectUnionExplicit]>(),
+      typia.json.application<[ObjectUnionImplicit]>(),
+      typia.json.application<[ArrayRecursiveUnionExplicit]>(),
     ];
     output[0]!.schemas[0] = {
       type: "number",
-      nullable: false,
-      enum: undefined,
     };
     return output;
   }
@@ -35,7 +33,7 @@ export namespace UltimateUnion {
         );
         return entries[entries.length - 1]!;
       })();
-      (schema as IJsonComponents.IObject).properties["sdafasdfsda"] = {
+      (schema as any).properties["sdafasdfsda"] = {
         oneOf: {} as any,
       };
       return [

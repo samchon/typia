@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater"],
+                  values: [
+                    {
+                      value: "greater",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -137,6 +145,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -180,7 +191,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_equal"],
+                  values: [
+                    {
+                      value: "greater_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -213,6 +228,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -255,7 +273,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["less"],
+                  values: [
+                    {
+                      value: "less",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -288,6 +310,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -331,7 +356,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["less_equal"],
+                  values: [
+                    {
+                      value: "less_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -364,6 +393,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -406,7 +438,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_less"],
+                  values: [
+                    {
+                      value: "greater_less",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -439,6 +475,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -449,93 +488,6 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         exclusive: ["exclusiveMinimum", "minimum"],
                         schema: {
                           exclusiveMinimum: true,
-                          minimum: 3,
-                        },
-                      },
-                      {
-                        target: "number",
-                        name: "ExclusiveMaximum<7>",
-                        kind: "exclusiveMaximum",
-                        value: 7,
-                        validate: "$input < 7",
-                        exclusive: ["exclusiveMaximum", "maximum"],
-                        schema: {
-                          exclusiveMaximum: true,
-                          maximum: 7,
-                        },
-                      },
-                    ],
-                  ],
-                },
-              ],
-              constants: [],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            description: null,
-            jsDocTags: [],
-          },
-          {
-            key: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [],
-              constants: [
-                {
-                  type: "string",
-                  values: ["greater_equal_less"],
-                },
-              ],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            value: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [
-                {
-                  type: "number",
-                  tags: [
-                    [
-                      {
-                        target: "number",
-                        name: 'Type<"int32">',
-                        kind: "type",
-                        value: "int32",
-                        validate:
-                          "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        exclusive: true,
-                      },
-                      {
-                        target: "number",
-                        name: "Minimum<3>",
-                        kind: "minimum",
-                        value: 3,
-                        validate: "3 <= $input",
-                        exclusive: ["minimum", "exclusiveMinimum"],
-                        schema: {
                           minimum: 3,
                         },
                       },
@@ -581,7 +533,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_less_equal"],
+                  values: [
+                    {
+                      value: "greater_equal_less",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -614,6 +570,103 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
+                      },
+                      {
+                        target: "number",
+                        name: "Minimum<3>",
+                        kind: "minimum",
+                        value: 3,
+                        validate: "3 <= $input",
+                        exclusive: ["minimum", "exclusiveMinimum"],
+                        schema: {
+                          minimum: 3,
+                        },
+                      },
+                      {
+                        target: "number",
+                        name: "ExclusiveMaximum<7>",
+                        kind: "exclusiveMaximum",
+                        value: 7,
+                        validate: "$input < 7",
+                        exclusive: ["exclusiveMaximum", "maximum"],
+                        schema: {
+                          exclusiveMaximum: true,
+                          maximum: 7,
+                        },
+                      },
+                    ],
+                  ],
+                },
+              ],
+              constants: [],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            description: null,
+            jsDocTags: [],
+          },
+          {
+            key: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [],
+              constants: [
+                {
+                  type: "string",
+                  values: [
+                    {
+                      value: "greater_less_equal",
+                    },
+                  ],
+                },
+              ],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            value: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [
+                {
+                  type: "number",
+                  tags: [
+                    [
+                      {
+                        target: "number",
+                        name: 'Type<"int32">',
+                        kind: "type",
+                        value: "int32",
+                        validate:
+                          "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -668,7 +721,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_equal_less_equal"],
+                  values: [
+                    {
+                      value: "greater_equal_less_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -701,6 +758,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",
@@ -754,7 +814,11 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["equal"],
+                  values: [
+                    {
+                      value: "equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -787,6 +851,9 @@ export const test_reflect_metadata_TypeTagRange = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                       {
                         target: "number",

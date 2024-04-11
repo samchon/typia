@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -104,7 +106,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "fixed"
+                    {
+                      "value": "fixed"
+                    }
                   ]
                 }
               ],
@@ -193,7 +197,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "minimum"
+                    {
+                      "value": "minimum"
+                    }
                   ]
                 }
               ],
@@ -271,7 +277,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "maximum"
+                    {
+                      "value": "maximum"
+                    }
                   ]
                 }
               ],
@@ -349,7 +357,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "minimum_and_maximum"
+                    {
+                      "value": "minimum_and_maximum"
+                    }
                   ]
                 }
               ],
@@ -447,7 +457,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "equal"
+                    {
+                      "value": "equal"
+                    }
                   ]
                 }
               ],

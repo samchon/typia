@@ -40,7 +40,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
       ].join("\n");
     },
   },
-  ...["typebox", "ajv"].map((name) => ({
+  ...["typebox"].map((name) => ({
     name,
     body: (type: string) => {
       const file = `Typebox${BenchmarkProgrammer.pascal(type)}`;

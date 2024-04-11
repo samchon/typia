@@ -20,8 +20,8 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
         () => false,
         () => 1,
         () => 2,
-        () => "four",
         () => "three",
+        () => "four",
         () => $ro0(),
       ])(),
     );
@@ -41,8 +41,8 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
             (false === elem ||
               1 === elem ||
               2 === elem ||
-              "four" === elem ||
               "three" === elem ||
+              "four" === elem ||
               ("object" === typeof elem && null !== elem && $io0(elem))),
         )
       );
@@ -105,8 +105,8 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
                 (false === elem ||
                   1 === elem ||
                   2 === elem ||
-                  "four" === elem ||
                   "three" === elem ||
+                  "four" === elem ||
                   ((("object" === typeof elem && null !== elem) ||
                     $guard(
                       true,

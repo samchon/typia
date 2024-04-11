@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "something-interesting-do-you-want?"
+                    {
+                      "value": "something-interesting-do-you-want?"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "or-something-crazy-do-you-want?"
+                    {
+                      "value": "or-something-crazy-do-you-want?"
+                    }
                   ]
                 }
               ],

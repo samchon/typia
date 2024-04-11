@@ -48,7 +48,11 @@ export const test_reflect_metadata_ArraySimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ArraySimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -152,7 +160,11 @@ export const test_reflect_metadata_ArraySimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["hobbies"],
+                  values: [
+                    {
+                      value: "hobbies",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -213,7 +225,11 @@ export const test_reflect_metadata_ArraySimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -265,7 +281,11 @@ export const test_reflect_metadata_ArraySimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["body"],
+                  values: [
+                    {
+                      value: "body",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -317,7 +337,11 @@ export const test_reflect_metadata_ArraySimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["rank"],
+                  values: [
+                    {
+                      value: "rank",
+                    },
+                  ],
                 },
               ],
               templates: [],

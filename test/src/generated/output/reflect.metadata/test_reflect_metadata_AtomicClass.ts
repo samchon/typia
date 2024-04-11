@@ -70,7 +70,12 @@ export const test_reflect_metadata_AtomicClass = _test_reflect_metadata(
             constants: [
               {
                 type: "boolean",
-                values: [false],
+                values: [
+                  {
+                    value: false,
+                    tags: [],
+                  },
+                ],
               },
             ],
             templates: [],
@@ -137,7 +142,12 @@ export const test_reflect_metadata_AtomicClass = _test_reflect_metadata(
             constants: [
               {
                 type: "number",
-                values: [1],
+                values: [
+                  {
+                    value: 1,
+                    tags: [],
+                  },
+                ],
               },
             ],
             templates: [],
@@ -204,7 +214,12 @@ export const test_reflect_metadata_AtomicClass = _test_reflect_metadata(
             constants: [
               {
                 type: "string",
-                values: ["characters"],
+                values: [
+                  {
+                    value: "characters",
+                    tags: [],
+                  },
+                ],
               },
             ],
             templates: [],

@@ -43,7 +43,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["booleans"],
+                  values: [
+                    {
+                      value: "booleans",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -115,7 +119,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["numbers"],
+                  values: [
+                    {
+                      value: "numbers",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -187,7 +195,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["strings"],
+                  values: [
+                    {
+                      value: "strings",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -259,7 +271,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["arrays"],
+                  values: [
+                    {
+                      value: "arrays",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -331,7 +347,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["objects"],
+                  values: [
+                    {
+                      value: "objects",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -407,7 +427,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -459,7 +483,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -511,7 +539,11 @@ export const test_reflect_metadata_SetSimple = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["age"],
+                  values: [
+                    {
+                      value: "age",
+                    },
+                  ],
                 },
               ],
               templates: [],

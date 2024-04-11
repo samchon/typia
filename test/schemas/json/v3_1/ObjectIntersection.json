@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectIntersection": {
+        "$ref": "#/components/schemas/ObjectIntersection"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectIntersection"
+    }
+  ]
+}

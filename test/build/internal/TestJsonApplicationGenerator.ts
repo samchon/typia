@@ -11,17 +11,15 @@ export namespace TestJsonApplicationGenerator {
     if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
     await fs.promises.mkdir(location);
 
-    for (const purpose of ["ajv", "swagger"] as const)
-      for (const surplus of [true, false])
-        await application(structures, purpose, surplus);
+    for (const version of ["3.0", "3.1"] as const)
+      await application(structures, version);
   }
 
   async function application(
     structures: TestStructure<any>[],
-    purpose: "ajv" | "swagger",
-    surplus: boolean,
+    version: "3.0" | "3.1",
   ): Promise<void> {
-    const title: string = `${purpose}_${surplus ? "surplus" : "standard"}`;
+    const title: string = `v${version.replace(".", "_")}`;
     const path: string = `${__dirname}/../../src/features/json.application/${title}`;
     await fs.promises.mkdir(path);
 
@@ -34,12 +32,10 @@ export namespace TestJsonApplicationGenerator {
         `import { _test_json_application } from "../../../internal/_test_json_application";`,
         "",
         `export const test_json_application_${title}_${s.name} = `,
-        `  _test_json_application({ purpose: "${purpose}",`,
-        `    surplus: ${surplus},`,
+        `  _test_json_application({`,
+        `    version: "${version}",`,
         `    name: "${s.name}", `,
-        `  })(`,
-        `    typia.json.application<[${s.name}], "${purpose}", ${surplus}>(),`,
-        `  );`,
+        `  })(typia.json.application<[${s.name}], "${version}">());`,
       ];
       await fs.promises.writeFile(
         `${__dirname}/../../src/features/json.application/${title}/test_json_application_${title}_${s.name}.ts`,
@@ -53,19 +49,17 @@ export namespace TestJsonApplicationGenerator {
     const location: string = `${__dirname}/../../schemas/json`;
     await mkdir(location);
 
-    for (const purpose of ["ajv", "swagger"] as const)
-      for (const surplus of [true, false]) await iterate(purpose, surplus);
+    for (const version of ["3.0", "3.1"] as const) await iterate(version);
   }
 
   function getSchema(content: string): object {
-    const first: number = content.indexOf("schemas: [");
+    const first: number = content.lastIndexOf("})({") + 4;
     const last: number = content.lastIndexOf("}");
-
     return new Function("return {" + content.substring(first, last) + "}")();
   }
 
-  async function iterate(purpose: "ajv" | "swagger", surplus: boolean) {
-    const title: string = `${purpose}_${surplus ? "surplus" : "standard"}`;
+  async function iterate(version: "3.0" | "3.1") {
+    const title: string = `v${version.replace(".", "_")}`;
     const path: string = `${__dirname}/../../src/features/json.application/${title}`;
     const schemaPath: string = `${__dirname}/../../schemas/json/${title}`;
     await mkdir(schemaPath);

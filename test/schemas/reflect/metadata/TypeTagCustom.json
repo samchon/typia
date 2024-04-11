@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -110,7 +112,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "dollar"
+                    {
+                      "value": "dollar"
+                    }
                   ]
                 }
               ],
@@ -178,7 +182,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "postfix"
+                    {
+                      "value": "postfix"
+                    }
                   ]
                 }
               ],
@@ -246,7 +252,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "powerOf"
+                    {
+                      "value": "powerOf"
+                    }
                   ]
                 }
               ],

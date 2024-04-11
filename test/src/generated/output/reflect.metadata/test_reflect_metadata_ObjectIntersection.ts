@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectIntersection = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["email"],
+                  values: [
+                    {
+                      value: "email",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectIntersection = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ObjectIntersection = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["vulnerable"],
+                  values: [
+                    {
+                      value: "vulnerable",
+                    },
+                  ],
                 },
               ],
               templates: [],

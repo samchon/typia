@@ -98,7 +98,7 @@ export const test_protobuf_createEncode_TypeTagDefault = _test_protobuf_encode(
         } else
           $throws({
             expected:
-              "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+              "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
             value: input.boolean_and_number_and_template,
           });
       };

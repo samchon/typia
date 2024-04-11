@@ -1,0 +1,16 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "PartialObjectPartial.IBase": {
+        "$ref": "#/components/schemas/PartialObjectPartial.IBase",
+        "description": "Make all properties in T optional"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+    }
+  ]
+}

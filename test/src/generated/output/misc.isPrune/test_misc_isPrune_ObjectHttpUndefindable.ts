@@ -26,9 +26,9 @@ export const test_misc_isPrune_ObjectHttpUndefindable = _test_misc_isPrune(
           2 === input.constantNumber ||
           3 === input.constantNumber) &&
         (undefined === input.constantString ||
-          "one" === input.constantString ||
           "three" === input.constantString ||
-          "two" === input.constantString);
+          "two" === input.constantString ||
+          "one" === input.constantString);
       return (
         "object" === typeof input &&
         null !== input &&

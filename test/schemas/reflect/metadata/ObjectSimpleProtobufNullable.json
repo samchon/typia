@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bool"
+                    {
+                      "value": "bool"
+                    }
                   ]
                 }
               ],
@@ -93,7 +95,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int32"
+                    {
+                      "value": "int32"
+                    }
                   ]
                 }
               ],
@@ -125,7 +129,10 @@
                         "kind": "type",
                         "value": "int32",
                         "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -158,7 +165,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint32"
+                    {
+                      "value": "uint32"
+                    }
                   ]
                 }
               ],
@@ -190,7 +199,10 @@
                         "kind": "type",
                         "value": "uint32",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -223,7 +235,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "int64"
+                    {
+                      "value": "int64"
+                    }
                   ]
                 }
               ],
@@ -277,7 +291,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uint64"
+                    {
+                      "value": "uint64"
+                    }
                   ]
                 }
               ],
@@ -342,7 +358,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "float"
+                    {
+                      "value": "float"
+                    }
                   ]
                 }
               ],
@@ -374,7 +392,10 @@
                         "kind": "type",
                         "value": "float",
                         "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ]
                   ]
@@ -407,7 +428,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "double"
+                    {
+                      "value": "double"
+                    }
                   ]
                 }
               ],
@@ -439,7 +462,10 @@
                         "kind": "type",
                         "value": "double",
                         "validate": "true",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "number"
+                        }
                       }
                     ]
                   ]
@@ -472,7 +498,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "string"
+                    {
+                      "value": "string"
+                    }
                   ]
                 }
               ],
@@ -526,7 +554,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "bytes"
+                    {
+                      "value": "bytes"
+                    }
                   ]
                 }
               ],

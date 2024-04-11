@@ -25,8 +25,8 @@ export const test_functional_validateEqualsReturnAsync_ObjectAlias =
               (null === input.sex ||
                 1 === input.sex ||
                 2 === input.sex ||
-                "female" === input.sex ||
-                "male" === input.sex) &&
+                "male" === input.sex ||
+                "female" === input.sex) &&
               (null === input.age ||
                 ("number" === typeof input.age &&
                   Number.isFinite(input.age))) &&
@@ -89,8 +89,8 @@ export const test_functional_validateEqualsReturnAsync_ObjectAlias =
                   null === input.sex ||
                     1 === input.sex ||
                     2 === input.sex ||
-                    "female" === input.sex ||
                     "male" === input.sex ||
+                    "female" === input.sex ||
                     $report(_exceptionable, {
                       path: _path + ".sex",
                       expected: '("female" | "male" | 1 | 2 | null)',

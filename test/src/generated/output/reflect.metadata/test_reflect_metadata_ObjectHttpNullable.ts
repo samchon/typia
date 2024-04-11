@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean"],
+                  values: [
+                    {
+                      value: "boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bigint"],
+                  values: [
+                    {
+                      value: "bigint",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["number"],
+                  values: [
+                    {
+                      value: "number",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -213,7 +225,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["string"],
+                  values: [
+                    {
+                      value: "string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -265,7 +281,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["constantBoolean"],
+                  values: [
+                    {
+                      value: "constantBoolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -289,7 +309,12 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "boolean",
-                  values: [true],
+                  values: [
+                    {
+                      value: true,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -317,7 +342,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["constantBigint"],
+                  values: [
+                    {
+                      value: "constantBigint",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -341,7 +370,20 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "bigint",
-                  values: ["1", "2", "3"],
+                  values: [
+                    {
+                      value: "1",
+                      tags: [],
+                    },
+                    {
+                      value: "2",
+                      tags: [],
+                    },
+                    {
+                      value: "3",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -369,7 +411,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["constantNumber"],
+                  values: [
+                    {
+                      value: "constantNumber",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -393,7 +439,20 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "number",
-                  values: [1, 2, 3],
+                  values: [
+                    {
+                      value: 1,
+                      tags: [],
+                    },
+                    {
+                      value: 2,
+                      tags: [],
+                    },
+                    {
+                      value: 3,
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -421,7 +480,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["constantString"],
+                  values: [
+                    {
+                      value: "constantString",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -445,7 +508,20 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["one", "three", "two"],
+                  values: [
+                    {
+                      value: "three",
+                      tags: [],
+                    },
+                    {
+                      value: "two",
+                      tags: [],
+                    },
+                    {
+                      value: "one",
+                      tags: [],
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -473,7 +549,11 @@ export const test_reflect_metadata_ObjectHttpNullable = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["nullableArray"],
+                  values: [
+                    {
+                      value: "nullableArray",
+                    },
+                  ],
                 },
               ],
               templates: [],

@@ -34,9 +34,9 @@ export const test_functional_assertEqualsFunctionCustom_ObjectPrimitive =
               _exceptionable: boolean = true,
             ): boolean =>
               "string" === typeof input.id &&
-              ("html" === input.extension ||
+              ("txt" === input.extension ||
                 "md" === input.extension ||
-                "txt" === input.extension) &&
+                "html" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&
@@ -115,9 +115,9 @@ export const test_functional_assertEqualsFunctionCustom_ObjectPrimitive =
                     },
                     errorFactory,
                   )) &&
-                ("html" === input.extension ||
+                ("txt" === input.extension ||
                   "md" === input.extension ||
-                  "txt" === input.extension ||
+                  "html" === input.extension ||
                   $guard(
                     _exceptionable,
                     {
@@ -362,9 +362,9 @@ export const test_functional_assertEqualsFunctionCustom_ObjectPrimitive =
               _exceptionable: boolean = true,
             ): boolean =>
               "string" === typeof input.id &&
-              ("html" === input.extension ||
+              ("txt" === input.extension ||
                 "md" === input.extension ||
-                "txt" === input.extension) &&
+                "html" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&
@@ -443,9 +443,9 @@ export const test_functional_assertEqualsFunctionCustom_ObjectPrimitive =
                     },
                     errorFactory,
                   )) &&
-                ("html" === input.extension ||
+                ("txt" === input.extension ||
                   "md" === input.extension ||
-                  "txt" === input.extension ||
+                  "html" === input.extension ||
                   $guard(
                     _exceptionable,
                     {

@@ -124,14 +124,14 @@ export const test_json_validateStringify_TypeTagDefault =
                   $report(_exceptionable, {
                     path: _path + ".boolean_and_number_and_template",
                     expected:
-                      "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                      "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                     value: input.boolean_and_number_and_template,
                   })) &&
                   (undefined !== input.boolean_and_number_and_template ||
                     $report(_exceptionable, {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     })) &&
                   (("number" === typeof input.boolean_and_number_and_template &&
@@ -146,7 +146,7 @@ export const test_json_validateStringify_TypeTagDefault =
                     $report(_exceptionable, {
                       path: _path + ".boolean_and_number_and_template",
                       expected:
-                        "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                        "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
                       value: input.boolean_and_number_and_template,
                     })),
               ].every((flag: boolean) => flag);
@@ -232,7 +232,7 @@ export const test_json_validateStringify_TypeTagDefault =
               return input.boolean_and_number_and_template;
             $throws({
               expected:
-                "((boolean & Default<false>) | (number & Default<2>) | `prefix_${string}`)",
+                "((boolean & Default<false>) | (number & Default<2>) | `[object Object]${string}`)",
               value: input.boolean_and_number_and_template,
             });
           })()}}`;

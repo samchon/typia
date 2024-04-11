@@ -48,7 +48,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["mobile"],
+                  values: [
+                    {
+                      value: "mobile",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -152,7 +160,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -213,7 +225,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -269,7 +285,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -325,7 +345,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["toJSON"],
+                  values: [
+                    {
+                      value: "toJSON",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -381,7 +405,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["manufacturer"],
+                  values: [
+                    {
+                      value: "manufacturer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -433,7 +461,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["brand"],
+                  values: [
+                    {
+                      value: "brand",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -485,7 +517,11 @@ export const test_reflect_metadata_ToJsonUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],

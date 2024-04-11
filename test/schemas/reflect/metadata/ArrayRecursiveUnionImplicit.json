@@ -42,7 +42,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -96,7 +98,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -150,7 +154,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "path"
+                    {
+                      "value": "path"
+                    }
                   ]
                 }
               ],
@@ -204,7 +210,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "children"
+                    {
+                      "value": "children"
+                    }
                   ]
                 }
               ],
@@ -269,7 +277,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "access"
+                    {
+                      "value": "access"
+                    }
                   ]
                 }
               ],
@@ -295,8 +305,14 @@
                 {
                   "type": "string",
                   "values": [
-                    "read",
-                    "write"
+                    {
+                      "value": "read",
+                      "tags": []
+                    },
+                    {
+                      "value": "write",
+                      "tags": []
+                    }
                   ]
                 }
               ],
@@ -326,7 +342,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -380,7 +398,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -434,7 +454,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "path"
+                    {
+                      "value": "path"
+                    }
                   ]
                 }
               ],
@@ -488,7 +510,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "children"
+                    {
+                      "value": "children"
+                    }
                   ]
                 }
               ],
@@ -553,7 +577,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -607,7 +633,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -661,7 +689,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "path"
+                    {
+                      "value": "path"
+                    }
                   ]
                 }
               ],
@@ -715,61 +745,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "width"
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    "height"
+                    {
+                      "value": "width"
+                    }
                   ]
                 }
               ],
@@ -823,7 +801,65 @@
                 {
                   "type": "string",
                   "values": [
-                    "url"
+                    {
+                      "value": "height"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "url"
+                    }
                   ]
                 }
               ],
@@ -877,7 +913,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "size"
+                    {
+                      "value": "size"
+                    }
                   ]
                 }
               ],
@@ -942,7 +980,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -996,7 +1036,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -1050,7 +1092,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "path"
+                    {
+                      "value": "path"
+                    }
                   ]
                 }
               ],
@@ -1104,7 +1148,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "size"
+                    {
+                      "value": "size"
+                    }
                   ]
                 }
               ],
@@ -1158,7 +1204,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "content"
+                    {
+                      "value": "content"
+                    }
                   ]
                 }
               ],
@@ -1223,7 +1271,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -1277,7 +1327,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -1331,7 +1383,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "path"
+                    {
+                      "value": "path"
+                    }
                   ]
                 }
               ],
@@ -1385,7 +1439,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "size"
+                    {
+                      "value": "size"
+                    }
                   ]
                 }
               ],
@@ -1439,7 +1495,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "count"
+                    {
+                      "value": "count"
+                    }
                   ]
                 }
               ],
@@ -1504,7 +1562,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -1558,7 +1618,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "name"
+                    {
+                      "value": "name"
+                    }
                   ]
                 }
               ],
@@ -1612,7 +1674,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "path"
+                    {
+                      "value": "path"
+                    }
                   ]
                 }
               ],
@@ -1666,7 +1730,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "target"
+                    {
+                      "value": "target"
+                    }
                   ]
                 }
               ],

@@ -19,8 +19,8 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
         (null === input.sex ||
           1 === input.sex ||
           2 === input.sex ||
-          "female" === input.sex ||
-          "male" === input.sex) &&
+          "male" === input.sex ||
+          "female" === input.sex) &&
         (null === input.age ||
           ("number" === typeof input.age && Number.isFinite(input.age))) &&
         (null === input.dead || "boolean" === typeof input.dead) &&
@@ -80,8 +80,8 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
             null === input.sex ||
               1 === input.sex ||
               2 === input.sex ||
-              "female" === input.sex ||
               "male" === input.sex ||
+              "female" === input.sex ||
               $report(_exceptionable, {
                 path: _path + ".sex",
                 expected: '("female" | "male" | 1 | 2 | null)',

@@ -43,7 +43,11 @@ export const test_reflect_metadata_DynamicTree = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_DynamicTree = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sequence"],
+                  values: [
+                    {
+                      value: "sequence",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_DynamicTree = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["children"],
+                  values: [
+                    {
+                      value: "children",
+                    },
+                  ],
                 },
               ],
               templates: [],

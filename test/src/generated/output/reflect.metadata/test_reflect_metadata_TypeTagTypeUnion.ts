@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32_or_uint32"],
+                  values: [
+                    {
+                      value: "int32_or_uint32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -76,6 +80,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -87,6 +94,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -118,7 +128,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32_or_int64"],
+                  values: [
+                    {
+                      value: "int32_or_int64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -151,6 +165,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -162,6 +179,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -193,7 +213,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32_or_uint64"],
+                  values: [
+                    {
+                      value: "int32_or_uint64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -226,6 +250,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -237,6 +264,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -268,7 +298,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32_or_float"],
+                  values: [
+                    {
+                      value: "int32_or_float",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -301,6 +335,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -312,6 +349,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "-1.175494351e38 <= $input && $input <= 3.4028235e38",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                   ],
@@ -343,7 +383,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32_or_double"],
+                  values: [
+                    {
+                      value: "int32_or_double",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -376,6 +420,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -386,6 +433,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         value: "double",
                         validate: "true",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                   ],
@@ -417,7 +467,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int64_or_uint64"],
+                  values: [
+                    {
+                      value: "int64_or_uint64",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -450,6 +504,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -461,6 +518,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -492,7 +552,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int64_or_float"],
+                  values: [
+                    {
+                      value: "int64_or_float",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -525,6 +589,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "-1.175494351e38 <= $input && $input <= 3.4028235e38",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                     [
@@ -536,6 +603,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -567,7 +637,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int64_or_double"],
+                  values: [
+                    {
+                      value: "int64_or_double",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -599,6 +673,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         value: "double",
                         validate: "true",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                     [
@@ -610,6 +687,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],
@@ -641,7 +721,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["float_or_double"],
+                  values: [
+                    {
+                      value: "float_or_double",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -674,6 +758,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "-1.175494351e38 <= $input && $input <= 3.4028235e38",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                     [
@@ -684,6 +771,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         value: "double",
                         validate: "true",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                   ],
@@ -715,7 +805,11 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["everything"],
+                  values: [
+                    {
+                      value: "everything",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -748,6 +842,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -759,6 +856,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -770,6 +870,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "-1.175494351e38 <= $input && $input <= 3.4028235e38",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                     [
@@ -780,6 +883,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         value: "double",
                         validate: "true",
                         exclusive: true,
+                        schema: {
+                          type: "number",
+                        },
                       },
                     ],
                     [
@@ -791,6 +897,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                     [
@@ -802,6 +911,9 @@ export const test_reflect_metadata_TypeTagTypeUnion = _test_reflect_metadata(
                         validate:
                           "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
                         exclusive: true,
+                        schema: {
+                          type: "integer",
+                        },
                       },
                     ],
                   ],

@@ -43,7 +43,11 @@ export const test_reflect_metadata_ObjectHttpAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean"],
+                  values: [
+                    {
+                      value: "boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -95,7 +99,11 @@ export const test_reflect_metadata_ObjectHttpAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bigint"],
+                  values: [
+                    {
+                      value: "bigint",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -147,7 +155,11 @@ export const test_reflect_metadata_ObjectHttpAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["number"],
+                  values: [
+                    {
+                      value: "number",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -199,7 +211,11 @@ export const test_reflect_metadata_ObjectHttpAtomic = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["string"],
+                  values: [
+                    {
+                      value: "string",
+                    },
+                  ],
                 },
               ],
               templates: [],

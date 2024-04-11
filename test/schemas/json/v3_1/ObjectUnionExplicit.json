@@ -1,0 +1,61 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectUnionExplicit": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle"
+            }
+          ]
+        }
+      },
+      "ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint"
+      },
+      "ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine"
+      },
+      "ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle"
+      },
+      "ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle"
+      },
+      "ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline"
+      },
+      "ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon"
+      },
+      "ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle": {
+        "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectUnionExplicit"
+    }
+  ]
+}

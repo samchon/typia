@@ -43,7 +43,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["value"],
+                  values: [
+                    {
+                      value: "value",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -104,7 +108,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater"],
+                  values: [
+                    {
+                      value: "greater",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -170,7 +178,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_equal"],
+                  values: [
+                    {
+                      value: "greater_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -236,7 +248,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["less"],
+                  values: [
+                    {
+                      value: "less",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -302,7 +318,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["less_equal"],
+                  values: [
+                    {
+                      value: "less_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -368,7 +388,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_less"],
+                  values: [
+                    {
+                      value: "greater_less",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -445,7 +469,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_equal_less"],
+                  values: [
+                    {
+                      value: "greater_equal_less",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -522,7 +550,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_less_equal"],
+                  values: [
+                    {
+                      value: "greater_less_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -599,7 +631,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["greater_equal_less_equal"],
+                  values: [
+                    {
+                      value: "greater_equal_less_equal",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -676,7 +712,11 @@ export const test_reflect_metadata_TypeTagRangeBigInt = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["equal"],
+                  values: [
+                    {
+                      value: "equal",
+                    },
+                  ],
                 },
               ],
               templates: [],

@@ -48,7 +48,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["x"],
+                  values: [
+                    {
+                      value: "x",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["y"],
+                  values: [
+                    {
+                      value: "y",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -152,7 +160,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["slope"],
+                  values: [
+                    {
+                      value: "slope",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -213,7 +225,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p1"],
+                  values: [
+                    {
+                      value: "p1",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -260,7 +276,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p2"],
+                  values: [
+                    {
+                      value: "p2",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -307,7 +327,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["width"],
+                  values: [
+                    {
+                      value: "width",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -359,7 +383,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["distance"],
+                  values: [
+                    {
+                      value: "distance",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -420,7 +448,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p1"],
+                  values: [
+                    {
+                      value: "p1",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -467,7 +499,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p2"],
+                  values: [
+                    {
+                      value: "p2",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -514,7 +550,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p3"],
+                  values: [
+                    {
+                      value: "p3",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -561,7 +601,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["width"],
+                  values: [
+                    {
+                      value: "width",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -613,7 +657,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["height"],
+                  values: [
+                    {
+                      value: "height",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -665,7 +713,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["area"],
+                  values: [
+                    {
+                      value: "area",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -726,7 +778,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p1"],
+                  values: [
+                    {
+                      value: "p1",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -773,7 +829,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p2"],
+                  values: [
+                    {
+                      value: "p2",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -820,7 +880,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p3"],
+                  values: [
+                    {
+                      value: "p3",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -867,7 +931,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["p4"],
+                  values: [
+                    {
+                      value: "p4",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -914,7 +982,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["width"],
+                  values: [
+                    {
+                      value: "width",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -966,7 +1038,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["height"],
+                  values: [
+                    {
+                      value: "height",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1018,7 +1094,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["area"],
+                  values: [
+                    {
+                      value: "area",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1079,7 +1159,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["points"],
+                  values: [
+                    {
+                      value: "points",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1131,7 +1215,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["length"],
+                  values: [
+                    {
+                      value: "length",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1192,7 +1280,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["outer"],
+                  values: [
+                    {
+                      value: "outer",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1239,7 +1331,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["inner"],
+                  values: [
+                    {
+                      value: "inner",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1291,7 +1387,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["area"],
+                  values: [
+                    {
+                      value: "area",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1352,7 +1452,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["radius"],
+                  values: [
+                    {
+                      value: "radius",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1404,7 +1508,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["centroid"],
+                  values: [
+                    {
+                      value: "centroid",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -1451,7 +1559,11 @@ export const test_reflect_metadata_ObjectUnionImplicit = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["area"],
+                  values: [
+                    {
+                      value: "area",
+                    },
+                  ],
                 },
               ],
               templates: [],

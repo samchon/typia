@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "matrix"
+                    {
+                      "value": "matrix"
+                    }
                   ]
                 }
               ],

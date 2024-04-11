@@ -1,0 +1,185 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectUnionDouble": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ObjectUnionDouble.Union"
+        }
+      },
+      "ObjectUnionDouble.Union": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ObjectUnionDouble.IA"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionDouble.IB"
+          }
+        ]
+      },
+      "ObjectUnionDouble.IA": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type"
+          },
+          "child": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ObjectUnionDouble.IAB"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectUnionDouble.IAA"
+              }
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "child"
+        ]
+      },
+      "__type": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "x"
+        ]
+      },
+      "ObjectUnionDouble.IAB": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type.o2"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "__type.o2": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "y"
+        ]
+      },
+      "ObjectUnionDouble.IAA": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type.o1"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "__type.o1": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "y"
+        ]
+      },
+      "ObjectUnionDouble.IB": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type.o3"
+          },
+          "child": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ObjectUnionDouble.IBB"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectUnionDouble.IBA"
+              }
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "child"
+        ]
+      },
+      "__type.o3": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "x"
+        ]
+      },
+      "ObjectUnionDouble.IBB": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type.o5"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "__type.o5": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "y"
+        ]
+      },
+      "ObjectUnionDouble.IBA": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type.o4"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "__type.o4": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "y"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectUnionDouble"
+    }
+  ]
+}

@@ -43,7 +43,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["boolean"],
+                  values: [
+                    {
+                      value: "boolean",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -141,7 +145,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["int32"],
+                  values: [
+                    {
+                      value: "int32",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -217,6 +225,9 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
                               validate:
                                 "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                               exclusive: true,
+                              schema: {
+                                type: "integer",
+                              },
                             },
                           ],
                         ],
@@ -251,7 +262,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bigint"],
+                  values: [
+                    {
+                      value: "bigint",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -349,7 +364,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["double"],
+                  values: [
+                    {
+                      value: "double",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -447,7 +466,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["string"],
+                  values: [
+                    {
+                      value: "string",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -559,7 +582,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["bytes"],
+                  values: [
+                    {
+                      value: "bytes",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -652,7 +679,11 @@ export const test_reflect_metadata_MapSimpleProtobuf = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["objects"],
+                  values: [
+                    {
+                      value: "objects",
+                    },
+                  ],
                 },
               ],
               templates: [],

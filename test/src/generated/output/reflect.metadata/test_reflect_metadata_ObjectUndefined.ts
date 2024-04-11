@@ -48,7 +48,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["professor"],
+                  values: [
+                    {
+                      value: "professor",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -156,7 +164,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["classroom"],
+                  values: [
+                    {
+                      value: "classroom",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -203,7 +215,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["grade"],
+                  values: [
+                    {
+                      value: "grade",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -255,7 +271,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["nothing"],
+                  values: [
+                    {
+                      value: "nothing",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -302,7 +322,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["unknown"],
+                  values: [
+                    {
+                      value: "unknown",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -349,7 +373,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["never"],
+                  values: [
+                    {
+                      value: "never",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -405,7 +433,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -457,7 +489,11 @@ export const test_reflect_metadata_ObjectUndefined = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],

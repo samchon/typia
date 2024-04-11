@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "id"
+                    {
+                      "value": "id"
+                    }
                   ]
                 }
               ],
@@ -110,7 +112,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "number"
+                    {
+                      "value": "number"
+                    }
                   ]
                 }
               ],
@@ -164,7 +168,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "integers"
+                    {
+                      "value": "integers"
+                    }
                   ]
                 }
               ],
@@ -218,7 +224,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "blob"
+                    {
+                      "value": "blob"
+                    }
                   ]
                 }
               ],
@@ -269,7 +277,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "blobs"
+                    {
+                      "value": "blobs"
+                    }
                   ]
                 }
               ],
@@ -323,7 +333,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "file"
+                    {
+                      "value": "file"
+                    }
                   ]
                 }
               ],
@@ -374,7 +386,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "files"
+                    {
+                      "value": "files"
+                    }
                   ]
                 }
               ],
@@ -446,7 +460,10 @@
                     "kind": "type",
                     "value": "int32",
                     "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "type": "integer"
+                    }
                   }
                 ]
               ]

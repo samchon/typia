@@ -12,9 +12,9 @@ export const test_functional_isFunction_ObjectPrimitive =
           ((input: any): input is ObjectPrimitive.IArticle => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
-              ("html" === input.extension ||
+              ("txt" === input.extension ||
                 "md" === input.extension ||
-                "txt" === input.extension) &&
+                "html" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&
@@ -38,9 +38,9 @@ export const test_functional_isFunction_ObjectPrimitive =
         return ((input: any): input is ObjectPrimitive.IArticle => {
           const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
-            ("html" === input.extension ||
+            ("txt" === input.extension ||
               "md" === input.extension ||
-              "txt" === input.extension) &&
+              "html" === input.extension) &&
             "string" === typeof input.title &&
             "string" === typeof input.body &&
             Array.isArray(input.files) &&

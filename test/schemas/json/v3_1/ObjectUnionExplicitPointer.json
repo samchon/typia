@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectUnionExplicitPointer": {
+        "$ref": "#/components/schemas/ObjectUnionExplicitPointer"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectUnionExplicitPointer"
+    }
+  ]
+}

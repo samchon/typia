@@ -49,7 +49,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "prefix_"
+                          {
+                            "value": "prefix_"
+                          }
                         ]
                       }
                     ],
@@ -173,7 +175,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "_postfix"
+                          {
+                            "value": "_postfix"
+                          }
                         ]
                       }
                     ],
@@ -249,7 +253,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "value_"
+                          {
+                            "value": "value_"
+                          }
                         ]
                       }
                     ],
@@ -349,7 +355,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "between_"
+                          {
+                            "value": "between_"
+                          }
                         ]
                       }
                     ],
@@ -399,7 +407,9 @@
                       {
                         "type": "string",
                         "values": [
-                          "_and_"
+                          {
+                            "value": "_and_"
+                          }
                         ]
                       }
                     ],

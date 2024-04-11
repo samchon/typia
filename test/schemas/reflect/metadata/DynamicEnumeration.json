@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "value"
+                    {
+                      "value": "value"
+                    }
                   ]
                 }
               ],
@@ -101,7 +103,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ar"
+                    {
+                      "value": "ar"
+                    }
                   ]
                 }
               ],
@@ -155,7 +159,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "zh-Hans"
+                    {
+                      "value": "zh-Hans"
+                    }
                   ]
                 }
               ],
@@ -209,7 +215,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "zh-Hant"
+                    {
+                      "value": "zh-Hant"
+                    }
                   ]
                 }
               ],
@@ -263,7 +271,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "en"
+                    {
+                      "value": "en"
+                    }
                   ]
                 }
               ],
@@ -317,7 +327,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "fr"
+                    {
+                      "value": "fr"
+                    }
                   ]
                 }
               ],
@@ -371,7 +383,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "de"
+                    {
+                      "value": "de"
+                    }
                   ]
                 }
               ],
@@ -425,7 +439,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ja"
+                    {
+                      "value": "ja"
+                    }
                   ]
                 }
               ],
@@ -479,7 +495,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ko"
+                    {
+                      "value": "ko"
+                    }
                   ]
                 }
               ],
@@ -533,7 +551,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "pt"
+                    {
+                      "value": "pt"
+                    }
                   ]
                 }
               ],
@@ -587,7 +607,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ru"
+                    {
+                      "value": "ru"
+                    }
                   ]
                 }
               ],

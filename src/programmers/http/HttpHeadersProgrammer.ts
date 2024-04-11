@@ -186,7 +186,9 @@ export namespace HttpHeadersProgrammer {
                 !prop.value.isRequired() &&
                 prop.value.arrays.length + prop.value.tuples.length > 0
               )
-                optionals.push(prop.key.constants[0]!.values[0] as string);
+                optionals.push(
+                  prop.key.constants[0]!.values[0]!.value as string,
+                );
               return decode_regular_property(importer)(prop);
             }),
             true,
@@ -213,7 +215,7 @@ export namespace HttpHeadersProgrammer {
   const decode_regular_property =
     (importer: FunctionImporter) =>
     (property: MetadataProperty): ts.PropertyAssignment => {
-      const key: string = property.key.constants[0]!.values[0] as string;
+      const key: string = property.key.constants[0]!.values[0]!.value as string;
       const value: Metadata = property.value;
 
       const [type, isArray]: [Atomic.Literal, boolean] = value.atomics.length

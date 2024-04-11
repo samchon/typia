@@ -42,7 +42,11 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                 constants: [
                   {
                     type: "string",
-                    values: ["int"],
+                    values: [
+                      {
+                        value: "int",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -116,7 +120,11 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                 constants: [
                   {
                     type: "string",
-                    values: ["uint64"],
+                    values: [
+                      {
+                        value: "uint64",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -189,7 +197,11 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                 constants: [
                   {
                     type: "string",
-                    values: ["uuid"],
+                    values: [
+                      {
+                        value: "uuid",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -266,7 +278,11 @@ export const test_reflect_metadata_ObjectHttpCommentTag =
                 constants: [
                   {
                     type: "string",
-                    values: ["items"],
+                    values: [
+                      {
+                        value: "items",
+                      },
+                    ],
                   },
                 ],
                 templates: [],

@@ -39,7 +39,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "uuid"
+                    {
+                      "value": "uuid"
+                    }
                   ]
                 }
               ],
@@ -119,7 +121,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "email"
+                    {
+                      "value": "email"
+                    }
                   ]
                 }
               ],
@@ -199,7 +203,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ipv4"
+                    {
+                      "value": "ipv4"
+                    }
                   ]
                 }
               ],
@@ -279,7 +285,9 @@
                 {
                   "type": "string",
                   "values": [
-                    "ipv6"
+                    {
+                      "value": "ipv6"
+                    }
                   ]
                 }
               ],

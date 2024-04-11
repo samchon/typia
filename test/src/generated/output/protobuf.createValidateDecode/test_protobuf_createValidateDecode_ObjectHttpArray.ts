@@ -148,7 +148,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpArray =
                           RegExp(/^something_(.*)/).test(elem)) ||
                         $report(_exceptionable, {
                           path: _path + ".templates[" + _index5 + "]",
-                          expected: "`something_${string}`",
+                          expected: "`[object Object]${string}`",
                           value: elem,
                         }),
                     )
@@ -227,7 +227,7 @@ export const test_protobuf_createValidateDecode_ObjectHttpArray =
                 output.strings.push(reader.string());
                 break;
               case 5:
-                // type: Array<`something_${string}`>;
+                // type: Array<`[object Object]${string}`>;
                 output.templates.push(reader.string());
                 break;
               default:

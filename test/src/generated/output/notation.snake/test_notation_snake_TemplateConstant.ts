@@ -22,18 +22,18 @@ export const test_notation_validateSnake_TemplateConstant =
               ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||
                 "prefix_C" === input.prefix) &&
-              ("1_postfix" === input.postfix ||
+              ("3_postfix" === input.postfix ||
                 "2_postfix" === input.postfix ||
-                "3_postfix" === input.postfix) &&
-              ("the_1_value_with_label_A" === input.combined ||
-                "the_1_value_with_label_B" === input.combined ||
-                "the_1_value_with_label_C" === input.combined ||
+                "1_postfix" === input.postfix) &&
+              ("the_3_value_with_label_A" === input.combined ||
+                "the_3_value_with_label_B" === input.combined ||
+                "the_3_value_with_label_C" === input.combined ||
                 "the_2_value_with_label_A" === input.combined ||
                 "the_2_value_with_label_B" === input.combined ||
                 "the_2_value_with_label_C" === input.combined ||
-                "the_3_value_with_label_A" === input.combined ||
-                "the_3_value_with_label_B" === input.combined ||
-                "the_3_value_with_label_C" === input.combined);
+                "the_1_value_with_label_A" === input.combined ||
+                "the_1_value_with_label_B" === input.combined ||
+                "the_1_value_with_label_C" === input.combined);
             return "object" === typeof input && null !== input && $io0(input);
           };
           if (false === __is(input)) {
@@ -98,23 +98,23 @@ export const test_notation_validateSnake_TemplateConstant =
                       expected: '("prefix_A" | "prefix_B" | "prefix_C")',
                       value: input.prefix,
                     }),
-                  "1_postfix" === input.postfix ||
+                  "3_postfix" === input.postfix ||
                     "2_postfix" === input.postfix ||
-                    "3_postfix" === input.postfix ||
+                    "1_postfix" === input.postfix ||
                     $report(_exceptionable, {
                       path: _path + ".postfix",
                       expected: '("1_postfix" | "2_postfix" | "3_postfix")',
                       value: input.postfix,
                     }),
-                  "the_1_value_with_label_A" === input.combined ||
-                    "the_1_value_with_label_B" === input.combined ||
-                    "the_1_value_with_label_C" === input.combined ||
+                  "the_3_value_with_label_A" === input.combined ||
+                    "the_3_value_with_label_B" === input.combined ||
+                    "the_3_value_with_label_C" === input.combined ||
                     "the_2_value_with_label_A" === input.combined ||
                     "the_2_value_with_label_B" === input.combined ||
                     "the_2_value_with_label_C" === input.combined ||
-                    "the_3_value_with_label_A" === input.combined ||
-                    "the_3_value_with_label_B" === input.combined ||
-                    "the_3_value_with_label_C" === input.combined ||
+                    "the_1_value_with_label_A" === input.combined ||
+                    "the_1_value_with_label_B" === input.combined ||
+                    "the_1_value_with_label_C" === input.combined ||
                     $report(_exceptionable, {
                       path: _path + ".combined",
                       expected:
@@ -152,18 +152,18 @@ export const test_notation_validateSnake_TemplateConstant =
             ("prefix_A" === input.prefix ||
               "prefix_B" === input.prefix ||
               "prefix_C" === input.prefix) &&
-            ("1_postfix" === input.postfix ||
+            ("3_postfix" === input.postfix ||
               "2_postfix" === input.postfix ||
-              "3_postfix" === input.postfix) &&
-            ("the_1_value_with_label_A" === input.combined ||
-              "the_1_value_with_label_B" === input.combined ||
-              "the_1_value_with_label_C" === input.combined ||
+              "1_postfix" === input.postfix) &&
+            ("the_3_value_with_label_A" === input.combined ||
+              "the_3_value_with_label_B" === input.combined ||
+              "the_3_value_with_label_C" === input.combined ||
               "the_2_value_with_label_A" === input.combined ||
               "the_2_value_with_label_B" === input.combined ||
               "the_2_value_with_label_C" === input.combined ||
-              "the_3_value_with_label_A" === input.combined ||
-              "the_3_value_with_label_B" === input.combined ||
-              "the_3_value_with_label_C" === input.combined);
+              "the_1_value_with_label_A" === input.combined ||
+              "the_1_value_with_label_B" === input.combined ||
+              "the_1_value_with_label_C" === input.combined);
           const $cp0 = (input: any) =>
             input.map((elem: any) =>
               "object" === typeof elem && null !== elem
@@ -203,18 +203,18 @@ export const test_notation_validateSnake_TemplateConstant =
           ("prefix_A" === input.prefix ||
             "prefix_B" === input.prefix ||
             "prefix_C" === input.prefix) &&
-          ("1_postfix" === input.postfix ||
+          ("3_postfix" === input.postfix ||
             "2_postfix" === input.postfix ||
-            "3_postfix" === input.postfix) &&
-          ("the_1_value_with_label_A" === input.combined ||
-            "the_1_value_with_label_B" === input.combined ||
-            "the_1_value_with_label_C" === input.combined ||
+            "1_postfix" === input.postfix) &&
+          ("the_3_value_with_label_A" === input.combined ||
+            "the_3_value_with_label_B" === input.combined ||
+            "the_3_value_with_label_C" === input.combined ||
             "the_2_value_with_label_A" === input.combined ||
             "the_2_value_with_label_B" === input.combined ||
             "the_2_value_with_label_C" === input.combined ||
-            "the_3_value_with_label_A" === input.combined ||
-            "the_3_value_with_label_B" === input.combined ||
-            "the_3_value_with_label_C" === input.combined);
+            "the_1_value_with_label_A" === input.combined ||
+            "the_1_value_with_label_B" === input.combined ||
+            "the_1_value_with_label_C" === input.combined);
         return "object" === typeof input && null !== input && $io0(input);
       };
       if (false === __is(input))
@@ -292,9 +292,9 @@ export const test_notation_validateSnake_TemplateConstant =
                 },
                 errorFactory,
               )) &&
-            ("1_postfix" === input.postfix ||
+            ("3_postfix" === input.postfix ||
               "2_postfix" === input.postfix ||
-              "3_postfix" === input.postfix ||
+              "1_postfix" === input.postfix ||
               $guard(
                 _exceptionable,
                 {
@@ -304,15 +304,15 @@ export const test_notation_validateSnake_TemplateConstant =
                 },
                 errorFactory,
               )) &&
-            ("the_1_value_with_label_A" === input.combined ||
-              "the_1_value_with_label_B" === input.combined ||
-              "the_1_value_with_label_C" === input.combined ||
+            ("the_3_value_with_label_A" === input.combined ||
+              "the_3_value_with_label_B" === input.combined ||
+              "the_3_value_with_label_C" === input.combined ||
               "the_2_value_with_label_A" === input.combined ||
               "the_2_value_with_label_B" === input.combined ||
               "the_2_value_with_label_C" === input.combined ||
-              "the_3_value_with_label_A" === input.combined ||
-              "the_3_value_with_label_B" === input.combined ||
-              "the_3_value_with_label_C" === input.combined ||
+              "the_1_value_with_label_A" === input.combined ||
+              "the_1_value_with_label_B" === input.combined ||
+              "the_1_value_with_label_C" === input.combined ||
               $guard(
                 _exceptionable,
                 {

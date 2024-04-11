@@ -115,9 +115,9 @@ export const test_protobuf_assertDecodeCustom_ObjectPrimitive =
           const __is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
               "string" === typeof input.id &&
-              ("html" === input.extension ||
+              ("txt" === input.extension ||
                 "md" === input.extension ||
-                "txt" === input.extension) &&
+                "html" === input.extension) &&
               "string" === typeof input.title &&
               "string" === typeof input.body &&
               Array.isArray(input.files) &&
@@ -157,9 +157,9 @@ export const test_protobuf_assertDecodeCustom_ObjectPrimitive =
                     },
                     errorFactory,
                   )) &&
-                ("html" === input.extension ||
+                ("txt" === input.extension ||
                   "md" === input.extension ||
-                  "txt" === input.extension ||
+                  "html" === input.extension ||
                   $guard(
                     _exceptionable,
                     {

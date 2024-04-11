@@ -264,7 +264,7 @@ export const test_random_CommentTagDefault = _test_random(
               _exceptionable,
               {
                 path: _path + ".boolean_and_number_and_template",
-                expected: "(`prefix_${string}` | boolean | number)",
+                expected: "(`[object Object]${string}` | boolean | number)",
                 value: input.boolean_and_number_and_template,
               },
               errorFactory,
@@ -274,7 +274,7 @@ export const test_random_CommentTagDefault = _test_random(
               _exceptionable,
               {
                 path: _path + ".boolean_and_number_and_template",
-                expected: "(`prefix_${string}` | boolean | number)",
+                expected: "(`[object Object]${string}` | boolean | number)",
                 value: input.boolean_and_number_and_template,
               },
               errorFactory,
@@ -290,7 +290,7 @@ export const test_random_CommentTagDefault = _test_random(
               _exceptionable,
               {
                 path: _path + ".boolean_and_number_and_template",
-                expected: "(`prefix_${string}` | boolean | number)",
+                expected: "(`[object Object]${string}` | boolean | number)",
                 value: input.boolean_and_number_and_template,
               },
               errorFactory,

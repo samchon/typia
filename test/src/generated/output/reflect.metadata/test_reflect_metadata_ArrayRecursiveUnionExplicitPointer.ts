@@ -42,7 +42,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -103,7 +107,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["value"],
+                    values: [
+                      {
+                        value: "value",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -165,7 +173,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -217,7 +229,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -269,7 +285,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["path"],
+                    values: [
+                      {
+                        value: "path",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -321,7 +341,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["children"],
+                    values: [
+                      {
+                        value: "children",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -373,7 +397,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["type"],
+                    values: [
+                      {
+                        value: "type",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -397,7 +425,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["directory"],
+                    values: [
+                      {
+                        value: "directory",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -434,7 +467,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -486,7 +523,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -538,7 +579,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["path"],
+                    values: [
+                      {
+                        value: "path",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -590,59 +635,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["width"],
-                  },
-                ],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              value: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [
-                  {
-                    type: "number",
-                    tags: [],
-                  },
-                ],
-                constants: [],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              description: null,
-              jsDocTags: [],
-            },
-            {
-              key: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [],
-                constants: [
-                  {
-                    type: "string",
-                    values: ["height"],
+                    values: [
+                      {
+                        value: "width",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -694,59 +691,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["url"],
-                  },
-                ],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              value: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [
-                  {
-                    type: "string",
-                    tags: [],
-                  },
-                ],
-                constants: [],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              description: null,
-              jsDocTags: [],
-            },
-            {
-              key: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [],
-                constants: [
-                  {
-                    type: "string",
-                    values: ["size"],
+                    values: [
+                      {
+                        value: "height",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -798,7 +747,123 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["type"],
+                    values: [
+                      {
+                        value: "url",
+                      },
+                    ],
+                  },
+                ],
+                templates: [],
+                escaped: null,
+                rest: null,
+                arrays: [],
+                tuples: [],
+                objects: [],
+                aliases: [],
+                natives: [],
+                sets: [],
+                maps: [],
+              },
+              value: {
+                any: false,
+                required: true,
+                optional: false,
+                nullable: false,
+                functional: false,
+                atomics: [
+                  {
+                    type: "string",
+                    tags: [],
+                  },
+                ],
+                constants: [],
+                templates: [],
+                escaped: null,
+                rest: null,
+                arrays: [],
+                tuples: [],
+                objects: [],
+                aliases: [],
+                natives: [],
+                sets: [],
+                maps: [],
+              },
+              description: null,
+              jsDocTags: [],
+            },
+            {
+              key: {
+                any: false,
+                required: true,
+                optional: false,
+                nullable: false,
+                functional: false,
+                atomics: [],
+                constants: [
+                  {
+                    type: "string",
+                    values: [
+                      {
+                        value: "size",
+                      },
+                    ],
+                  },
+                ],
+                templates: [],
+                escaped: null,
+                rest: null,
+                arrays: [],
+                tuples: [],
+                objects: [],
+                aliases: [],
+                natives: [],
+                sets: [],
+                maps: [],
+              },
+              value: {
+                any: false,
+                required: true,
+                optional: false,
+                nullable: false,
+                functional: false,
+                atomics: [
+                  {
+                    type: "number",
+                    tags: [],
+                  },
+                ],
+                constants: [],
+                templates: [],
+                escaped: null,
+                rest: null,
+                arrays: [],
+                tuples: [],
+                objects: [],
+                aliases: [],
+                natives: [],
+                sets: [],
+                maps: [],
+              },
+              description: null,
+              jsDocTags: [],
+            },
+            {
+              key: {
+                any: false,
+                required: true,
+                optional: false,
+                nullable: false,
+                functional: false,
+                atomics: [],
+                constants: [
+                  {
+                    type: "string",
+                    values: [
+                      {
+                        value: "type",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -822,7 +887,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["file"],
+                    values: [
+                      {
+                        value: "file",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -850,7 +920,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["extension"],
+                    values: [
+                      {
+                        value: "extension",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -874,7 +948,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["jpg"],
+                    values: [
+                      {
+                        value: "jpg",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -911,7 +990,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -963,7 +1046,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1015,7 +1102,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["path"],
+                    values: [
+                      {
+                        value: "path",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1067,7 +1158,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["size"],
+                    values: [
+                      {
+                        value: "size",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1119,7 +1214,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["content"],
+                    values: [
+                      {
+                        value: "content",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1171,7 +1270,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["type"],
+                    values: [
+                      {
+                        value: "type",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1195,7 +1298,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["file"],
+                    values: [
+                      {
+                        value: "file",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1223,7 +1331,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["extension"],
+                    values: [
+                      {
+                        value: "extension",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1247,7 +1359,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["txt"],
+                    values: [
+                      {
+                        value: "txt",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1284,7 +1401,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1336,7 +1457,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1388,7 +1513,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["path"],
+                    values: [
+                      {
+                        value: "path",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1440,59 +1569,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["size"],
-                  },
-                ],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              value: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [
-                  {
-                    type: "number",
-                    tags: [],
-                  },
-                ],
-                constants: [],
-                templates: [],
-                escaped: null,
-                rest: null,
-                arrays: [],
-                tuples: [],
-                objects: [],
-                aliases: [],
-                natives: [],
-                sets: [],
-                maps: [],
-              },
-              description: null,
-              jsDocTags: [],
-            },
-            {
-              key: {
-                any: false,
-                required: true,
-                optional: false,
-                nullable: false,
-                functional: false,
-                atomics: [],
-                constants: [
-                  {
-                    type: "string",
-                    values: ["count"],
+                    values: [
+                      {
+                        value: "size",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1544,7 +1625,67 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["type"],
+                    values: [
+                      {
+                        value: "count",
+                      },
+                    ],
+                  },
+                ],
+                templates: [],
+                escaped: null,
+                rest: null,
+                arrays: [],
+                tuples: [],
+                objects: [],
+                aliases: [],
+                natives: [],
+                sets: [],
+                maps: [],
+              },
+              value: {
+                any: false,
+                required: true,
+                optional: false,
+                nullable: false,
+                functional: false,
+                atomics: [
+                  {
+                    type: "number",
+                    tags: [],
+                  },
+                ],
+                constants: [],
+                templates: [],
+                escaped: null,
+                rest: null,
+                arrays: [],
+                tuples: [],
+                objects: [],
+                aliases: [],
+                natives: [],
+                sets: [],
+                maps: [],
+              },
+              description: null,
+              jsDocTags: [],
+            },
+            {
+              key: {
+                any: false,
+                required: true,
+                optional: false,
+                nullable: false,
+                functional: false,
+                atomics: [],
+                constants: [
+                  {
+                    type: "string",
+                    values: [
+                      {
+                        value: "type",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1568,7 +1709,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["file"],
+                    values: [
+                      {
+                        value: "file",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1596,7 +1742,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["extension"],
+                    values: [
+                      {
+                        value: "extension",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1620,7 +1770,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["zip"],
+                    values: [
+                      {
+                        value: "zip",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1657,7 +1812,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["id"],
+                    values: [
+                      {
+                        value: "id",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1709,7 +1868,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["name"],
+                    values: [
+                      {
+                        value: "name",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1761,7 +1924,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["path"],
+                    values: [
+                      {
+                        value: "path",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1813,7 +1980,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["target"],
+                    values: [
+                      {
+                        value: "target",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1860,7 +2031,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["type"],
+                    values: [
+                      {
+                        value: "type",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1884,7 +2059,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["file"],
+                    values: [
+                      {
+                        value: "file",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1912,7 +2092,11 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["extension"],
+                    values: [
+                      {
+                        value: "extension",
+                      },
+                    ],
                   },
                 ],
                 templates: [],
@@ -1936,7 +2120,12 @@ export const test_reflect_metadata_ArrayRecursiveUnionExplicitPointer =
                 constants: [
                   {
                     type: "string",
-                    values: ["lnk"],
+                    values: [
+                      {
+                        value: "lnk",
+                        tags: [],
+                      },
+                    ],
                   },
                 ],
                 templates: [],

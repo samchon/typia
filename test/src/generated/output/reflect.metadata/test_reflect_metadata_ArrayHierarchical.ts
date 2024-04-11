@@ -48,7 +48,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -100,7 +104,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["serial"],
+                  values: [
+                    {
+                      value: "serial",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -152,7 +160,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -204,7 +216,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["established_at"],
+                  values: [
+                    {
+                      value: "established_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -251,7 +267,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["departments"],
+                  values: [
+                    {
+                      value: "departments",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -312,7 +332,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["time"],
+                  values: [
+                    {
+                      value: "time",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -364,7 +388,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["zone"],
+                  values: [
+                    {
+                      value: "zone",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -425,7 +453,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -477,7 +509,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["code"],
+                  values: [
+                    {
+                      value: "code",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -529,7 +565,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["sales"],
+                  values: [
+                    {
+                      value: "sales",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -581,7 +621,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["created_at"],
+                  values: [
+                    {
+                      value: "created_at",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -628,7 +672,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["employees"],
+                  values: [
+                    {
+                      value: "employees",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -689,7 +737,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["id"],
+                  values: [
+                    {
+                      value: "id",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -741,7 +793,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["name"],
+                  values: [
+                    {
+                      value: "name",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -793,59 +849,11 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["age"],
-                },
-              ],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            value: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [
-                {
-                  type: "number",
-                  tags: [],
-                },
-              ],
-              constants: [],
-              templates: [],
-              escaped: null,
-              rest: null,
-              arrays: [],
-              tuples: [],
-              objects: [],
-              aliases: [],
-              natives: [],
-              sets: [],
-              maps: [],
-            },
-            description: null,
-            jsDocTags: [],
-          },
-          {
-            key: {
-              any: false,
-              required: true,
-              optional: false,
-              nullable: false,
-              functional: false,
-              atomics: [],
-              constants: [
-                {
-                  type: "string",
-                  values: ["grade"],
+                  values: [
+                    {
+                      value: "age",
+                    },
+                  ],
                 },
               ],
               templates: [],
@@ -897,7 +905,67 @@ export const test_reflect_metadata_ArrayHierarchical = _test_reflect_metadata(
               constants: [
                 {
                   type: "string",
-                  values: ["employeed_at"],
+                  values: [
+                    {
+                      value: "grade",
+                    },
+                  ],
+                },
+              ],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            value: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [
+                {
+                  type: "number",
+                  tags: [],
+                },
+              ],
+              constants: [],
+              templates: [],
+              escaped: null,
+              rest: null,
+              arrays: [],
+              tuples: [],
+              objects: [],
+              aliases: [],
+              natives: [],
+              sets: [],
+              maps: [],
+            },
+            description: null,
+            jsDocTags: [],
+          },
+          {
+            key: {
+              any: false,
+              required: true,
+              optional: false,
+              nullable: false,
+              functional: false,
+              atomics: [],
+              constants: [
+                {
+                  type: "string",
+                  values: [
+                    {
+                      value: "employeed_at",
+                    },
+                  ],
                 },
               ],
               templates: [],

@@ -1,0 +1,39 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "AtomicIntersection": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapperboolean"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrappernumber"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapperstring"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "AtomicIntersection.Wrapperboolean": {
+        "type": "boolean"
+      },
+      "AtomicIntersection.Wrappernumber": {
+        "type": "number"
+      },
+      "AtomicIntersection.Wrapperstring": {
+        "type": "string"
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/AtomicIntersection"
+    }
+  ]
+}
