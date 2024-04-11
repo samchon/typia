@@ -63,10 +63,12 @@ const iterate =
     for (const constant of meta.constants)
       if (constant.type === "string") constant.values.sort();
       else if (constant.type === "number")
-        constant.values.sort((a, b) => (a as number) - (b as number));
+        constant.values.sort(
+          (a, b) => (a.value as number) - (b.value as number),
+        );
       else if (constant.type === "bigint")
         constant.values.sort((a, b) =>
-          (a as bigint) < (b as bigint) ? -1 : 1,
+          (a.value as bigint) < (b.value as bigint) ? -1 : 1,
         );
-      else constant.values.sort((a, _b) => (a === false ? -1 : 1));
+      else constant.values.sort((a, _b) => (a.value === false ? -1 : 1));
   };

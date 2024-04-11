@@ -1,0 +1,43 @@
+import { OpenApi } from "@samchon/openapi";
+
+import { CommentFactory } from "../../factories/CommentFactory";
+
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
+
+import { application_v31_schema } from "./application_v31_schema";
+
+/**
+ * @internal
+ */
+export const application_v31_alias =
+  <BlockNever extends boolean>(blockNever: BlockNever) =>
+  (components: OpenApi.IComponents) =>
+  (alias: MetadataAlias): OpenApi.IJsonSchema.IReference => {
+    const $ref: string = `#/components/schemas/${alias.name}`;
+    if (components.schemas?.[alias.name] === undefined) {
+      // TEMPORARY ASSIGNMENT
+      components.schemas ??= {};
+      components.schemas[alias.name] = {};
+
+      // GENERATE SCHEMA
+      const schema: OpenApi.IJsonSchema | null = application_v31_schema(
+        blockNever,
+      )(components)({
+        deprecated:
+          alias.jsDocTags.some((tag) => tag.name === "deprecated") || undefined,
+        title: (() => {
+          const info: IJsDocTagInfo | undefined = alias.jsDocTags.find(
+            (tag) => tag.name === "title",
+          );
+          return info?.text?.length
+            ? CommentFactory.merge(info.text)
+            : undefined;
+        })(),
+        description: alias.description ?? undefined,
+      })(alias.value);
+      if (schema !== null)
+        Object.assign(components.schemas[alias.name]!, schema);
+    }
+    return { $ref };
+  };

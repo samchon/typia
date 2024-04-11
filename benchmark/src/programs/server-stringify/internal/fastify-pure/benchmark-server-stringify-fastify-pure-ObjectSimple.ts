@@ -5,5 +5,5 @@ import { ObjectSimple } from "../../../../structures/pure/ObjectSimple";
 import { createFastifyPureServerStringifyBenchmarkProgram } from "../createFastifyPureServerStringifyBenchmarkProgram";
 
 createFastifyPureServerStringifyBenchmarkProgram(
-  typia.json.application<[ICollection<ObjectSimple>], "ajv">(),
+  typia.json.application<[ICollection<ObjectSimple>]>(),
 );

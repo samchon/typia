@@ -4,184 +4,33 @@ import { Tabs, Tab } from 'nextra-theme-docs'
 <Tabs items={[
   <code>typia</code>, 
   <code>IJsonApplication.ts</code>, 
-  <code>IJsonComponents.ts</code>,
-  <code>IJsonSchema.ts</code>
 ]}>
   <Tab>
 ```typescript copy
 export namespace json {
   export function application<
     Schemas extends unknown[],
-    Purpose extends "ajv" | "swagger" = "swagger",
-    Surplus extends boolean = false,
-  >(): IJsonApplication;
+    Version extends "3.0" | "3.1" = "3.1",
+  >(): IJsonApplication<Version>;
 }
 ```
   </Tab>
   <Tab>
 ```typescript copy
-export interface IJsonApplication {
-  schemas: IJsonSchema[];
-  components: IJsonComponents;
-  purpose: "swagger" | "ajv";
-  surplus: boolean;
-}
-```
-  </Tab>
-  <Tab>
-```typescript copy
-export interface IJsonComponents {
-  schemas: Record<string, IJsonComponents.IAlias>;
-}
-export namespace IJsonComponents {
-  export type IAlias = IJsonSchema & IIndentified;
-  interface IIdentified {
-    $id?: undefined | string;
-    $recursiveAnchor?: undefined | boolean;
-  }
-}
-```
-  </Tab>
-  <Tab>
-```typescript copy showLineNumbers
-export type IJsonSchema = IJsonSchema.Known | IJsonSchema.IUnknown;
-export namespace IJsonSchema {
-  export type Known =
-    | IEnumeration<"boolean">
-    | IEnumeration<"number">
-    | IEnumeration<"string">
-    | IBoolean
-    | IInteger
-    | INumber
-    | IString
-    | IArray
-    | ITuple
-    | IObject
-    | IReference
-    | INullOnly
-    | IOneOf;
+import type { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
-  export interface IUnknown extends IAttribute {
-    type?: undefined | undefined;
+export type IJsonApplication<Version extends "3.0" | "3.1" = "3.1"> =
+  Version extends "3.0" ? IJsonApplication.IV3_0 : IJsonApplication.IV3_1;
+export namespace IJsonApplication {
+  export interface IV3_0 {
+    version: "3.0";
+    schemas: OpenApiV3.IJsonSchema[];
+    components: OpenApiV3.IComponents;
   }
-
-  /* -----------------------------------------------------------
-        ATOMICS
-    ----------------------------------------------------------- */
-  export interface IEnumeration<
-    Literal extends Exclude<Atomic.Literal, "bigint">,
-  > extends Omit<IAtomic<Literal>, "x-typia-typeTags"> {
-    enum: Array<Atomic.Mapper[Literal]>;
-  }
-  export interface IAtomic<Literal extends Exclude<Atomic.Literal, "bigint">>
-    extends ISignificant<Literal> {
-    default?: undefined | Atomic.Mapper[Literal];
-  }
-  export interface IString extends IAtomic<"string"> {
-    minLength?: undefined | (number & Type<"uint32">);
-    maxLength?: undefined | (number & Type<"uint32">);
-    pattern?: undefined | string;
-    format?:
-      | undefined
-      | "binary"
-      | "byte"
-      | "password"
-      | "regex"
-      | "uuid"
-      | "email"
-      | "hostname"
-      | "idn-email"
-      | "idn-hostname"
-      | "iri"
-      | "iri-reference"
-      | "ipv4"
-      | "ipv6"
-      | "uri"
-      | "uri-reference"
-      | "uri-template"
-      | "url"
-      | "date-time"
-      | "date"
-      | "time"
-      | "duration"
-      | "json-pointer"
-      | "relative-json-pointer"
-      | (string & {});
-    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
-  }
-  export interface INumber extends IAtomic<"number"> {
-    minimum?: undefined | number;
-    maximum?: undefined | number;
-    exclusiveMinimum?: undefined | boolean;
-    exclusiveMaximum?: undefined | boolean;
-    multipleOf?: undefined | number;
-    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
-  }
-  export interface IInteger extends IAtomic<"integer"> {
-    minimum?: undefined | (number & Type<"int32">);
-    maximum?: undefined | (number & Type<"int32">);
-    exclusiveMinimum?: undefined | boolean;
-    exclusiveMaximum?: undefined | boolean;
-    multipleOf?: undefined | (number & Type<"int32">);
-    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
-  }
-  export interface IBoolean extends IAtomic<"boolean"> {
-    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
-  }
-
-  /* -----------------------------------------------------------
-        OBJECTS
-    ----------------------------------------------------------- */
-  export interface IArray extends ISignificant<"array"> {
-    items: IJsonSchema;
-    minItems?: undefined | (number & Type<"uint32">);
-    maxItems?: undefined | (number & Type<"uint32">);
-    "x-typia-tuple"?: undefined | ITuple;
-    "x-typia-typeTags"?: undefined | IMetadataTypeTag[];
-  }
-  export interface ITuple extends ISignificant<"array"> {
-    items: IJsonSchema[];
-    minItems: number & Type<"uint32">;
-    maxItems?: undefined | (number & Type<"uint32">);
-  }
-  export interface IObject extends ISignificant<"object"> {
-    properties: Record<string, IJsonSchema>;
-    required?: undefined | string[];
-    patternProperties?: undefined | Record<string, IJsonSchema>;
-    additionalProperties?: undefined | IJsonSchema;
-    "x-typia-patternProperties"?: undefined | Record<string, IJsonSchema>;
-    "x-typia-additionalProperties"?: undefined | IJsonSchema;
-  }
-  export interface IReference extends IAttribute {
-    $ref: string;
-  }
-  export interface INullOnly extends IAttribute {
-    type: "null";
-  }
-
-  /* -----------------------------------------------------------
-        MISCELLANEOUS
-    ----------------------------------------------------------- */
-  export interface IOneOf extends IAttribute {
-    oneOf: IJsonSchema[];
-  }
-
-  export interface ISignificant<Literal extends string> extends IAttribute {
-    type: Literal;
-
-    /**
-     * Only when swagger mode.
-     */
-    nullable?: undefined | boolean;
-  }
-  export interface IAttribute {
-    deprecated?: undefined | boolean;
-    title?: undefined | string;
-    description?: undefined | string;
-    "x-typia-jsDocTags"?: undefined | IJsDocTagInfo[];
-    "x-typia-required"?: undefined | boolean;
-    "x-typia-optional"?: undefined | boolean;
-    "x-typia-rest"?: undefined | boolean;
+  export interface IV3_1 {
+    version: "3.1";
+    components: OpenApi.IComponents;
+    schemas: OpenApi.IJsonSchema[];
   }
 }
 ```
@@ -192,12 +41,12 @@ JSON schema generator.
 
   - Definitions:
     - [`IJsonApplication`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonApplication.ts)
-    - [`IJsonComponents`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonComponents.ts)
-    - [`IJsonSchema`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonSchema.ts)
+    - [OpenAPI v3.0](https://github.com/samchon/openapi/blob/master/src/OpenApiV3.ts)
+    - [OpenAPI v3.1](https://github.com/samchon/openapi/blob/master/src/OpenApi.ts)
 
 When you need JSON schema, do not write it by yourself, but just call `typia.json.application()` function. 
 
-If you call the `typia.json.application()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of AJV and Swagger are a little bit different. Therefore, you have to consider which value to assign in the `Purpose` argument.
+If you call the `typia.json.application()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of "OpenAPI v3.0" and "OpenAPI v3.1" are a little bit different. Therefore, you have to consider which value to assign in the `Version` argument.
 
   - Swagger can't express tuple type
   - Swagger can't express pattern property
@@ -207,7 +56,7 @@ If you call the `typia.json.application()` with specialization of target `Schema
 ```typescript copy filename="examples/src/application.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-export const MemberSchema = typia.json.application<[IMember], "ajv">();
+export const MemberSchema = typia.json.application<[IMember], "3.0">();
 
 interface IMember {
   /**
@@ -244,6 +93,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberSchema = void 0;
 const typia_1 = __importDefault(require("typia"));
 exports.MemberSchema = {
+  version: "3.0",
   schemas: [
     {
       $ref: "#/components/schemas/IMember",
@@ -281,8 +131,6 @@ exports.MemberSchema = {
       },
     },
   },
-  purpose: "ajv",
-  surplus: false,
 };
 ```
   </Tab>
@@ -310,7 +158,7 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 ```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-export const SpecialTagSchema = typia.json.application<[Special], "swagger">();
+export const SpecialTagSchema = typia.json.application<[Special], "3.1">();
 
 interface Special {
   /**
@@ -392,6 +240,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SpecialTagSchema = void 0;
 const typia_1 = __importDefault(require("typia"));
 exports.SpecialTagSchema = {
+  version: "3.1",
   schemas: [
     {
       $ref: "#/components/schemas/Special",
@@ -441,9 +290,15 @@ exports.SpecialTagSchema = {
             description: "You can limit the pattern of string.",
           },
           format: {
-            type: "string",
-            format: "date-time",
-            nullable: true,
+            oneOf: [
+              {
+                type: "null"
+              },
+              {
+                type: "string",
+                format: "date-time",
+              }
+            ],
             title: "You can limit the format of string",
             description: "You can limit the format of string.",
           },
@@ -459,13 +314,10 @@ exports.SpecialTagSchema = {
               "In the Array case, possible to restrict its elements.",
           },
         },
-        nullable: false,
         required: ["type", "string", "pattern", "format", "array"],
       },
     },
   },
-  purpose: "swagger",
-  surplus: false,
 };
 ```
   </Tab>
@@ -510,8 +362,9 @@ typia.json.application<[IAccount]>();
 ```
   </Tab>
   <Tab>
-```javascript copy filename="examples/bin/json-schema-custom.js" showLineNumbers {14, 18}
+```javascript copy filename="examples/bin/json-schema-custom.js" showLineNumbers {15, 19}
 ({
+  version: "3.1",
   schemas: [
     {
       $ref: "#/components/schemas/IAccount",
@@ -531,13 +384,10 @@ typia.json.application<[IAccount]>();
             "x-monetary": "dollar",
           },
         },
-        nullable: false,
         required: ["code", "balance"],
       },
     },
   },
-  purpose: "swagger",
-  surplus: false,
 });
 ```
   </Tab>
@@ -608,6 +458,7 @@ var __importDefault =
 Object.defineProperty(exports, "__esModule", { value: true });
 const typia_1 = __importDefault(require("typia"));
 ({
+  version: "3.1",
   schemas: [
     {
       $ref: "#/components/schemas/Native",
@@ -628,8 +479,6 @@ const typia_1 = __importDefault(require("typia"));
       },
     },
   },
-  purpose: "ajv",
-  surplus: false,
 });
 ```
   </Tab>

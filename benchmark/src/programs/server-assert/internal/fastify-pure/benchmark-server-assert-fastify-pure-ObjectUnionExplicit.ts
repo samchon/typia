@@ -5,5 +5,5 @@ import { ObjectUnionExplicit } from "../../../../structures/pure/ObjectUnionExpl
 import { createFastifyPureServerAssertBenchmarkProgram } from "../createFastifyPureServerAssertBenchmarkProgram";
 
 createFastifyPureServerAssertBenchmarkProgram(
-  typia.json.application<[ICollection<ObjectUnionExplicit>], "ajv">(),
+  typia.json.application<[ICollection<ObjectUnionExplicit>]>(),
 );

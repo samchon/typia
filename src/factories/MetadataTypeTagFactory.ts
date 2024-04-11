@@ -143,11 +143,11 @@ export namespace MetadataTypeTagFactory {
           value.constants[0]!.values.length !== value.size() ||
           value.constants[0]!.values.some(
             (v) =>
-              v !== "boolean" &&
-              v !== "bigint" &&
-              v !== "number" &&
-              v !== "string" &&
-              v !== "array",
+              v.value !== "boolean" &&
+              v.value !== "bigint" &&
+              v.value !== "number" &&
+              v.value !== "string" &&
+              v.value !== "array",
           ))
       )
         return report(key)(
@@ -233,12 +233,13 @@ export namespace MetadataTypeTagFactory {
           (p) => p.key.getSoleLiteral() === key,
         );
 
-      const target = find("target")!.value.constants[0]!
-        .values as ITypeTag["target"];
-      const kind: string = find("kind")!.value.constants[0]!
-        .values[0] as string;
+      const target = find("target")!.value.constants[0]!.values.map(
+        (v) => v.value,
+      ) as ITypeTag["target"];
+      const kind: string = find("kind")!.value.constants[0]!.values[0]!
+        .value as string;
       const value: boolean | bigint | number | string | undefined =
-        find("value")?.value.constants[0]?.values[0];
+        find("value")?.value.constants[0]?.values[0]!.value;
       const exclusive: string[] | boolean | null = get_exclusive(report)(
         "exclusive",
       )(find("exclusive")?.value);
@@ -249,12 +250,15 @@ export namespace MetadataTypeTagFactory {
         if (!validate || validate.size() === 0) return {};
         else if (validate.constants.length)
           return Object.fromEntries(
-            target.map((t) => [t, validate.constants[0]!.values[0] as string]),
+            target.map((t) => [
+              t,
+              validate.constants[0]!.values[0]!.value as string,
+            ]),
           );
         return Object.fromEntries(
           validate.objects[0]!.properties.map((p) => [
             p.key.getSoleLiteral()!,
-            p.value.constants[0]!.values[0]! as string,
+            p.value.constants[0]!.values[0]!.value as string,
           ]),
         );
       })();
@@ -296,7 +300,7 @@ export namespace MetadataTypeTagFactory {
         value.constants[0]!.type === "boolean" &&
         value.constants[0]!.values.length === 1
       )
-        return value.constants[0]!.values[0]! as boolean;
+        return value.constants[0]!.values[0]!.value as boolean;
       else if (
         value.size() === 1 &&
         value.tuples.length === 1 &&
@@ -309,7 +313,7 @@ export namespace MetadataTypeTagFactory {
         )
       )
         return value.tuples[0]!.type.elements.map(
-          (elem) => elem.constants[0]!.values[0]! as string,
+          (elem) => elem.constants[0]!.values[0]!.value as string,
         );
       report(key)(
         "must a boolean literal type or a tuple of string literal types.",

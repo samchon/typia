@@ -5,5 +5,5 @@ import { ArrayRecursive } from "../../../../structures/pure/ArrayRecursive";
 import { createFastifyPureServerStringifyBenchmarkProgram } from "../createFastifyPureServerStringifyBenchmarkProgram";
 
 createFastifyPureServerStringifyBenchmarkProgram(
-  typia.json.application<[ICollection<ArrayRecursive>], "ajv">(),
+  typia.json.application<[ICollection<ArrayRecursive>]>(),
 );
