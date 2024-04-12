@@ -15,7 +15,6 @@ export const application_v31_tuple =
       : tuple.type.elements;
     return {
       type: "array",
-      items: undefined!,
       prefixItems: prefixItems.map(generator),
       additionalItems: tail ? generator(tail) : false,
     };

@@ -11,7 +11,17 @@ export const test_json_application_v3_1_DynamicSimple = _test_json_application({
   components: {
     schemas: {
       DynamicSimple: {
-        $ref: "#/components/schemas/DynamicSimple",
+        type: "object",
+        properties: {
+          value: {
+            type: "object",
+            properties: {},
+            additionalProperties: {
+              type: "number",
+            },
+          },
+        },
+        required: ["value"],
       },
     },
   },

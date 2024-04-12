@@ -7,11 +7,13 @@ updates:
     versioning-strategy: increase
     open-pull-requests-limit: 25
     allow:
+      - dependency-name: "@samchon/openapi"
       - dependency-name: "ts-node"
       - dependency-name: "typescript"
     groups:
-      TypeScript:
+      Ecosystem:
         - patterns:
+          - "@samchon/openapi"
           - "ts-node"
           - "typescript"
   - package-ecosystem: "npm"
@@ -21,11 +23,12 @@ updates:
     versioning-strategy: increase
     open-pull-requests-limit: 25
     allow:
+      - dependency-name: "@samchon/openapi"
       - dependency-name: "ts-node"
       - dependency-name: "ts-patch"
       - dependency-name: "typescript"
     groups:
-      TypeScript:
+      Ecosystem:
         - patterns:
           - "ts-node"
           - "ts-patch"

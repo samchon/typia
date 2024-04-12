@@ -26,19 +26,16 @@
             "const": "four"
           },
           {
-            "$ref": "#/components/schemas/__type"
+            "type": "object",
+            "properties": {
+              "key": {
+                "const": "key"
+              }
+            },
+            "required": [
+              "key"
+            ]
           }
-        ]
-      },
-      "__type": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "const": "key"
-          }
-        },
-        "required": [
-          "key"
         ]
       }
     }

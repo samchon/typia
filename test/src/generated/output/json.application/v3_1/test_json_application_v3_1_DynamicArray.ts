@@ -11,7 +11,20 @@ export const test_json_application_v3_1_DynamicArray = _test_json_application({
   components: {
     schemas: {
       DynamicArray: {
-        $ref: "#/components/schemas/DynamicArray",
+        type: "object",
+        properties: {
+          value: {
+            type: "object",
+            properties: {},
+            additionalProperties: {
+              type: "array",
+              items: {
+                type: "string",
+              },
+            },
+          },
+        },
+        required: ["value"],
       },
     },
   },

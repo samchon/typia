@@ -12,7 +12,35 @@ export const test_json_application_v3_1_ObjectPartialAndRequired =
     components: {
       schemas: {
         ObjectPartialAndRequired: {
-          $ref: "#/components/schemas/ObjectPartialAndRequired",
+          type: "object",
+          properties: {
+            string: {
+              type: "string",
+            },
+            number: {
+              type: "number",
+            },
+            boolean: {
+              type: "boolean",
+            },
+            object: {
+              oneOf: [
+                {
+                  type: "null",
+                },
+                {
+                  $ref: "#/components/schemas/ObjectPartialAndRequired",
+                },
+              ],
+            },
+            array: {
+              type: "array",
+              items: {
+                type: "number",
+              },
+            },
+          },
+          required: ["object", "array"],
         },
       },
     },

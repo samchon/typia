@@ -20,7 +20,7 @@ export const test_json_createValidateParse_UltimateUnion =
                 "object" === typeof elem &&
                 null !== elem &&
                 false === Array.isArray(elem) &&
-                $iu1(elem),
+                $iu0(elem),
             );
           const $io1 = (input: any): boolean =>
             "object" === typeof input.schemas &&
@@ -31,7 +31,7 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.securitySchemes &&
                 null !== input.securitySchemes &&
                 false === Array.isArray(input.securitySchemes) &&
-                $io14(input.securitySchemes)));
+                $io15(input.securitySchemes)));
           const $io2 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
               const value = input[key];
@@ -40,7 +40,7 @@ export const test_json_createValidateParse_UltimateUnion =
                 "object" === typeof value &&
                 null !== value &&
                 false === Array.isArray(value) &&
-                $iu1(value)
+                $iu0(value)
               );
             });
           const $io3 = (input: any): boolean =>
@@ -149,7 +149,7 @@ export const test_json_createValidateParse_UltimateUnion =
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
-            $iu1(input.items) &&
+            $iu0(input.items) &&
             (undefined === input.minItems ||
               ("number" === typeof input.minItems &&
                 Math.floor(input.minItems) === input.minItems &&
@@ -167,6 +167,38 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated);
           const $io9 = (input: any): boolean =>
+            Array.isArray(input.prefixItems) &&
+            input.prefixItems.every(
+              (elem: any) =>
+                "object" === typeof elem &&
+                null !== elem &&
+                false === Array.isArray(elem) &&
+                $iu0(elem),
+            ) &&
+            null !== input.additionalItems &&
+            undefined !== input.additionalItems &&
+            ("boolean" === typeof input.additionalItems ||
+              ("object" === typeof input.additionalItems &&
+                null !== input.additionalItems &&
+                false === Array.isArray(input.additionalItems) &&
+                $iu0(input.additionalItems))) &&
+            (undefined === input.minItems ||
+              ("number" === typeof input.minItems &&
+                Math.floor(input.minItems) === input.minItems &&
+                0 <= input.minItems &&
+                input.minItems <= 4294967295)) &&
+            (undefined === input.maxItems ||
+              ("number" === typeof input.maxItems &&
+                Math.floor(input.maxItems) === input.maxItems &&
+                0 <= input.maxItems &&
+                input.maxItems <= 4294967295)) &&
+            "array" === input.type &&
+            (undefined === input.title || "string" === typeof input.title) &&
+            (undefined === input.description ||
+              "string" === typeof input.description) &&
+            (undefined === input.deprecated ||
+              "boolean" === typeof input.deprecated);
+          const $io10 = (input: any): boolean =>
             (undefined === input.properties ||
               ("object" === typeof input.properties &&
                 null !== input.properties &&
@@ -178,7 +210,7 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.additionalProperties &&
                 null !== input.additionalProperties &&
                 false === Array.isArray(input.additionalProperties) &&
-                $iu1(input.additionalProperties))) &&
+                $iu0(input.additionalProperties))) &&
             (undefined === input.required ||
               (Array.isArray(input.required) &&
                 input.required.every(
@@ -190,35 +222,35 @@ export const test_json_createValidateParse_UltimateUnion =
               "string" === typeof input.description) &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated);
-          const $io10 = (input: any): boolean =>
+          const $io11 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
               "string" === typeof input.description) &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated);
-          const $io11 = (input: any): boolean =>
+          const $io12 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
               (elem: any) =>
                 "object" === typeof elem &&
                 null !== elem &&
                 false === Array.isArray(elem) &&
-                $iu0(elem),
+                $iu1(elem),
             ) &&
             (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
               "string" === typeof input.description) &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated);
-          const $io12 = (input: any): boolean =>
+          const $io13 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.title || "string" === typeof input.title) &&
             (undefined === input.description ||
               "string" === typeof input.description) &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated);
-          const $io13 = (input: any): boolean =>
+          const $io14 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.title || "string" === typeof input.title) &&
@@ -226,13 +258,13 @@ export const test_json_createValidateParse_UltimateUnion =
               "string" === typeof input.description) &&
             (undefined === input.deprecated ||
               "boolean" === typeof input.deprecated);
-          const $io14 = (input: any): boolean =>
+          const $io15 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
               return "object" === typeof value && null !== value && $iu2(value);
             });
-          const $io15 = (input: any): boolean =>
+          const $io16 = (input: any): boolean =>
             "apiKey" === input.type &&
             (undefined === input["in"] ||
               "header" === input["in"] ||
@@ -241,48 +273,48 @@ export const test_json_createValidateParse_UltimateUnion =
             (undefined === input.name || "string" === typeof input.name) &&
             (undefined === input.description ||
               "string" === typeof input.description);
-          const $io16 = (input: any): boolean =>
+          const $io17 = (input: any): boolean =>
             "http" === input.type &&
             "basic" === input.scheme &&
             (undefined === input.description ||
               "string" === typeof input.description);
-          const $io17 = (input: any): boolean =>
+          const $io18 = (input: any): boolean =>
             "http" === input.type &&
             "bearer" === input.scheme &&
             (undefined === input.bearerFormat ||
               "string" === typeof input.bearerFormat) &&
             (undefined === input.description ||
               "string" === typeof input.description);
-          const $io18 = (input: any): boolean =>
+          const $io19 = (input: any): boolean =>
             "oauth2" === input.type &&
             "object" === typeof input.flows &&
             null !== input.flows &&
             false === Array.isArray(input.flows) &&
-            $io19(input.flows) &&
+            $io20(input.flows) &&
             (undefined === input.description ||
               "string" === typeof input.description);
-          const $io19 = (input: any): boolean =>
+          const $io20 = (input: any): boolean =>
             (undefined === input.authorizationCode ||
               ("object" === typeof input.authorizationCode &&
                 null !== input.authorizationCode &&
                 false === Array.isArray(input.authorizationCode) &&
-                $io20(input.authorizationCode))) &&
+                $io21(input.authorizationCode))) &&
             (undefined === input.implicit ||
               ("object" === typeof input.implicit &&
                 null !== input.implicit &&
                 false === Array.isArray(input.implicit) &&
-                $io22(input.implicit))) &&
+                $io23(input.implicit))) &&
             (undefined === input.password ||
               ("object" === typeof input.password &&
                 null !== input.password &&
                 false === Array.isArray(input.password) &&
-                $io23(input.password))) &&
+                $io24(input.password))) &&
             (undefined === input.clientCredentials ||
               ("object" === typeof input.clientCredentials &&
                 null !== input.clientCredentials &&
                 false === Array.isArray(input.clientCredentials) &&
-                $io23(input.clientCredentials)));
-          const $io20 = (input: any): boolean =>
+                $io24(input.clientCredentials)));
+          const $io21 = (input: any): boolean =>
             (undefined === input.authorizationUrl ||
               "string" === typeof input.authorizationUrl) &&
             (undefined === input.tokenUrl ||
@@ -293,14 +325,14 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.scopes &&
                 null !== input.scopes &&
                 false === Array.isArray(input.scopes) &&
-                $io21(input.scopes)));
-          const $io21 = (input: any): boolean =>
+                $io22(input.scopes)));
+          const $io22 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
               const value = input[key];
               if (undefined === value) return true;
               return "string" === typeof value;
             });
-          const $io22 = (input: any): boolean =>
+          const $io23 = (input: any): boolean =>
             (undefined === input.authorizationUrl ||
               "string" === typeof input.authorizationUrl) &&
             (undefined === input.refreshUrl ||
@@ -309,8 +341,8 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.scopes &&
                 null !== input.scopes &&
                 false === Array.isArray(input.scopes) &&
-                $io21(input.scopes)));
-          const $io23 = (input: any): boolean =>
+                $io22(input.scopes)));
+          const $io24 = (input: any): boolean =>
             (undefined === input.tokenUrl ||
               "string" === typeof input.tokenUrl) &&
             (undefined === input.refreshUrl ||
@@ -319,8 +351,8 @@ export const test_json_createValidateParse_UltimateUnion =
               ("object" === typeof input.scopes &&
                 null !== input.scopes &&
                 false === Array.isArray(input.scopes) &&
-                $io21(input.scopes)));
-          const $io24 = (input: any): boolean =>
+                $io22(input.scopes)));
+          const $io25 = (input: any): boolean =>
             "openIdConnect" === input.type &&
             "string" === typeof input.openIdConnectUrl &&
             (undefined === input.description ||
@@ -332,11 +364,13 @@ export const test_json_createValidateParse_UltimateUnion =
               else if ("number" === input.type) return $io6(input);
               else if ("integer" === input.type) return $io5(input);
               else if ("string" === input.type) return $io7(input);
-              else if ("array" === input.type) return $io8(input);
-              else if ("object" === input.type) return $io9(input);
-              else if (undefined !== input.$ref) return $io10(input);
-              else if ("null" === input.type) return $io12(input);
-              else return $io13(input);
+              else if (undefined !== input.items) return $io8(input);
+              else if (undefined !== input.prefixItems) return $io9(input);
+              else if ("object" === input.type) return $io10(input);
+              else if (undefined !== input.$ref) return $io11(input);
+              else if (undefined !== input.oneOf) return $io12(input);
+              else if ("null" === input.type) return $io13(input);
+              else return $io14(input);
             })();
           const $iu1 = (input: any): any =>
             (() => {
@@ -345,20 +379,20 @@ export const test_json_createValidateParse_UltimateUnion =
               else if ("number" === input.type) return $io6(input);
               else if ("integer" === input.type) return $io5(input);
               else if ("string" === input.type) return $io7(input);
-              else if ("array" === input.type) return $io8(input);
-              else if ("object" === input.type) return $io9(input);
-              else if (undefined !== input.$ref) return $io10(input);
-              else if (undefined !== input.oneOf) return $io11(input);
-              else if ("null" === input.type) return $io12(input);
-              else return $io13(input);
+              else if (undefined !== input.items) return $io8(input);
+              else if (undefined !== input.prefixItems) return $io9(input);
+              else if ("object" === input.type) return $io10(input);
+              else if (undefined !== input.$ref) return $io11(input);
+              else if ("null" === input.type) return $io13(input);
+              else return $io14(input);
             })();
           const $iu2 = (input: any): any =>
             (() => {
-              if ("apiKey" === input.type) return $io15(input);
-              else if ("basic" === input.scheme) return $io16(input);
-              else if ("bearer" === input.scheme) return $io17(input);
-              else if ("oauth2" === input.type) return $io18(input);
-              else if ("openIdConnect" === input.type) return $io24(input);
+              if ("apiKey" === input.type) return $io16(input);
+              else if ("basic" === input.scheme) return $io17(input);
+              else if ("bearer" === input.scheme) return $io18(input);
+              else if ("oauth2" === input.type) return $io19(input);
+              else if ("openIdConnect" === input.type) return $io25(input);
               else return false;
             })();
           return (
@@ -423,10 +457,10 @@ export const test_json_createValidateParse_UltimateUnion =
                           $report(_exceptionable, {
                             path: _path + ".schemas[" + _index2 + "]",
                             expected:
-                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                             value: elem,
                           })) &&
-                          $vu1(
+                          $vu0(
                             elem,
                             _path + ".schemas[" + _index2 + "]",
                             true && _exceptionable,
@@ -434,7 +468,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         $report(_exceptionable, {
                           path: _path + ".schemas[" + _index2 + "]",
                           expected:
-                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                           value: elem,
                         }),
                     )
@@ -479,7 +513,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         "(Record<string, OpenApi.ISecurityScheme> | undefined)",
                       value: input.securitySchemes,
                     })) &&
-                    $vo14(
+                    $vo15(
                       input.securitySchemes,
                       _path + ".securitySchemes",
                       true && _exceptionable,
@@ -509,10 +543,10 @@ export const test_json_createValidateParse_UltimateUnion =
                           $report(_exceptionable, {
                             path: _path + $join(key),
                             expected:
-                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                             value: value,
                           })) &&
-                          $vu1(
+                          $vu0(
                             value,
                             _path + $join(key),
                             true && _exceptionable,
@@ -520,7 +554,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         $report(_exceptionable, {
                           path: _path + $join(key),
                           expected:
-                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                           value: value,
                         })
                       );
@@ -920,10 +954,10 @@ export const test_json_createValidateParse_UltimateUnion =
                   $report(_exceptionable, {
                     path: _path + ".items",
                     expected:
-                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                     value: input.items,
                   })) &&
-                  $vu1(
+                  $vu0(
                     input.items,
                     _path + ".items",
                     true && _exceptionable,
@@ -931,7 +965,7 @@ export const test_json_createValidateParse_UltimateUnion =
                   $report(_exceptionable, {
                     path: _path + ".items",
                     expected:
-                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                     value: input.items,
                   }),
                 undefined === input.minItems ||
@@ -998,6 +1032,141 @@ export const test_json_createValidateParse_UltimateUnion =
               _exceptionable: boolean = true,
             ): boolean =>
               [
+                ((Array.isArray(input.prefixItems) ||
+                  $report(_exceptionable, {
+                    path: _path + ".prefixItems",
+                    expected: "Array<OpenApi.IJsonSchema>",
+                    value: input.prefixItems,
+                  })) &&
+                  input.prefixItems
+                    .map(
+                      (elem: any, _index4: number) =>
+                        ((("object" === typeof elem &&
+                          null !== elem &&
+                          false === Array.isArray(elem)) ||
+                          $report(_exceptionable, {
+                            path: _path + ".prefixItems[" + _index4 + "]",
+                            expected:
+                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
+                            value: elem,
+                          })) &&
+                          $vu0(
+                            elem,
+                            _path + ".prefixItems[" + _index4 + "]",
+                            true && _exceptionable,
+                          )) ||
+                        $report(_exceptionable, {
+                          path: _path + ".prefixItems[" + _index4 + "]",
+                          expected:
+                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
+                          value: elem,
+                        }),
+                    )
+                    .every((flag: boolean) => flag)) ||
+                  $report(_exceptionable, {
+                    path: _path + ".prefixItems",
+                    expected: "Array<OpenApi.IJsonSchema>",
+                    value: input.prefixItems,
+                  }),
+                (null !== input.additionalItems ||
+                  $report(_exceptionable, {
+                    path: _path + ".additionalItems",
+                    expected:
+                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean)",
+                    value: input.additionalItems,
+                  })) &&
+                  (undefined !== input.additionalItems ||
+                    $report(_exceptionable, {
+                      path: _path + ".additionalItems",
+                      expected:
+                        "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean)",
+                      value: input.additionalItems,
+                    })) &&
+                  ("boolean" === typeof input.additionalItems ||
+                    ((("object" === typeof input.additionalItems &&
+                      null !== input.additionalItems &&
+                      false === Array.isArray(input.additionalItems)) ||
+                      $report(_exceptionable, {
+                        path: _path + ".additionalItems",
+                        expected:
+                          "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean)",
+                        value: input.additionalItems,
+                      })) &&
+                      $vu0(
+                        input.additionalItems,
+                        _path + ".additionalItems",
+                        true && _exceptionable,
+                      )) ||
+                    $report(_exceptionable, {
+                      path: _path + ".additionalItems",
+                      expected:
+                        "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean)",
+                      value: input.additionalItems,
+                    })),
+                undefined === input.minItems ||
+                  ("number" === typeof input.minItems &&
+                    ((Math.floor(input.minItems) === input.minItems &&
+                      0 <= input.minItems &&
+                      input.minItems <= 4294967295) ||
+                      $report(_exceptionable, {
+                        path: _path + ".minItems",
+                        expected: 'number & Type<"uint32">',
+                        value: input.minItems,
+                      }))) ||
+                  $report(_exceptionable, {
+                    path: _path + ".minItems",
+                    expected: '((number & Type<"uint32">) | undefined)',
+                    value: input.minItems,
+                  }),
+                undefined === input.maxItems ||
+                  ("number" === typeof input.maxItems &&
+                    ((Math.floor(input.maxItems) === input.maxItems &&
+                      0 <= input.maxItems &&
+                      input.maxItems <= 4294967295) ||
+                      $report(_exceptionable, {
+                        path: _path + ".maxItems",
+                        expected: 'number & Type<"uint32">',
+                        value: input.maxItems,
+                      }))) ||
+                  $report(_exceptionable, {
+                    path: _path + ".maxItems",
+                    expected: '((number & Type<"uint32">) | undefined)',
+                    value: input.maxItems,
+                  }),
+                "array" === input.type ||
+                  $report(_exceptionable, {
+                    path: _path + ".type",
+                    expected: '"array"',
+                    value: input.type,
+                  }),
+                undefined === input.title ||
+                  "string" === typeof input.title ||
+                  $report(_exceptionable, {
+                    path: _path + ".title",
+                    expected: "(string | undefined)",
+                    value: input.title,
+                  }),
+                undefined === input.description ||
+                  "string" === typeof input.description ||
+                  $report(_exceptionable, {
+                    path: _path + ".description",
+                    expected: "(string | undefined)",
+                    value: input.description,
+                  }),
+                undefined === input.deprecated ||
+                  "boolean" === typeof input.deprecated ||
+                  $report(_exceptionable, {
+                    path: _path + ".deprecated",
+                    expected: "(boolean | undefined)",
+                    value: input.deprecated,
+                  }),
+              ].every((flag: boolean) => flag);
+            const $vo10 = (
+              input: any,
+              _path: string,
+              _exceptionable: boolean = true,
+            ): boolean =>
+              [
                 undefined === input.properties ||
                   ((("object" === typeof input.properties &&
                     null !== input.properties &&
@@ -1023,7 +1192,7 @@ export const test_json_createValidateParse_UltimateUnion =
                   $report(_exceptionable, {
                     path: _path + ".additionalProperties",
                     expected:
-                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown | boolean | undefined)",
+                      "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean | undefined)",
                     value: input.additionalProperties,
                   })) &&
                   (undefined === input.additionalProperties ||
@@ -1034,10 +1203,10 @@ export const test_json_createValidateParse_UltimateUnion =
                       $report(_exceptionable, {
                         path: _path + ".additionalProperties",
                         expected:
-                          "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown | boolean | undefined)",
+                          "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean | undefined)",
                         value: input.additionalProperties,
                       })) &&
-                      $vu1(
+                      $vu0(
                         input.additionalProperties,
                         _path + ".additionalProperties",
                         true && _exceptionable,
@@ -1045,7 +1214,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     $report(_exceptionable, {
                       path: _path + ".additionalProperties",
                       expected:
-                        "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown | boolean | undefined)",
+                        "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IOneOf | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown | boolean | undefined)",
                       value: input.additionalProperties,
                     })),
                 undefined === input.required ||
@@ -1057,10 +1226,10 @@ export const test_json_createValidateParse_UltimateUnion =
                     })) &&
                     input.required
                       .map(
-                        (elem: any, _index4: number) =>
+                        (elem: any, _index5: number) =>
                           "string" === typeof elem ||
                           $report(_exceptionable, {
-                            path: _path + ".required[" + _index4 + "]",
+                            path: _path + ".required[" + _index5 + "]",
                             expected: "string",
                             value: elem,
                           }),
@@ -1099,7 +1268,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.deprecated,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo10 = (
+            const $vo11 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1133,7 +1302,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.deprecated,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo11 = (
+            const $vo12 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1143,30 +1312,30 @@ export const test_json_createValidateParse_UltimateUnion =
                   $report(_exceptionable, {
                     path: _path + ".oneOf",
                     expected:
-                      "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | IObject | IReference<string> | INull | IUnknown>",
+                      "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
                     value: input.oneOf,
                   })) &&
                   input.oneOf
                     .map(
-                      (elem: any, _index5: number) =>
+                      (elem: any, _index6: number) =>
                         ((("object" === typeof elem &&
                           null !== elem &&
                           false === Array.isArray(elem)) ||
                           $report(_exceptionable, {
-                            path: _path + ".oneOf[" + _index5 + "]",
+                            path: _path + ".oneOf[" + _index6 + "]",
                             expected:
-                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                              "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                             value: elem,
                           })) &&
-                          $vu0(
+                          $vu1(
                             elem,
-                            _path + ".oneOf[" + _index5 + "]",
+                            _path + ".oneOf[" + _index6 + "]",
                             true && _exceptionable,
                           )) ||
                         $report(_exceptionable, {
-                          path: _path + ".oneOf[" + _index5 + "]",
+                          path: _path + ".oneOf[" + _index6 + "]",
                           expected:
-                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.IUnknown)",
+                            "(OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.IBoolean | OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger | OpenApi.IJsonSchema.INull | OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IObject | OpenApi.IJsonSchema.IReference<string> | OpenApi.IJsonSchema.IString | OpenApi.IJsonSchema.ITuple | OpenApi.IJsonSchema.IUnknown)",
                           value: elem,
                         }),
                     )
@@ -1174,7 +1343,7 @@ export const test_json_createValidateParse_UltimateUnion =
                   $report(_exceptionable, {
                     path: _path + ".oneOf",
                     expected:
-                      "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | IObject | IReference<string> | INull | IUnknown>",
+                      "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
                     value: input.oneOf,
                   }),
                 undefined === input.title ||
@@ -1199,7 +1368,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.deprecated,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo12 = (
+            const $vo13 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1233,7 +1402,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.deprecated,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo13 = (
+            const $vo14 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1273,7 +1442,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.deprecated,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo14 = (
+            const $vo15 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1307,7 +1476,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);
-            const $vo15 = (
+            const $vo16 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1343,7 +1512,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.description,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo16 = (
+            const $vo17 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1369,7 +1538,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.description,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo17 = (
+            const $vo18 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1402,7 +1571,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.description,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo18 = (
+            const $vo19 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1422,7 +1591,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     expected: "OpenApi.ISecurityScheme.IOAuth2.IFlowSet",
                     value: input.flows,
                   })) &&
-                  $vo19(
+                  $vo20(
                     input.flows,
                     _path + ".flows",
                     true && _exceptionable,
@@ -1440,7 +1609,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.description,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo19 = (
+            const $vo20 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1456,7 +1625,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         "(OpenApi.ISecurityScheme.IOAuth2.IFlow | undefined)",
                       value: input.authorizationCode,
                     })) &&
-                    $vo20(
+                    $vo21(
                       input.authorizationCode,
                       _path + ".authorizationCode",
                       true && _exceptionable,
@@ -1477,7 +1646,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         '(Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, "tokenUrl"> | undefined)',
                       value: input.implicit,
                     })) &&
-                    $vo22(
+                    $vo23(
                       input.implicit,
                       _path + ".implicit",
                       true && _exceptionable,
@@ -1498,7 +1667,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         '(Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, "authorizationUrl"> | undefined)',
                       value: input.password,
                     })) &&
-                    $vo23(
+                    $vo24(
                       input.password,
                       _path + ".password",
                       true && _exceptionable,
@@ -1519,7 +1688,7 @@ export const test_json_createValidateParse_UltimateUnion =
                         '(Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, "authorizationUrl"> | undefined)',
                       value: input.clientCredentials,
                     })) &&
-                    $vo23(
+                    $vo24(
                       input.clientCredentials,
                       _path + ".clientCredentials",
                       true && _exceptionable,
@@ -1531,7 +1700,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.clientCredentials,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo20 = (
+            const $vo21 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1567,7 +1736,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, string> | undefined)",
                       value: input.scopes,
                     })) &&
-                    $vo21(
+                    $vo22(
                       input.scopes,
                       _path + ".scopes",
                       true && _exceptionable,
@@ -1578,7 +1747,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.scopes,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo21 = (
+            const $vo22 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1600,7 +1769,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     })
                     .every((flag: boolean) => flag),
               ].every((flag: boolean) => flag);
-            const $vo22 = (
+            const $vo23 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1629,7 +1798,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, string> | undefined)",
                       value: input.scopes,
                     })) &&
-                    $vo21(
+                    $vo22(
                       input.scopes,
                       _path + ".scopes",
                       true && _exceptionable,
@@ -1640,7 +1809,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.scopes,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo23 = (
+            const $vo24 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1669,7 +1838,7 @@ export const test_json_createValidateParse_UltimateUnion =
                       expected: "(Record<string, string> | undefined)",
                       value: input.scopes,
                     })) &&
-                    $vo21(
+                    $vo22(
                       input.scopes,
                       _path + ".scopes",
                       true && _exceptionable,
@@ -1680,7 +1849,7 @@ export const test_json_createValidateParse_UltimateUnion =
                     value: input.scopes,
                   }),
               ].every((flag: boolean) => flag);
-            const $vo24 = (
+            const $vo25 = (
               input: any,
               _path: string,
               _exceptionable: boolean = true,
@@ -1722,15 +1891,19 @@ export const test_json_createValidateParse_UltimateUnion =
                   return $vo5(input, _path, true && _exceptionable);
                 else if ("string" === input.type)
                   return $vo7(input, _path, true && _exceptionable);
-                else if ("array" === input.type)
+                else if (undefined !== input.items)
                   return $vo8(input, _path, true && _exceptionable);
-                else if ("object" === input.type)
+                else if (undefined !== input.prefixItems)
                   return $vo9(input, _path, true && _exceptionable);
-                else if (undefined !== input.$ref)
+                else if ("object" === input.type)
                   return $vo10(input, _path, true && _exceptionable);
-                else if ("null" === input.type)
+                else if (undefined !== input.$ref)
+                  return $vo11(input, _path, true && _exceptionable);
+                else if (undefined !== input.oneOf)
                   return $vo12(input, _path, true && _exceptionable);
-                else return $vo13(input, _path, true && _exceptionable);
+                else if ("null" === input.type)
+                  return $vo13(input, _path, true && _exceptionable);
+                else return $vo14(input, _path, true && _exceptionable);
               })();
             const $vu1 = (
               input: any,
@@ -1748,17 +1921,17 @@ export const test_json_createValidateParse_UltimateUnion =
                   return $vo5(input, _path, true && _exceptionable);
                 else if ("string" === input.type)
                   return $vo7(input, _path, true && _exceptionable);
-                else if ("array" === input.type)
+                else if (undefined !== input.items)
                   return $vo8(input, _path, true && _exceptionable);
-                else if ("object" === input.type)
+                else if (undefined !== input.prefixItems)
                   return $vo9(input, _path, true && _exceptionable);
-                else if (undefined !== input.$ref)
+                else if ("object" === input.type)
                   return $vo10(input, _path, true && _exceptionable);
-                else if (undefined !== input.oneOf)
+                else if (undefined !== input.$ref)
                   return $vo11(input, _path, true && _exceptionable);
                 else if ("null" === input.type)
-                  return $vo12(input, _path, true && _exceptionable);
-                else return $vo13(input, _path, true && _exceptionable);
+                  return $vo13(input, _path, true && _exceptionable);
+                else return $vo14(input, _path, true && _exceptionable);
               })();
             const $vu2 = (
               input: any,
@@ -1767,15 +1940,15 @@ export const test_json_createValidateParse_UltimateUnion =
             ): any =>
               (() => {
                 if ("apiKey" === input.type)
-                  return $vo15(input, _path, true && _exceptionable);
-                else if ("basic" === input.scheme)
                   return $vo16(input, _path, true && _exceptionable);
-                else if ("bearer" === input.scheme)
+                else if ("basic" === input.scheme)
                   return $vo17(input, _path, true && _exceptionable);
-                else if ("oauth2" === input.type)
+                else if ("bearer" === input.scheme)
                   return $vo18(input, _path, true && _exceptionable);
+                else if ("oauth2" === input.type)
+                  return $vo19(input, _path, true && _exceptionable);
                 else if ("openIdConnect" === input.type)
-                  return $vo24(input, _path, true && _exceptionable);
+                  return $vo25(input, _path, true && _exceptionable);
                 else
                   return $report(_exceptionable, {
                     path: _path,

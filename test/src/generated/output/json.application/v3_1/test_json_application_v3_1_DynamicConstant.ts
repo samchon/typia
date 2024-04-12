@@ -12,7 +12,28 @@ export const test_json_application_v3_1_DynamicConstant =
     components: {
       schemas: {
         DynamicConstant: {
-          $ref: "#/components/schemas/DynamicConstant",
+          type: "object",
+          properties: {
+            value: {
+              type: "object",
+              properties: {
+                a: {
+                  type: "number",
+                },
+                b: {
+                  type: "number",
+                },
+                c: {
+                  type: "number",
+                },
+                d: {
+                  type: "number",
+                },
+              },
+              required: ["a", "b", "c", "d"],
+            },
+          },
+          required: ["value"],
         },
       },
     },

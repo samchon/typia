@@ -13,11 +13,11 @@ export const application_array =
     generator: (value: Metadata) => Schema<Version>,
   ) =>
   (array: MetadataArray): ArraySchema<Version>[] =>
-    application_plugin(
+    application_plugin<ArraySchema<Version>>(
       {
         type: "array",
         items: generator(array.type.value),
-      } satisfies ArraySchema<Version>,
+      } as ArraySchema<Version>,
       array.tags,
     );
 

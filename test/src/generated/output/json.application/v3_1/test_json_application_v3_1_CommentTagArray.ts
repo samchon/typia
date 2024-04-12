@@ -12,7 +12,53 @@ export const test_json_application_v3_1_CommentTagArray =
     components: {
       schemas: {
         CommentTagArray: {
-          $ref: "#/components/schemas/CommentTagArray",
+          type: "object",
+          properties: {
+            value: {
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/CommentTagArray.Type",
+              },
+            },
+          },
+          required: ["value"],
+        },
+        "CommentTagArray.Type": {
+          type: "object",
+          properties: {
+            items: {
+              type: "array",
+              items: {
+                type: "string",
+              },
+              minItems: 3,
+              maxItems: 3,
+            },
+            minItems: {
+              type: "array",
+              items: {
+                type: "number",
+              },
+              minItems: 3,
+            },
+            both: {
+              type: "array",
+              items: {
+                type: "string",
+              },
+              minItems: 3,
+              maxItems: 7,
+            },
+            equal: {
+              type: "array",
+              items: {
+                type: "number",
+              },
+              minItems: 10,
+              maxItems: 10,
+            },
+          },
+          required: ["items", "minItems", "both", "equal"],
         },
       },
     },
