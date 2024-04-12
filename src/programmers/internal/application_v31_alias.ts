@@ -5,6 +5,7 @@ import { CommentFactory } from "../../factories/CommentFactory";
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
 
+import { application_v31_object } from "./application_v31_object";
 import { application_v31_schema } from "./application_v31_schema";
 
 /**
@@ -14,6 +15,11 @@ export const application_v31_alias =
   <BlockNever extends boolean>(blockNever: BlockNever) =>
   (components: OpenApi.IComponents) =>
   (alias: MetadataAlias): OpenApi.IJsonSchema.IReference => {
+    if (alias.value.size() === 1 && alias.value.objects.length === 1)
+      return application_v31_object(components)(
+        alias.value.objects[0]!,
+      ) as OpenApi.IJsonSchema.IReference;
+
     const $ref: string = `#/components/schemas/${alias.name}`;
     if (components.schemas?.[alias.name] === undefined) {
       // TEMPORARY ASSIGNMENT

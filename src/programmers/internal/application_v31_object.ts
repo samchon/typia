@@ -19,12 +19,16 @@ export const application_v31_object =
   (
     obj: MetadataObject,
   ): OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject => {
-    const $ref: string = `#/components/schemas/${obj.name}`;
-    if (components.schemas?.[obj.name] !== undefined) return { $ref };
+    if (obj._Is_literal() === true)
+      return create_object_schema(components)(obj);
+
+    const key: string = obj.name;
+    const $ref: string = `#/components/schemas/${key}`;
+    if (components.schemas?.[key] !== undefined) return { $ref };
 
     const object: OpenApiV3.IJsonSchema = {};
     components.schemas ??= {};
-    components.schemas[obj.name] = object;
+    components.schemas[key] = object;
     Object.assign(object, create_object_schema(components)(obj));
     return { $ref };
   };
