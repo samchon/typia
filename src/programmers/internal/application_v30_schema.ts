@@ -53,7 +53,7 @@ export const application_v30_schema =
 
     // toJSON() METHOD
     if (meta.escaped !== null)
-      application_escaped(application_v30_schema(false)(components)({}))(
+      application_escaped<"3.0">(application_v30_schema(false)(components)({}))(
         meta.escaped,
       ).forEach(insert);
 
@@ -73,7 +73,7 @@ export const application_v30_schema =
 
     // ARRAY
     for (const array of meta.arrays)
-      application_array(application_v30_schema(false)(components)({}))(
+      application_array<"3.0">(application_v30_schema(false)(components)({}))(
         array,
       ).forEach(insert);
 
