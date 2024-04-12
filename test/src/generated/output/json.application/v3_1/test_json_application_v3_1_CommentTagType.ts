@@ -13,7 +13,20 @@ export const test_json_application_v3_1_CommentTagType = _test_json_application(
   components: {
     schemas: {
       CommentTagType: {
-        $ref: "#/components/schemas/CommentTagType",
+        type: "object",
+        properties: {
+          value: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/CommentTagType.Type",
+            },
+          },
+        },
+        required: ["value"],
+      },
+      "CommentTagType.Type": {
+        type: "object",
+        properties: {},
       },
     },
   },

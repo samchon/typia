@@ -12,7 +12,35 @@ export const test_json_application_v3_1_CommentTagAtomicUnion =
     components: {
       schemas: {
         CommentTagAtomicUnion: {
-          $ref: "#/components/schemas/CommentTagAtomicUnion",
+          type: "object",
+          properties: {
+            value: {
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/CommentTagAtomicUnion.Type",
+              },
+            },
+          },
+          required: ["value"],
+        },
+        "CommentTagAtomicUnion.Type": {
+          type: "object",
+          properties: {
+            value: {
+              oneOf: [
+                {
+                  type: "string",
+                  minLength: 3,
+                  maxLength: 7,
+                },
+                {
+                  type: "number",
+                  minimum: 3,
+                },
+              ],
+            },
+          },
+          required: ["value"],
         },
       },
     },

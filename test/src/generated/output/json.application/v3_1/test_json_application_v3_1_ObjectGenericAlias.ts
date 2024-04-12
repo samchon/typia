@@ -12,7 +12,13 @@ export const test_json_application_v3_1_ObjectGenericAlias =
     components: {
       schemas: {
         "ObjectGenericAlias.Alias": {
-          $ref: "#/components/schemas/ObjectGenericAlias.Alias",
+          type: "object",
+          properties: {
+            value: {
+              type: "string",
+            },
+          },
+          required: ["value"],
         },
       },
     },

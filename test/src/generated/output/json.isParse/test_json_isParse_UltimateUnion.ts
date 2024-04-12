@@ -19,7 +19,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
             "object" === typeof elem &&
             null !== elem &&
             false === Array.isArray(elem) &&
-            $iu1(elem),
+            $iu0(elem),
         );
       const $io1 = (input: any): boolean =>
         "object" === typeof input.schemas &&
@@ -30,7 +30,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           ("object" === typeof input.securitySchemes &&
             null !== input.securitySchemes &&
             false === Array.isArray(input.securitySchemes) &&
-            $io14(input.securitySchemes)));
+            $io15(input.securitySchemes)));
       const $io2 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
@@ -39,7 +39,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
             "object" === typeof value &&
             null !== value &&
             false === Array.isArray(value) &&
-            $iu1(value)
+            $iu0(value)
           );
         });
       const $io3 = (input: any): boolean =>
@@ -145,7 +145,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         "object" === typeof input.items &&
         null !== input.items &&
         false === Array.isArray(input.items) &&
-        $iu1(input.items) &&
+        $iu0(input.items) &&
         (undefined === input.minItems ||
           ("number" === typeof input.minItems &&
             Math.floor(input.minItems) === input.minItems &&
@@ -163,6 +163,38 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated);
       const $io9 = (input: any): boolean =>
+        Array.isArray(input.prefixItems) &&
+        input.prefixItems.every(
+          (elem: any) =>
+            "object" === typeof elem &&
+            null !== elem &&
+            false === Array.isArray(elem) &&
+            $iu0(elem),
+        ) &&
+        null !== input.additionalItems &&
+        undefined !== input.additionalItems &&
+        ("boolean" === typeof input.additionalItems ||
+          ("object" === typeof input.additionalItems &&
+            null !== input.additionalItems &&
+            false === Array.isArray(input.additionalItems) &&
+            $iu0(input.additionalItems))) &&
+        (undefined === input.minItems ||
+          ("number" === typeof input.minItems &&
+            Math.floor(input.minItems) === input.minItems &&
+            0 <= input.minItems &&
+            input.minItems <= 4294967295)) &&
+        (undefined === input.maxItems ||
+          ("number" === typeof input.maxItems &&
+            Math.floor(input.maxItems) === input.maxItems &&
+            0 <= input.maxItems &&
+            input.maxItems <= 4294967295)) &&
+        "array" === input.type &&
+        (undefined === input.title || "string" === typeof input.title) &&
+        (undefined === input.description ||
+          "string" === typeof input.description) &&
+        (undefined === input.deprecated ||
+          "boolean" === typeof input.deprecated);
+      const $io10 = (input: any): boolean =>
         (undefined === input.properties ||
           ("object" === typeof input.properties &&
             null !== input.properties &&
@@ -174,7 +206,7 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           ("object" === typeof input.additionalProperties &&
             null !== input.additionalProperties &&
             false === Array.isArray(input.additionalProperties) &&
-            $iu1(input.additionalProperties))) &&
+            $iu0(input.additionalProperties))) &&
         (undefined === input.required ||
           (Array.isArray(input.required) &&
             input.required.every((elem: any) => "string" === typeof elem))) &&
@@ -184,35 +216,35 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           "string" === typeof input.description) &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated);
-      const $io10 = (input: any): boolean =>
+      const $io11 = (input: any): boolean =>
         "string" === typeof input.$ref &&
         (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
           "string" === typeof input.description) &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated);
-      const $io11 = (input: any): boolean =>
+      const $io12 = (input: any): boolean =>
         Array.isArray(input.oneOf) &&
         input.oneOf.every(
           (elem: any) =>
             "object" === typeof elem &&
             null !== elem &&
             false === Array.isArray(elem) &&
-            $iu0(elem),
+            $iu1(elem),
         ) &&
         (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
           "string" === typeof input.description) &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated);
-      const $io12 = (input: any): boolean =>
+      const $io13 = (input: any): boolean =>
         "null" === input.type &&
         (undefined === input.title || "string" === typeof input.title) &&
         (undefined === input.description ||
           "string" === typeof input.description) &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated);
-      const $io13 = (input: any): boolean =>
+      const $io14 = (input: any): boolean =>
         null !== input.type &&
         undefined === input.type &&
         (undefined === input.title || "string" === typeof input.title) &&
@@ -220,13 +252,13 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           "string" === typeof input.description) &&
         (undefined === input.deprecated ||
           "boolean" === typeof input.deprecated);
-      const $io14 = (input: any): boolean =>
+      const $io15 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
           return "object" === typeof value && null !== value && $iu2(value);
         });
-      const $io15 = (input: any): boolean =>
+      const $io16 = (input: any): boolean =>
         "apiKey" === input.type &&
         (undefined === input["in"] ||
           "header" === input["in"] ||
@@ -235,48 +267,48 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
         (undefined === input.name || "string" === typeof input.name) &&
         (undefined === input.description ||
           "string" === typeof input.description);
-      const $io16 = (input: any): boolean =>
+      const $io17 = (input: any): boolean =>
         "http" === input.type &&
         "basic" === input.scheme &&
         (undefined === input.description ||
           "string" === typeof input.description);
-      const $io17 = (input: any): boolean =>
+      const $io18 = (input: any): boolean =>
         "http" === input.type &&
         "bearer" === input.scheme &&
         (undefined === input.bearerFormat ||
           "string" === typeof input.bearerFormat) &&
         (undefined === input.description ||
           "string" === typeof input.description);
-      const $io18 = (input: any): boolean =>
+      const $io19 = (input: any): boolean =>
         "oauth2" === input.type &&
         "object" === typeof input.flows &&
         null !== input.flows &&
         false === Array.isArray(input.flows) &&
-        $io19(input.flows) &&
+        $io20(input.flows) &&
         (undefined === input.description ||
           "string" === typeof input.description);
-      const $io19 = (input: any): boolean =>
+      const $io20 = (input: any): boolean =>
         (undefined === input.authorizationCode ||
           ("object" === typeof input.authorizationCode &&
             null !== input.authorizationCode &&
             false === Array.isArray(input.authorizationCode) &&
-            $io20(input.authorizationCode))) &&
+            $io21(input.authorizationCode))) &&
         (undefined === input.implicit ||
           ("object" === typeof input.implicit &&
             null !== input.implicit &&
             false === Array.isArray(input.implicit) &&
-            $io22(input.implicit))) &&
+            $io23(input.implicit))) &&
         (undefined === input.password ||
           ("object" === typeof input.password &&
             null !== input.password &&
             false === Array.isArray(input.password) &&
-            $io23(input.password))) &&
+            $io24(input.password))) &&
         (undefined === input.clientCredentials ||
           ("object" === typeof input.clientCredentials &&
             null !== input.clientCredentials &&
             false === Array.isArray(input.clientCredentials) &&
-            $io23(input.clientCredentials)));
-      const $io20 = (input: any): boolean =>
+            $io24(input.clientCredentials)));
+      const $io21 = (input: any): boolean =>
         (undefined === input.authorizationUrl ||
           "string" === typeof input.authorizationUrl) &&
         (undefined === input.tokenUrl || "string" === typeof input.tokenUrl) &&
@@ -286,14 +318,14 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           ("object" === typeof input.scopes &&
             null !== input.scopes &&
             false === Array.isArray(input.scopes) &&
-            $io21(input.scopes)));
-      const $io21 = (input: any): boolean =>
+            $io22(input.scopes)));
+      const $io22 = (input: any): boolean =>
         Object.keys(input).every((key: any) => {
           const value = input[key];
           if (undefined === value) return true;
           return "string" === typeof value;
         });
-      const $io22 = (input: any): boolean =>
+      const $io23 = (input: any): boolean =>
         (undefined === input.authorizationUrl ||
           "string" === typeof input.authorizationUrl) &&
         (undefined === input.refreshUrl ||
@@ -302,8 +334,8 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           ("object" === typeof input.scopes &&
             null !== input.scopes &&
             false === Array.isArray(input.scopes) &&
-            $io21(input.scopes)));
-      const $io23 = (input: any): boolean =>
+            $io22(input.scopes)));
+      const $io24 = (input: any): boolean =>
         (undefined === input.tokenUrl || "string" === typeof input.tokenUrl) &&
         (undefined === input.refreshUrl ||
           "string" === typeof input.refreshUrl) &&
@@ -311,8 +343,8 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           ("object" === typeof input.scopes &&
             null !== input.scopes &&
             false === Array.isArray(input.scopes) &&
-            $io21(input.scopes)));
-      const $io24 = (input: any): boolean =>
+            $io22(input.scopes)));
+      const $io25 = (input: any): boolean =>
         "openIdConnect" === input.type &&
         "string" === typeof input.openIdConnectUrl &&
         (undefined === input.description ||
@@ -324,11 +356,13 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           else if ("number" === input.type) return $io6(input);
           else if ("integer" === input.type) return $io5(input);
           else if ("string" === input.type) return $io7(input);
-          else if ("array" === input.type) return $io8(input);
-          else if ("object" === input.type) return $io9(input);
-          else if (undefined !== input.$ref) return $io10(input);
-          else if ("null" === input.type) return $io12(input);
-          else return $io13(input);
+          else if (undefined !== input.items) return $io8(input);
+          else if (undefined !== input.prefixItems) return $io9(input);
+          else if ("object" === input.type) return $io10(input);
+          else if (undefined !== input.$ref) return $io11(input);
+          else if (undefined !== input.oneOf) return $io12(input);
+          else if ("null" === input.type) return $io13(input);
+          else return $io14(input);
         })();
       const $iu1 = (input: any): any =>
         (() => {
@@ -337,20 +371,20 @@ export const test_json_isParse_UltimateUnion = _test_json_isParse(
           else if ("number" === input.type) return $io6(input);
           else if ("integer" === input.type) return $io5(input);
           else if ("string" === input.type) return $io7(input);
-          else if ("array" === input.type) return $io8(input);
-          else if ("object" === input.type) return $io9(input);
-          else if (undefined !== input.$ref) return $io10(input);
-          else if (undefined !== input.oneOf) return $io11(input);
-          else if ("null" === input.type) return $io12(input);
-          else return $io13(input);
+          else if (undefined !== input.items) return $io8(input);
+          else if (undefined !== input.prefixItems) return $io9(input);
+          else if ("object" === input.type) return $io10(input);
+          else if (undefined !== input.$ref) return $io11(input);
+          else if ("null" === input.type) return $io13(input);
+          else return $io14(input);
         })();
       const $iu2 = (input: any): any =>
         (() => {
-          if ("apiKey" === input.type) return $io15(input);
-          else if ("basic" === input.scheme) return $io16(input);
-          else if ("bearer" === input.scheme) return $io17(input);
-          else if ("oauth2" === input.type) return $io18(input);
-          else if ("openIdConnect" === input.type) return $io24(input);
+          if ("apiKey" === input.type) return $io16(input);
+          else if ("basic" === input.scheme) return $io17(input);
+          else if ("bearer" === input.scheme) return $io18(input);
+          else if ("oauth2" === input.type) return $io19(input);
+          else if ("openIdConnect" === input.type) return $io25(input);
           else return false;
         })();
       return (

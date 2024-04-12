@@ -12,7 +12,35 @@ export const test_json_application_v3_1_TypeTagAtomicUnion =
     components: {
       schemas: {
         TypeTagAtomicUnion: {
-          $ref: "#/components/schemas/TypeTagAtomicUnion",
+          type: "object",
+          properties: {
+            value: {
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/TypeTagAtomicUnion.Type",
+              },
+            },
+          },
+          required: ["value"],
+        },
+        "TypeTagAtomicUnion.Type": {
+          type: "object",
+          properties: {
+            value: {
+              oneOf: [
+                {
+                  type: "string",
+                  minLength: 3,
+                  maxLength: 7,
+                },
+                {
+                  type: "number",
+                  minimum: 3,
+                },
+              ],
+            },
+          },
+          required: ["value"],
         },
       },
     },

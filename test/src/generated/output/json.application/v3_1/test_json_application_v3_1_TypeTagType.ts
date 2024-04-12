@@ -11,7 +11,51 @@ export const test_json_application_v3_1_TypeTagType = _test_json_application({
   components: {
     schemas: {
       TypeTagType: {
-        $ref: "#/components/schemas/TypeTagType",
+        type: "object",
+        properties: {
+          value: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/TypeTagType.Type",
+            },
+          },
+        },
+        required: ["value"],
+      },
+      "TypeTagType.Type": {
+        type: "object",
+        properties: {
+          int: {
+            type: "integer",
+          },
+          uint: {
+            type: "integer",
+          },
+          int32: {
+            type: "integer",
+          },
+          uint32: {
+            type: "integer",
+          },
+          int64: {
+            type: "integer",
+          },
+          uint64: {
+            type: "integer",
+          },
+          float: {
+            type: "number",
+          },
+        },
+        required: [
+          "int",
+          "uint",
+          "int32",
+          "uint32",
+          "int64",
+          "uint64",
+          "float",
+        ],
       },
     },
   },

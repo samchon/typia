@@ -26,8 +26,12 @@ export const test_json_application_v3_1_DynamicTree = _test_json_application({
         required: ["id", "sequence", "children"],
       },
       RecordstringDynamicTree: {
-        $ref: "#/components/schemas/RecordstringDynamicTree",
+        type: "object",
+        properties: {},
         description: "Construct a type with a set of properties K of type T",
+        additionalProperties: {
+          $ref: "#/components/schemas/DynamicTree",
+        },
       },
     },
   },

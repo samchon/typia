@@ -27,7 +27,9 @@ export const application_escaped =
       )
         string.format = "date-time";
     }
-    return is_one_of(output) ? output.oneOf : [output];
+    return is_one_of(output)
+      ? (output.oneOf as OneOfSchema<Version>[])
+      : [output];
   };
 
 /**

@@ -12,7 +12,19 @@ export const test_json_application_v3_1_ObjectIntersection =
     components: {
       schemas: {
         ObjectIntersection: {
-          $ref: "#/components/schemas/ObjectIntersection",
+          type: "object",
+          properties: {
+            email: {
+              type: "string",
+            },
+            name: {
+              type: "string",
+            },
+            vulnerable: {
+              type: "boolean",
+            },
+          },
+          required: ["email", "name", "vulnerable"],
         },
       },
     },

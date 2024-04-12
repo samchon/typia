@@ -22,8 +22,12 @@
         ]
       },
       "RecordstringDynamicTree": {
-        "$ref": "#/components/schemas/RecordstringDynamicTree",
-        "description": "Construct a type with a set of properties K of type T"
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/DynamicTree"
+        }
       }
     }
   },

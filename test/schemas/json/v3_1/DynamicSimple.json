@@ -3,7 +3,19 @@
   "components": {
     "schemas": {
       "DynamicSimple": {
-        "$ref": "#/components/schemas/DynamicSimple"
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
       }
     }
   },

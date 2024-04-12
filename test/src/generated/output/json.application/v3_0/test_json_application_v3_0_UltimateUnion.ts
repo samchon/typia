@@ -79,6 +79,9 @@ export const test_json_application_v3_0_UltimateUnion = _test_json_application({
             $ref: "#/components/schemas/OpenApi.IJsonSchema.IArray",
           },
           {
+            $ref: "#/components/schemas/OpenApi.IJsonSchema.ITuple",
+          },
+          {
             $ref: "#/components/schemas/OpenApi.IJsonSchema.IObject",
           },
           {
@@ -272,6 +275,75 @@ export const test_json_application_v3_0_UltimateUnion = _test_json_application({
         nullable: false,
         required: ["items", "type"],
       },
+      "OpenApi.IJsonSchema.ITuple": {
+        type: "object",
+        properties: {
+          prefixItems: {
+            type: "array",
+            items: {
+              $ref: "#/components/schemas/OpenApi.IJsonSchema",
+            },
+          },
+          additionalItems: {
+            oneOf: [
+              {
+                type: "boolean",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IConstant",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IBoolean",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.INumber",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IInteger",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IString",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IArray",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.ITuple",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IObject",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IReferencestring",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IOneOf",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.IUnknown",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.INull",
+              },
+            ],
+          },
+          type: {
+            type: "string",
+            enum: ["array"],
+          },
+          title: {
+            type: "string",
+          },
+          description: {
+            type: "string",
+          },
+          deprecated: {
+            type: "boolean",
+          },
+        },
+        nullable: false,
+        required: ["prefixItems", "additionalItems", "type"],
+      },
       "OpenApi.IJsonSchema.IObject": {
         type: "object",
         properties: {
@@ -300,6 +372,9 @@ export const test_json_application_v3_0_UltimateUnion = _test_json_application({
               },
               {
                 $ref: "#/components/schemas/OpenApi.IJsonSchema.IArray",
+              },
+              {
+                $ref: "#/components/schemas/OpenApi.IJsonSchema.ITuple",
               },
               {
                 $ref: "#/components/schemas/OpenApi.IJsonSchema.IObject",
@@ -384,6 +459,9 @@ export const test_json_application_v3_0_UltimateUnion = _test_json_application({
                 },
                 {
                   $ref: "#/components/schemas/OpenApi.IJsonSchema.IArray",
+                },
+                {
+                  $ref: "#/components/schemas/OpenApi.IJsonSchema.ITuple",
                 },
                 {
                   $ref: "#/components/schemas/OpenApi.IJsonSchema.IObject",
