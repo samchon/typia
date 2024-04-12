@@ -12,7 +12,7 @@ updates:
       - dependency-name: "typescript"
     groups:
       Ecosystem:
-        - patterns:
+        patterns:
           - "@samchon/openapi"
           - "ts-node"
           - "typescript"
@@ -29,7 +29,8 @@ updates:
       - dependency-name: "typescript"
     groups:
       Ecosystem:
-        - patterns:
+        patterns:
+          - "@samchon/openapi"
           - "ts-node"
           - "ts-patch"
           - "typescript"
