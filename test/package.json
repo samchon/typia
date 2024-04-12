@@ -41,7 +41,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-patch": "^3.1.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@samchon/openapi": "^0.1.4",
