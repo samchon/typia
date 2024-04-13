@@ -6,7 +6,6 @@ import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGene
 import { TestProtobufMessageGenerator } from "./internal/TestProtobufMessageGenerator";
 import { TestReflectMetadataGenerator } from "./internal/TestReflectMetadataGenerator";
 import { TestStructure } from "./internal/TestStructure";
-import { __TypeRemover } from "./internal/__TypeRemover";
 import { StringUtil } from "./utils/StringUtil";
 import { write_common } from "./writers/write_common";
 
@@ -103,16 +102,16 @@ function script(
               `${method}<${struct.name}>((p) => new CustomGuardError(p))`,
             )
         : feat.module === "functional"
-        ? (str: string) =>
-            str.replace(
-              `${method}(p)`,
-              `${method}(p, (p) => new CustomGuardError(p))`,
-            )
-        : (str: string) =>
-            str.replace(
-              `${method}<${struct.name}>(input)`,
-              `${method}<${struct.name}>(input, (p) => new CustomGuardError(p))`,
-            )
+          ? (str: string) =>
+              str.replace(
+                `${method}(p)`,
+                `${method}(p, (p) => new CustomGuardError(p))`,
+              )
+          : (str: string) =>
+              str.replace(
+                `${method}<${struct.name}>(input)`,
+                `${method}<${struct.name}>(input, (p) => new CustomGuardError(p))`,
+              )
       : (str: string) => str;
   return [
     content.substring(0, from),
@@ -171,18 +170,6 @@ async function main(): Promise<void> {
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
 
-  // GENERATE TRANSFORMED FEATURES
-  cp.execSync("npx rimraf src/generated");
-  cp.execSync(
-    [
-      "npx typia generate",
-      "--input src/features",
-      "--output src/generated/output",
-      "--project tsconfig.json",
-    ].join(" "),
-    { stdio: "inherit" },
-  );
-  await __TypeRemover.remove(__dirname + "/../src/generated");
   cp.execSync("npm run prettier", { stdio: "inherit" });
 }
 main().catch((exp) => {
