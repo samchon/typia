@@ -5,5 +5,5 @@ import { ArrayHierarchical } from "../../../../structures/pure/ArrayHierarchical
 import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";
 
 createFastifyPureServerPerformanceBenchmarkProgram(
-  typia.json.application<[ICollection<ArrayHierarchical>]>(),
+  typia.json.application<[ICollection<ArrayHierarchical>], "3.0">(),
 );

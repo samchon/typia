@@ -91,7 +91,11 @@ export namespace BenchmarkReporter {
         : `${__dirname}/../../../benchmark/results`;
 
     const cpu: string = os.cpus()[0].model.trim();
-    const location: string = `${results}/${cpu.split("\\").join("").split("/").join("")}`;
+    const location: string = `${results}/${cpu
+      .split("\\")
+      .join("")
+      .split("/")
+      .join("")}`;
 
     await mkdir(results);
     await mkdir(location);

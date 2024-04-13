@@ -88,7 +88,7 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
         `import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";`,
         ``,
         `createFastifyPureServerPerformanceBenchmarkProgram(`,
-        `   typia.json.application<[ICollection<${type}>]>()`,
+        `   typia.json.application<[ICollection<${type}>], "3.0">()`,
         `);`,
       ].join("\n"),
   },

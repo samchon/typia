@@ -5,5 +5,5 @@ import { ObjectRecursive } from "../../../../structures/pure/ObjectRecursive";
 import { createFastifyPureServerAssertBenchmarkProgram } from "../createFastifyPureServerAssertBenchmarkProgram";
 
 createFastifyPureServerAssertBenchmarkProgram(
-  typia.json.application<[ICollection<ObjectRecursive>]>(),
+  typia.json.application<[ICollection<ObjectRecursive>], "3.0">(),
 );

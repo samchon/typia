@@ -81,9 +81,9 @@ Check out the document in the [website](https://typia.io/docs/):
     - [Functional Module](https://typia.io/docs/validators/functional)
     - [Special Tags](https://typia.io/docs/validators/tags/)
   - Enhanced JSON
+    - [JSON Schema](https://typia.io/docs/json/schema)
     - [`stringify()` functions](https://typia.io/docs/json/stringify/)
     - [`parse()` functions](https://typia.io/docs/json/parse/)
-    - [JSON Schema](https://typia.io/docs/json/schema)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)
     - [`decode()` functions](https://typia.io/docs/protobuf/decode/)

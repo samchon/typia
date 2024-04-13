@@ -3,17 +3,16 @@ import { IJsonApplication } from "typia";
 
 import { createValidateBenchmarkProgram } from "../createValidateBenchmarkProgram";
 
-export const createValidateAjvBenchmarkProgram = (app: IJsonApplication) => {
+export const createValidateAjvBenchmarkProgram = (
+  app: IJsonApplication<"3.0">,
+) => {
   const program = new Ajv({
-    schemas: Object.values(app.components.schemas ?? {}),
-    keywords: [
-      "x-typia-tuple",
-      "x-typia-jsDocTags",
-      "x-typia-typeTags",
-      "x-typia-required",
-      "x-typia-optional",
-      "x-typia-rest",
-    ],
+    schemas: Object.entries(app.components.schemas ?? {}).map(
+      ([key, value]) => ({
+        ...value,
+        $id: `#/components/schemas/${key}`,
+      }),
+    ),
     strict: true,
     strictNumbers: false,
     allErrors: true,
