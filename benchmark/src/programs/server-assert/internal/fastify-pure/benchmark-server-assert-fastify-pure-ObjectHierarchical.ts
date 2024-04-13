@@ -5,5 +5,5 @@ import { ObjectHierarchical } from "../../../../structures/pure/ObjectHierarchic
 import { createFastifyPureServerAssertBenchmarkProgram } from "../createFastifyPureServerAssertBenchmarkProgram";
 
 createFastifyPureServerAssertBenchmarkProgram(
-  typia.json.application<[ICollection<ObjectHierarchical>]>(),
+  typia.json.application<[ICollection<ObjectHierarchical>], "3.0">(),
 );
