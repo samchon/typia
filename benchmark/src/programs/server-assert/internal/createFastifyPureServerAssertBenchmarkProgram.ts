@@ -5,27 +5,23 @@ import typia from "typia";
 import { IServerAssertProgram } from "./IServerAssertProgram";
 
 export const createFastifyPureServerAssertBenchmarkProgram = async <T>(
-  app: typia.IJsonApplication,
+  app: typia.IJsonApplication<"3.0">,
 ) => {
   // OPEN SERVER
   const server = fastify({
     bodyLimit: 50_000_000,
     ajv: {
       customOptions: {
-        keywords: [
-          "x-typia-tuple",
-          "x-typia-jsDocTags",
-          "x-typia-typeTags",
-          "x-typia-required",
-          "x-typia-optional",
-          "x-typia-rest",
-        ],
         strict: true,
+        strictNumbers: true,
       },
     },
   });
-  for (const value of Object.values(app.components.schemas ?? {}))
-    server.addSchema(value);
+  for (const [key, value] of Object.entries(app.components.schemas ?? {}))
+    server.addSchema({
+      ...value,
+      $id: `#/components/schemas/${key}`,
+    });
 
   // PROVIDER
   const provider: IServerAssertProgram = {

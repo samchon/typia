@@ -5,5 +5,5 @@ import { ArraySimple } from "../../../../structures/pure/ArraySimple";
 import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";
 
 createFastifyPureServerPerformanceBenchmarkProgram(
-  typia.json.application<[ICollection<ArraySimple>]>(),
+  typia.json.application<[ICollection<ArraySimple>], "3.0">(),
 );
