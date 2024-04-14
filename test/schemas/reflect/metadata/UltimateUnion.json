@@ -243,7 +243,7 @@
             "value": {
               "any": false,
               "required": true,
-              "optional": false,
+              "optional": true,
               "nullable": false,
               "functional": false,
               "atomics": [],
@@ -1224,17 +1224,7 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": [
-              {
-                "name": "type",
-                "text": [
-                  {
-                    "text": "int",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
+            "jsDocTags": []
           },
           {
             "key": {
@@ -1290,17 +1280,7 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": [
-              {
-                "name": "type",
-                "text": [
-                  {
-                    "text": "int",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ]
+            "jsDocTags": []
           },
           {
             "key": {

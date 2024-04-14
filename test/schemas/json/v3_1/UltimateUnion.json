@@ -39,10 +39,7 @@
           "securitySchemes": {
             "$ref": "#/components/schemas/RecordstringOpenApi.ISecurityScheme"
           }
-        },
-        "required": [
-          "schemas"
-        ]
+        }
       },
       "RecordstringOpenApi.IJsonSchema": {
         "type": "object",
@@ -148,11 +145,23 @@
       "OpenApi.IJsonSchema.IInteger": {
         "type": "object",
         "properties": {
+          "default": {
+            "type": "number"
+          },
+          "minimum": {
+            "type": "number"
+          },
+          "maximum": {
+            "type": "number"
+          },
           "exclusiveMinimum": {
             "type": "boolean"
           },
           "exclusiveMaximum": {
             "type": "boolean"
+          },
+          "multipleOf": {
+            "type": "number"
           },
           "type": {
             "const": "integer"
@@ -230,6 +239,12 @@
           "pattern": {
             "type": "string"
           },
+          "minLength": {
+            "type": "number"
+          },
+          "maxLength": {
+            "type": "number"
+          },
           "type": {
             "const": "string"
           },
@@ -252,6 +267,12 @@
         "properties": {
           "items": {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema"
+          },
+          "minItems": {
+            "type": "number"
+          },
+          "maxItems": {
+            "type": "number"
           },
           "type": {
             "const": "array"
@@ -322,6 +343,12 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
               }
             ]
+          },
+          "minItems": {
+            "type": "number"
+          },
+          "maxItems": {
+            "type": "number"
           },
           "type": {
             "const": "array"

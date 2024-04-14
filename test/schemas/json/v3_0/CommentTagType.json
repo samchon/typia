@@ -19,8 +19,43 @@
       },
       "CommentTagType.Type": {
         "type": "object",
-        "properties": {},
-        "nullable": false
+        "properties": {
+          "int": {
+            "type": "number",
+            "title": "Integer value",
+            "description": "Integer value."
+          },
+          "uint": {
+            "type": "number",
+            "title": "Unsigned integer value",
+            "description": "Unsigned integer value."
+          },
+          "int32": {
+            "type": "number"
+          },
+          "uint32": {
+            "type": "number"
+          },
+          "int64": {
+            "type": "number"
+          },
+          "uint64": {
+            "type": "number"
+          },
+          "float": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "int",
+          "uint",
+          "int32",
+          "uint32",
+          "int64",
+          "uint64",
+          "float"
+        ]
       }
     }
   },
