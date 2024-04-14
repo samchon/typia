@@ -37,6 +37,7 @@ export class MetadataAtomic {
               : tag.value,
           validate: tag.validate,
           exclusive: tag.exclusive,
+          schema: tag.schema,
         })),
       ),
     });
