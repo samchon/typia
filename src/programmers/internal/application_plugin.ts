@@ -10,7 +10,7 @@ export const application_plugin = <Schema extends object>(
   const plugins: IMetadataTypeTag[][] = tags
     .map((row) => row.filter((t) => t.schema !== undefined))
     .filter((row) => row.length !== 0);
-  if (tags.length === 0) return [schema];
+  if (plugins.length === 0) return [schema];
   return plugins.map((row) => {
     const base: Schema = { ...schema };
     for (const tag of row) Object.assign(base, tag.schema);
