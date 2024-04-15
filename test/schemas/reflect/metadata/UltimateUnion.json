@@ -2300,62 +2300,6 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "enum"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [
-                {
-                  "name": "Array<string>",
-                  "tags": []
-                }
-              ],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
                       "value": "format"
                     }
                   ]
@@ -7204,38 +7148,6 @@
         "index": null
       },
       {
-        "name": "Array<string>",
-        "value": {
-          "any": false,
-          "required": true,
-          "optional": false,
-          "nullable": false,
-          "functional": false,
-          "atomics": [
-            {
-              "type": "string",
-              "tags": []
-            }
-          ],
-          "constants": [],
-          "templates": [],
-          "escaped": null,
-          "rest": null,
-          "arrays": [],
-          "tuples": [],
-          "objects": [],
-          "aliases": [],
-          "natives": [],
-          "sets": [],
-          "maps": []
-        },
-        "nullables": [
-          false
-        ],
-        "recursive": false,
-        "index": null
-      },
-      {
         "name": "Array<OpenApi.IJsonSchema>",
         "value": {
           "any": false,
@@ -7303,6 +7215,38 @@
             "OpenApi.IJsonSchema.IUnknown",
             "OpenApi.IJsonSchema.INull"
           ],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      },
+      {
+        "name": "Array<string>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functional": false,
+          "atomics": [
+            {
+              "type": "string",
+              "tags": []
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
           "aliases": [],
           "natives": [],
           "sets": [],
