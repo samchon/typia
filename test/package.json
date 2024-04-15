@@ -43,7 +43,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@samchon/openapi": "^0.1.12",
+    "@samchon/openapi": "^0.1.14",
     "cli": "^1.0.1",
     "protobufjs": "^7.2.5",
     "randexp": "^0.5.3",

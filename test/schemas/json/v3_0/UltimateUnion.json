@@ -246,12 +246,6 @@
           "default": {
             "type": "string"
           },
-          "enum": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
           "format": {
             "type": "string"
           },
