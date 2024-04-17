@@ -981,11 +981,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"int64\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "value": "int64",
+                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -1009,7 +1012,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "int",
+                    "text": "int64",
                     "kind": "text"
                   }
                 ]
@@ -1058,11 +1061,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"int64\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "value": "int64",
+                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -1086,7 +1092,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "int",
+                    "text": "int64",
                     "kind": "text"
                   }
                 ]
@@ -1135,11 +1141,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"int64\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true
+                        "value": "int64",
+                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -1163,7 +1172,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "int",
+                    "text": "int64",
                     "kind": "text"
                   }
                 ]
@@ -1324,11 +1333,29 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
+                      },
+                      {
+                        "target": "number",
+                        "name": "ExclusiveMinimum<0>",
+                        "kind": "exclusiveMinimum",
+                        "value": 0,
+                        "validate": "0 < $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 0
+                        }
                       }
                     ]
                   ]
@@ -1352,7 +1379,16 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "exclusiveMinimum",
+                "text": [
+                  {
+                    "text": "0",
                     "kind": "text"
                   }
                 ]
@@ -1917,7 +1953,25 @@
               "atomics": [
                 {
                   "type": "number",
-                  "tags": []
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "ExclusiveMinimum<0>",
+                        "kind": "exclusiveMinimum",
+                        "value": 0,
+                        "validate": "0 < $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 0
+                        }
+                      }
+                    ]
+                  ]
                 }
               ],
               "constants": [],
@@ -1933,7 +1987,17 @@
               "maps": []
             },
             "description": null,
-            "jsDocTags": []
+            "jsDocTags": [
+              {
+                "name": "exclusiveMinimum",
+                "text": [
+                  {
+                    "text": "0",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ]
           },
           {
             "key": {
@@ -2441,11 +2505,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -2469,7 +2536,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
                     "kind": "text"
                   }
                 ]
@@ -2518,11 +2585,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -2546,7 +2616,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
                     "kind": "text"
                   }
                 ]
@@ -2899,11 +2969,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -2927,7 +3000,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
                     "kind": "text"
                   }
                 ]
@@ -2976,11 +3049,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -3004,7 +3080,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
                     "kind": "text"
                   }
                 ]
@@ -3339,7 +3415,7 @@
             "value": {
               "any": false,
               "required": true,
-              "optional": false,
+              "optional": true,
               "nullable": false,
               "functional": false,
               "atomics": [
@@ -3418,11 +3494,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -3446,7 +3525,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
                     "kind": "text"
                   }
                 ]
@@ -3495,11 +3574,14 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"uint64\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
-                        "exclusive": true
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]
@@ -3523,7 +3605,7 @@
                 "name": "type",
                 "text": [
                   {
-                    "text": "uint",
+                    "text": "uint64",
                     "kind": "text"
                   }
                 ]
@@ -5295,15 +5377,15 @@
                   "type": "string",
                   "values": [
                     {
+                      "value": "cookie",
+                      "tags": []
+                    },
+                    {
                       "value": "header",
                       "tags": []
                     },
                     {
                       "value": "query",
-                      "tags": []
-                    },
-                    {
-                      "value": "cookie",
                       "tags": []
                     }
                   ]

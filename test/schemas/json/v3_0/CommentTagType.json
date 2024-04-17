@@ -21,26 +21,26 @@
         "type": "object",
         "properties": {
           "int": {
-            "type": "number",
+            "type": "integer",
             "title": "Integer value",
             "description": "Integer value."
           },
           "uint": {
-            "type": "number",
+            "type": "integer",
             "title": "Unsigned integer value",
             "description": "Unsigned integer value."
           },
           "int32": {
-            "type": "number"
+            "type": "integer"
           },
           "uint32": {
-            "type": "number"
+            "type": "integer"
           },
           "int64": {
-            "type": "number"
+            "type": "integer"
           },
           "uint64": {
-            "type": "number"
+            "type": "integer"
           },
           "float": {
             "type": "number"

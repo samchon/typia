@@ -157,13 +157,13 @@
         "type": "object",
         "properties": {
           "default": {
-            "type": "number"
+            "type": "integer"
           },
           "minimum": {
-            "type": "number"
+            "type": "integer"
           },
           "maximum": {
-            "type": "number"
+            "type": "integer"
           },
           "exclusiveMinimum": {
             "type": "boolean"
@@ -172,7 +172,9 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "type": "number"
+            "type": "integer",
+            "exclusiveMinimum": true,
+            "minimum": 0
           },
           "type": {
             "type": "string",
@@ -214,7 +216,9 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "type": "number"
+            "type": "number",
+            "exclusiveMinimum": true,
+            "minimum": 0
           },
           "type": {
             "type": "string",
@@ -253,10 +257,10 @@
             "type": "string"
           },
           "minLength": {
-            "type": "number"
+            "type": "integer"
           },
           "maxLength": {
-            "type": "number"
+            "type": "integer"
           },
           "type": {
             "type": "string",
@@ -286,10 +290,10 @@
             "$ref": "#/components/schemas/OpenApi.IJsonSchema"
           },
           "minItems": {
-            "type": "number"
+            "type": "integer"
           },
           "maxItems": {
-            "type": "number"
+            "type": "integer"
           },
           "type": {
             "type": "string",
@@ -366,10 +370,10 @@
             ]
           },
           "minItems": {
-            "type": "number"
+            "type": "integer"
           },
           "maxItems": {
-            "type": "number"
+            "type": "integer"
           },
           "type": {
             "type": "string",
@@ -390,7 +394,6 @@
         "nullable": false,
         "required": [
           "prefixItems",
-          "additionalItems",
           "type"
         ]
       },
@@ -628,9 +631,9 @@
           "in": {
             "type": "string",
             "enum": [
+              "cookie",
               "header",
-              "query",
-              "cookie"
+              "query"
             ]
           },
           "name": {

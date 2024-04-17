@@ -225,7 +225,9 @@ const PARSER: Record<
                       ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
                       : `true`,
           exclusive: true,
-          schema: undefined,
+          schema: ["int32", "uint32", "int64", "uint64"].includes(Value)
+            ? { type: "integer" }
+            : undefined,
         },
       ],
       bigint:

@@ -17,6 +17,7 @@ export interface TestFeature {
   jsonable?: true;
   primitive?: true;
   resolved?: true;
+  random?: true;
   strict?: true;
   explicit?: true;
   programmer?: (create: boolean) => (structure: string) => string;
@@ -89,6 +90,7 @@ export namespace TestFeature {
       creatable: true,
       spoilable: false,
       resolved: true,
+      random: true,
       programmer: write_random,
     },
 
