@@ -21,49 +21,49 @@
         "type": "object",
         "properties": {
           "greater": {
-            "type": "number",
+            "type": "integer",
             "exclusiveMinimum": true,
             "minimum": 3
           },
           "greater_equal": {
-            "type": "number",
+            "type": "integer",
             "minimum": 3
           },
           "less": {
-            "type": "number",
+            "type": "integer",
             "exclusiveMaximum": true,
             "maximum": 7
           },
           "less_equal": {
-            "type": "number",
+            "type": "integer",
             "maximum": 7
           },
           "greater_less": {
-            "type": "number",
+            "type": "integer",
             "exclusiveMinimum": true,
             "minimum": 3,
             "exclusiveMaximum": true,
             "maximum": 7
           },
           "greater_equal_less": {
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "exclusiveMaximum": true,
             "maximum": 7
           },
           "greater_less_equal": {
-            "type": "number",
+            "type": "integer",
             "exclusiveMinimum": true,
             "minimum": 3,
             "maximum": 7
           },
           "greater_equal_less_equal": {
-            "type": "number",
+            "type": "integer",
             "minimum": 3,
             "maximum": 7
           },
           "equal": {
-            "type": "number",
+            "type": "integer",
             "minimum": 10,
             "maximum": 10
           }

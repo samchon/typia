@@ -146,13 +146,13 @@
         "type": "object",
         "properties": {
           "default": {
-            "type": "number"
+            "type": "integer"
           },
           "minimum": {
-            "type": "number"
+            "type": "integer"
           },
           "maximum": {
-            "type": "number"
+            "type": "integer"
           },
           "exclusiveMinimum": {
             "type": "boolean"
@@ -161,7 +161,9 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "type": "number"
+            "type": "integer",
+            "exclusiveMinimum": true,
+            "minimum": 0
           },
           "type": {
             "const": "integer"
@@ -199,7 +201,9 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "type": "number"
+            "type": "number",
+            "exclusiveMinimum": true,
+            "minimum": 0
           },
           "type": {
             "const": "number"
@@ -234,10 +238,10 @@
             "type": "string"
           },
           "minLength": {
-            "type": "number"
+            "type": "integer"
           },
           "maxLength": {
-            "type": "number"
+            "type": "integer"
           },
           "type": {
             "const": "string"
@@ -263,10 +267,10 @@
             "$ref": "#/components/schemas/OpenApi.IJsonSchema"
           },
           "minItems": {
-            "type": "number"
+            "type": "integer"
           },
           "maxItems": {
-            "type": "number"
+            "type": "integer"
           },
           "type": {
             "const": "array"
@@ -339,10 +343,10 @@
             ]
           },
           "minItems": {
-            "type": "number"
+            "type": "integer"
           },
           "maxItems": {
-            "type": "number"
+            "type": "integer"
           },
           "type": {
             "const": "array"
@@ -359,7 +363,6 @@
         },
         "required": [
           "prefixItems",
-          "additionalItems",
           "type"
         ]
       },
@@ -582,13 +585,13 @@
           "in": {
             "oneOf": [
               {
+                "const": "cookie"
+              },
+              {
                 "const": "header"
               },
               {
                 "const": "query"
-              },
-              {
-                "const": "cookie"
               }
             ]
           },

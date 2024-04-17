@@ -62,6 +62,7 @@ async function generate(
     else if (feat.formData === true && s.FORMDATA !== true) continue;
     else if (feat.primitive && s.PRIMITIVE === false) continue;
     else if (feat.resolved && s.RESOLVABLE === false) continue;
+    else if (feat.random && s.RANDOM === false) continue;
     else if (feat.method.toLowerCase().includes("prune") && s.ADDABLE === false)
       continue;
 
