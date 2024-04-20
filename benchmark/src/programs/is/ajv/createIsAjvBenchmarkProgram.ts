@@ -1,23 +1,17 @@
-import Ajv from "ajv";
 import { IJsonApplication } from "typia";
 
+import { AjvFactory } from "../../../internal/AjvFactory";
 import { createIsBenchmarkProgram } from "../createIsBenchmarkProgram";
 
 export const createIsAjvBenchmarkProgram = (app: IJsonApplication<"3.0">) => {
-  const program = new Ajv({
-    schemas: Object.entries(app.components.schemas ?? {}).map(
-      ([key, value]) => ({
-        ...value,
-        $id: `#/components/schemas/${key}`,
-      }),
-    ),
-    strict: true,
-    strictNumbers: false,
-  });
   try {
-    const validate = program.compile(app.schemas[0]);
+    const validate = AjvFactory.create({
+      strict: true,
+      strictNumbers: false,
+    })(app);
     createIsBenchmarkProgram(validate);
-  } catch {
+  } catch (exp) {
+    console.log(exp);
     createIsBenchmarkProgram(() => false);
   }
 };
