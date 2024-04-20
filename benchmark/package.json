@@ -67,11 +67,12 @@
     "zod": "^3.19.1"
   },
   "dependencies": {
+    "@samchon/openapi": "^0.1.18",
     "randexp": "^0.5.3",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
-    "uuid": "^9.0.1",
-    "typia": "D:\\github\\samchon\\typia\\typia-6.0.3.tgz"
+    "typia": "D:\\github\\samchon\\typia\\typia-6.0.3.tgz",
+    "uuid": "^9.0.1"
   }
 }
