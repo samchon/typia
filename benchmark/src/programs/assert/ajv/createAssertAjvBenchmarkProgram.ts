@@ -1,24 +1,17 @@
-import Ajv from "ajv";
 import { IJsonApplication } from "typia";
 
+import { AjvFactory } from "../../../internal/AjvFactory";
 import { createAssertBenchmarkProgram } from "../createAssertBenchmarkProgram";
 
 export const createAssertAjvBenchmarkProgram = (
   app: IJsonApplication<"3.0">,
 ) => {
-  const program = new Ajv({
-    schemas: Object.entries(app.components.schemas ?? {}).map(
-      ([key, value]) => ({
-        ...value,
-        $id: `#/components/schemas/${key}`,
-      }),
-    ),
-    strict: true,
-    strictNumbers: false,
-    allErrors: false,
-  });
   try {
-    const validate = program.compile(app.schemas[0]);
+    const validate = AjvFactory.create({
+      strict: true,
+      strictNumbers: false,
+      allErrors: false,
+    })(app);
     createAssertBenchmarkProgram((input) => {
       const success: boolean = validate(input);
       if (!success) throw new Error(validate.errors?.[0].message ?? "unknown");
