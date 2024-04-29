@@ -43,7 +43,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@samchon/openapi": "^0.1.19",
+    "@samchon/openapi": "^0.1.20",
     "cli": "^1.0.1",
     "protobufjs": "^7.2.5",
     "randexp": "^0.5.3",
@@ -51,6 +51,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "D:\\github\\samchon\\typia\\typia-6.0.3.tgz"
+    "typia": "D:\github\samchon\typia\typia-6.0.3.tgz"
   }
 }
