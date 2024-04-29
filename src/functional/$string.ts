@@ -13,7 +13,7 @@ const STR_ESCAPE = /[\u0000-\u001f\u0022\u005c\ud800-\udfff]/
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const $string = (str: string): string => {
-const len = str.length
+    const len = str.length
     if (len < 42) {
       // magically escape strings for json
       // relying on their charCodeAt
