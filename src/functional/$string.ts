@@ -1,3 +1,4 @@
+const STR_ESCAPE = /[\u0000-\u001f\u0022\u005c\ud800-\udfff]/
 /**
  * In the past, name of `typia` was `typescript-json`, and supported
  * JSON serialization by wrapping `fast-json-stringify. `typescript-json` was
@@ -12,32 +13,37 @@
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const $string = (str: string): string => {
-  const len = str.length;
-  let result = "";
-  let last = -1;
-  let point = 255;
-
-  // eslint-disable-next-line
-  for (var i = 0; i < len; i++) {
-    point = str.charCodeAt(i);
-    if (point < 32) {
-      return JSON.stringify(str);
+const len = str.length
+    if (len < 42) {
+      // magically escape strings for json
+      // relying on their charCodeAt
+      // everything below 32 needs JSON.stringify()
+      // every string that contain surrogate needs JSON.stringify()
+      // 34 and 92 happens all the time, so we
+      // have a fast case for them
+      let result = ''
+      let last = -1
+      let point = 255
+      // eslint-disable-next-line
+      for (var i = 0; i < len; i++) {
+        point = str.charCodeAt(i)
+        if (
+          point === 0x22 || // '"'
+          point === 0x5c // '\'
+        ) {
+          last === -1 && (last = 0)
+          result += str.slice(last, i) + '\\'
+          last = i
+        } else if (point < 32 || (point >= 0xD800 && point <= 0xDFFF)) {
+          // The current character is non-printable characters or a surrogate.
+          return JSON.stringify(str)
+        }
+      }
+      return (last === -1 && ('"' + str + '"')) || ('"' + result + str.slice(last) + '"')
+    } else if (len < 5000 && STR_ESCAPE.test(str) === false) {
+      // Only use the regular expression for shorter input. The overhead is otherwise too much.
+      return '"' + str + '"'
+    } else {
+      return JSON.stringify(str)
     }
-    if (point >= 0xd800 && point <= 0xdfff) {
-      // The current character is a surrogate.
-      return JSON.stringify(str);
-    }
-    if (
-      point === 0x22 || // '"'
-      point === 0x5c // '\'
-    ) {
-      last === -1 && (last = 0);
-      result += str.slice(last, i) + "\\";
-      last = i;
-    }
-  }
-
-  return (
-    (last === -1 && '"' + str + '"') || '"' + result + str.slice(last) + '"'
-  );
 };
