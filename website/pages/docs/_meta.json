@@ -20,7 +20,7 @@
   "api": {
     "title": "API Documents",
     "href": "/api",
-    "newWindow": false
+    "newWindow": true
   },
   "utilization": "Utilization Cases",
   "benchmark": {
