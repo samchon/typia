@@ -10,5 +10,13 @@ const config = {
   images: {
     unoptimized: true,
   },
+  rewrites: async () => {
+    return [
+      {
+        source: "/api",
+        destination: "/api/index.html",
+      },
+    ];
+  },
 };
 module.exports = config;

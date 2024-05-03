@@ -4,10 +4,10 @@
   "description": "Typia Guide Documents",
   "private": true,
   "scripts": {
-    "build": "rimraf .next && rimraf out && next build && next export && next-sitemap",
+    "build": "rimraf .next && rimraf out && typedoc && next build && next export && next-sitemap",
     "deploy": "node build/deploy",
     "dev": "next dev",
-    "prepare": "node build/raw && webpack"
+    "prepare": "node build/raw && webpack && typedoc"
   },
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
     "rimraf": "^5.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.25.13",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "write-file-webpack-plugin": "^4.5.1"
