@@ -92,6 +92,7 @@ Check out the document in the [website](https://typia.io/docs/):
   - [Miscellaneous](https://typia.io/docs/misc/)
 
 ### 🔗 Appendix
+  - [API Documents](https://typia.io/api)
   - Utillization Cases
     - [NestJS](https://typia.io/docs/utilization/nestjs/)
     - [Prisma](https://typia.io/docs/utilization/prisma/)
