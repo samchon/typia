@@ -39,8 +39,8 @@ Typia is a transformer library supporting below features:
   - Protocol Buffer encoder and decoder
   - Random data generator
 
-> **Note**
-> 
+> [!NOTE]
+>
 > - **Only one line** required, with pure TypeScript type
 > - Runtime validator is **20,000x faster** than `class-validator`
 > - JSON serialization is **200x faster** than `class-transformer`
