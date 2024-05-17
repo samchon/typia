@@ -6,17 +6,16 @@ const withNextra = require("nextra")({
 /** @type {import('next').NextConfig} */
 const config = {
   ...withNextra(),
+  output: "export",
   exportTrailingSlash: true,
   images: {
     unoptimized: true,
   },
-  rewrites: async () => {
-    return [
-      {
-        source: "/api",
-        destination: "/api/index.html",
-      },
-    ];
-  },
+  rewrites: async () => [
+    {
+      source: "/api",
+      destination: "/api/index.html",
+    },
+  ],
 };
 module.exports = config;

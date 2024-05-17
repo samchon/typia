@@ -4,7 +4,7 @@
   "description": "Typia Guide Documents",
   "private": true,
   "scripts": {
-    "build": "rimraf .next && rimraf out && typedoc && next build && next export && next-sitemap",
+    "build": "rimraf .next && rimraf out && typedoc && next build && next-sitemap",
     "deploy": "node build/deploy",
     "dev": "next dev",
     "prepare": "node build/raw && webpack && typedoc"
@@ -26,15 +26,15 @@
     "@mui/material": "^5.12.0",
     "@rollup/browser": "^4.13.0",
     "lz-string": "^1.5.0",
-    "monaco-editor": "^0.39.0",
-    "next": "^13.0.6",
+    "monaco-editor": "^0.48.0",
+    "next": "^14.1.1",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "path": "^0.12.7",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tgrid": "^0.10.2",
+    "tgrid": "^1.0.0",
     "tstl": "^3.0.0",
     "typescript": "^5.4.5",
     "typia": "^6.0.3"
