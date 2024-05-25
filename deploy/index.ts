@@ -1,7 +1,6 @@
 import chalk from "chalk";
 import cp from "child_process";
 import fs from "fs";
-import path from "path";
 
 import { ReplicaPublisher } from "./internal/ReplicaPublisher";
 
@@ -57,9 +56,7 @@ const test =
 
     const pack: any = JSON.parse(fs.readFileSync("package.json", "utf8"));
     pack.dependencies ??= {};
-    pack.dependencies.typia = path.resolve(
-      `${__dirname}/../typia-${version}.tgz`,
-    );
+    pack.dependencies.typia = `../typia-${version}.tgz`;
     fs.writeFileSync("package.json", JSON.stringify(pack, null, 2), "utf8");
 
     if (commands.length) {
