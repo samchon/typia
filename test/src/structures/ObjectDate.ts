@@ -20,7 +20,7 @@ export namespace ObjectDate {
       classDate: new Date(),
       date: new Date().toISOString().substring(0, 10),
       datetime: new Date().toISOString(),
-      time: new Date().toISOString().substring(11, 23),
+      time: new Date().toISOString().substring(11),
       duration: TestRandomGenerator.duration(),
     };
   }
