@@ -62,7 +62,7 @@ export namespace TypeTagFormat {
       // TIMESTAMPS
       datetime: new Date().toISOString(),
       date: new Date().toISOString().substring(0, 10),
-      time: new Date().toISOString().substring(11, 23),
+      time: new Date().toISOString().substring(11),
       duration: TestRandomGenerator.duration(),
       // POINTERS
       jsonPointer: "/components/schemas/ObjectSimple.IPoint3D",
