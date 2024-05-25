@@ -76,8 +76,7 @@ export const date = (min?: number, max?: number) =>
   new Date(number(min ?? 0, max ?? Date.now() * 2))
     .toISOString()
     .substring(0, 10);
-export const time = () =>
-  new Date(number(0, DAY)).toISOString().substring(11, 23);
+export const time = () => new Date(number(0, DAY)).toISOString().substring(11);
 export const duration = () => {
   const period: string = durate([
     ["Y", integer(0, 100)],
