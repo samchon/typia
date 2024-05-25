@@ -17,6 +17,11 @@
     "type": "separator",
     "title": "🔗 Appendix"
   },
+  "api": {
+    "title": "API Documents",
+    "href": "/api",
+    "newWindow": true
+  },
   "utilization": "Utilization Cases",
   "benchmark": {
     "title": "⇲ Benchmark Result",

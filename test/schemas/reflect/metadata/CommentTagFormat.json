@@ -1352,7 +1352,7 @@
                         "name": "Format<\"date-time\">",
                         "kind": "format",
                         "value": "date-time",
-                        "validate": "!isNaN(new Date($input).getTime())",
+                        "validate": "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test($input)",
                         "exclusive": true,
                         "schema": {
                           "format": "date-time"
@@ -1432,7 +1432,7 @@
                         "name": "Format<\"date\">",
                         "kind": "format",
                         "value": "date",
-                        "validate": "/^(\\d{4})-(\\d{2})-(\\d{2})$/.test($input)",
+                        "validate": "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test($input)",
                         "exclusive": true,
                         "schema": {
                           "format": "date"
@@ -1512,7 +1512,7 @@
                         "name": "Format<\"time\">",
                         "kind": "format",
                         "value": "time",
-                        "validate": "/^(\\d\\d):(\\d\\d):(\\d\\d(?:\\.\\d+)?)(z|([+-])(\\d\\d)(?::?(\\d\\d))?)?$/i.test($input)",
+                        "validate": "/^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test($input)",
                         "exclusive": true,
                         "schema": {
                           "format": "time"
