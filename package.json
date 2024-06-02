@@ -3,7 +3,8 @@
   "version": "6.0.4",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
   "bin": {
     "typia": "./lib/executable/typia.js"
   },
@@ -16,8 +17,8 @@
     "test": "npm run package:tgz",
     "test:template": "npm run test template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc --declaration false && tsc --emitDeclarationOnly",
-    "dev": "rimraf lib && tsc --watch",
+    "build": "node ./build/index.mjs",
+    "dev": "rimraf lib && tsc --watch --project tsconfig.json",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
@@ -82,6 +83,7 @@
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "chalk": "^4.0.0",
+    "esbuild": "^0.21.4",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "suppress-warnings": "^1.0.2",
