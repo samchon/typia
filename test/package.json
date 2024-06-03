@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "rimraf bin && tsc",
-    "prepare": "ts-patch install",
+    "prepare": "ts-patch install && typia patch",
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
     "start": "node bin",
@@ -53,3 +53,4 @@
     "uuid": "^9.0.1",
     "typia": "../typia-6.0.5.tgz"
   }
+}

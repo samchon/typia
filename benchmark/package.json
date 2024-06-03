@@ -6,7 +6,7 @@
   "main": "bin/index.js",
   "scripts": {
     "build": "rimraf bin && tsc",
-    "prepare": "ts-patch install",
+    "prepare": "ts-patch install && typia patch",
     "prettier": "prettier ./src/**/*.ts --write",
     "start": "node bin",
     "template": "tsx src/template && npm run prettier && npm run build"
@@ -76,4 +76,3 @@
     "typia": "../typia-6.0.5.tgz"
   }
 }
-
