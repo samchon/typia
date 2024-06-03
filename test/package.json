@@ -15,7 +15,7 @@
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
     "start": "node bin",
-    "template": "ts-node --project build/tsconfig.json build/template.ts"
+    "template": "tsx --tsconfig build/tsconfig.json build/template.ts"
   },
   "repository": {
     "type": "git",
@@ -38,8 +38,8 @@
     "@types/uuid": "^9.0.7",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
-    "ts-node": "^10.9.2",
     "ts-patch": "^3.1.2",
+    "tsx": "^4.11.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
@@ -53,4 +53,3 @@
     "uuid": "^9.0.1",
     "typia": "../typia-6.0.5.tgz"
   }
-}
