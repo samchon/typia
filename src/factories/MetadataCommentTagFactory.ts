@@ -108,8 +108,9 @@ export namespace MetadataCommentTagFactory {
       if (parser === undefined) return {};
 
       const text = (comment.text || [])[0]?.text;
-      if (text === undefined) return report(`no comment tag value`);
-      return parser(report)(text);
+      if (text === undefined && comment.name !== "uniqueItems")
+        return report(`no comment tag value`);
+      return parser(report)(text!);
     };
 }
 
@@ -183,6 +184,21 @@ const PARSER: Record<
         exclusive: true,
         schema: {
           maxItems: parse_integer(report)(true)(Value),
+        },
+      },
+    ],
+  }),
+  uniqueItems: () => () => ({
+    array: [
+      {
+        name: `UniqueItems`,
+        target: "array",
+        kind: "uniqueItems",
+        value: true,
+        validate: `true === ($input.length === 0 || new Set($input).size === $input.length)`,
+        exclusive: true,
+        schema: {
+          uniqueItems: true,
         },
       },
     ],

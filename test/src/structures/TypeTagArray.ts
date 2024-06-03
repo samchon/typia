@@ -11,16 +11,14 @@ export namespace TypeTagArray {
     items: Array<string & typia.tags.Format<"uuid">> &
       typia.tags.MinItems<3> &
       typia.tags.MaxItems<3>;
-
     minItems: Array<number & typia.tags.Minimum<3>> & typia.tags.MinItems<3>;
-
     both: Array<string & typia.tags.Format<"uuid">> &
       typia.tags.MinItems<3> &
       typia.tags.MaxItems<7>;
-
     equal: Array<number & typia.tags.Minimum<10> & typia.tags.Maximum<10>> &
       typia.tags.MinItems<10> &
       typia.tags.MaxItems<10>;
+    unique: Array<string> & typia.tags.UniqueItems;
   }
 
   // prettier-ignore
@@ -33,6 +31,7 @@ export namespace TypeTagArray {
                 minItems: TestRandomGenerator.array(() => minItems, minItems),
                 both: TestRandomGenerator.array(() => v4(), both),
                 equal: TestRandomGenerator.array(() => 10, 10),
+                unique: ["one", "two", "three", "four"],
             });
         }
         return { value: output };
@@ -90,6 +89,10 @@ export namespace TypeTagArray {
     (input) => {
       input.value[1]!.equal = [...TestRandomGenerator.array(() => 10, 9), 9];
       return ["$input.value[1].equal[9]"];
+    },
+    (input) => {
+      input.value[2]!.unique = ["one", "one", "two"];
+      return ["$input.value[2].unique"];
     },
   ];
 }

@@ -7,5 +7,6 @@ message CommentTagArray {
     repeated double minItems = 2;
     repeated string both = 3;
     repeated double equal = 4;
+    repeated string unique = 5;
   }
 }

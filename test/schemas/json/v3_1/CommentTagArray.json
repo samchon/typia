@@ -49,13 +49,21 @@
             },
             "minItems": 10,
             "maxItems": 10
+          },
+          "unique": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
           }
         },
         "required": [
           "items",
           "minItems",
           "both",
-          "equal"
+          "equal",
+          "unique"
         ]
       }
     }

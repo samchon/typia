@@ -406,6 +406,76 @@
             },
             "description": null,
             "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "unique"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [
+                {
+                  "name": "Array<string>",
+                  "tags": [
+                    [
+                      {
+                        "target": "array",
+                        "name": "UniqueItems<true>",
+                        "kind": "uniqueItems",
+                        "value": true,
+                        "validate": "true === ($input.length === 0 || $input.length === new Set($input).size)",
+                        "exclusive": true,
+                        "schema": {
+                          "uniqueItems": true
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
           }
         ],
         "jsDocTags": [],
@@ -588,6 +658,38 @@
                   }
                 ]
               ]
+            }
+          ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      },
+      {
+        "name": "Array<string>",
+        "value": {
+          "any": false,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functional": false,
+          "atomics": [
+            {
+              "type": "string",
+              "tags": []
             }
           ],
           "constants": [],

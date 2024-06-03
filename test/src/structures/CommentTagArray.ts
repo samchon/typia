@@ -28,6 +28,11 @@ export namespace CommentTagArray {
      * @maxItems 10
      */
     equal: number[];
+
+    /**
+     * @uniqueItems
+     */
+    unique: string[];
   }
 
   // prettier-ignore
@@ -40,6 +45,7 @@ export namespace CommentTagArray {
                 minItems: TestRandomGenerator.array(() => minItems, minItems),
                 both: TestRandomGenerator.array(() => v4(), both),
                 equal: TestRandomGenerator.array(() => 10, 10),
+                unique: ["one", "two", "three", "four"],
             });
         }
         return { value: output };
@@ -65,6 +71,10 @@ export namespace CommentTagArray {
     (input) => {
       input.value[0]!.equal = TestRandomGenerator.array(() => 10, 9);
       return ["$input.value[0].equal"];
+    },
+    (input) => {
+      input.value[2]!.unique = ["one", "one", "two"];
+      return ["$input.value[2].unique"];
     },
   ];
 }
