@@ -2,30 +2,27 @@
   "name": "typia",
   "version": "6.0.5",
   "description": "Superfast runtime validators with only one line",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.mts",
   "bin": {
     "typia": "./lib/executable/typia.js"
-  },
-  "tsp": {
-    "tscOptions": {
-      "parseAllJsDoc": true
-    }
   },
   "scripts": {
     "test": "npm run package:tgz",
     "test:template": "npm run test template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc",
-    "dev": "rimraf lib && tsc --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node deploy latest",
-    "package:next": "ts-node deploy next",
-    "package:patch": "ts-node deploy patch",
-    "package:tgz": "ts-node deploy tgz",
+    "package": "tsx deploy/index.ts",
+    "package:latest": "npm run package latest",
+    "package:next": "npm run package next",
+    "package:patch": "npm run package patch",
+    "package:tgz": "npm run package tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
@@ -69,12 +66,15 @@
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
-    "randexp": "^0.5.3"
+    "randexp": "^0.5.3",
+    "tsx": "^4.11.2"
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.5.0"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.46.2",
+    "@swc/core": "^1.5.24",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/inquirer": "^8.2.5",
     "@types/node": "^18.15.12",
@@ -82,10 +82,12 @@
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "chalk": "^4.0.0",
+    "fast-glob": "^3.3.2",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
+    "tsup": "^8.1.0",
     "typescript": "^5.4.5"
   },
   "stackblitzs": {
