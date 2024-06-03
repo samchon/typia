@@ -1,6 +1,5 @@
 const cp = require("child_process");
 const fs = require("fs");
-const path = require("path");
 const runner = require("ts-node");
 const supress = require("suppress-warnings");
 
@@ -19,9 +18,7 @@ const setup = () => {
       cwd: __dirname,
       stdio: "ignore",
     });
-  mine.dependencies.typia = path.resolve(
-    `${__dirname}/../typia-${version}.tgz`,
-  );
+  mine.dependencies.typia = `../typia-${version}.tgz`;
   fs.writeFileSync(`${__dirname}/package.json`, JSON.stringify(mine, null, 2));
   cp.execSync("npm install", { cwd: __dirname, stdio: "ignore" });
 };
