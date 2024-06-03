@@ -266,6 +266,9 @@
           "items": {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema"
           },
+          "uniqueItems": {
+            "type": "boolean"
+          },
           "minItems": {
             "type": "integer"
           },
@@ -341,6 +344,9 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
               }
             ]
+          },
+          "uniqueItems": {
+            "type": "boolean"
           },
           "minItems": {
             "type": "integer"

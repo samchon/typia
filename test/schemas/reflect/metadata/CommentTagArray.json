@@ -464,6 +464,80 @@
                 ]
               }
             ]
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "unique"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [
+                {
+                  "name": "Array<string>",
+                  "tags": [
+                    [
+                      {
+                        "name": "UniqueItems",
+                        "target": "array",
+                        "kind": "uniqueItems",
+                        "value": true,
+                        "validate": "true === ($input.length === 0 || new Set($input).size === $input.length)",
+                        "exclusive": true,
+                        "schema": {
+                          "uniqueItems": true
+                        }
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": [
+              {
+                "name": "uniqueItems"
+              }
+            ]
           }
         ],
         "jsDocTags": [],
