@@ -1,15 +1,19 @@
 {
   "private": true,
-  "name": "@typia/errors",
+  "type": "module",
+  "name": "@typia/test-esm",
   "version": "0.1.0",
-  "description": "Test program of typia generated errors",
-  "main": "index.js",
+  "description": "Test program of ESM for typia",
+  "main": "bin/index.js",
+  "tsp": {
+    "tscOptions": {
+      "parseAllJsDoc": true
+    }
+  },
   "scripts": {
-    "build": "rimraf bin && tsc",
+    "build": "tsc",
     "prepare": "ts-patch install",
-    "prettier": "prettier ./src/**/*.ts --write",
-    "setup": "node build/setup.js",
-    "start": "node index"
+    "start": "node bin"
   },
   "repository": {
     "type": "git",
@@ -17,8 +21,7 @@
   },
   "keywords": [
     "typia",
-    "test",
-    "error"
+    "test"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
@@ -27,9 +30,10 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
-    "rimraf": "^5.0.5",
+    "@types/cli": "^0.11.25",
+    "@types/node": "^20.9.4",
     "ts-patch": "^3.2.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "typia": "../typia-6.0.6-dev.20240604.tgz"
