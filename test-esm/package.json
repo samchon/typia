@@ -1,8 +1,9 @@
 {
   "private": true,
-  "name": "@typia/test",
+  "type": "module",
+  "name": "@typia/test-esm",
   "version": "0.1.0",
-  "description": "Test program for typia",
+  "description": "Test program of ESM for typia",
   "main": "bin/index.js",
   "tsp": {
     "tscOptions": {
@@ -10,12 +11,9 @@
     }
   },
   "scripts": {
-    "build": "rimraf bin && tsc",
+    "build": "tsc",
     "prepare": "ts-patch install",
-    "prettier": "prettier ./src/**/*.ts --write",
-    "setup": "node build/setup.js",
-    "start": "node bin",
-    "template": "ts-node --project build/tsconfig.json build/template.ts"
+    "start": "node bin"
   },
   "repository": {
     "type": "git",
@@ -32,25 +30,12 @@
   },
   "homepage": "https://github.com/samchon/typia#readme",
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/cli": "^0.11.25",
     "@types/node": "^20.9.4",
-    "@types/uuid": "^9.0.7",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "ts-node": "^10.9.2",
     "ts-patch": "^3.2.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@samchon/openapi": "^0.1.22",
-    "cli": "^1.0.1",
-    "protobufjs": "^7.2.5",
-    "randexp": "^0.5.3",
-    "source-map-support": "^0.5.21",
-    "suppress-warnings": "^1.0.2",
-    "tstl": "^3.0.0",
-    "uuid": "^9.0.1",
     "typia": "../typia-6.0.6-dev.20240604.tgz"
   }
 }
