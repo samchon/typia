@@ -40,10 +40,9 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-patch": "^3.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "5.5.0-beta"
   },
   "dependencies": {
-    "@samchon/openapi": "^0.1.22",
     "cli": "^1.0.1",
     "protobufjs": "^7.2.5",
     "randexp": "^0.5.3",
@@ -51,6 +50,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "../typia-6.0.5.tgz"
+    "typia": "../typia-6.0.6-dev.20240604.tgz"
   }
 }
