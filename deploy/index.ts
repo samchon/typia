@@ -92,6 +92,7 @@ const main = (): void => {
       ? ["npm run template", "npm run build", "npm start"]
       : ["npm run build", "npm start"],
   );
+  test(version)("test-esm")(["npm run build", "npm start"]);
   test(version)("errors")(["npm start"]);
   test(version)("benchmark")(["npm run build"]);
 

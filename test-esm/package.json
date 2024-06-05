@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "@typia/test-esm",
+  "version": "0.1.0",
+  "description": "Test program of ESM for typia",
+  "main": "bin/index.js",
+  "tsp": {
+    "tscOptions": {
+      "parseAllJsDoc": true
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "ts-patch install",
+    "start": "node bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://github.com/samchon/typia#readme",
+  "devDependencies": {
+    "@types/cli": "^0.11.25",
+    "@types/node": "^20.9.4",
+    "ts-patch": "^3.2.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "typia": "../typia-6.0.6-dev.20240604.tgz"
+  }
+}
