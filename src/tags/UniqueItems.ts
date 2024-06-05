@@ -4,7 +4,9 @@ export type UniqueItems<Value extends boolean = true> = TagBase<{
   target: "array";
   kind: "uniqueItems";
   value: Value;
-  validate: `${Value} === ($input.length === 0 || $input.length === new Set($input).size)`;
+  validate: Value extends true
+    ? `$input.length <= 1 || ($input.length === new Set($input).size)`
+    : undefined;
   exclusive: true;
   schema: {
     uniqueItems: true;

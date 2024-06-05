@@ -195,7 +195,7 @@ const PARSER: Record<
         target: "array",
         kind: "uniqueItems",
         value: true,
-        validate: `true === ($input.length === 0 || new Set($input).size === $input.length)`,
+        validate: `$input.length <= 1 || (new Set($input).size === $input.length)`,
         exclusive: true,
         schema: {
           uniqueItems: true,
