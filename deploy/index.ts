@@ -52,7 +52,7 @@ const test =
     process.chdir(`${__dirname}/../${name}`);
 
     if (fs.existsSync("node_modules/typia"))
-      cp.execSync("npm uninstall typia", { stdio: "ignore" });
+      cp.execSync("npm uninstall typia --force", { stdio: "ignore" });
 
     const pack: any = JSON.parse(fs.readFileSync("package.json", "utf8"));
     pack.dependencies ??= {};

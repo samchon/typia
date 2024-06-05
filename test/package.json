@@ -40,7 +40,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-patch": "^3.2.0",
-    "typescript": "5.5.0-beta"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "cli": "^1.0.1",
@@ -50,6 +50,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "../typia-6.0.6-dev.20240604.tgz"
+    "typia": "../typia-6.0.6.tgz"
   }
 }

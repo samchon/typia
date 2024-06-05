@@ -8,4 +8,5 @@ console.log(
   ),
   typia.is<number[] & tags.UniqueItems>([1, 2, 3]),
   typia.is<number[] & tags.UniqueItems>([1, 2, 2]),
+  typia.is<string[] & tags.UniqueItems<false>>(["one", "two", "one"]),
 );
