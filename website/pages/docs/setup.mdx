@@ -208,7 +208,7 @@ As `typia` generates optimal operation code through transformation, it must be c
 ```json filename="package.json" copy showLineNumbers {2-4}
 {
   "scripts": {
-    "prepare": "ts-patch install && typia patch"
+    "prepare": "ts-patch install"
   },
   "dependencies": {
     "typia": "^6.0.6"
@@ -572,15 +572,16 @@ After install `typia` like above, you have to modify `project.json` on each app 
  }
 ```
 
-## unplugin-typia
+## `unplugin-typia`
 
+<br/>
 <Alert severity="warning">
   <AlertTitle>
     **This is experimental guide**
   </AlertTitle> 
 </Alert>
 
-[unplugin-typia](https://jsr.io/@ryoppippi/unplugin-typia) is an experimental plugin to integrate `typia` into your bundlers seamlessly.
+[`unplugin-typia`](https://jsr.io/@ryoppippi/unplugin-typia) is an experimental plugin to integrate `typia` into your bundlers seamlessly.
 
 Currently, `unplugin-typia` supports the following bundlers:
   - [Vite](https://vitejs.dev/)
@@ -593,11 +594,11 @@ Currently, `unplugin-typia` supports the following bundlers:
   - [farm](https://farm-fe.github.io/)
 
 
-For using `unplugin-typia`, you have to follow [Manual Setup](#manual-setup) guide.  
+For using `unplugin-typia`, you have to follow [Manual Setup](#manual-setup) guide. 
+
 However, you do not have to configure `tsconfig.json` transformer.
 
 <Tabs items={['npm', 'pnpm', 'yarn']}>
-
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npx jsr add -D @ryoppippi/unplugin-typia
@@ -623,12 +624,27 @@ yarn add -D typescript ts-patch ts-node
 
 Firstly, install `unplugin-typia` via your favorite package manager. 
 
-Then, open `package.json` file and configure `npm run prepare` command and run the `prepare` command, which is explaind in [Manual Setup](#manual-setup) guide.
+Secondly, open the `package.json` file, and configure `prepare` script like below. 
 
-There are a couple of ways to integrate `unplugin-typia` into your bundlers.
-For the full integration guide, please refer to the [unplugin-typia documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc).
+At last, run the `npm run prepare` command, and follow the next section steps.
 
-Also, you can see the examples projects in [unplugin-typia repository](https://github.com/ryoppippi/unplugin-typia).
+```json filename="package.json" copy showLineNumbers {2-4}
+{
+  "scripts": {
+    "prepare": "ts-patch install"
+  },
+  "dependencies": {
+    "typia": "^6.0.6"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.2.0",
+    "typescript": "^5.4.5"
+  }
+}
+```
+
+> For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
 
 ### [Vite](https://jsr.io/@ryoppippi/unplugin-typia/doc/vite/~/default)
 
