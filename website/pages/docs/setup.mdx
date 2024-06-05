@@ -78,6 +78,8 @@ If you are using a non-standard TypeScript compiler such as the following, you w
     - [esbuild](https://esbuild.github.io/)
     - [Babel](https://babeljs.io/)
 
+Or, if you are using a bundler such as `webpack`, `vite`, `esbuild`, or `next.js`, consider using the [unplugin-typia](#unplugin-typia).
+
 ## Transformation
 ### Concepts
 AOT (Ahead of Time) compilation mode.
@@ -416,6 +418,7 @@ export default defineConfig({
 
 
 
+**Also check out the [unplugin-typia](#unplugin-typia) guide for easier integration.**
 
 ## webpack
 <Tabs items={['npm', 'pnpm', 'yarn']}>
@@ -525,6 +528,8 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
     - [Single JS file only](https://nestia.io/docs/setup/#single-js-file-only)
 
 
+**Also check out the [unplugin-typia](#unplugin-typia) guide for easier integration.**
+
 ## NX
 <Tabs items={['npm', 'pnpm', 'yarn']}>
   <Tab>
@@ -566,3 +571,98 @@ After install `typia` like above, you have to modify `project.json` on each app 
     ...
  }
 ```
+
+## unplugin-typia
+
+<Alert severity="warning">
+  <AlertTitle>
+    **This is experimental guide**
+  </AlertTitle> 
+</Alert>
+
+[unplugin-typia](https://jsr.io/@ryoppippi/unplugin-typia) is an experimental plugin to integrate `typia` into your bundlers seamlessly.
+
+Currently, `unplugin-typia` supports the following bundlers:
+  - [Vite](https://vitejs.dev/)
+  - [Rollup](https://rollupjs.org/)
+  - [esbuild](https://esbuild.github.io/)
+  - [webpack](https://webpack.js.org/)
+  - [Next.js](https://nextjs.org/)
+  - [Rspack](https://www.rspack.dev/)
+  - [Rolldown](https://rolldown.rs/)
+  - [farm](https://farm-fe.github.io/)
+
+
+For using `unplugin-typia`, you have to follow [Manual Setup](#manual-setup) guide.  
+However, you do not have to configure `tsconfig.json` transformer.
+
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+
+  <Tab>
+```bash filename="Terminal" showLineNumbers copy
+npx jsr add -D @ryoppippi/unplugin-typia
+npm install --save typia
+npm install --save-dev typescript ts-patch ts-node
+```
+ </Tab>
+  <Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm dlx jsr add -D @ryoppippi/unplugin-typia
+pnpm install --save typia
+pnpm install --save-dev typescript ts-patch ts-node
+```
+  </Tab>
+  <Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn dlx jsr add -D @ryoppippi/unplugin-typia
+yarn add typia
+yarn add -D typescript ts-patch ts-node
+```
+  </Tab>
+</Tabs>
+
+Firstly, install `unplugin-typia` via your favorite package manager. 
+
+Then, open `package.json` file and configure `npm run prepare` command and run the `prepare` command, which is explaind in [Manual Setup](#manual-setup) guide.
+
+There are a couple of ways to integrate `unplugin-typia` into your bundlers.
+For the full integration guide, please refer to the [unplugin-typia documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc).
+
+Also, you can see the examples projects in [unplugin-typia repository](https://github.com/ryoppippi/unplugin-typia).
+
+### [Vite](https://jsr.io/@ryoppippi/unplugin-typia/doc/vite/~/default)
+
+```typescript filename="vite.config.ts" copy showLineNumbers
+import UnpluginTypia from 'unplugin-typia/vite'
+
+export default defineConfig({
+  plugins: [UnpluginTypia({ /* options */ })],
+})
+```
+
+### [Next.js](https://jsr.io/@ryoppippi/unplugin-typia/doc/next/~/default)
+  
+```javascript filename="next.config.mjs" copy showLineNumbers
+import unTypiaNext from "unplugin-typia/next";
+
+/** @type {import('next').NextConfig} */
+const config = {
+  // your next.js config
+};
+
+export default unTypiaNext(config)
+```
+
+### [esbuild](https://jsr.io/@ryoppippi/unplugin-typia/doc/esbuild/~/default)
+
+```javascript filename="esbuild.config.js" copy showLineNumbers
+import { build } from 'esbuild'
+import UnpluginTypia from 'unplugin-typia/esbuild';
+
+build({
+  plugins: [
+    UnpluginTypia({ /* options */ }),
+  ],
+})
+```
+
