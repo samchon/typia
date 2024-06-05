@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -78,7 +78,7 @@ If you are using a non-standard TypeScript compiler such as the following, you w
     - [esbuild](https://esbuild.github.io/)
     - [Babel](https://babeljs.io/)
 
-Or, if you are using a bundler such as `webpack`, `vite`, `esbuild`, or `next.js`, consider using the [unplugin-typia](#unplugin-typia).
+Or, if you are using a bundler such as `webpack`, `vite`, `esbuild`, or `next.js`, consider using the [`unplugin-typia`](#unplugin-typia).
 
 ## Transformation
 ### Concepts
@@ -418,7 +418,7 @@ export default defineConfig({
 
 
 
-**Also check out the [unplugin-typia](#unplugin-typia) guide for easier integration.**
+**Also check out the [`unplugin-typia`](#unplugin-typia) guide for easier integration.**
 
 ## webpack
 <Tabs items={['npm', 'pnpm', 'yarn']}>
@@ -528,7 +528,7 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
     - [Single JS file only](https://nestia.io/docs/setup/#single-js-file-only)
 
 
-**Also check out the [unplugin-typia](#unplugin-typia) guide for easier integration.**
+**Also check out the [`unplugin-typia`](#unplugin-typia) guide for easier integration.**
 
 ## NX
 <Tabs items={['npm', 'pnpm', 'yarn']}>
@@ -574,12 +574,9 @@ After install `typia` like above, you have to modify `project.json` on each app 
 
 ## `unplugin-typia`
 
-<br/>
-<Alert severity="warning">
-  <AlertTitle>
-    **This is experimental guide**
-  </AlertTitle> 
-</Alert>
+<Callout type="warning">
+  This is an experimental guide
+</Callout>
 
 [`unplugin-typia`](https://jsr.io/@ryoppippi/unplugin-typia) is an experimental plugin to integrate `typia` into your bundlers seamlessly.
 
@@ -593,58 +590,34 @@ Currently, `unplugin-typia` supports the following bundlers:
   - [Rolldown](https://rolldown.rs/)
   - [farm](https://farm-fe.github.io/)
 
-
-For using `unplugin-typia`, you have to follow [Manual Setup](#manual-setup) guide. 
-
-However, you do not have to configure `tsconfig.json` transformer.
-
 <Tabs items={['npm', 'pnpm', 'yarn']}>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npx jsr add -D @ryoppippi/unplugin-typia
 npm install --save typia
-npm install --save-dev typescript ts-patch ts-node
+npx typia setup
 ```
  </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm dlx jsr add -D @ryoppippi/unplugin-typia
-pnpm install --save typia
-pnpm install --save-dev typescript ts-patch ts-node
+pnpm typia setup --manager pnpm
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
+# YARN BERRY IS NOT SUPPORTED
 yarn dlx jsr add -D @ryoppippi/unplugin-typia
-yarn add typia
-yarn add -D typescript ts-patch ts-node
+yarn typia setup --manager yarn
 ```
   </Tab>
 </Tabs>
 
-Firstly, install `unplugin-typia` via your favorite package manager. 
+At first, install both `unplugin-typia` and `typia`, with `npx typia setup` command.
 
-Secondly, open the `package.json` file, and configure `prepare` script like below. 
+After that, follow the next section steps to integrate `unplugin-typia` into your bundlers.
 
-At last, run the `npm run prepare` command, and follow the next section steps.
-
-```json filename="package.json" copy showLineNumbers {2-4}
-{
-  "scripts": {
-    "prepare": "ts-patch install"
-  },
-  "dependencies": {
-    "typia": "^6.0.6"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1",
-    "ts-patch": "^3.2.0",
-    "typescript": "^5.4.5"
-  }
-}
-```
-
-> For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
+For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
 
 ### [Vite](https://jsr.io/@ryoppippi/unplugin-typia/doc/vite/~/default)
 
