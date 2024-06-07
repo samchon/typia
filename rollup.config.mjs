@@ -1,16 +1,18 @@
-const typescript = require("@rollup/plugin-typescript");
-const terser = require("@rollup/plugin-terser");
+import terser from "@rollup/plugin-terser";
+import typescript from "@rollup/plugin-typescript";
+import glob from "tiny-glob";
 
-const glob = require("glob");
+/** @type {import('rollup').InputOptions} */
+const input = await glob("src/**/*.ts");
 
-const input = glob.sync("src/**/*.ts");
-
+/** @type {import('rollup').OutputOptions} */
 const outputConfig = {
   dir: "lib",
   sourcemap: true,
   preserveModules: true,
 };
 
+/** @type {import('rollup').Plugin[]} */
 const plugins = [
   typescript({
     tsconfig: "tsconfig.json",
@@ -29,7 +31,8 @@ const plugins = [
   }),
 ];
 
-module.exports = [
+/** @type {import('rollup').RollupOptions[]} */
+export default [
   {
     input,
     output: {
