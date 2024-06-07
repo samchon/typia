@@ -130,9 +130,6 @@
         "default": "./lib/transform.js"
       },
       "./lib/executable/*.js": {
-        "bun": "./src/executable/*.ts",
-        "node": "./lib/executable/*.js",
-        "import": "./lib/executable/*.mjs",
         "require": "./lib/executable/*.js",
         "types": "./lib/executable/*.d.ts",
         "default": "./lib/executable/*.js"
