@@ -5,6 +5,7 @@ node_modules/
 packages/typescript-json/src/
 package-lock.json
 pnpm-lock.yaml
+bun.lockb
 
 *.log
 *.tgz
