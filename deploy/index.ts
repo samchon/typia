@@ -73,6 +73,15 @@ const title = (label: string): void => {
   console.log("---------------------------------------------------------");
 };
 
+const detectComanndAvailable = (command: string): boolean => {
+  try {
+    cp.execSync(`which ${command}`);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const main = (): void => {
   const tag: string | undefined = process.argv[2];
   if (tag === undefined) {
@@ -93,6 +102,11 @@ const main = (): void => {
       : ["npm run build", "npm start"],
   );
   test(version)("test-esm")(["npm run build", "npm start"]);
+  /* if bun is available, test with bun */
+  if (detectComanndAvailable("bun")) {
+    test(version)("test")(["bun --bun run build_run", "bun --bun run start"]);
+    test(version)("test-esm")(["bun --bun run build", "bun --bun run start"]);
+  }
   test(version)("errors")(["npm start"]);
   test(version)("benchmark")(["npm run build"]);
 
