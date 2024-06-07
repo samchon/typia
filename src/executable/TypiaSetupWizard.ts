@@ -7,7 +7,7 @@ import { PluginConfigurator } from "./setup/PluginConfigurator";
 
 export namespace TypiaSetupWizard {
   export interface IArguments {
-    manager: "npm" | "pnpm" | "yarn";
+    manager: "npm" | "pnpm" | "yarn" | "bun";
     project: string | null;
   }
 
@@ -138,6 +138,7 @@ export namespace TypiaSetupWizard {
         [
           "npm" as const,
           "pnpm" as const,
+          "bun" as const,
           "yarn (berry is not supported)" as "yarn",
         ],
         (value) => value.split(" ")[0] as "yarn",
