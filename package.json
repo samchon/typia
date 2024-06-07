@@ -102,5 +102,39 @@
     "lib",
     "src"
   ],
-  "private": true
+  "private": true,
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "bun": "./src/index.ts",
+        "node": "./lib/index.js",
+        "import": "./lib/index.mjs",
+        "require": "./lib/index.js",
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "./lib": {
+        "bun": "./src/index.ts",
+        "node": "./lib/index.js",
+        "import": "./lib/index.mjs",
+        "require": "./lib/index.js",
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "./lib/transform": {
+        "bun": "./src/transform.ts",
+        "node": "./lib/transform.js",
+        "import": "./lib/transform.mjs",
+        "require": "./lib/transform.js",
+        "types": "./lib/transform.d.ts",
+        "default": "./lib/transform.js"
+      },
+      "./lib/executable/*.js": {
+        "require": "./lib/executable/*.js",
+        "types": "./lib/executable/*.d.ts",
+        "default": "./lib/executable/*.js"
+      },
+      "./package.json": "./package.json"
+    }
+  }
 }
