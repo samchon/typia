@@ -4,11 +4,13 @@ on:
     paths:
       - 'src/**'
       - 'test/**'
+      - 'test-esm/**'
       - 'package.json'
   pull_request:
     paths:
       - 'src/**'
       - 'test/**'
+      - 'test-esm/**'
       - 'package.json'
 jobs:
   Ubuntu:
