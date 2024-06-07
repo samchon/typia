@@ -4,8 +4,24 @@ import path from "path";
 import { CommandExecutor } from "./CommandExecutor";
 import { FileRetriever } from "./FileRetriever";
 
+const managers = ["npm", "pnpm", "yarn", "bun"] as const;
+type Manager = (typeof managers)[number];
+
+const installCmdTable = {
+  npm: "install",
+  pnpm: "add",
+  yarn: "add",
+  bun: "add",
+} as const satisfies Record<Manager, string>;
+const devOptionTable = {
+  npm: "--save-dev",
+  pnpm: "--save-dev",
+  yarn: "--dev",
+  bun: "--dev",
+} as const satisfies Record<Manager, string>;
+
 export class PackageManager {
-  public manager: string = "npm";
+  public manager: Manager = "npm";
   public get file(): string {
     return path.join(this.directory, "package.json");
   }
@@ -40,10 +56,9 @@ export class PackageManager {
     modulo: string;
     version: string;
   }): boolean {
-    const middle: string =
-      this.manager === "yarn"
-        ? `add${props.dev ? " -D" : ""}`
-        : `install ${props.dev ? "--save-dev" : "--save"}`;
+    const cmd = installCmdTable[this.manager];
+    const option = props.dev ? devOptionTable[this.manager] : "";
+    const middle: string = `${cmd} ${option}` as const;
     CommandExecutor.run(
       `${this.manager} ${middle} ${props.modulo}${
         props.version ? `@${props.version}` : ""
