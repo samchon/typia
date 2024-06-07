@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "rimraf bin && tsc",
+    "build_run": "npm run build",
     "prepare": "ts-patch install",
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
