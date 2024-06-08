@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import cp from "child_process";
+import $ from "dax-sh";
 import fs from "fs";
 
 import { ReplicaPublisher } from "./internal/ReplicaPublisher";
@@ -73,16 +74,12 @@ const title = (label: string): void => {
   console.log("---------------------------------------------------------");
 };
 
-const detectComanndAvailable = (command: string): boolean => {
-  try {
-    cp.execSync(`which ${command}`);
-    return true;
-  } catch {
-    return false;
-  }
+const detectComanndAvailable = async (command: string): Promise<boolean> => {
+  const path = await $.which(command);
+  return path !== null;
 };
 
-const main = (): void => {
+const main = async (): Promise<void> => {
   const tag: string | undefined = process.argv[2];
   if (tag === undefined) {
     console.log("specify tag name like latest or next");
@@ -103,7 +100,7 @@ const main = (): void => {
   );
   test(version)("test-esm")(["npm run build", "npm start"]);
   /* if bun is available, test with bun */
-  if (detectComanndAvailable("bun")) {
+  if (await detectComanndAvailable("bun")) {
     test(version)("test")(["bun --bun run build_run", "bun --bun run start"]);
     test(version)("test-esm")(["bun --bun run build", "bun --bun run start"]);
   }
