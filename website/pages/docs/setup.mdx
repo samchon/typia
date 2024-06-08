@@ -167,27 +167,27 @@ Setup wizard would be executed, and it will do everything for the transformation
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
-npm install --save-dev typescript ts-patch ts-node
+npm install --save-dev typescript ts-patch
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
-pnpm install --save-dev typescript ts-patch ts-node
+pnpm install --save-dev typescript ts-patch
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
-yarn add -D typescript ts-patch ts-node
+yarn add -D typescript ts-patch
 ```
   </Tab>
 </Tabs>
 
 If you want to install `typia` manually, just follow the steps.
 
-Firstly install `typia` as a dependency. And then, install `typescript`, `ts-patch` and `ts-node` as `devDependencies`.
+Firstly install `typia` as a dependency. And then, install `typescript`, `ts-patch` and as `devDependencies`.
 
 ```json filename="tsconfig.json" copy showLineNumbers
 {
@@ -214,7 +214,6 @@ As `typia` generates optimal operation code through transformation, it must be c
     "typia": "^6.0.6"
   },
   "devDependencies": {
-    "ts-node": "^10.9.1",
     "ts-patch": "^3.2.0",
     "typescript": "^5.4.5"
   }
