@@ -226,14 +226,15 @@ Of course, if you don't use any ["Comment Tags"](./validators/tags/#comment-tags
 [`unplugin-typia`](https://jsr.io/@ryoppippi/unplugin-typia) is a plugin to integrate `typia` into your bundlers seamlessly.
 
 Currently, `unplugin-typia` supports the following bundlers:
-  - [Vite](https://vitejs.dev/)
-  - [Rollup](https://rollupjs.org/)
-  - [esbuild](https://esbuild.github.io/)
-  - [webpack](https://webpack.js.org/)
+  - [Bun](https://jsr.io/@ryoppippi/unplugin-typia/doc/bun/~/default)
+  - [Esbuild](https://jsr.io/@ryoppippi/unplugin-typia/doc/esbuild/~/default)
+  - [Farm](https://jsr.io/@ryoppippi/unplugin-typia/doc/farm/~/default)
   - [Next.js](https://nextjs.org/)
-  - [Rspack](https://www.rspack.dev/)
-  - [Rolldown](https://rolldown.rs/)
-  - [farm](https://farm-fe.github.io/)
+  - [Rolldown](https://jsr.io/@ryoppippi/unplugin-typia/doc/rolldown/~/default)
+  - [Rollup](https://jsr.io/@ryoppippi/unplugin-typia/doc/rollup/~/default)
+  - [Rspack](https://jsr.io/@ryoppippi/unplugin-typia/doc/rspack/~/default)
+  - [Vite](https://jsr.io/@ryoppippi/unplugin-typia/doc/vite/~/default)
+  - [Webpack](https://webpack.js.org/)
 
 <Tabs items={['npm', 'pnpm', 'yarn']}>
   <Tab>
@@ -272,7 +273,9 @@ For reference, there are a couple of ways to integrate `unplugin-typia` into you
 import UnpluginTypia from 'unplugin-typia/vite'
  
 export default defineConfig({
-  plugins: [UnpluginTypia({ /* options */ })],
+  plugins: [
+    UnpluginTypia({ /* options */ })
+  ],
 })
 ```
   </Tab>
@@ -284,7 +287,10 @@ import unTypiaNext from "unplugin-typia/next";
 const config = {
   // your next.js config
 };
-export default unTypiaNext(config)
+export default unTypiaNext(
+  config,
+  {} // options of typia
+);
 ```
   </Tab>
   <Tab>
