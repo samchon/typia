@@ -337,8 +337,9 @@ build({
   </Tab>
   <Tab>
 <Callout type="info">
-`unplugin-typia` supports only [`Bun.bundler`](https://bun.sh/docs/bundler), not [`Bun.runtime`](https://bun.sh/docs/runtime).
+  `unplugin-typia` supports only [`Bun.bundler`](https://bun.sh/docs/bundler), not [`Bun.runtime`](https://bun.sh/docs/runtime).
 </Callout>
+
 ```typescript filename="Build.ts" copy showLineNumbers
 import UnpluginTypia from 'unplugin-typia/bun'
 
@@ -348,6 +349,7 @@ await Bun.build({
 	plugins: [UnpluginTypia(/* options */)]
 });
 ```
+
 For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
     </Tab>
 </Tabs>
