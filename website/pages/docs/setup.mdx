@@ -300,7 +300,7 @@ For reference, there are a couple of ways to integrate `unplugin-typia` into you
 <Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.Build']}>
   <Tab>
 ```typescript filename="vite.config.ts" copy showLineNumbers
-import UnpluginTypia from 'unplugin-typia/vite'
+import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
  
 export default defineConfig({
   plugins: [
@@ -311,7 +311,7 @@ export default defineConfig({
   </Tab>
   <Tab>
 ```javascript filename="next.config.mjs" copy showLineNumbers
-import unTypiaNext from "unplugin-typia/next";
+import unTypiaNext from "@ryoppippi/unplugin-typia/next";
  
 /** @type {import('next').NextConfig} */
 const config = {
@@ -326,7 +326,7 @@ export default unTypiaNext(
   <Tab>
 ```javascript filename="esbuild.config.js" copy showLineNumbers
 import { build } from 'esbuild'
-import UnpluginTypia from 'unplugin-typia/esbuild';
+import UnpluginTypia from '@ryoppippi/unplugin-typia/esbuild';
  
 build({
   plugins: [
@@ -341,7 +341,7 @@ build({
 </Callout>
 
 ```typescript filename="Build.ts" copy showLineNumbers
-import UnpluginTypia from 'unplugin-typia/bun'
+import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
 
 await Bun.build({
 	entrypoints: ["./index.ts"],
