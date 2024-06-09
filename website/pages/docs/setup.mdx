@@ -297,7 +297,7 @@ After that, follow the next section steps to integrate `unplugin-typia` into you
 
 For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
 
-<Tabs items={['Vite', 'Next.js', 'esbuild']}>
+<Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.Build']}>
   <Tab>
 ```typescript filename="vite.config.ts" copy showLineNumbers
 import UnpluginTypia from 'unplugin-typia/vite'
@@ -335,6 +335,23 @@ build({
 });
 ```
   </Tab>
+  <Tab>
+<Callout type="info">
+  `unplugin-typia` supports only [`Bun.bundler`](https://bun.sh/docs/bundler), not [`Bun.runtime`](https://bun.sh/docs/runtime).
+</Callout>
+
+```typescript filename="Build.ts" copy showLineNumbers
+import UnpluginTypia from 'unplugin-typia/bun'
+
+await Bun.build({
+	entrypoints: ["./index.ts"],
+	outdir: "./out",
+	plugins: [UnpluginTypia(/* options */)]
+});
+```
+
+For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
+    </Tab>
 </Tabs>
 
 
