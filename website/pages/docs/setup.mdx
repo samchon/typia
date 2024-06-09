@@ -4,27 +4,23 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npm install typia
 npx typia setup
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
-pnpm install typia
-pnpm typia setup --manager pnpm
+pnpm dlx typia setup --manager pnpm
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
-yarn add typia
-yarn typia setup --manager yarn
+yarn dlx typia setup --manager yarn
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
-bun add typia
-bun typia setup --manager bun
+bunx typia setup --manager bun
 ```
   </Tab>
 </Tabs>
@@ -104,27 +100,23 @@ exports.check = check;
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm install --save typia
 npx typia setup
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-pnpm install --save typia
-pnpm typia setup --manager pnpm
+pnpm dlx typia setup --manager pnpm
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
-yarn add typia
-yarn typia setup --manager yarn
+yarn dlx typia setup --manager yarn
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-bun add typia
-bun typia setup --manager bun
+bunx typia setup --manager bun
 ```
   </Tab>
 </Tabs>
@@ -263,30 +255,26 @@ Currently, `unplugin-typia` supports the following bundlers:
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npx jsr add -D @ryoppippi/unplugin-typia
-npm install --save typia
 npx typia setup
 ```
  </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm dlx jsr add -D @ryoppippi/unplugin-typia
-pnpm install typia
-pnpm typia setup --manager pnpm
+pnpm dlx typia setup --manager pnpm
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
 yarn dlx jsr add -D @ryoppippi/unplugin-typia
-yarn add typia
-yarn typia setup --manager yarn
+yarn dlx typia setup --manager yarn
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 bun add @ryoppippi/unplugin-typia
-bun add typia
-bun typia setup
+bunx typia setup
 ```
   </Tab>
 </Tabs>
@@ -366,7 +354,6 @@ For more details, please refer to the [`unplugin-typia` documentation](https://j
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
-npm install typia
 npx typia setup
 
 # WEBPACK + TS-LOADER
@@ -377,8 +364,7 @@ npm install --save-dev webpack webpack-cli
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
-pnpm install typia
-pnpm typia setup --manager pnpm
+pnpm dlx typia setup --manager pnpm
 
 # WEBPACK + TS-LOADER
 pnpm install --save-dev ts-loader
@@ -391,8 +377,7 @@ pnpm install --save-dev webpack webpack-cli
 # YARN BERRY IS NOT SUPPORTED
 ###########################################
 # TYPIA
-yarn add typia
-yarn typia setup --manager yarn
+yarn dlx typia setup --manager yarn
 
 # WEBPACK + TS-LOADER
 yarn add -D ts-loader
@@ -402,8 +387,7 @@ yarn add -D webpack webpack-cli
   <Tab>
     ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
-bun add typia
-bun typia setup
+bunx typia setup
 
 # WEBPACK + TS-LOADER
 bun add -d ts-loader
@@ -492,27 +476,23 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm install --save typia
 npx typia setup
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-pnpm install --save typia
-pnpm typia setup --manager pnpm
+pnpm dlx typia setup --manager pnpm
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
-yarn add typia
-yarn typia setup --manager yarn
+yarn dlx typia setup --manager yarn
 ```
   </Tab>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-bun add typia
-bun typia setup --manager bun
+bunx typia setup --manager bun
 ```
     </Tab>
 </Tabs>
