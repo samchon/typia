@@ -21,6 +21,7 @@ export namespace TypiaSetupWizard {
     const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
 
     // INSTALL TYPESCRIPT COMPILERS
+    pack.install({ dev: true, modulo: "typia", version: "latest" });
     pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
     pack.install({ dev: true, modulo: "typescript", version: "5.4.2" });
     args.project ??= (() => {
