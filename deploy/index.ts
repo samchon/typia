@@ -73,17 +73,6 @@ const title = (label: string): void => {
   console.log("---------------------------------------------------------");
 };
 
-const tryCommand = async (command: string): Promise<boolean> => {
-  return new Promise((resolve) => {
-    try {
-      cp.execSync(command, { stdio: "ignore" });
-      resolve(true);
-    } catch {
-      resolve(false);
-    }
-  });
-};
-
 const main = async (): Promise<void> => {
   const tag: string | undefined = process.argv[2];
   if (tag === undefined) {
@@ -105,7 +94,16 @@ const main = async (): Promise<void> => {
   );
   test(version)("test-esm")(["npm run build", "npm start"]);
   /* if bun is available, test with bun */
-  if (await tryCommand("bun --version")) {
+  if (
+    (() => {
+      try {
+        cp.execSync("bun --version", { stdio: "ignore" });
+        return true;
+      } catch {
+        return false;
+      }
+    })()
+  ) {
     test(version)("test")(["bun --bun run build_run", "bun --bun run start"]);
     test(version)("test-esm")(["bun --bun run build", "bun --bun run start"]);
   }
