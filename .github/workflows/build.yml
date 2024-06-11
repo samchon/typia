@@ -15,7 +15,7 @@ on:
       - 'package.json'
       - '.github/workflows/build.yml'
 jobs:
-  Ubuntu:
+  NodeJS:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +33,7 @@ jobs:
       - run: npm run build
       - run: npm run test
 
-  Ubuntu-Bun:
+  Bun:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,8 +56,8 @@ jobs:
 
   action-timeline:
     needs:
-      - Ubuntu
-      - Ubuntu-Bun
+      - NodeJS
+      - Bun
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
