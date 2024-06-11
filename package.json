@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "npm run package:tgz",
-    "test:bun": "ts-node deploy/bun.ts",
+    "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
