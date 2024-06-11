@@ -1,20 +1,27 @@
+import cp from "child_process";
+
 import { DeployRunner } from "./internal/DeployRunner";
 
-const main = async (): Promise<void> => {
-  const tag: string | undefined = process.argv[2];
-  if (tag === undefined) {
-    console.log("specify tag name like latest or next");
-    process.exit(-1);
+const has_bun = (): boolean => {
+  try {
+    cp.execSync("bun --version", { stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
   }
+};
+
+const main = async (): Promise<void> => {
+  if (has_bun() === false) return;
   await DeployRunner.main({
-    tag,
-    publish: true,
-    setup: true,
+    tag: "tgz",
+    publish: false,
+    setup: process.argv.includes("--skipSetup") === false,
     testExecutors: [
       {
         name: "test",
         commands:
-          tag === "tgz" && process.argv[3] === "template"
+          process.argv[3] === "template"
             ? ["npm run template", "npm run build", "npm start"]
             : ["npm run build", "npm start"],
       },
