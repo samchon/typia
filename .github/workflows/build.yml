@@ -33,4 +33,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test
-      - run: npm run test:bun
+      - run: npm start
+        working-directory: test
+      - run: bun --bun run start
+        working-directory: test-esm
