@@ -16,7 +16,7 @@
   "scripts": {
     "test": "npm run package:tgz",
     "test:bun": "ts-node deploy/bun.ts",
-    "test:template": "npm run test template",
+    "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch",
@@ -24,10 +24,10 @@
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node deploy latest",
-    "package:next": "ts-node deploy next",
-    "package:patch": "ts-node deploy patch",
-    "package:tgz": "ts-node deploy tgz",
+    "package:latest": "ts-node deploy --tag latest",
+    "package:next": "ts-node deploy --tag next",
+    "package:patch": "ts-node deploy --tag patch",
+    "package:tgz": "ts-node deploy --tag tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {

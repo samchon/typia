@@ -1,7 +1,19 @@
+import { parseArgs } from "node:util";
+
 import { DeployRunner } from "./internal/DeployRunner";
 
 const main = async (): Promise<void> => {
-  const tag: string | undefined = process.argv[2];
+  const args = process.argv.slice(2);
+  const {
+    values: { tag, template },
+  } = parseArgs({
+    args,
+    options: {
+      tag: { type: "string", short: "t" },
+      template: { type: "boolean", short: "p", default: false },
+    },
+  });
+
   if (tag === undefined) {
     console.log("specify tag name like latest or next");
     process.exit(-1);
@@ -14,7 +26,7 @@ const main = async (): Promise<void> => {
       {
         name: "test",
         commands:
-          tag === "tgz" && process.argv[3] === "template"
+          tag === "tgz" && template === true
             ? ["npm run template", "npm run build", "npm start"]
             : ["npm run build", "npm start"],
       },
