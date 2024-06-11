@@ -20,22 +20,11 @@ const main = async (): Promise<void> => {
     testExecutors: [
       {
         name: "test",
-        commands:
-          process.argv[3] === "template"
-            ? ["npm run template", "npm run build", "npm start"]
-            : ["npm run build", "npm start"],
+        commands: ["bun --bun run build_run", "bun --bun run start"],
       },
       {
         name: "test-esm",
-        commands: ["npm run build", "npm start"],
-      },
-      {
-        name: "errors",
-        commands: ["npm start"],
-      },
-      {
-        name: "benchmark",
-        commands: ["npm run build"],
+        commands: ["bun --bun run build", "bun --bun run start"],
       },
     ],
   });
