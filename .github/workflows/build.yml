@@ -6,14 +6,34 @@ on:
       - 'test/**'
       - 'test-esm/**'
       - 'package.json'
+      - '.github/workflows/build.yml'
   pull_request:
     paths:
       - 'src/**'
       - 'test/**'
       - 'test-esm/**'
       - 'package.json'
+      - '.github/workflows/build.yml'
 jobs:
-  Ubuntu:
+  NodeJS:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
+
+  Bun:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,5 +52,13 @@ jobs:
 
       - run: npm install
       - run: npm run build
-      - run: npm run test
-      - run: npm run test:bun -- --skipSetup
+      - run: npm run test:bun
+
+  action-timeline:
+    needs:
+      - NodeJS
+      - Bun
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Kesin11/actions-timeline@v2
