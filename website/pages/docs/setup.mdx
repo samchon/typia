@@ -297,7 +297,7 @@ After that, follow the next section steps to integrate `unplugin-typia` into you
 
 For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
 
-<Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.Build']}>
+<Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.runtime', 'Bun.Build']}>
   <Tab>
 ```typescript filename="vite.config.ts" copy showLineNumbers
 import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
@@ -336,9 +336,31 @@ build({
 ```
   </Tab>
   <Tab>
-<Callout type="info">
-  `unplugin-typia` supports only [`Bun.bundler`](https://bun.sh/docs/bundler), not [`Bun.runtime`](https://bun.sh/docs/runtime).
-</Callout>
+First, create a `preload.ts` file and add the following code.
+
+```typescript filename="preload.ts" copy showLineNumbers
+import { plugin } from 'bun';
+import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
+
+plugin(UnpluginTypia({ /* options */ }))
+```
+Then, add the `preload` option to your `bunfig.toml` file.
+
+```typescript filename="bunfig.toml" copy showLineNumbers {1, 4}
+preload = ["./preload.ts"]
+
+[test]
+preload = ["./preload.ts"]
+```
+And, run the `bun run` command.
+
+
+```bash filename="Terminal" showLineNumbers copy
+bun run index.ts
+```
+For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
+  </Tab>
+  <Tab>
 
 ```typescript filename="Build.ts" copy showLineNumbers
 import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
@@ -351,7 +373,7 @@ await Bun.build({
 ```
 
 For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
-    </Tab>
+  </Tab>
 </Tabs>
 
 
