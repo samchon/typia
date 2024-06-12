@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "6.0.6",
+  "version": "6.1.0",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "npm run package:tgz",
-    "test:template": "npm run test template",
+    "test:bun": "bun run deploy/bun.ts",
+    "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch",
@@ -20,10 +21,10 @@
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node deploy latest",
-    "package:next": "ts-node deploy next",
-    "package:patch": "ts-node deploy patch",
-    "package:tgz": "ts-node deploy tgz",
+    "package:latest": "ts-node deploy --tag latest",
+    "package:next": "ts-node deploy --tag next",
+    "package:patch": "ts-node deploy --tag patch",
+    "package:tgz": "ts-node deploy --tag tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
@@ -63,7 +64,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "6.0.6"
+    "typia": "6.1.0"
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.6.0"
