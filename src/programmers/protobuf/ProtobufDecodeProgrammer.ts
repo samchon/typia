@@ -262,7 +262,8 @@ export namespace ProtobufDecodeProgrammer {
                     ) ||
                     value.templates.some(
                       (tpl) =>
-                        tpl.length === 1 && tpl[0]!.getName() === "string",
+                        tpl.row.length === 1 &&
+                        tpl.row[0]!.getName() === "string",
                     )
                   ? ts.factory.createStringLiteral("")
                   : value.objects.length &&
