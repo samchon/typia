@@ -37,7 +37,7 @@ export const iterate_metadata_intersection =
       return false;
 
     // COSTRUCT FAKE METADATA LIST
-    const fakeCollection: MetadataCollection = new MetadataCollection();
+    const fakeCollection: MetadataCollection = collection.clone();
     const fakeErrors: MetadataFactory.IError[] = [];
     const children: Metadata[] = [
       ...new Map(
