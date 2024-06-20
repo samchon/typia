@@ -15,13 +15,13 @@ import { CommentFactory } from "./CommentFactory";
 import { TypeFactory } from "./TypeFactory";
 
 export class MetadataCollection {
-  private readonly objects_: Map<ts.Type, MetadataObject>;
-  private readonly object_unions_: Map<string, MetadataObject[]>;
-  private readonly aliases_: Map<ts.Type, MetadataAlias>;
-  private readonly arrays_: Map<ts.Type, MetadataArrayType>;
-  private readonly tuples_: Map<ts.Type, MetadataTupleType>;
+  private objects_: Map<ts.Type, MetadataObject>;
+  private object_unions_: Map<string, MetadataObject[]>;
+  private aliases_: Map<ts.Type, MetadataAlias>;
+  private arrays_: Map<ts.Type, MetadataArrayType>;
+  private tuples_: Map<ts.Type, MetadataTupleType>;
 
-  private readonly names_: Map<string, Map<ts.Type, string>>;
+  private names_: Map<string, Map<ts.Type, string>>;
   private object_index_: number;
   private recursive_array_index_: number;
   private recursive_tuple_index_: number;
@@ -39,6 +39,20 @@ export class MetadataCollection {
     this.object_index_ = 0;
     this.recursive_array_index_ = 0;
     this.recursive_tuple_index_ = 0;
+  }
+
+  public clone(): MetadataCollection {
+    const output: MetadataCollection = new MetadataCollection();
+    output.objects_ = new Map(this.objects_);
+    output.object_unions_ = new Map(this.object_unions_);
+    output.aliases_ = new Map(this.aliases_);
+    output.arrays_ = new Map(this.arrays_);
+    output.tuples_ = new Map(this.tuples_);
+    output.names_ = new Map(this.names_);
+    output.object_index_ = this.object_index_;
+    output.recursive_array_index_ = this.recursive_array_index_;
+    output.recursive_tuple_index_ = this.recursive_tuple_index_;
+    return output;
   }
 
   /* -----------------------------------------------------------
