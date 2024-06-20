@@ -8,6 +8,7 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
+import { application_description } from "./application_description";
 import { application_v31_schema } from "./application_v31_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -83,7 +84,7 @@ const create_object_schema =
             ? top.substring(0, top.length - 1)
             : undefined;
         })(),
-        description: property.description ?? undefined,
+        description: application_description(property),
       })(property.value);
 
       if (schema === null) continue;
@@ -108,7 +109,7 @@ const create_object_schema =
         );
         return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
       })(),
-      description: obj.description,
+      description: application_description(obj),
       additionalProperties: join(components)(extraMeta),
     };
   };
