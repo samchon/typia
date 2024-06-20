@@ -54,7 +54,7 @@ export const application_v31_schema =
 
     // ATOMIC TYPES
     if (meta.templates.length && AtomicPredicator.template(meta))
-      insert(application_templates(meta));
+      application_templates(meta).map(insert);
     for (const constant of meta.constants)
       if (constant.type === "bigint") throw new TypeError(NO_BIGINT);
       else if (AtomicPredicator.constant(meta)(constant.type) === false)

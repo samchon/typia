@@ -14,7 +14,7 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateUnion"
+        "Something"
       ],
       "aliases": [],
       "natives": [],
@@ -25,7 +25,7 @@
   "components": {
     "objects": [
       {
-        "name": "TemplateUnion",
+        "name": "Something",
         "properties": [
           {
             "key": {
@@ -40,74 +40,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [
-                {
-                  "name": "Array<TemplateUnion.Type>",
-                  "tags": []
-                }
-              ],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          }
-        ],
-        "jsDocTags": [],
-        "index": 0,
-        "recursive": false,
-        "nullables": [
-          false
-        ]
-      },
-      {
-        "name": "TemplateUnion.Type",
-        "properties": [
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "prefix"
+                      "value": "pure"
                     }
                   ]
                 }
@@ -140,13 +73,37 @@
                       "optional": false,
                       "nullable": false,
                       "functional": false,
+                      "atomics": [
+                        {
+                          "type": "number",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "/"
                             }
                           ]
                         }
@@ -170,7 +127,7 @@
                       "functional": false,
                       "atomics": [
                         {
-                          "type": "string",
+                          "type": "number",
                           "tags": []
                         }
                       ],
@@ -196,13 +153,37 @@
                       "optional": false,
                       "nullable": false,
                       "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "-"
                             }
                           ]
                         }
@@ -226,7 +207,7 @@
                       "functional": false,
                       "atomics": [
                         {
-                          "type": "number",
+                          "type": "string",
                           "tags": []
                         }
                       ],
@@ -271,7 +252,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "sole"
                     }
                   ]
                 }
@@ -306,62 +287,6 @@
                       "functional": false,
                       "atomics": [
                         {
-                          "type": "string",
-                          "tags": []
-                        }
-                      ],
-                      "constants": [],
-                      "templates": [],
-                      "escaped": null,
-                      "rest": null,
-                      "arrays": [],
-                      "tuples": [],
-                      "objects": [],
-                      "aliases": [],
-                      "natives": [],
-                      "sets": [],
-                      "maps": []
-                    },
-                    {
-                      "any": false,
-                      "required": true,
-                      "optional": false,
-                      "nullable": false,
-                      "functional": false,
-                      "atomics": [],
-                      "constants": [
-                        {
-                          "type": "string",
-                          "values": [
-                            {
-                              "value": "_postfix"
-                            }
-                          ]
-                        }
-                      ],
-                      "templates": [],
-                      "escaped": null,
-                      "rest": null,
-                      "arrays": [],
-                      "tuples": [],
-                      "objects": [],
-                      "aliases": [],
-                      "natives": [],
-                      "sets": [],
-                      "maps": []
-                    }
-                  ]
-                },
-                {
-                  "row": [
-                    {
-                      "any": false,
-                      "required": true,
-                      "optional": false,
-                      "nullable": false,
-                      "functional": false,
-                      "atomics": [
-                        {
                           "type": "number",
                           "tags": []
                         }
@@ -390,7 +315,7 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "/"
                             }
                           ]
                         }
@@ -405,7 +330,44 @@
                       "natives": [],
                       "sets": [],
                       "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "number",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
                     }
+                  ],
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "JsonSchemaPlugin<__type>",
+                        "kind": "jsonPlugin",
+                        "exclusive": false,
+                        "schema": {
+                          "x-typia-sole": true
+                        }
+                      }
+                    ]
                   ]
                 }
               ],
@@ -435,7 +397,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "middle"
+                      "value": "union"
                     }
                   ]
                 }
@@ -458,24 +420,34 @@
               "nullable": false,
               "functional": false,
               "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "the_false_value",
-                      "tags": []
-                    },
-                    {
-                      "value": "the_true_value",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
+              "constants": [],
               "templates": [
                 {
                   "row": [
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "number",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
                     {
                       "any": false,
                       "required": true,
@@ -488,7 +460,7 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "/"
                             }
                           ]
                         }
@@ -527,6 +499,47 @@
                       "natives": [],
                       "sets": [],
                       "maps": []
+                    }
+                  ],
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "JsonSchemaPlugin<__type>",
+                        "kind": "jsonPlugin",
+                        "exclusive": false,
+                        "schema": {
+                          "x-typia-something": true
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "row": [
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
                     },
                     {
                       "any": false,
@@ -540,7 +553,7 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "-"
                             }
                           ]
                         }
@@ -555,7 +568,44 @@
                       "natives": [],
                       "sets": [],
                       "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
                     }
+                  ],
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "JsonSchemaPlugin<__type>",
+                        "kind": "jsonPlugin",
+                        "exclusive": false,
+                        "schema": {
+                          "x-typia-nothing": false
+                        }
+                      }
+                    ]
                   ]
                 }
               ],
@@ -607,34 +657,35 @@
               "optional": false,
               "nullable": false,
               "functional": false,
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                },
-                {
-                  "type": "boolean",
-                  "tags": []
-                }
-              ],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "the_A_value",
-                      "tags": []
-                    },
-                    {
-                      "value": "the_B_value",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
+              "atomics": [],
+              "constants": [],
               "templates": [
                 {
                   "row": [
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "number",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
                     {
                       "any": false,
                       "required": true,
@@ -647,7 +698,7 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "/"
                             }
                           ]
                         }
@@ -686,6 +737,34 @@
                       "natives": [],
                       "sets": [],
                       "maps": []
+                    }
+                  ]
+                },
+                {
+                  "row": [
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
                     },
                     {
                       "any": false,
@@ -699,7 +778,7 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "-"
                             }
                           ]
                         }
@@ -714,7 +793,124 @@
                       "natives": [],
                       "sets": [],
                       "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
                     }
+                  ]
+                },
+                {
+                  "row": [
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [],
+                      "constants": [
+                        {
+                          "type": "string",
+                          "values": [
+                            {
+                              "value": "||"
+                            }
+                          ]
+                        }
+                      ],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "number",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    }
+                  ],
+                  "tags": [
+                    [
+                      {
+                        "target": "string",
+                        "name": "JsonSchemaPlugin<__type>",
+                        "kind": "jsonPlugin",
+                        "exclusive": false,
+                        "schema": {
+                          "x-typia-something": true
+                        }
+                      }
+                    ]
                   ]
                 }
               ],
@@ -722,9 +918,7 @@
               "rest": null,
               "arrays": [],
               "tuples": [],
-              "objects": [
-                "__type"
-              ],
+              "objects": [],
               "aliases": [],
               "natives": [],
               "sets": [],
@@ -732,18 +926,7 @@
             },
             "description": null,
             "jsDocTags": []
-          }
-        ],
-        "jsDocTags": [],
-        "index": 1,
-        "recursive": false,
-        "nullables": [
-          false
-        ]
-      },
-      {
-        "name": "__type",
-        "properties": [
+          },
           {
             "key": {
               "any": false,
@@ -757,7 +940,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "boolean_and_number_and_template"
                     }
                   ]
                 }
@@ -781,12 +964,73 @@
               "functional": false,
               "atomics": [
                 {
-                  "type": "string",
+                  "type": "number",
+                  "tags": []
+                },
+                {
+                  "type": "boolean",
                   "tags": []
                 }
               ],
               "constants": [],
-              "templates": [],
+              "templates": [
+                {
+                  "row": [
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [],
+                      "constants": [
+                        {
+                          "type": "string",
+                          "values": [
+                            {
+                              "value": "prefix_"
+                            }
+                          ]
+                        }
+                      ],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    },
+                    {
+                      "any": false,
+                      "required": true,
+                      "optional": false,
+                      "nullable": false,
+                      "functional": false,
+                      "atomics": [
+                        {
+                          "type": "string",
+                          "tags": []
+                        }
+                      ],
+                      "constants": [],
+                      "templates": [],
+                      "escaped": null,
+                      "rest": null,
+                      "arrays": [],
+                      "tuples": [],
+                      "objects": [],
+                      "aliases": [],
+                      "natives": [],
+                      "sets": [],
+                      "maps": []
+                    }
+                  ]
+                }
+              ],
               "escaped": null,
               "rest": null,
               "arrays": [],
@@ -802,7 +1046,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 2,
+        "index": 0,
         "recursive": false,
         "nullables": [
           false
@@ -810,37 +1054,7 @@
       }
     ],
     "aliases": [],
-    "arrays": [
-      {
-        "name": "Array<TemplateUnion.Type>",
-        "value": {
-          "any": false,
-          "required": true,
-          "optional": false,
-          "nullable": false,
-          "functional": false,
-          "atomics": [],
-          "constants": [],
-          "templates": [],
-          "escaped": null,
-          "rest": null,
-          "arrays": [],
-          "tuples": [],
-          "objects": [
-            "TemplateUnion.Type"
-          ],
-          "aliases": [],
-          "natives": [],
-          "sets": [],
-          "maps": []
-        },
-        "nullables": [
-          false
-        ],
-        "recursive": false,
-        "index": null
-      }
-    ],
+    "arrays": [],
     "tuples": []
   }
 }
