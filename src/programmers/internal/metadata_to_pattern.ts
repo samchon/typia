@@ -25,8 +25,8 @@ export const metadata_to_pattern =
       if (a.type === "number" || a.type === "bigint")
         values.push(PatternUtil.NUMBER);
       else if (a.type === "boolean") values.push(PatternUtil.BOOLEAN);
-    for (const childTpl of meta.templates)
-      values.push("(" + template_to_pattern(false)(childTpl) + ")");
+    for (const { row } of meta.templates)
+      values.push("(" + template_to_pattern(false)(row) + ")");
 
     const pattern: string =
       values.length === 1 ? values[0]! : "(" + values.join("|") + ")";

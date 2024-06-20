@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataTemplate } from "../../../schemas/metadata/MetadataTemplate";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
@@ -38,7 +39,6 @@ export const iterate_metadata_template =
           }),
         );
     });
-    meta.templates.push(row);
-
+    meta.templates.push(MetadataTemplate.create({ row, tags: undefined }));
     return true;
   };

@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataTemplate } from "../../schemas/metadata/MetadataTemplate";
 
 import { ICheckEntry } from "../helpers/ICheckEntry";
 import { template_to_pattern } from "./template_to_pattern";
@@ -9,7 +9,7 @@ import { template_to_pattern } from "./template_to_pattern";
  * @internal
  */
 export const check_template =
-  (templates: Metadata[][]) =>
+  (templates: MetadataTemplate[]) =>
   (input: ts.Expression): ICheckEntry => {
     // TYPEOF STRING & TAGS
     const conditions: ts.Expression[] = [
@@ -23,7 +23,7 @@ export const check_template =
     const internal: ts.Expression[] = templates.map((tpl) =>
       ts.factory.createCallExpression(
         ts.factory.createIdentifier(
-          `RegExp(/${template_to_pattern(true)(tpl)}/).test`,
+          `RegExp(/${template_to_pattern(true)(tpl.row)}/).test`,
         ),
         undefined,
         [input],
@@ -41,21 +41,6 @@ export const check_template =
         ts.factory.createLogicalAnd(x, y),
       ),
       conditions: [],
-      expected: templates
-        .map(
-          (tpl) =>
-            "`" +
-            tpl
-              .map((child) =>
-                child.isConstant() && child.size() === 1
-                  ? child.constants[0]!.values[0]!.value
-                  : `$\{${child.getName()}\}`,
-              )
-              .join("")
-              .split("`")
-              .join("\\`") +
-            "`",
-        )
-        .join(" | "),
+      expected: templates.map((tpl) => tpl.getName()).join(" | "),
     };
   };

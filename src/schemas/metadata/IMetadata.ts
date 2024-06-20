@@ -2,6 +2,7 @@ import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataConstant } from "./IMetadataConstant";
 import { IMetadataEntry } from "./IMetadataEntry";
 import { IMetadataEscaped } from "./IMetadataEscaped";
+import { IMetadataTemplate } from "./IMetadataTemplate";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadata {
@@ -13,7 +14,7 @@ export interface IMetadata {
 
   atomics: IMetadataAtomic[];
   constants: IMetadataConstant[];
-  templates: IMetadata[][];
+  templates: IMetadataTemplate[];
   escaped: IMetadataEscaped | null;
 
   rest: IMetadata | null;
