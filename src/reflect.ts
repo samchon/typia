@@ -47,6 +47,12 @@ const metadataPure = /** @__PURE__ */ Object.assign<typeof metadata, {}>(
 );
 export { metadataPure as metadata };
 
+export function name<T, Regular extends boolean = false>(): string;
+export function name(): never;
+export function name(): never {
+  halt("name");
+}
+
 /**
  * @internal
  */
