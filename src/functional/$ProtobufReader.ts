@@ -1,4 +1,4 @@
-import { ProtobufWire } from "../programmers/helpers/ProtobufWire";
+import * as ProtobufWire from "../programmers/helpers/ProtobufWire";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
 export class $ProtobufReader {

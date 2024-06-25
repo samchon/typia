@@ -64,7 +64,8 @@ export namespace MiscLiteralsProgrammer {
   };
 }
 
-enum ErrorMessages {
-  NO = "no constant literal type found.",
-  ONLY = "only constant literal types are allowed.",
-}
+const ErrorMessages = {
+  NO: "no constant literal type found.",
+  ONLY: "only constant literal types are allowed.",
+} as const;
+

@@ -22,9 +22,11 @@ import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
-import { ProtobufWire } from "../helpers/ProtobufWire";
+import * as ProtobufWire from "../helpers/ProtobufWire";
 import { UnionPredicator } from "../helpers/UnionPredicator";
 import { decode_union_object } from "../internal/decode_union_object";
+
+type ValueOf<T> = T[keyof T];
 
 export namespace ProtobufEncodeProgrammer {
   export const write =
@@ -649,7 +651,7 @@ export namespace ProtobufEncodeProgrammer {
       );
 
   const decode_tag =
-    (wire: ProtobufWire) =>
+    (wire: ValueOf<typeof ProtobufWire>) =>
     (index: number): ts.CallExpression =>
       ts.factory.createCallExpression(
         IdentifierFactory.access(WRITER())("uint32"),
@@ -657,7 +659,9 @@ export namespace ProtobufEncodeProgrammer {
         [ExpressionFactory.number((index << 3) | wire)],
       );
 
-  const get_standalone_wire = (meta: Metadata): ProtobufWire => {
+  const get_standalone_wire = (
+    meta: Metadata,
+  ): ValueOf<typeof ProtobufWire> => {
     if (
       meta.arrays.length ||
       meta.objects.length ||
