@@ -11,12 +11,15 @@
             "type": "number"
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ArrayRepeatedRequired"
-            }
+            "$ref": "#/components/schemas/ArrayArrayRepeatedRequired"
           }
         ]
+      },
+      "#/components/schemas/ArrayArrayRepeatedRequired": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedRequired"
+        }
       }
     }
   },
