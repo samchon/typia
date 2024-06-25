@@ -17,25 +17,18 @@ export const iterate_metadata_array =
   (errors: MetadataFactory.IError[]) =>
   (
     meta: Metadata,
-    type: ts.Type,
+    alias: ts.Type,
     explore: MetadataFactory.IExplore,
   ): boolean => {
-    if (checker.isArrayType(type) === false) {
-      const array: ts.Type | null = find_array_extended(checker)(new Map())(
-        type,
-      );
-      if (array !== null)
-        return iterate_metadata_array(checker)(options)(collection)(errors)(
-          meta,
-          array,
-          explore,
-        );
-      return false;
-    }
+    const array: ts.Type | null =
+      checker.isArrayType(alias) === false
+        ? find_array_extended(checker)(new Map())(alias)
+        : alias;
+    if (array === null) return false;
 
     const arrayType: MetadataArrayType = emplace_metadata_array_type(checker)(
       options,
-    )(collection)(errors)(type, meta.nullable, explore);
+    )(collection)(errors)(alias, array, meta.nullable, explore);
     ArrayUtil.add(
       meta.arrays,
       MetadataArray.create({

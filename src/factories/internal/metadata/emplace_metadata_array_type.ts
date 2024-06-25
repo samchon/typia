@@ -15,19 +15,23 @@ export const emplace_metadata_array_type =
   (collection: MetadataCollection) =>
   (errors: MetadataFactory.IError[]) =>
   (
-    type: ts.Type,
+    aliasType: ts.Type,
+    arrayType: ts.Type,
     nullable: boolean,
     explore: MetadataFactory.IExplore,
   ): MetadataArrayType => {
     // CHECK EXISTENCE
-    const [array, newbie, setValue] = collection.emplaceArray(checker, type);
+    const [array, newbie, setValue] = collection.emplaceArray(
+      checker,
+      aliasType,
+    );
     ArrayUtil.add(array.nullables, nullable);
     if (newbie === false) return array;
 
     // CONSTRUCT VALUE TYPE
     const value: Metadata = explore_metadata(checker)(options)(collection)(
       errors,
-    )(type.getNumberIndexType()!, {
+    )(arrayType.getNumberIndexType()!, {
       ...explore,
       escaped: false,
       aliased: false,
