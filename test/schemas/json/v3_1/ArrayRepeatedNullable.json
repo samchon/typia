@@ -14,12 +14,15 @@
             "type": "number"
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ArrayRepeatedNullable"
-            }
+            "$ref": "#/components/schemas/ArrayArrayRepeatedNullable"
           }
         ]
+      },
+      "#/components/schemas/ArrayArrayRepeatedNullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedNullable"
+        }
       }
     }
   },
