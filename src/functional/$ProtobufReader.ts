@@ -1,5 +1,7 @@
 import * as ProtobufWire from "../programmers/helpers/ProtobufWire";
 
+type ValueOf<T> = T[keyof T];
+
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
 export class $ProtobufReader {
   /**
@@ -93,7 +95,7 @@ export class $ProtobufReader {
     }
   }
 
-  public skipType(wireType: ProtobufWire): void {
+  public skipType(wireType: ValueOf<typeof ProtobufWire>): void {
     switch (wireType) {
       case ProtobufWire.VARIANT:
         this.skip(0);
@@ -105,6 +107,7 @@ export class $ProtobufReader {
         this.skip(this.uint32());
         break;
       case ProtobufWire.START_GROUP:
+        // @ts-expect-error this.uint32() & 0x07 is not included in the ProtobufWire
         while ((wireType = this.uint32() & 0x07) !== ProtobufWire.END_GROUP)
           this.skipType(wireType);
         break;
