@@ -74,8 +74,8 @@ export const application_v30_schema =
     // ARRAY
     for (const array of meta.arrays)
       application_array<"3.0">(application_v30_schema(false)(components)({}))(
-        array,
-      ).forEach(insert);
+        components,
+      )(array).forEach(insert);
 
     // TUPLE
     for (const tuple of meta.tuples)
