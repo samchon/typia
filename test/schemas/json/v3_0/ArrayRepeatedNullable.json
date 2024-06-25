@@ -13,13 +13,15 @@
             "nullable": true
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ArrayRepeatedNullable"
-            },
-            "nullable": true
+            "$ref": "#/components/schemas/ArrayArrayRepeatedNullable"
           }
         ]
+      },
+      "#/components/schemas/ArrayArrayRepeatedNullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedNullable"
+        }
       }
     }
   },
