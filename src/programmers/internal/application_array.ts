@@ -12,14 +12,39 @@ export const application_array =
   <Version extends "3.0" | "3.1">(
     generator: (value: Metadata) => Schema<Version>,
   ) =>
-  (array: MetadataArray): ArraySchema<Version>[] =>
-    application_plugin<ArraySchema<Version>>(
-      {
-        type: "array",
-        items: generator(array.type.value),
-      } as ArraySchema<Version>,
-      array.tags,
-    );
+  (
+    components: Version extends "3.0"
+      ? OpenApiV3.IComponents
+      : OpenApi.IComponents,
+  ) =>
+  (
+    array: MetadataArray,
+  ): Array<ArraySchema<Version> | OpenApiV3.IJsonSchema.IReference> => {
+    const factory = (): ArraySchema<Version>[] =>
+      application_plugin<ArraySchema<Version>>(
+        {
+          type: "array",
+          items: generator(array.type.value),
+        } as ArraySchema<Version>,
+        array.tags,
+      );
+    if (array.type.recursive === true) {
+      const out = () => [{ $ref }];
+      const $ref: string = `#/components/schemas/${array.type.name}`;
+      if (components.schemas?.[$ref] !== undefined) return out();
+
+      components.schemas ??= {};
+      components.schemas[$ref] ??= {};
+
+      const oneOf: ArraySchema<Version>[] = factory();
+      Object.assign(
+        components.schemas[$ref]!,
+        oneOf.length === 1 ? oneOf[0] : { oneOf },
+      );
+      return out();
+    }
+    return factory();
+  };
 
 /**
  * @internal
