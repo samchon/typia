@@ -51,9 +51,9 @@ function formData<T extends object>(input: FormData): Resolved<T>;
 function formData(): never {
   halt("formData");
 }
-const formDataPure = /** @__PURE__ */ Object.assign<typeof formData, {}>(
+const formDataPure = /** #__PURE__*/ Object.assign<typeof formData, {}>(
   formData,
-  /** @__PURE__ */ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.http.formData(),
 );
 export { formDataPure as formData };
 
@@ -97,14 +97,14 @@ function assertFormData<T extends object>(
 function assertFormData(): never {
   halt("assertFormData");
 }
-const assertFormDataPure = /** @__PURE__ */ Object.assign<
+const assertFormDataPure = /** #__PURE__*/ Object.assign<
   typeof assertFormData,
   {},
   {}
 >(
   assertFormData,
-  /** @__PURE__ */ Namespace.http.formData(),
-  /** @__PURE__ */ Namespace.assert("http.assertFormData"),
+  /** #__PURE__*/ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.assert("http.assertFormData"),
 );
 export { assertFormDataPure as assertFormData };
 
@@ -143,14 +143,10 @@ function isFormData<T extends object>(input: FormData): Resolved<T> | null;
 function isFormData(): never {
   halt("isFormData");
 }
-const isFormDataPure = /** @__PURE__ */ Object.assign<
-  typeof isFormData,
-  {},
-  {}
->(
+const isFormDataPure = /** #__PURE__*/ Object.assign<typeof isFormData, {}, {}>(
   isFormData,
-  /** @__PURE__ */ Namespace.http.formData(),
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { isFormDataPure as isFormData };
 
@@ -193,14 +189,14 @@ function validateFormData<T extends object>(
 function validateFormData(): never {
   halt("validateFormData");
 }
-const validateFormDataPure = /** @__PURE__ */ Object.assign<
+const validateFormDataPure = /** #__PURE__*/ Object.assign<
   typeof validateFormData,
   {},
   {}
 >(
   validateFormData,
-  /** @__PURE__ */ Namespace.http.formData(),
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { validateFormDataPure as validateFormData };
 
@@ -246,9 +242,9 @@ function query<T extends object>(input: string | URLSearchParams): Resolved<T>;
 function query(): never {
   halt("query");
 }
-const queryPure = /** @__PURE__ */ Object.assign<typeof query, {}>(
+const queryPure = /** #__PURE__*/ Object.assign<typeof query, {}>(
   query,
-  /** @__PURE__ */ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.http.query(),
 );
 export { queryPure as query };
 
@@ -292,14 +288,14 @@ function assertQuery<T extends object>(
 function assertQuery(): never {
   halt("assertQuery");
 }
-const assertQueryPure = /** @__PURE__ */ Object.assign<
+const assertQueryPure = /** #__PURE__*/ Object.assign<
   typeof assertQuery,
   {},
   {}
 >(
   assertQuery,
-  /** @__PURE__ */ Namespace.http.query(),
-  /** @__PURE__ */ Namespace.assert("http.assertQuery"),
+  /** #__PURE__*/ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.assert("http.assertQuery"),
 );
 export { assertQueryPure as assertQuery };
 
@@ -341,10 +337,10 @@ function isQuery(): never {
   halt("isQuery");
 }
 
-const isQueryPure = /** @__PURE__ */ Object.assign<typeof isQuery, {}, {}>(
+const isQueryPure = /** #__PURE__*/ Object.assign<typeof isQuery, {}, {}>(
   isQuery,
-  /** @__PURE__ */ Namespace.http.query(),
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { isQueryPure as isQuery };
 
@@ -386,14 +382,14 @@ function validateQuery<T extends object>(
 function validateQuery(): never {
   halt("validateQuery");
 }
-const validateQueryPure = /** @__PURE__ */ Object.assign<
+const validateQueryPure = /** #__PURE__*/ Object.assign<
   typeof validateQuery,
   {},
   {}
 >(
   validateQuery,
-  /** @__PURE__ */ Namespace.http.query(),
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { validateQueryPure as validateQuery };
 
@@ -463,9 +459,9 @@ function headers(): never {
   halt("headers");
 }
 
-const headersPure = /** @__PURE__ */ Object.assign<typeof headers, {}>(
+const headersPure = /** #__PURE__*/ Object.assign<typeof headers, {}>(
   headers,
-  /** @__PURE__ */ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.http.headers(),
 );
 export { headersPure as headers };
 
@@ -532,14 +528,14 @@ function assertHeaders(): never {
   halt("assertHeaders");
 }
 
-const assertHeadersPure = /** @__PURE__ */ Object.assign<
+const assertHeadersPure = /** #__PURE__*/ Object.assign<
   typeof assertHeaders,
   {},
   {}
 >(
   assertHeaders,
-  /** @__PURE__ */ Namespace.http.headers(),
-  /** @__PURE__ */ Namespace.assert("http.assertHeaders"),
+  /** #__PURE__*/ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.assert("http.assertHeaders"),
 );
 export { assertHeadersPure as assertHeaders };
 
@@ -604,10 +600,10 @@ function isHeaders<T extends object>(
 function isHeaders(): never {
   halt("isHeaders");
 }
-const isHeadersPure = /** @__PURE__ */ Object.assign<typeof isHeaders, {}, {}>(
+const isHeadersPure = /** #__PURE__*/ Object.assign<typeof isHeaders, {}, {}>(
   isHeaders,
-  /** @__PURE__ */ Namespace.http.headers(),
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { isHeadersPure as isHeaders };
 
@@ -672,14 +668,14 @@ function validateHeaders(): never {
   halt("validateHeaders");
 }
 
-const validateHeadersPure = /** @__PURE__ */ Object.assign<
+const validateHeadersPure = /** #__PURE__*/ Object.assign<
   typeof validateHeaders,
   {},
   {}
 >(
   validateHeaders,
-  /** @__PURE__ */ Namespace.http.headers(),
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { validateHeadersPure as validateHeaders };
 
@@ -710,10 +706,10 @@ function parameter(): never {
   halt("parameter");
 }
 
-const parameterPure = /** @__PURE__ */ Object.assign<typeof parameter, {}, {}>(
+const parameterPure = /** #__PURE__*/ Object.assign<typeof parameter, {}, {}>(
   parameter,
-  /** @__PURE__ */ Namespace.http.parameter(),
-  /** @__PURE__ */ Namespace.assert("http.parameter"),
+  /** #__PURE__*/ Namespace.http.parameter(),
+  /** #__PURE__*/ Namespace.assert("http.parameter"),
 );
 export { parameterPure as parameter };
 
@@ -748,10 +744,10 @@ function createFormData<T>(): (input: FormData) => T {
   halt("createFormData");
 }
 
-const createFormDataPure = /** @__PURE__ */ Object.assign<
+const createFormDataPure = /** #__PURE__*/ Object.assign<
   typeof createFormData,
   {}
->(createFormData, /** @__PURE__ */ Namespace.http.formData());
+>(createFormData, /** #__PURE__*/ Namespace.http.formData());
 export { createFormDataPure as createFormData };
 
 /**
@@ -788,14 +784,14 @@ function createAssertFormData<T>(): (input: FormData) => T {
   halt("createAssertFormData");
 }
 
-const createAssertFormDataPure = /** @__PURE__ */ Object.assign<
+const createAssertFormDataPure = /** #__PURE__*/ Object.assign<
   typeof createAssertFormData,
   {},
   {}
 >(
   createAssertFormData,
-  /** @__PURE__ */ Namespace.http.formData(),
-  /** @__PURE__ */ Namespace.assert("http.createAssertFormData"),
+  /** #__PURE__*/ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.assert("http.createAssertFormData"),
 );
 export { createAssertFormDataPure as createAssertFormData };
 
@@ -827,14 +823,14 @@ function createIsFormData<T>(): (input: FormData) => T | null {
   halt("createIsFormData");
 }
 
-const createIsFormDataPure = /** @__PURE__ */ Object.assign<
+const createIsFormDataPure = /** #__PURE__*/ Object.assign<
   typeof createIsFormData,
   {},
   {}
 >(
   createIsFormData,
-  /** @__PURE__ */ Namespace.http.formData(),
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { createIsFormDataPure as createIsFormData };
 
@@ -870,14 +866,14 @@ function createValidateFormData<T>(): (
   halt("createValidateFormData");
 }
 
-const createValidateFormDataPure = /** @__PURE__ */ Object.assign<
+const createValidateFormDataPure = /** #__PURE__*/ Object.assign<
   typeof createValidateFormData,
   {},
   {}
 >(
   createValidateFormData,
-  /** @__PURE__ */ Namespace.http.formData(),
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.http.formData(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { createValidateFormDataPure as createValidateFormData };
 
@@ -911,9 +907,9 @@ function createQuery<T>(): (input: string | URLSearchParams) => T {
   halt("createQuery");
 }
 
-const createQueryPure = /** @__PURE__ */ Object.assign<typeof createQuery, {}>(
+const createQueryPure = /** #__PURE__*/ Object.assign<typeof createQuery, {}>(
   createQuery,
-  /** @__PURE__ */ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.http.query(),
 );
 export { createQueryPure as createQuery };
 
@@ -951,14 +947,14 @@ function createAssertQuery<T>(): (input: string | URLSearchParams) => T {
   halt("createAssertQuery");
 }
 
-const createAssertQueryPure = /** @__PURE__ */ Object.assign<
+const createAssertQueryPure = /** #__PURE__*/ Object.assign<
   typeof createAssertQuery,
   {},
   {}
 >(
   createAssertQuery,
-  /** @__PURE__ */ Namespace.http.query(),
-  /** @__PURE__ */ Namespace.assert("http.createAssertQuery"),
+  /** #__PURE__*/ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.assert("http.createAssertQuery"),
 );
 export { createAssertQueryPure as createAssertQuery };
 
@@ -992,14 +988,14 @@ function createIsQuery<T>(): (input: string | URLSearchParams) => T | null {
   halt("createIsQuery");
 }
 
-const createIsQueryPure = /** @__PURE__ */ Object.assign<
+const createIsQueryPure = /** #__PURE__*/ Object.assign<
   typeof createIsQuery,
   {},
   {}
 >(
   createIsQuery,
-  /** @__PURE__ */ Namespace.http.query(),
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { createIsQueryPure as createIsQuery };
 
@@ -1035,14 +1031,14 @@ function createValidateQuery<T>(): (
   halt("createValidateQuery");
 }
 
-const createValidateQueryPure = /** @__PURE__ */ Object.assign<
+const createValidateQueryPure = /** #__PURE__*/ Object.assign<
   typeof createValidateQuery,
   {},
   {}
 >(
   createValidateQuery,
-  /** @__PURE__ */ Namespace.http.query(),
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.http.query(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { createValidateQueryPure as createValidateQuery };
 
@@ -1078,10 +1074,10 @@ function createHeaders<T>(): (
   halt("createHeaders");
 }
 
-const createHeadersPure = /** @__PURE__ */ Object.assign<
+const createHeadersPure = /** #__PURE__*/ Object.assign<
   typeof createHeaders,
   {}
->(createHeaders, /** @__PURE__ */ Namespace.http.headers());
+>(createHeaders, /** #__PURE__*/ Namespace.http.headers());
 export { createHeadersPure as createHeaders };
 
 /**
@@ -1120,14 +1116,14 @@ function createAssertHeaders<T>(): (
   halt("createAssertHeaders");
 }
 
-const createAssertHeadersPure = /** @__PURE__ */ Object.assign<
+const createAssertHeadersPure = /** #__PURE__*/ Object.assign<
   typeof createAssertHeaders,
   {},
   {}
 >(
   createAssertHeaders,
-  /** @__PURE__ */ Namespace.http.headers(),
-  /** @__PURE__ */ Namespace.assert("http.createAssertHeaders"),
+  /** #__PURE__*/ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.assert("http.createAssertHeaders"),
 );
 export { createAssertHeadersPure as createAssertHeaders };
 
@@ -1163,14 +1159,14 @@ function createIsHeaders<T>(): (
   halt("createIsHeaders");
 }
 
-const createIsHeadersPure = /** @__PURE__ */ Object.assign<
+const createIsHeadersPure = /** #__PURE__*/ Object.assign<
   typeof createIsHeaders,
   {},
   {}
 >(
   createIsHeaders,
-  /** @__PURE__ */ Namespace.http.headers(),
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { createIsHeadersPure as createIsHeaders };
 
@@ -1206,14 +1202,14 @@ function createValidateHeaders<T>(): (
   halt("createValidateHeaders");
 }
 
-const createValidateHeadersPure = /** @__PURE__ */ Object.assign<
+const createValidateHeadersPure = /** #__PURE__*/ Object.assign<
   typeof createValidateHeaders,
   {},
   {}
 >(
   createValidateHeaders,
-  /** @__PURE__ */ Namespace.http.headers(),
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.http.headers(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { createValidateHeadersPure as createValidateHeaders };
 
@@ -1245,14 +1241,14 @@ function createParameter<T extends Atomic.Type | null>(): (input: string) => T {
   halt("createParameter");
 }
 
-const createParameterPure = /** @__PURE__ */ Object.assign<
+const createParameterPure = /** #__PURE__*/ Object.assign<
   typeof createParameter,
   {},
   {}
 >(
   createParameter,
-  /** @__PURE__ */ Namespace.http.parameter(),
-  /** @__PURE__ */ Namespace.assert("http.createParameter"),
+  /** #__PURE__*/ Namespace.http.parameter(),
+  /** #__PURE__*/ Namespace.assert("http.createParameter"),
 );
 export { createParameterPure as createParameter };
 
