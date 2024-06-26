@@ -4,9 +4,12 @@ const commomnjs = require("@rollup/plugin-commonjs");
 
 const outDir = "lib";
 
+/** @type {import('rollup').RollupOptions} */
 module.exports = {
   input: "./src/index.ts",
   output: {
+    preserveModules: true,
+    preserveModulesRoot: "src",
     dir: outDir,
     format: "esm",
     entryFileNames: "[name].mjs",
