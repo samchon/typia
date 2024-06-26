@@ -133,9 +133,9 @@ function decode<T>(input: Uint8Array): Resolved<T>;
 function decode(): never {
   halt("decode");
 }
-const decodePure = /** @__PURE__ */ Object.assign<typeof decode, {}>(
+const decodePure = /** #__PURE__*/ Object.assign<typeof decode, {}>(
   decode,
-  /** @__PURE__ */ Namespace.protobuf.decode("decode"),
+  /** #__PURE__*/ Namespace.protobuf.decode("decode"),
 );
 export { decodePure as decode };
 
@@ -214,14 +214,14 @@ function assertDecode(): never {
   halt("assertDecode");
 }
 
-const assertDecodePure = /** @__PURE__ */ Object.assign<
+const assertDecodePure = /** #__PURE__*/ Object.assign<
   typeof assertDecode,
   {},
   {}
 >(
   assertDecode,
-  /** @__PURE__ */ Namespace.assert("protobuf.assertDecode"),
-  /** @__PURE__ */ Namespace.protobuf.decode("assertDecode"),
+  /** #__PURE__*/ Namespace.assert("protobuf.assertDecode"),
+  /** #__PURE__*/ Namespace.protobuf.decode("assertDecode"),
 );
 export { assertDecodePure as assertDecode };
 
@@ -291,10 +291,10 @@ function isDecode<T>(input: Uint8Array): Resolved<T> | null;
 function isDecode(): never {
   halt("isDecode");
 }
-const isDecodePure = /** @__PURE__ */ Object.assign<typeof isDecode, {}, {}>(
+const isDecodePure = /** #__PURE__*/ Object.assign<typeof isDecode, {}, {}>(
   isDecode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.decode("isDecode"),
+  /** #__PURE__*/ Namespace.is(),
+  /** #__PURE__*/ Namespace.protobuf.decode("isDecode"),
 );
 export { isDecodePure as isDecode };
 
@@ -366,14 +366,14 @@ function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
 function validateDecode(): never {
   halt("validateDecode");
 }
-const validateDecodePure = /** @__PURE__ */ Object.assign<
+const validateDecodePure = /** #__PURE__*/ Object.assign<
   typeof validateDecode,
   {},
   {}
 >(
   validateDecode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.decode("validateDecode"),
+  /** #__PURE__*/ Namespace.validate(),
+  /** #__PURE__*/ Namespace.protobuf.decode("validateDecode"),
 );
 export { validateDecodePure as validateDecode };
 
@@ -415,9 +415,9 @@ function encode<T>(input: T): Uint8Array;
 function encode(): never {
   halt("encode");
 }
-const encodePure = /** @__PURE__ */ Object.assign<typeof encode, {}>(
+const encodePure = /** #__PURE__*/ Object.assign<typeof encode, {}>(
   encode,
-  /** @__PURE__ */ Namespace.protobuf.encode("encode"),
+  /** #__PURE__*/ Namespace.protobuf.encode("encode"),
 );
 export { encodePure as encode };
 
@@ -501,14 +501,14 @@ function assertEncode<T>(
 function assertEncode(): never {
   halt("assertEncode");
 }
-const assertEncodePure = /** @__PURE__ */ Object.assign<
+const assertEncodePure = /** #__PURE__*/ Object.assign<
   typeof assertEncode,
   {},
   {}
 >(
   assertEncode,
-  /** @__PURE__ */ Namespace.assert("protobuf.assertEncode"),
-  /** @__PURE__ */ Namespace.protobuf.encode("assertEncode"),
+  /** #__PURE__*/ Namespace.assert("protobuf.assertEncode"),
+  /** #__PURE__*/ Namespace.protobuf.encode("assertEncode"),
 );
 export { assertEncodePure as assertEncode };
 
@@ -584,10 +584,10 @@ function isEncode<T>(input: unknown): Uint8Array | null;
 function isEncode(): never {
   halt("isEncode");
 }
-const isEncodePure = /** @__PURE__ */ Object.assign<typeof isEncode, {}, {}>(
+const isEncodePure = /** #__PURE__*/ Object.assign<typeof isEncode, {}, {}>(
   isEncode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.encode("isEncode"),
+  /** #__PURE__*/ Namespace.is(),
+  /** #__PURE__*/ Namespace.protobuf.encode("isEncode"),
 );
 export { isEncodePure as isEncode };
 
@@ -665,14 +665,14 @@ function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
 function validateEncode(): never {
   halt("validateEncode");
 }
-const validateEncodePure = /** @__PURE__ */ Object.assign<
+const validateEncodePure = /** #__PURE__*/ Object.assign<
   typeof validateEncode,
   {},
   {}
 >(
   validateEncode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.encode("validateEncode"),
+  /** #__PURE__*/ Namespace.validate(),
+  /** #__PURE__*/ Namespace.protobuf.encode("validateEncode"),
 );
 export { validateEncodePure as validateEncode };
 
@@ -706,10 +706,10 @@ function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
 function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
   halt("createDecode");
 }
-const createDecodePure = /** @__PURE__ */ Object.assign<
-  typeof createDecode,
-  {}
->(createDecode, /** @__PURE__ */ Namespace.protobuf.decode("createDecode"));
+const createDecodePure = /** #__PURE__*/ Object.assign<typeof createDecode, {}>(
+  createDecode,
+  /** #__PURE__*/ Namespace.protobuf.decode("createDecode"),
+);
 export { createDecodePure as createDecode };
 
 /**
@@ -739,14 +739,14 @@ function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
 function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
   halt("createIsDecode");
 }
-const createIsDecodePure = /** @__PURE__ */ Object.assign<
+const createIsDecodePure = /** #__PURE__*/ Object.assign<
   typeof createIsDecode,
   {},
   {}
 >(
   createIsDecode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.decode("createIsDecode"),
+  /** #__PURE__*/ Namespace.is(),
+  /** #__PURE__*/ Namespace.protobuf.decode("createIsDecode"),
 );
 export { createIsDecodePure as createIsDecode };
 
@@ -783,14 +783,14 @@ function createAssertDecode<T>(
 function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
   halt("createAssertDecode");
 }
-const createAssertDecodePure = /** @__PURE__ */ Object.assign<
+const createAssertDecodePure = /** #__PURE__*/ Object.assign<
   typeof createAssertDecode,
   {},
   {}
 >(
   createAssertDecode,
-  /** @__PURE__ */ Namespace.assert("protobuf.createAssertDecode"),
-  /** @__PURE__ */ Namespace.protobuf.decode("createAssertDecode"),
+  /** #__PURE__*/ Namespace.assert("protobuf.createAssertDecode"),
+  /** #__PURE__*/ Namespace.protobuf.decode("createAssertDecode"),
 );
 export { createAssertDecodePure as createAssertDecode };
 
@@ -825,14 +825,14 @@ function createValidateDecode<T>(): (
 ) => IValidation<Resolved<T>> {
   halt("createValidateDecode");
 }
-const createValidateDecodePure = /** @__PURE__ */ Object.assign<
+const createValidateDecodePure = /** #__PURE__*/ Object.assign<
   typeof createValidateDecode,
   {},
   {}
 >(
   createValidateDecode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.decode("createValidateDecode"),
+  /** #__PURE__*/ Namespace.validate(),
+  /** #__PURE__*/ Namespace.protobuf.decode("createValidateDecode"),
 );
 export { createValidateDecodePure as createValidateDecode };
 
@@ -863,10 +863,10 @@ function createEncode<T>(): (input: T) => Uint8Array;
 function createEncode<T>(): (input: T) => Uint8Array {
   halt("createEncode");
 }
-const createEncodePure = /** @__PURE__ */ Object.assign<
-  typeof createEncode,
-  {}
->(createEncode, /** @__PURE__ */ Namespace.protobuf.encode("createEncode"));
+const createEncodePure = /** #__PURE__*/ Object.assign<typeof createEncode, {}>(
+  createEncode,
+  /** #__PURE__*/ Namespace.protobuf.encode("createEncode"),
+);
 export { createEncodePure as createEncode };
 
 /**
@@ -896,14 +896,14 @@ function createIsEncode<T>(): (input: T) => Uint8Array | null;
 function createIsEncode<T>(): (input: T) => Uint8Array | null {
   halt("createIsEncode");
 }
-const createIsEncodePure = /** @__PURE__ */ Object.assign<
+const createIsEncodePure = /** #__PURE__*/ Object.assign<
   typeof createIsEncode,
   {},
   {}
 >(
   createIsEncode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.encode("createIsEncode"),
+  /** #__PURE__*/ Namespace.is(),
+  /** #__PURE__*/ Namespace.protobuf.encode("createIsEncode"),
 );
 export { createIsEncodePure as createIsEncode };
 
@@ -940,14 +940,14 @@ function createAssertEncode<T>(
 function createAssertEncode<T>(): (input: T) => Uint8Array {
   halt("createAssertEncode");
 }
-const createAssertEncodePure = /** @__PURE__ */ Object.assign<
+const createAssertEncodePure = /** #__PURE__*/ Object.assign<
   typeof createAssertEncode,
   {},
   {}
 >(
   createAssertEncode,
-  /** @__PURE__ */ Namespace.assert("protobuf.createAssertEncode"),
-  /** @__PURE__ */ Namespace.protobuf.encode("createAssertEncode"),
+  /** #__PURE__*/ Namespace.assert("protobuf.createAssertEncode"),
+  /** #__PURE__*/ Namespace.protobuf.encode("createAssertEncode"),
 );
 export { createAssertEncodePure as createAssertEncode };
 
@@ -978,14 +978,14 @@ function createValidateEncode<T>(): (input: T) => IValidation<Uint8Array>;
 function createValidateEncode<T>(): (input: T) => IValidation<Uint8Array> {
   halt("createValidateEncode");
 }
-const createValidateEncodePure = /** @__PURE__ */ Object.assign<
+const createValidateEncodePure = /** #__PURE__*/ Object.assign<
   typeof createValidateEncode,
   {},
   {}
 >(
   createValidateEncode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.encode("createValidateEncode"),
+  /** #__PURE__*/ Namespace.validate(),
+  /** #__PURE__*/ Namespace.protobuf.encode("createValidateEncode"),
 );
 export { createValidateEncodePure as createValidateEncode };
 
