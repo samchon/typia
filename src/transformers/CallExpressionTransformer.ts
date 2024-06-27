@@ -107,6 +107,7 @@ import { ProtobufMessageTransformer } from "./features/protobuf/ProtobufMessageT
 import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
 import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTransformer";
+import { ReflectNameTransformer } from "./features/reflect/ReflectNameTransformer";
 
 export namespace CallExpressionTransformer {
   export const transform =
@@ -179,7 +180,8 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
 
     // RANDOM + INTERNAL
     random: () => RandomTransformer.transform,
-    metadata: () => ReflectMetadataTransformer.transform,
+    metadata: () => (project) => () =>
+      ReflectMetadataTransformer.transform(project),
 
     // FACTORIES
     createAssert: () =>
@@ -405,7 +407,9 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       ProtobufCreateValidateDecodeTransformer.transform,
   },
   reflect: {
-    metadata: () => ReflectMetadataTransformer.transform,
+    metadata: () => (project) => () =>
+      ReflectMetadataTransformer.transform(project),
+    name: () => (project) => () => ReflectNameTransformer.transform(project),
   },
   misc: {
     literals: () => (project) => () =>
