@@ -93,9 +93,9 @@ function assert<T>(
 function assert(): never {
   halt("assert");
 }
-const assertPure = /** @__PURE__ */ Object.assign<typeof assert, {}>(
+const assertPure = /** #__PURE__*/ Object.assign<typeof assert, {}>(
   assert,
-  /** @__PURE__ */ Namespace.assert("assert"),
+  /** #__PURE__*/ Namespace.assert("assert"),
 );
 export { assertPure as assert };
 
@@ -165,9 +165,9 @@ function assertGuard<T>(
 function assertGuard(): never {
   halt("assertGuard");
 }
-const assertGuardPure = /** @__PURE__ */ Object.assign<typeof assertGuard, {}>(
+const assertGuardPure = /** #__PURE__*/ Object.assign<typeof assertGuard, {}>(
   assertGuard,
-  /** @__PURE__ */ Namespace.assert("assertGuard"),
+  /** #__PURE__*/ Namespace.assert("assertGuard"),
 );
 export { assertGuardPure as assertGuard };
 
@@ -226,9 +226,9 @@ function is<T>(input: unknown): input is T;
 function is(): never {
   halt("is");
 }
-const isPure = /** @__PURE__ */ Object.assign<typeof is, {}>(
+const isPure = /** #__PURE__*/ Object.assign<typeof is, {}>(
   is,
-  /** @__PURE__ */ Namespace.assert("is"),
+  /** #__PURE__*/ Namespace.assert("is"),
 );
 export { isPure as is };
 
@@ -288,9 +288,9 @@ function validate<T>(input: unknown): IValidation<T>;
 function validate(): never {
   halt("validate");
 }
-const validatePure = /** @__PURE__ */ Object.assign<typeof validate, {}>(
+const validatePure = /** #__PURE__*/ Object.assign<typeof validate, {}>(
   validate,
-  /** @__PURE__ */ Namespace.validate(),
+  /** #__PURE__*/ Namespace.validate(),
 );
 export { validatePure as validate };
 
@@ -361,10 +361,10 @@ function assertEquals<T>(
 function assertEquals(): never {
   halt("assertEquals");
 }
-const assertEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof assertEquals,
-  {}
->(assertEquals, /** @__PURE__ */ Namespace.assert("assertEquals"));
+const assertEqualsPure = /** #__PURE__*/ Object.assign<typeof assertEquals, {}>(
+  assertEquals,
+  /** #__PURE__*/ Namespace.assert("assertEquals"),
+);
 export { assertEqualsPure as assertEquals };
 
 /**
@@ -439,10 +439,10 @@ function assertGuardEquals<T>(
 function assertGuardEquals(): never {
   halt("assertGuardEquals");
 }
-const assertGuardEqualsPure = /** @__PURE__ */ Object.assign<
+const assertGuardEqualsPure = /** #__PURE__*/ Object.assign<
   typeof assertGuardEquals,
   {}
->(assertGuardEquals, /** @__PURE__ */ Namespace.assert("assertGuardEquals"));
+>(assertGuardEquals, /** #__PURE__*/ Namespace.assert("assertGuardEquals"));
 export { assertGuardEqualsPure as assertGuardEquals };
 
 /**
@@ -501,9 +501,9 @@ function equals<T>(input: unknown): input is T;
 function equals(): never {
   halt("equals");
 }
-const equalsPure = /** @__PURE__ */ Object.assign<typeof equals, {}>(
+const equalsPure = /** #__PURE__*/ Object.assign<typeof equals, {}>(
   equals,
-  /** @__PURE__ */ Namespace.is(),
+  /** #__PURE__*/ Namespace.is(),
 );
 export { equalsPure as equals };
 
@@ -565,10 +565,10 @@ function validateEquals<T>(input: unknown): IValidation<T>;
 function validateEquals(): never {
   halt("validateEquals");
 }
-const validateEqualsPure = /** @__PURE__ */ Object.assign<
+const validateEqualsPure = /** #__PURE__*/ Object.assign<
   typeof validateEquals,
   {}
->(validateEquals, /** @__PURE__ */ Namespace.validate());
+>(validateEquals, /** #__PURE__*/ Namespace.validate());
 export { validateEqualsPure as validateEquals };
 
 /* -----------------------------------------------------------
@@ -618,9 +618,9 @@ function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 function random(): never {
   halt("random");
 }
-const randomPure = /** @__PURE__ */ Object.assign<typeof random, {}>(
+const randomPure = /** #__PURE__*/ Object.assign<typeof random, {}>(
   random,
-  /** @__PURE__ */ Namespace.random(),
+  /** #__PURE__*/ Namespace.random(),
 );
 export { randomPure as random };
 
@@ -660,10 +660,10 @@ function createAssert<T>(
 function createAssert<T>(): (input: unknown) => T {
   halt("createAssert");
 }
-const createAssertPure = /** @__PURE__ */ Object.assign<
-  typeof createAssert,
-  {}
->(createAssert, assertPure);
+const createAssertPure = /** #__PURE__*/ Object.assign<typeof createAssert, {}>(
+  createAssert,
+  assertPure,
+);
 export { createAssertPure as createAssert };
 
 /**
@@ -729,7 +729,7 @@ function createAssertGuard<T>(
 function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
   halt("createAssertGuard");
 }
-const createAssertGuardPure = /** @__PURE__ */ Object.assign<
+const createAssertGuardPure = /** #__PURE__*/ Object.assign<
   typeof createAssertGuard,
   {}
 >(createAssertGuard, assertGuardPure);
@@ -762,7 +762,7 @@ function createIs<T>(): (input: unknown) => input is T;
 function createIs<T>(): (input: unknown) => input is T {
   halt("createIs");
 }
-const createIsPure = /** @__PURE__ */ Object.assign<typeof createIs, {}>(
+const createIsPure = /** #__PURE__*/ Object.assign<typeof createIs, {}>(
   createIs,
   isPure,
 );
@@ -795,7 +795,7 @@ function createValidate<T>(): (input: unknown) => IValidation<T>;
 function createValidate(): (input: unknown) => IValidation {
   halt("createValidate");
 }
-const createValidatePure = /** @__PURE__ */ Object.assign<
+const createValidatePure = /** #__PURE__*/ Object.assign<
   typeof createValidate,
   {}
 >(createValidate, validatePure);
@@ -834,7 +834,7 @@ function createAssertEquals<T>(
 function createAssertEquals<T>(): (input: unknown) => T {
   halt("createAssertEquals");
 }
-const createAssertEqualsPure = /** @__PURE__ */ Object.assign<
+const createAssertEqualsPure = /** #__PURE__*/ Object.assign<
   typeof createAssertEquals,
   {}
 >(createAssertEquals, assertEqualsPure);
@@ -903,7 +903,7 @@ function createAssertGuardEquals<T>(
 function createAssertGuardEquals<T>(): (input: unknown) => AssertionGuard<T> {
   halt("createAssertGuardEquals");
 }
-const createAssertGuardEqualsPure = /** @__PURE__ */ Object.assign<
+const createAssertGuardEqualsPure = /** #__PURE__*/ Object.assign<
   typeof createAssertGuardEquals,
   {}
 >(createAssertGuardEquals, assertGuardEqualsPure);
@@ -936,10 +936,10 @@ function createEquals<T>(): (input: unknown) => input is T;
 function createEquals<T>(): (input: unknown) => input is T {
   halt("createEquals");
 }
-const createEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof createEquals,
-  {}
->(createEquals, equalsPure);
+const createEqualsPure = /** #__PURE__*/ Object.assign<typeof createEquals, {}>(
+  createEquals,
+  equalsPure,
+);
 export { createEqualsPure as createEquals };
 
 /**
@@ -969,7 +969,7 @@ function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 function createValidateEquals(): (input: unknown) => IValidation {
   halt("createValidateEquals");
 }
-const createValidateEqualsPure = /** @__PURE__ */ Object.assign<
+const createValidateEqualsPure = /** #__PURE__*/ Object.assign<
   typeof createValidateEquals,
   {}
 >(createValidateEquals, validateEqualsPure);
@@ -1006,10 +1006,10 @@ function createRandom<T>(
 function createRandom(): never {
   halt("createRandom");
 }
-const createRandomPure = /** @__PURE__ */ Object.assign<
-  typeof createRandom,
-  {}
->(createRandom, randomPure);
+const createRandomPure = /** #__PURE__*/ Object.assign<typeof createRandom, {}>(
+  createRandom,
+  randomPure,
+);
 export { createRandomPure as createRandom };
 
 /**

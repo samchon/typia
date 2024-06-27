@@ -143,5 +143,5 @@ export class $ProtobufSizer implements IProtobufWriter {
   }
 }
 
-const ND07 = /** @__PURE__ */ BigInt(7);
-const NX7F = /** @__PURE__ */ BigInt(0x7f);
+const ND07 = /** #__PURE__*/ BigInt(7);
+const NX7F = /** #__PURE__*/ BigInt(0x7f);

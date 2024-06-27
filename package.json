@@ -79,7 +79,6 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/inquirer": "^8.2.5",
@@ -105,5 +104,6 @@
     "lib",
     "src"
   ],
-  "private": true
+  "private": true,
+  "sideEffects": false
 }
