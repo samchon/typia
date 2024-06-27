@@ -10,8 +10,17 @@ module.exports = {
   output: {
     dir: outDir,
     format: "esm",
-    entryFileNames: "[name].mjs",
     sourcemap: true,
+    entryFileNames: (chunkInfo) => {
+      const ext = `mjs`
+      const externalDir = `_external`;
+      const nodeModulesDir = `node_modules`;
+      if (chunkInfo.name.includes(nodeModulesDir)) {
+        console.log(chunkInfo.name);
+        return `${chunkInfo.name.replace(nodeModulesDir, externalDir)}.${ext}`;
+      }
+      return `[name].${ext}`;
+    },
   },
   plugins: [
     nodeResolve(),
