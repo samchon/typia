@@ -85,9 +85,9 @@ function clone<T>(input: T): Resolved<T>;
 function clone(): never {
   halt("clone");
 }
-const clonePure = /** #__PURE__*/ Object.assign<typeof clone, {}>(
+const clonePure = /** @__PURE__ */ Object.assign<typeof clone, {}>(
   clone,
-  /** #__PURE__*/ Namespace.misc.clone("clone"),
+  /** @__PURE__ */ Namespace.misc.clone("clone"),
 );
 export { clonePure as clone };
 
@@ -143,14 +143,14 @@ function assertClone<T>(
 function assertClone(): never {
   halt("assertClone");
 }
-const assertClonePure = /** #__PURE__*/ Object.assign<
+const assertClonePure = /** @__PURE__ */ Object.assign<
   typeof assertClone,
   {},
   {}
 >(
   assertClone,
-  /** #__PURE__*/ Namespace.assert("misc.assertClone"),
-  /** #__PURE__*/ Namespace.misc.clone("assertClone"),
+  /** @__PURE__ */ Namespace.assert("misc.assertClone"),
+  /** @__PURE__ */ Namespace.misc.clone("assertClone"),
 );
 export { assertClonePure as assertClone };
 
@@ -198,10 +198,10 @@ function isClone<T>(input: unknown): Resolved<T> | null;
 function isClone(): never {
   halt("isClone");
 }
-const isClonePure = /** #__PURE__*/ Object.assign<typeof isClone, {}, {}>(
+const isClonePure = /** @__PURE__ */ Object.assign<typeof isClone, {}, {}>(
   isClone,
-  /** #__PURE__*/ Namespace.is(),
-  /** #__PURE__*/ Namespace.misc.clone("isClone"),
+  /** @__PURE__ */ Namespace.is(),
+  /** @__PURE__ */ Namespace.misc.clone("isClone"),
 );
 export { isClonePure as isClone };
 
@@ -247,14 +247,14 @@ function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
 function validateClone(): never {
   halt("validateClone");
 }
-const validateClonePure = /** #__PURE__*/ Object.assign<
+const validateClonePure = /** @__PURE__ */ Object.assign<
   typeof validateClone,
   {},
   {}
 >(
   validateClone,
-  /** #__PURE__*/ Namespace.validate(),
-  /** #__PURE__*/ Namespace.misc.clone("validateClone"),
+  /** @__PURE__ */ Namespace.validate(),
+  /** @__PURE__ */ Namespace.misc.clone("validateClone"),
 );
 export { validateClonePure as validateClone };
 
@@ -290,9 +290,9 @@ function prune<T extends object>(input: T): void;
 function prune(): never {
   halt("prune");
 }
-const prunePure = /** #__PURE__*/ Object.assign<typeof prune, {}>(
+const prunePure = /** @__PURE__ */ Object.assign<typeof prune, {}>(
   prune,
-  /** #__PURE__*/ Namespace.misc.prune("prune"),
+  /** @__PURE__ */ Namespace.misc.prune("prune"),
 );
 export { prunePure as prune };
 
@@ -348,14 +348,14 @@ function assertPrune<T>(
 function assertPrune(): unknown {
   halt("assertPrune");
 }
-const assertPrunePure = /** #__PURE__*/ Object.assign<
+const assertPrunePure = /** @__PURE__ */ Object.assign<
   typeof assertPrune,
   {},
   {}
 >(
   assertPrune,
-  /** #__PURE__*/ Namespace.assert("misc.assertPrune"),
-  /** #__PURE__*/ Namespace.misc.prune("assertPrune"),
+  /** @__PURE__ */ Namespace.assert("misc.assertPrune"),
+  /** @__PURE__ */ Namespace.misc.prune("assertPrune"),
 );
 export { assertPrunePure as assertPrune };
 
@@ -403,10 +403,10 @@ function isPrune<T>(input: unknown): input is T;
 function isPrune(): never {
   halt("isPrune");
 }
-const isPrunePure = /** #__PURE__*/ Object.assign<typeof isPrune, {}, {}>(
+const isPrunePure = /** @__PURE__ */ Object.assign<typeof isPrune, {}, {}>(
   isPrune,
-  /** #__PURE__*/ Namespace.is(),
-  /** #__PURE__*/ Namespace.misc.prune("isPrune"),
+  /** @__PURE__ */ Namespace.is(),
+  /** @__PURE__ */ Namespace.misc.prune("isPrune"),
 );
 export { isPrunePure as isPrune };
 
@@ -457,14 +457,14 @@ function validatePrune<T>(): IValidation<T> {
   halt("validatePrune");
 }
 
-const validatePrunePure = /** #__PURE__*/ Object.assign<
+const validatePrunePure = /** @__PURE__ */ Object.assign<
   typeof validatePrune,
   {},
   {}
 >(
   validatePrune,
-  /** #__PURE__*/ Namespace.misc.prune("validatePrune"),
-  /** #__PURE__*/ Namespace.validate(),
+  /** @__PURE__ */ Namespace.misc.prune("validatePrune"),
+  /** @__PURE__ */ Namespace.validate(),
 );
 export { validatePrunePure as validatePrune };
 
@@ -498,7 +498,7 @@ function createClone<T>(): (input: T) => Resolved<T>;
 function createClone(): never {
   halt("createClone");
 }
-const createClonePure = /** #__PURE__*/ Object.assign<typeof createClone, {}>(
+const createClonePure = /** @__PURE__ */ Object.assign<typeof createClone, {}>(
   createClone,
   clonePure,
 );
@@ -537,7 +537,7 @@ function createAssertClone<T>(
 function createAssertClone(): never {
   halt("createAssertClone");
 }
-const createAssertClonePure = /** #__PURE__*/ Object.assign<
+const createAssertClonePure = /** @__PURE__ */ Object.assign<
   typeof createAssertClone,
   {}
 >(createAssertClone, assertClonePure);
@@ -570,7 +570,7 @@ function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
 function createIsClone(): never {
   halt("createIsClone");
 }
-const createIsClonePure = /** #__PURE__*/ Object.assign<
+const createIsClonePure = /** @__PURE__ */ Object.assign<
   typeof createIsClone,
   {}
 >(createIsClone, isClonePure);
@@ -603,7 +603,7 @@ function createValidateClone<T>(): (input: unknown) => IValidation<Resolved<T>>;
 function createValidateClone(): never {
   halt("createValidateClone");
 }
-const createValidateClonePure = /** #__PURE__*/ Object.assign<
+const createValidateClonePure = /** @__PURE__ */ Object.assign<
   typeof createValidateClone,
   {}
 >(createValidateClone, validateClonePure);
@@ -636,7 +636,7 @@ function createPrune<T extends object>(): (input: T) => void;
 function createPrune<T extends object>(): (input: T) => void {
   halt("createPrune");
 }
-const createPrunePure = /** #__PURE__*/ Object.assign<typeof createPrune, {}>(
+const createPrunePure = /** @__PURE__ */ Object.assign<typeof createPrune, {}>(
   createPrune,
   prunePure,
 );
@@ -675,7 +675,7 @@ function createAssertPrune<T extends object>(
 function createAssertPrune<T extends object>(): (input: T) => T {
   halt("createAssertPrune");
 }
-const createAssertPrunePure = /** #__PURE__*/ Object.assign<
+const createAssertPrunePure = /** @__PURE__ */ Object.assign<
   typeof createAssertPrune,
   {}
 >(createAssertPrune, assertPrunePure);
@@ -708,7 +708,7 @@ function createIsPrune<T extends object>(): (input: T) => input is T;
 function createIsPrune<T extends object>(): (input: T) => input is T {
   halt("createIsPrune");
 }
-const createIsPrunePure = /** #__PURE__*/ Object.assign<
+const createIsPrunePure = /** @__PURE__ */ Object.assign<
   typeof createIsPrune,
   {}
 >(createIsPrune, isPrunePure);
@@ -741,7 +741,7 @@ function createValidatePrune<T extends object>(): (input: T) => IValidation<T>;
 function createValidatePrune<T extends object>(): (input: T) => IValidation<T> {
   halt("createValidatePrune");
 }
-const createValidatePrunePure = /** #__PURE__*/ Object.assign<
+const createValidatePrunePure = /** @__PURE__ */ Object.assign<
   typeof createValidatePrune,
   {}
 >(createValidatePrune, validatePrunePure);
