@@ -32,6 +32,14 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test
+      - name: Upload tgz for Artifactory
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-result
+          path: |
+            *.tgz
+            src
+            lib
 
   Bun:
     runs-on: ubuntu-latest
