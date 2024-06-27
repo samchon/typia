@@ -13,11 +13,10 @@ import { TransformerError } from "../../TransformerError";
 export namespace ReflectMetadataTransformer {
   export const transform =
     (project: IProject) =>
-    (_modulo: ts.LeftHandSideExpression) =>
     (expression: ts.CallExpression): ts.Expression => {
       if (!expression.typeArguments?.length)
         throw new TransformerError({
-          code: "typia.metadata",
+          code: "typia.reflect.metadata",
           message: "no generic argument.",
         });
 
