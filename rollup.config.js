@@ -3,12 +3,9 @@ const terser = require("@rollup/plugin-terser");
 const nodeResolve = require("@rollup/plugin-node-resolve");
 const commomnjs = require("@rollup/plugin-commonjs");
 
-
 module.exports = {
   input: "./src/index.ts",
   output: {
-    preserveModules: true,
-    preserveModulesRoot: "src",
     dir: "./lib",
     format: "esm",
     sourcemap: true,
@@ -22,6 +19,8 @@ module.exports = {
       }
       return `[name].${ext}`;
     },
+    preserveModules: true,
+    preserveModulesRoot: "src",
   },
   plugins: [
     nodeResolve(),
