@@ -26,8 +26,8 @@ module.exports = {
     commomnjs(),
     typescript({
       tsconfig: "tsconfig.json",
-      module: "ES2020",
-      target: "ES2020",
+      module: "ESNext",
+      target: "ESNext",
     }),
   ],
 };
