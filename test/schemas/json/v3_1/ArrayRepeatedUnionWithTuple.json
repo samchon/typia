@@ -17,10 +17,7 @@
             }
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
-            }
+            "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple"
           },
           {
             "type": "array",
@@ -60,6 +57,12 @@
             }
           }
         ]
+      },
+      "#/components/schemas/ArrayArrayRepeatedUnionWithTuple": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
+        }
       },
       "ArrayRepeatedUnionWithTuple.IBox3D": {
         "type": "object",

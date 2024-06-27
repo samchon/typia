@@ -32,7 +32,7 @@
             "oneOf": [
               {
                 "type": "string",
-                "pattern": "^(the_false_value|the_true_value|(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value))$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               {
                 "type": "string",
@@ -47,7 +47,7 @@
             "oneOf": [
               {
                 "type": "string",
-                "pattern": "^(the_A_value|the_B_value|[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|true|false|(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value))$"
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
               },
               {
                 "type": "string",

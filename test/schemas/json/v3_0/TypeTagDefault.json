@@ -83,7 +83,7 @@
             "oneOf": [
               {
                 "type": "string",
-                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|true|false|(prefix_(.*)))"
+                "pattern": "^(prefix_(.*))"
               },
               {
                 "type": "number",

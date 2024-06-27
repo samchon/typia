@@ -11,6 +11,7 @@ import { MetadataAtomic } from "./MetadataAtomic";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataObject } from "./MetadataObject";
+import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
 
 export class Metadata {
@@ -23,7 +24,7 @@ export class Metadata {
   public escaped: MetadataEscaped | null;
   public atomics: MetadataAtomic[];
   public constants: MetadataConstant[];
-  public templates: Metadata[][];
+  public templates: MetadataTemplate[];
 
   public rest: Metadata | null;
   public aliases: MetadataAlias[];
@@ -116,7 +117,7 @@ export class Metadata {
 
       atomics: this.atomics.map((a) => a.toJSON()),
       constants: this.constants.map((c) => c.toJSON()),
-      templates: this.templates.map((tpl) => tpl.map((meta) => meta.toJSON())),
+      templates: this.templates.map((tpl) => tpl.toJSON()),
       escaped: this.escaped ? this.escaped.toJSON() : null,
 
       rest: this.rest ? this.rest.toJSON() : null,
@@ -150,9 +151,7 @@ export class Metadata {
 
       constants: meta.constants.map(MetadataConstant.from),
       atomics: meta.atomics.map(MetadataAtomic.from),
-      templates: meta.templates.map((tpl) =>
-        tpl.map((meta) => this.from(meta, dict)),
-      ),
+      templates: meta.templates.map((tpl) => MetadataTemplate.from(tpl, dict)),
       escaped: meta.escaped ? MetadataEscaped.from(meta.escaped, dict) : null,
 
       rest: meta.rest ? this.from(meta.rest, dict) : null,
@@ -551,20 +550,7 @@ const getName = (metadata: Metadata): string => {
   }
   for (const constant of metadata.constants)
     for (const value of constant.values) elements.push(value.getName());
-  for (const template of metadata.templates)
-    elements.push(
-      "`" +
-        template
-          .map((child) =>
-            child.isConstant() && child.size() === 1
-              ? child.constants[0]!.values[0]!
-              : `$\{${child.getName()}\}`,
-          )
-          .join("")
-          .split("`")
-          .join("\\`") +
-        "`",
-    );
+  for (const template of metadata.templates) elements.push(template.getName());
 
   // NATIVES
   for (const native of metadata.natives) elements.push(native);

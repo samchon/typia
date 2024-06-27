@@ -13,6 +13,7 @@ import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataAtomic } from "../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
@@ -313,9 +314,9 @@ export namespace RandomProgrammer {
   const decode_template =
     (importer: FunctionImporter) =>
     (explore: IExplore) =>
-    (template: Metadata[]) =>
+    (template: MetadataTemplate) =>
       TemplateFactory.generate(
-        template.map((meta) => decode(importer)(explore)(meta)),
+        template.row.map((meta) => decode(importer)(explore)(meta)),
       );
 
   const decode_number =

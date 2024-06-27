@@ -17,10 +17,7 @@
             }
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ArrayRepeatedUnion"
-            }
+            "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
           },
           {
             "type": "array",
@@ -29,6 +26,12 @@
             }
           }
         ]
+      },
+      "#/components/schemas/ArrayArrayRepeatedUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnion"
+        }
       },
       "ArrayRepeatedUnion.IBox3D": {
         "type": "object",

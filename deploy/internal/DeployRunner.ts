@@ -15,7 +15,7 @@ export namespace DeployRunner {
     publish: boolean;
   }): Promise<void> => {
     if (props.setup) {
-      title("BUILD THEM MAIN PROGRAM");
+      title("BUILD THE MAIN PROGRAM");
       process.chdir(__dirname + "/../..");
       execLoudly({
         label: "typia",
@@ -23,13 +23,14 @@ export namespace DeployRunner {
       });
     }
     const version: string = props.setup
-      ? publish("tgz")
-      : JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, "utf8"))
-          .version;
+      ? await publish("tgz")
+      : JSON.parse(
+          await fs.promises.readFile(`${__dirname}/../../package.json`, "utf8"),
+        ).version;
 
     title("TEST AUTOMATION PROGRAM");
     for (const arg of props.testExecutors)
-      test({
+      await test({
         name: arg.name,
         commands: arg.commands,
         setup: props.setup,
@@ -38,8 +39,8 @@ export namespace DeployRunner {
 
     if (props.publish) {
       title("DEPLOY TO NPM");
-      publish(props.tag);
-      ReplicaPublisher.replica(props.tag);
+      await publish(props.tag);
+      await ReplicaPublisher.replica(props.tag);
     }
   };
 
@@ -48,7 +49,7 @@ export namespace DeployRunner {
     cp.execSync(props.command, { stdio: "inherit" });
   };
 
-  const publish = (tag: string): string => {
+  const publish = async (tag: string): Promise<string> => {
     // LOAD PACKAGE.JSON CONTENT
     const pack: any = JSON.parse(
       fs.readFileSync(`${__dirname}/../../package.json`, "utf8"),
@@ -62,41 +63,45 @@ export namespace DeployRunner {
 
     // REMOVE PRIVATE FOR PUBLISHING
     delete pack.private;
-    fs.writeFileSync(
-      `${__dirname}/../package.json`,
+    await fs.promises.writeFile(
+      `${__dirname}/../../package.json`,
       JSON.stringify(pack, null, 2),
       "utf8",
     );
-    try {
-      if (tag === "tgz") cp.execSync("npm pack");
-      else cp.execSync(`npm publish --tag ${tag}`);
-    } catch {}
+    if (tag === "tgz") cp.execSync("npm pack");
+    else cp.execSync(`npm publish --tag ${tag}`, { stdio: "inherit" });
 
     // RESTORE PRIVATE PROPERTY
     pack.private = true;
     fs.writeFileSync(
-      `${__dirname}/../package.json`,
+      `${__dirname}/../../package.json`,
       JSON.stringify(pack, null, 2),
       "utf8",
     );
     return version;
   };
 
-  const test = (props: {
+  const test = async (props: {
     name: string;
     version: string;
     setup: boolean;
     commands: string[];
-  }): void => {
+  }): Promise<void> => {
     process.chdir(`${__dirname}/../../${props.name}`);
     if (props.setup) {
       if (fs.existsSync("node_modules/typia"))
         cp.execSync("npm uninstall typia --force", { stdio: "ignore" });
 
-      const pack: any = JSON.parse(fs.readFileSync("package.json", "utf8"));
+      const pack: any = JSON.parse(
+        await fs.promises.readFile("package.json", "utf8"),
+      );
       pack.dependencies ??= {};
       pack.dependencies.typia = `../typia-${props.version}.tgz`;
-      fs.writeFileSync("package.json", JSON.stringify(pack, null, 2), "utf8");
+      await fs.promises.writeFile(
+        "package.json",
+        JSON.stringify(pack, null, 2),
+        "utf8",
+      );
     }
     if (props.commands.length) {
       if (props.setup)
