@@ -189,7 +189,7 @@ export class $ProtobufReader {
   }
 }
 
-const utf8 = /** #__PURE__*/ new TextDecoder();
-const N01 = /** #__PURE__*/ BigInt(0x01);
-const N7F = /** #__PURE__*/ BigInt(0x7f);
-const N80 = /** #__PURE__*/ BigInt(0x80);
+const utf8 = /** @__PURE__ */ new TextDecoder();
+const N01 = /** @__PURE__ */ BigInt(0x01);
+const N7F = /** @__PURE__ */ BigInt(0x7f);
+const N80 = /** @__PURE__ */ BigInt(0x80);
