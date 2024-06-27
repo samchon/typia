@@ -1,8 +1,9 @@
-export class TypeGuardError extends Error {
+export class TypeGuardError<T = any> extends Error {
   public readonly method: string;
   public readonly path: string | undefined;
   public readonly expected: string;
   public readonly value: any;
+  protected readonly fake_expected_typed_value_?: T | undefined;
 
   public constructor(props: TypeGuardError.IProps) {
     // MESSAGE CONSTRUCTION
