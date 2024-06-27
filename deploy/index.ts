@@ -13,7 +13,6 @@ const main = async (): Promise<void> => {
       template: { type: "boolean", short: "p", default: false },
     },
   });
-
   if (tag === undefined) {
     console.log("specify tag name like latest or next");
     process.exit(-1);

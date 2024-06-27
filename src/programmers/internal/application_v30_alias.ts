@@ -5,6 +5,7 @@ import { CommentFactory } from "../../factories/CommentFactory";
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
 
+import { application_description } from "./application_description";
 import { application_v30_object } from "./application_v30_object";
 import { application_v30_schema } from "./application_v30_schema";
 
@@ -43,7 +44,7 @@ export const application_v30_alias =
             ? CommentFactory.merge(info.text)
             : undefined;
         })(),
-        description: alias.description ?? undefined,
+        description: application_description(alias),
       })(alias.value);
       if (schema !== null) Object.assign(components.schemas[key]!, schema);
     }
