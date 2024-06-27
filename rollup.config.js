@@ -3,12 +3,13 @@ const terser = require("@rollup/plugin-terser");
 const nodeResolve = require("@rollup/plugin-node-resolve");
 const commomnjs = require("@rollup/plugin-commonjs");
 
-const outDir = "lib";
 
 module.exports = {
   input: "./src/index.ts",
   output: {
-    dir: outDir,
+    preserveModules: true,
+    preserveModulesRoot: "src",
+    dir: "./lib",
     format: "esm",
     sourcemap: true,
     entryFileNames: (chunkInfo) => {
