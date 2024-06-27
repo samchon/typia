@@ -40,8 +40,8 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "ts-patch": "^3.2.0",
-    "typescript": "^5.4.5"
+    "ts-patch": "^3.2.1",
+    "typescript": "^5.5.2"
   },
   "dependencies": {
     "cli": "^1.0.1",
