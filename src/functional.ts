@@ -54,14 +54,14 @@ function assertFunction<T extends (...args: any[]) => any>(
 function assertFunction(): never {
   halt("assertFunction");
 }
-const assertFunctionPure = /** #__PURE__*/ Object.assign<
+const assertFunctionPure = /** @__PURE__ */ Object.assign<
   typeof assertFunction,
   {},
   {}
 >(
   assertFunction,
-  /** #__PURE__*/ Namespace.assert("functional.assertFunction"),
-  /** #__PURE__*/ Namespace.functional.functionalAssert(),
+  /** @__PURE__ */ Namespace.assert("functional.assertFunction"),
+  /** @__PURE__ */ Namespace.functional.functionalAssert(),
 );
 export { assertFunctionPure as assertFunction };
 
@@ -104,14 +104,14 @@ function assertParameters<T extends (...args: any[]) => any>(
 function assertParameters(): never {
   halt("assertParameters");
 }
-const assertParametersPure = /** #__PURE__*/ Object.assign<
+const assertParametersPure = /** @__PURE__ */ Object.assign<
   typeof assertParameters,
   {},
   {}
 >(
   assertFunction,
-  /** #__PURE__*/ Namespace.assert("functional.assertFunction"),
-  /** #__PURE__*/ Namespace.functional.functionalAssert(),
+  /** @__PURE__ */ Namespace.assert("functional.assertFunction"),
+  /** @__PURE__ */ Namespace.functional.functionalAssert(),
 );
 export { assertParametersPure as assertParameters };
 
@@ -154,14 +154,14 @@ function assertReturn<T extends (...args: any[]) => any>(
 function assertReturn(): never {
   halt("assertReturn");
 }
-const assertReturnPure = /** #__PURE__*/ Object.assign<
+const assertReturnPure = /** @__PURE__ */ Object.assign<
   typeof assertReturn,
   {},
   {}
 >(
   assertReturn,
-  /** #__PURE__*/ Namespace.assert("functional.assertReturn"),
-  /** #__PURE__*/ Namespace.functional.functionalAssert(),
+  /** @__PURE__ */ Namespace.assert("functional.assertReturn"),
+  /** @__PURE__ */ Namespace.functional.functionalAssert(),
 );
 export { assertReturnPure as assertReturn };
 
@@ -209,14 +209,14 @@ function assertEqualsFunction<T extends (...args: any[]) => any>(
 function assertEqualsFunction(): never {
   halt("assertEqualsFunction");
 }
-const assertEqualsFunctionPure = /** #__PURE__*/ Object.assign<
+const assertEqualsFunctionPure = /** @__PURE__ */ Object.assign<
   typeof assertEqualsFunction,
   {},
   {}
 >(
   assertEqualsFunction,
-  /** #__PURE__*/ Namespace.assert("functional.assertEqualsFunction"),
-  /** #__PURE__*/ Namespace.functional.functionalAssert(),
+  /** @__PURE__ */ Namespace.assert("functional.assertEqualsFunction"),
+  /** @__PURE__ */ Namespace.functional.functionalAssert(),
 );
 export { assertEqualsFunctionPure as assertEqualsFunction };
 
@@ -260,14 +260,14 @@ function assertEqualsParameters<T extends (...args: any[]) => any>(
 function assertEqualsParameters(): never {
   halt("assertEqualsParameters");
 }
-const assertEqualsParametersPure = /** #__PURE__*/ Object.assign<
+const assertEqualsParametersPure = /** @__PURE__ */ Object.assign<
   typeof assertEqualsParameters,
   {},
   {}
 >(
   assertEqualsParameters,
-  /** #__PURE__*/ Namespace.assert("functional.assertEqualsParameters"),
-  /** #__PURE__*/ Namespace.functional.functionalAssert(),
+  /** @__PURE__ */ Namespace.assert("functional.assertEqualsParameters"),
+  /** @__PURE__ */ Namespace.functional.functionalAssert(),
 );
 export { assertEqualsParametersPure as assertEqualsParameters };
 
@@ -310,14 +310,14 @@ function assertEqualsReturn<T extends (...args: any[]) => any>(
 function assertEqualsReturn(): never {
   halt("assertEqualsReturn");
 }
-const assertEqualsReturnPure = /** #__PURE__*/ Object.assign<
+const assertEqualsReturnPure = /** @__PURE__ */ Object.assign<
   typeof assertEqualsReturn,
   {},
   {}
 >(
   assertEqualsReturn,
-  /** #__PURE__*/ Namespace.assert("functional.assertEqualsReturn"),
-  /** #__PURE__*/ Namespace.functional.functionalAssert(),
+  /** @__PURE__ */ Namespace.assert("functional.assertEqualsReturn"),
+  /** @__PURE__ */ Namespace.functional.functionalAssert(),
 );
 export { assertEqualsReturnPure as assertEqualsReturn };
 
@@ -360,9 +360,9 @@ function isFunction<T extends (...args: any[]) => any>(
 function isFunction(): never {
   halt("isFunction");
 }
-const isFunctionPure = /** #__PURE__*/ Object.assign<typeof isFunction, {}>(
+const isFunctionPure = /** @__PURE__ */ Object.assign<typeof isFunction, {}>(
   isFunction,
-  /** #__PURE__*/ Namespace.is(),
+  /** @__PURE__ */ Namespace.is(),
 );
 export { isFunctionPure as isFunction };
 
@@ -402,10 +402,10 @@ function isParameters<T extends (...args: any[]) => any>(
 function isParameters(): never {
   halt("isParameters");
 }
-const isParametersPure = /** #__PURE__*/ Object.assign<typeof isParameters, {}>(
-  isParameters,
-  /** #__PURE__*/ Namespace.is(),
-);
+const isParametersPure = /** @__PURE__ */ Object.assign<
+  typeof isParameters,
+  {}
+>(isParameters, /** @__PURE__ */ Namespace.is());
 export { isParametersPure as isParameters };
 
 /**
@@ -444,9 +444,9 @@ function isReturn<T extends (...args: any[]) => any>(
 function isReturn(): never {
   halt("isReturn");
 }
-const isReturnPure = /** #__PURE__*/ Object.assign<typeof isReturn, {}>(
+const isReturnPure = /** @__PURE__ */ Object.assign<typeof isReturn, {}>(
   isReturn,
-  /** #__PURE__*/ Namespace.is(),
+  /** @__PURE__ */ Namespace.is(),
 );
 export { isReturnPure as isReturn };
 
@@ -485,10 +485,10 @@ function equalsFunction<T extends (...args: any[]) => any>(
 function equalsFunction(): never {
   halt("equalsFunction");
 }
-const equalsFunctionPure = /** #__PURE__*/ Object.assign<
+const equalsFunctionPure = /** @__PURE__ */ Object.assign<
   typeof equalsFunction,
   {}
->(equalsFunction, /** #__PURE__*/ Namespace.is());
+>(equalsFunction, /** @__PURE__ */ Namespace.is());
 export { equalsFunctionPure as equalsFunction };
 
 /**
@@ -523,10 +523,10 @@ function equalsParameters<T extends (...args: any[]) => any>(
 function equalsParameters(): never {
   halt("equalsParameters");
 }
-const equalsParametersPure = /** #__PURE__*/ Object.assign<
+const equalsParametersPure = /** @__PURE__ */ Object.assign<
   typeof equalsParameters,
   {}
->(equalsParameters, /** #__PURE__*/ Namespace.is());
+>(equalsParameters, /** @__PURE__ */ Namespace.is());
 export { equalsParametersPure as equalsParameters };
 
 /**
@@ -564,10 +564,10 @@ function equalsReturn<T extends (...args: any[]) => any>(
 function equalsReturn(): never {
   halt("equalsReturn");
 }
-const equalsReturnPure = /** #__PURE__*/ Object.assign<typeof equalsReturn, {}>(
-  equalsReturn,
-  /** #__PURE__*/ Namespace.is(),
-);
+const equalsReturnPure = /** @__PURE__ */ Object.assign<
+  typeof equalsReturn,
+  {}
+>(equalsReturn, /** @__PURE__ */ Namespace.is());
 export { equalsReturnPure as equalsReturn };
 
 /* -----------------------------------------------------------
@@ -618,10 +618,10 @@ function validateFunction<T extends (...args: any[]) => any>(
 function validateFunction(): never {
   halt("validateFunction");
 }
-const validateFunctionPure = /** #__PURE__*/ Object.assign<
+const validateFunctionPure = /** @__PURE__ */ Object.assign<
   typeof validateFunction,
   {}
->(validateFunction, /** #__PURE__*/ Namespace.validate());
+>(validateFunction, /** @__PURE__ */ Namespace.validate());
 export { validateFunctionPure as validateFunction };
 
 /**
@@ -664,10 +664,10 @@ function validateParameters<T extends (...args: any[]) => any>(
 function validateParameters(): never {
   halt("validateReturn");
 }
-const validateParametersPure = /** #__PURE__*/ Object.assign<
+const validateParametersPure = /** @__PURE__ */ Object.assign<
   typeof validateParameters,
   {}
->(validateParameters, /** #__PURE__*/ Namespace.validate());
+>(validateParameters, /** @__PURE__ */ Namespace.validate());
 export { validateParametersPure as validateParameters };
 
 /**
@@ -710,10 +710,10 @@ function validateReturn<T extends (...args: any[]) => any>(
 function validateReturn(): never {
   halt("validateReturn");
 }
-const validateReturnPure = /** #__PURE__*/ Object.assign<
+const validateReturnPure = /** @__PURE__ */ Object.assign<
   typeof validateReturn,
   {}
->(validateReturn, /** #__PURE__*/ Namespace.validate());
+>(validateReturn, /** @__PURE__ */ Namespace.validate());
 export { validateReturnPure as validateReturn };
 
 /**
@@ -761,10 +761,10 @@ function validateEqualsFunction<T extends (...args: any[]) => any>(
 function validateEqualsFunction(): never {
   halt("validateEqualsFunction");
 }
-const validateEqualsFunctionPure = /** #__PURE__*/ Object.assign<
+const validateEqualsFunctionPure = /** @__PURE__ */ Object.assign<
   typeof validateEqualsFunction,
   {}
->(validateEqualsFunction, /** #__PURE__*/ Namespace.validate());
+>(validateEqualsFunction, /** @__PURE__ */ Namespace.validate());
 export { validateEqualsFunctionPure as validateEqualsFunction };
 
 /**
@@ -807,10 +807,10 @@ function validateEqualsParameters<T extends (...args: any[]) => any>(
 function validateEqualsParameters(): never {
   halt("validateEqualsParameters");
 }
-const validateEqualsParametersPure = /** #__PURE__*/ Object.assign<
+const validateEqualsParametersPure = /** @__PURE__ */ Object.assign<
   typeof validateEqualsParameters,
   {}
->(validateEqualsParameters, /** #__PURE__*/ Namespace.validate());
+>(validateEqualsParameters, /** @__PURE__ */ Namespace.validate());
 export { validateEqualsParametersPure as validateEqualsParameters };
 
 /**
@@ -853,10 +853,10 @@ function validateEqualsReturn<T extends (...args: any[]) => any>(
 function validateEqualsReturn(): never {
   halt("validateEqualsReturn");
 }
-const validateEqualsReturnPure = /** #__PURE__*/ Object.assign<
+const validateEqualsReturnPure = /** @__PURE__ */ Object.assign<
   typeof validateEqualsReturn,
   {}
->(validateEqualsReturn, /** #__PURE__*/ Namespace.validate());
+>(validateEqualsReturn, /** @__PURE__ */ Namespace.validate());
 export { validateEqualsReturnPure as validateEqualsReturn };
 
 /* -----------------------------------------------------------

@@ -1,15 +1,13 @@
 const typescript = require("@rollup/plugin-typescript");
+const terser = require("@rollup/plugin-terser");
 const nodeResolve = require("@rollup/plugin-node-resolve");
 const commomnjs = require("@rollup/plugin-commonjs");
 
 const outDir = "lib";
 
-/** @type {import('rollup').RollupOptions} */
 module.exports = {
   input: "./src/index.ts",
   output: {
-    preserveModules: true,
-    preserveModulesRoot: "src",
     dir: outDir,
     format: "esm",
     entryFileNames: "[name].mjs",
@@ -20,8 +18,18 @@ module.exports = {
     commomnjs(),
     typescript({
       tsconfig: "tsconfig.json",
-      module: "ESNext",
-      target: "ESNext",
+      module: "ES2020",
+      target: "ES2020",
+    }),
+    terser({
+      format: {
+        comments: "some",
+        beautify: true,
+        ecma: "2020",
+      },
+      compress: false,
+      mangle: false,
+      module: true,
     }),
   ],
 };

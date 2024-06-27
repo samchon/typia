@@ -141,10 +141,10 @@ export class $ProtobufWriter implements IProtobufWriter {
   }
 }
 
-const utf8 = /** #__PURE__*/ new TextEncoder();
+const utf8 = /** @__PURE__ */ new TextEncoder();
 
-const ND01 = /** #__PURE__*/ BigInt(1);
-const ND07 = /** #__PURE__*/ BigInt(7);
-const ND63 = /** #__PURE__*/ BigInt(63);
-const NX7F = /** #__PURE__*/ BigInt(0x7f);
-const NX80 = /** #__PURE__*/ BigInt(0x80);
+const ND01 = /** @__PURE__ */ BigInt(1);
+const ND07 = /** @__PURE__ */ BigInt(7);
+const ND63 = /** @__PURE__ */ BigInt(63);
+const NX7F = /** @__PURE__ */ BigInt(0x7f);
+const NX80 = /** @__PURE__ */ BigInt(0x80);
