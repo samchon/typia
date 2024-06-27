@@ -3,7 +3,7 @@ import { parseArgs } from "node:util";
 import { DeployRunner } from "./internal/DeployRunner";
 
 const main = async (): Promise<void> => {
-  const args = process.argv.slice(2);
+  const args: string[] = process.argv.slice(2);
   const {
     values: { tag, template },
   } = parseArgs({
@@ -19,7 +19,7 @@ const main = async (): Promise<void> => {
   }
   await DeployRunner.main({
     tag,
-    publish: true,
+    publish: tag !== "tgz",
     setup: true,
     testExecutors: [
       {
