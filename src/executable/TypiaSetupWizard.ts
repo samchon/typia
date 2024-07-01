@@ -22,7 +22,7 @@ export namespace TypiaSetupWizard {
 
     // INSTALL TYPESCRIPT COMPILERS
     pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
-    pack.install({ dev: true, modulo: "typescript", version: "5.4.2" });
+    pack.install({ dev: true, modulo: "typescript", version: "5.5.2" });
     args.project ??= (() => {
       const runner: string = pack.manager === "npm" ? "npx" : pack.manager;
       CommandExecutor.run(`${runner} tsc --init`);
