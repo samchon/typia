@@ -1,9 +1,8 @@
-import typia from "typia";
+import typia, { tags } from "typia";
 
-new Array(1_000).fill(0).forEach(() => {
-  const app = typia.random<typia.IJsonApplication>();
-  const result = typia.validate(app);
-  if (result.success === false)
-    console.log(JSON.stringify(result.errors, null, 2));
-});
-console.log("completed");
+interface IMember {
+  unique: string[] & tags.UniqueItems;
+  plain: number[];
+}
+
+console.log(typia.createRandom<IMember>().toString());

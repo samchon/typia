@@ -17,7 +17,7 @@ export namespace RandomJoiner {
     (coalesce: (method: string) => ts.Expression) =>
     (decoder: Decoder) =>
     (explore: IExplore) =>
-    (length: ts.Expression | undefined) =>
+    (length: ts.Expression | undefined, unique: ts.Expression | undefined) =>
     (item: Metadata): ts.Expression => {
       const generator: ts.Expression = ts.factory.createCallExpression(
         coalesce("array"),
@@ -31,7 +31,12 @@ export namespace RandomJoiner {
             undefined,
             decoder(item),
           ),
-          ...(length ? [length] : []),
+          ...(length
+            ? [length]
+            : unique
+              ? [ts.factory.createIdentifier("undefined")]
+              : []),
+          ...(unique ? [unique] : []),
         ],
       );
       if (explore.recursive === false) return generator;
