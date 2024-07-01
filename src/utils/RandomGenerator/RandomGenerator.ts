@@ -24,8 +24,23 @@ export const string = (length?: number): string =>
     .map(() => ALPHABETS[integer(0, ALPHABETS.length - 1)])
     .join("");
 
-export const array = <T>(closure: (index: number) => T, count?: number): T[] =>
-  new Array(count ?? length()).fill(0).map((_e, index) => closure(index));
+export const array = <T>(
+  closure: (index: number) => T,
+  count?: number,
+  unique?: boolean,
+): T[] => {
+  count ??= length();
+  unique ??= false;
+  if (unique === false)
+    return new Array(count ?? length())
+      .fill(0)
+      .map((_e, index) => closure(index));
+  else {
+    const set = new Set<T>();
+    while (set.size < count) set.add(closure(set.size));
+    return Array.from(set);
+  }
+};
 export const pick = <T>(array: T[]): T => array[integer(0, array.length - 1)]!;
 export const length = () => integer(0, 3);
 export const pattern = (regex: RegExp): string => {
