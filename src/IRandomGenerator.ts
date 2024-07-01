@@ -8,7 +8,11 @@ export interface IRandomGenerator {
   number(minimum?: number, maximum?: number): number;
   string(length?: number): string;
 
-  array<T>(closure: (index: number) => T, count?: number): T[];
+  array<T>(
+    closure: (index: number) => T,
+    count?: number,
+    unique?: boolean,
+  ): T[];
   length(): number;
   pattern(regex: RegExp): string;
 
