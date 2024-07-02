@@ -15,7 +15,7 @@ on:
       - 'package.json'
       - '.github/workflows/build.yml'
 jobs:
-  Build-and-Upload-topkg-pr-new:
+  Build-and-Upload-to-pkg-pr-new-and-artifactory:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,6 +36,14 @@ jobs:
           jq 'del(.private)' package.json > package.json.tmp
           mv package.json.tmp package.json
       - run: npx pkg-pr-new publish
+      - name: Upload tgz for Artifactory
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-result
+          path: |
+            *.tgz
+            src
+            lib
 
   NodeJS:
     runs-on: ubuntu-latest
@@ -54,14 +62,6 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test
-      - name: Upload tgz for Artifactory
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-result
-          path: |
-            *.tgz
-            src
-            lib
 
   Bun:
     runs-on: ubuntu-latest
@@ -86,7 +86,7 @@ jobs:
 
   action-timeline:
     needs:
-      - Build-and-Upload-topkg-pr-new
+      - Build-and-Upload-to-pkg-pr-new-and-artifactory
       - NodeJS
       - Bun
     if: ${{ always() }}
