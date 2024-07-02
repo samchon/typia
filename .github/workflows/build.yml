@@ -15,6 +15,37 @@ on:
       - 'package.json'
       - '.github/workflows/build.yml'
 jobs:
+  Build-and-Upload-to-pkg-pr-new-and-artifactory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm install
+      - run: npm run build
+      - name: remove `private=true` from package.json
+        run: |
+          jq 'del(.private)' package.json > package.json.tmp
+          mv package.json.tmp package.json
+      - name: upload to pkg.pr.now
+        run: npx pkg-pr-new publish --compact
+      - name: Upload tgz for Artifactory
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-result
+          path: |
+            *.tgz
+            src
+            lib
+
   NodeJS:
     runs-on: ubuntu-latest
     steps:
@@ -32,14 +63,6 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test
-      - name: Upload tgz for Artifactory
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-result
-          path: |
-            *.tgz
-            src
-            lib
 
   Bun:
     runs-on: ubuntu-latest
@@ -64,6 +87,7 @@ jobs:
 
   action-timeline:
     needs:
+      - Build-and-Upload-to-pkg-pr-new-and-artifactory
       - NodeJS
       - Bun
     if: ${{ always() }}
