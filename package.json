@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "6.3.2",
+  "version": "6.3.3-dev.20240702",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -93,7 +93,7 @@
     "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   },
   "stackblitzs": {
     "startCommand": "npm install && npm run test"
