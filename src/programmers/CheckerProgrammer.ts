@@ -10,6 +10,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
@@ -334,32 +335,52 @@ export namespace CheckerProgrammer {
       // VALUES
       //----
       // CONSTANT VALUES
-      for (const constant of meta.constants)
-        if (AtomicPredicator.constant(meta)(constant.type))
-          for (const v of constant.values) add(true, getConstantValue(v.value));
-      if (meta.escaped !== null)
-        binaries.push({
-          combined: false,
-          expression:
-            meta.escaped.original.size() === 1 &&
-            meta.escaped.original.natives.length === 1
-              ? check_native(meta.escaped.original.natives[0]!)(input)
-              : ts.factory.createLogicalAnd(
-                  decode(project)(config)(importer)(
-                    input,
-                    meta.escaped.original,
-                    explore,
-                  ),
-                  ts.factory.createLogicalAnd(
-                    IsProgrammer.decode_to_json(false)(input),
-                    decode_escaped(project)(config)(importer)(
-                      input,
-                      meta.escaped.returns,
-                      explore,
+      const constants: MetadataConstant[] = meta.constants.filter((c) =>
+        AtomicPredicator.constant(meta)(c.type),
+      );
+      const constantLength: number = constants
+        .map((c) => c.values.length)
+        .reduce((a, b) => a + b, 0);
+      if (constantLength >= 10) {
+        const values: Array<boolean | number | string | bigint> = constants
+          .map((c) => c.values.map((v) => v.value))
+          .flat();
+        add(
+          true,
+          ts.factory.createTrue(),
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(
+              importer.emplaceVariable(
+                `${config.prefix}v${importer.increment()}`,
+                ts.factory.createNewExpression(
+                  ts.factory.createIdentifier("Set"),
+                  undefined,
+                  [
+                    ts.factory.createArrayLiteralExpression(
+                      values.map((v) =>
+                        typeof v === "boolean"
+                          ? v === true
+                            ? ts.factory.createTrue()
+                            : ts.factory.createFalse()
+                          : typeof v === "bigint"
+                            ? ExpressionFactory.bigint(v)
+                            : typeof v === "number"
+                              ? ExpressionFactory.number(v)
+                              : ts.factory.createStringLiteral(v.toString()),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-        });
+              ),
+            )("has"),
+            undefined,
+            [input],
+          ),
+        );
+      } else
+        for (const c of constants)
+          if (AtomicPredicator.constant(meta)(c.type))
+            for (const v of c.values) add(true, getConstantValue(v.value));
 
       // ATOMIC VALUES
       for (const atom of meta.atomics)
@@ -575,6 +596,31 @@ export namespace CheckerProgrammer {
             combined: true,
           });
       }
+
+      // ESCAPED CASE
+      if (meta.escaped !== null)
+        binaries.push({
+          combined: false,
+          expression:
+            meta.escaped.original.size() === 1 &&
+            meta.escaped.original.natives.length === 1
+              ? check_native(meta.escaped.original.natives[0]!)(input)
+              : ts.factory.createLogicalAnd(
+                  decode(project)(config)(importer)(
+                    input,
+                    meta.escaped.original,
+                    explore,
+                  ),
+                  ts.factory.createLogicalAnd(
+                    IsProgrammer.decode_to_json(false)(input),
+                    decode_escaped(project)(config)(importer)(
+                      input,
+                      meta.escaped.returns,
+                      explore,
+                    ),
+                  ),
+                ),
+        });
 
       //----
       // COMBINE CONDITIONS

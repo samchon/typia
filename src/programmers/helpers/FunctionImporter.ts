@@ -8,6 +8,7 @@ export class FunctionImporter {
   private readonly used_: Set<string> = new Set();
   private readonly local_: Set<string> = new Set();
   private readonly unions_: Map<string, [string, ts.ArrowFunction]> = new Map();
+  private readonly variables_: Map<string, ts.Expression> = new Map();
   private sequence_: number = 0;
 
   public constructor(public readonly method: string) {}
@@ -45,6 +46,9 @@ export class FunctionImporter {
           )(name),
         ),
       ),
+      ...[...this.variables_.entries()].map(([key, value]) =>
+        StatementFactory.constant(key, value),
+      ),
       ...(includeUnions === true
         ? [...this.unions_.values()].map(([key, arrow]) =>
             StatementFactory.constant(key, arrow),
@@ -78,6 +82,11 @@ export class FunctionImporter {
     this.unions_.set(name, tuple);
     tuple[1] = factory();
     return accessor;
+  }
+
+  public emplaceVariable(name: string, value: ts.Expression): ts.Expression {
+    this.variables_.set(name, value);
+    return ts.factory.createIdentifier(name);
   }
 
   public trace(): void {
