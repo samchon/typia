@@ -31,6 +31,10 @@ jobs:
 
       - run: npm install
       - run: npm run build
+      - name: remove `private=true` from package.json
+        run: |
+          jq 'del(.private)' package.json > package.json.tmp
+          mv package.json.tmp package.json
       - run: npx pkg-pr-new publish
 
   NodeJS:
