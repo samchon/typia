@@ -27,17 +27,17 @@
     "@rollup/browser": "^4.13.0",
     "lz-string": "^1.5.0",
     "monaco-editor": "^0.48.0",
-    "next": "^14.1.1",
+    "next": "^14.2.3",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
     "path": "^0.12.7",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tgrid": "^1.0.1",
+    "tgrid": "^1.0.2",
     "tstl": "^3.0.0",
     "typescript": "^5.5.2",
-    "typia": "^6.3.2"
+    "typia": "^6.3.3"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
