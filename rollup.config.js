@@ -1,3 +1,4 @@
+const path = require("path");
 const typescript = require("@rollup/plugin-typescript");
 const nodeResolve = require("@rollup/plugin-node-resolve");
 const commomnjs = require("@rollup/plugin-commonjs");
@@ -13,8 +14,14 @@ module.exports = {
       const externalDir = `_external`;
       const nodeModulesDir = `node_modules`;
       if (chunkInfo.name.includes(nodeModulesDir)) {
-        console.log(chunkInfo.name);
-        return `${chunkInfo.name.replace(nodeModulesDir, externalDir)}.${ext}`;
+        /** replace / to _ and the last part of the path is the file name */
+        const nameSplit = chunkInfo.name.split('/')
+        const chunkName = path.join(externalDir, nameSplit.slice(0, -1).join('_'), nameSplit.at(-1))
+        console.table({
+          before: chunkInfo.name,
+          after: chunkName,
+        })
+        return `${chunkName}.${ext}`;
       }
       return `[name].${ext}`;
     },
