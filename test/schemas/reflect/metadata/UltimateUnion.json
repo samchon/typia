@@ -134,7 +134,7 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IComponents"
+                "OpenApi.IComponents<OpenApi.IJsonSchema>"
               ],
               "aliases": [],
               "natives": [],
@@ -209,7 +209,7 @@
         ]
       },
       {
-        "name": "OpenApi.IComponents",
+        "name": "OpenApi.IComponents<OpenApi.IJsonSchema>",
         "properties": [
           {
             "key": {
@@ -261,7 +261,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "An object to hold reusable DTO schemas.\n\nIn other words, a collection of named JSON schemas.",
             "jsDocTags": []
           },
           {
@@ -314,10 +314,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "An object to hold reusable security schemes.\n\nIn other words, a collection of named security schemes.",
             "jsDocTags": []
           }
         ],
+        "description": "Reusable components in OpenAPI.\n\nA storage of reusable components in OpenAPI document.\n\nIn other words, it is a storage of named DTO schemas and security schemes.",
         "jsDocTags": [],
         "index": 1,
         "recursive": false,
@@ -372,11 +373,11 @@
                 "OpenApi.IJsonSchema.INumber",
                 "OpenApi.IJsonSchema.IInteger",
                 "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.IArray",
-                "OpenApi.IJsonSchema.ITuple",
-                "OpenApi.IJsonSchema.IObject",
+                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf",
+                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IUnknown",
                 "OpenApi.IJsonSchema.INull"
               ],
@@ -461,7 +462,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "The constant value.",
             "jsDocTags": []
           },
           {
@@ -517,7 +518,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -573,7 +574,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -629,10 +630,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Constant value type.",
         "jsDocTags": [],
         "index": 3,
         "recursive": false,
@@ -696,7 +698,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "The default value.",
             "jsDocTags": []
           },
           {
@@ -757,7 +759,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -813,7 +815,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -869,7 +871,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -925,10 +927,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Boolean type info.",
         "jsDocTags": [],
         "index": 4,
         "recursive": false,
@@ -1006,7 +1009,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Default value.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -1086,7 +1089,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Minimum value restriction.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -1166,7 +1169,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Maximum value restriction.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -1232,7 +1235,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property.",
             "jsDocTags": []
           },
           {
@@ -1288,7 +1291,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property.",
             "jsDocTags": []
           },
           {
@@ -1373,7 +1376,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Multiple of value restriction.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -1453,7 +1456,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -1509,7 +1512,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -1565,7 +1568,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -1621,10 +1624,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Integer type info.",
         "jsDocTags": [],
         "index": 5,
         "recursive": false,
@@ -1688,7 +1692,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Default value.",
             "jsDocTags": []
           },
           {
@@ -1744,7 +1748,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Minimum value restriction.",
             "jsDocTags": []
           },
           {
@@ -1800,7 +1804,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Maximum value restriction.",
             "jsDocTags": []
           },
           {
@@ -1856,7 +1860,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property.",
             "jsDocTags": []
           },
           {
@@ -1912,7 +1916,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property.",
             "jsDocTags": []
           },
           {
@@ -1986,7 +1990,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Multiple of value restriction.",
             "jsDocTags": [
               {
                 "name": "exclusiveMinimum",
@@ -2057,7 +2061,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -2113,7 +2117,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -2169,7 +2173,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -2225,10 +2229,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Number (double) type info.",
         "jsDocTags": [],
         "index": 6,
         "recursive": false,
@@ -2239,62 +2244,6 @@
       {
         "name": "OpenApi.IJsonSchema.IString",
         "properties": [
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "contentMediaType"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": true,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
           {
             "key": {
               "any": false,
@@ -2348,7 +2297,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Default value.",
             "jsDocTags": []
           },
           {
@@ -2404,7 +2353,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Format restriction.",
             "jsDocTags": []
           },
           {
@@ -2460,7 +2409,63 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Pattern restriction.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "contentMediaType"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Content media type restriction.",
             "jsDocTags": []
           },
           {
@@ -2530,7 +2535,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Minimum length restriction.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -2610,7 +2615,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Maximum length restriction.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -2681,7 +2686,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -2737,7 +2742,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -2793,7 +2798,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -2849,10 +2854,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "String type info.",
         "jsDocTags": [],
         "index": 7,
         "recursive": false,
@@ -2861,7 +2867,7 @@
         ]
       },
       {
-        "name": "OpenApi.IJsonSchema.IArray",
+        "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
         "properties": [
           {
             "key": {
@@ -2911,11 +2917,11 @@
                 "OpenApi.IJsonSchema.INumber",
                 "OpenApi.IJsonSchema.IInteger",
                 "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.IArray",
-                "OpenApi.IJsonSchema.ITuple",
-                "OpenApi.IJsonSchema.IObject",
+                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf",
+                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IUnknown",
                 "OpenApi.IJsonSchema.INull"
               ],
@@ -2924,7 +2930,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Items type info.\n\nThe `items` means the type of the array elements. In other words, it is\nthe type schema info of the `T` in the TypeScript array type `Array<T>`.",
             "jsDocTags": []
           },
           {
@@ -2980,7 +2986,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Unique items restriction.\n\nIf this property value is `true`, target array must have unique items.",
             "jsDocTags": []
           },
           {
@@ -3050,7 +3056,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the array.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -3130,7 +3136,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the array.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -3201,7 +3207,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -3257,7 +3263,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -3313,7 +3319,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -3369,10 +3375,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Array type.",
         "jsDocTags": [],
         "index": 8,
         "recursive": true,
@@ -3381,7 +3388,7 @@
         ]
       },
       {
-        "name": "OpenApi.IJsonSchema.ITuple",
+        "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
         "properties": [
           {
             "key": {
@@ -3436,7 +3443,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Prefix items.\n\nThe `prefixItems` means the type schema info of the prefix items in the\ntuple type. In the TypeScript, it is expressed as `[T1, T2]`.\n\nIf you want to express `[T1, T2, ...TO[]]` type, you can configure the\n`...TO[]` through the {@link additionalItems} property.",
             "jsDocTags": []
           },
           {
@@ -3492,11 +3499,11 @@
                 "OpenApi.IJsonSchema.INumber",
                 "OpenApi.IJsonSchema.IInteger",
                 "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.IArray",
-                "OpenApi.IJsonSchema.ITuple",
-                "OpenApi.IJsonSchema.IObject",
+                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf",
+                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IUnknown",
                 "OpenApi.IJsonSchema.INull"
               ],
@@ -3505,7 +3512,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Additional items.\n\nThe `additionalItems` means the type schema info of the additional items\nafter the {@link prefixItems}. In the TypeScript, if there's a type\n`[T1, T2, ...TO[]]`, the `...TO[]` is represented by the `additionalItems`.\n\nBy the way, if you configure the `additionalItems` as `true`, it means\nthe additional items are not restricted. They can be any type, so that\nit is equivalent to the TypeScript type `[T1, T2, ...any[]]`.\n\nOtherwise configure the `additionalItems` as the {@link IJsonSchema},\nit means the additional items must follow the type schema info.\nTherefore, it is equivalent to the TypeScript type `[T1, T2, ...TO[]]`.",
             "jsDocTags": []
           },
           {
@@ -3561,7 +3568,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Unique items restriction.\n\nIf this property value is `true`, target tuple must have unique items.",
             "jsDocTags": []
           },
           {
@@ -3631,7 +3638,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the tuple.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -3711,7 +3718,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the tuple.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -3782,7 +3789,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -3838,7 +3845,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -3894,7 +3901,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -3950,10 +3957,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Tuple type info.",
         "jsDocTags": [],
         "index": 9,
         "recursive": true,
@@ -3962,7 +3970,7 @@
         ]
       },
       {
-        "name": "OpenApi.IJsonSchema.IObject",
+        "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
         "properties": [
           {
             "key": {
@@ -4014,7 +4022,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Properties of the object.\n\nThe `properties` means a list of key-value pairs of the object's\nregular properties. The key is the name of the regular property,\nand the value is the type schema info.\n\nIf you need additional properties that is represented by dynamic key,\nyou can use the {@link additionalProperties} instead.",
             "jsDocTags": []
           },
           {
@@ -4070,11 +4078,11 @@
                 "OpenApi.IJsonSchema.INumber",
                 "OpenApi.IJsonSchema.IInteger",
                 "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.IArray",
-                "OpenApi.IJsonSchema.ITuple",
-                "OpenApi.IJsonSchema.IObject",
+                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf",
+                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IUnknown",
                 "OpenApi.IJsonSchema.INull"
               ],
@@ -4083,7 +4091,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Additional properties' info.\n\nThe `additionalProperties` means the type schema info of the additional\nproperties that are not listed in the {@link properties}.\n\nIf the value is `true`, it means that the additional properties are not\nrestricted. They can be any type. Otherwise, if the value is\n{@link IOpenAiSchema} type, it means that the additional properties must\nfollow the type schema info.\n\n- `true`: `Record<string, any>`\n- `IOpenAiSchema`: `Record<string, T>`",
             "jsDocTags": []
           },
           {
@@ -4139,7 +4147,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "List of key values of the required properties.\n\nThe `required` means a list of the key values of the required\n{@link properties}. If some property key is not listed in the `required`\nlist, it means that property is optional. Otherwise some property key\nexists in the `required` list, it means that the property must be filled.\n\nBelow is an example of the {@link properties} and `required`.\n\n```typescript\ninterface SomeObject {\n  id: string;\n  email: string;\n  name?: string;\n}\n```\n\nAs you can see, `id` and `email` {@link properties} are {@link required},\nso that they are listed in the `required` list.\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"string\" },\n    \"email\": { \"type\": \"string\" },\n    \"name\": { \"type\": \"string\" }\n  },\n  \"required\": [\"id\", \"email\"]\n}\n```",
             "jsDocTags": []
           },
           {
@@ -4200,7 +4208,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -4256,7 +4264,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -4312,7 +4320,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -4368,10 +4376,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Object type info.",
         "jsDocTags": [],
         "index": 10,
         "recursive": true,
@@ -4435,7 +4444,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Reference to the named schema.\n\nThe `ref` is a reference to the named schema. Format of the `$ref` is\nfollowing the JSON Pointer specification. In the OpenAPI, the `$ref`\nstarts with `#/components/schemas/` which means the type is stored in\nthe {@link OpenApi.IComponents.schemas} object.\n\n- `#/components/schemas/SomeObject`\n- `#/components/schemas/AnotherObject`",
             "jsDocTags": []
           },
           {
@@ -4491,7 +4500,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -4547,7 +4556,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -4603,10 +4612,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Reference type directing named schema.",
         "jsDocTags": [],
         "index": 11,
         "recursive": false,
@@ -4615,7 +4625,7 @@
         ]
       },
       {
-        "name": "OpenApi.IJsonSchema.IOneOf",
+        "name": "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
         "properties": [
           {
             "key": {
@@ -4659,7 +4669,7 @@
               "rest": null,
               "arrays": [
                 {
-                  "name": "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
+                  "name": "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray<IJsonSchema> | ITuple<IJsonSchema> | IObject<...> | IReference<...> | INull | IUnknown>",
                   "tags": []
                 }
               ],
@@ -4670,7 +4680,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "List of the union types.",
             "jsDocTags": []
           },
           {
@@ -4726,7 +4736,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -4782,7 +4792,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -4838,10 +4848,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Union type.\n\nIOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly\nconverts it to `oneOf` type.",
         "jsDocTags": [],
         "index": 12,
         "recursive": true,
@@ -4910,7 +4921,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Discriminator value of the type.",
             "jsDocTags": []
           },
           {
@@ -4966,7 +4977,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -5022,7 +5033,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -5078,10 +5089,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Null type.",
         "jsDocTags": [],
         "index": 13,
         "recursive": false,
@@ -5140,7 +5152,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Type is never be defined.",
             "jsDocTags": []
           },
           {
@@ -5196,7 +5208,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Title of the schema.",
             "jsDocTags": []
           },
           {
@@ -5252,7 +5264,7 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Detailed description of the schema.",
             "jsDocTags": []
           },
           {
@@ -5308,10 +5320,11 @@
               "sets": [],
               "maps": []
             },
-            "description": null,
+            "description": "Whether the type is deprecated or not.",
             "jsDocTags": []
           }
         ],
+        "description": "Unknown, `any` type.",
         "jsDocTags": [],
         "index": 14,
         "recursive": false,
@@ -5630,6 +5643,7 @@
             "jsDocTags": []
           }
         ],
+        "description": "Normal API key type.",
         "jsDocTags": [],
         "index": 16,
         "recursive": false,
@@ -5819,6 +5833,7 @@
             "jsDocTags": []
           }
         ],
+        "description": "HTTP basic authentication type.",
         "jsDocTags": [],
         "index": 17,
         "recursive": false,
@@ -6064,6 +6079,7 @@
             "jsDocTags": []
           }
         ],
+        "description": "HTTP bearer authentication type.",
         "jsDocTags": [],
         "index": 18,
         "recursive": false,
@@ -6245,6 +6261,7 @@
             "jsDocTags": []
           }
         ],
+        "description": "OAuth2 authentication type.",
         "jsDocTags": [],
         "index": 19,
         "recursive": false,
@@ -7362,11 +7379,11 @@
             "OpenApi.IJsonSchema.INumber",
             "OpenApi.IJsonSchema.IInteger",
             "OpenApi.IJsonSchema.IString",
-            "OpenApi.IJsonSchema.IArray",
-            "OpenApi.IJsonSchema.ITuple",
-            "OpenApi.IJsonSchema.IObject",
+            "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+            "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+            "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
             "OpenApi.IJsonSchema.IReference<string>",
-            "OpenApi.IJsonSchema.IOneOf",
+            "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
             "OpenApi.IJsonSchema.IUnknown",
             "OpenApi.IJsonSchema.INull"
           ],
@@ -7382,7 +7399,7 @@
         "index": null
       },
       {
-        "name": "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray | ITuple | IObject | IReference<string> | INull | IUnknown>",
+        "name": "Array<IConstant | IBoolean | IInteger | INumber | IString | IArray<IJsonSchema> | ITuple<IJsonSchema> | IObject<...> | IReference<...> | INull | IUnknown>",
         "value": {
           "any": false,
           "required": true,
@@ -7402,9 +7419,9 @@
             "OpenApi.IJsonSchema.INumber",
             "OpenApi.IJsonSchema.IInteger",
             "OpenApi.IJsonSchema.IString",
-            "OpenApi.IJsonSchema.IArray",
-            "OpenApi.IJsonSchema.ITuple",
-            "OpenApi.IJsonSchema.IObject",
+            "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+            "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+            "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
             "OpenApi.IJsonSchema.IReference<string>",
             "OpenApi.IJsonSchema.IUnknown",
             "OpenApi.IJsonSchema.INull"
