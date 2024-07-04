@@ -6,6 +6,8 @@ on:
       - 'test/**'
       - 'test-esm/**'
       - 'package.json'
+      - 'tsconfig.json'
+      - 'rollup.config.js'
       - '.github/workflows/build.yml'
   pull_request:
     paths:
@@ -13,6 +15,8 @@ on:
       - 'test/**'
       - 'test-esm/**'
       - 'package.json'
+      - 'tsconfig.json'
+      - 'rollup.config.js'
       - '.github/workflows/build.yml'
 jobs:
   Build-and-Upload-to-pkg-pr-new-and-artifactory:
