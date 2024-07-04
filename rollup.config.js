@@ -8,7 +8,7 @@ module.exports = {
   output: {
     dir: "./lib",
     format: "esm",
-    sourcemap: true,
+    sourcemap: "inline",
     entryFileNames: (chunkInfo) => {
       const ext = `mjs`
       const externalDir = `_external`;
@@ -32,6 +32,8 @@ module.exports = {
     nodeResolve(),
     commomnjs(),
     typescript({
+      sourceMap: true,
+      inlineSources: true,
       tsconfig: "tsconfig.json",
       module: "ESNext",
       target: "ESNext",
