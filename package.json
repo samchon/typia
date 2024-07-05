@@ -97,6 +97,7 @@
   "stackblitz": {
     "startCommand": "npm install && npm run test"
   },
+  "sideEffects": false,
   "files": [
     "LICENSE",
     "README.md",
