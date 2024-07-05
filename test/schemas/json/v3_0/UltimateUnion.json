@@ -424,7 +424,7 @@
           "items",
           "type"
         ],
-        "description": "Array type."
+        "description": "Array type info."
       },
       "OpenApi.IJsonSchema.ITupleOpenApi.IJsonSchema": {
         "type": "object",
@@ -694,6 +694,11 @@
             "title": "List of the union types",
             "description": "List of the union types."
           },
+          "discriminator": {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf.IDiscriminator",
+            "title": "Discriminator info of the union type",
+            "description": "Discriminator info of the union type."
+          },
           "title": {
             "type": "string",
             "title": "Title of the schema",
@@ -770,6 +775,35 @@
           "type"
         ],
         "description": "Null type."
+      },
+      "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
+        "type": "object",
+        "properties": {
+          "propertyName": {
+            "type": "string",
+            "title": "Property name for the discriminator",
+            "description": "Property name for the discriminator."
+          },
+          "mapping": {
+            "$ref": "#/components/schemas/Recordstringstring",
+            "title": "Mapping of the discriminator value to the schema name",
+            "description": "Mapping of the discriminator value to the schema name.\n\nThis property is valid only for {@link IReference} typed\n{@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is\nthe discriminator value, and `value` of `mapping` is the\nschema name like `#/components/schemas/SomeObject`."
+          }
+        },
+        "nullable": false,
+        "required": [
+          "propertyName"
+        ],
+        "description": "Discriminator info of the union type."
+      },
+      "Recordstringstring": {
+        "type": "object",
+        "properties": {},
+        "nullable": false,
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "type": "string"
+        }
       },
       "RecordstringOpenApi.ISecurityScheme": {
         "type": "object",
@@ -943,15 +977,6 @@
           }
         },
         "nullable": false
-      },
-      "Recordstringstring": {
-        "type": "object",
-        "properties": {},
-        "nullable": false,
-        "description": "Construct a type with a set of properties K of type T",
-        "additionalProperties": {
-          "type": "string"
-        }
       },
       "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowtokenUrl": {
         "type": "object",
