@@ -3379,7 +3379,7 @@
             "jsDocTags": []
           }
         ],
-        "description": "Array type.",
+        "description": "Array type info.",
         "jsDocTags": [],
         "index": 8,
         "recursive": true,
@@ -4696,6 +4696,59 @@
                   "type": "string",
                   "values": [
                     {
+                      "value": "discriminator"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [
+                "OpenApi.IJsonSchema.IOneOf.IDiscriminator"
+              ],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Discriminator info of the union type.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
                       "value": "title"
                     }
                   ]
@@ -5333,6 +5386,191 @@
         ]
       },
       {
+        "name": "OpenApi.IJsonSchema.IOneOf.IDiscriminator",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "propertyName"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Property name for the discriminator.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "mapping"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [
+                "Record<string, string>"
+              ],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Mapping of the discriminator value to the schema name.\n\nThis property is valid only for {@link IReference} typed\n{@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is\nthe discriminator value, and `value` of `mapping` is the\nschema name like `#/components/schemas/SomeObject`.",
+            "jsDocTags": []
+          }
+        ],
+        "description": "Discriminator info of the union type.",
+        "jsDocTags": [],
+        "index": 15,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "Record<string, string>",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "description": "Construct a type with a set of properties K of type T",
+        "jsDocTags": [],
+        "index": 16,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
         "name": "Record<string, OpenApi.ISecurityScheme>",
         "properties": [
           {
@@ -5391,7 +5629,7 @@
         ],
         "description": "Construct a type with a set of properties K of type T",
         "jsDocTags": [],
-        "index": 15,
+        "index": 17,
         "recursive": false,
         "nullables": [
           false
@@ -5645,7 +5883,7 @@
         ],
         "description": "Normal API key type.",
         "jsDocTags": [],
-        "index": 16,
+        "index": 18,
         "recursive": false,
         "nullables": [
           false
@@ -5835,7 +6073,7 @@
         ],
         "description": "HTTP basic authentication type.",
         "jsDocTags": [],
-        "index": 17,
+        "index": 19,
         "recursive": false,
         "nullables": [
           false
@@ -6081,7 +6319,7 @@
         ],
         "description": "HTTP bearer authentication type.",
         "jsDocTags": [],
-        "index": 18,
+        "index": 20,
         "recursive": false,
         "nullables": [
           false
@@ -6263,7 +6501,7 @@
         ],
         "description": "OAuth2 authentication type.",
         "jsDocTags": [],
-        "index": 19,
+        "index": 21,
         "recursive": false,
         "nullables": [
           false
@@ -6486,7 +6724,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 20,
+        "index": 22,
         "recursive": false,
         "nullables": [
           false
@@ -6718,71 +6956,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 21,
-        "recursive": false,
-        "nullables": [
-          false
-        ]
-      },
-      {
-        "name": "Record<string, string>",
-        "properties": [
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functional": false,
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          }
-        ],
-        "description": "Construct a type with a set of properties K of type T",
-        "jsDocTags": [],
-        "index": 22,
+        "index": 23,
         "recursive": false,
         "nullables": [
           false
@@ -6959,7 +7133,7 @@
         ],
         "description": "Construct a type with the properties of T except for those in type K.",
         "jsDocTags": [],
-        "index": 23,
+        "index": 24,
         "recursive": false,
         "nullables": [
           false
@@ -7136,7 +7310,7 @@
         ],
         "description": "Construct a type with the properties of T except for those in type K.",
         "jsDocTags": [],
-        "index": 24,
+        "index": 25,
         "recursive": false,
         "nullables": [
           false
@@ -7320,7 +7494,7 @@
           }
         ],
         "jsDocTags": [],
-        "index": 25,
+        "index": 26,
         "recursive": false,
         "nullables": [
           false

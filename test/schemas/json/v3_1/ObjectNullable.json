@@ -33,7 +33,13 @@
               {
                 "$ref": "#/components/schemas/ObjectNullable.IBrand"
               }
-            ]
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "brand": "#/components/schemas/ObjectNullable.IBrand"
+              }
+            }
           },
           "similar": {
             "oneOf": [
@@ -46,7 +52,14 @@
               {
                 "$ref": "#/components/schemas/ObjectNullable.IManufacturer"
               }
-            ]
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "brand": "#/components/schemas/ObjectNullable.IBrand",
+                "manufacturer": "#/components/schemas/ObjectNullable.IManufacturer"
+              }
+            }
           }
         },
         "required": [
