@@ -53,10 +53,10 @@ Thanks for your support.
 
 Your donation encourages `typia` development.
 
-Also, `typia` is re-distributing half of your donations to core contributors of `typia`.
+Also, `typia` is re-distributing half of donations to core contributors of `typia`.
 
-  - [@nonara](https://github.com/nonara): developer of [`ts-patch`](https://github.com/nonara/ts-patch)
-  - [@ryoppippi](https://github.com/ryoppippi): developer of [`unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
+  - [`nonara/ts-patch`](https://github.com/nonara/ts-patch)
+  - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
 
 [![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
