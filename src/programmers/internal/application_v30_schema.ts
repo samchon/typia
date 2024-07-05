@@ -10,6 +10,7 @@ import { application_escaped } from "./application_escaped";
 import { application_number } from "./application_number";
 import { application_string } from "./application_string";
 import { application_templates } from "./application_templates";
+import { application_union_discriminator } from "./application_union_discriminator";
 import { application_v30_alias } from "./application_v30_alias";
 import { application_v30_constant } from "./application_v30_constant";
 import { application_v30_native } from "./application_v30_native";
@@ -139,7 +140,10 @@ export const application_v30_schema =
         ? { type: undefined }
         : union.length === 1
           ? union[0]!
-          : { oneOf: union };
+          : {
+              oneOf: union,
+              discriminator: application_union_discriminator(meta),
+            };
     return {
       ...schema,
       ...attribute,
