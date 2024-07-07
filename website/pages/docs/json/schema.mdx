@@ -326,13 +326,13 @@ exports.SpecialTagSchema = {
 
 
 ## Customization
-If what you want is not just filling special properties of JSON schema spec, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type. 
+If what you want is not just filling special properties of JSON schema spec, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
 
 For reference, the custom property must be started with `x-` prefix. It's a rule of JSON schema.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
-```typescript copy filename="examples/src/json-schema-custom.ts" copy showLineNumbers {7-9, 16-18, 22-23}
+```typescript copy filename="examples/src/json-schema-custom.ts" copy showLineNumbers {7-9, 13, 17-18}
 import typia, { tags } from "typia";
  
 type Monetary<Value extends string> = tags.TagBase<{
@@ -344,13 +344,8 @@ type Monetary<Value extends string> = tags.TagBase<{
   };
 }>;
 
-type Placeholder<Value extends string> = tags.TagBase<{
-  target: "boolean" | "number" | "string";
-  kind: "placeholder";
-  value: Value;
-  schema: {
-    "x-placeholder": Value;
-  };
+type Placeholder<Value extends string> = tags.JsonSchemaPlugin<{
+  "x-placeholder": Value;
 }>;
 
 interface IAccount {
