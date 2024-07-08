@@ -1,5 +1,7 @@
 import { ProtobufWire } from "../programmers/helpers/ProtobufWire";
 
+import { Singleton } from "../utils/Singleton";
+
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
 export class $ProtobufReader {
   /**
@@ -54,7 +56,7 @@ export class $ProtobufReader {
 
   public sint64(): bigint {
     const value = this.varint64();
-    return (value >> N01) ^ -(value & N01);
+    return (value >> BigInt(0x01)) ^ -(value & BigInt(0x01));
   }
 
   public bool(): boolean {
@@ -81,7 +83,7 @@ export class $ProtobufReader {
   }
 
   public string(): string {
-    return utf8.decode(this.bytes());
+    return utf8.get().decode(this.bytes());
   }
 
   public skip(length: number): void {
@@ -149,34 +151,34 @@ export class $ProtobufReader {
     let loaded: bigint;
     let value: bigint;
 
-    value = (loaded = this.u8n()) & N7F;
-    if (loaded < N80) return value;
+    value = (loaded = this.u8n()) & BigInt(0x7f);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(7);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(7);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(14);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(14);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(21);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(21);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(28);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(28);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(35);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(35);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(42);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(42);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(49);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(49);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= ((loaded = this.u8n()) & N7F) << BigInt(56);
-    if (loaded < N80) return value;
+    value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(56);
+    if (loaded < BigInt(0x80)) return value;
 
-    value |= (this.u8n() & N01) << BigInt(63);
+    value |= (this.u8n() & BigInt(0x01)) << BigInt(63);
     return BigInt.asIntN(64, value);
   }
 
@@ -189,7 +191,4 @@ export class $ProtobufReader {
   }
 }
 
-const utf8 = /** @__PURE__ */ new TextDecoder();
-const N01 = /** @__PURE__ */ BigInt(0x01);
-const N7F = /** @__PURE__ */ BigInt(0x7f);
-const N80 = /** @__PURE__ */ BigInt(0x80);
+const utf8 = /** @__PURE__ */ new Singleton(() => new TextDecoder("utf-8"));

@@ -1,3 +1,5 @@
+import { Singleton } from "../utils/Singleton";
+
 import { $ProtobufSizer } from "./$ProtobufSizer";
 import { IProtobufWriter } from "./IProtobufWriter";
 
@@ -63,7 +65,7 @@ export class $ProtobufWriter implements IProtobufWriter {
 
   sint64(value: number | bigint): void {
     value = BigInt(value);
-    this.variant64((value << ND01) ^ (value >> ND63));
+    this.variant64((value << BigInt(0x01)) ^ (value >> BigInt(0x3f)));
   }
 
   int64(value: number | bigint): void {
@@ -93,7 +95,7 @@ export class $ProtobufWriter implements IProtobufWriter {
     const len: number = this.varlen(); // use precomputed length
     this.uint32(len);
 
-    const binary: Uint8Array = utf8.encode(value);
+    const binary: Uint8Array = utf8.get().encode(value);
     for (let i = 0; i < binary.byteLength; i++)
       this.buf[this.ptr++] = binary[i]!;
   }
@@ -127,9 +129,9 @@ export class $ProtobufWriter implements IProtobufWriter {
 
   private variant64(val: bigint): void {
     val = BigInt.asUintN(64, val);
-    while (val > NX7F) {
-      this.buf[this.ptr++] = Number((val & NX7F) | NX80);
-      val = val >> ND07;
+    while (val > BigInt(0x7f)) {
+      this.buf[this.ptr++] = Number((val & BigInt(0x7f)) | BigInt(0x80));
+      val = val >> BigInt(0x07);
     }
     this.buf[this.ptr++] = Number(val);
   }
@@ -140,11 +142,4 @@ export class $ProtobufWriter implements IProtobufWriter {
       : this.sizer.varlen[this.varlenidx++]!;
   }
 }
-
-const utf8 = /** @__PURE__ */ new TextEncoder();
-
-const ND01 = /** @__PURE__ */ BigInt(1);
-const ND07 = /** @__PURE__ */ BigInt(7);
-const ND63 = /** @__PURE__ */ BigInt(63);
-const NX7F = /** @__PURE__ */ BigInt(0x7f);
-const NX80 = /** @__PURE__ */ BigInt(0x80);
+const utf8 = /** @__PURE__ */ new Singleton(() => new TextEncoder());
