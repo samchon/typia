@@ -26,7 +26,7 @@ export namespace HttpQueryProgrammer {
 
   export const write =
     (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
+    (modulo: ts.LeftHandSideExpression, allowOptional: boolean = false) =>
     (type: ts.Type, name?: string): ts.ArrowFunction => {
       // GET OBJECT TYPE
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
@@ -38,7 +38,7 @@ export namespace HttpQueryProgrammer {
         escape: false,
         constant: true,
         absorb: true,
-        validate,
+        validate: (meta, explore) => validate(meta, explore, allowOptional),
       })(collection)(type);
       if (result.success === false)
         throw TransformerError.from(`typia.http.${importer.method}`)(
@@ -81,6 +81,7 @@ export namespace HttpQueryProgrammer {
   export const validate = (
     meta: Metadata,
     explore: MetadataFactory.IExplore,
+    allowOptional: boolean = false,
   ): string[] => {
     const errors: string[] = [];
     const insert = (msg: string) => errors.push(msg);
@@ -90,8 +91,20 @@ export namespace HttpQueryProgrammer {
       if (meta.objects.length !== 1 || meta.bucket() !== 1)
         insert("only one object type is allowed.");
       if (meta.nullable === true) insert("query parameters cannot be null.");
-      if (meta.isRequired() === false)
-        insert("query parameters cannot be undefined.");
+      if (meta.isRequired() === false) {
+        if (allowOptional === true) {
+          const everyPropertiesAreOptional: boolean =
+            meta.size() === 1 &&
+            meta.objects.length === 1 &&
+            meta.objects[0]!.properties.every(
+              (p) => p.value.isRequired() === false,
+            );
+          if (everyPropertiesAreOptional === false)
+            insert(
+              "query parameters can be optional only when every properties are optional.",
+            );
+        } else insert("query parameters cannot be undefined.");
+      }
     } else if (
       explore.nested !== null &&
       explore.nested instanceof MetadataArrayType
