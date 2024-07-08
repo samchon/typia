@@ -12,7 +12,7 @@ import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
 export namespace HttpIsQueryProgrammer {
   export const write =
     (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
+    (modulo: ts.LeftHandSideExpression, allowOptional: boolean = false) =>
     (type: ts.Type, name?: string): ts.ArrowFunction =>
       ts.factory.createArrowFunction(
         undefined,
@@ -61,7 +61,7 @@ export namespace HttpIsQueryProgrammer {
                 functional: false,
                 numeric: false,
               },
-            })(modulo)(type, name),
+            })(modulo, allowOptional)(type, name),
           ),
           StatementFactory.constant(
             "output",
