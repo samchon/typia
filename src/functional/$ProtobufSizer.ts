@@ -135,13 +135,10 @@ export class $ProtobufSizer implements IProtobufWriter {
 
   private varint64(val: bigint): void {
     val = BigInt.asUintN(64, val);
-    while (val > NX7F) {
+    while (val > BigInt(0x7f)) {
       ++this.len;
-      val = val >> ND07;
+      val = val >> BigInt(0x07);
     }
     ++this.len;
   }
 }
-
-const ND07 = /** @__PURE__ */ BigInt(7);
-const NX7F = /** @__PURE__ */ BigInt(0x7f);
