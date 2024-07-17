@@ -67,7 +67,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": "^0.4.1",
+    "@samchon/openapi": "^0.4.2",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
