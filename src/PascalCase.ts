@@ -1,3 +1,7 @@
+import { IsTuple } from "./typings/IsTuple";
+import { NativeClass } from "./typings/NativeClass";
+import { ValueOf } from "./typings/ValueOf";
+
 /**
  * Pascal case type.
  *
@@ -11,9 +15,6 @@
 export type PascalCase<T> =
   Equal<T, PascalizeMain<T>> extends true ? T : PascalizeMain<T>;
 
-/* -----------------------------------------------------------
-    OBJECT CONVERSION
------------------------------------------------------------ */
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type PascalizeMain<T> = T extends [never]
@@ -37,24 +38,7 @@ type PascalizeObject<T extends object> =
         ? Map<PascalizeMain<K>, PascalizeMain<V>>
         : T extends WeakSet<any> | WeakMap<any, any>
           ? never
-          : T extends
-                | Date
-                | Uint8Array
-                | Uint8ClampedArray
-                | Uint16Array
-                | Uint32Array
-                | BigUint64Array
-                | Int8Array
-                | Int16Array
-                | Int32Array
-                | BigInt64Array
-                | Float32Array
-                | Float64Array
-                | ArrayBuffer
-                | SharedArrayBuffer
-                | DataView
-                | Blob
-                | File
+          : T extends NativeClass
             ? T
             : {
                 [Key in keyof T as PascalizeString<
@@ -62,18 +46,6 @@ type PascalizeObject<T extends object> =
                 >]: PascalizeMain<T[Key]>;
               };
 
-/* -----------------------------------------------------------
-    SPECIAL CASES
------------------------------------------------------------ */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-    ? number extends T["length"]
-      ? false
-      : true
-    : false;
 type PascalizeTuple<T extends readonly any[]> = T extends []
   ? []
   : T extends [infer F]
@@ -86,30 +58,6 @@ type PascalizeTuple<T extends readonly any[]> = T extends []
           ? [PascalizeMain<F>?, ...PascalizeTuple<Rest>]
           : [];
 
-type ValueOf<Instance> =
-  IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-      ? number
-      : IsValueOf<Instance, String> extends true
-        ? string
-        : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-
-/* -----------------------------------------------------------
-    STRING CONVERTER
------------------------------------------------------------ */
 type PascalizeString<Key extends string> = Key extends `_${infer R}`
   ? `_${PascalizeString<R>}`
   : Key extends `${infer F}${infer R}`
