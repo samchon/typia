@@ -1,3 +1,7 @@
+import { IsTuple } from "./typings/IsTuple";
+import { NativeClass } from "./typings/NativeClass";
+import { ValueOf } from "./typings/ValueOf";
+
 /**
  * Camel case type.
  *
@@ -11,9 +15,6 @@
 export type CamelCase<T> =
   Equal<T, CamelizeMain<T>> extends true ? T : CamelizeMain<T>;
 
-/* -----------------------------------------------------------
-    OBJECT CONVERSION
------------------------------------------------------------ */
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type CamelizeMain<T> = T extends [never]
@@ -37,24 +38,7 @@ type CamelizeObject<T extends object> =
         ? Map<CamelizeMain<K>, CamelizeMain<V>>
         : T extends WeakSet<any> | WeakMap<any, any>
           ? never
-          : T extends
-                | Date
-                | Uint8Array
-                | Uint8ClampedArray
-                | Uint16Array
-                | Uint32Array
-                | BigUint64Array
-                | Int8Array
-                | Int16Array
-                | Int32Array
-                | BigInt64Array
-                | Float32Array
-                | Float64Array
-                | ArrayBuffer
-                | SharedArrayBuffer
-                | DataView
-                | Blob
-                | File
+          : T extends NativeClass
             ? T
             : {
                 [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<
@@ -62,18 +46,6 @@ type CamelizeObject<T extends object> =
                 >;
               };
 
-/* -----------------------------------------------------------
-    SPECIAL CASES
------------------------------------------------------------ */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-    ? number extends T["length"]
-      ? false
-      : true
-    : false;
 type CamelizeTuple<T extends readonly any[]> = T extends []
   ? []
   : T extends [infer F]
@@ -86,30 +58,6 @@ type CamelizeTuple<T extends readonly any[]> = T extends []
           ? [CamelizeMain<F>?, ...CamelizeTuple<Rest>]
           : [];
 
-type ValueOf<Instance> =
-  IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-      ? number
-      : IsValueOf<Instance, String> extends true
-        ? string
-        : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-
-/* -----------------------------------------------------------
-    STRING CONVERTER
------------------------------------------------------------ */
 type CamelizeString<Key extends string> = Key extends `_${infer R}`
   ? `_${CamelizeString<R>}`
   : Key extends `${infer F}${infer R}`

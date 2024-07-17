@@ -1,3 +1,6 @@
+import { NativeClass } from "./typings/NativeClass";
+import { ValueOf } from "./typings/ValueOf";
+
 /**
  * Snake case type.
  *
@@ -37,24 +40,7 @@ type SnakageObject<T extends object> =
         ? Map<SnakageMain<K>, SnakageMain<V>>
         : T extends WeakSet<any> | WeakMap<any, any>
           ? never
-          : T extends
-                | Date
-                | Uint8Array
-                | Uint8ClampedArray
-                | Uint16Array
-                | Uint32Array
-                | BigUint64Array
-                | Int8Array
-                | Int16Array
-                | Int32Array
-                | BigInt64Array
-                | Float32Array
-                | Float64Array
-                | ArrayBuffer
-                | SharedArrayBuffer
-                | DataView
-                | Blob
-                | File
+          : T extends NativeClass
             ? T
             : {
                 [Key in keyof T as SnakageString<Key & string>]: SnakageMain<
@@ -85,27 +71,6 @@ type SnakageTuple<T extends readonly any[]> = T extends []
         : T extends [(infer F)?, ...infer Rest extends readonly any[]]
           ? [SnakageMain<F>?, ...SnakageTuple<Rest>]
           : [];
-
-type ValueOf<Instance> =
-  IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-      ? number
-      : IsValueOf<Instance, String> extends true
-        ? string
-        : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
 
 /* -----------------------------------------------------------
     STRING CONVERTER
