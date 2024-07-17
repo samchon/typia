@@ -25,10 +25,10 @@ const $cloneMain = (value: any): any => {
     else if (value instanceof SharedArrayBuffer) return value.slice(0);
     else if (value instanceof DataView)
       return new DataView(value.buffer.slice(0));
-    else if (value instanceof Blob)
-      return new Blob([value], { type: value.type });
     else if (value instanceof File)
       return new File([value], value.name, { type: value.type });
+    else if (value instanceof Blob)
+      return new Blob([value], { type: value.type });
     else if (value instanceof Set) return new Set([...value].map($cloneMain));
     else if (value instanceof Map)
       return new Map(
