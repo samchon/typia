@@ -14,7 +14,6 @@ export type CamelCase<T> =
 /* -----------------------------------------------------------
     OBJECT CONVERSION
 ----------------------------------------------------------- */
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type CamelizeMain<T> = T extends [never]
   ? never // special trick for (jsonable | null) type

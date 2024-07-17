@@ -29,8 +29,6 @@
 export type Resolved<T> =
   Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;
 
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
 type ResolvedMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type
   : ValueOf<T> extends boolean | number | bigint | string
