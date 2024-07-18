@@ -378,7 +378,8 @@ export namespace MiscCloneProgrammer {
     type === "Int32Array" ||
     type === "BigInt64Array" ||
     type === "Float32Array" ||
-    type === "Float64Array"
+    type === "Float64Array" ||
+    type === "RegExp"
       ? decode_native_copyable(type)(input)
       : type === "ArrayBuffer" || type === "SharedArrayBuffer"
         ? decode_native_buffer(type)(input)

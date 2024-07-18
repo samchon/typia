@@ -1,4 +1,9 @@
-import type { Equal } from "./typings/Equal";
+import { Equal } from "./typings/Equal";
+import { IsTuple } from "./typings/IsTuple";
+import { NativeClass } from "./typings/NativeClass";
+import { ValueOf } from "./typings/ValueOf";
+
+import { Format } from "./tags";
 
 /**
  * Primitive type of JSON.
@@ -47,15 +52,17 @@ type PrimitiveMain<Instance> = Instance extends [never]
         ? never
         : ValueOf<Instance> extends object
           ? Instance extends object
-            ? Instance extends NativeClass
-              ? never
+            ? Instance extends Date
+              ? string & Format<"date-time">
               : Instance extends IJsonable<infer Raw>
                 ? ValueOf<Raw> extends object
                   ? Raw extends object
                     ? PrimitiveObject<Raw> // object would be primitified
                     : never // cannot be
                   : ValueOf<Raw> // atomic value
-                : PrimitiveObject<Instance> // object would be primitified
+                : Instance extends Exclude<NativeClass, Date>
+                  ? never
+                  : PrimitiveObject<Instance> // object would be primitified
             : never // cannot be
           : ValueOf<Instance>;
 
@@ -79,57 +86,6 @@ type PrimitiveTuple<T extends readonly any[]> = T extends []
         : T extends [(infer F)?, ...infer Rest extends readonly any[]]
           ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
           : [];
-
-type ValueOf<Instance> =
-  IsValueOf<Instance, Boolean> extends true
-    ? boolean
-    : IsValueOf<Instance, Number> extends true
-      ? number
-      : IsValueOf<Instance, String> extends true
-        ? string
-        : Instance;
-
-type NativeClass =
-  | Set<any>
-  | Map<any, any>
-  | WeakSet<any>
-  | WeakMap<any, any>
-  | Uint8Array
-  | Uint8ClampedArray
-  | Uint16Array
-  | Uint32Array
-  | BigUint64Array
-  | Int8Array
-  | Int16Array
-  | Int32Array
-  | BigInt64Array
-  | Float32Array
-  | Float64Array
-  | ArrayBuffer
-  | SharedArrayBuffer
-  | DataView;
-
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-    ? number extends T["length"]
-      ? false
-      : true
-    : false;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer U>
-    ? Instance extends U
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
 
 interface IJsonable<T> {
   toJSON(): T;
