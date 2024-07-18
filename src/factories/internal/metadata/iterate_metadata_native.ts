@@ -182,6 +182,17 @@ const SIMPLES: Map<string, IClassInfo> = new Map([
       })),
     },
   ],
+  [
+    "RegExp",
+    {
+      methods: [
+        {
+          name: "test",
+          return: "boolean",
+        },
+      ],
+    },
+  ],
 ]);
 const GENERICS: Array<IClassInfo & { name: string }> = [
   "WeakMap",

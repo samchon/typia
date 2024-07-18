@@ -650,6 +650,7 @@ export namespace RandomProgrammer {
       else if (type === "DataView") return decode_native_data_view(importer);
       else if (type === "Blob") return decode_native_blob(importer);
       else if (type === "File") return decode_native_file(importer);
+      else if (type === "RegExp") return decode_regexp();
       else
         return ts.factory.createNewExpression(
           ts.factory.createIdentifier(type),
@@ -865,6 +866,13 @@ export namespace RandomProgrammer {
           decode_native_byte_array(importer)("Uint8Array"),
         )("buffer"),
       ],
+    );
+
+  const decode_regexp = () =>
+    ts.factory.createNewExpression(
+      ts.factory.createIdentifier("RegExp"),
+      [],
+      [ts.factory.createIdentifier("/(?:)/")],
     );
 }
 
