@@ -1,3 +1,4 @@
+import { Equal } from "./typings/Equal";
 import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
@@ -17,7 +18,6 @@ export type SnakeCase<T> =
 /* -----------------------------------------------------------
     OBJECT CONVERSION
 ----------------------------------------------------------- */
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type SnakageMain<T> = T extends [never]
   ? never // special trick for (jsonable | null) type
