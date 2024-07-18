@@ -3,6 +3,8 @@ import { IsTuple } from "./typings/IsTuple";
 import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
+import { Format } from "./tags";
+
 /**
  * Primitive type of JSON.
  *
@@ -50,15 +52,17 @@ type PrimitiveMain<Instance> = Instance extends [never]
         ? never
         : ValueOf<Instance> extends object
           ? Instance extends object
-            ? Instance extends NativeClass
-              ? never
+            ? Instance extends Date
+              ? string & Format<"date-time">
               : Instance extends IJsonable<infer Raw>
                 ? ValueOf<Raw> extends object
                   ? Raw extends object
                     ? PrimitiveObject<Raw> // object would be primitified
                     : never // cannot be
                   : ValueOf<Raw> // atomic value
-                : PrimitiveObject<Instance> // object would be primitified
+                : Instance extends Exclude<NativeClass, Date>
+                  ? never
+                  : PrimitiveObject<Instance> // object would be primitified
             : never // cannot be
           : ValueOf<Instance>;
 

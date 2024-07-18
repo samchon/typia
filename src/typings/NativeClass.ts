@@ -1,4 +1,5 @@
 export type NativeClass =
+  | Date
   | Set<any>
   | Map<any, any>
   | WeakSet<any>
@@ -17,4 +18,6 @@ export type NativeClass =
   | ArrayBuffer
   | SharedArrayBuffer
   | DataView
+  | Blob
+  | File
   | RegExp;
