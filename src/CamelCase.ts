@@ -1,3 +1,5 @@
+import type { Equal } from "./typings/Equal";
+
 /**
  * Camel case type.
  *
