@@ -104,7 +104,10 @@ export namespace DynamicImportIterator {
           );
         }
       } catch (exp) {
-        if (!(exp instanceof Error)) return;
+        if (!(exp instanceof Error)) {
+          console.error("Unknown error?", exp);
+          return;
+        }
 
         console.log(`  - ${label} -> ${chalk.redBright(exp.name)}`);
         if (exceptions !== undefined) exceptions.push(exp);

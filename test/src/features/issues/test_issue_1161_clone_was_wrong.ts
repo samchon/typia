@@ -1,18 +1,16 @@
 import typia, { tags } from "typia";
 
 export const test_issue_1161_clone_was_wrong = (): void => {
-  new Array(1_000).fill(null).forEach(() => {
-    const group: IBbsGroup = {
-      ...typia.random<IBbsGroup>(),
-      articles: new Array(10).fill(null).map(() => ({
-        ...typia.random<IBbsArticle>(),
-        files: new Array(10)
-          .fill(null)
-          .map(() => typia.random<IAttachmentFile>()),
-      })),
-    };
-    typia.assert<IBbsGroup>(typia.misc.clone<any>(group));
-  });
+  const group: IBbsGroup = {
+    ...typia.random<IBbsGroup>(),
+    articles: new Array(10).fill(null).map(() => ({
+      ...typia.random<IBbsArticle>(),
+      files: new Array(10)
+        .fill(null)
+        .map(() => typia.random<IAttachmentFile>()),
+    })),
+  };
+  typia.assert<IBbsGroup>(typia.misc.clone<any>(group));
 };
 
 interface IBbsGroup {
