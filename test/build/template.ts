@@ -65,6 +65,7 @@ async function generate(
     else if (feat.random && s.RANDOM === false) continue;
     else if (feat.method.toLowerCase().includes("prune") && s.ADDABLE === false)
       continue;
+    else if (feat.dynamic === false && s.name.startsWith("Dynamic")) continue;
 
     const location: string = `${path}/test_${
       feat.module ? `${feat.module}_` : ""

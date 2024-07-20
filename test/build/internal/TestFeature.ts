@@ -20,6 +20,7 @@ export interface TestFeature {
   random?: true;
   strict?: true;
   explicit?: true;
+  dynamic?: false;
   programmer?: (create: boolean) => (structure: string) => string;
 }
 export namespace TestFeature {
@@ -400,6 +401,7 @@ export namespace TestFeature {
           creatable: true,
           resolved: true as const,
           spoilable: false,
+          dynamic: false as const,
           programmer: write_notation({
             method,
             mode,
