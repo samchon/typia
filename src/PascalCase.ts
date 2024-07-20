@@ -59,10 +59,13 @@ type PascalizeTuple<T extends readonly any[]> = T extends []
 
 type PascalizeString<Key extends string> = Key extends `_${infer R}`
   ? `_${PascalizeString<R>}`
-  : Key extends `${infer F}${infer R}`
-    ? `${Uppercase<F>}${PascalizeStringRepeatedly<R>}`
-    : Key;
-type PascalizeStringRepeatedly<Key extends string> =
-  Key extends `${infer F}_${infer R}`
-    ? `${F}${Capitalize<PascalizeStringRepeatedly<R>>}`
-    : Key;
+  : Key extends `${infer _F}_${infer _R}`
+    ? PascalizeSnakeString<Key>
+    : Capitalize<Key>;
+type PascalizeSnakeString<Key extends string> = Key extends `_${infer R}`
+  ? PascalizeSnakeString<R>
+  : Key extends `${infer F}${infer M}_${infer R}`
+    ? `${Uppercase<F>}${Lowercase<M>}${PascalizeSnakeString<R>}`
+    : Key extends `${infer F}${infer R}`
+      ? `${Uppercase<F>}${Lowercase<R>}`
+      : Key;

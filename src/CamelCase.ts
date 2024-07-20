@@ -59,10 +59,17 @@ type CamelizeTuple<T extends readonly any[]> = T extends []
 
 type CamelizeString<Key extends string> = Key extends `_${infer R}`
   ? `_${CamelizeString<R>}`
-  : Key extends `${infer F}${infer R}`
-    ? `${Lowercase<F>}${CamelizeStringRepeatedly<R>}`
-    : Key;
-type CamelizeStringRepeatedly<Key extends string> =
-  Key extends `${infer F}_${infer R}`
-    ? `${F}${Capitalize<CamelizeStringRepeatedly<R>>}`
-    : Key;
+  : Key extends `${infer _F}_${infer _R}`
+    ? CamelizeSnakeString<Key>
+    : Key extends Uppercase<Key>
+      ? Lowercase<Key>
+      : CamelizePascalString<Key>;
+type CamelizePascalString<Key extends string> =
+  Key extends `${infer F}${infer R}` ? `${Lowercase<F>}${R}` : Key;
+type CamelizeSnakeString<Key extends string> = Key extends `_${infer R}`
+  ? CamelizeSnakeString<R>
+  : Key extends `${infer F}_${infer M}${infer R}`
+    ? M extends "_"
+      ? CamelizeSnakeString<`${F}_${R}`>
+      : `${Lowercase<F>}${Uppercase<M>}${CamelizeSnakeString<R>}`
+    : Lowercase<Key>;
