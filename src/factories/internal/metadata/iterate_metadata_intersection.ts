@@ -27,7 +27,8 @@ export const iterate_metadata_intersection =
     explore: MetadataFactory.IExplore,
   ): boolean => {
     if (!type.isIntersection()) return false;
-    else if (
+    if (
+      // ONLY OBJECT TYPED INTERSECTION
       type.types.every(
         (child) =>
           (child.getFlags() & ts.TypeFlags.Object) !== 0 &&
@@ -68,9 +69,18 @@ export const iterate_metadata_intersection =
       );
       return true;
     } else if (children.every((c) => c.objects.length === c.size()))
+      // ONLY OBJECT TYPED INTERSECTION (DETAILED)
       return false;
 
     // VALIDATE EACH TYPES
+    const nonsensible = () => {
+      errors.push({
+        name: children.map((c) => c.getName()).join(" & "),
+        explore: { ...explore },
+        messages: ["nonsensible intersection"],
+      });
+      return true;
+    };
     const individuals: (readonly [Metadata, number])[] = children
       .map((child, i) => [child, i] as const)
       .filter(
@@ -82,7 +92,7 @@ export const iterate_metadata_intersection =
               c.arrays.length === 1)) ||
           c.templates.length === 1,
       );
-    if (individuals.length !== 1) return false;
+    if (individuals.length !== 1) return nonsensible();
 
     const objects: Metadata[] = children.filter(
       (c) =>
@@ -109,14 +119,8 @@ export const iterate_metadata_intersection =
     if (
       atomics.size + constants.length + arrays.size + templates.length > 1 ||
       individuals.length + objects.length !== children.length
-    ) {
-      errors.push({
-        name: children.map((c) => c.getName()).join(" & "),
-        explore: { ...explore },
-        messages: ["nonsensible intersection"],
-      });
-      return true;
-    }
+    )
+      return nonsensible();
 
     // RE-GENERATE TYPE
     const target: "boolean" | "bigint" | "number" | "string" | "array" =
