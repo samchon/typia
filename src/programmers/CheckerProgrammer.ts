@@ -33,6 +33,7 @@ import { check_number } from "./internal/check_number";
 import { check_string } from "./internal/check_string";
 import { check_template } from "./internal/check_template";
 import { decode_union_object } from "./internal/decode_union_object";
+import { postfix_of_tuple } from "./internal/postfix_of_tuple";
 import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
 
 export namespace CheckerProgrammer {
@@ -766,7 +767,7 @@ export namespace CheckerProgrammer {
               ...explore,
               from: "array",
               postfix: explore.postfix.length
-                ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                ? `${postfix_of_tuple(explore.postfix)}[${index}]"`
                 : `"[${index}]"`,
             },
           ),
