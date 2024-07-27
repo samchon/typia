@@ -1,16 +1,21 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
+import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataConstantValue } from "./IMetadataConstantValue";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export class MetadataConstantValue {
   public readonly value: boolean | bigint | number | string;
   public tags: IMetadataTypeTag[][] | undefined;
+  public readonly description?: string | null;
+  public readonly jsDocTags?: IJsDocTagInfo[];
   private name_?: string;
 
   private constructor(props: ClassProperties<MetadataConstantValue>) {
     this.value = props.value;
     this.tags = props.tags;
+    this.description = props.description;
+    this.jsDocTags = props.jsDocTags;
   }
 
   public static create(

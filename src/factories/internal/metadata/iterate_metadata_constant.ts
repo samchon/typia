@@ -6,6 +6,7 @@ import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstan
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
+import { CommentFactory } from "../../CommentFactory";
 import { MetadataFactory } from "../../MetadataFactory";
 
 export const iterate_metadata_constant =
@@ -15,6 +16,15 @@ export const iterate_metadata_constant =
     if (!options.constant) return false;
 
     const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+    const comment = () => {
+      if (!filter(ts.TypeFlags.EnumLiteral)) return {};
+      return {
+        jsDocTags: type.symbol?.getJsDocTags(),
+        description: type.symbol
+          ? CommentFactory.description(type.symbol) ?? null
+          : undefined,
+      };
+    };
     if (type.isLiteral()) {
       const value: string | number | bigint =
         typeof type.value === "object"
@@ -34,11 +44,13 @@ export const iterate_metadata_constant =
         MetadataConstantValue.create({
           value,
           tags: [],
+          ...comment(),
         }),
         (a, b) => a.value === b.value,
       );
       return true;
     } else if (filter(ts.TypeFlags.BooleanLiteral)) {
+      comment();
       const value: boolean = checker.typeToString(type) === "true";
       const constant: MetadataConstant = ArrayUtil.take(
         meta.constants,
@@ -54,6 +66,7 @@ export const iterate_metadata_constant =
         MetadataConstantValue.create({
           value,
           tags: [],
+          ...comment(),
         }),
         (a, b) => a.value === b.value,
       );
