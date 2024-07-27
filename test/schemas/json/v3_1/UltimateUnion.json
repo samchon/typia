@@ -93,6 +93,7 @@
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
           }
         ],
+        "title": "Type schema info",
         "description": "Type schema info.\n\n`OpenApi.IJsonSchema` is a type schema info of the OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but a little bit shrinked to remove ambiguous and duplicated\nexpressions of OpenAPI v3.1 for the convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property: {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to {@link OpenApi.IJsonSchema.IReference}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to {@link OpenApi.IJsonSchema.IObject}"
       },
       "OpenApi.IJsonSchema.IConstant": {
@@ -787,6 +788,7 @@
             "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IOpenId"
           }
         ],
+        "title": "Security scheme of Swagger Documents",
         "description": "Security scheme of Swagger Documents.\n\n`OpenApi.ISecurityScheme` is a data structure representing content of\n`securitySchemes` in `swagger.json` file. It is composed with 5 types of\nsecurity schemes as an union type like below."
       },
       "OpenApi.ISecurityScheme.IApiKey": {

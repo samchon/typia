@@ -9,6 +9,7 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { application_description } from "./application_description";
+import { application_title } from "./application_title";
 import { application_v31_schema } from "./application_v31_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -67,23 +68,7 @@ const create_object_schema =
         deprecated:
           property.jsDocTags.some((tag) => tag.name === "deprecated") ||
           undefined,
-        title: (() => {
-          const info: IJsDocTagInfo | undefined = property.jsDocTags.find(
-            (tag) => tag.name === "title",
-          );
-          if (info?.text?.length) return CommentFactory.merge(info.text);
-          else if (!property.description?.length) return undefined;
-
-          const index: number = property.description.indexOf("\n");
-          const top: string = (
-            index === -1
-              ? property.description
-              : property.description.substring(0, index)
-          ).trim();
-          return top.endsWith(".")
-            ? top.substring(0, top.length - 1)
-            : undefined;
-        })(),
+        title: application_title(property),
         description: application_description(property),
       })(property.value);
 
