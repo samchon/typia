@@ -1,11 +1,11 @@
 import { IJsDocTagInfo } from "../../module";
 
 export const application_description = (props: {
-  description: string | null | undefined;
-  jsDocTags: IJsDocTagInfo[];
+  description?: string | null | undefined;
+  jsDocTags?: IJsDocTagInfo[];
 }): string | undefined =>
   props.jsDocTags
-    .find((tag) => tag.name === "description")
+    ?.find((tag) => tag.name === "description")
     ?.text?.[0]?.text?.split("\r\n")
     .join("\n") ??
   props.description ??
