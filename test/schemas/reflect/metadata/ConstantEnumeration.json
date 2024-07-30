@@ -44,15 +44,21 @@
               "values": [
                 {
                   "value": 0,
-                  "tags": []
+                  "tags": [],
+                  "description": null,
+                  "jsDocTags": []
                 },
                 {
                   "value": 1,
-                  "tags": []
+                  "tags": [],
+                  "description": null,
+                  "jsDocTags": []
                 },
                 {
                   "value": 2,
-                  "tags": []
+                  "tags": [],
+                  "description": null,
+                  "jsDocTags": []
                 }
               ]
             },
@@ -61,11 +67,15 @@
               "values": [
                 {
                   "value": "Three",
-                  "tags": []
+                  "tags": [],
+                  "description": null,
+                  "jsDocTags": []
                 },
                 {
                   "value": "Four",
-                  "tags": []
+                  "tags": [],
+                  "description": null,
+                  "jsDocTags": []
                 }
               ]
             }

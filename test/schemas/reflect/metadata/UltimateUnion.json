@@ -378,8 +378,8 @@
                 "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
                 "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IUnknown",
-                "OpenApi.IJsonSchema.INull"
+                "OpenApi.IJsonSchema.INull",
+                "OpenApi.IJsonSchema.IUnknown"
               ],
               "aliases": [],
               "natives": [],
@@ -2922,8 +2922,8 @@
                 "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
                 "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IUnknown",
-                "OpenApi.IJsonSchema.INull"
+                "OpenApi.IJsonSchema.INull",
+                "OpenApi.IJsonSchema.IUnknown"
               ],
               "aliases": [],
               "natives": [],
@@ -3504,8 +3504,8 @@
                 "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
                 "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IUnknown",
-                "OpenApi.IJsonSchema.INull"
+                "OpenApi.IJsonSchema.INull",
+                "OpenApi.IJsonSchema.IUnknown"
               ],
               "aliases": [],
               "natives": [],
@@ -4083,8 +4083,8 @@
                 "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
                 "OpenApi.IJsonSchema.IReference<string>",
                 "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IUnknown",
-                "OpenApi.IJsonSchema.INull"
+                "OpenApi.IJsonSchema.INull",
+                "OpenApi.IJsonSchema.IUnknown"
               ],
               "aliases": [],
               "natives": [],
@@ -4916,6 +4916,57 @@
       {
         "name": "OpenApi.IJsonSchema.INull",
         "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "default"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": true,
+              "nullable": true,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Default value.",
+            "jsDocTags": []
+          },
           {
             "key": {
               "any": false,
@@ -7558,8 +7609,8 @@
             "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
             "OpenApi.IJsonSchema.IReference<string>",
             "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.IUnknown",
-            "OpenApi.IJsonSchema.INull"
+            "OpenApi.IJsonSchema.INull",
+            "OpenApi.IJsonSchema.IUnknown"
           ],
           "aliases": [],
           "natives": [],
@@ -7597,8 +7648,8 @@
             "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
             "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
             "OpenApi.IJsonSchema.IReference<string>",
-            "OpenApi.IJsonSchema.IUnknown",
-            "OpenApi.IJsonSchema.INull"
+            "OpenApi.IJsonSchema.INull",
+            "OpenApi.IJsonSchema.IUnknown"
           ],
           "aliases": [],
           "natives": [],
