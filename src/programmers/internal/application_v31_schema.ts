@@ -51,11 +51,11 @@ export const application_v31_schema =
     if (meta.escaped !== null)
       application_escaped(application_v31_schema(false)(components)({}))(
         meta.escaped,
-      ).forEach(insert);
+      ).forEach(insert as any);
 
     // ATOMIC TYPES
     if (meta.templates.length && AtomicPredicator.template(meta))
-      application_templates(meta).map(insert);
+      application_templates(meta).map(insert as any);
     for (const constant of meta.constants)
       if (constant.type === "bigint") throw new TypeError(NO_BIGINT);
       else if (AtomicPredicator.constant(meta)(constant.type) === false)
@@ -63,15 +63,18 @@ export const application_v31_schema =
       else application_v31_constant(constant).map(insert);
     for (const a of meta.atomics)
       if (a.type === "bigint") throw new TypeError(NO_BIGINT);
-      else if (a.type === "boolean") application_boolean(a).forEach(insert);
-      else if (a.type === "number") application_number(a).forEach(insert);
-      else if (a.type === "string") application_string(a).forEach(insert);
+      else if (a.type === "boolean")
+        application_boolean(a).forEach(insert as any);
+      else if (a.type === "number")
+        application_number(a).forEach(insert as any);
+      else if (a.type === "string")
+        application_string(a).forEach(insert as any);
 
     // ARRAY
     for (const array of meta.arrays)
       application_array(application_v31_schema(false)(components)({}))(
         components,
-      )(array).forEach(insert);
+      )(array).forEach(insert as any);
 
     // TUPLE
     for (const tuple of meta.tuples)
@@ -94,7 +97,7 @@ export const application_v31_schema =
                 type: "boolean",
                 tags: [],
               }),
-            )[0]!,
+            )[0]! as any,
           );
         else if (type === "number")
           insert(
@@ -103,7 +106,7 @@ export const application_v31_schema =
                 type: "number",
                 tags: [],
               }),
-            )[0]!,
+            )[0]! as any,
           );
         else if (type === "string")
           insert(
@@ -112,7 +115,7 @@ export const application_v31_schema =
                 type: "string",
                 tags: [],
               }),
-            )[0]!,
+            )[0]! as any,
           );
       } else insert(application_v31_native(components)(native));
     if (meta.sets.length) insert(application_v31_native(components)(`Set`));

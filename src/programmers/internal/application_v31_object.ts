@@ -21,8 +21,7 @@ export const application_v31_object =
   (
     obj: MetadataObject,
   ): OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject => {
-    if (obj._Is_literal() === true)
-      return create_object_schema(components)(obj);
+    if (obj.isLiteral() === true) return create_object_schema(components)(obj);
 
     const key: string = obj.name;
     const $ref: string = `#/components/schemas/${key}`;
