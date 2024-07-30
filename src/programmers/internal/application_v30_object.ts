@@ -21,7 +21,7 @@ export const application_v30_object =
   (
     nullable: boolean,
   ): OpenApiV3.IJsonSchema.IReference | OpenApiV3.IJsonSchema.IObject => {
-    if (obj._Is_literal() === true)
+    if (obj.isLiteral() === true)
       return create_object_schema(components)(obj)(nullable);
 
     const key: string = `${obj.name}${nullable ? ".Nullable" : ""}`;

@@ -18,7 +18,7 @@ export const application_escaped =
       const string: StringSchema<Version> | undefined = is_string(output)
         ? output
         : is_one_of(output)
-          ? output.oneOf.find(is_string)
+          ? (output.oneOf.find(is_string) as StringSchema<Version>)
           : undefined;
       if (
         string !== undefined &&

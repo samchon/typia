@@ -395,7 +395,7 @@ export namespace JsonStringifyProgrammer {
           value: () =>
             meta.isParentResolved() === false &&
             meta.objects.length === 1 &&
-            meta.objects[0]!._Is_simple(explore.from === "top" ? 0 : 1)
+            meta.objects[0]!.isPlain(explore.from === "top" ? 0 : 1)
               ? (() => {
                   const obj: MetadataObject = meta.objects[0]!;
                   const entries: IExpressionEntry<ts.Expression>[] =
