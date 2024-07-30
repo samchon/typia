@@ -10,7 +10,7 @@ export const application_union_discriminator = (
   if (
     meta.size() === 0 ||
     meta.size() !== meta.objects.length ||
-    meta.objects.some((o) => o._Is_literal()) === true
+    meta.objects.some((o) => o.isLiteral()) === true
   )
     return undefined;
   const specialized: UnionPredicator.ISpecialized[] = UnionPredicator.object(

@@ -71,20 +71,7 @@ export class MetadataObject {
     });
   }
 
-  /**
-   * @internal
-   */
-  public _Messagable(): boolean {
-    return (
-      this.properties.length >= 1 &&
-      this.properties.every((p) => p.key.isSoleLiteral())
-    );
-  }
-
-  /**
-   * @internal
-   */
-  public _Is_simple(level: number = 0): boolean {
+  public isPlain(level: number = 0): boolean {
     return (
       this.recursive === false &&
       this.properties.length < 10 &&
@@ -97,23 +84,21 @@ export class MetadataObject {
           (property.value.atomics.length === 1 ||
             (level < 1 &&
               property.value.objects.length === 1 &&
-              property.value.objects[0]!._Is_simple(level + 1))),
+              property.value.objects[0]!.isPlain(level + 1))),
       )
     );
   }
 
-  /**
-   * @internal
-   */
-  public _Is_literal(): boolean {
+  public isLiteral(): boolean {
     return (this.literal_ ??= (() => {
       if (this.recursive === true) return false;
-      else if (this.name === "__type") return true;
-      else if (this.name.startsWith("__type.o") === false) return false;
-
-      const last: string = this.name.substr("__type.o".length);
-      const value: number = Number(last);
-      return isNaN(value) === false && Number.isInteger(value);
+      return (
+        this.name === "__type" ||
+        this.name === "__object" ||
+        this.name.startsWith("__type.") ||
+        this.name.startsWith("__object.") ||
+        this.name.includes("readonly [")
+      );
     })());
   }
 

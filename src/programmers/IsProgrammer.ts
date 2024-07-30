@@ -135,7 +135,7 @@ export namespace IsProgrammer {
           // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
           const obj: MetadataObject = target.objects[0]!;
           if (
-            obj._Is_simple(explore.from === "top" ? 0 : 1) &&
+            obj.isPlain(explore.from === "top" ? 0 : 1) &&
             (equals === false ||
               OptionPredicator.undefined(project.options) === false)
           )

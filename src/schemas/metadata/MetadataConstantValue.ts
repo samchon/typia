@@ -28,6 +28,8 @@ export class MetadataConstantValue {
     return MetadataConstantValue.create({
       value: typeof json.value === "bigint" ? BigInt(json.value) : json.value,
       tags: json.tags,
+      description: json.description,
+      jsDocTags: json.jsDocTags,
     });
   }
 
@@ -40,6 +42,8 @@ export class MetadataConstantValue {
       value:
         typeof this.value === "bigint" ? this.value.toString() : this.value,
       tags: this.tags,
+      description: this.description,
+      jsDocTags: this.jsDocTags,
     };
   }
 }

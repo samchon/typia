@@ -447,10 +447,10 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOfOpenApi.IJsonSchema"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
               }
             ],
             "title": "Additional items",
@@ -542,10 +542,10 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOfOpenApi.IJsonSchema"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
               }
             ],
             "title": "Additional properties' info",
@@ -649,10 +649,10 @@
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
                 }
               ]
             },
@@ -685,30 +685,14 @@
         ],
         "description": "Union type.\n\nIOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly\nconverts it to `oneOf` type."
       },
-      "OpenApi.IJsonSchema.IUnknown": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "Title of the schema",
-            "description": "Title of the schema."
-          },
-          "description": {
-            "type": "string",
-            "title": "Detailed description of the schema",
-            "description": "Detailed description of the schema."
-          },
-          "deprecated": {
-            "type": "boolean",
-            "title": "Whether the type is deprecated or not",
-            "description": "Whether the type is deprecated or not."
-          }
-        },
-        "description": "Unknown, `any` type."
-      },
       "OpenApi.IJsonSchema.INull": {
         "type": "object",
         "properties": {
+          "default": {
+            "type": "null",
+            "title": "Default value",
+            "description": "Default value."
+          },
           "type": {
             "const": "null",
             "title": "Discriminator value of the type",
@@ -734,6 +718,27 @@
           "type"
         ],
         "description": "Null type."
+      },
+      "OpenApi.IJsonSchema.IUnknown": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title of the schema",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "title": "Detailed description of the schema",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Whether the type is deprecated or not",
+            "description": "Whether the type is deprecated or not."
+          }
+        },
+        "description": "Unknown, `any` type."
       },
       "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
         "type": "object",
