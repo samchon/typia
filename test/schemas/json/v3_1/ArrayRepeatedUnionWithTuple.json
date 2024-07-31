@@ -38,9 +38,7 @@
                 "type": "boolean"
               }
             ],
-            "additionalItems": {
-              "type": "boolean"
-            }
+            "additionalItems": false
           },
           {
             "type": "array",
@@ -52,9 +50,7 @@
                 "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
               }
             ],
-            "additionalItems": {
-              "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
-            }
+            "additionalItems": false
           }
         ]
       },

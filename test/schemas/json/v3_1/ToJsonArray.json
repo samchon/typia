@@ -30,12 +30,7 @@
             }
           }
         ],
-        "additionalItems": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ToJsonArray.IObject"
-          }
-        }
+        "additionalItems": false
       },
       "ToJsonArray.IObject": {
         "type": "object",

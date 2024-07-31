@@ -15,9 +15,7 @@
             "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
-        }
+        "additionalItems": false
       },
       "ConstantIntersection.Wrapperfalse": {
         "const": false

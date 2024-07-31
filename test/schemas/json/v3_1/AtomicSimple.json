@@ -15,9 +15,7 @@
             "type": "string"
           }
         ],
-        "additionalItems": {
-          "type": "string"
-        }
+        "additionalItems": false
       }
     }
   },

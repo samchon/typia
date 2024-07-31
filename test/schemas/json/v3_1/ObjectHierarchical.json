@@ -53,9 +53,7 @@
                 "type": "number"
               }
             ],
-            "additionalItems": {
-              "type": "number"
-            }
+            "additionalItems": false
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"

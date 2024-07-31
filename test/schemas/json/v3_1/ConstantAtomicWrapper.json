@@ -15,9 +15,7 @@
             "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerstring"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerstring"
-        }
+        "additionalItems": false
       },
       "ConstantAtomicWrapper.IPointerboolean": {
         "type": "object",

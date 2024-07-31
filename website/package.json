@@ -4,10 +4,11 @@
   "description": "Typia Guide Documents",
   "private": true,
   "scripts": {
-    "build": "rimraf .next && rimraf out && typedoc && next build && next-sitemap",
+    "build": "rimraf .next && rimraf out && npm run build:typedoc && next build && next-sitemap",
+    "build:typedoc": "typedoc --plugin typedoc-github-theme --theme typedoc-github-theme",
     "deploy": "node build/deploy",
     "dev": "next dev",
-    "prepare": "node build/raw && webpack && typedoc"
+    "prepare": "node build/raw && webpack && npm run build:typedoc"
   },
   "repository": {
     "type": "git",
@@ -34,10 +35,10 @@
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tgrid": "^1.0.2",
+    "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
     "typescript": "^5.5.4",
-    "typia": "^6.6.1"
+    "typia": "^6.6.2"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -51,6 +52,7 @@
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.26.2",
+    "typedoc-github-theme": "^0.1.1",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "write-file-webpack-plugin": "^4.5.1"

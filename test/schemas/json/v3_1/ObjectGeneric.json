@@ -15,9 +15,7 @@
             "$ref": "#/components/schemas/ObjectGeneric.ISomethingstring"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/ObjectGeneric.ISomethingstring"
-        }
+        "additionalItems": false
       },
       "ObjectGeneric.ISomethingboolean": {
         "type": "object",

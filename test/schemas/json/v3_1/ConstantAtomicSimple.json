@@ -18,9 +18,7 @@
             "const": "three"
           }
         ],
-        "additionalItems": {
-          "const": "three"
-        }
+        "additionalItems": false
       }
     }
   },

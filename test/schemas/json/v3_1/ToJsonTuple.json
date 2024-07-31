@@ -18,9 +18,7 @@
             "$ref": "#/components/schemas/ToJsonTuple.IObject"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/ToJsonTuple.IObject"
-        }
+        "additionalItems": false
       },
       "ToJsonTuple.IObject": {
         "$ref": "#/components/schemas/ToJsonTuple.IHobby"
