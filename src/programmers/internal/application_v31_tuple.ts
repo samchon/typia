@@ -9,7 +9,7 @@ import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 export const application_v31_tuple =
   (generator: (meta: Metadata) => OpenApi.IJsonSchema) =>
   (tuple: MetadataTuple): OpenApi.IJsonSchema.ITuple => {
-    const tail: Metadata | undefined = tuple.type.elements.at(-1);
+    const tail: Metadata | null = tuple.type.elements.at(-1)?.rest ?? null;
     const prefixItems: Metadata[] = tuple.type.isRest()
       ? tuple.type.elements.slice(0, -1)
       : tuple.type.elements;
