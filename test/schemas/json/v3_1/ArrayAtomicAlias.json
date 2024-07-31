@@ -15,9 +15,7 @@
             "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
-        }
+        "additionalItems": false
       },
       "ArrayAtomicAlias.Aliasboolean": {
         "type": "array",

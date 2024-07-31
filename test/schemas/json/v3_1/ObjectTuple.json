@@ -12,9 +12,7 @@
             "$ref": "#/components/schemas/ObjectTuple.ICitizen"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/ObjectTuple.ICitizen"
-        }
+        "additionalItems": false
       },
       "ObjectTuple.ISection": {
         "type": "object",

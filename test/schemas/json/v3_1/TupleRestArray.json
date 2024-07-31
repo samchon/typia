@@ -12,7 +12,12 @@
             "type": "number"
           }
         ],
-        "additionalItems": {}
+        "additionalItems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     }
   },

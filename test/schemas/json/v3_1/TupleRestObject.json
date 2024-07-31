@@ -12,7 +12,20 @@
             "type": "number"
           }
         ],
-        "additionalItems": {}
+        "additionalItems": {
+          "$ref": "#/components/schemas/TupleRestObject.IObject"
+        }
+      },
+      "TupleRestObject.IObject": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
       }
     }
   },

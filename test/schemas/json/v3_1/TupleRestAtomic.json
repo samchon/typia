@@ -12,7 +12,9 @@
             "type": "number"
           }
         ],
-        "additionalItems": {}
+        "additionalItems": {
+          "type": "string"
+        }
       }
     }
   },

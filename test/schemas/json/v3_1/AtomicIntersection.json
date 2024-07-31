@@ -15,9 +15,7 @@
             "$ref": "#/components/schemas/AtomicIntersection.Wrapperstring"
           }
         ],
-        "additionalItems": {
-          "$ref": "#/components/schemas/AtomicIntersection.Wrapperstring"
-        }
+        "additionalItems": false
       },
       "AtomicIntersection.Wrapperboolean": {
         "type": "boolean"

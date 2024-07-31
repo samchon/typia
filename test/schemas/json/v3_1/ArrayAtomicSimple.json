@@ -24,12 +24,7 @@
             }
           }
         ],
-        "additionalItems": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
+        "additionalItems": false
       }
     }
   },
