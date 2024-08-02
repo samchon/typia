@@ -11,7 +11,6 @@ import { ValueFactory } from "../../factories/ValueFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -25,14 +24,12 @@ import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { FunctionImporter } from "../helpers/FunctionImporter";
-import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { OptionPredicator } from "../helpers/OptionPredicator";
 import { StringifyJoiner } from "../helpers/StringifyJoinder";
 import { StringifyPredicator } from "../helpers/StringifyPredicator";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 import { check_native } from "../internal/check_native";
 import { decode_union_object } from "../internal/decode_union_object";
-import { feature_object_entries } from "../internal/feature_object_entries";
 import { postfix_of_tuple } from "../internal/postfix_of_tuple";
 import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 
@@ -40,20 +37,56 @@ export namespace JsonStringifyProgrammer {
   /* -----------------------------------------------------------
     WRITER
   ----------------------------------------------------------- */
-  export const write =
-    (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const config: FeatureProgrammer.IConfig = configure(project)(importer);
+  export const decompose = (props: {
+    validated: boolean;
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const config: FeatureProgrammer.IConfig = configure(props.project)(
+      props.importer,
+    );
+    if (props.validated === false)
+      config.addition = (collection) =>
+        IsProgrammer.write_function_statements(props.project)(props.importer)(
+          collection,
+        );
+    const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
+      ...props,
+      config,
+    });
+    return {
+      functions: composed.functions,
+      statements: composed.statements,
+      arrow: ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        composed.parameters,
+        composed.response,
+        undefined,
+        composed.body,
+      ),
+    };
+  };
 
-      return FeatureProgrammer.write(project)({
-        ...config,
-        addition: (collection) => [
-          ...IsProgrammer.write_function_statements(project)(importer)(
-            collection,
-          ),
-          ...importer.declare(modulo),
-        ],
-      })(importer);
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        validated: false,
+        project,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   const write_array_functions =
@@ -393,34 +426,10 @@ export namespace JsonStringifyProgrammer {
               ),
             })(input),
           value: () =>
-            meta.isParentResolved() === false &&
-            meta.objects.length === 1 &&
-            meta.objects[0]!.isPlain(explore.from === "top" ? 0 : 1)
-              ? (() => {
-                  const obj: MetadataObject = meta.objects[0]!;
-                  const entries: IExpressionEntry<ts.Expression>[] =
-                    feature_object_entries({
-                      decoder: () => decode(project)(config)(importer),
-                      trace: false,
-                      path: false,
-                    })(importer)(obj)(
-                      ts.factory.createAsExpression(
-                        input,
-                        TypeFactory.keyword("any"),
-                      ),
-                    );
-                  return StringifyJoiner.object(importer)(
-                    ts.factory.createAsExpression(
-                      input,
-                      TypeFactory.keyword("any"),
-                    ),
-                    entries,
-                  );
-                })()
-              : explore_objects(config)(importer)(input, meta, {
-                  ...explore,
-                  from: "object",
-                }),
+            explore_objects(config)(importer)(input, meta, {
+              ...explore,
+              from: "object",
+            }),
         });
 
       //----

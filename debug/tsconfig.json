@@ -89,6 +89,6 @@
     ],
   },
   "include": [
-    "./features"
+    "src"
   ]
 }

@@ -25,18 +25,54 @@ import { postfix_of_tuple } from "../internal/postfix_of_tuple";
 import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 
 export namespace MiscCloneProgrammer {
+  export const decompose = (props: {
+    validated: boolean;
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const config = configure(props.project)(props.importer);
+    if (props.validated === false)
+      config.addition = (collection) =>
+        IsProgrammer.write_function_statements(props.project)(props.importer)(
+          collection,
+        );
+    const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
+      ...props,
+      config,
+    });
+    return {
+      functions: composed.functions,
+      statements: composed.statements,
+      arrow: ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        composed.parameters,
+        composed.response,
+        undefined,
+        composed.body,
+      ),
+    };
+  };
+
   export const write =
-    (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      return FeatureProgrammer.write(project)({
-        ...configure(project)(importer),
-        addition: (collection) => [
-          ...IsProgrammer.write_function_statements(project)(importer)(
-            collection,
-          ),
-          ...importer.declare(modulo),
-        ],
-      })(importer);
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        validated: false,
+        project,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   const write_array_functions =

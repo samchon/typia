@@ -18,38 +18,38 @@ import { IProject } from "../../transformers/IProject";
 
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
+import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 
 export namespace ProtobufDecodeProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const collection: MetadataCollection = new MetadataCollection();
-      const meta: Metadata = ProtobufFactory.metadata(modulo.getText())(
-        project.checker,
-        project.context,
-      )(collection)(type);
-
-      const functors = collection
-        .objects()
-        .filter((obj) => ProtobufUtil.isStaticObject(obj))
-        .map((obj) =>
-          StatementFactory.constant(
+  export const decompose = (props: {
+    project: IProject;
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+  }): FeatureProgrammer.IDecomposed => {
+    const collection: MetadataCollection = new MetadataCollection();
+    const meta: Metadata = ProtobufFactory.metadata(props.modulo.getText())(
+      props.project.checker,
+      props.project.context,
+    )(collection)(props.type);
+    return {
+      functions: Object.fromEntries(
+        collection
+          .objects()
+          .filter((obj) => ProtobufUtil.isStaticObject(obj))
+          .map((obj) => [
             `${PREFIX}o${obj.index}`,
-            write_object_function(project)(importer)(obj),
-          ),
-        );
-      const reader = StatementFactory.constant(
-        "reader",
-        ts.factory.createNewExpression(importer.use("Reader"), undefined, [
-          ts.factory.createIdentifier("input"),
-        ]),
-      );
-
-      return ts.factory.createArrowFunction(
+            StatementFactory.constant(
+              props.importer.useLocal(`${PREFIX}o${obj.index}`),
+              write_object_function(props.project)(props.importer)(obj),
+            ),
+          ]),
+      ),
+      statements: [],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [
@@ -66,24 +66,49 @@ export namespace ProtobufDecodeProgrammer {
           ts.factory.createIdentifier("Resolved"),
           [
             ts.factory.createTypeReferenceNode(
-              name ?? TypeFactory.getFullName(project.checker)(type),
+              props.name ??
+                TypeFactory.getFullName(props.project.checker)(props.type),
             ),
           ],
-          false,
         ),
         undefined,
         ts.factory.createBlock(
           [
-            ...importer.declare(modulo),
-            ...functors,
-            reader,
+            StatementFactory.constant(
+              "reader",
+              ts.factory.createNewExpression(
+                props.importer.use("Reader"),
+                undefined,
+                [ts.factory.createIdentifier("input")],
+              ),
+            ),
             ts.factory.createReturnStatement(
               decode_regular_object(true)(meta.objects[0]!),
             ),
           ],
           true,
         ),
-      );
+      ),
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        modulo,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   const write_object_function =
