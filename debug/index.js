@@ -24,11 +24,11 @@ const setup = () => {
 };
 
 const execute = () => {
-  runner.register({
-    project: __dirname + "/tsconfig.json",
-    argv: ["--allowPlugins"],
+  cp.execSync("npx tsc", { cwd: __dirname, stdio: "inherit" });
+  cp.execSync(`node bin/${process.argv[2]}`, {
+    cwd: __dirname,
+    stdio: "inherit",
   });
-  require(`./features/${process.argv[2]}.ts`);
 };
 
 supress([() => true]);

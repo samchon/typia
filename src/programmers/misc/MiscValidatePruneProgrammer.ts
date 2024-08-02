@@ -6,68 +6,93 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
+import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { MiscPruneProgrammer } from "./MiscPruneProgrammer";
 
 export namespace MiscValidatePruneProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
-      ts.factory.createArrowFunction(
+  export const decompose = (props: {
+    project: IProject;
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const validate: FeatureProgrammer.IDecomposed =
+      ValidateProgrammer.decompose({
+        ...props,
+        equals: false,
+      });
+    const prune: FeatureProgrammer.IDecomposed = MiscPruneProgrammer.decompose({
+      ...props,
+      validated: true,
+    });
+    return {
+      functions: {
+        ...validate.functions,
+        ...prune.functions,
+      },
+      statements: [
+        ...validate.statements,
+        ...prune.statements,
+        StatementFactory.constant("__validate", validate.arrow),
+        StatementFactory.constant("__prune", prune.arrow),
+      ],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<${
-            name ?? TypeFactory.getFullName(project.checker)(type)
-          }>`,
-        ),
+        ts.factory.createTypeReferenceNode("typia.IValidation", [
+          prune.arrow.type ?? TypeFactory.keyword("any"),
+        ]),
         undefined,
-        ts.factory.createBlock([
-          StatementFactory.constant(
-            "validate",
-            ValidateProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: true,
-              },
-            })(modulo)(false)(type, name),
-          ),
-          StatementFactory.constant(
-            "prune",
-            MiscPruneProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: false,
-              },
-            })(modulo)(type, name),
-          ),
-          StatementFactory.constant(
-            "output",
-            ts.factory.createCallExpression(
-              ts.factory.createIdentifier("validate"),
-              undefined,
-              [ts.factory.createIdentifier("input")],
-            ),
-          ),
-          ts.factory.createIfStatement(
-            ts.factory.createIdentifier("output.success"),
-            ts.factory.createExpressionStatement(
+        ts.factory.createBlock(
+          [
+            StatementFactory.constant(
+              "result",
               ts.factory.createCallExpression(
-                ts.factory.createIdentifier("prune"),
+                ts.factory.createIdentifier("__validate"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
             ),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("output"),
-          ),
-        ]),
-      );
+            ts.factory.createIfStatement(
+              ts.factory.createIdentifier("result.success"),
+              ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("__prune"),
+                  undefined,
+                  [ts.factory.createIdentifier("input")],
+                ),
+              ),
+            ),
+            ts.factory.createReturnStatement(
+              ts.factory.createIdentifier("result"),
+            ),
+          ],
+          true,
+        ),
+      ),
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        modulo,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
+    };
 }

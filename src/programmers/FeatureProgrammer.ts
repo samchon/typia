@@ -196,13 +196,102 @@ export namespace FeatureProgrammer {
   }
 
   /* -----------------------------------------------------------
-        GENERATORS
-    ----------------------------------------------------------- */
+    GENERATORS
+  ----------------------------------------------------------- */
+  export interface IComposed {
+    body: ts.ConciseBody;
+    parameters: ts.ParameterDeclaration[];
+    functions: Record<string, ts.VariableStatement>;
+    statements: ts.Statement[];
+    response: ts.TypeNode;
+  }
+  export interface IDecomposed {
+    functions: Record<string, ts.VariableStatement>;
+    statements: ts.Statement[];
+    arrow: ts.ArrowFunction;
+  }
+
+  export const compose = (props: {
+    project: IProject;
+    config: IConfig;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): IComposed => {
+    const [collection, meta] = props.config.initializer(props.project)(
+      props.importer,
+    )(props.type);
+    return {
+      body: props.config.decoder()(ValueFactory.INPUT(), meta, {
+        tracable: props.config.path || props.config.trace,
+        source: "top",
+        from: "top",
+        postfix: '""',
+      }),
+      statements: props.config.addition
+        ? props.config.addition(collection)
+        : [],
+      functions: {
+        ...Object.fromEntries(
+          (
+            props.config.generator.objects?.() ??
+            write_object_functions(props.config)(props.importer)
+          )(collection).map((v, i) => [`${props.config.prefix}o${i}`, v]),
+        ),
+        ...Object.fromEntries(
+          (
+            props.config.generator.unions?.() ??
+            write_union_functions(props.config)
+          )(collection).map((v, i) => [`${props.config.prefix}u${i}`, v]),
+        ),
+        ...Object.fromEntries(
+          props.config.generator
+            .arrays()(collection)
+            .map((v, i) => [`${props.config.prefix}a${i}`, v]),
+        ),
+        ...Object.fromEntries(
+          props.config.generator
+            .tuples()(collection)
+            .map((v, i) => [`${props.config.prefix}t${i}`, v]),
+        ),
+      },
+      parameters: parameterDeclarations(props.config)(
+        props.config.types.input(props.type, props.name),
+      )(ValueFactory.INPUT()),
+      response: props.config.types.output(props.type, props.name),
+    };
+  };
+
+  export const writeDecomposed = (props: {
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    result: IDecomposed;
+  }): ts.CallExpression =>
+    ts.factory.createCallExpression(
+      ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [],
+        undefined,
+        undefined,
+        ts.factory.createBlock([
+          ...props.importer.declare(props.modulo),
+          ...Object.entries(props.result.functions)
+            .filter(([k]) => props.importer.hasLocal(k))
+            .map(([_k, v]) => v),
+          ...props.result.statements,
+          ts.factory.createReturnStatement(props.result.arrow),
+        ]),
+      ),
+      undefined,
+      undefined,
+    );
+
   export const write =
     (project: IProject) =>
     (config: IConfig) =>
     (importer: FunctionImporter) =>
-    (type: ts.Type, name?: string) => {
+    (type: ts.Type, name?: string): ts.ArrowFunction => {
       const [collection, meta] = config.initializer(project)(importer)(type);
 
       // ITERATE OVER ALL METADATA

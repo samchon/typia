@@ -31,20 +31,57 @@ export namespace NotationGeneralProgrammer {
     (rename: (str: string) => string) => (type: string) =>
       `typia.${StringUtil.capitalize(rename.name)}Case<${type}>`;
 
+  export const decompose = (props: {
+    rename: (str: string) => string;
+    validated: boolean;
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const config = configure(props.rename)(props.project)(props.importer);
+    if (props.validated === false)
+      config.addition = (collection) =>
+        IsProgrammer.write_function_statements(props.project)(props.importer)(
+          collection,
+        );
+    const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
+      ...props,
+      config,
+    });
+    return {
+      functions: composed.functions,
+      statements: composed.statements,
+      arrow: ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        composed.parameters,
+        TypeFactory.keyword("void"),
+        undefined,
+        composed.body,
+      ),
+    };
+  };
+
   export const write =
     (rename: (str: string) => string) =>
     (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) => {
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string) => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      return FeatureProgrammer.write(project)({
-        ...configure(rename)(project)(importer),
-        addition: (collection) => [
-          ...IsProgrammer.write_function_statements(project)(importer)(
-            collection,
-          ),
-          ...importer.declare(modulo),
-        ],
-      })(importer);
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        rename,
+        validated: true,
+        project,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        importer,
+        modulo,
+        result,
+      });
     };
 
   const write_array_functions =

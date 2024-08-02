@@ -8,6 +8,7 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
+import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -15,23 +16,23 @@ import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (equals: boolean) =>
-    (type: ts.Type, name?: string) => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-
-      const is = IsProgrammer.write(project)(modulo, true)(equals)(
-        type,
-        name ?? TypeFactory.getFullName(project.checker)(type),
-      );
-      const validate: ts.ArrowFunction = CheckerProgrammer.write(project)({
+  export const decompose = (props: {
+    project: IProject;
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    equals: boolean;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose(props);
+    const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
+      ...props,
+      config: {
         prefix: "$v",
         path: true,
         trace: true,
-        numeric: OptionPredicator.numeric(project.options),
-        equals,
+        numeric: OptionPredicator.numeric(props.project.options),
+        equals: props.equals,
         atomist: (explore) => (entry) => (input) =>
           [
             ...(entry.expression ? [entry.expression] : []),
@@ -83,83 +84,141 @@ export namespace ValidateProgrammer {
                     ),
                   ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-        combiner: combine(equals)(project)(importer),
-        joiner: joiner(equals)(project)(importer),
+        combiner: combine(props.equals)(props.project)(props.importer),
+        joiner: joiner(props.equals)(props.project)(props.importer),
         success: ts.factory.createTrue(),
-        addition: () => importer.declare(modulo),
-      })(importer)(type, name);
-
-      return ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<${
-            name ?? TypeFactory.getFullName(project.checker)(type)
-          }>`,
-        ),
-        undefined,
-        ts.factory.createBlock(
-          [
-            StatementFactory.constant(
-              "errors",
-              ts.factory.createAsExpression(
-                ts.factory.createArrayLiteralExpression([]),
-                ts.factory.createArrayTypeNode(TypeFactory.keyword("any")),
+      },
+    });
+    const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+      ts.factory.createTypeReferenceNode(
+        `typia.IValidation<${
+          props.name ??
+          TypeFactory.getFullName(props.project.checker)(props.type)
+        }>`,
+      ),
+      undefined,
+      ts.factory.createBlock(
+        [
+          // errors.clear()
+          ts.factory.createIfStatement(
+            ts.factory.createIdentifier("errors.length"),
+            ts.factory.createExpressionStatement(
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("errors.splice"),
+                undefined,
+                [
+                  ts.factory.createNumericLiteral(0),
+                  ts.factory.createIdentifier("errors.length"),
+                ],
               ),
             ),
-            StatementFactory.constant("__is", is),
-            ts.factory.createIfStatement(
-              ts.factory.createStrictEquality(
-                ts.factory.createFalse(),
-                ts.factory.createCallExpression(
-                  ts.factory.createIdentifier("__is"),
-                  undefined,
-                  [ts.factory.createIdentifier("input")],
-                ),
+          ),
+          // validate when false === is<T>(input)
+          ts.factory.createIfStatement(
+            ts.factory.createStrictEquality(
+              ts.factory.createFalse(),
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("__is"),
+                undefined,
+                [ts.factory.createIdentifier("input")],
               ),
-              ts.factory.createBlock([
-                StatementFactory.constant(
-                  "$report",
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(
-                      ts.factory.createParenthesizedExpression(
-                        ts.factory.createAsExpression(
-                          modulo,
-                          TypeFactory.keyword("any"),
-                        ),
-                      ),
-                    )("report"),
-                    [],
-                    [ts.factory.createIdentifier("errors")],
+            ),
+            ts.factory.createBlock([
+              ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                  ts.factory.createArrowFunction(
+                    undefined,
+                    undefined,
+                    composed.parameters,
+                    undefined,
+                    undefined,
+                    composed.body,
                   ),
-                ),
-                ts.factory.createExpressionStatement(
-                  ts.factory.createCallExpression(validate, undefined, [
+                  undefined,
+                  [
                     ts.factory.createIdentifier("input"),
                     ts.factory.createStringLiteral("$input"),
                     ts.factory.createTrue(),
-                  ]),
+                  ],
                 ),
-              ]),
-            ),
-            StatementFactory.constant(
-              "success",
-              ts.factory.createStrictEquality(
-                ExpressionFactory.number(0),
-                ts.factory.createIdentifier("errors.length"),
               ),
+            ]),
+          ),
+          StatementFactory.constant(
+            "success",
+            ts.factory.createStrictEquality(
+              ExpressionFactory.number(0),
+              ts.factory.createIdentifier("errors.length"),
             ),
-            ts.factory.createReturnStatement(
-              ts.factory.createAsExpression(
-                create_output(),
-                TypeFactory.keyword("any"),
-              ),
+          ),
+          ts.factory.createReturnStatement(
+            ts.factory.createAsExpression(
+              create_output(),
+              TypeFactory.keyword("any"),
             ),
-          ],
-          true,
+          ),
+        ],
+        true,
+      ),
+    );
+    return {
+      functions: {
+        ...is.functions,
+        ...composed.functions,
+      },
+      statements: [
+        ...is.statements,
+        ...composed.statements,
+        StatementFactory.constant("__is", is.arrow),
+        StatementFactory.constant(
+          "errors",
+          ts.factory.createAsExpression(
+            ts.factory.createArrayLiteralExpression([]),
+            ts.factory.createArrayTypeNode(TypeFactory.keyword("any")),
+          ),
         ),
-      );
+        StatementFactory.constant(
+          "$report",
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(
+              ts.factory.createParenthesizedExpression(
+                ts.factory.createAsExpression(
+                  props.modulo,
+                  TypeFactory.keyword("any"),
+                ),
+              ),
+            )("report"),
+            [],
+            [ts.factory.createIdentifier("errors")],
+          ),
+        ),
+      ],
+      arrow,
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (equals: boolean) =>
+    (type: ts.Type, name?: string) => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        equals,
+        project,
+        modulo,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 }
 

@@ -11,7 +11,7 @@ export namespace GenericTransformer {
         project: IProject,
       ) => (
         modulo: ts.LeftHandSideExpression,
-      ) => (type: ts.Type, name: string) => ts.ArrowFunction,
+      ) => (type: ts.Type, name: string) => ts.Expression | ts.ArrowFunction,
     ) =>
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
@@ -66,7 +66,7 @@ export namespace GenericTransformer {
         type: ts.Type,
         name: string,
         init?: ts.Expression,
-      ) => ts.ArrowFunction,
+      ) => ts.Expression | ts.ArrowFunction,
     ) =>
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
