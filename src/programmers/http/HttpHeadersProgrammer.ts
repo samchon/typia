@@ -20,37 +20,42 @@ import { Atomic } from "../../typings/Atomic";
 import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
 
+import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpHeadersProgrammer {
   export const INPUT_TYPE = "Record<string, string | string[] | undefined>";
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction => {
-      // GET OBJECT TYPE
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const collection: MetadataCollection = new MetadataCollection();
-      const result = MetadataFactory.analyze(
-        project.checker,
-        project.context,
-      )({
-        escape: false,
-        constant: true,
-        absorb: true,
-        validate,
-      })(collection)(type);
-      if (result.success === false)
-        throw TransformerError.from(`typia.http.${importer.method}`)(
-          result.errors,
-        );
+  export const decompose = (props: {
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+  }): FeatureProgrammer.IDecomposed => {
+    // ANALYZE TYPE
+    const collection: MetadataCollection = new MetadataCollection();
+    const result = MetadataFactory.analyze(
+      props.project.checker,
+      props.project.context,
+    )({
+      escape: false,
+      constant: true,
+      absorb: true,
+      validate,
+    })(collection)(props.type);
+    if (result.success === false)
+      throw TransformerError.from(`typia.http.${props.importer.method}`)(
+        result.errors,
+      );
 
-      // DO TRANSFORM
-      const object: MetadataObject = result.data.objects[0]!;
-      const statements: ts.Statement[] = decode_object(importer)(object);
-      return ts.factory.createArrowFunction(
+    // DO TRANSFORM
+    const object: MetadataObject = result.data.objects[0]!;
+    const statements: ts.Statement[] = decode_object(props.importer)(object);
+    return {
+      functions: {},
+      statements: [],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [
@@ -67,17 +72,34 @@ export namespace HttpHeadersProgrammer {
           ts.factory.createIdentifier("Resolved"),
           [
             ts.factory.createTypeReferenceNode(
-              name ?? TypeFactory.getFullName(project.checker)(type),
+              props.name ??
+                TypeFactory.getFullName(props.project.checker)(props.type),
             ),
           ],
           false,
         ),
         undefined,
-        ts.factory.createBlock(
-          [...importer.declare(modulo), ...statements],
-          true,
-        ),
-      );
+        ts.factory.createBlock(statements, true),
+      ),
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   export const validate = (

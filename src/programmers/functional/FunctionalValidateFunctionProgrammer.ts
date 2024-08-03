@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { IProject } from "../../transformers/IProject";
@@ -15,25 +16,34 @@ export namespace FunctionalValidateFunctionProgrammer {
     (
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
-    ): ts.ArrowFunction => {
-      const { async, statements } =
-        FunctionalValidateReturnProgrammer.writeStatements(project)(modulo)(
+    ): ts.CallExpression => {
+      const p =
+        FunctionalValidateParametersProgrammer.decompose(project)(modulo)(
           equals,
-        )(expression, declaration);
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
-        declaration.parameters,
-        getReturnTypeNode(declaration, async),
-        undefined,
+        )(declaration);
+      const r = FunctionalValidateReturnProgrammer.decompose(project)(modulo)(
+        equals,
+      )(expression, declaration);
+      return ExpressionFactory.selfCall(
         ts.factory.createBlock(
           [
-            ...FunctionalValidateParametersProgrammer.writeStatements(project)(
-              modulo,
-            )(equals)(declaration),
-            ...statements,
+            ...p.functions,
+            ...r.functions,
+            ts.factory.createReturnStatement(
+              ts.factory.createArrowFunction(
+                r.async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
+                undefined,
+                declaration.parameters,
+                getReturnTypeNode(declaration, r.async),
+                undefined,
+                ts.factory.createBlock(
+                  [...p.statements, ...r.statements],
+                  true,
+                ),
+              ),
+            ),
           ],
           true,
         ),

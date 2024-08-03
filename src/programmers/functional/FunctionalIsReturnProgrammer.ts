@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
 import { IProject } from "../../transformers/IProject";
@@ -18,24 +19,37 @@ export namespace FunctionalIsReturnProgrammer {
     (
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
-    ): ts.ArrowFunction => {
-      const { async, statements } = writeStatements(project)(modulo)(equals)(
+    ): ts.CallExpression => {
+      const result = decompose(project)(modulo)(equals)(
         expression,
         declaration,
       );
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
-        declaration.parameters,
-        FunctionalIsFunctionProgrammer.getReturnTypeNode(declaration, async),
-        undefined,
-        ts.factory.createBlock(statements, true),
+      return ExpressionFactory.selfCall(
+        ts.factory.createBlock(
+          [
+            ...result.functions,
+            ts.factory.createReturnStatement(
+              ts.factory.createArrowFunction(
+                result.async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
+                undefined,
+                declaration.parameters,
+                FunctionalIsFunctionProgrammer.getReturnTypeNode(
+                  declaration,
+                  result.async,
+                ),
+                undefined,
+                ts.factory.createBlock(result.statements, true),
+              ),
+            ),
+          ],
+          true,
+        ),
       );
     };
 
-  export const writeStatements =
+  export const decompose =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
@@ -44,6 +58,7 @@ export namespace FunctionalIsReturnProgrammer {
       declaration: ts.FunctionDeclaration,
     ): {
       async: boolean;
+      functions: ts.Statement[];
       statements: ts.Statement[];
     } => {
       const { type, async } = FunctionalGeneralProgrammer.getReturnType(
@@ -56,29 +71,36 @@ export namespace FunctionalIsReturnProgrammer {
           ts.factory.createIdentifier(p.name.getText()),
         ),
       );
-
       const name: string = StringUtil.escapeDuplicate(
         declaration.parameters.map((p) => p.name.getText()),
       )("result");
-      const statements: ts.Statement[] = [
-        StatementFactory.constant(
-          name,
-          async ? ts.factory.createAwaitExpression(caller) : caller,
-        ),
-        ts.factory.createReturnStatement(
-          ts.factory.createConditionalExpression(
-            ts.factory.createCallExpression(
-              IsProgrammer.write(project)(modulo)(equals)(type),
-              undefined,
-              [ts.factory.createIdentifier(name)],
-            ),
-            undefined,
-            ts.factory.createIdentifier(name),
-            undefined,
-            ts.factory.createNull(),
+      return {
+        async,
+        functions: [
+          StatementFactory.constant(
+            "__is_return",
+            IsProgrammer.write(project)(modulo)(equals)(type),
           ),
-        ),
-      ];
-      return { async, statements };
+        ],
+        statements: [
+          StatementFactory.constant(
+            name,
+            async ? ts.factory.createAwaitExpression(caller) : caller,
+          ),
+          ts.factory.createReturnStatement(
+            ts.factory.createConditionalExpression(
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("__is_return"),
+                undefined,
+                [ts.factory.createIdentifier(name)],
+              ),
+              undefined,
+              ts.factory.createIdentifier(name),
+              undefined,
+              ts.factory.createNull(),
+            ),
+          ),
+        ],
+      };
     };
 }

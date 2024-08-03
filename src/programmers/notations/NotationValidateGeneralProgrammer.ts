@@ -6,76 +6,102 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
+import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { NotationGeneralProgrammer } from "./NotationGeneralProgrammer";
 
 export namespace NotationValidateGeneralProgrammer {
+  export const decompose = (props: {
+    rename: (str: string) => string;
+    project: IProject;
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const validate = ValidateProgrammer.decompose({
+      ...props,
+      equals: false,
+    });
+    const notation = NotationGeneralProgrammer.decompose({
+      ...props,
+      validated: true,
+    });
+    return {
+      functions: {
+        ...validate.functions,
+        ...notation.functions,
+      },
+      statements: [
+        ...validate.statements,
+        ...notation.statements,
+        StatementFactory.constant("__validate", validate.arrow),
+        StatementFactory.constant("__notation", notation.arrow),
+      ],
+      arrow: ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+        ts.factory.createTypeReferenceNode("typia.IValidation", [
+          notation.arrow.type ?? TypeFactory.keyword("any"),
+        ]),
+        undefined,
+        ts.factory.createBlock(
+          [
+            StatementFactory.constant(
+              "result",
+              ts.factory.createAsExpression(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("__validate"),
+                  undefined,
+                  [ts.factory.createIdentifier("input")],
+                ),
+                TypeFactory.keyword("any"),
+              ),
+            ),
+            ts.factory.createIfStatement(
+              ts.factory.createIdentifier("result.success"),
+              ts.factory.createExpressionStatement(
+                ts.factory.createBinaryExpression(
+                  ts.factory.createIdentifier("result.data"),
+                  ts.SyntaxKind.EqualsToken,
+                  ts.factory.createCallExpression(
+                    ts.factory.createIdentifier("__notation"),
+                    undefined,
+                    [ts.factory.createIdentifier("input")],
+                  ),
+                ),
+              ),
+            ),
+            ts.factory.createReturnStatement(
+              ts.factory.createIdentifier("result"),
+            ),
+          ],
+          true,
+        ),
+      ),
+    };
+  };
+
   export const write =
     (rename: (str: string) => string) =>
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
-      ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<${NotationGeneralProgrammer.returnType(rename)(
-            name ?? TypeFactory.getFullName(project.checker)(type),
-          )}>`,
-        ),
-        undefined,
-        ts.factory.createBlock([
-          StatementFactory.constant(
-            "validate",
-            ValidateProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: true,
-              },
-            })(modulo)(false)(type, name),
-          ),
-          StatementFactory.constant(
-            "general",
-            NotationGeneralProgrammer.write(rename)({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: false,
-              },
-            })(modulo)(type, name),
-          ),
-          StatementFactory.constant(
-            "output",
-            ts.factory.createAsExpression(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("validate"),
-                undefined,
-                [ts.factory.createIdentifier("input")],
-              ),
-              TypeFactory.keyword("any"),
-            ),
-          ),
-          ts.factory.createIfStatement(
-            ts.factory.createIdentifier("output.success"),
-            ts.factory.createExpressionStatement(
-              ts.factory.createBinaryExpression(
-                ts.factory.createIdentifier("output.data"),
-                ts.SyntaxKind.EqualsToken,
-                ts.factory.createCallExpression(
-                  ts.factory.createIdentifier("general"),
-                  undefined,
-                  [ts.factory.createIdentifier("input")],
-                ),
-              ),
-            ),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("output"),
-          ),
-        ]),
-      );
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        rename,
+        project,
+        modulo,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
+    };
 }

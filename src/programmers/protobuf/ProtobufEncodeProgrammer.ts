@@ -27,67 +27,97 @@ import { UnionPredicator } from "../helpers/UnionPredicator";
 import { decode_union_object } from "../internal/decode_union_object";
 
 export namespace ProtobufEncodeProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction => {
-      const importer = new FunctionImporter(modulo.getText());
-      const collection = new MetadataCollection();
-      const meta: Metadata = ProtobufFactory.metadata(modulo.getText())(
-        project.checker,
-        project.context,
-      )(collection)(type);
+  export const decompose = (props: {
+    project: IProject;
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+  }): FeatureProgrammer.IDecomposed => {
+    const collection: MetadataCollection = new MetadataCollection();
+    const meta: Metadata = ProtobufFactory.metadata(props.modulo.getText())(
+      props.project.checker,
+      props.project.context,
+    )(collection)(props.type);
 
-      const callEncoder = (writer: string) => (factory: ts.NewExpression) =>
-        StatementFactory.constant(
-          writer,
-          ts.factory.createCallExpression(
-            ts.factory.createIdentifier("encoder"),
-            undefined,
-            [factory],
-          ),
-        );
-
-      const block: ts.Statement[] = [
-        StatementFactory.constant(
-          "encoder",
-          write_encoder(project)(importer)(collection)(meta),
+    const callEncoder = (writer: string) => (factory: ts.NewExpression) =>
+      StatementFactory.constant(
+        writer,
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier("encoder"),
+          undefined,
+          [factory, ts.factory.createIdentifier("input")],
         ),
-        callEncoder("sizer")(
-          ts.factory.createNewExpression(importer.use("Sizer"), undefined, []),
+      );
+    return {
+      functions: {
+        encoder: StatementFactory.constant(
+          props.importer.useLocal("encoder"),
+          write_encoder(props.project)(props.importer)(collection)(meta),
         ),
-        callEncoder("writer")(
-          ts.factory.createNewExpression(importer.use("Writer"), undefined, [
-            ts.factory.createIdentifier("sizer"),
-          ]),
-        ),
-        ts.factory.createReturnStatement(
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(WRITER())("buffer"),
-            undefined,
-            undefined,
-          ),
-        ),
-      ];
-
-      return ts.factory.createArrowFunction(
+      },
+      statements: [],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [
           IdentifierFactory.parameter(
             "input",
             ts.factory.createTypeReferenceNode(
-              name ?? TypeFactory.getFullName(project.checker)(type),
+              props.name ??
+                TypeFactory.getFullName(props.project.checker)(props.type),
             ),
           ),
         ],
         ts.factory.createTypeReferenceNode("Uint8Array"),
         undefined,
         ts.factory.createBlock(
-          [...importer.declare(modulo, false), ...block],
+          [
+            callEncoder("sizer")(
+              ts.factory.createNewExpression(
+                props.importer.use("Sizer"),
+                undefined,
+                [],
+              ),
+            ),
+            callEncoder("writer")(
+              ts.factory.createNewExpression(
+                props.importer.use("Writer"),
+                undefined,
+                [ts.factory.createIdentifier("sizer")],
+              ),
+            ),
+            ts.factory.createReturnStatement(
+              ts.factory.createCallExpression(
+                IdentifierFactory.access(WRITER())("buffer"),
+                undefined,
+                undefined,
+              ),
+            ),
+          ],
           true,
         ),
-      );
+      ),
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        modulo,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   const write_encoder =
@@ -126,7 +156,10 @@ export namespace ProtobufEncodeProgrammer {
       return ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [IdentifierFactory.parameter("writer")],
+        [
+          IdentifierFactory.parameter("writer"),
+          IdentifierFactory.parameter("input"),
+        ],
         TypeFactory.keyword("any"),
         undefined,
         ts.factory.createBlock(

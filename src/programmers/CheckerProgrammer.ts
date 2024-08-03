@@ -97,6 +97,18 @@ export namespace CheckerProgrammer {
   /* -----------------------------------------------------------
         WRITERS
     ----------------------------------------------------------- */
+  export const compose = (props: {
+    project: IProject;
+    config: IConfig;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }) =>
+    FeatureProgrammer.compose({
+      ...props,
+      config: configure(props.project)(props.config)(props.importer),
+    });
+
   export const write =
     (project: IProject) => (config: IConfig) => (importer: FunctionImporter) =>
       FeatureProgrammer.write(project)(configure(project)(config)(importer))(

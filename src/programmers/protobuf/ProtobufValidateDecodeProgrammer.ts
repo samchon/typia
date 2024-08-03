@@ -1,75 +1,85 @@
 import ts from "typescript";
 
-import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
+import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ProtobufDecodeProgrammer } from "./ProtobufDecodeProgrammer";
 
 export namespace ProtobufValidateDecodeProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
-      ts.factory.createArrowFunction(
+  export const decompose = (props: {
+    project: IProject;
+    modulo: ts.LeftHandSideExpression;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+  }): FeatureProgrammer.IDecomposed => {
+    const validate = ValidateProgrammer.decompose({
+      ...props,
+      project: {
+        ...props.project,
+        options: {
+          ...props.project.options,
+          functional: false,
+          numeric: false,
+        },
+      },
+      equals: false,
+    });
+    const decode = ProtobufDecodeProgrammer.decompose(props);
+    return {
+      functions: {
+        ...validate.functions,
+        ...decode.functions,
+      },
+      statements: [
+        ...validate.statements,
+        StatementFactory.constant("__validate", validate.arrow),
+        StatementFactory.constant("__decode", decode.arrow),
+      ],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
-        [
-          IdentifierFactory.parameter(
-            "input",
-            ts.factory.createTypeReferenceNode("Uint8Array"),
-          ),
-        ],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<typia.Resolved<${
-            name ?? TypeFactory.getFullName(project.checker)(type)
-          }>>`,
-        ),
+        decode.arrow.parameters,
+        ts.factory.createTypeReferenceNode("typia.IValidation", [
+          decode.arrow.type ?? TypeFactory.keyword("any"),
+        ]),
         undefined,
-        ts.factory.createBlock([
-          StatementFactory.constant(
-            "validate",
-            ValidateProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: true,
-              },
-            })(modulo)(false)(type, name),
-          ),
-          StatementFactory.constant(
-            "decode",
-            ProtobufDecodeProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: false,
-              },
-            })(modulo)(type, name),
-          ),
-          StatementFactory.constant(
-            "output",
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier("__validate"),
+          undefined,
+          [
             ts.factory.createCallExpression(
-              ts.factory.createIdentifier("decode"),
+              ts.factory.createIdentifier("__decode"),
               undefined,
               [ts.factory.createIdentifier("input")],
             ),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createAsExpression(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("validate"),
-                undefined,
-                [ts.factory.createIdentifier("output")],
-              ),
-              ts.factory.createTypeReferenceNode("any"),
-            ),
-          ),
-        ]),
-      );
+          ],
+        ),
+      ),
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        modulo,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
+    };
 }

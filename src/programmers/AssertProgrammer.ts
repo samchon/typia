@@ -7,29 +7,31 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
+import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (props: boolean | { equals: boolean; guard: boolean }) =>
-    (type: ts.Type, name?: string, init?: ts.Expression) => {
-      // TO SUPPORT LEGACY FEATURE
-      if (typeof props === "boolean") props = { equals: props, guard: false };
-
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const is: ts.ArrowFunction = IsProgrammer.write(project)(modulo, true)(
-        props.equals,
-      )(type, name ?? TypeFactory.getFullName(project.checker)(type));
-      const assert: ts.ArrowFunction = CheckerProgrammer.write(project)({
+  export const decompose = (props: {
+    project: IProject;
+    equals: boolean;
+    guard: boolean;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+    init: ts.Expression | undefined;
+    inline?: boolean;
+  }): FeatureProgrammer.IDecomposed => {
+    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose(props);
+    const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
+      ...props,
+      config: {
         prefix: "$a",
         path: true,
         trace: true,
-        numeric: OptionPredicator.numeric(project.options),
+        numeric: OptionPredicator.numeric(props.project.options),
         equals: props.equals,
         atomist: (explore) => (entry) => (input) =>
           [
@@ -40,7 +42,7 @@ export namespace AssertProgrammer {
                 ? entry.conditions[0]!.map((cond) =>
                     ts.factory.createLogicalOr(
                       cond.expression,
-                      create_guard_call(importer)(
+                      create_guard_call(props.importer)(
                         explore.from === "top"
                           ? ts.factory.createTrue()
                           : ts.factory.createIdentifier("_exceptionable"),
@@ -66,7 +68,7 @@ export namespace AssertProgrammer {
                             ),
                         )
                         .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-                      create_guard_call(importer)(
+                      create_guard_call(props.importer)(
                         explore.from === "top"
                           ? ts.factory.createTrue()
                           : ts.factory.createIdentifier("_exceptionable"),
@@ -82,63 +84,122 @@ export namespace AssertProgrammer {
                     ),
                   ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-        combiner: combiner(props.equals)(project)(importer),
-        joiner: joiner(props.equals)(project)(importer),
+        combiner: combiner(props.equals)(props.project)(props.importer),
+        joiner: joiner(props.equals)(props.project)(props.importer),
         success: ts.factory.createTrue(),
-        addition: () => importer.declare(modulo),
-      })(importer)(type, name);
-
-      return ts.factory.createArrowFunction(
-        undefined,
-        undefined,
+      },
+    });
+    const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [
+        IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
+        Guardian.parameter(props.init),
+      ],
+      props.guard
+        ? ts.factory.createTypePredicateNode(
+            ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
+            ts.factory.createIdentifier("input"),
+            ts.factory.createTypeReferenceNode(
+              props.name ??
+                TypeFactory.getFullName(props.project.checker)(props.type),
+            ),
+          )
+        : ts.factory.createTypeReferenceNode(
+            props.name ??
+              TypeFactory.getFullName(props.project.checker)(props.type),
+          ),
+      undefined,
+      ts.factory.createBlock(
         [
-          IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-          Guardian.parameter(init),
-        ],
-        props.guard
-          ? ts.factory.createTypePredicateNode(
-              ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
-              ts.factory.createIdentifier("input"),
-              ts.factory.createTypeReferenceNode(
-                name ?? TypeFactory.getFullName(project.checker)(type),
+          ts.factory.createIfStatement(
+            ts.factory.createStrictEquality(
+              ts.factory.createFalse(),
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("__is"),
+                undefined,
+                [ts.factory.createIdentifier("input")],
               ),
-            )
-          : ts.factory.createTypeReferenceNode(
-              name ?? TypeFactory.getFullName(project.checker)(type),
             ),
-        undefined,
-        ts.factory.createBlock(
-          [
-            StatementFactory.constant("__is", is),
-            ts.factory.createIfStatement(
-              ts.factory.createStrictEquality(
-                ts.factory.createFalse(),
-                ts.factory.createCallExpression(
-                  ts.factory.createIdentifier("__is"),
-                  undefined,
-                  [ts.factory.createIdentifier("input")],
-                ),
-              ),
-              ts.factory.createExpressionStatement(
-                ts.factory.createCallExpression(assert, undefined, [
-                  ts.factory.createIdentifier("input"),
-                  ts.factory.createStringLiteral("$input"),
-                  ts.factory.createTrue(),
-                ]),
-              ),
-              undefined,
-            ),
-            ...(props.guard === false
-              ? [
-                  ts.factory.createReturnStatement(
-                    ts.factory.createIdentifier(`input`),
+            ts.factory.createBlock(
+              [
+                ts.factory.createExpressionStatement(
+                  ts.factory.createBinaryExpression(
+                    ts.factory.createIdentifier("_errorFactory"),
+                    ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                    ts.factory.createIdentifier("errorFactory"),
                   ),
-                ]
-              : []),
-          ],
-          true,
-        ),
-      );
+                ),
+                ts.factory.createExpressionStatement(
+                  ts.factory.createCallExpression(
+                    ts.factory.createArrowFunction(
+                      undefined,
+                      undefined,
+                      composed.parameters,
+                      undefined,
+                      undefined,
+                      composed.body,
+                    ),
+                    undefined,
+                    [
+                      ts.factory.createIdentifier("input"),
+                      ts.factory.createStringLiteral("$input"),
+                      ts.factory.createTrue(),
+                    ],
+                  ),
+                ),
+              ],
+              true,
+            ),
+            undefined,
+          ),
+          ...(props.guard === false
+            ? [
+                ts.factory.createReturnStatement(
+                  ts.factory.createIdentifier(`input`),
+                ),
+              ]
+            : []),
+        ],
+        true,
+      ),
+    );
+
+    return {
+      functions: {
+        ...is.functions,
+        ...composed.functions,
+      },
+      statements: [
+        ...is.statements,
+        ...composed.statements,
+        StatementFactory.constant("__is", is.arrow),
+        StatementFactory.mut("_errorFactory"),
+      ],
+      arrow,
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (props: boolean | { equals: boolean; guard: boolean }) =>
+    (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
+      if (typeof props === "boolean") props = { equals: props, guard: false };
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        ...props,
+        project,
+        importer,
+        type,
+        name,
+        init,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   const combiner =
@@ -293,7 +354,7 @@ export namespace AssertProgrammer {
           ],
           true,
         ),
-        Guardian.identifier(),
+        ts.factory.createIdentifier("_errorFactory"),
       ]);
 
   export namespace Guardian {
