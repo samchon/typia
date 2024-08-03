@@ -7,7 +7,7 @@ const withNextra = require("nextra")({
 const config = {
   ...withNextra(),
   output: "export",
-  exportTrailingSlash: true,
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
