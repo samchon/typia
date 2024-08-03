@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+
 import { IProject } from "../../transformers/IProject";
 
 import { FunctionalIsParametersProgrammer } from "./FunctionalIsParametersProgrammer";
@@ -13,26 +15,35 @@ export namespace FunctionalIsFunctionProgrammer {
     (
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
-    ): ts.ArrowFunction => {
-      const { async, statements } =
-        FunctionalIsReturnProgrammer.writeStatements(project)(modulo)(equals)(
-          expression,
+    ): ts.CallExpression => {
+      const p =
+        FunctionalIsParametersProgrammer.decompose(project)(modulo)(equals)(
           declaration,
         );
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
-        declaration.parameters,
-        getReturnTypeNode(declaration, async),
-        undefined,
+      const r = FunctionalIsReturnProgrammer.decompose(project)(modulo)(equals)(
+        expression,
+        declaration,
+      );
+      return ExpressionFactory.selfCall(
         ts.factory.createBlock(
           [
-            ...FunctionalIsParametersProgrammer.writeStatements(project)(
-              modulo,
-            )(equals)(declaration),
-            ...statements,
+            ...p.functions,
+            ...r.functions,
+            ts.factory.createReturnStatement(
+              ts.factory.createArrowFunction(
+                r.async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
+                undefined,
+                declaration.parameters,
+                getReturnTypeNode(declaration, r.async),
+                undefined,
+                ts.factory.createBlock(
+                  [...p.statements, ...r.statements],
+                  true,
+                ),
+              ),
+            ),
           ],
           true,
         ),

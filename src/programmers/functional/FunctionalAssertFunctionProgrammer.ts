@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
@@ -20,28 +21,38 @@ export namespace FunctionalAssertFunctionProgrammer {
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
       init?: ts.Expression,
-    ): ts.ArrowFunction => {
+    ): ts.CallExpression => {
       const wrapper = errorFactoryWrapper(modulo)(declaration.parameters)(init);
-      const { async, returns } = FunctionAssertReturnProgrammer.returnStatement(
-        project,
-      )(modulo)(equals)(expression, declaration, wrapper.name);
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
-        declaration.parameters,
-        declaration.type,
-        undefined,
-        ts.factory.createBlock([
-          wrapper.variable,
-          ...FunctionalAssertParametersProgrammer.argumentExpressions(project)(
-            modulo,
-          )(equals)(declaration.parameters, wrapper.name).map(
-            ts.factory.createExpressionStatement,
-          ),
-          returns,
-        ]),
+      const p = FunctionalAssertParametersProgrammer.decompose(project)(modulo)(
+        equals,
+      )(declaration.parameters, wrapper.name);
+      const r = FunctionAssertReturnProgrammer.decompose(project)(modulo)(
+        equals,
+      )(expression, declaration, wrapper.name);
+      return ExpressionFactory.selfCall(
+        ts.factory.createBlock(
+          [
+            wrapper.variable,
+            ...p.functions,
+            ...r.functions,
+            ts.factory.createReturnStatement(
+              ts.factory.createArrowFunction(
+                r.async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
+                undefined,
+                declaration.parameters,
+                declaration.type,
+                undefined,
+                ts.factory.createBlock([
+                  ...p.expressions.map(ts.factory.createExpressionStatement),
+                  ts.factory.createReturnStatement(r.value),
+                ]),
+              ),
+            ),
+          ],
+          true,
+        ),
       );
     };
 

@@ -22,6 +22,7 @@ export namespace AssertProgrammer {
     type: ts.Type;
     name: string | undefined;
     init: ts.Expression | undefined;
+    inline?: boolean;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose(props);
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
