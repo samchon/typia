@@ -50,6 +50,7 @@ const config: DocsThemeConfig = {
     return {
       defaultTitle: "Typia Guide Documents",
       titleTemplate: "Typia Guide Documents - %s",
+      description: "Superfast Runtime Validator with only one line",
       additionalLinkTags: [
         {
           rel: "apple-touch-icon",
@@ -115,6 +116,7 @@ const config: DocsThemeConfig = {
       ],
     };
   },
+  head: (<></>),
 };
 
 export default config;
