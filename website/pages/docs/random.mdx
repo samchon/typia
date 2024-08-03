@@ -570,17 +570,10 @@ interface CommentTag {
   </Tab>
   <Tab>
 ```javascript filename="random.tags.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
+import typia from "typia";
 const data = ((generator) => {
-  const $generator = typia_1.default.random.generator;
-  const $pick = typia_1.default.random.pick;
+  const $generator = typia.random.generator;
+  const $pick = typia.random.pick;
   const $ro0 = (_recursive = false, _depth = 0) => ({
     type:
       (generator?.customs ?? $generator.customs)?.number?.([
@@ -654,6 +647,11 @@ console.log(data);
   <code>Customizable.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
+  <Tab>
+```typescript copy
+export function random<T>(g?: IRandomGenerator): Resolved<T>;
+```
+  </Tab>
   <Tab>
 ```typescript copy
 import { Customizable } from "./typings/Customizable";

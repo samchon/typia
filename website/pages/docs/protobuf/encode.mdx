@@ -230,17 +230,10 @@ typia.protobuf.encode<ICustomer>(customer);
   </Tab>
   <Tab>
 ```typescript copy filename="protobuf.encode.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
+import typia from "typia";
 const customer = ((generator) => {
-  const $generator = typia_1.default.random.generator;
-  const $pick = typia_1.default.random.pick;
+  const $generator = typia.random.generator;
+  const $pick = typia.random.pick;
   const $ro0 = (_recursive = false, _depth = 0) => ({
     id:
       (generator?.customs ?? $generator.customs)?.number?.([
@@ -343,11 +336,11 @@ const customer = ((generator) => {
   });
   return $ro0();
 })();
-((input) => {
-  const $throws = typia_1.default.protobuf.encode.throws;
-  const $Sizer = typia_1.default.protobuf.encode.Sizer;
-  const $Writer = typia_1.default.protobuf.encode.Writer;
-  const encoder = (writer) => {
+(() => {
+  const $throws = typia.protobuf.encode.throws;
+  const $Sizer = typia.protobuf.encode.Sizer;
+  const $Writer = typia.protobuf.encode.Writer;
+  const encoder = (writer, input) => {
     const $peo0 = (input) => {
       // property "id";
       writer.uint32(8);
@@ -470,7 +463,9 @@ const customer = ((generator) => {
           input.ip,
         )) &&
       "string" === typeof input.time &&
-      !isNaN(new Date(input.time).getTime());
+      /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test(
+        input.time,
+      );
     const $iu0 = (input) =>
       (() => {
         if ("cat" === input.type) return $io1(input);
@@ -481,10 +476,12 @@ const customer = ((generator) => {
     $peo0(input);
     return writer;
   };
-  const sizer = encoder(new $Sizer());
-  const writer = encoder(new $Writer(sizer));
-  return writer.buffer();
-})(customer);
+  return (input) => {
+    const sizer = encoder(new $Sizer(), input);
+    const writer = encoder(new $Writer(sizer), input);
+    return writer.buffer();
+  };
+})()(customer);
 ```
   </Tab>
   <Tab>
@@ -826,20 +823,12 @@ interface ICustomerLogin {
   </Tab>
   <Tab>
 ```typescript copy filename="protobuf.createEncode.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.encode = void 0;
-const typia_1 = __importDefault(require("typia"));
-const encode = (input) => {
-  const $throws = typia_1.default.protobuf.createEncode.throws;
-  const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
-  const $Writer = typia_1.default.protobuf.createEncode.Writer;
-  const encoder = (writer) => {
+import typia from "typia";
+export const encode = (() => {
+  const $throws = typia.protobuf.createEncode.throws;
+  const $Sizer = typia.protobuf.createEncode.Sizer;
+  const $Writer = typia.protobuf.createEncode.Writer;
+  const encoder = (writer, input) => {
     const $peo0 = (input) => {
       // property "id";
       writer.uint32(8);
@@ -962,7 +951,9 @@ const encode = (input) => {
           input.ip,
         )) &&
       "string" === typeof input.time &&
-      !isNaN(new Date(input.time).getTime());
+      /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test(
+        input.time,
+      );
     const $iu0 = (input) =>
       (() => {
         if ("cat" === input.type) return $io1(input);
@@ -973,11 +964,12 @@ const encode = (input) => {
     $peo0(input);
     return writer;
   };
-  const sizer = encoder(new $Sizer());
-  const writer = encoder(new $Writer(sizer));
-  return writer.buffer();
-};
-exports.encode = encode;
+  return (input) => {
+    const sizer = encoder(new $Sizer(), input);
+    const writer = encoder(new $Writer(sizer), input);
+    return writer.buffer();
+  };
+})();
 ```
   </Tab>
 </Tabs>

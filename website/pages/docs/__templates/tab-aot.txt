@@ -1,10 +1,10 @@
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
-```typescript copy filename="examples/src/.ts" showLineNumbers {}
+```typescript copy filename="examples/src/.ts" showLineNumbers
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/.js" showLineNumbers {}
+```javascript filename="examples/bin/.js" showLineNumbers
 ```
   </Tab>
 </Tabs>

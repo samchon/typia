@@ -196,7 +196,7 @@ When you want to copy an instance, just call `typia.misc.clone()` function. It w
 ```typescript copy filename="examples/src/assertClone.ts" showLineNumbers {4}
 import typia from "typia";
 
-const department: IDepartment = typia.misc.random<IDepartment>();
+const department: IDepartment = typia.random<IDepartment>();
 const cloned: IDepartment = typia.misc.assertClone(department);
 
 console.log(cloned);
@@ -238,209 +238,332 @@ interface IClerk {
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/assertClone.js" showLineNumbers {146-164}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-const department = typia_1.default.misc.random();
-const cloned = ((input) => {
-  const assert = (input) => {
-    const __is = (input) => {
-      const $io0 = (input) =>
-        "string" === typeof input.id &&
-        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-          input.id,
-        ) &&
-        "string" === typeof input.name &&
-        3 <= input.name.length &&
-        "number" === typeof input.limit &&
-        Math.floor(input.limit) === input.limit &&
+```javascript filename="examples/bin/assertClone.js" showLineNumbers {67-325}
+import typia from "typia";
+const department = ((generator) => {
+  const $generator = typia.random.generator;
+  const $ro0 = (_recursive = false, _depth = 0) => ({
+    id:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"uuid">',
+          kind: "format",
+          value: "uuid",
+        },
+      ]) ?? (generator?.uuid ?? $generator.uuid)(),
+    name:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: "MinLength<3>",
+          kind: "minLength",
+          value: 3,
+        },
+      ]) ??
+      (generator?.string ?? $generator.string)(
+        (generator?.integer ?? $generator.integer)(3, 25),
+      ),
+    limit:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: 'Type<"int32">',
+          kind: "type",
+          value: "int32",
+        },
+      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+    clerks: (generator?.array ?? $generator.array)(() =>
+      $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+    ),
+  });
+  const $ro1 = (_recursive = false, _depth = 0) => ({
+    name:
+      (generator?.customs ?? $generator.customs)?.string?.([]) ??
+      (generator?.string ?? $generator.string)(),
+    age:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: "ExclusiveMinimum<19>",
+          kind: "exclusiveMinimum",
+          value: 19,
+        },
+        {
+          name: "Maximum<100>",
+          kind: "maximum",
+          value: 100,
+        },
+      ]) ?? (generator?.number ?? $generator.number)(19, 100),
+    authority:
+      (generator?.customs ?? $generator.customs)?.number?.([]) ??
+      (generator?.number ?? $generator.number)(0, 100),
+    joined_at:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"date">',
+          kind: "format",
+          value: "date",
+        },
+      ]) ?? (generator?.date ?? $generator.date)(),
+  });
+  return $ro0();
+})();
+const cloned = (() => {
+  const $guard = typia.misc.assertClone.guard;
+  const $cp0 = (input) =>
+    input.map((elem) =>
+      "object" === typeof elem && null !== elem ? $co1(elem) : elem,
+    );
+  const $io0 = (input) =>
+    "string" === typeof input.id &&
+    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+      input.id,
+    ) &&
+    "string" === typeof input.name &&
+    3 <= input.name.length &&
+    "number" === typeof input.limit &&
+    Math.floor(input.limit) === input.limit &&
+    -2147483648 <= input.limit &&
+    input.limit <= 2147483647 &&
+    Array.isArray(input.clerks) &&
+    input.clerks.every(
+      (elem) => "object" === typeof elem && null !== elem && $io1(elem),
+    );
+  const $io1 = (input) =>
+    "string" === typeof input.name &&
+    "number" === typeof input.age &&
+    19 < input.age &&
+    input.age <= 100 &&
+    "number" === typeof input.authority &&
+    "string" === typeof input.joined_at &&
+    /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input.joined_at);
+  const $ao0 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.id &&
+      (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+        input.id,
+      ) ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.name &&
+      (3 <= input.name.length ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".name",
+            expected: "string & MinLength<3>",
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".name",
+          expected: "(string & MinLength<3>)",
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.limit &&
+      ((Math.floor(input.limit) === input.limit &&
         -2147483648 <= input.limit &&
-        input.limit <= 2147483647 &&
-        Array.isArray(input.clerks) &&
-        input.clerks.every(
-          (elem) => "object" === typeof elem && null !== elem && $io1(elem),
-        );
-      const $io1 = (input) =>
-        "string" === typeof input.name &&
-        "number" === typeof input.age &&
-        19 < input.age &&
-        input.age <= 100 &&
-        "number" === typeof input.authority &&
-        "string" === typeof input.joined_at &&
-        /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
-      return "object" === typeof input && null !== input && $io0(input);
-    };
-    if (false === __is(input))
-      ((input, _path, _exceptionable = true) => {
-        const $guard = typia_1.default.misc.assertClone.guard;
-        const $ao0 = (input, _path, _exceptionable = true) =>
-          (("string" === typeof input.id &&
-            (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-              input.id,
-            ) ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: 'string & Format<"uuid">',
-                value: input.id,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '(string & Format<"uuid">)',
-              value: input.id,
-            })) &&
-          (("string" === typeof input.name &&
-            (3 <= input.name.length ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string & MinLength<3>",
-                value: input.name,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "(string & MinLength<3>)",
-              value: input.name,
-            })) &&
-          (("number" === typeof input.limit &&
-            ((Math.floor(input.limit) === input.limit &&
-              -2147483648 <= input.limit &&
-              input.limit <= 2147483647) ||
-              $guard(_exceptionable, {
-                path: _path + ".limit",
-                expected: 'number & Type<"int32">',
-                value: input.limit,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".limit",
-              expected: '(number & Type<"int32">)',
-              value: input.limit,
-            })) &&
-          (((Array.isArray(input.clerks) ||
-            $guard(_exceptionable, {
-              path: _path + ".clerks",
-              expected: "Array<IClerk>",
-              value: input.clerks,
-            })) &&
-            input.clerks.every(
-              (elem, _index1) =>
-                ((("object" === typeof elem && null !== elem) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".clerks[" + _index1 + "]",
-                    expected: "IClerk",
-                    value: elem,
-                  })) &&
-                  $ao1(
-                    elem,
-                    _path + ".clerks[" + _index1 + "]",
-                    true && _exceptionable,
-                  )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".clerks[" + _index1 + "]",
-                  expected: "IClerk",
-                  value: elem,
-                }),
+        input.limit <= 2147483647) ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".limit",
+            expected: 'number & Type<"int32">',
+            value: input.limit,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".limit",
+          expected: '(number & Type<"int32">)',
+          value: input.limit,
+        },
+        _errorFactory,
+      )) &&
+    (((Array.isArray(input.clerks) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".clerks",
+          expected: "Array<IClerk>",
+          value: input.clerks,
+        },
+        _errorFactory,
+      )) &&
+      input.clerks.every(
+        (elem, _index2) =>
+          ((("object" === typeof elem && null !== elem) ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".clerks[" + _index2 + "]",
+                expected: "IClerk",
+                value: elem,
+              },
+              _errorFactory,
+            )) &&
+            $ao1(
+              elem,
+              _path + ".clerks[" + _index2 + "]",
+              true && _exceptionable,
             )) ||
-            $guard(_exceptionable, {
-              path: _path + ".clerks",
-              expected: "Array<IClerk>",
-              value: input.clerks,
-            }));
-        const $ao1 = (input, _path, _exceptionable = true) =>
-          ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
-          (("number" === typeof input.age &&
-            (19 < input.age ||
-              $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number & ExclusiveMinimum<19>",
-                value: input.age,
-              })) &&
-            (input.age <= 100 ||
-              $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number & Maximum<100>",
-                value: input.age,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
-              value: input.age,
-            })) &&
-          ("number" === typeof input.authority ||
-            $guard(_exceptionable, {
-              path: _path + ".authority",
-              expected: "number",
-              value: input.authority,
-            })) &&
-          (("string" === typeof input.joined_at &&
-            (/^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at) ||
-              $guard(_exceptionable, {
-                path: _path + ".joined_at",
-                expected: 'string & Format<"date">',
-                value: input.joined_at,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".joined_at",
-              expected: '(string & Format<"date">)',
-              value: input.joined_at,
-            }));
-        return (
-          ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+          $guard(
+            _exceptionable,
+            {
+              path: _path + ".clerks[" + _index2 + "]",
+              expected: "IClerk",
+              value: elem,
+            },
+            _errorFactory,
+          ),
+      )) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".clerks",
+          expected: "Array<IClerk>",
+          value: input.clerks,
+        },
+        _errorFactory,
+      ));
+  const $ao1 = (input, _path, _exceptionable = true) =>
+    ("string" === typeof input.name ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".name",
+          expected: "string",
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.age &&
+      (19 < input.age ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".age",
+            expected: "number & ExclusiveMinimum<19>",
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (input.age <= 100 ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".age",
+            expected: "number & Maximum<100>",
+            value: input.age,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".age",
+          expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
+          value: input.age,
+        },
+        _errorFactory,
+      )) &&
+    ("number" === typeof input.authority ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".authority",
+          expected: "number",
+          value: input.authority,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.joined_at &&
+      (/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(
+        input.joined_at,
+      ) ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".joined_at",
+            expected: 'string & Format<"date">',
+            value: input.joined_at,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".joined_at",
+          expected: '(string & Format<"date">)',
+          value: input.joined_at,
+        },
+        _errorFactory,
+      ));
+  const $co0 = (input) => ({
+    id: input.id,
+    name: input.name,
+    limit: input.limit,
+    clerks: Array.isArray(input.clerks) ? $cp0(input.clerks) : input.clerks,
+  });
+  const $co1 = (input) => ({
+    name: input.name,
+    age: input.age,
+    authority: input.authority,
+    joined_at: input.joined_at,
+  });
+  const __is = (input) =>
+    "object" === typeof input && null !== input && $io0(input);
+  let _errorFactory;
+  const __assert = (input, errorFactory) => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input, _path, _exceptionable = true) =>
+        ((("object" === typeof input && null !== input) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "IDepartment",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
+            },
+            _errorFactory,
+          )) &&
+          $ao0(input, _path + "", true)) ||
+        $guard(
+          true,
+          {
             path: _path + "",
             expected: "IDepartment",
             value: input,
-          })
-        );
-      })(input, "$input", true);
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
     return input;
   };
-  const clone = (input) => {
-    const $io1 = (input) =>
-      "string" === typeof input.name &&
-      "number" === typeof input.age &&
-      19 < input.age &&
-      input.age <= 100 &&
-      "number" === typeof input.authority &&
-      "string" === typeof input.joined_at &&
-      /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
-    const $cp0 = (input) =>
-      input.map((elem) =>
-        "object" === typeof elem && null !== elem ? $co1(elem) : elem,
-      );
-    const $co0 = (input) => ({
-      id: input.id,
-      name: input.name,
-      limit: input.limit,
-      clerks: Array.isArray(input.clerks) ? $cp0(input.clerks) : input.clerks,
-    });
-    const $co1 = (input) => ({
-      name: input.name,
-      age: input.age,
-      authority: input.authority,
-      joined_at: input.joined_at,
-    });
-    return "object" === typeof input && null !== input ? $co0(input) : input;
-  };
-  assert(input);
-  const output = clone(input);
-  return output;
-})(department);
+  const __clone = (input) =>
+    "object" === typeof input && null !== input ? $co0(input) : input;
+  return (input, errorFactory) => __clone(__assert(input, errorFactory));
+})()(department);
 console.log(cloned);
 ```
   </Tab>
@@ -513,263 +636,382 @@ When you want to remove every extra properties that are not defined in the type 
 ```typescript copy filename="examples/src/assertPrune.ts" showLineNumbers {4}
 import typia from "typia";
 
-const department: IDepartment = typia.misc.random<IDepartment>();
+const department: IDepartment = typia.random<IDepartment>();
 const pruned: IDepartment = typia.misc.assertPrune(department);
 console.log(pruned);
 
 interface IDepartment {
-    /**
-     * @format uuid
-     */
-    id: string;
+  /**
+   * @format uuid
+   */
+  id: string;
 
-    /**
-     * @minLength 3
-     */
-    name: string;
+  /**
+   * @minLength 3
+   */
+  name: string;
 
-    /**
-     * @type int
-     */
-    limit: number;
+  /**
+   * @type int
+   */
+  limit: number;
 
-    clerks: IClerk[];
+  clerks: IClerk[];
 }
 interface IClerk {
-    name: string;
+  name: string;
 
-    /**
-     * @exclusiveMinimum 19
-     * @maximum 100
-     */
-    age: number;
+  /**
+   * @exclusiveMinimum 19
+   * @maximum 100
+   */
+  age: number;
 
-    authority: number;
+  authority: number;
 
-    /**
-     * @format date
-     */
-    joined_at: string;
+  /**
+   * @format date
+   */
+  joined_at: string;
 }
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/assertPrune.js" showLineNumbers {147-173}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-const department = typia_1.default.misc.random();
-const pruned = ((input) => {
-  const assert = (input) => {
-    const __is = (input) => {
-      const $io0 = (input) =>
-        "string" === typeof input.id &&
-        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-          input.id,
-        ) &&
-        "string" === typeof input.name &&
-        3 <= input.name.length &&
-        "number" === typeof input.limit &&
-        Math.floor(input.limit) === input.limit &&
+```javascript filename="examples/bin/assertPrune.js" showLineNumbers {67-334}
+import typia from "typia";
+const department = ((generator) => {
+  const $generator = typia.random.generator;
+  const $ro0 = (_recursive = false, _depth = 0) => ({
+    id:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"uuid">',
+          kind: "format",
+          value: "uuid",
+        },
+      ]) ?? (generator?.uuid ?? $generator.uuid)(),
+    name:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: "MinLength<3>",
+          kind: "minLength",
+          value: 3,
+        },
+      ]) ??
+      (generator?.string ?? $generator.string)(
+        (generator?.integer ?? $generator.integer)(3, 25),
+      ),
+    limit:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: 'Type<"int32">',
+          kind: "type",
+          value: "int32",
+        },
+      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
+    clerks: (generator?.array ?? $generator.array)(() =>
+      $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+    ),
+  });
+  const $ro1 = (_recursive = false, _depth = 0) => ({
+    name:
+      (generator?.customs ?? $generator.customs)?.string?.([]) ??
+      (generator?.string ?? $generator.string)(),
+    age:
+      (generator?.customs ?? $generator.customs)?.number?.([
+        {
+          name: "ExclusiveMinimum<19>",
+          kind: "exclusiveMinimum",
+          value: 19,
+        },
+        {
+          name: "Maximum<100>",
+          kind: "maximum",
+          value: 100,
+        },
+      ]) ?? (generator?.number ?? $generator.number)(19, 100),
+    authority:
+      (generator?.customs ?? $generator.customs)?.number?.([]) ??
+      (generator?.number ?? $generator.number)(0, 100),
+    joined_at:
+      (generator?.customs ?? $generator.customs)?.string?.([
+        {
+          name: 'Format<"date">',
+          kind: "format",
+          value: "date",
+        },
+      ]) ?? (generator?.date ?? $generator.date)(),
+  });
+  return $ro0();
+})();
+const pruned = (() => {
+  const $guard = typia.misc.assertPrune.guard;
+  const $pp0 = (input) =>
+    input.forEach((elem) => {
+      if ("object" === typeof elem && null !== elem) $po1(elem);
+    });
+  const $io0 = (input) =>
+    "string" === typeof input.id &&
+    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+      input.id,
+    ) &&
+    "string" === typeof input.name &&
+    3 <= input.name.length &&
+    "number" === typeof input.limit &&
+    Math.floor(input.limit) === input.limit &&
+    -2147483648 <= input.limit &&
+    input.limit <= 2147483647 &&
+    Array.isArray(input.clerks) &&
+    input.clerks.every(
+      (elem) => "object" === typeof elem && null !== elem && $io1(elem),
+    );
+  const $io1 = (input) =>
+    "string" === typeof input.name &&
+    "number" === typeof input.age &&
+    19 < input.age &&
+    input.age <= 100 &&
+    "number" === typeof input.authority &&
+    "string" === typeof input.joined_at &&
+    /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input.joined_at);
+  const $ao0 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.id &&
+      (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+        input.id,
+      ) ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.name &&
+      (3 <= input.name.length ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".name",
+            expected: "string & MinLength<3>",
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".name",
+          expected: "(string & MinLength<3>)",
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.limit &&
+      ((Math.floor(input.limit) === input.limit &&
         -2147483648 <= input.limit &&
-        input.limit <= 2147483647 &&
-        Array.isArray(input.clerks) &&
-        input.clerks.every(
-          (elem) => "object" === typeof elem && null !== elem && $io1(elem),
-        );
-      const $io1 = (input) =>
-        "string" === typeof input.name &&
-        "number" === typeof input.age &&
-        19 < input.age &&
-        input.age <= 100 &&
-        "number" === typeof input.authority &&
-        "string" === typeof input.joined_at &&
-        /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
-      return "object" === typeof input && null !== input && $io0(input);
-    };
-    if (false === __is(input))
-      ((input, _path, _exceptionable = true) => {
-        const $guard = typia_1.default.misc.assertPrune.guard;
-        const $ao0 = (input, _path, _exceptionable = true) =>
-          (("string" === typeof input.id &&
-            (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-              input.id,
-            ) ||
-              $guard(_exceptionable, {
-                path: _path + ".id",
-                expected: 'string & Format<"uuid">',
-                value: input.id,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".id",
-              expected: '(string & Format<"uuid">)',
-              value: input.id,
-            })) &&
-          (("string" === typeof input.name &&
-            (3 <= input.name.length ||
-              $guard(_exceptionable, {
-                path: _path + ".name",
-                expected: "string & MinLength<3>",
-                value: input.name,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "(string & MinLength<3>)",
-              value: input.name,
-            })) &&
-          (("number" === typeof input.limit &&
-            ((Math.floor(input.limit) === input.limit &&
-              -2147483648 <= input.limit &&
-              input.limit <= 2147483647) ||
-              $guard(_exceptionable, {
-                path: _path + ".limit",
-                expected: 'number & Type<"int32">',
-                value: input.limit,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".limit",
-              expected: '(number & Type<"int32">)',
-              value: input.limit,
-            })) &&
-          (((Array.isArray(input.clerks) ||
-            $guard(_exceptionable, {
-              path: _path + ".clerks",
-              expected: "Array<IClerk>",
-              value: input.clerks,
-            })) &&
-            input.clerks.every(
-              (elem, _index1) =>
-                ((("object" === typeof elem && null !== elem) ||
-                  $guard(_exceptionable, {
-                    path: _path + ".clerks[" + _index1 + "]",
-                    expected: "IClerk",
-                    value: elem,
-                  })) &&
-                  $ao1(
-                    elem,
-                    _path + ".clerks[" + _index1 + "]",
-                    true && _exceptionable,
-                  )) ||
-                $guard(_exceptionable, {
-                  path: _path + ".clerks[" + _index1 + "]",
-                  expected: "IClerk",
-                  value: elem,
-                }),
+        input.limit <= 2147483647) ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".limit",
+            expected: 'number & Type<"int32">',
+            value: input.limit,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".limit",
+          expected: '(number & Type<"int32">)',
+          value: input.limit,
+        },
+        _errorFactory,
+      )) &&
+    (((Array.isArray(input.clerks) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".clerks",
+          expected: "Array<IClerk>",
+          value: input.clerks,
+        },
+        _errorFactory,
+      )) &&
+      input.clerks.every(
+        (elem, _index2) =>
+          ((("object" === typeof elem && null !== elem) ||
+            $guard(
+              _exceptionable,
+              {
+                path: _path + ".clerks[" + _index2 + "]",
+                expected: "IClerk",
+                value: elem,
+              },
+              _errorFactory,
+            )) &&
+            $ao1(
+              elem,
+              _path + ".clerks[" + _index2 + "]",
+              true && _exceptionable,
             )) ||
-            $guard(_exceptionable, {
-              path: _path + ".clerks",
-              expected: "Array<IClerk>",
-              value: input.clerks,
-            }));
-        const $ao1 = (input, _path, _exceptionable = true) =>
-          ("string" === typeof input.name ||
-            $guard(_exceptionable, {
-              path: _path + ".name",
-              expected: "string",
-              value: input.name,
-            })) &&
-          (("number" === typeof input.age &&
-            (19 < input.age ||
-              $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number & ExclusiveMinimum<19>",
-                value: input.age,
-              })) &&
-            (input.age <= 100 ||
-              $guard(_exceptionable, {
-                path: _path + ".age",
-                expected: "number & Maximum<100>",
-                value: input.age,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".age",
-              expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
-              value: input.age,
-            })) &&
-          ("number" === typeof input.authority ||
-            $guard(_exceptionable, {
-              path: _path + ".authority",
-              expected: "number",
-              value: input.authority,
-            })) &&
-          (("string" === typeof input.joined_at &&
-            (/^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at) ||
-              $guard(_exceptionable, {
-                path: _path + ".joined_at",
-                expected: 'string & Format<"date">',
-                value: input.joined_at,
-              }))) ||
-            $guard(_exceptionable, {
-              path: _path + ".joined_at",
-              expected: '(string & Format<"date">)',
-              value: input.joined_at,
-            }));
-        return (
-          ((("object" === typeof input && null !== input) ||
-            $guard(true, {
+          $guard(
+            _exceptionable,
+            {
+              path: _path + ".clerks[" + _index2 + "]",
+              expected: "IClerk",
+              value: elem,
+            },
+            _errorFactory,
+          ),
+      )) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".clerks",
+          expected: "Array<IClerk>",
+          value: input.clerks,
+        },
+        _errorFactory,
+      ));
+  const $ao1 = (input, _path, _exceptionable = true) =>
+    ("string" === typeof input.name ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".name",
+          expected: "string",
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.age &&
+      (19 < input.age ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".age",
+            expected: "number & ExclusiveMinimum<19>",
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (input.age <= 100 ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".age",
+            expected: "number & Maximum<100>",
+            value: input.age,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".age",
+          expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
+          value: input.age,
+        },
+        _errorFactory,
+      )) &&
+    ("number" === typeof input.authority ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".authority",
+          expected: "number",
+          value: input.authority,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.joined_at &&
+      (/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(
+        input.joined_at,
+      ) ||
+        $guard(
+          _exceptionable,
+          {
+            path: _path + ".joined_at",
+            expected: 'string & Format<"date">',
+            value: input.joined_at,
+          },
+          _errorFactory,
+        ))) ||
+      $guard(
+        _exceptionable,
+        {
+          path: _path + ".joined_at",
+          expected: '(string & Format<"date">)',
+          value: input.joined_at,
+        },
+        _errorFactory,
+      ));
+  const $po0 = (input) => {
+    if (Array.isArray(input.clerks)) $pp0(input.clerks);
+    for (const key of Object.keys(input)) {
+      if ("id" === key || "name" === key || "limit" === key || "clerks" === key)
+        continue;
+      delete input[key];
+    }
+  };
+  const $po1 = (input) => {
+    for (const key of Object.keys(input)) {
+      if (
+        "name" === key ||
+        "age" === key ||
+        "authority" === key ||
+        "joined_at" === key
+      )
+        continue;
+      delete input[key];
+    }
+  };
+  const __is = (input) =>
+    "object" === typeof input && null !== input && $io0(input);
+  let _errorFactory;
+  const __assert = (input, errorFactory) => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input, _path, _exceptionable = true) =>
+        ((("object" === typeof input && null !== input) ||
+          $guard(
+            true,
+            {
               path: _path + "",
               expected: "IDepartment",
               value: input,
-            })) &&
-            $ao0(input, _path + "", true)) ||
-          $guard(true, {
+            },
+            _errorFactory,
+          )) &&
+          $ao0(input, _path + "", true)) ||
+        $guard(
+          true,
+          {
             path: _path + "",
             expected: "IDepartment",
             value: input,
-          })
-        );
-      })(input, "$input", true);
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
     return input;
   };
-  const prune = (input) => {
-    const $io1 = (input) =>
-      "string" === typeof input.name &&
-      "number" === typeof input.age &&
-      19 < input.age &&
-      input.age <= 100 &&
-      "number" === typeof input.authority &&
-      "string" === typeof input.joined_at &&
-      /^(\d{4})-(\d{2})-(\d{2})$/.test(input.joined_at);
-    const $pp0 = (input) =>
-      input.forEach((elem) => {
-        if ("object" === typeof elem && null !== elem) $po1(elem);
-      });
-    const $po0 = (input) => {
-      if (Array.isArray(input.clerks)) $pp0(input.clerks);
-      for (const key of Object.keys(input)) {
-        if (
-          "id" === key ||
-          "name" === key ||
-          "limit" === key ||
-          "clerks" === key
-        )
-          continue;
-        delete input[key];
-      }
-    };
-    const $po1 = (input) => {
-      for (const key of Object.keys(input)) {
-        if (
-          "name" === key ||
-          "age" === key ||
-          "authority" === key ||
-          "joined_at" === key
-        )
-          continue;
-        delete input[key];
-      }
-    };
+  const __prune = (input) => {
     if ("object" === typeof input && null !== input) $po0(input);
   };
-  assert(input);
-  prune(input);
-  return input;
-})(department);
+  return (input, errorFactory) => __prune(__assert(input, errorFactory));
+})()(department);
 console.log(pruned);
 ```
   </Tab>
@@ -798,14 +1040,7 @@ typia.misc.literals<"A" | "B" | "C" | 1 | 2n>();
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/literals.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
+import typia from "typia";
 ["A", "B", "C", 1, BigInt(2)];
 ```
   </Tab>
@@ -1021,23 +1256,17 @@ typia.notations.createCamel<IPerson>();
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/camel.js" showLineNumbers {}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-(input) => {
+```javascript filename="examples/bin/camel.js" showLineNumbers
+import typia from "typia";
+(() => {
   const $co0 = (input) => ({
     isMyNameSamchon: input.is_my_name_samchon,
     helloTheNewWorld: input.HelloTheNewWorld,
     toHTML: input.ToHTML,
   });
-  return "object" === typeof input && null !== input ? $co0(input) : input;
-};
+  return (input) =>
+    "object" === typeof input && null !== input ? $co0(input) : input;
+})();
 ```
   </Tab>
 </Tabs>
@@ -1250,23 +1479,17 @@ typia.notations.createPascal<IPerson>();
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/pascal.js" showLineNumbers {}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-(input) => {
+```javascript filename="examples/bin/pascal.js" showLineNumbers
+import typia from "typia";
+(() => {
   const $co0 = (input) => ({
     IsMyNameSamchon: input.is_my_name_samchon,
     HelloTheNewWorld: input.helloTheNewWorld,
     ToHTML: input.toHTML,
   });
-  return "object" === typeof input && null !== input ? $co0(input) : input;
-};
+  return (input) =>
+    "object" === typeof input && null !== input ? $co0(input) : input;
+})();
 ```
   </Tab>
 </Tabs>
@@ -1517,23 +1740,17 @@ typia.notations.createSnake<IPerson>();
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/snake.js" showLineNumbers {}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-(input) => {
+```javascript filename="examples/bin/snake.js" showLineNumbers
+import typia from "typia";
+(() => {
   const $co0 = (input) => ({
     is_my_name_samchon: input.isMyNameSamchon,
     hello_the_new_world: input.HelloTheNewWorld,
     to_html: input.ToHTML,
   });
-  return "object" === typeof input && null !== input ? $co0(input) : input;
-};
+  return (input) =>
+    "object" === typeof input && null !== input ? $co0(input) : input;
+})();
 ```
   </Tab>
 </Tabs>
@@ -1773,34 +1990,29 @@ typia.http.createQuery<IQuery>();
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/query.js" showLineNumbers {}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
+```javascript filename="examples/bin/query.js" showLineNumbers
+import typia from "typia";
+(() => {
+  const $params = typia.http.createQuery.params;
+  const $number = typia.http.createQuery.number;
+  const $boolean = typia.http.createQuery.boolean;
+  const $string = typia.http.createQuery.string;
+  const $array = typia.http.createQuery.array;
+  return (input) => {
+    input = $params(input);
+    const output = {
+      limit: $number(input.get("limit")) ?? undefined,
+      enforce: $boolean(input.get("enforce")),
+      values: $array(
+        input.getAll("values").map((elem) => $string(elem)),
+        undefined,
+      ),
+      atomic: $string(input.get("atomic")),
+      indexes: input.getAll("indexes").map((elem) => $number(elem)),
+    };
+    return output;
   };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-(input) => {
-  const $params = typia_1.default.http.createQuery.params;
-  const $number = typia_1.default.http.createQuery.number;
-  const $boolean = typia_1.default.http.createQuery.boolean;
-  const $string = typia_1.default.http.createQuery.string;
-  const $array = typia_1.default.http.createQuery.array;
-  input = $params(input);
-  const output = {
-    limit: $number(input.get("limit")) ?? undefined,
-    enforce: $boolean(input.get("enforce")),
-    values: $array(
-      input.getAll("values").map((elem) => $string(elem)),
-      undefined,
-    ),
-    atomic: $string(input.get("atomic")),
-    indexes: input.getAll("indexes").map((elem) => $number(elem)),
-  };
-  return output;
-};
+})();
 ```
   </Tab>
 </Tabs>
@@ -2050,35 +2262,31 @@ typia.http.createHeaders<IHeaders>();
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/headers.js" showLineNumbers {}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
+```javascript filename="examples/bin/headers.js" showLineNumbers
+import typia from "typia";
+(() => {
+  const $number = typia.http.createHeaders.number;
+  const $boolean = typia.http.createHeaders.boolean;
+  const $string = typia.http.createHeaders.string;
+  return (input) => {
+    const output = {
+      "x-Category": input["x-category"],
+      "x-MEMO": input["x-memo"],
+      "x-nAmE": input["x-name"],
+      "x-ValUes": Array.isArray(input["x-values"])
+        ? input["x-values"].map($number)
+        : input["x-values"]?.split(", ")?.map($number) ?? [],
+      "x-FlAgS": Array.isArray(input["x-flags"])
+        ? input["x-flags"].map($boolean)
+        : input["x-flags"]?.split(", ")?.map($boolean) ?? [],
+      "X-Descriptions": Array.isArray(input["x-descriptions"])
+        ? input["x-descriptions"].map($string)
+        : input["x-descriptions"]?.split(", ")?.map($string) ?? [],
+    };
+    return output;
   };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-(input) => {
-  const $number = typia_1.default.http.createHeaders.number;
-  const $boolean = typia_1.default.http.createHeaders.boolean;
-  const $string = typia_1.default.http.createHeaders.string;
-  const output = {
-    "x-Category": input["x-category"],
-    "x-MEMO": input["x-memo"],
-    "x-nAmE": input["x-name"],
-    "x-ValUes": Array.isArray(input["x-values"])
-      ? input["x-values"].map($number)
-      : input["x-values"]?.split(", ")?.map($number) ?? [],
-    "x-FlAgS": Array.isArray(input["x-flags"])
-      ? input["x-flags"].map($boolean)
-      : input["x-flags"]?.split(", ")?.map($boolean) ?? [],
-    "X-Descriptions": Array.isArray(input["x-descriptions"])
-      ? input["x-descriptions"].map($string)
-      : input["x-descriptions"]?.split(", ")?.map($string) ?? [],
-  };
-  return output;
-};
+})();
+
 ```
   </Tab>
 </Tabs>
@@ -2126,84 +2334,91 @@ typia.http.createParameter<number & tags.Type<"uint32">>();
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/parameter.js" showLineNumbers {}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
+```javascript filename="examples/bin/parameter.js" showLineNumbers
+import typia from "typia";
 (input) => {
-  const $string = typia_1.default.http.createParameter.string;
-  const assert = (input) => {
-    const __is = (input) => {
-      return (
-        "string" === typeof input &&
-        /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-          input,
-        )
+  const $string = typia.http.createParameter.string;
+  const assert = (() => {
+    const $guard = typia.http.createParameter.guard;
+    const __is = (input) =>
+      "string" === typeof input &&
+      /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
+        input,
       );
-    };
-    if (false === __is(input))
-      ((input, _path, _exceptionable = true) => {
-        const $guard = typia_1.default.http.createParameter.guard;
-        return (
+    let _errorFactory;
+    return (input, errorFactory) => {
+      if (false === __is(input)) {
+        _errorFactory = errorFactory;
+        ((input, _path, _exceptionable = true) =>
           ("string" === typeof input &&
             (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
               input,
             ) ||
-              $guard(true, {
-                path: _path + "",
-                expected: 'string & Format<"uuid">',
-                value: input,
-              }))) ||
-          $guard(true, {
-            path: _path + "",
-            expected: '(string & Format<"uuid">)',
-            value: input,
-          })
-        );
-      })(input, "$input", true);
-    return input;
-  };
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: 'string & Format<"uuid">',
+                  value: input,
+                },
+                _errorFactory,
+              ))) ||
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: '(string & Format<"uuid">)',
+              value: input,
+            },
+            _errorFactory,
+          ))(input, "$input", true);
+      }
+      return input;
+    };
+  })();
   const value = $string(input);
   return assert(value);
 };
 (input) => {
-  const $number = typia_1.default.http.createParameter.number;
-  const assert = (input) => {
-    const __is = (input) => {
-      return (
-        "number" === typeof input &&
-        Math.floor(input) === input &&
-        0 <= input &&
-        input <= 4294967295
-      );
-    };
-    if (false === __is(input))
-      ((input, _path, _exceptionable = true) => {
-        const $guard = typia_1.default.http.createParameter.guard;
-        return (
+  const $number = typia.http.createParameter.number;
+  const assert = (() => {
+    const $guard = typia.http.createParameter.guard;
+    const __is = (input) =>
+      "number" === typeof input &&
+      Math.floor(input) === input &&
+      0 <= input &&
+      input <= 4294967295;
+    let _errorFactory;
+    return (input, errorFactory) => {
+      if (false === __is(input)) {
+        _errorFactory = errorFactory;
+        ((input, _path, _exceptionable = true) =>
           ("number" === typeof input &&
             ((Math.floor(input) === input &&
               0 <= input &&
               input <= 4294967295) ||
-              $guard(true, {
-                path: _path + "",
-                expected: 'number & Type<"uint32">',
-                value: input,
-              }))) ||
-          $guard(true, {
-            path: _path + "",
-            expected: '(number & Type<"uint32">)',
-            value: input,
-          })
-        );
-      })(input, "$input", true);
-    return input;
-  };
+              $guard(
+                true,
+                {
+                  path: _path + "",
+                  expected: 'number & Type<"uint32">',
+                  value: input,
+                },
+                _errorFactory,
+              ))) ||
+          $guard(
+            true,
+            {
+              path: _path + "",
+              expected: '(number & Type<"uint32">)',
+              value: input,
+            },
+            _errorFactory,
+          ))(input, "$input", true);
+      }
+      return input;
+    };
+  })();
   const value = $number(input);
   return assert(value);
 };

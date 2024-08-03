@@ -68,20 +68,10 @@ interface IMember {
 ```
   </Tab>
   <Tab>
-```javascript filename="examples/bin/check.js" showLineNumbers {2-12}
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.check = void 0;
-const typia_1 = __importDefault(require("typia"));
-const check = (input) => {
-  return (
-    "object" === typeof input &&
-    null !== input &&
+```javascript filename="examples/bin/check.js" showLineNumbers {2-16}
+import typia from "typia";
+export const check = (() => {
+  const $io0 = (input) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -92,10 +82,9 @@ const check = (input) => {
     ) &&
     "number" === typeof input.age &&
     19 < input.age &&
-    input.age <= 100
-  );
-};
-exports.check = check;
+    input.age <= 100;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})();
 ```
   </Tab>
 </Tabs>

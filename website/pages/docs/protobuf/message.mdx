@@ -184,24 +184,17 @@ message TypeTagExample {
 ```
   </Tab>
   <Tab>
-```javascript filename="TypeTagExample.js" showLineNumbers copy
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
+```javascript filename="TypeTagExample.js" showLineNumbers
+import typia from "typia";
 //----
 // PROTOBUF MESSAGE SCHEMA
 //----
-('syntax = "proto3";\n\nmessage TypeTagExample {\n    required int32 int32 = 1;\n    required uint32 uint32 = 2;\n    required uint64 uint64 = 3;\n    required int64 int64 = 4;\n    required float float = 5;\n    optional double double = 6;\n    optional string string = 7;\n    oneof uint32_or_double {\n        uint32 v8 = 8;\n        double v9 = 9;\n    }\n    oneof int32_or_uint64 {\n        int32 v10 = 10;\n        uint64 v11 = 11;\n    }\n    oneof int32_or_float_or_uint64 {\n        int32 v12 = 12;\n        uint64 v13 = 13;\n        float v14 = 14;\n    }\n    repeated uint64 uint64_array = 15;\n    map<int32, string> int32_map = 16;\n}');
+('syntax = "proto3";\n\nmessage TypeTagExample {\n  required int32 int32 = 1;\n  required uint32 uint32 = 2;\n  required uint64 uint64 = 3;\n  required int64 int64 = 4;\n  required float float = 5;\n  optional double double = 6;\n  optional string string = 7;\n  oneof uint32_or_double {\n    uint32 v8 = 8;\n    double v9 = 9;\n  }\n  oneof int32_or_uint64 {\n    int32 v10 = 10;\n    uint64 v11 = 11;\n  }\n  oneof int32_or_float_or_uint64 {\n    int32 v12 = 12;\n    uint64 v13 = 13;\n    float v14 = 14;\n  }\n  repeated uint64 uint64_array = 15;\n  map<int32, string> int32_map = 16;\n}');
 //----
 // DECODE FUNCTION
 //----
-(input) => {
-  const $Reader = typia_1.default.protobuf.createDecode.Reader;
+(() => {
+  const $Reader = typia.protobuf.createDecode.Reader;
   const $pdo0 = (reader, length = -1) => {
     length = length < 0 ? reader.size() : reader.index() + length;
     const output = {
@@ -320,17 +313,19 @@ const typia_1 = __importDefault(require("typia"));
     }
     return output;
   };
-  const reader = new $Reader(input);
-  return $pdo0(reader);
-};
+  return (input) => {
+    const reader = new $Reader(input);
+    return $pdo0(reader);
+  };
+})();
 //----
 // ENCODE FUNCTION
 //----
-(input) => {
-  const $throws = typia_1.default.protobuf.createEncode.throws;
-  const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
-  const $Writer = typia_1.default.protobuf.createEncode.Writer;
-  const encoder = (writer) => {
+(() => {
+  const $throws = typia.protobuf.createEncode.throws;
+  const $Sizer = typia.protobuf.createEncode.Sizer;
+  const $Writer = typia.protobuf.createEncode.Writer;
+  const encoder = (writer, input) => {
     const $peo0 = (input) => {
       // property "int32";
       writer.uint32(8);
@@ -438,10 +433,12 @@ const typia_1 = __importDefault(require("typia"));
     $peo0(input);
     return writer;
   };
-  const sizer = encoder(new $Sizer());
-  const writer = encoder(new $Writer(sizer));
-  return writer.buffer();
-};
+  return (input) => {
+    const sizer = encoder(new $Sizer(), input);
+    const writer = encoder(new $Writer(sizer), input);
+    return writer.buffer();
+  };
+})();
 ```
   </Tab>
 </Tabs>
@@ -537,24 +534,17 @@ message CommentTagExample {
 ```
   </Tab>
   <Tab>
-```javascript filename="CommentTagExample.js" showLineNumbers copy
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
+```javascript filename="CommentTagExample.js" showLineNumbers
+import typia from "typia";
 //----
 // PROTOBUF MESSAGE SCHEMA
 //----
-('syntax = "proto3";\n\nmessage CommentTagExample {\n    required int32 int32 = 1;\n    optional uint32 uint32 = 2;\n    optional uint64 uint64 = 3;\n    required int64 int64 = 4;\n    optional float float = 5;\n    required double double = 6;\n    required string string = 7;\n}');
+('syntax = "proto3";\n\nmessage CommentTagExample {\n  required int32 int32 = 1;\n  optional uint32 uint32 = 2;\n  optional uint64 uint64 = 3;\n  required int64 int64 = 4;\n  optional float float = 5;\n  required double double = 6;\n  required string string = 7;\n}');
 //----
 // DECODE FUNCTION
 //----
-(input) => {
-  const $Reader = typia_1.default.protobuf.createDecode.Reader;
+(() => {
+  const $Reader = typia.protobuf.createDecode.Reader;
   const $pdo0 = (reader, length = -1) => {
     length = length < 0 ? reader.size() : reader.index() + length;
     const output = {
@@ -604,16 +594,18 @@ const typia_1 = __importDefault(require("typia"));
     }
     return output;
   };
-  const reader = new $Reader(input);
-  return $pdo0(reader);
-};
+  return (input) => {
+    const reader = new $Reader(input);
+    return $pdo0(reader);
+  };
+})();
 //----
 // ENCODE FUNCTION
 //----
-(input) => {
-  const $Sizer = typia_1.default.protobuf.createEncode.Sizer;
-  const $Writer = typia_1.default.protobuf.createEncode.Writer;
-  const encoder = (writer) => {
+(() => {
+  const $Sizer = typia.protobuf.createEncode.Sizer;
+  const $Writer = typia.protobuf.createEncode.Writer;
+  const encoder = (writer, input) => {
     const $peo0 = (input) => {
       // property "int32";
       writer.uint32(8);
@@ -647,10 +639,12 @@ const typia_1 = __importDefault(require("typia"));
     $peo0(input);
     return writer;
   };
-  const sizer = encoder(new $Sizer());
-  const writer = encoder(new $Writer(sizer));
-  return writer.buffer();
-};
+  return (input) => {
+    const sizer = encoder(new $Sizer(), input);
+    const writer = encoder(new $Writer(sizer), input);
+    return writer.buffer();
+  };
+})();
 ```
   </Tab>
 </Tabs>
