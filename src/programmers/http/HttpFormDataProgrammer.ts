@@ -29,6 +29,7 @@ export namespace HttpFormDataProgrammer {
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
+    // ANALYZE TYPE
     const collection: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze(
       props.project.checker,
@@ -46,6 +47,7 @@ export namespace HttpFormDataProgrammer {
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
+    const statements: ts.Statement[] = decode_object(props.importer)(object);
     return {
       functions: {},
       statements: [],
@@ -73,7 +75,7 @@ export namespace HttpFormDataProgrammer {
           false,
         ),
         undefined,
-        ts.factory.createBlock(decode_object(props.importer)(object), true),
+        ts.factory.createBlock(statements, true),
       ),
     };
   };
