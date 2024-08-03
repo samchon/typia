@@ -102,14 +102,6 @@ export namespace ValidateProgrammer {
       undefined,
       ts.factory.createBlock(
         [
-          // prepare errors
-          ts.factory.createExpressionStatement(
-            ts.factory.createBinaryExpression(
-              ts.factory.createIdentifier("errors"),
-              ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-              ts.factory.createArrayLiteralExpression([]),
-            ),
-          ),
           // validate when false === is<T>(input)
           ts.factory.createIfStatement(
             ts.factory.createStrictEquality(
@@ -121,6 +113,14 @@ export namespace ValidateProgrammer {
               ),
             ),
             ts.factory.createBlock([
+              // prepare errors
+              ts.factory.createExpressionStatement(
+                ts.factory.createBinaryExpression(
+                  ts.factory.createIdentifier("errors"),
+                  ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                  ts.factory.createArrayLiteralExpression([]),
+                ),
+              ),
               ts.factory.createExpressionStatement(
                 ts.factory.createBinaryExpression(
                   ts.factory.createIdentifier("$report"),
