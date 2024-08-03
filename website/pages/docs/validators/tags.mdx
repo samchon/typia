@@ -66,17 +66,8 @@ interface CustomTag {
   </Tab>
   <Tab>
 ```javascript filename="is.tag.js" showLineNumbers
------------------------------------------------------------ */
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCustomTag = void 0;
-const typia_1 = __importDefault(require("typia"));
-const checkCustomTag = (input) => {
+import typia from "typia";
+export const checkCustomTag = (() => {
   const $io0 = (input) =>
     "number" === typeof input.type &&
     Math.floor(input.type) === input.type &&
@@ -128,9 +119,8 @@ const checkCustomTag = (input) => {
               ),
           ),
       ))();
-  return "object" === typeof input && null !== input && $io0(input);
-};
-exports.checkCustomTag = checkCustomTag;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})();
 ```
   </Tab>
 </Tabs>
@@ -250,16 +240,8 @@ interface CustomTag {
   </Tab>
   <Tab>
 ```javascript filename="is.tag.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCustomTag = void 0;
-const typia_1 = __importDefault(require("typia"));
-const checkCustomTag = (input) => {
+import typia from "typia";
+export const checkCustomTag = (() => {
   const $io0 = (input) =>
     "number" === typeof input.type &&
     Math.floor(input.type) === input.type &&
@@ -311,9 +293,8 @@ const checkCustomTag = (input) => {
               ),
           ),
       ))();
-  return "object" === typeof input && null !== input && $io0(input);
-};
-exports.checkCustomTag = checkCustomTag;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})();
 ```
   </Tab>
 </Tabs>
@@ -451,16 +432,8 @@ interface CustomTag {
   </Tab>
   <Tab>
 ```javascript filename="is.tag.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCustomTag = void 0;
-const typia_1 = __importDefault(require("typia"));
-const checkCustomTag = (input) => {
+import typia from "typia";
+export const checkCustomTag = (() => {
   const $io0 = (input) =>
     "number" === typeof input.type &&
     Math.floor(input.type) === input.type &&
@@ -473,9 +446,8 @@ const checkCustomTag = (input) => {
     "string" === typeof input.string &&
     3 <= input.string.length &&
     "string" === typeof input.pattern;
-  return "object" === typeof input && null !== input && $io0(input);
-};
-exports.checkCustomTag = checkCustomTag;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})();
 ```
   </Tab>
 </Tabs>

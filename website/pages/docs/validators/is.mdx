@@ -55,19 +55,10 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/is.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-const uuid_1 = require("uuid");
-const matched = ((input) => {
-  return (
-    "object" === typeof input &&
-    null !== input &&
+import typia from "typia";
+import { v4 } from "uuid";
+const matched = (() => {
+  const $io0 = (input) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -81,10 +72,10 @@ const matched = ((input) => {
     0 <= input.age &&
     input.age <= 4294967295 &&
     19 < input.age &&
-    input.age <= 100
-  );
-})({
-  id: (0, uuid_1.v4)(),
+    input.age <= 100;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})()({
+  id: v4(),
   email: "samchon.github@gmai19l.com",
   age: 30,
 });
@@ -137,25 +128,16 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/equals.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-const uuid_1 = require("uuid");
+import typia from "typia";
+import { v4 } from "uuid";
 const input = {
-  id: (0, uuid_1.v4)(),
+  id: v4(),
   email: "samchon.github@gmail.com",
   age: 30,
   extra: "superfluous property", // extra
 };
-const is = ((input) => {
-  return (
-    "object" === typeof input &&
-    null !== input &&
+const is = (() => {
+  const $io0 = (input) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -169,10 +151,10 @@ const is = ((input) => {
     0 <= input.age &&
     input.age <= 4294967295 &&
     19 < input.age &&
-    input.age <= 100
-  );
-})(input);
-const equals = ((input, _exceptionable = true) => {
+    input.age <= 100;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})()(input);
+const equals = (() => {
   const $io0 = (input, _exceptionable = true) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
@@ -195,8 +177,9 @@ const equals = ((input, _exceptionable = true) => {
         if (undefined === value) return true;
         return false;
       }));
-  return "object" === typeof input && null !== input && $io0(input, true);
-})(input);
+  return (input, _exceptionable = true) =>
+    "object" === typeof input && null !== input && $io0(input, true);
+})()(input);
 console.log(is, equals); // true, false
 ```
   </Tab>
@@ -236,19 +219,9 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/createIs.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.check = void 0;
-const typia_1 = __importDefault(require("typia"));
-const check = (input) => {
-  return (
-    "object" === typeof input &&
-    null !== input &&
+import typia from "typia";
+export const check = (() => {
+  const $io0 = (input) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -262,10 +235,9 @@ const check = (input) => {
     0 <= input.age &&
     input.age <= 4294967295 &&
     19 < input.age &&
-    input.age <= 100
-  );
-};
-exports.check = check;
+    input.age <= 100;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})();
 ```
   </Tab>
 </Tabs>
@@ -335,16 +307,9 @@ typia.createIs<Map<string, boolean | number | string>>();
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/is-map.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-(input) => {
-  return (
+import typia from "typia";
+(() => {
+  return (input) =>
     input instanceof Map &&
     (() =>
       [...input].every(
@@ -355,9 +320,8 @@ const typia_1 = __importDefault(require("typia"));
           ("string" === typeof elem[1] ||
             "number" === typeof elem[1] ||
             "boolean" === typeof elem[1]),
-      ))()
-  );
-};
+      ))();
+})();
 ```
   </Tab>
 </Tabs>
@@ -425,29 +389,18 @@ interface Something {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkSomething = void 0;
-const typia_1 = __importDefault(require("typia"));
-const checkSomething = (input) => {
-  return (
-    "object" === typeof input &&
-    null !== input &&
+import typia from "typia";
+export const checkSomething = (() => {
+  const $io0 = (input) =>
     "string" === typeof input.dollar &&
     input.dollar[0] === "$" &&
     !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
     "string" === typeof input.postfix &&
     input.postfix.endsWith("!!!") &&
     "number" === typeof input.isEven &&
-    input.isEven % 2 === 0
-  );
-};
-exports.checkSomething = checkSomething;
+    input.isEven % 2 === 0;
+  return (input) => "object" === typeof input && null !== input && $io0(input);
+})();
 ```
   </Tab>
 </Tabs>
@@ -462,7 +415,7 @@ Comparing `typia.is<T>()` function with other competitive libraries, maximum 20,
 
 Furthermore, only `typia` can validate complicate union types.
 
-![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
+![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/is.svg)
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#is)
 
