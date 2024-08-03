@@ -102,18 +102,12 @@ export namespace ValidateProgrammer {
       undefined,
       ts.factory.createBlock(
         [
-          // errors.clear()
-          ts.factory.createIfStatement(
-            ts.factory.createIdentifier("errors.length"),
-            ts.factory.createExpressionStatement(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("errors.splice"),
-                undefined,
-                [
-                  ts.factory.createNumericLiteral(0),
-                  ts.factory.createIdentifier("errors.length"),
-                ],
-              ),
+          // prepare errors
+          ts.factory.createExpressionStatement(
+            ts.factory.createBinaryExpression(
+              ts.factory.createIdentifier("errors"),
+              ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+              ts.factory.createArrayLiteralExpression([]),
             ),
           ),
           // validate when false === is<T>(input)
@@ -127,6 +121,24 @@ export namespace ValidateProgrammer {
               ),
             ),
             ts.factory.createBlock([
+              ts.factory.createExpressionStatement(
+                ts.factory.createBinaryExpression(
+                  ts.factory.createIdentifier("$report"),
+                  ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                  ts.factory.createCallExpression(
+                    IdentifierFactory.access(
+                      ts.factory.createParenthesizedExpression(
+                        ts.factory.createAsExpression(
+                          props.modulo,
+                          TypeFactory.keyword("any"),
+                        ),
+                      ),
+                    )("report"),
+                    [],
+                    [ts.factory.createIdentifier("errors")],
+                  ),
+                ),
+              ),
               ts.factory.createExpressionStatement(
                 ts.factory.createCallExpression(
                   ts.factory.createArrowFunction(
@@ -145,18 +157,40 @@ export namespace ValidateProgrammer {
                   ],
                 ),
               ),
+              StatementFactory.constant(
+                "success",
+                ts.factory.createStrictEquality(
+                  ExpressionFactory.number(0),
+                  ts.factory.createIdentifier("errors.length"),
+                ),
+              ),
+              ts.factory.createReturnStatement(
+                ts.factory.createAsExpression(
+                  create_output(),
+                  TypeFactory.keyword("any"),
+                ),
+              ),
             ]),
-          ),
-          StatementFactory.constant(
-            "success",
-            ts.factory.createStrictEquality(
-              ExpressionFactory.number(0),
-              ts.factory.createIdentifier("errors.length"),
-            ),
           ),
           ts.factory.createReturnStatement(
             ts.factory.createAsExpression(
-              create_output(),
+              ts.factory.createObjectLiteralExpression(
+                [
+                  ts.factory.createPropertyAssignment(
+                    "success",
+                    ts.factory.createTrue(),
+                  ),
+                  ts.factory.createPropertyAssignment(
+                    "errors",
+                    ts.factory.createArrayLiteralExpression([]),
+                  ),
+                  ts.factory.createPropertyAssignment(
+                    "data",
+                    ts.factory.createIdentifier("input"),
+                  ),
+                ],
+                true,
+              ),
               TypeFactory.keyword("any"),
             ),
           ),
@@ -173,28 +207,8 @@ export namespace ValidateProgrammer {
         ...is.statements,
         ...composed.statements,
         StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant(
-          "errors",
-          ts.factory.createAsExpression(
-            ts.factory.createArrayLiteralExpression([]),
-            ts.factory.createArrayTypeNode(TypeFactory.keyword("any")),
-          ),
-        ),
-        StatementFactory.constant(
-          "$report",
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(
-              ts.factory.createParenthesizedExpression(
-                ts.factory.createAsExpression(
-                  props.modulo,
-                  TypeFactory.keyword("any"),
-                ),
-              ),
-            )("report"),
-            [],
-            [ts.factory.createIdentifier("errors")],
-          ),
-        ),
+        StatementFactory.mut("errors"),
+        StatementFactory.mut("$report"),
       ],
       arrow,
     };

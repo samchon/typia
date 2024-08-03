@@ -3,8 +3,10 @@ import ts from "typescript";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
+// import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
+// import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
@@ -13,6 +15,8 @@ import { FunctionImporter } from "./helpers/FunctionImporter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
+
+// import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace IsProgrammer {
   export const configure =
@@ -118,6 +122,43 @@ export namespace IsProgrammer {
       })(props.project)(props.importer),
       trace: props.equals,
     };
+    // config.decoder = () => (input, target, explore) => {
+    //   if (
+    //     target.size() === 1 &&
+    //     target.objects.length === 1 &&
+    //     target.isRequired() === true &&
+    //     target.nullable === false
+    //   ) {
+    //     // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
+    //     const obj: MetadataObject = target.objects[0]!;
+    //     if (
+    //       obj.isPlain(explore.from === "top" ? 0 : 1) &&
+    //       (props.equals === false ||
+    //         OptionPredicator.undefined(props.project.options) === false)
+    //     )
+    //       return ts.factory.createLogicalAnd(
+    //         ExpressionFactory.isObject({
+    //           checkNull: true,
+    //           checkArray: false,
+    //         })(input),
+    //         config.joiner.object(
+    //           ts.factory.createAsExpression(input, TypeFactory.keyword("any")),
+    //           feature_object_entries(config as any)(props.importer)(obj)(
+    //             ts.factory.createAsExpression(
+    //               input,
+    //               TypeFactory.keyword("any"),
+    //             ),
+    //             "top",
+    //           ),
+    //         ),
+    //       );
+    //   }
+    //   return CheckerProgrammer.decode(props.project)(config)(props.importer)(
+    //     input,
+    //     target,
+    //     explore,
+    //   );
+    // };
 
     // COMPOSITION
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
