@@ -3,20 +3,16 @@ import ts from "typescript";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
-import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
-
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
+import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
-import { disable_function_importer_declare } from "./helpers/disable_function_importer_declare";
 import { check_object } from "./internal/check_object";
-import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace IsProgrammer {
   export const configure =
@@ -52,7 +48,10 @@ export namespace IsProgrammer {
           type === "and"
             ? ts.factory.createLogicalAnd
             : ts.factory.createLogicalOr;
-        return (_input: ts.Expression, binaries: CheckerProgrammer.IBinary[]) =>
+        return (
+          _input: ts.Expression,
+          binaries: CheckerProgrammer.IBinary[],
+        ) =>
           binaries.length
             ? binaries
                 .map((binary) => binary.expression)
@@ -95,79 +94,68 @@ export namespace IsProgrammer {
   }
 
   /* -----------------------------------------------------------
-        WRITERS
-    ----------------------------------------------------------- */
+    WRITERS
+  ----------------------------------------------------------- */
+  export const decompose = (props: {
+    project: IProject;
+    importer: FunctionImporter;
+    equals: boolean;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    // CONFIGURATION
+    const config: CheckerProgrammer.IConfig = {
+      ...configure({
+        object: check_object({
+          equals: props.equals,
+          undefined: OptionPredicator.undefined(props.project.options),
+          assert: true,
+          reduce: ts.factory.createLogicalAnd,
+          positive: ts.factory.createTrue(),
+          superfluous: () => ts.factory.createFalse(),
+        })(props.project)(props.importer),
+        numeric: OptionPredicator.numeric(props.project.options),
+      })(props.project)(props.importer),
+      trace: props.equals,
+    };
+
+    // COMPOSITION
+    const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
+      ...props,
+      config,
+    });
+    return {
+      functions: composed.functions,
+      statements: composed.statements,
+      arrow: ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        composed.parameters,
+        composed.response,
+        undefined,
+        composed.body,
+      ),
+    };
+  };
+
   export const write =
     (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression, disable?: boolean) =>
-    (equals: boolean) => {
-      const importer: FunctionImporter =
-        disable === <any>{}
-          ? disable_function_importer_declare(
-              new FunctionImporter(modulo.getText()),
-            )
-          : new FunctionImporter(modulo.getText());
-
-      // CONFIGURATION
-      const config: CheckerProgrammer.IConfig = {
-        ...configure({
-          object: check_object({
-            equals,
-            undefined: OptionPredicator.undefined(project.options),
-            assert: true,
-            reduce: ts.factory.createLogicalAnd,
-            positive: ts.factory.createTrue(),
-            superfluous: () => ts.factory.createFalse(),
-          })(project)(importer),
-          numeric: OptionPredicator.numeric(project.options),
-        })(project)(importer),
-        trace: equals,
-        addition: () => importer.declare(modulo),
-      };
-
-      config.decoder = () => (input, target, explore) => {
-        if (
-          target.size() === 1 &&
-          target.objects.length === 1 &&
-          target.isRequired() === true &&
-          target.nullable === false
-        ) {
-          // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
-          const obj: MetadataObject = target.objects[0]!;
-          if (
-            obj.isPlain(explore.from === "top" ? 0 : 1) &&
-            (equals === false ||
-              OptionPredicator.undefined(project.options) === false)
-          )
-            return ts.factory.createLogicalAnd(
-              ExpressionFactory.isObject({
-                checkNull: true,
-                checkArray: false,
-              })(input),
-              config.joiner.object(
-                ts.factory.createAsExpression(
-                  input,
-                  TypeFactory.keyword("any"),
-                ),
-                feature_object_entries(config as any)(importer)(obj)(
-                  ts.factory.createAsExpression(
-                    input,
-                    TypeFactory.keyword("any"),
-                  ),
-                  "top",
-                ),
-              ),
-            );
-        }
-        return CheckerProgrammer.decode(project)(config)(importer)(
-          input,
-          target,
-          explore,
-        );
-      };
-
-      // GENERATE CHECKER
-      return CheckerProgrammer.write(project)(config)(importer);
+    (modulo: ts.LeftHandSideExpression) =>
+    (equals: boolean) =>
+    (type: ts.Type, name?: string) => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        equals,
+        project,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   export const write_function_statements =

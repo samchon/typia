@@ -7,64 +7,85 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { IProject } from "../../transformers/IProject";
 
 import { AssertProgrammer } from "../AssertProgrammer";
+import { FeatureProgrammer } from "../FeatureProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { NotationGeneralProgrammer } from "./NotationGeneralProgrammer";
 
 export namespace NotationAssertGeneralProgrammer {
-  export const write =
-    (rename: (str: string) => string) =>
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string, init?: ts.Expression) =>
-      ts.factory.createArrowFunction(
+  export const decompose = (props: {
+    rename: (str: string) => string;
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+    init: ts.Expression | undefined;
+  }): FeatureProgrammer.IDecomposed => {
+    const assert: FeatureProgrammer.IDecomposed = AssertProgrammer.decompose({
+      ...props,
+      equals: false,
+      guard: false,
+    });
+    const notation: FeatureProgrammer.IDecomposed =
+      NotationGeneralProgrammer.decompose({
+        ...props,
+        validated: true,
+      });
+    return {
+      functions: {
+        ...assert.functions,
+        ...notation.functions,
+      },
+      statements: [
+        ...assert.statements,
+        ...notation.statements,
+        StatementFactory.constant("__assert", assert.arrow),
+        StatementFactory.constant("__notation", notation.arrow),
+      ],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [
           IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-          AssertProgrammer.Guardian.parameter(init),
+          AssertProgrammer.Guardian.parameter(props.init),
         ],
-        ts.factory.createTypeReferenceNode(
-          NotationGeneralProgrammer.returnType(rename)(
-            name ?? TypeFactory.getFullName(project.checker)(type),
-          ),
-        ),
+        notation.arrow.type,
         undefined,
-        ts.factory.createBlock([
-          StatementFactory.constant(
-            "assert",
-            AssertProgrammer.write(project)(modulo)(false)(type, name),
-          ),
-          StatementFactory.constant(
-            "general",
-            NotationGeneralProgrammer.write(rename)({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: false,
-              },
-            })(modulo)(type, name),
-          ),
-          ts.factory.createExpressionStatement(
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier("__notation"),
+          undefined,
+          [
             ts.factory.createCallExpression(
-              ts.factory.createIdentifier("assert"),
+              ts.factory.createIdentifier("__assert"),
               undefined,
               [
                 ts.factory.createIdentifier("input"),
                 AssertProgrammer.Guardian.identifier(),
               ],
             ),
-          ),
-          StatementFactory.constant(
-            "output",
-            ts.factory.createCallExpression(
-              ts.factory.createIdentifier("general"),
-              undefined,
-              [ts.factory.createIdentifier("input")],
-            ),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("output"),
-          ),
-        ]),
-      );
+          ],
+        ),
+      ),
+    };
+  };
+
+  export const write =
+    (rename: (str: string) => string) =>
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        rename,
+        project,
+        importer,
+        type,
+        name,
+        init,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
+    };
 }

@@ -72,14 +72,15 @@ export class FunctionImporter {
     name: string,
     factory: () => ts.ArrowFunction,
   ): string {
-    const oldbie = this.unions_.get(name);
+    const key: string = `${prefix}::${name}`;
+    const oldbie = this.unions_.get(key);
     if (oldbie) return oldbie[0];
 
     const index: number = this.unions_.size;
     const accessor: string = `${prefix}p${index}`;
 
     const tuple: [string, ReturnType<typeof factory>] = [accessor, null!];
-    this.unions_.set(name, tuple);
+    this.unions_.set(key, tuple);
     tuple[1] = factory();
     return accessor;
   }

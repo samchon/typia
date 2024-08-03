@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
 import { IProject } from "../../transformers/IProject";
@@ -18,27 +19,37 @@ export namespace FunctionalValidateReturnProgrammer {
     (
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
-    ): ts.ArrowFunction => {
-      const { async, statements } = writeStatements(project)(modulo)(equals)(
+    ): ts.CallExpression => {
+      const result = decompose(project)(modulo)(equals)(
         expression,
         declaration,
       );
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
-        declaration.parameters,
-        FunctionalValidateFunctionProgrammer.getReturnTypeNode(
-          declaration,
-          async,
+      return ExpressionFactory.selfCall(
+        ts.factory.createBlock(
+          [
+            ...result.functions,
+            ts.factory.createReturnStatement(
+              ts.factory.createArrowFunction(
+                result.async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
+                undefined,
+                declaration.parameters,
+                FunctionalValidateFunctionProgrammer.getReturnTypeNode(
+                  declaration,
+                  result.async,
+                ),
+                undefined,
+                ts.factory.createBlock(result.statements, true),
+              ),
+            ),
+          ],
+          true,
         ),
-        undefined,
-        ts.factory.createBlock(statements, true),
       );
     };
 
-  export const writeStatements =
+  export const decompose =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
@@ -47,6 +58,7 @@ export namespace FunctionalValidateReturnProgrammer {
       declaration: ts.FunctionDeclaration,
     ): {
       async: boolean;
+      functions: ts.Statement[];
       statements: ts.Statement[];
     } => {
       const { type, async } = FunctionalGeneralProgrammer.getReturnType(
@@ -63,45 +75,52 @@ export namespace FunctionalValidateReturnProgrammer {
       const name: string = StringUtil.escapeDuplicate(
         declaration.parameters.map((p) => p.name.getText()),
       )("result");
-      const statements: ts.Statement[] = [
-        StatementFactory.constant(
-          name,
-          ts.factory.createCallExpression(
+      return {
+        async,
+        functions: [
+          StatementFactory.constant(
+            "__validate_return",
             ValidateProgrammer.write(project)(modulo)(equals)(type),
-            undefined,
-            [async ? ts.factory.createAwaitExpression(caller) : caller],
           ),
-        ),
-        ts.factory.createIfStatement(
-          ts.factory.createPrefixUnaryExpression(
-            ts.SyntaxKind.ExclamationToken,
-            ts.factory.createPropertyAccessExpression(
-              ts.factory.createIdentifier(name),
-              ts.factory.createIdentifier("success"),
+        ],
+        statements: [
+          StatementFactory.constant(
+            name,
+            ts.factory.createCallExpression(
+              ts.factory.createIdentifier("__validate_return"),
+              undefined,
+              [async ? ts.factory.createAwaitExpression(caller) : caller],
             ),
           ),
-          ts.factory.createExpressionStatement(
-            ts.factory.createBinaryExpression(
+          ts.factory.createIfStatement(
+            ts.factory.createStrictEquality(
+              ts.factory.createFalse(),
               ts.factory.createPropertyAccessExpression(
                 ts.factory.createIdentifier(name),
-                ts.factory.createIdentifier("errors"),
+                ts.factory.createIdentifier("success"),
               ),
-              ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-              FunctionalValidateFunctionProgrammer.hookErrors({
-                expression: ts.factory.createPropertyAccessExpression(
+            ),
+            ts.factory.createExpressionStatement(
+              ts.factory.createBinaryExpression(
+                ts.factory.createPropertyAccessExpression(
                   ts.factory.createIdentifier(name),
                   ts.factory.createIdentifier("errors"),
                 ),
-                replacer: ts.factory.createStringLiteral("$input.return"),
-              }),
+                ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                FunctionalValidateFunctionProgrammer.hookErrors({
+                  expression: ts.factory.createPropertyAccessExpression(
+                    ts.factory.createIdentifier(name),
+                    ts.factory.createIdentifier("errors"),
+                  ),
+                  replacer: ts.factory.createStringLiteral("$input.return"),
+                }),
+              ),
             ),
           ),
-        ),
-        ts.factory.createReturnStatement(ts.factory.createIdentifier("result")),
-      ];
-      return {
-        async,
-        statements,
+          ts.factory.createReturnStatement(
+            ts.factory.createIdentifier("result"),
+          ),
+        ],
       };
     };
 }

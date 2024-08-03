@@ -6,73 +6,88 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
 
+import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporter";
 import { MiscCloneProgrammer } from "./MiscCloneProgrammer";
 
 export namespace MiscIsCloneProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) =>
-      ts.factory.createArrowFunction(
+  export const decompose = (props: {
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name?: string;
+  }): FeatureProgrammer.IDecomposed => {
+    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
+      ...props,
+      equals: false,
+    });
+    const clone: FeatureProgrammer.IDecomposed = MiscCloneProgrammer.decompose({
+      ...props,
+      validated: true,
+    });
+    return {
+      functions: {
+        ...is.functions,
+        ...clone.functions,
+      },
+      statements: [
+        ...is.statements,
+        ...clone.statements,
+        StatementFactory.constant("__is", is.arrow),
+        StatementFactory.constant("__clone", clone.arrow),
+      ],
+      arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
         ts.factory.createUnionTypeNode([
-          ts.factory.createImportTypeNode(
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("typia"),
-            ),
-            undefined,
-            ts.factory.createIdentifier("Resolved"),
-            [
-              ts.factory.createTypeReferenceNode(
-                name ?? TypeFactory.getFullName(project.checker)(type),
-              ),
-            ],
-            false,
-          ),
-          ts.factory.createLiteralTypeNode(ts.factory.createNull()),
+          clone.arrow.type ?? TypeFactory.keyword("any"),
+          ts.factory.createTypeReferenceNode("null"),
         ]),
         undefined,
-        ts.factory.createBlock([
-          StatementFactory.constant(
-            "is",
-            IsProgrammer.write(project)(modulo)(false)(type, name),
-          ),
-          StatementFactory.constant(
-            "clone",
-            MiscCloneProgrammer.write({
-              ...project,
-              options: {
-                ...project.options,
-                functional: false,
-                numeric: false,
-              },
-            })(modulo)(type, name),
-          ),
-          ts.factory.createIfStatement(
-            ts.factory.createPrefixUnaryExpression(
-              ts.SyntaxKind.ExclamationToken,
+        ts.factory.createBlock(
+          [
+            ts.factory.createIfStatement(
+              ts.factory.createPrefixUnaryExpression(
+                ts.SyntaxKind.ExclamationToken,
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("__is"),
+                  undefined,
+                  [ts.factory.createIdentifier("input")],
+                ),
+              ),
+              ts.factory.createReturnStatement(ts.factory.createNull()),
+            ),
+            ts.factory.createReturnStatement(
               ts.factory.createCallExpression(
-                ts.factory.createIdentifier("is"),
+                ts.factory.createIdentifier("__clone"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
             ),
-            ts.factory.createReturnStatement(ts.factory.createNull()),
-          ),
-          StatementFactory.constant(
-            "output",
-            ts.factory.createCallExpression(
-              ts.factory.createIdentifier("clone"),
-              undefined,
-              [ts.factory.createIdentifier("input")],
-            ),
-          ),
-          ts.factory.createReturnStatement(
-            ts.factory.createIdentifier("output"),
-          ),
-        ]),
-      );
+          ],
+          true,
+        ),
+      ),
+    };
+  };
+
+  export const write =
+    (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
+    (type: ts.Type, name?: string): ts.CallExpression => {
+      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        importer,
+        type,
+        name,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
+    };
 }

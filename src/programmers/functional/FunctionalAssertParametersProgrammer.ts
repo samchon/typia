@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IProject } from "../../transformers/IProject";
@@ -17,34 +19,47 @@ export namespace FunctionalAssertParametersProgrammer {
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
       init?: ts.Expression,
-    ): ts.ArrowFunction => {
+    ): ts.CallExpression => {
       const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper(
         modulo,
       )(declaration.parameters)(init);
       const { async } = FunctionalGeneralProgrammer.getReturnType(
         project.checker,
       )(declaration);
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
+      const result = decompose(project)(modulo)(equals)(
         declaration.parameters,
-        declaration.type,
-        undefined,
+        wrapper.name,
+      );
+      return ExpressionFactory.selfCall(
         ts.factory.createBlock(
           [
             wrapper.variable,
-            ...argumentExpressions(project)(modulo)(equals)(
-              declaration.parameters,
-              wrapper.name,
-            ).map(ts.factory.createExpressionStatement),
+            ...result.functions,
             ts.factory.createReturnStatement(
-              ts.factory.createCallExpression(
-                expression,
+              ts.factory.createArrowFunction(
+                async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
                 undefined,
-                declaration.parameters.map((p) =>
-                  ts.factory.createIdentifier(p.name.getText()),
+                declaration.parameters,
+                declaration.type,
+                undefined,
+                ts.factory.createBlock(
+                  [
+                    ...result.expressions.map(
+                      ts.factory.createExpressionStatement,
+                    ),
+                    ts.factory.createReturnStatement(
+                      ts.factory.createCallExpression(
+                        expression,
+                        undefined,
+                        declaration.parameters.map((p) =>
+                          ts.factory.createIdentifier(p.name.getText()),
+                        ),
+                      ),
+                    ),
+                  ],
+                  true,
                 ),
               ),
             ),
@@ -54,16 +69,20 @@ export namespace FunctionalAssertParametersProgrammer {
       );
     };
 
-  export const argumentExpressions =
+  export const decompose =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (
       parameters: readonly ts.ParameterDeclaration[],
       wrapper: string,
-    ): ts.CallExpression[] =>
-      parameters.map((p, i) =>
-        ts.factory.createCallExpression(
+    ): {
+      functions: ts.Statement[];
+      expressions: ts.Expression[];
+    } => ({
+      functions: parameters.map((p, i) =>
+        StatementFactory.constant(
+          `__assert_param_${i}`,
           AssertProgrammer.write(project)(modulo)(equals)(
             p.type
               ? project.checker.getTypeFromTypeNode(p.type)
@@ -74,8 +93,16 @@ export namespace FunctionalAssertParametersProgrammer {
               replacer: `$input.parameters[${i}]`,
             }),
           ),
+          // undefined,
+          // [ts.factory.createIdentifier(p.name.getText())],
+        ),
+      ),
+      expressions: parameters.map((p, i) =>
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier(`__assert_param_${i}`),
           undefined,
           [ts.factory.createIdentifier(p.name.getText())],
         ),
-      );
+      ),
+    });
 }

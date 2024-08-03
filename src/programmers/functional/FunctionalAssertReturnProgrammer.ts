@@ -1,5 +1,8 @@
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../factories/ExpressionFactory";
+import { StatementFactory } from "../../factories/StatementFactory";
+
 import { IProject } from "../../transformers/IProject";
 
 import { AssertProgrammer } from "../AssertProgrammer";
@@ -15,26 +18,39 @@ export namespace FunctionAssertReturnProgrammer {
       expression: ts.Expression,
       declaration: ts.FunctionDeclaration,
       init?: ts.Expression,
-    ): ts.ArrowFunction => {
+    ): ts.CallExpression => {
       const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper(
         modulo,
       )(declaration.parameters)(init);
-      const { async, returns: statement } = returnStatement(project)(modulo)(
-        equals,
-      )(expression, declaration, wrapper.name);
-      return ts.factory.createArrowFunction(
-        async
-          ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-          : undefined,
-        undefined,
-        declaration.parameters,
-        declaration.type,
-        undefined,
-        ts.factory.createBlock([wrapper.variable, statement], true),
+      const result = decompose(project)(modulo)(equals)(
+        expression,
+        declaration,
+        wrapper.name,
+      );
+      return ExpressionFactory.selfCall(
+        ts.factory.createBlock(
+          [
+            wrapper.variable,
+            ...result.functions,
+            ts.factory.createReturnStatement(
+              ts.factory.createArrowFunction(
+                result.async
+                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                  : undefined,
+                undefined,
+                declaration.parameters,
+                declaration.type,
+                undefined,
+                result.value,
+              ),
+            ),
+          ],
+          true,
+        ),
       );
     };
 
-  export const returnStatement =
+  export const decompose =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
@@ -44,7 +60,8 @@ export namespace FunctionAssertReturnProgrammer {
       wrapper: string,
     ): {
       async: boolean;
-      returns: ts.ReturnStatement;
+      functions: ts.Statement[];
+      value: ts.Expression;
     } => {
       const { type, async } = FunctionalGeneralProgrammer.getReturnType(
         project.checker,
@@ -58,8 +75,9 @@ export namespace FunctionAssertReturnProgrammer {
       );
       return {
         async,
-        returns: ts.factory.createReturnStatement(
-          ts.factory.createCallExpression(
+        functions: [
+          StatementFactory.constant(
+            "__assert_return",
             AssertProgrammer.write(project)(modulo)(equals)(
               type,
               undefined,
@@ -68,9 +86,12 @@ export namespace FunctionAssertReturnProgrammer {
                 replacer: "$input.return",
               }),
             ),
-            undefined,
-            [async ? ts.factory.createAwaitExpression(caller) : caller],
           ),
+        ],
+        value: ts.factory.createCallExpression(
+          ts.factory.createIdentifier("__assert_return"),
+          undefined,
+          [async ? ts.factory.createAwaitExpression(caller) : caller],
         ),
       };
     };
