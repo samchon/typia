@@ -18,7 +18,7 @@ export namespace NotationValidateGeneralProgrammer {
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const validate = ValidateProgrammer.decompose({
       ...props,

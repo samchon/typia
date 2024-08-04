@@ -216,7 +216,7 @@ export namespace FeatureProgrammer {
     config: IConfig;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): IComposed => {
     const [collection, meta] = props.config.initializer(props.project)(
       props.importer,

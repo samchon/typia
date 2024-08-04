@@ -23,91 +23,126 @@ import { TransformerError } from "../transformers/TransformerError";
 import { Escaper } from "../utils/Escaper";
 
 import { Format } from "../tags";
+import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
 import { RandomJoiner } from "./helpers/RandomJoiner";
 import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";
 
 export namespace RandomProgrammer {
+  export const decompose = (props: {
+    project: IProject;
+    importer: FunctionImporter;
+    type: ts.Type;
+    name: string | undefined;
+    init: ts.Expression | undefined;
+  }): FeatureProgrammer.IDecomposed => {
+    const collection: MetadataCollection = new MetadataCollection();
+    const result = MetadataFactory.analyze(
+      props.project.checker,
+      props.project.context,
+    )({
+      escape: false,
+      constant: true,
+      absorb: true,
+      validate: (meta) => {
+        const output: string[] = [];
+        if (meta.natives.some((n) => n === "WeakSet"))
+          output.push(`WeakSet is not supported.`);
+        else if (meta.natives.some((n) => n === "WeakMap"))
+          output.push(`WeakMap is not supported.`);
+        return output;
+      },
+    })(collection)(props.type);
+    if (result.success === false)
+      throw TransformerError.from(`typia.${props.importer.method}`)(
+        result.errors,
+      );
+
+    // GENERATE FUNCTION
+    const functions: Record<string, ts.VariableStatement> = Object.fromEntries([
+      ...write_object_functions(props.importer)(collection).map((v, i) => [
+        Prefix.object(i),
+        v,
+      ]),
+      ...write_array_functions(props.importer)(collection).map((v, i) => [
+        Prefix.array(i),
+        v,
+      ]),
+      ...write_tuple_functions(props.importer)(collection).map((v, i) => [
+        Prefix.tuple(i),
+        v,
+      ]),
+    ]);
+    const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [
+        IdentifierFactory.parameter(
+          "generator",
+          ts.factory.createTypeReferenceNode("Partial<typia.IRandomGenerator>"),
+          props.init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+        ),
+      ],
+      ts.factory.createImportTypeNode(
+        ts.factory.createLiteralTypeNode(
+          ts.factory.createStringLiteral("typia"),
+        ),
+        undefined,
+        ts.factory.createIdentifier("Resolved"),
+        [
+          ts.factory.createTypeReferenceNode(
+            props.name ??
+              TypeFactory.getFullName(props.project.checker)(props.type),
+          ),
+        ],
+        false,
+      ),
+      undefined,
+      ts.factory.createBlock(
+        [
+          ts.factory.createExpressionStatement(
+            ts.factory.createBinaryExpression(
+              ts.factory.createIdentifier("_generator"),
+              ts.SyntaxKind.EqualsToken,
+              ts.factory.createIdentifier("generator"),
+            ),
+          ),
+          ts.factory.createReturnStatement(
+            decode(props.importer)({
+              function: false,
+              recursive: false,
+            })(result.data),
+          ),
+        ],
+        true,
+      ),
+    );
+    return {
+      functions,
+      statements: [StatementFactory.mut("_generator")],
+      arrow,
+    };
+  };
+
   export const write =
     (project: IProject) =>
     (modulo: ts.LeftHandSideExpression) =>
-    (init?: ts.Expression) => {
+    (init?: ts.Expression) =>
+    (type: ts.Type, name?: string) => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      return (type: ts.Type, name?: string) => {
-        // INITIALIZE METADATA
-        const collection: MetadataCollection = new MetadataCollection();
-        const result = MetadataFactory.analyze(
-          project.checker,
-          project.context,
-        )({
-          escape: false,
-          constant: true,
-          absorb: true,
-          validate: (meta) => {
-            const output: string[] = [];
-            if (meta.natives.some((n) => n === "WeakSet"))
-              output.push(`WeakSet is not supported.`);
-            else if (meta.natives.some((n) => n === "WeakMap"))
-              output.push(`WeakMap is not supported.`);
-            return output;
-          },
-        })(collection)(type);
-        if (result.success === false)
-          throw TransformerError.from(`typia.${importer.method}`)(
-            result.errors,
-          );
-
-        // GENERATE FUNCTION
-        const functions = {
-          objects: write_object_functions(importer)(collection),
-          arrays: write_array_functions(importer)(collection),
-          tuples: write_tuple_functions(importer)(collection),
-        };
-
-        const output: ts.Expression = decode(importer)({
-          function: false,
-          recursive: false,
-        })(result.data);
-
-        return ts.factory.createArrowFunction(
-          undefined,
-          undefined,
-          [
-            IdentifierFactory.parameter(
-              "generator",
-              ts.factory.createTypeReferenceNode(
-                "Partial<typia.IRandomGenerator>",
-              ),
-              init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-            ),
-          ],
-          ts.factory.createImportTypeNode(
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("typia"),
-            ),
-            undefined,
-            ts.factory.createIdentifier("Resolved"),
-            [
-              ts.factory.createTypeReferenceNode(
-                name ?? TypeFactory.getFullName(project.checker)(type),
-              ),
-            ],
-            false,
-          ),
-          undefined,
-          ts.factory.createBlock(
-            [
-              ...importer.declare(modulo),
-              ...functions.objects,
-              ...functions.arrays,
-              ...functions.tuples,
-              ts.factory.createReturnStatement(output),
-            ],
-            true,
-          ),
-        );
-      };
+      const result: FeatureProgrammer.IDecomposed = decompose({
+        project,
+        importer,
+        type,
+        name,
+        init,
+      });
+      return FeatureProgrammer.writeDecomposed({
+        modulo,
+        importer,
+        result,
+      });
     };
 
   const write_object_functions =
@@ -892,12 +927,12 @@ const COALESCE = (importer: FunctionImporter) => (name: string) =>
   ExpressionFactory.coalesce(
     Escaper.variable(name)
       ? ts.factory.createPropertyAccessChain(
-          ts.factory.createIdentifier("generator"),
+          ts.factory.createIdentifier("_generator"),
           ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
           ts.factory.createIdentifier(name),
         )
       : ts.factory.createElementAccessChain(
-          ts.factory.createIdentifier("generator"),
+          ts.factory.createIdentifier("_generator"),
           ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
           ts.factory.createStringLiteral(name),
         ),
