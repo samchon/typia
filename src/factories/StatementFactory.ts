@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { TypeFactory } from "./TypeFactory";
+
 export namespace StatementFactory {
   export const mut = (name: string, initializer?: ts.Expression) =>
     ts.factory.createVariableStatement(
@@ -9,7 +11,7 @@ export namespace StatementFactory {
           ts.factory.createVariableDeclaration(
             name,
             undefined,
-            undefined,
+            initializer === undefined ? TypeFactory.keyword("any") : undefined,
             initializer,
           ),
         ],
