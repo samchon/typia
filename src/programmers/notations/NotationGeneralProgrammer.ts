@@ -37,7 +37,7 @@ export namespace NotationGeneralProgrammer {
     project: IProject;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const config = configure(props.rename)(props.project)(props.importer);
     if (props.validated === false)
@@ -283,16 +283,31 @@ export namespace NotationGeneralProgrammer {
         });
 
       // COMPOSITION
-      let last: ts.Expression = input;
-      for (const u of unions.reverse())
-        last = ts.factory.createConditionalExpression(
-          u.is(),
-          undefined,
-          u.value(),
-          undefined,
-          last,
-        );
-      return ts.factory.createAsExpression(last, TypeFactory.keyword("any"));
+      if (unions.length === 0) return input;
+      else if (unions.length === 1 && meta.size() === 1) {
+        const value: ts.Expression =
+          (meta.nullable || meta.isRequired() === false) && is_instance(meta)
+            ? ts.factory.createConditionalExpression(
+                input,
+                undefined,
+                unions[0]!.value(),
+                undefined,
+                input,
+              )
+            : unions[0]!.value();
+        return ts.factory.createAsExpression(value, TypeFactory.keyword("any"));
+      } else {
+        let last: ts.Expression = input;
+        for (const u of unions.reverse())
+          last = ts.factory.createConditionalExpression(
+            u.is(),
+            undefined,
+            u.value(),
+            undefined,
+            last,
+          );
+        return ts.factory.createAsExpression(last, TypeFactory.keyword("any"));
+      }
     };
 
   const decode_object = (importer: FunctionImporter) =>
@@ -682,4 +697,13 @@ export namespace NotationGeneralProgrammer {
           ],
         ),
       );
+
+  const is_instance = (meta: Metadata): boolean =>
+    !!meta.objects.length ||
+    !!meta.arrays.length ||
+    !!meta.tuples.length ||
+    !!meta.sets.length ||
+    !!meta.maps.length ||
+    !!meta.natives.length ||
+    (meta.rest !== null && is_instance(meta.rest));
 }

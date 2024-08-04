@@ -101,7 +101,7 @@ export namespace IsProgrammer {
     importer: FunctionImporter;
     equals: boolean;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     // CONFIGURATION
     const config: CheckerProgrammer.IConfig = {
