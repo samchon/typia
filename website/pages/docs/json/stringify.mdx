@@ -226,16 +226,12 @@ console.log(json); // not null, but string
   <Tab>
 ```typescript copy
 export namespace json {
-  export function createStringify<T>: (input: T) => string;
-  export function createIsStringify<T>: (
-      input: T | unknown
-  ) => string | null;
-  export function createAssertStringify<T>: (
-      input: T | unknown
-  ) => string;
-  export function createValidateStringify<T>: (
-      input: T | unknown
-  ) => IValidation<string>;
+  export function createStringify<T>(): (input: T) => string;
+  export function createIsStringify<T>(): (input: unknown) => string | null;
+  export function createAssertStringify<T>(
+   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  ): (input: unknown) => string; 
+  export function createValidateStringify<T>(): (input: unknown) => IValidation<string>;
 }
 ```
   </Tab>
