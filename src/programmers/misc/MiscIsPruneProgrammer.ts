@@ -41,10 +41,7 @@ export namespace MiscIsPruneProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createUnionTypeNode([
-          prune.arrow.type ?? TypeFactory.keyword("any"),
-          ts.factory.createTypeReferenceNode("null"),
-        ]),
+        is.arrow.type,
         undefined,
         ts.factory.createBlock(
           [

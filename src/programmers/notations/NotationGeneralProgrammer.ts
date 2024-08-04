@@ -56,7 +56,12 @@ export namespace NotationGeneralProgrammer {
         undefined,
         undefined,
         composed.parameters,
-        TypeFactory.keyword("void"),
+        ts.factory.createTypeReferenceNode(
+          returnType(props.rename)(
+            props.name ??
+              TypeFactory.getFullName(props.project.checker)(props.type),
+          ),
+        ),
         undefined,
         composed.body,
       ),

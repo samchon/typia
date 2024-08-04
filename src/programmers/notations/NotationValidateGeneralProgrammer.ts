@@ -75,7 +75,10 @@ export namespace NotationValidateGeneralProgrammer {
               ),
             ),
             ts.factory.createReturnStatement(
-              ts.factory.createIdentifier("result"),
+              ts.factory.createAsExpression(
+                ts.factory.createIdentifier("result"),
+                TypeFactory.keyword("any"),
+              ),
             ),
           ],
           true,
