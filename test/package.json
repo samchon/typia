@@ -12,6 +12,7 @@
   "scripts": {
     "build": "rimraf bin && tsc",
     "build_run": "npm run build",
+    "generate": "rimraf generated && rimraf bin-generated && node --max-old-space-size=8000 node_modules/typia/lib/executable/typia generate --input src --output generated --project tsconfig.generated.json && rimraf generated/features/functional* && rimraf generated/features/issues && node --max-old-space-size=8000 node_modules/typescript/bin/tsc --project tsconfig.generated.json",
     "prepare": "ts-patch install",
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
@@ -51,6 +52,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "../typia-6.7.1.tgz"
+    "typia": "../typia-6.7.2.tgz"
   }
 }
