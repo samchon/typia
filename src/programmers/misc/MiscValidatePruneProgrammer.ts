@@ -43,9 +43,12 @@ export namespace MiscValidatePruneProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          prune.arrow.type ?? TypeFactory.keyword("any"),
-        ]),
+        ts.factory.createTypeReferenceNode(
+          `typia.IValidation<${
+            props.name ??
+            TypeFactory.getFullName(props.project.checker)(props.type)
+          }>`,
+        ),
         undefined,
         ts.factory.createBlock(
           [

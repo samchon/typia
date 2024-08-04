@@ -46,21 +46,39 @@ export namespace MiscAssertPruneProgrammer {
           IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
           AssertProgrammer.Guardian.parameter(props.init),
         ],
-        prune.arrow.type,
+        ts.factory.createTypeReferenceNode(
+          props.name ??
+            TypeFactory.getFullName(props.project.checker)(props.type),
+        ),
         undefined,
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier("__prune"),
-          undefined,
+        ts.factory.createBlock(
           [
-            ts.factory.createCallExpression(
-              ts.factory.createIdentifier("__assert"),
-              undefined,
-              [
+            ts.factory.createExpressionStatement(
+              ts.factory.createBinaryExpression(
                 ts.factory.createIdentifier("input"),
-                AssertProgrammer.Guardian.identifier(),
-              ],
+                ts.SyntaxKind.EqualsToken,
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("__assert"),
+                  undefined,
+                  [
+                    ts.factory.createIdentifier("input"),
+                    AssertProgrammer.Guardian.identifier(),
+                  ],
+                ),
+              ),
+            ),
+            ts.factory.createExpressionStatement(
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("__prune"),
+                undefined,
+                [ts.factory.createIdentifier("input")],
+              ),
+            ),
+            ts.factory.createReturnStatement(
+              ts.factory.createIdentifier("input"),
             ),
           ],
+          true,
         ),
       ),
     };
