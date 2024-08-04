@@ -16,7 +16,7 @@ export namespace MiscIsCloneProgrammer {
     project: IProject;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,

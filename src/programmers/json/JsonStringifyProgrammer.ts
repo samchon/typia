@@ -42,7 +42,7 @@ export namespace JsonStringifyProgrammer {
     project: IProject;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const config: FeatureProgrammer.IConfig = configure(props.project)(
       props.importer,
@@ -852,8 +852,7 @@ export namespace JsonStringifyProgrammer {
         initializer,
         decoder: () => decode(project)(config)(importer),
         objector: {
-          checker: () => (input, meta, explore) =>
-            IsProgrammer.decode(project)(importer)(input, meta, explore),
+          checker: () => IsProgrammer.decode(project)(importer),
           decoder: () => decode_object(importer),
           joiner: StringifyJoiner.object(importer),
           unionizer: decode_union_object(

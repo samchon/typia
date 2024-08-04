@@ -102,7 +102,7 @@ export namespace CheckerProgrammer {
     config: IConfig;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }) =>
     FeatureProgrammer.compose({
       ...props,

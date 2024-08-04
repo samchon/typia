@@ -22,7 +22,7 @@ export namespace ValidateProgrammer {
     importer: FunctionImporter;
     equals: boolean;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose(props);
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({

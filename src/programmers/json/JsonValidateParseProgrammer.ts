@@ -16,7 +16,7 @@ export namespace JsonValidateParseProgrammer {
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const validate: FeatureProgrammer.IDecomposed =
       ValidateProgrammer.decompose({

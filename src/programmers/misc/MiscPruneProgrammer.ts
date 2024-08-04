@@ -30,7 +30,7 @@ export namespace MiscPruneProgrammer {
     project: IProject;
     importer: FunctionImporter;
     type: ts.Type;
-    name?: string;
+    name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const config = configure(props.project)(props.importer);
     if (props.validated === false)
