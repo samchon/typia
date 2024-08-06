@@ -25,7 +25,9 @@ const ConsoleViewer = (props: ConsoleViewer.IProps) => {
                       ? "red"
                       : msg.type === "warn"
                         ? "yellow"
-                        : "green",
+                        : msg.type === "info"
+                          ? "skyblue"
+                          : "lightgreen",
                   fontWeight: "bold",
                 }}
               >
@@ -48,7 +50,7 @@ namespace ConsoleViewer {
     messages: IMessage[];
   }
   export interface IMessage {
-    type: "error" | "log" | "warn";
+    type: "error" | "info" | "log" | "warn";
     value: any;
   }
 }
