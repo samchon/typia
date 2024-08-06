@@ -122,6 +122,10 @@ const Playground = () => {
         console.error(...args);
         args.forEach((value) => messages.push({ type: "error", value }));
       },
+      info: (...args: any[]) => {
+        console.info(...args);
+        args.forEach((value) => messages.push({ type: "info", value }));
+      },
       log: (...args: any[]) => {
         console.log(...args);
         args.forEach((value) => messages.push({ type: "log", value }));
