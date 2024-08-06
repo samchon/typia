@@ -50,9 +50,7 @@ export namespace TypeScriptCompiler {
         file.startsWith("node_modules/") && file.endsWith("/package.json")
           ? RAW.find((r) => r[0] === `file:///${file}`)![1]
           : undefined,
-      getSourceFile: (file: string) => {
-        return dict.get(file);
-      },
+      getSourceFile: (file: string) => dict.get(file),
 
       // ADDITIONAL OPTIONS
       getDefaultLibFileName: () =>
