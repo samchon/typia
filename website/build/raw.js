@@ -1,25 +1,28 @@
 const fs = require("fs");
 
+const emendName = (name) =>
+  name.replaceAll("@", "_at_").replaceAll("/", "_slash_");
+
 const external = (container) => (config) => (lib) => {
   const write = (variable) => (file) => (content) =>
     fs.writeFileSync(
       file,
-      `export const ${variable}: string = ${JSON.stringify(content)};`,
+      `export const ${variable.replace("@", "_dollar_")}: string = ${JSON.stringify(content)};`,
       "utf8",
     );
 
   const packageJson = () => {
     const location = `${__dirname}/../node_modules/${lib}/package.json`;
     const directory = `${__dirname}/../raw/${lib}`;
-    fs.mkdirSync(directory);
+    fs.mkdirSync(directory, { recursive: true });
 
     if (config.packageJson) {
-      write(`${lib}_packageJson`)(`${directory}/packageJson.ts`)(
+      write(`${emendName(lib)}_packageJson`)(`${directory}/packageJson.ts`)(
         fs.readFileSync(location, "utf8"),
       );
       container.push({
         format: "json",
-        name: `${lib}_packageJson`,
+        name: `${emendName(lib)}_packageJson`,
         import: `./${lib}/packageJson`,
         url: `file:///node_modules/${lib}/package.json`,
       });
@@ -40,7 +43,7 @@ const external = (container) => (config) => (lib) => {
       // CHECK DIRECTORY AND EXTENSION
       const stats = fs.statSync(from);
       if (stats.isDirectory()) {
-        fs.mkdirSync(link);
+        fs.mkdirSync(link, { recursive: true });
         iterate(location);
         continue;
       } else if (
@@ -53,7 +56,7 @@ const external = (container) => (config) => (lib) => {
       // COPY TEXT FILE
       const extension = location.endsWith(".d.ts") ? ".d.ts" : ".js";
       const alias = `${lib}/${location.replace(extension, extension === ".d.ts" ? "_d_ts" : "_js")}`;
-      const name = alias.split("/").join("_").split(".").join("_");
+      const name = emendName(alias.split("/").join("_").split(".").join("_"));
       const content = fs.readFileSync(from, "utf8");
       write(name)(
         link.replace(extension, extension === ".d.ts" ? "_d_ts.ts" : "_js.ts"),
@@ -68,19 +71,19 @@ const external = (container) => (config) => (lib) => {
   };
   return (path) => {
     if (path.length) {
-      fs.mkdirSync(`${__dirname}/../raw/${lib}/${path}`);
+      fs.mkdirSync(`${__dirname}/../raw/${lib}/${path}`, { recursive: true });
       if (config.index) {
-        write(`${lib}_index`)(`${__dirname}/../raw/${lib}/index.ts`)(
+        write(`${emendName(lib)}_index`)(`${__dirname}/../raw/${lib}/index.ts`)(
           [
-            `import * as ${lib} from "./${path}";`,
+            `import * as ${emendName(lib)} from "./${path}";`,
             `export * from "./${path}";`,
-            `export default ${lib};`,
+            `export default ${emendName(lib)};`,
           ].join("\n"),
         );
         container.push({
           format: "ts",
           import: `./${lib}/index`,
-          name: `${lib}_index`,
+          name: `${emendName(lib)}_index`,
           url: `file:///node_modules/${lib}/index.d.ts`,
         });
       }
@@ -92,7 +95,7 @@ const external = (container) => (config) => (lib) => {
 // PREPARE DIRECTORIES
 if (fs.existsSync(__dirname + "/../raw"))
   fs.rmSync(__dirname + "/../raw", { recursive: true });
-fs.mkdirSync(__dirname + "/../raw");
+fs.mkdirSync(__dirname + "/../raw", { recursive: true });
 
 //----
 // CLONE DEFINITIONS
@@ -100,9 +103,14 @@ fs.mkdirSync(__dirname + "/../raw");
 // CREATE RAW TEXT FILES
 const bucket = [];
 external(bucket)({
+  index: true,
   packageJson: true,
   javaScript: false,
+})("@samchon/openapi")("lib");
+external(bucket)({
   index: true,
+  packageJson: true,
+  javaScript: false,
 })("typia")("lib");
 external(bucket)({
   packageJson: false,
