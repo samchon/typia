@@ -141,7 +141,6 @@ const Playground = () => {
         setConsoleBox({ messages });
       },
     });
-    setConsoleBox({ messages });
   };
 
   return (
