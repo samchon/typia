@@ -187,9 +187,9 @@ Deep copy functions.
 
 When you want to copy an instance, just call `typia.misc.clone()` function. It would perform deep copy including nested objects, so you can get a new instance with same values. Also, if you want type safe deep copy function, you can use `typia.misc.isClone()`, `typia.misc.assertClone()` or `typia.misc.validateClone()` functions instead.
 
-  - `typia.misc.assertClone()`: [`typia.assert<T>()`](../validators/assert) + `typia.misc.clone<T>()`
-  - `typia.misc.isClone()`: [`typia.is<T>()`](../validators/is) + `typia.misc.clone<T>()`
-  - `typia.misc.validateClone()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.clone<T>()`
+  - `typia.misc.assertClone()`: [`typia.assert<T>()`](./validators/assert) + `typia.misc.clone<T>()`
+  - `typia.misc.isClone()`: [`typia.is<T>()`](./validators/is) + `typia.misc.clone<T>()`
+  - `typia.misc.validateClone()`: [`typia.validate<T>()`](./validators/validate) + `typia.misc.clone<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
@@ -627,9 +627,9 @@ Deep prune functions.
 
 When you want to remove every extra properties that are not defined in the type including nested objects, you can use `typia.misc.prune<T>()` function. Also, if you want to perform type safe pruning, you can use `typia.misc.isPrune<T>()`, `typia.misc.assertPrune<T>()` or `typia.misc.validatePrune<T>()` functions instead.
 
-  - `typia.misc.isPrune()`: [`typia.is<T>()`](../validators/is) + `typia.misc.prune<T>()`
-  - `typia.misc.assertPrune()`: [`typia.assert<T>()`](../validators/assert) + `typia.misc.prune<T>()`
-  - `typia.misc.validatePrune()`: [`typia.validate<T>()`](../validators/validate) + `typia.misc.prune<T>()`
+  - `typia.misc.isPrune()`: [`typia.is<T>()`](./validators/is) + `typia.misc.prune<T>()`
+  - `typia.misc.assertPrune()`: [`typia.assert<T>()`](./validators/assert) + `typia.misc.prune<T>()`
+  - `typia.misc.validatePrune()`: [`typia.validate<T>()`](./validators/validate) + `typia.misc.prune<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
@@ -1238,9 +1238,9 @@ Convert every property names of nested objects to be camel case notation.
 
 When you need type safe functions, you can utilize below them.
 
-  - `typia.notations.assertCamel<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.camel<T>()`
-  - `typia.notations.isCamel<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.camel<T>()`
-  - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.camel<T>()`
+  - `typia.notations.assertCamel<T>()`: [`typia.assert<T>()`](./validators/assert) + `typia.notations.camel<T>()`
+  - `typia.notations.isCamel<T>`: [`typia.is<T>()`](./validators/is) + `typia.notations.camel<T>()`
+  - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](./validators/validate) + `typia.notations.camel<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
@@ -1461,9 +1461,9 @@ Convert every property names of nested objects to be pascal case notation.
 
 When you need type safe functions, you can utilize below them.
 
-  - `typia.notations.assertPascal<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.pascal<T>()`
-  - `typia.notations.isPascal<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.pascal<T>()`
-  - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.pascal<T>()`
+  - `typia.notations.assertPascal<T>()`: [`typia.assert<T>()`](./validators/assert) + `typia.notations.pascal<T>()`
+  - `typia.notations.isPascal<T>`: [`typia.is<T>()`](./validators/is) + `typia.notations.pascal<T>()`
+  - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](./validators/validate) + `typia.notations.pascal<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
@@ -1722,9 +1722,9 @@ Convert every property names of nested objects to be snake case notation.
 
 When you need type safe functions, you can utilize below them.
 
-  - `typia.notations.assertSnake<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.notations.snake<T>()`
-  - `typia.notations.isSnake<T>`: [`typia.is<T>()`](../validators/is) + `typia.notations.snake<T>()`
-  - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](../validators/validate) + `typia.notations.snake<T>()`
+  - `typia.notations.assertSnake<T>()`: [`typia.assert<T>()`](./validators/assert) + `typia.notations.snake<T>()`
+  - `typia.notations.isSnake<T>`: [`typia.is<T>()`](./validators/is) + `typia.notations.snake<T>()`
+  - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](./validators/validate) + `typia.notations.snake<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
@@ -1970,9 +1970,9 @@ By the way, as URL query is not enough to express complex data structures, `typi
 
 Also, `typia.http.query<T>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions intead.
 
-  - `typia.http.assertQuery<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.http.query<T>()`
-  - `typia.http.isQuery<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.query<T>()`
-  - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.query<T>()`
+  - `typia.http.assertQuery<T>()`: [`typia.assert<T>()`](./validators/assert) + `typia.http.query<T>()`
+  - `typia.http.isQuery<T>()`: [`typia.is<T>()`](./validators/is) + `typia.http.query<T>()`
+  - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](./validators/validate) + `typia.http.query<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
@@ -2241,9 +2241,9 @@ By the way, as HTTP headers are not enough to express complex data structures, `
 
 Also, `typia.http.headers<t>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions intead.
 
-  - `typia.http.assertHeaders<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.http.headers<T>()`
-  - `typia.http.isHeaders<T>()`: [`typia.is<T>()`](../validators/is) + `typia.http.headers<T>()`
-  - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.http.headers<T>()`
+  - `typia.http.assertHeaders<T>()`: [`typia.assert<T>()`](./validators/assert) + `typia.http.headers<T>()`
+  - `typia.http.isHeaders<T>()`: [`typia.is<T>()`](./validators/is) + `typia.http.headers<T>()`
+  - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](./validators/validate) + `typia.http.headers<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tab>
