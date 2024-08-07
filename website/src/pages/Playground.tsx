@@ -104,38 +104,43 @@ const Playground = () => {
 
   const execute = async () => {
     const service = await createCompilerService.get();
-    const res: ICompilerService.IOutput = await service.bundle(source ?? "");
-    if (res.success === false)
+    const compiled: ICompilerService.IOutput = await service.bundle(
+      source ?? "",
+    );
+    if (compiled.success === false)
       return setConsoleBox({
         messages: [
           {
             type: "error",
-            value: res.error,
+            value: compiled.error,
           },
         ],
       });
 
-    const func: Function = new Function("console", res.content);
+    const func: Function = new Function("console", compiled.content);
     const messages: ConsoleViewer.IMessage[] = [];
     func({
       error: (...args: any[]) => {
         console.error(...args);
         args.forEach((value) => messages.push({ type: "error", value }));
+        setConsoleBox({ messages });
       },
       info: (...args: any[]) => {
         console.info(...args);
         args.forEach((value) => messages.push({ type: "info", value }));
+        setConsoleBox({ messages });
       },
       log: (...args: any[]) => {
         console.log(...args);
         args.forEach((value) => messages.push({ type: "log", value }));
+        setConsoleBox({ messages });
       },
       warn: (...args: any[]) => {
         console.warn(...args);
         args.forEach((value) => messages.push({ type: "warn", value }));
+        setConsoleBox({ messages });
       },
     });
-    setConsoleBox({ messages });
   };
 
   return (
