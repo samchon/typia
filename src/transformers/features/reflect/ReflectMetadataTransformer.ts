@@ -7,6 +7,8 @@ import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplication";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
+import { TypePredicator } from "../../../utils/TypePredicator";
+
 import { IProject } from "../../IProject";
 import { TransformerError } from "../../TransformerError";
 
@@ -30,7 +32,7 @@ export namespace ReflectMetadataTransformer {
       const types: ts.Type[] = top.elements.map((child) =>
         project.checker.getTypeFromTypeNode(child as ts.TypeNode),
       );
-      if (types.some((t) => t.isTypeParameter()))
+      if (types.some(TypePredicator.isTypeParameter))
         throw new TransformerError({
           code: "typia.reflect.metadata",
           message: "non-specified generic argument(s).",

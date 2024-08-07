@@ -2,6 +2,8 @@ import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
+import { TypePredicator } from "../../../utils/TypePredicator";
+
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { TypeFactory } from "../../TypeFactory";
@@ -26,7 +28,7 @@ export const iterate_metadata =
   (collection: MetadataCollection) =>
   (errors: MetadataFactory.IError[]) =>
   (meta: Metadata, type: ts.Type, explore: MetadataFactory.IExplore): void => {
-    if (type.isTypeParameter() === true) {
+    if (TypePredicator.isTypeParameter(type) === true) {
       errors.push({
         name: TypeFactory.getFullName(checker)(type),
         explore: { ...explore },

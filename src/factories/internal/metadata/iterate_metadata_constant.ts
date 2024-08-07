@@ -5,6 +5,7 @@ import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
 import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
+import { TypePredicator } from "../../../utils/TypePredicator";
 
 import { CommentFactory } from "../../CommentFactory";
 import { MetadataFactory } from "../../MetadataFactory";
@@ -15,7 +16,7 @@ export const iterate_metadata_constant =
   (meta: Metadata, type: ts.Type): boolean => {
     if (!options.constant) return false;
 
-    const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+    const filter = (flag: ts.TypeFlags) => (type.flags & flag) !== 0;
     const comment = () => {
       if (!filter(ts.TypeFlags.EnumLiteral)) return {};
       return {
@@ -25,7 +26,7 @@ export const iterate_metadata_constant =
           : undefined,
       };
     };
-    if (type.isLiteral()) {
+    if (TypePredicator.isLiteral(type)) {
       const value: string | number | bigint =
         typeof type.value === "object"
           ? BigInt(`${type.value.negative ? "-" : ""}${type.value.base10Value}`)

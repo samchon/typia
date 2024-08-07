@@ -7,7 +7,7 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 const same = (type: ts.Type | null) => {
   if (type === null) return () => false;
-  return (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+  return (flag: ts.TypeFlags) => (type.flags & flag) !== 0;
 };
 
 export const iterate_metadata_atomic = (

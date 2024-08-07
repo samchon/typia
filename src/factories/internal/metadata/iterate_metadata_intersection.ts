@@ -8,6 +8,7 @@ import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstan
 import { MetadataTemplate } from "../../../schemas/metadata/MetadataTemplate";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
+import { TypePredicator } from "../../../utils/TypePredicator";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
@@ -26,12 +27,12 @@ export const iterate_metadata_intersection =
     type: ts.Type,
     explore: MetadataFactory.IExplore,
   ): boolean => {
-    if (!type.isIntersection()) return false;
+    if (TypePredicator.isIntersection(type) === false) return false;
     if (
       // ONLY OBJECT TYPED INTERSECTION
       type.types.every(
         (child) =>
-          (child.getFlags() & ts.TypeFlags.Object) !== 0 &&
+          (child.flags & ts.TypeFlags.Object) !== 0 &&
           !checker.isArrayType(child) &&
           !checker.isTupleType(child),
       )

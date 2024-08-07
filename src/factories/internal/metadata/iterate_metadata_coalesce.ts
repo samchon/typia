@@ -10,7 +10,7 @@ export const iterate_metadata_coalesce = (
   meta: Metadata,
   type: ts.Type,
 ): boolean => {
-  const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+  const filter = (flag: ts.TypeFlags) => (type.flags & flag) !== 0;
   if (filter(ts.TypeFlags.Unknown) || filter(ts.TypeFlags.Any)) {
     Writable(meta).any = true;
     return true;

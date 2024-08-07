@@ -4,6 +4,7 @@ import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
+import { TypePredicator } from "../../../utils/TypePredicator";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
@@ -16,10 +17,10 @@ export const iterate_metadata_object =
   (errors: MetadataFactory.IError[]) =>
   (meta: Metadata, type: ts.Type, ensure: boolean = false): boolean => {
     if (ensure === false) {
-      const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+      const filter = (flag: ts.TypeFlags) => (type.flags & flag) !== 0;
       if (
         !filter(ts.TypeFlags.Object) &&
-        !type.isIntersection() &&
+        !TypePredicator.isIntersection(type) &&
         (type as any).intrinsicName !== "object"
       )
         return false;

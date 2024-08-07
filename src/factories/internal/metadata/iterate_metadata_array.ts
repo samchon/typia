@@ -5,6 +5,7 @@ import { MetadataArray } from "../../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
+import { TypePredicator } from "../../../utils/TypePredicator";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
@@ -49,7 +50,7 @@ const find_array_extended =
 
     memory.set(type, null);
     const res: ts.Type | null = (() => {
-      if (type.isClassOrInterface() === false) return null;
+      if (TypePredicator.isInterfaceOrClass(type) === false) return null;
       for (const t of type.resolvedBaseTypes ?? [])
         if (checker.isArrayType(t)) return t;
         else {

@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { TypePredicator } from "../../utils/TypePredicator";
+
 import { IProject } from "../IProject";
 import { TransformerError } from "../TransformerError";
 
@@ -36,7 +38,7 @@ export namespace GenericTransformer {
               expression.arguments[0]!,
               false,
             ];
-      if (type.isTypeParameter())
+      if (TypePredicator.isTypeParameter(type))
         throw new TransformerError({
           code: `typia.${method}`,
           message: `non-specified generic argument.`,
@@ -82,7 +84,7 @@ export namespace GenericTransformer {
       const node: ts.TypeNode = expression.typeArguments[0];
       const type: ts.Type = project.checker.getTypeFromTypeNode(node);
 
-      if (type.isTypeParameter())
+      if (TypePredicator.isTypeParameter(type))
         throw new TransformerError({
           code: `typia.${method}`,
           message: `non-specified generic argument.`,

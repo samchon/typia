@@ -21,7 +21,7 @@ export const iterate_metadata_map =
   ): boolean => {
     type = checker.getApparentType(type);
 
-    const name = TypeFactory.getFullName(checker)(type, type.getSymbol());
+    const name = TypeFactory.getFullName(checker)(type, type.symbol);
     const generic = type.aliasSymbol
       ? type.aliasTypeArguments
       : checker.getTypeArguments(type as ts.TypeReference);

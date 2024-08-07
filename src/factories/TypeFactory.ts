@@ -1,5 +1,9 @@
 import ts from "typescript";
 
+import { TypePredicator } from "../utils/TypePredicator";
+
+import { Resolved } from "../Resolved";
+
 export namespace TypeFactory {
   export const isFunction = (type: ts.Type): boolean =>
     getFunction(type) !== null;
@@ -22,7 +26,10 @@ export namespace TypeFactory {
     (type: ts.Type) =>
     (name: string): ts.Type | null => {
       // FIND TO-JSON METHOD
-      const symbol: ts.Symbol | undefined = type.getProperty(name);
+      const symbol: ts.Symbol | undefined = checker.getPropertyOfType(
+        type,
+        name,
+      );
       if (!symbol) return null;
       else if (!symbol.valueDeclaration) return null;
 
@@ -44,12 +51,17 @@ export namespace TypeFactory {
     (checker: ts.TypeChecker) =>
     (type: ts.Type, symbol?: ts.Symbol): string => {
       // PRIMITIVE
-      symbol ??= type.aliasSymbol ?? type.getSymbol();
+      symbol ??= type.aliasSymbol ?? type.symbol;
       if (symbol === undefined) return checker.typeToString(type);
 
       // UNION OR INTERSECT
-      if (type.aliasSymbol === undefined && type.isUnionOrIntersection()) {
-        const joiner: string = type.isIntersection() ? " & " : " | ";
+      if (
+        type.aliasSymbol === undefined &&
+        TypePredicator.isUnionOrIntersection(type)
+      ) {
+        const joiner: string = TypePredicator.isIntersection(type)
+          ? " & "
+          : " | ";
         return type.types
           .map((child) => getFullName(checker)(child))
           .join(joiner);
@@ -115,4 +127,64 @@ export namespace TypeFactory {
                   : ts.SyntaxKind.StringKeyword,
     );
   };
+
+  export const clone = (type: ts.Type): Resolved<ts.Type> =>
+    cloneType(type, 0, new Set());
 }
+
+const cloneType = (x: any, depth: number, visited: Set<object>): any => {
+  if (x === undefined || depth > 4) return undefined;
+  else if (typeof x === "object")
+    if (x === null) return null;
+    else if (Array.isArray(x))
+      return x.map((y) => cloneType(y, depth + 1, visited));
+    else {
+      visited.add(x);
+      const entries = (() => {
+        try {
+          return Object.entries(x);
+        } catch {
+          return undefined;
+        }
+      })();
+      if (entries === undefined) return undefined;
+      return Object.fromEntries(
+        entries
+          .filter(
+            ([k, y]) =>
+              k !== "parent" &&
+              typeof y !== "function" &&
+              !(typeof y === "object" && y !== null && visited.has(y) === true),
+          )
+          .map(([k, y]) => {
+            // if (typeof y === "object" && y !== null) console.log(k, get_uid(y));
+            return [k, cloneType(y, depth + 1, visited)];
+          }),
+      );
+    }
+  return x;
+};
+
+// function get_uid(obj: object | null | undefined): number {
+//   // NO UID EXISTS, THEN ISSUE ONE.
+//   if (obj instanceof Object) {
+//     if (obj.hasOwnProperty("__get_m_iUID") === false) {
+//       const uid: number = ++__s_iUID;
+//       Object.defineProperty(obj, "__get_m_iUID", {
+//         value: function (): number {
+//           return uid;
+//         },
+//       });
+//     }
+
+//     // RETURNS
+//     return (obj as IObject).__get_m_iUID();
+//   } else if (obj === undefined) return -1;
+//   // is null
+//   else return 0;
+// }
+
+// interface IObject {
+//   readonly __get_m_iUID: () => number;
+// }
+// let __s_iUID: number = 0;

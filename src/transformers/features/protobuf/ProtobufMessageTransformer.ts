@@ -2,6 +2,8 @@ import ts from "typescript";
 
 import { ProtobufMessageProgrammer } from "../../../programmers/protobuf/ProtobufMessageProgrammer";
 
+import { TypePredicator } from "../../../utils/TypePredicator";
+
 import { IProject } from "../../IProject";
 import { TransformerError } from "../../TransformerError";
 
@@ -21,7 +23,7 @@ export namespace ProtobufMessageTransformer {
       const type: ts.Type = project.checker.getTypeFromTypeNode(
         expression.typeArguments[0],
       );
-      if (type.isTypeParameter())
+      if (TypePredicator.isTypeParameter(type))
         throw new TransformerError({
           code: "tyipa.protobuf.message",
           message: "non-specified generic argument.",

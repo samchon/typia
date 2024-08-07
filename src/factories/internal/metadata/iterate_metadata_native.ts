@@ -10,10 +10,7 @@ export const iterate_metadata_native =
   (checker: ts.TypeChecker) =>
   (meta: Metadata, type: ts.Type): boolean => {
     const validator = validate(checker)(type);
-    const name: string = TypeFactory.getFullName(checker)(
-      type,
-      type.getSymbol(),
-    );
+    const name: string = TypeFactory.getFullName(checker)(type, type.symbol);
 
     const simple = SIMPLES.get(name);
     if (simple && validator(simple)) {
