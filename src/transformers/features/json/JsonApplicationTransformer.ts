@@ -11,6 +11,8 @@ import { JsonApplicationProgrammer } from "../../../programmers/json/JsonApplica
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
+import { TypePredicator } from "../../../utils/TypePredicator";
+
 import { IProject } from "../../IProject";
 import { TransformerError } from "../../TransformerError";
 
@@ -37,7 +39,7 @@ export namespace JsonApplicationTransformer {
       const types: ts.Type[] = top.elements.map((child) =>
         project.checker.getTypeFromTypeNode(child as ts.TypeNode),
       );
-      if (types.some((t) => t.isTypeParameter()))
+      if (types.some(TypePredicator.isTypeParameter))
         throw new TransformerError({
           code: "typia.json.application",
           message: "non-specified generic argument(s).",
@@ -102,8 +104,8 @@ export namespace JsonApplicationTransformer {
       // CHECK LITERAL TYPE
       const type: ts.Type = props.checker.getTypeFromTypeNode(node);
       if (
-        !type.isLiteral() &&
-        (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
+        !TypePredicator.isLiteral(type) &&
+        (type.flags & ts.TypeFlags.BooleanLiteral) === 0
       )
         throw new TransformerError({
           code: "typia.json.application",
@@ -111,7 +113,7 @@ export namespace JsonApplicationTransformer {
         });
 
       // GET VALUE AND VALIDATE IT
-      const value = type.isLiteral()
+      const value = TypePredicator.isLiteral(type)
         ? type.value
         : props.checker.typeToString(type);
       if (typeof value !== "string" || props.is(value) === false)

@@ -31,7 +31,7 @@ export const emplace_metadata_array_type =
     // CONSTRUCT VALUE TYPE
     const value: Metadata = explore_metadata(checker)(options)(collection)(
       errors,
-    )(arrayType.getNumberIndexType()!, {
+    )(checker.getIndexTypeOfType(arrayType, ts.IndexKind.Number)!, {
       ...explore,
       escaped: false,
       aliased: false,

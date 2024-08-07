@@ -7,6 +7,7 @@ import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 import { Writable } from "../../../typings/Writable";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
+import { TypePredicator } from "../../../utils/TypePredicator";
 
 import { CommentFactory } from "../../CommentFactory";
 import { MetadataCollection } from "../../MetadataCollection";
@@ -28,7 +29,7 @@ export const emplace_metadata_object =
     if (newbie === false) return obj;
 
     // PREPARE ASSETS
-    const isClass: boolean = parent.isClass();
+    const isClass: boolean = TypePredicator.isClass(parent);
     const pred: (node: ts.Declaration) => boolean = isClass
       ? (node) => {
           const kind: ts.SyntaxKind | undefined = node
@@ -71,7 +72,9 @@ export const emplace_metadata_object =
     //----
     // REGULAR PROPERTIES
     //----
-    for (const prop of parent.getApparentProperties()) {
+    for (const prop of checker.getPropertiesOfType(
+      checker.getApparentType(parent),
+    )) {
       // CHECK INTERNAL TAG
       if (
         (prop.getJsDocTags(checker) ?? []).find(
@@ -170,7 +173,7 @@ const isProperty = (node: ts.Declaration) =>
   ts.isTypeLiteralNode(node);
 
 const iterate_optional_coalesce = (meta: Metadata, type: ts.Type): void => {
-  if (type.isUnionOrIntersection())
+  if (TypePredicator.isUnionOrIntersection(type))
     type.types.forEach((child) => iterate_optional_coalesce(meta, child));
   else iterate_metadata_coalesce(meta, type);
 };

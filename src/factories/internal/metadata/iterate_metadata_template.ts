@@ -18,7 +18,7 @@ export const iterate_metadata_template =
     type: ts.Type,
     explore: MetadataFactory.IExplore,
   ): boolean => {
-    const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+    const filter = (flag: ts.TypeFlags) => (type.flags & flag) !== 0;
     if (!filter(ts.TypeFlags.TemplateLiteral)) return false;
 
     const template: ts.TemplateLiteralType = type as ts.TemplateLiteralType;

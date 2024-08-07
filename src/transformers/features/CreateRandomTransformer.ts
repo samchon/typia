@@ -2,6 +2,8 @@ import ts from "typescript";
 
 import { RandomProgrammer } from "../../programmers/RandomProgrammer";
 
+import { TypePredicator } from "../../utils/TypePredicator";
+
 import { IProject } from "../IProject";
 import { TransformerError } from "../TransformerError";
 
@@ -21,7 +23,7 @@ export namespace CreateRandomTransformer {
       const node: ts.TypeNode = expression.typeArguments[0];
       const type: ts.Type = project.checker.getTypeFromTypeNode(node);
 
-      if (type.isTypeParameter())
+      if (TypePredicator.isTypeParameter(type))
         throw new TransformerError({
           code: "typia.createRandom",
           message: "non-specified generic argument.",
