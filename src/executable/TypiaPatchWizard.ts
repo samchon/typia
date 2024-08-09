@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import { defineCommand } from "citty";
 
 const FROM_WITH_COMMENT = `var defaultJSDocParsingMode = 2 /* ParseForTypeErrors */`;
@@ -25,15 +25,15 @@ export const patchCommand = defineCommand({
 
 export async function patch(): Promise<void> {
   const location: string = require.resolve("typescript/lib/tsc.js");
-  const content: string = await fs.promises.readFile(location, "utf8");
+  const content: string = await fs.readFile(location, "utf8");
   if (content.indexOf(FROM_WITH_COMMENT) !== -1)
-    await fs.promises.writeFile(
+    await fs.writeFile(
       location,
       content.replace(FROM_WITH_COMMENT, TO_WITH_COMMENT),
       "utf8"
     );
     else if (content.indexOf(FROM_ONLY) !== -1)
-      await fs.promises.writeFile(
+      await fs.writeFile(
         location,
         content.replace(FROM_ONLY, TO_ONLY),
         "utf8"
