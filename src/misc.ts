@@ -277,6 +277,9 @@ export { validateClonePure as validateClone };
  *   - {@link isPrune}
  *   - {@link validatePrune}
  *
+ * @warning ... ({@link https://github.com/samchon/typia/issues/1205|GitHub Issue})
+ * @see Warning: ... ({@link https://github.com/samchon/typia/issues/1205|GitHub Issue})
+ *
  * @template T Type of the input value
  * @param input Target instance to prune
  *
