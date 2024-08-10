@@ -71,6 +71,7 @@
     "citty": "^0.1.6",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
+    "consola": "^3.2.3",
     "inquirer": "^8.2.5",
     "package-manager-detector": "^0.1.0",
     "randexp": "^0.5.3"
