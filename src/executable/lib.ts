@@ -1,10 +1,9 @@
 import path from "node:path";
 import fs from 'node:fs/promises'
+import { consola } from 'consola'
 
 export function wizard(): void {
-    console.log("----------------------------------------");
-    console.log(" Typia Setup Wizard");
-    console.log("----------------------------------------");
+  consola.box("Typia Setup Wizard");
 }
 
 /**
