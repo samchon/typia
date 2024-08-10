@@ -3,7 +3,7 @@ import { defineCommand } from "citty";
 
 import { TypiaProgrammer } from "../programmers/TypiaProgrammer";
 
-import { findUp } from "./lib";
+import { findUp } from "./utils";
 
 export const generateCommand = defineCommand({
   args:{
