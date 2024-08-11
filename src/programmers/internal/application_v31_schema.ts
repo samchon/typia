@@ -5,6 +5,7 @@ import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_array } from "./application_array";
+import { application_bigint } from "./application_bigint";
 import { application_boolean } from "./application_boolean";
 import { application_escaped } from "./application_escaped";
 import { application_number } from "./application_number";
@@ -57,14 +58,12 @@ export const application_v31_schema =
     if (meta.templates.length && AtomicPredicator.template(meta))
       application_templates(meta).map(insert as any);
     for (const constant of meta.constants)
-      if (constant.type === "bigint") throw new TypeError(NO_BIGINT);
-      else if (AtomicPredicator.constant(meta)(constant.type) === false)
-        continue;
+      if (AtomicPredicator.constant(meta)(constant.type) === false) continue;
       else application_v31_constant(constant).map(insert);
     for (const a of meta.atomics)
-      if (a.type === "bigint") throw new TypeError(NO_BIGINT);
-      else if (a.type === "boolean")
-        application_boolean(a).forEach(insert as any);
+      if (a.type === "boolean") application_boolean(a).forEach(insert as any);
+      else if (a.type === "bigint")
+        application_bigint(a).forEach(insert as any);
       else if (a.type === "number")
         application_number(a).forEach(insert as any);
       else if (a.type === "string")
@@ -89,12 +88,20 @@ export const application_v31_schema =
       if (AtomicPredicator.native(native)) {
         const type: string = native.toLowerCase();
         if (meta.atomics.some((a) => a.type === type)) continue;
-        else if (type === "bigint") throw new TypeError(NO_BIGINT);
         else if (type === "boolean")
           insert(
             application_boolean(
               MetadataAtomic.create({
                 type: "boolean",
+                tags: [],
+              }),
+            )[0]! as any,
+          );
+        else if (type === "bigint")
+          insert(
+            application_bigint(
+              MetadataAtomic.create({
+                type: "bigint",
                 tags: [],
               }),
             )[0]! as any,
@@ -150,8 +157,3 @@ export const application_v31_schema =
       deprecated: attribute.deprecated ?? schema.deprecated,
     };
   };
-
-/**
- * @internal
- */
-const NO_BIGINT = "Error on typia.application(): does not allow bigint type.";

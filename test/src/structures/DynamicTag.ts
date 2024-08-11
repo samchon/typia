@@ -13,6 +13,7 @@ export namespace DynamicTag {
   export const BINARABLE = false;
   export const JSONABLE = false;
   export const PRIMITIVE = false;
+  export const ADDABLE = false;
 
   export function generate(): DynamicTag {
     const dict: DynamicTag = {};
