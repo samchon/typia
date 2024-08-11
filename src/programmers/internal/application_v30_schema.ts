@@ -67,8 +67,7 @@ export const application_v30_schema =
       else insert(application_v30_constant(constant));
     for (const a of meta.atomics)
       if (a.type === "boolean") application_boolean(a).forEach(insert);
-      else if (a.type === "bigint")
-        application_bigint(a).forEach(insert as any);
+      else if (a.type === "bigint") application_bigint(a).forEach(insert);
       else if (a.type === "number") application_number(a).forEach(insert);
       else if (a.type === "string") application_string(a).forEach(insert);
 
