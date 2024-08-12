@@ -1,3 +1,5 @@
+// @see https://github.com/ryoppippi/bumpp/blob/e93efe88bba42bd0875f12f1c10744f41b732b6e/src/fs.ts
+
 import path from "node:path";
 import process from "node:process";
 import fs from 'node:fs'
@@ -57,9 +59,10 @@ interface JsonFile {
 }
 
 /**
- * Reads a JSON/JSONC file and returns the parsed data.
+ * Reads a JSON file and returns the parsed data.
+ * This functions supports JSON/JSONC/JSON with comments.
  */
-export async function readJsoncFile(name: string, cwd: string): Promise<JsonFile> {
+export async function readJsonFile(name: string, cwd: string): Promise<JsonFile> {
   const file = await readTextFile(name, cwd)
   const data = jsonc.parse(file.data)
   const modified: ModifyUnion[] = []
@@ -70,7 +73,7 @@ export async function readJsoncFile(name: string, cwd: string): Promise<JsonFile
 /**
  * Writes the given data to the specified JSON/JSONC file.
  */
-export async function writeJsoncFile(file: JsonFile): Promise<void> {
+export async function writeJsonFile(file: JsonFile): Promise<void> {
   let newJSON = file.text
   for (const [key, value] of file.modified) {
     const edit = (jsonc.modify(file.text, key, value, {}))
