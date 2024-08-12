@@ -1,8 +1,9 @@
 import { defineCommand } from "citty";
 
-import { TypiaProgrammer } from "../programmers/TypiaProgrammer";
+import { TypiaProgrammer } from "../../programmers/TypiaProgrammer";
 
-import { findTsConfig } from "./utils";
+import { findUp } from "../utils/fs";
+import { showErrorAndExit } from "../utils/message";
 
 export const generateCommand = defineCommand({
   args:{
@@ -31,7 +32,12 @@ export const generateCommand = defineCommand({
       project: _project,
     } = args;
 
-    const project = await findTsConfig(_project)
+
+    const project = _project ?? await findUp("tsconfig.json");
+
+    if (project==null) {
+      showErrorAndExit("tsconfig.json not found");
+    }
 
     await TypiaProgrammer.build({input, output, project});
   }
