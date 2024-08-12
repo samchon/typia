@@ -6,7 +6,7 @@
   "typings": "lib/index.d.ts",
   "module": "lib/index.mjs",
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./bin/typia.cjs"
   },
   "tsp": {
     "tscOptions": {
