@@ -73,6 +73,7 @@
     "consola": "^3.2.3",
     "inquirer": "^8.2.5",
     "jsonc-parser": "^3.3.1",
+    "magic-string": "^0.30.11",
     "package-manager-detector": "^0.1.0",
     "randexp": "^0.5.3"
   },
