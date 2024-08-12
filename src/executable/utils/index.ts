@@ -13,7 +13,7 @@ export function wizard(): void {
 export async function findUp(
   name: string | string[],
   { cwd }: { cwd: string | undefined }
-) {
+): Promise<string | undefined> {
   let directory = path.resolve(cwd ?? process.cwd())
   const { root } = path.parse(directory)
   const names = [name].flat()
