@@ -18,6 +18,8 @@
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
+    "cli": "node ./bin/typia.cjs",
+    "----------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch",
     "eslint": "eslint ./**/*.ts",
