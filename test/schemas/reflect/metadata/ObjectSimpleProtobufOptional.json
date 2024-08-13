@@ -325,7 +325,10 @@
                         "kind": "type",
                         "value": "uint64",
                         "validate": "BigInt(0) <= $input",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
                       }
                     ]
                   ]

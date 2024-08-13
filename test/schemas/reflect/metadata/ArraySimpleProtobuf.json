@@ -741,7 +741,10 @@
                     "kind": "type",
                     "value": "int64",
                     "validate": "true",
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "type": "integer"
+                    }
                   }
                 ]
               ]
@@ -784,7 +787,10 @@
                     "kind": "type",
                     "value": "uint64",
                     "validate": "BigInt(0) <= $input",
-                    "exclusive": true
+                    "exclusive": true,
+                    "schema": {
+                      "type": "integer"
+                    }
                   }
                 ]
               ]

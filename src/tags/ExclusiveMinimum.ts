@@ -1,19 +1,25 @@
 import { TagBase } from "./TagBase";
 
 export type ExclusiveMinimum<Value extends number | bigint> = TagBase<{
-  target: Value extends number ? "number" : "bigint";
+  target: Value extends bigint ? "bigint" : "number";
   kind: "exclusiveMinimum";
   value: Value;
-  validate: `${Numeric<Value>} < $input`;
+  validate: `${Cast<Value>} < $input`;
   exclusive: ["exclusiveMinimum", "minimum"];
-  schema: Value extends number
+  schema: Value extends bigint
     ? {
         exclusiveMinimum: true;
-        minimum: Value;
+        minimum: Numeric<Value>;
       }
-    : undefined;
+    : {
+        exclusiveMinimum: true;
+        minimum: Value;
+      };
 }>;
 
-type Numeric<Value extends number | bigint> = Value extends number
+type Cast<Value extends number | bigint> = Value extends number
   ? Value
   : `BigInt(${Value})`;
+type Numeric<T extends bigint> = `${T}` extends `${infer N extends number}`
+  ? N
+  : never;

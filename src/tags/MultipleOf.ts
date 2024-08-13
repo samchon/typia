@@ -4,17 +4,18 @@ export type MultipleOf<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";
   kind: "multipleOf";
   value: Value;
-  validate: `$input % ${Numeric<Value>} === ${Value extends bigint
-    ? Numeric<0n>
+  validate: `$input % ${Cast<Value>} === ${Value extends bigint
+    ? Cast<0n>
     : 0}`;
   exclusive: true;
-  schema: Value extends number
-    ? {
-        multipleOf: Value;
-      }
-    : undefined;
+  schema: Value extends bigint
+    ? { multipleOf: Numeric<Value> }
+    : { multipleOf: Value };
 }>;
 
-type Numeric<Value extends number | bigint> = Value extends number
+type Cast<Value extends number | bigint> = Value extends number
   ? Value
   : `BigInt(${Value})`;
+type Numeric<T extends bigint> = `${T}` extends `${infer N extends number}`
+  ? N
+  : never;
