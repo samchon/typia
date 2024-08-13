@@ -1,6 +1,9 @@
 import { consola } from 'consola'
 
-export function showErrorAndExit(message: string): never {
+/**
+* throw an error message and exit the process
+*/
+export function bail(message: string): never {
   consola.error(message);
   process.exit(1);
 }

@@ -7,7 +7,7 @@ import MagicString from "magic-string";
 
 import { run } from "../utils/command";
 import { findUp, readJsonFile, writeJsonFile } from "../utils/fs";
-import { showErrorAndExit , wizard } from "../utils/message";
+import { bail , wizard } from "../utils/message";
 
 const TSPATCH_COMMAND = `ts-patch install`;
 const TYPIA_PATCH_COMMAND = `typia patch`;
@@ -53,11 +53,11 @@ export const setupCommand = defineCommand({
 
     /* yarn@berry is not supported */
     if(manager.agent==='yarn@berry'){
-      showErrorAndExit('yarn@berry is not supported.');
+      bail('yarn@berry is not supported.');
     }
 
     if(manager.agent==null){
-      showErrorAndExit('Unable to detect package manager.');
+      bail('Unable to detect package manager.');
     }
 
     /* get commands table */
@@ -72,7 +72,7 @@ export const setupCommand = defineCommand({
     {
       const path = await findUp('package.json', {cwd});
       if(path==null){
-        showErrorAndExit('package.json not found.');
+        bail('package.json not found.');
       }
       const json = await readJsonFile(path, cwd);
       const { data } : {data: PackageJson} = json;
