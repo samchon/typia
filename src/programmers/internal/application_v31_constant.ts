@@ -16,7 +16,10 @@ export const application_v31_constant = (
     .map((value) =>
       application_plugin(
         {
-          const: value.value as boolean | number | string,
+          const:
+            typeof value.value === "bigint"
+              ? Number(value.value)
+              : (value.value as boolean | number | string),
           title: application_title(value),
           description: application_description(value),
         } satisfies OpenApi.IJsonSchema.IConstant,

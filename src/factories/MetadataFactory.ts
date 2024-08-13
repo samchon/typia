@@ -92,7 +92,7 @@ export namespace MetadataFactory {
     return meta;
   };
 
-  const validate =
+  export const validate =
     (context?: ts.TransformationContext) =>
     (options: IOptions) =>
     (functor: Validator) =>
