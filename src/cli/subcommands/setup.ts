@@ -44,7 +44,7 @@ export const setupCommand = defineCommand({
   args: {
     project: {
       type: "string",
-      description: "tsconfig.json file path",
+      description: "tsconfig.json file path (e.g. ./tsconfig.test.json)",
       required: false,
     },
   },

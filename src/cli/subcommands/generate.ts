@@ -24,7 +24,7 @@ export const generateCommand = defineCommand({
     },
     project: {
       type: "string",
-      description: "tsconfig.json file location",
+      description: "tsconfig.json file path (e.g. ./tsconfig.test.json)",
       required: false,
     },
   },
