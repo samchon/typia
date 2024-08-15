@@ -8,7 +8,7 @@ import { run } from "../utils/command";
 import { findTsConfig } from "../utils/confFiles";
 import { findUp, readJsonFile, writeJsonFile } from "../utils/fs";
 import { logger } from "../utils/logger";
-import { bail, wizard } from "../utils/message";
+import { bail } from "../utils/message";
 
 const TSPATCH_COMMAND = `ts-patch install`;
 const TYPIA_PATCH_COMMAND = `typia patch`;
@@ -48,9 +48,6 @@ export const setupCommand = defineCommand({
       description: "tsconfig.json file path",
       required: false,
     },
-  },
-  setup() {
-    wizard();
   },
   async run({ args }) {
     const cwd = process.cwd();
