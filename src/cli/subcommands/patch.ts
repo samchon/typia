@@ -7,6 +7,10 @@ const FROM_ONLY = `var defaultJSDocParsingMode = 2`;
 const TO_ONLY = `var defaultJSDocParsingMode = 0`;
 
 export const patchCommand = defineCommand({
+  meta: {
+    name: "patch",
+    description: "Extra patching for TypeScript",
+  },
   async setup(){
     console.log(
       [

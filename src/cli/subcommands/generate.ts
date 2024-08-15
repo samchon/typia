@@ -6,6 +6,10 @@ import { findUp } from "../utils/fs";
 import { bail } from "../utils/message";
 
 export const generateCommand = defineCommand({
+  meta: {
+    name: "generate",
+    description: "Generate Typia files",
+  },
   args:{
     input: {
       type: "string",

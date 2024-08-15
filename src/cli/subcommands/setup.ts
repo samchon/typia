@@ -37,6 +37,10 @@ interface Dependency{
 }
 
 export const setupCommand = defineCommand({
+  meta: {
+    name: "setup",
+    description: "Setup Typia",
+  },
   args:{
     project:{
       type: "string",
