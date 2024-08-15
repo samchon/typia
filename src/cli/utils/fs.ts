@@ -1,9 +1,9 @@
 // @see https://github.com/ryoppippi/bumpp/blob/e93efe88bba42bd0875f12f1c10744f41b732b6e/src/fs.ts
+import * as cj from "comment-json";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import * as cj from 'comment-json';
 
 /**
  * Find a file in the directory hierarchy
@@ -60,7 +60,7 @@ export async function readJsonFile<T = unknown>(
   const file = await readTextFile(name, cwd);
   const data = cj.parse(file.data) as T & cj.CommentObject;
 
-  return { ...file, data  };
+  return { ...file, data };
 }
 
 /**

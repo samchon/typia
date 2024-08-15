@@ -84,7 +84,7 @@ export const setupCommand = defineCommand({
     }
 
     /* === prepare package.json === */
-  {
+    {
       const path = await findUp("package.json", { cwd });
       if (path == null) {
         bail("package.json not found.");
@@ -111,12 +111,12 @@ export const setupCommand = defineCommand({
       }
 
       /* update prepare script */
-      json.data.scripts = { ...json.data.scripts??{}, prepare};
+      json.data.scripts = { ...(json.data.scripts ?? {}), prepare };
       await writeJsonFile(json);
     }
 
     /* === prepare tsconfig.json === */
-  {
+    {
       const tsConfigPath = args.project ?? (await findTsConfig({ cwd }));
       /* if tsconfig.json is not found, create it */
       if (tsConfigPath == null) {
@@ -125,7 +125,7 @@ export const setupCommand = defineCommand({
 
       const tsConfig = await readJsonFile<TSConfig>(tsConfigPath, cwd);
 
-      if(tsConfig.data.compilerOptions == null){
+      if (tsConfig.data.compilerOptions == null) {
         tsConfig.data.compilerOptions = {};
       }
 
@@ -134,8 +134,8 @@ export const setupCommand = defineCommand({
 
       tsConfig.data.compilerOptions.plugins = [
         { transform: TYPIA_TRANSFORM },
-        ...tsConfig.data.compilerOptions.plugins??[],
-      ]
+        ...(tsConfig.data.compilerOptions.plugins ?? []),
+      ];
       await writeJsonFile(tsConfig);
     }
 
