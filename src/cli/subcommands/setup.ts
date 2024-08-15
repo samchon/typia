@@ -2,12 +2,13 @@ import process from "node:process";
 
 import { defineCommand } from "citty";
 import { detect } from 'package-manager-detector';
-import { COMMANDS } from 'package-manager-detector/agents';
+import { type Agent, COMMANDS } from 'package-manager-detector/agents';
 import MagicString from "magic-string";
 
 import { run } from "../utils/command";
 import { findUp, readJsonFile, writeJsonFile } from "../utils/fs";
 import { bail , wizard } from "../utils/message";
+import { logger } from "../utils/logger";
 
 const TSPATCH_COMMAND = `ts-patch install`;
 const TYPIA_PATCH_COMMAND = `typia patch`;
@@ -61,7 +62,16 @@ export const setupCommand = defineCommand({
     }
 
     if(manager.agent==null){
-      bail('Unable to detect package manager.');
+      const selected = await logger.prompt('Select a package manager', {
+        initial: 'npm',
+        options: [
+          {value: 'yarn', label: 'yarn (yarn@berry not supported)'},
+          {value: 'pnpm', label: 'pnpm'},
+          {value: 'npm', label: 'npm'},
+          {value: 'bun', label: 'bun'},
+        ] as const satisfies { value: Agent, label: string }[],
+      })
+      manager.agent = selected as Agent;
     }
 
     /* get commands table */
