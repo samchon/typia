@@ -1,5 +1,5 @@
-import fs from "node:fs/promises";
 import { defineCommand } from "citty";
+import fs from "node:fs/promises";
 
 const FROM_WITH_COMMENT = `var defaultJSDocParsingMode = 2 /* ParseForTypeErrors */`;
 const TO_WITH_COMMENT = `var defaultJSDocParsingMode = 0 /* ParseAll */`;
@@ -11,7 +11,7 @@ export const patchCommand = defineCommand({
     name: "patch",
     description: "Extra patching for TypeScript",
   },
-  async setup(){
+  async setup() {
     console.log(
       [
         `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments.`,
@@ -30,18 +30,13 @@ export const patchCommand = defineCommand({
 export async function patch(): Promise<void> {
   const location: string = require.resolve("typescript/lib/tsc.js");
   const content: string = await fs.readFile(location, "utf8");
-  if (!content.includes(FROM_WITH_COMMENT)){
+  if (!content.includes(FROM_WITH_COMMENT)) {
     await fs.writeFile(
       location,
       content.replace(FROM_WITH_COMMENT, TO_WITH_COMMENT),
-      "utf8"
+      "utf8",
     );
-  }
-  else if (!content.includes(FROM_ONLY)){
-    await fs.writeFile(
-      location,
-      content.replace(FROM_ONLY, TO_ONLY),
-      "utf8"
-    );
+  } else if (!content.includes(FROM_ONLY)) {
+    await fs.writeFile(location, content.replace(FROM_ONLY, TO_ONLY), "utf8");
   }
 }

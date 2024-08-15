@@ -1,3 +1,3 @@
-import { consola, type ConsolaInstance } from 'consola'
+import { type ConsolaInstance, consola } from "consola";
 
-export const logger: ConsolaInstance = consola.withTag('typia-cli')
+export const logger: ConsolaInstance = consola.withTag("typia-cli");

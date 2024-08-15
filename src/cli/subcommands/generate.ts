@@ -2,16 +2,16 @@ import { defineCommand } from "citty";
 
 import { TypiaProgrammer } from "../../programmers/TypiaProgrammer";
 
-import { bail } from "../utils/message";
-import { logger } from "../utils/logger";
 import { findTsConfig } from "../utils/confFiles";
+import { logger } from "../utils/logger";
+import { bail } from "../utils/message";
 
 export const generateCommand = defineCommand({
   meta: {
     name: "generate",
     description: "Generate Typia files",
   },
-  args:{
+  args: {
     input: {
       type: "string",
       description: "input directory",
@@ -28,22 +28,23 @@ export const generateCommand = defineCommand({
       required: false,
     },
   },
-  async run({args}) {
+  async run({ args }) {
     const {
       input: _input,
       output: _output,
       project: _project,
-    } = args as Partial<typeof args>
+    } = args as Partial<typeof args>;
 
-    const input = _input ?? await logger.prompt("input directory", { type: 'text' });
-    const output = _output ?? await logger.prompt("output directory", { type: 'text' });
-    const project = _project ?? await findTsConfig();
+    const input =
+      _input ?? (await logger.prompt("input directory", { type: "text" }));
+    const output =
+      _output ?? (await logger.prompt("output directory", { type: "text" }));
+    const project = _project ?? (await findTsConfig());
 
-    if (project==null) {
+    if (project == null) {
       bail("tsconfig.json not found");
     }
 
-    await TypiaProgrammer.build({input, output, project});
-  }
+    await TypiaProgrammer.build({ input, output, project });
+  },
 });
-

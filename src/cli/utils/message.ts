@@ -1,8 +1,8 @@
-import {logger} from './logger'
+import { logger } from "./logger";
 
 /**
-* throw an error message and exit the process
-*/
+ * throw an error message and exit the process
+ */
 export function bail(message: string): never {
   logger.error(message);
   process.exit(1);
