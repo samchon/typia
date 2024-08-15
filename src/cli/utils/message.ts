@@ -1,13 +1,13 @@
-import { consola } from 'consola'
+import {logger} from './logger'
 
 /**
 * throw an error message and exit the process
 */
 export function bail(message: string): never {
-  consola.error(message);
+  logger.error(message);
   process.exit(1);
 }
 
 export function wizard(): void {
-  consola.box("Typia Setup Wizard");
+  logger.box("Typia Setup Wizard");
 }
