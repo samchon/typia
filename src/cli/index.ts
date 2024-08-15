@@ -1,5 +1,4 @@
 import { defineCommand, runMain, showUsage } from "citty";
-import process from "node:process";
 
 import { wizard } from "./utils/message";
 
@@ -27,10 +26,5 @@ export async function cli() {
     },
   });
 
-  try {
-    await runMain(main);
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  }
+  await runMain(main);
 }
