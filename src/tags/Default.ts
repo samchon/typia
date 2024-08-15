@@ -12,7 +12,11 @@ export type Default<Value extends boolean | bigint | number | string> =
     kind: "default";
     value: Value;
     exclusive: true;
-    schema: {
-      default: Value;
-    };
+    schema: Value extends bigint
+      ? { default: Numeric<Value> }
+      : { default: Value };
   }>;
+
+type Numeric<T extends bigint> = `${T}` extends `${infer N extends number}`
+  ? N
+  : never;
