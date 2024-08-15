@@ -51,7 +51,7 @@ export const setupCommand = defineCommand({
   },
   async run({ args }) {
     const cwd = process.cwd();
-    const manager = await detect();
+    const manager = await detect({ cwd });
 
     /* yarn@berry is not supported */
     if (manager.agent === "yarn@berry") {
