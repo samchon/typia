@@ -84,16 +84,15 @@ export const setupCommand = defineCommand({
     }
 
     /* === prepare package.json === */
-    {
+  {
       const path = await findUp("package.json", { cwd });
       if (path == null) {
         bail("package.json not found.");
       }
-      const json = await readJsonFile(path, cwd);
-      const { data }: { data: PackageJson } = json;
+      const json = await readJsonFile<PackageJson>(path, cwd);
 
       let prepare = (
-        (data?.scripts?.prepare as string | undefined) ?? ""
+        (json.data?.scripts?.prepare as string | undefined) ?? ""
       ).trim();
 
       const FULL_COMMAND = `${TSPATCH_COMMAND} && ${TYPIA_PATCH_COMMAND}`;
@@ -112,33 +111,31 @@ export const setupCommand = defineCommand({
       }
 
       /* update prepare script */
-      json.modified.push([["scripts", "prepare"], prepare.toString()]);
+      json.data.scripts = { ...json.data.scripts??{}, prepare};
       await writeJsonFile(json);
     }
 
     /* === prepare tsconfig.json === */
-    {
+  {
       const tsConfigPath = args.project ?? (await findTsConfig({ cwd }));
       /* if tsconfig.json is not found, create it */
       if (tsConfigPath == null) {
         run(`${commands.execute} tsc --init`);
       }
 
-      const tsConfig = await readJsonFile(tsConfigPath, cwd);
-      const data: TSConfig = tsConfig.data;
+      const tsConfig = await readJsonFile<TSConfig>(tsConfigPath, cwd);
 
-      tsConfig.modified.push([["compilerOptions", "strictNullChecks"], true]);
-      tsConfig.modified.push([["compilerOptions", "strict"], true]);
-
-      /* if plugins is not defined, create it */
-      const plugins = data?.compilerOptions?.plugins ?? [];
-
-      /* if typia/lib/transform is not found, add it */
-      if (!plugins.some((p) => p.transform === TYPIA_TRANSFORM)) {
-        plugins.push({ transform: TYPIA_TRANSFORM });
+      if(tsConfig.data.compilerOptions == null){
+        tsConfig.data.compilerOptions = {};
       }
 
-      tsConfig.modified.push([["compilerOptions", "plugins"], plugins]);
+      tsConfig.data.compilerOptions.strictNullChecks = true;
+      tsConfig.data.compilerOptions.strict = true;
+
+      tsConfig.data.compilerOptions.plugins = [
+        { transform: TYPIA_TRANSFORM },
+        ...tsConfig.data.compilerOptions.plugins??[],
+      ]
       await writeJsonFile(tsConfig);
     }
 

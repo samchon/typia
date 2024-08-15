@@ -1,9 +1,9 @@
 // @see https://github.com/ryoppippi/bumpp/blob/e93efe88bba42bd0875f12f1c10744f41b732b6e/src/fs.ts
-import * as jsonc from "jsonc-parser";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import * as cj from 'comment-json';
 
 /**
  * Find a file in the directory hierarchy
@@ -42,44 +42,32 @@ export interface TextFile {
 }
 
 /**
- * Modifies a JSON file.
- */
-type ModifyUnion = [jsonc.JSONPath, unknown];
-
-/**
  * Describes a JSON file.
  */
-interface JsonFile {
+interface JsonFile<T> {
   path: Readonly<string>;
-  text: Readonly<string>;
-  data: Readonly<unknown>;
-  modified: ModifyUnion[];
+  data: T & cj.CommentJSONValue;
 }
 
 /**
  * Reads a JSON file and returns the parsed data.
  * This functions supports JSON/JSONC/JSON with comments.
  */
-export async function readJsonFile(
+export async function readJsonFile<T = unknown>(
   name: string,
   cwd: string,
-): Promise<JsonFile> {
+): Promise<JsonFile<T>> {
   const file = await readTextFile(name, cwd);
-  const data = jsonc.parse(file.data);
-  const modified: ModifyUnion[] = [];
+  const data = cj.parse(file.data) as T & cj.CommentObject;
 
-  return { ...file, data, modified, text: file.data };
+  return { ...file, data  };
 }
 
 /**
  * Writes the given data to the specified JSON/JSONC file.
  */
-export async function writeJsonFile(file: JsonFile): Promise<void> {
-  let newJSON = file.text;
-  for (const [key, value] of file.modified) {
-    const edit = jsonc.modify(file.text, key, value, {});
-    newJSON = jsonc.applyEdits(newJSON, edit);
-  }
+export async function writeJsonFile<T>(file: JsonFile<T>): Promise<void> {
+  const newJSON = cj.stringify(file.data, null, 2);
 
   return writeTextFile({ ...file, data: newJSON });
 }

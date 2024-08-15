@@ -71,6 +71,7 @@
   "dependencies": {
     "@samchon/openapi": "^0.4.5",
     "citty": "^0.1.6",
+    "comment-json": "^4.2.5",
     "consola": "^3.2.3",
     "jsonc-parser": "^3.3.1",
     "magic-string": "^0.30.11",
