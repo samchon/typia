@@ -15,12 +15,12 @@ export const generateCommand = defineCommand({
     input: {
       type: "string",
       description: "input directory",
-      required: true,
+      required: false,
     },
     output: {
       type: "string",
       description: "output directory",
-      required: true,
+      required: false,
     },
     project: {
       type: "string",
@@ -29,15 +29,14 @@ export const generateCommand = defineCommand({
     },
   },
   async run({args}) {
-    // TODO: select
-
     const {
-      input,
-      output,
+      input: _input,
+      output: _output,
       project: _project,
-    } = args;
+    } = args as Partial<typeof args>
 
-
+    const input = _input ?? await logger.prompt("input directory", { type: 'text' });
+    const output = _output ?? await logger.prompt("output directory", { type: 'text' });
     const project = _project ?? await findTsConfig();
 
     if (project==null) {
