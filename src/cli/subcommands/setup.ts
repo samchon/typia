@@ -9,6 +9,7 @@ import { run } from "../utils/command";
 import { findUp, readJsonFile, writeJsonFile } from "../utils/fs";
 import { bail , wizard } from "../utils/message";
 import { logger } from "../utils/logger";
+import { findTsConfig } from "../utils/confFiles";
 
 const TSPATCH_COMMAND = `ts-patch install`;
 const TYPIA_PATCH_COMMAND = `typia patch`;
@@ -114,7 +115,7 @@ export const setupCommand = defineCommand({
 
     /* === prepare tsconfig.json === */
     {
-      const tsConfigPath = args.project ?? await findUp('tsconfig.json');
+      const tsConfigPath = args.project ?? await findTsConfig({cwd});
       /* if tsconfig.json is not found, create it */
       if(tsConfigPath==null){
         run(`${commands.execute} tsc --init`);
