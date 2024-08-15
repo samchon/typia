@@ -89,7 +89,7 @@ export async function writeJsonFile(file: JsonFile): Promise<void> {
  */
 export function readTextFile(name: string, cwd: string): Promise<TextFile> {
   return new Promise((resolve, reject) => {
-    const filePath = path.join(cwd, name);
+    const filePath = path.isAbsolute(name) ? name : path.resolve(cwd, name);
 
     fs.readFile(filePath, "utf8", (err, text) => {
       if (err) {
