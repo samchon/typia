@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import process from "node:process";
 import { defineCommand, runMain, showUsage } from "citty";
 import { wizard } from "./utils/message";
@@ -6,28 +5,30 @@ import { patchCommand } from "./subcommands/patch";
 import { generateCommand } from "./subcommands/generate";
 import { setupCommand } from "./subcommands/setup";
 
-const main = defineCommand({
-  meta: {
-    name: "typia-cli",
-    version: "1.0.0",
-    description: "CLI for Typia operations",
-  },
-  subCommands:{
-    setup: setupCommand,
-    patch: patchCommand,
-    generate: generateCommand,
-  },
-  setup(){
-    wizard();
-  },
-  async run()  {
-    await showUsage(main);
-  }
-});
+export async function cli(){
+  const main = defineCommand({
+    meta: {
+      name: "typia-cli",
+      version: "1.0.0",
+      description: "CLI for Typia operations",
+    },
+    subCommands:{
+      setup: setupCommand,
+      patch: patchCommand,
+      generate: generateCommand,
+    },
+    setup(){
+      wizard();
+    },
+    async run()  {
+      await showUsage(main);
+    }
+  });
 
-runMain(main)
-  .then(() => process.exit(0))
-  .catch((e) => {
+  try {
+    await runMain(main)
+  } catch (e) {
     console.error(e);
     process.exit(1);
-  });
+  }
+}
