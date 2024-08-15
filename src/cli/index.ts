@@ -1,4 +1,4 @@
-import { defineCommand, runMain, showUsage } from "citty";
+import { defineCommand, runMain } from "citty";
 
 import { wizard } from "./utils/message";
 
@@ -9,7 +9,7 @@ import { setupCommand } from "./subcommands/setup";
 export async function cli() {
   const main = defineCommand({
     meta: {
-      name: "typia-cli",
+      name: "typia",
       version: "1.0.0",
       description: "CLI for Typia operations",
     },
@@ -20,9 +20,6 @@ export async function cli() {
     },
     setup() {
       wizard();
-    },
-    async run() {
-      await showUsage(main);
     },
   });
 

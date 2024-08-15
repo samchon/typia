@@ -1,6 +1,8 @@
 import { defineCommand } from "citty";
 import fs from "node:fs/promises";
 
+import { logger } from "../utils/logger";
+
 const FROM_WITH_COMMENT = `var defaultJSDocParsingMode = 2 /* ParseForTypeErrors */`;
 const TO_WITH_COMMENT = `var defaultJSDocParsingMode = 0 /* ParseAll */`;
 const FROM_ONLY = `var defaultJSDocParsingMode = 2`;
@@ -12,7 +14,7 @@ export const patchCommand = defineCommand({
     description: "Extra patching for TypeScript",
   },
   async setup() {
-    console.log(
+    logger.info(
       [
         `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments.`,
         ``,
@@ -24,6 +26,7 @@ export const patchCommand = defineCommand({
   },
   async run() {
     await patch();
+    logger.success("Patched TypeScript");
   },
 });
 

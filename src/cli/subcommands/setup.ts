@@ -77,7 +77,10 @@ export const setupCommand = defineCommand({
     /* install dependencies */
     for (const dep of DEPENDENCIES) {
       run(
-        `${commands.add} ${dep.dev ? "-D" : ""} ${dep.modulo}@${dep.version}`,
+        commands.add.replace(
+          "{0}",
+          `${dep.modulo}@${dep.version} ${dep.dev ? "-D" : ""}`,
+        ),
       );
     }
 
@@ -137,7 +140,11 @@ export const setupCommand = defineCommand({
     }
 
     /* === run prepare script === */
-    run(`${commands.agent} run prepare`);
+    if (typeof commands.run === "string") {
+      run(commands.run.replace("{0}", "prepare"));
+    } else {
+      commands.run(["prepare"]);
+    }
   },
 });
 
