@@ -1,5 +1,4 @@
 import { defineCommand } from "citty";
-import MagicString from "magic-string";
 import process from "node:process";
 import { detect } from "package-manager-detector";
 import { type Agent, COMMANDS } from "package-manager-detector/agents";
@@ -93,23 +92,27 @@ export const setupCommand = defineCommand({
       const json = await readJsonFile(path, cwd);
       const { data }: { data: PackageJson } = json;
 
-      const prepare = (data?.scripts?.prepare as string | undefined) ?? "";
-      const prepareS = new MagicString(prepare);
-
-      prepareS.trim();
+      let prepare = (
+        (data?.scripts?.prepare as string | undefined) ?? ""
+      ).trim();
 
       const FULL_COMMAND = `${TSPATCH_COMMAND} && ${TYPIA_PATCH_COMMAND}`;
 
       /* if ony `ts-patch install` is found, add `typia patch` */
-      prepareS.replace(TSPATCH_COMMAND, FULL_COMMAND);
+      prepare.replace(TSPATCH_COMMAND, FULL_COMMAND);
 
-      /* if prepare script is empty or does not include `typia patch`, prepend it */
-      if (prepareS.length() === 0 || !prepare.includes(FULL_COMMAND)) {
-        prepareS.prepend(`${FULL_COMMAND} && `);
+      /* if prepare script is empty, set it to `typia patch` */
+      if (prepare === "") {
+        prepare = FULL_COMMAND;
+      }
+
+      /* if prepare script does not contain `typia patch`, add it */
+      if (prepare !== FULL_COMMAND && !prepare.includes(FULL_COMMAND)) {
+        prepare = `${FULL_COMMAND} && ${prepare}`;
       }
 
       /* update prepare script */
-      json.modified.push([["scripts", "prepare"], prepareS.toString()]);
+      json.modified.push([["scripts", "prepare"], prepare.toString()]);
       await writeJsonFile(json);
     }
 
