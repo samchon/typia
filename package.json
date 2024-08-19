@@ -1,5 +1,5 @@
 {
-  "name": "typia",
+  "name": "@matatbread/typia",
   "version": "6.8.0",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
@@ -104,6 +104,5 @@
     "package.json",
     "lib",
     "src"
-  ],
-  "private": true
+  ]
 }

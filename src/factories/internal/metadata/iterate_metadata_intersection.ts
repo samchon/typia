@@ -6,6 +6,7 @@ import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
 import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
 import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
 import { MetadataTemplate } from "../../../schemas/metadata/MetadataTemplate";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -100,7 +101,7 @@ export const iterate_metadata_intersection =
         c.isRequired() === true &&
         c.objects.length &&
         c.objects.length === c.size() &&
-        c.objects.every((o) => o.properties.every((p) => p.value.optional)),
+        c.objects.every((o) => o.properties.every((p) =>  p.value.optional || p.value.objects.some(isNoRuntimeCheck))),
     );
     const arrays: Set<string> = new Set(
       individuals.map(([c]) => c.arrays.map((a) => a.type.name)).flat(),
@@ -211,3 +212,11 @@ export const iterate_metadata_intersection =
     }
     return true;
   };
+
+function isNoRuntimeCheck(meta: MetadataObject): boolean {
+  // This is a hack: there is probably a better, structured way to ensure Metadata describes
+  // a specific type, but I've not found it, nor di I have a need for it.
+  return Boolean(meta.properties[0]?.key.constants[0]?.values[0]?.value === 'typia.tag')
+    && meta.name.startsWith('NoRuntimeCheck');
+}
+
