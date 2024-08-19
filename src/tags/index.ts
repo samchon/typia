@@ -13,6 +13,7 @@ export * from "./MinItems";
 export * from "./MinLength";
 export * from "./MultipleOf";
 export * from "./Pattern";
+export * from "./NoRuntimeCheck";
 export * from "./TagBase";
 export * from "./Type";
 export * from "./UniqueItems";
