@@ -439,7 +439,7 @@ const PARSER: Record<
         target: "string",
         kind: "pattern",
         value: Value,
-        validate: `RegExp(/${Value}/).test($input)`,
+        validate: `RegExp(${JSON.stringify(Value)}).test($input)`,
         exclusive: ["format"],
         schema: {
           pattern: Value,
