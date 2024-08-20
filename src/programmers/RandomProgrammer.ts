@@ -443,7 +443,11 @@ export namespace RandomProgrammer {
                 return ts.factory.createCallExpression(
                   COALESCE(importer)("pattern"),
                   undefined,
-                  [ts.factory.createIdentifier(`/${t.value}/`)],
+                  [
+                    ts.factory.createIdentifier(
+                      `RegExp(${JSON.stringify(t.value)})`,
+                    ),
+                  ],
                 );
 
             const tail = RandomRanger.length(COALESCE(importer))({
