@@ -31,7 +31,7 @@ bun typia setup --manager bun
 
 Just run `npx typia setup` command if you're using `tsc`. The setup wizard will do everything. 
 
-By the way, if you need additional bundling, the third party library [`unplugin-typia`](#unplugin-typia) is recommended.
+By the way, if you use `typia` with bundlers(`vite`, `rollup`, `webpack`, etc), the third party library [`unplugin-typia`](#unplugin-typia) is recommended.
 
 Otherwise non-standard compiler case, only the [generation](#generation) mode is available.
 
@@ -284,10 +284,14 @@ At first, install both `unplugin-typia` and `typia`, with `npx typia setup` comm
 
 After that, follow the next section steps to integrate `unplugin-typia` into your bundlers.
 
-For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
+For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia/tree/main/examples).
 
 <Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.runtime', 'Bun.build']}>
   <Tab>
+  <Callout type="info">
+  You can use any plugins with [`unplugin-typia`](#unplugin-typia) in Vite (including [`@vitejs/plugin-react-swc`](https://github.com/vitejs/vite-plugin-react-swc)).
+  `unplugin-typia` process the TypeScript code before transforming it to JavaScript, so it can be used with any plugins.
+  </Callout>
 ```typescript filename="vite.config.ts" copy showLineNumbers
 import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
  
