@@ -1,6 +1,6 @@
 import { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
-import { IJsonApplication, type tag as IJSONTag } from "../../schemas/json/IJsonApplication";
+import { IJsonApplication } from "../../schemas/json/IJsonApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { TransformerError } from "../../transformers/TransformerError";
@@ -44,7 +44,7 @@ export namespace JsonApplicationProgrammer {
     const components: OpenApiV3.IComponents = {};
     const generator = (meta: Metadata): OpenApiV3.IJsonSchema | null =>
       application_v30_schema(true)(components)({})(meta);
-    const schema = ({
+    return {
       version: "3.0",
       components,
       schemas: metadatas.map((meta, i) => {
@@ -56,8 +56,7 @@ export namespace JsonApplicationProgrammer {
           });
         return schema;
       }),
-    } satisfies Omit<IJsonApplication<"3.0">, typeof IJSONTag>); // check types before as assertion
-    return schema as IJsonApplication<"3.0">;
+    };
   };
 
   const v31 = (metadatas: Array<Metadata>): IJsonApplication<"3.1"> => {
@@ -66,7 +65,7 @@ export namespace JsonApplicationProgrammer {
     };
     const generator = (meta: Metadata): OpenApi.IJsonSchema | null =>
       application_v31_schema(true)(components)({})(meta);
-    const schema = ({
+    return {
       version: "3.1",
       components,
       schemas: metadatas.map((meta, i) => {
@@ -78,7 +77,6 @@ export namespace JsonApplicationProgrammer {
           });
         return schema;
       }),
-    } satisfies Omit<IJsonApplication<"3.1">, typeof IJSONTag>); // check types before as assertion
-    return schema as IJsonApplication<"3.1">;
+    };
   };
 }
