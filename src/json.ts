@@ -57,7 +57,7 @@ export function application(): never;
 export function application<
   Types extends unknown[],
   Version extends "3.0" | "3.1" = "3.1",
->(): IJsonApplication<Version>;
+>(): IJsonApplication<Version, Types>;
 
 /**
  * @internal

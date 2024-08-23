@@ -28,7 +28,7 @@
   "components": {
     "objects": [
       {
-        "name": "IJsonApplication.IV3_1",
+        "name": "IJsonApplication.IV3_1<Array<unknown>>",
         "properties": [
           {
             "key": {
@@ -187,6 +187,62 @@
               "arrays": [
                 {
                   "name": "Array<OpenApi.IJsonSchema>",
+                  "tags": []
+                }
+              ],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "__types"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": false,
+              "optional": true,
+              "nullable": false,
+              "functional": false,
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [
+                {
+                  "name": "Array<unknown>",
                   "tags": []
                 }
               ],
@@ -7570,7 +7626,7 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "IJsonApplication.IV3_1"
+            "IJsonApplication.IV3_1<Array<unknown>>"
           ],
           "aliases": [],
           "natives": [],
@@ -7676,6 +7732,33 @@
               "tags": []
             }
           ],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      },
+      {
+        "name": "Array<unknown>",
+        "value": {
+          "any": true,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functional": false,
+          "atomics": [],
           "constants": [],
           "templates": [],
           "escaped": null,
