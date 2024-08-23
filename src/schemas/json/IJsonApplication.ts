@@ -11,13 +11,12 @@ export namespace IJsonApplication {
     version: "3.0";
     schemas: OpenApiV3.IJsonSchema[];
     components: OpenApiV3.IComponents;
-    [tag]?: Types;
+    __types?: Types | undefined;
   }
   export interface IV3_1<Types = unknown[]> {
     version: "3.1";
     components: OpenApi.IComponents;
     schemas: OpenApi.IJsonSchema[];
-    [tag]?: Types;
+    __types?: Types | undefined;
   }
-  declare const tag: unique symbol;
 }

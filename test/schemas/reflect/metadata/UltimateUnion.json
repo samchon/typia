@@ -213,7 +213,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "__@tag@9875"
+                      "value": "__types"
                     }
                   ]
                 }
@@ -231,7 +231,7 @@
             },
             "value": {
               "any": false,
-              "required": true,
+              "required": false,
               "optional": true,
               "nullable": false,
               "functional": false,

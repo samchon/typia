@@ -23,7 +23,7 @@
               "$ref": "#/components/schemas/OpenApi.IJsonSchema"
             }
           },
-          "__@tag@9875": {
+          "__types": {
             "type": "array",
             "items": {}
           }
