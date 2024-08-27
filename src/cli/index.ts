@@ -1,5 +1,6 @@
 import { cli as cleye } from 'cleye'
 import { patch } from './subcommands/patch';
+import { generate } from './subcommands/generate';
 
 export async function cli(){
   const argv = cleye({
@@ -9,6 +10,7 @@ export async function cli(){
 
     commands: [
       patch,
+      generate,
     ],
 
   })
