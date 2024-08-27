@@ -1,4 +1,5 @@
 bin/
+!/bin
 lib/
 node_modules/
 
