@@ -6,7 +6,7 @@
   "typings": "lib/index.d.ts",
   "module": "lib/index.mjs",
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./bin/typia.mjs"
   },
   "tsp": {
     "tscOptions": {
@@ -103,7 +103,9 @@
     "README.md",
     "package.json",
     "lib",
+    "bin",
     "src"
   ],
   "private": true
 }
+
