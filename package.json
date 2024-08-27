@@ -73,6 +73,7 @@
     "comment-json": "^4.2.3",
     "consola": "^3.2.3",
     "inquirer": "^8.2.5",
+    "package-manager-detector": "^0.2.0",
     "randexp": "^0.5.3",
     "tinyglobby": "^0.2.5"
   },
