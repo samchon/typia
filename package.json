@@ -18,7 +18,7 @@
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc && rollup -c",
+    "build": "rimraf lib && tsc && tsc -p ./tsconfig.cli.json && rollup -c",
     "dev": "rimraf lib && tsc --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
@@ -106,6 +106,5 @@
     "bin",
     "src"
   ],
-  "private": true
 }
 
