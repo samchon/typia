@@ -1,7 +1,5 @@
 import { cli as cleye } from 'cleye'
-import { patch } from './subcommands/patch';
-import { generate } from './subcommands/generate';
-import { setup } from './subcommands/setup';
+import * as Subcommand from './subcommands'
 import { wizard } from './utils/message';
 
 export async function cli(){
@@ -12,9 +10,9 @@ export async function cli(){
     description: "CLI for Typia operations",
 
     commands: [
-      patch,
-      generate,
-      setup,
+      Subcommand.patch,
+      Subcommand.generate,
+      Subcommand.setup,
     ],
 
   })
