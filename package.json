@@ -111,5 +111,6 @@
     "lib",
     "bin",
     "src"
-  ]
+  ],
+  "private": false
 }
