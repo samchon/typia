@@ -8,7 +8,7 @@
     "build:typedoc": "typedoc --plugin typedoc-github-theme --theme typedoc-github-theme",
     "deploy": "node build/deploy",
     "dev": "next dev",
-    "prepare": "node build/raw && webpack && npm run build:typedoc"
+    "prepare": "node build/raw && rspack && npm run build:typedoc"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,8 @@
     "typia": "^6.9.0"
   },
   "devDependencies": {
+    "@rspack/cli": "^1.0.0",
+    "@rspack/core": "^1.0.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^18.11.10",
     "@types/prettier": "^3.0.0",
@@ -54,8 +56,6 @@
     "ts-node": "^10.9.1",
     "typedoc": "^0.26.2",
     "typedoc-github-theme": "^0.1.1",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4",
     "write-file-webpack-plugin": "^4.5.1"
   }
 }
