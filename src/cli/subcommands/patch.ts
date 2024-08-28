@@ -1,7 +1,7 @@
 import { command } from 'cleye';
 import fs from "node:fs/promises";
 
-import { logger } from "../utils/logger";
+import * as Logger from "../utils/logger";
 
 const FROM_WITH_COMMENT = `var defaultJSDocParsingMode = 2 /* ParseForTypeErrors */`;
 const TO_WITH_COMMENT = `var defaultJSDocParsingMode = 0 /* ParseAll */`;
@@ -17,7 +17,7 @@ export const patch = command({
     description: "Extra patching for TypeScript",
   }
 }, async () => {
-    logger.info(
+    Logger.logger.info(
       [
         `Since TypeScript v5.3 update, "tsc" no more parses JSDoc comments.`,
         ``,
@@ -28,7 +28,7 @@ export const patch = command({
     );
 
     await executePatch();
-    logger.success("Patched TypeScript");
+    Logger.logger.success("Patched TypeScript");
   }
 );
 

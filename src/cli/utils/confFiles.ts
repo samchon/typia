@@ -1,8 +1,8 @@
 import process from "node:process";
 import { glob } from "tinyglobby";
 
-import { logger } from "./logger";
-import { bail } from "./message";
+import * as Logger from "../utils/logger";
+import * as MessageUtils from "../utils/message";
 
 export async function findTsConfig(
   { cwd }: { cwd: string } = { cwd: process.cwd() },
@@ -10,7 +10,7 @@ export async function findTsConfig(
   const tsConfigs = await glob(["tsconfig.json", "tsconfig.*.json"], { cwd });
 
   if (tsConfigs.length === 0) {
-    bail("tsconfig.json not found");
+    MessageUtils.bail("tsconfig.json not found");
   }
 
   if (tsConfigs.length === 1) {
@@ -20,7 +20,7 @@ export async function findTsConfig(
     }
   }
 
-  return await logger.prompt(
+  return await Logger.logger.prompt(
     "Multiple tsconfig.json files found. Please specify the one to use:",
     {
       type: "select",
