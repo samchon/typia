@@ -1,9 +1,9 @@
 import { command } from 'cleye';
 import { TypiaProgrammer } from "../../programmers/TypiaProgrammer";
 
-import { findTsConfig } from "../utils/confFiles";
-import { logger } from "../utils/logger";
-import { bail } from "../utils/message";
+import * as ConfFileUtils from "../utils/confFiles";
+import * as Logger from "../utils/logger";
+import * as MessageUtils from "../utils/message";
 
 export const generate = command({
   name: "generate",
@@ -29,12 +29,12 @@ export const generate = command({
 }, async (argv) => {
     let { input, output, project } = argv.flags;
 
-    input ??= await logger.prompt("input directory", { type: "text" });
-    output ??= await logger.prompt("output directory", { type: "text" });
-    project ??= await findTsConfig();
+    input ??= await Logger.logger.prompt("input directory", { type: "text" });
+    output ??= await Logger.logger.prompt("output directory", { type: "text" });
+    project ??= await ConfFileUtils.findTsConfig();
 
     if (project == null) {
-      bail("tsconfig.json not found");
+      MessageUtils.bail("tsconfig.json not found");
     }
 
     await TypiaProgrammer.build({ input, output, project });

@@ -6,11 +6,11 @@ import { detect } from "package-manager-detector";
 import { AGENTS } from "package-manager-detector/constants";
 import { resolveCommand } from 'package-manager-detector/commands'
 
-import { run } from "../utils/command";
-import { findTsConfig } from "../utils/confFiles";
-import { findUp, readJsonFile, writeJsonFile } from "../utils/fs";
-import { logger } from "../utils/logger";
-import { bail } from "../utils/message";
+import * as CommandExecutor from "../utils/command";
+import * as ConfFileUtils from "../utils/confFiles";
+import * as FsUtils from "../utils/fs";
+import * as Logger from "../utils/logger";
+import * as MessageUtils from "../utils/message";
 
 const TSPATCH_COMMAND = `ts-patch install`;
 const TYPIA_PATCH_COMMAND = `typia patch`;
@@ -59,7 +59,7 @@ export const setup = command({
     let agent = manager?.agent;
 
     if (agent == null) {
-      const selected = await logger.prompt("Select a package manager", {
+      const selected = await Logger.logger.prompt("Select a package manager", {
         initial: "npm",
         options: AGENTS,
       }) as typeof AGENTS[number];
@@ -68,7 +68,7 @@ export const setup = command({
 
     /* yarn@berry is not supported */
     if (agent === "yarn@berry") {
-      bail("yarn@berry is not supported.");
+      MessageUtils.bail("yarn@berry is not supported.");
     }
 
     /* install dependencies */
@@ -79,16 +79,16 @@ export const setup = command({
         (agent==='pnpm' || agent==='pnpm@6') && existsSync(resolve(cwd, 'pnpm-workspace.yaml')) ? '-w' : ''
       ]
       const { command, args } = resolveCommand(agent, 'add', addArgs)!;
-      run(`${command} ${args.join(" ")}`);
+      CommandExecutor.run(`${command} ${args.join(" ")}`);
     }
 
     /* === prepare package.json === */
     {
-      const path = await findUp("package.json", { cwd });
+      const path = await FsUtils.findUp("package.json", { cwd });
       if (path == null) {
-        bail("package.json not found.");
+        MessageUtils.bail("package.json not found.");
       }
-      const json = await readJsonFile<PackageJson>(path, cwd);
+      const json = await FsUtils.readJsonFile<PackageJson>(path, cwd);
 
       let prepare = (
         (json.data?.scripts?.prepare as string | undefined) ?? ""
@@ -111,19 +111,19 @@ export const setup = command({
 
       /* update prepare script */
       json.data.scripts = { ...(json.data.scripts ?? {}), prepare };
-      await writeJsonFile(json);
+      await FsUtils.writeJsonFile(json);
     }
 
     /* === prepare tsconfig.json === */
     {
-      const tsConfigPath = flags.project ?? (await findTsConfig({ cwd }));
+      const tsConfigPath = flags.project ?? (await ConfFileUtils.findTsConfig({ cwd }));
       /* if tsconfig.json is not found, create it */
       if (tsConfigPath == null) {
         const { command, args } = resolveCommand(agent, 'execute', ['tsc --init'])!;
-        run(`${command} ${args.join(" ")}`);
+        CommandExecutor.run(`${command} ${args.join(" ")}`);
       }
 
-      const tsConfig = await readJsonFile<TSConfig>(tsConfigPath, cwd);
+      const tsConfig = await FsUtils.readJsonFile<TSConfig>(tsConfigPath, cwd);
 
       if (tsConfig.data.compilerOptions == null) {
         tsConfig.data.compilerOptions = {};
@@ -136,12 +136,12 @@ export const setup = command({
         { transform: TYPIA_TRANSFORM },
         ...(tsConfig.data.compilerOptions.plugins ?? []),
       ];
-      await writeJsonFile(tsConfig);
+      await FsUtils.writeJsonFile(tsConfig);
     }
 
     /* === run prepare script === */
     const { command, args } = resolveCommand(agent, 'run', ['prepare'])!;
-    run(`${command} ${args.join(" ")}`);
+    CommandExecutor.run(`${command} ${args.join(" ")}`);
   },
 );
 
