@@ -2,10 +2,8 @@ import { command } from 'cleye';
 import process from "node:process";
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { detect } from "package-manager-detector";
-import { AGENTS } from "package-manager-detector/constants";
-import { resolveCommand } from 'package-manager-detector/commands'
 
+import * as PackageManager from '../utils/packageManager';
 import * as CommandExecutor from "../utils/command";
 import * as ConfFileUtils from "../utils/confFiles";
 import * as FsUtils from "../utils/fs";
@@ -55,14 +53,14 @@ export const setup = command({
 }, async (argv) => {
     const { flags } = argv;
     const cwd = process.cwd();
-    const manager = await detect({ cwd });
+    const manager = await PackageManager.detect({ cwd });
     let agent = manager?.agent;
 
     if (agent == null) {
       const selected = await Logger.logger.prompt("Select a package manager", {
         initial: "npm",
-        options: AGENTS,
-      }) as typeof AGENTS[number];
+        options: PackageManager.AGENTS,
+      }) as PackageManager.Agent;
       agent = selected;
     }
 
@@ -78,7 +76,7 @@ export const setup = command({
         dep.dev ? "-D" : "",
         (agent==='pnpm' || agent==='pnpm@6') && existsSync(resolve(cwd, 'pnpm-workspace.yaml')) ? '-w' : ''
       ]
-      const { command, args } = resolveCommand(agent, 'add', addArgs)!;
+      const { command, args } = PackageManager.resolveCommand(agent, 'add', addArgs)!;
       CommandExecutor.run(`${command} ${args.join(" ")}`);
     }
 
@@ -119,7 +117,7 @@ export const setup = command({
       const tsConfigPath = flags.project ?? (await ConfFileUtils.findTsConfig({ cwd }));
       /* if tsconfig.json is not found, create it */
       if (tsConfigPath == null) {
-        const { command, args } = resolveCommand(agent, 'execute', ['tsc --init'])!;
+        const { command, args } = PackageManager.resolveCommand(agent, 'execute', ['tsc --init'])!;
         CommandExecutor.run(`${command} ${args.join(" ")}`);
       }
 
@@ -140,7 +138,7 @@ export const setup = command({
     }
 
     /* === run prepare script === */
-    const { command, args } = resolveCommand(agent, 'run', ['prepare'])!;
+    const { command, args } = PackageManager.resolveCommand(agent, 'run', ['prepare'])!;
     CommandExecutor.run(`${command} ${args.join(" ")}`);
   },
 );
