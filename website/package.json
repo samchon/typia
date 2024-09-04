@@ -7,7 +7,7 @@
     "build": "rimraf .next && rimraf out && npm run build:typedoc && next build && node build/sitemap",
     "build:typedoc": "typedoc --plugin typedoc-github-theme --theme typedoc-github-theme",
     "deploy": "node build/deploy",
-    "dev": "next-sitemap && next dev",
+    "dev": "next dev",
     "prepare": "node build/raw && rspack && npm run build:typedoc"
   },
   "repository": {
