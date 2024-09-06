@@ -193,7 +193,7 @@ export namespace NotationGeneralProgrammer {
       // LIST UP UNION TYPES
       //----
       // FUNCTIONAL
-      if (meta.functional)
+      if (meta.functions.length)
         unions.push({
           type: "functional",
           is: () =>

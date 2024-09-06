@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "6.10.0-dev.20240906",
+  "version": "6.10.0-dev.20240907",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -83,7 +83,7 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/inquirer": "^8.2.5",
     "@types/node": "^18.15.12",
-    "@types/ts-expose-internals": "npm:ts-expose-internals@5.5.3",
+    "@types/ts-expose-internals": "npm:ts-expose-internals@5.5.4",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "chalk": "^4.0.0",
