@@ -2,6 +2,8 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export type ObjectPartial = Partial<ObjectPartial.IBase>;
 export namespace ObjectPartial {
+  export const RECURSIVE = true;
+
   export interface IBase {
     boolean: boolean;
     number: number;

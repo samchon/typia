@@ -8,6 +8,8 @@ export type ArrayRepeatedOptional =
   | string
   | ArrayRepeatedOptional[];
 export namespace ArrayRepeatedOptional {
+  export const RECURSIVE = true;
+
   export function generate(): ArrayRepeatedOptional {
     const random = typia.createRandom<ArrayRepeatedOptional>();
     return [

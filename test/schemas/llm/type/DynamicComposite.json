@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "nullable": false,
+  "required": [
+    "id",
+    "name"
+  ],
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "type": "number"
+      },
+      {
+        "type": "string"
+      },
+      {
+        "type": "boolean"
+      }
+    ]
+  }
+}

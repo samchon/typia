@@ -1,0 +1,55 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "nullable": true
+      },
+      "email": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "sex": {
+        "oneOf": [
+          {
+            "type": "number",
+            "enum": [
+              1,
+              2
+            ],
+            "nullable": true
+          },
+          {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "nullable": true
+          }
+        ]
+      },
+      "age": {
+        "type": "number",
+        "nullable": true
+      },
+      "dead": {
+        "type": "boolean",
+        "nullable": true
+      }
+    },
+    "nullable": false,
+    "required": [
+      "id",
+      "email",
+      "name",
+      "sex",
+      "age",
+      "dead"
+    ]
+  }
+}

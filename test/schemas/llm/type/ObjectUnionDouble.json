@@ -1,0 +1,146 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x"
+            ]
+          },
+          "child": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "y": {
+                        "type": "boolean"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value",
+          "child"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "string"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x"
+            ]
+          },
+          "child": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "y": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "y": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value",
+          "child"
+        ]
+      }
+    ]
+  }
+}

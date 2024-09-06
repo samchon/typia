@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "total_count": {
+          "type": "number"
+        },
+        "total_pages": {
+          "type": "number"
+        }
+      },
+      "nullable": false,
+      "required": [
+        "page",
+        "limit",
+        "total_count",
+        "total_pages"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "age"
+        ]
+      }
+    }
+  },
+  "nullable": false,
+  "required": [
+    "pagination",
+    "data"
+  ]
+}

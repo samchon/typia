@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "dollar": {
+      "type": "string",
+      "x-typia-monetary": "dollar"
+    },
+    "postfix": {
+      "type": "string",
+      "x-typia-postfix": "abcd"
+    },
+    "powerOf": {
+      "type": "number",
+      "x-typia-powerOf": 2
+    }
+  },
+  "nullable": false,
+  "required": [
+    "id",
+    "dollar",
+    "postfix",
+    "powerOf"
+  ]
+}

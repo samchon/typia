@@ -3,6 +3,8 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayRecursive = ArrayRecursive.ICategory;
 export namespace ArrayRecursive {
+  export const RECURSIVE = true;
+
   export interface ICategory {
     children: ICategory[];
     id: number;
