@@ -8,6 +8,7 @@ import { TypeGuardError } from "./TypeGuardError";
 
 export * as functional from "./functional";
 export * as http from "./http";
+export * as llm from "./llm";
 export * as json from "./json";
 export * as misc from "./misc";
 export * as notations from "./notations";
