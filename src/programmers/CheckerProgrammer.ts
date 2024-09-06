@@ -331,7 +331,7 @@ export namespace CheckerProgrammer {
         );
 
       // FUNCTIONAL
-      if (meta.functional === true)
+      if (meta.functions.length)
         if (OptionPredicator.functional(project.options) || meta.size() !== 1)
           add(
             true,

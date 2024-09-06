@@ -4,8 +4,6 @@ import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { Writable } from "../../../typings/Writable";
 
-import { TypeFactory } from "../../TypeFactory";
-
 export const iterate_metadata_coalesce = (
   meta: Metadata,
   type: ts.Type,
@@ -24,9 +22,6 @@ export const iterate_metadata_coalesce = (
     filter(ts.TypeFlags.VoidLike)
   ) {
     Writable(meta).required = false;
-    return true;
-  } else if (TypeFactory.isFunction(type) === true) {
-    Writable(meta).functional = true;
     return true;
   }
   return false;

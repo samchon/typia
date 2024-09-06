@@ -276,7 +276,7 @@ export namespace RandomProgrammer {
         expressions.push(ts.factory.createStringLiteral("any type used..."));
 
       // NULL COALESCING
-      if (meta.isRequired() === false || meta.functional === true)
+      if (meta.isRequired() === false || meta.functions.length)
         expressions.push(ts.factory.createIdentifier("undefined"));
       if (meta.nullable === true) expressions.push(ts.factory.createNull());
 

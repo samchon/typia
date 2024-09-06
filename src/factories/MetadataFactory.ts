@@ -22,6 +22,7 @@ export namespace MetadataFactory {
     escape: boolean;
     constant: boolean;
     absorb: boolean;
+    functional?: boolean;
     validate?: Validator;
     onError?: (node: ts.Node | undefined, message: string) => void;
   }

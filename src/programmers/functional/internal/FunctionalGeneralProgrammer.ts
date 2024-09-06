@@ -9,7 +9,9 @@ export namespace FunctionalGeneralProgrammer {
   }
   export const getReturnType =
     (checker: ts.TypeChecker) =>
-    (declaration: ts.FunctionDeclaration): IOutput => {
+    (
+      declaration: ts.FunctionDeclaration | ts.SignatureDeclaration,
+    ): IOutput => {
       const signature: ts.Signature | undefined =
         checker.getSignatureFromDeclaration(declaration);
       const type: ts.Type =

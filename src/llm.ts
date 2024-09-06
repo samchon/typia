@@ -1,4 +1,14 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+
+export function application(): never;
+export function application<T extends object>(): ILlmApplication;
+
+/**
+ * @internal
+ */
+export function application(): never {
+  halt("application");
+}
 
 export function schema(): never;
 export function schema<T>(): ILlmSchema;

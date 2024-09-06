@@ -1,4 +1,4 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
@@ -7,14 +7,14 @@ import { MetadataFactory } from "../../../factories/MetadataFactory";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { LlmSchemaProgrammer } from "../../../programmers/llm/LlmSchemaProgrammer";
+import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
 import { IProject } from "../../IProject";
 import { TransformerError } from "../../TransformerError";
 
-export namespace LlmSchemaTransformer {
+export namespace LlmApplicationTransformer {
   export const transform =
     (project: IProject) =>
     (expression: ts.CallExpression): ts.Expression => {
@@ -41,13 +41,16 @@ export namespace LlmSchemaTransformer {
           escape: true,
           constant: true,
           absorb: false,
-          validate: LlmSchemaProgrammer.validate,
+          functional: true,
+          validate: LlmApplicationProgrammer.validate,
         })(collection)(type);
       if (result.success === false)
-        throw TransformerError.from("typia.llm.schema")(result.errors);
+        throw TransformerError.from("typia.llm.application")(result.errors);
 
-      // GENERATE LLM SCHEMA
-      const schema: ILlmSchema = LlmSchemaProgrammer.write(result.data);
+      // GENERATE LLM APPLICATION
+      const schema: ILlmApplication = LlmApplicationProgrammer.write(
+        result.data,
+      );
       return LiteralFactory.generate(schema);
     };
 }

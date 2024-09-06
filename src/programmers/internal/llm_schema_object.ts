@@ -30,7 +30,7 @@ export const llm_schema_object = (props: {
   for (const property of props.object.properties) {
     if (
       // FUNCTIONAL TYPE
-      property.value.functional === true &&
+      property.value.functions.length &&
       property.value.nullable === false &&
       property.value.isRequired() === true &&
       property.value.size() === 0
