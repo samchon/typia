@@ -1,0 +1,107 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "manufacturer"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "brand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "brand"
+                ]
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "nullable": true,
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "similar": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "brand"
+                    ]
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "nullable": true,
+                "required": [
+                  "type",
+                  "name"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "manufacturer"
+                    ]
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "nullable": true,
+                "required": [
+                  "type",
+                  "name"
+                ]
+              }
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "manufacturer",
+          "brand",
+          "similar"
+        ]
+      }
+    }
+  },
+  "nullable": false,
+  "required": [
+    "value"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "tuple": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          },
+          {
+            "type": "number",
+            "minimum": 3,
+            "maximum": 7
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2
+            },
+            "minItems": 3,
+            "maxItems": 7
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 2
+            },
+            "minItems": 3,
+            "maxItems": 7
+          }
+        ]
+      },
+      "minItems": 4,
+      "maxItems": 4
+    }
+  },
+  "nullable": false,
+  "required": [
+    "tuple"
+  ]
+}

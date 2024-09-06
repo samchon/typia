@@ -1,0 +1,126 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "serial": {
+        "type": "number"
+      },
+      "name": {
+        "type": "string"
+      },
+      "established_at": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "zone": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "time",
+          "zone"
+        ]
+      },
+      "departments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "code": {
+              "type": "string"
+            },
+            "sales": {
+              "type": "number"
+            },
+            "created_at": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number"
+                },
+                "zone": {
+                  "type": "number"
+                }
+              },
+              "nullable": false,
+              "required": [
+                "time",
+                "zone"
+              ]
+            },
+            "employees": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number"
+                  },
+                  "grade": {
+                    "type": "number"
+                  },
+                  "employeed_at": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "zone": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "time",
+                      "zone"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "id",
+                  "name",
+                  "age",
+                  "grade",
+                  "employeed_at"
+                ]
+              }
+            }
+          },
+          "nullable": false,
+          "required": [
+            "id",
+            "code",
+            "sales",
+            "created_at",
+            "employees"
+          ]
+        }
+      }
+    },
+    "nullable": false,
+    "required": [
+      "id",
+      "serial",
+      "name",
+      "established_at",
+      "departments"
+    ]
+  }
+}

@@ -1,0 +1,375 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "point"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "x",
+          "y",
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p2": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "line"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p2": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p3": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "triangle"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "p3",
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p2": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p3": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p4": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rectangle"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "p3",
+          "p4",
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                }
+              },
+              "nullable": false,
+              "required": [
+                "x",
+                "y"
+              ]
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "polyline"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "points",
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "outer": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    }
+                  },
+                  "nullable": false,
+                  "required": [
+                    "x",
+                    "y"
+                  ]
+                }
+              }
+            },
+            "nullable": false,
+            "required": [
+              "points"
+            ]
+          },
+          "inner": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  }
+                }
+              },
+              "nullable": false,
+              "required": [
+                "points"
+              ]
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "polygon"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "outer",
+          "inner",
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "centroid": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "radius": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "circle"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "centroid",
+          "radius",
+          "type"
+        ]
+      }
+    ]
+  }
+}

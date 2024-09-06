@@ -9,6 +9,8 @@ export type ArrayRepeatedUnion =
   | ArrayRepeatedUnion[]
   | ArrayRepeatedUnion.IBox3D[];
 export namespace ArrayRepeatedUnion {
+  export const RECURSIVE = true;
+
   export interface IBox3D {
     scale: IPoint3D;
     position: IPoint3D;

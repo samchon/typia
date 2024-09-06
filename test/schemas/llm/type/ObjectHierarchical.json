@@ -1,0 +1,277 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "channel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        },
+        "exclusive": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "number"
+        },
+        "created_at": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "number"
+            },
+            "zone": {
+              "type": "number"
+            }
+          },
+          "nullable": false,
+          "required": [
+            "time",
+            "zone"
+          ]
+        }
+      },
+      "nullable": false,
+      "required": [
+        "id",
+        "code",
+        "name",
+        "sequence",
+        "exclusive",
+        "priority",
+        "created_at"
+      ]
+    },
+    "member": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "account": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "code": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number"
+                },
+                "zone": {
+                  "type": "number"
+                }
+              },
+              "nullable": false,
+              "required": [
+                "time",
+                "zone"
+              ]
+            }
+          },
+          "nullable": false,
+          "required": [
+            "id",
+            "code",
+            "created_at"
+          ]
+        },
+        "enterprise": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "account": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "nullable": false,
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              },
+              "nullable": false,
+              "required": [
+                "id",
+                "code",
+                "created_at"
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "grade": {
+              "type": "number"
+            },
+            "created_at": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number"
+                },
+                "zone": {
+                  "type": "number"
+                }
+              },
+              "nullable": false,
+              "required": [
+                "time",
+                "zone"
+              ]
+            }
+          },
+          "nullable": true,
+          "required": [
+            "id",
+            "account",
+            "name",
+            "grade",
+            "created_at"
+          ]
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_at": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "number"
+            },
+            "zone": {
+              "type": "number"
+            }
+          },
+          "nullable": false,
+          "required": [
+            "time",
+            "zone"
+          ]
+        },
+        "authorized": {
+          "type": "boolean"
+        }
+      },
+      "nullable": true,
+      "required": [
+        "id",
+        "account",
+        "enterprise",
+        "emails",
+        "created_at",
+        "authorized"
+      ]
+    },
+    "account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "number"
+            },
+            "zone": {
+              "type": "number"
+            }
+          },
+          "nullable": false,
+          "required": [
+            "time",
+            "zone"
+          ]
+        }
+      },
+      "nullable": true,
+      "required": [
+        "id",
+        "code",
+        "created_at"
+      ]
+    },
+    "href": {
+      "type": "string"
+    },
+    "referrer": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "created_at": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number"
+        },
+        "zone": {
+          "type": "number"
+        }
+      },
+      "nullable": false,
+      "required": [
+        "time",
+        "zone"
+      ]
+    }
+  },
+  "nullable": false,
+  "required": [
+    "id",
+    "channel",
+    "member",
+    "account",
+    "href",
+    "referrer",
+    "ip",
+    "created_at"
+  ]
+}

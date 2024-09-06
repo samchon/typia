@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string",
+      "enum": [
+        "assignment"
+      ]
+    },
+    "editable": {
+      "type": "boolean",
+      "enum": [
+        false
+      ]
+    },
+    "incremental": {
+      "type": "boolean"
+    }
+  },
+  "nullable": false,
+  "required": [
+    "id",
+    "name",
+    "note",
+    "editable",
+    "incremental"
+  ]
+}

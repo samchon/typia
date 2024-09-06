@@ -51,14 +51,14 @@ export const emplace_metadata_object =
       ): MetadataProperty => {
         // COMMENTS AND TAGS
         const description: string | null = symbol
-          ? CommentFactory.description(symbol) ?? null
+          ? (CommentFactory.description(symbol) ?? null)
           : null;
         const jsDocTags: ts.JSDocTagInfo[] = (
           symbol?.getJsDocTags() ?? []
         ).filter(filter ?? (() => true));
 
         // THE PROPERTY
-        const property = MetadataProperty.create({
+        const property: MetadataProperty = MetadataProperty.create({
           key,
           value,
           description,

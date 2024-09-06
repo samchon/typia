@@ -10,7 +10,7 @@ import { application_v30_schema } from "../internal/application_v30_schema";
 import { application_v31_schema } from "../internal/application_v31_schema";
 
 export namespace JsonApplicationProgrammer {
-  export const validate = (meta: Metadata) => {
+  export const validate = (meta: Metadata): string[] => {
     const output: string[] = [];
     if (
       meta.atomics.some((a) => a.type === "bigint") ||

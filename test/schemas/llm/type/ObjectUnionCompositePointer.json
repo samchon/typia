@@ -1,0 +1,389 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "x",
+                  "y"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "p1": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "p2": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "p1",
+                  "p2"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "p1": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "p2": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "p3": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "p1",
+                  "p2",
+                  "p3"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "p1": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "p2": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "p3": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "p4": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "p1",
+                  "p2",
+                  "p3",
+                  "p4"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "points": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "nullable": false,
+                      "required": [
+                        "x",
+                        "y"
+                      ]
+                    }
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "points"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "outer": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        }
+                      },
+                      "nullable": false,
+                      "required": [
+                        "x",
+                        "y"
+                      ]
+                    }
+                  },
+                  "inner": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "outer",
+                  "inner"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "outer": {
+                    "type": "object",
+                    "properties": {
+                      "points": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "nullable": false,
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        }
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "points"
+                    ]
+                  },
+                  "inner": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "nullable": false,
+                            "required": [
+                              "x",
+                              "y"
+                            ]
+                          }
+                        }
+                      },
+                      "nullable": false,
+                      "required": [
+                        "points"
+                      ]
+                    }
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "outer",
+                  "inner"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "centroid": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "radius": {
+                    "type": "number"
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "centroid",
+                  "radius"
+                ]
+              }
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "nullable": false,
+  "required": [
+    "value"
+  ]
+}

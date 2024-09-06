@@ -4,6 +4,8 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export type ArrayRepeatedRequired = number | string | ArrayRepeatedRequired[];
 export namespace ArrayRepeatedRequired {
+  export const RECURSIVE = true;
+
   export function generate(): ArrayRepeatedRequired {
     const random = typia.createRandom<ArrayRepeatedRequired>();
     return [

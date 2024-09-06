@@ -3,6 +3,8 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayRecursiveUnionImplicit = ArrayRecursiveUnionImplicit.IBucket[];
 export namespace ArrayRecursiveUnionImplicit {
+  export const RECURSIVE = true;
+
   export type IBucket =
     | IDirectory
     | ISharedDirectory
