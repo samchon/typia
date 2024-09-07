@@ -25,13 +25,13 @@ export const test_llm_application = (): void => {
           {
             type: "number",
             title: "The value y",
-            description: "The value y.\r\n\r\nThe value to be added.",
+            description: "The value y.\n\nThe value to be added.",
           },
         ],
         output: {
           type: "number",
           title: "Sum of them",
-          description: "Sum of them.\r\n\r\n`this.value + x + y`",
+          description: "Sum of them.\n\n`this.value + x + y`",
         },
         description:
           "Get value.\n\nGet value with plus operation of member value, x and y.",
