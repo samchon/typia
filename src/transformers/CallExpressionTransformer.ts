@@ -356,7 +356,7 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
   },
   llm: {
-    application: () => (project) => () =>
+    application: () => (project) =>
       LlmApplicationTransformer.transform(project),
     schema: () => (project) => () => LlmSchemaTransformer.transform(project),
   },
