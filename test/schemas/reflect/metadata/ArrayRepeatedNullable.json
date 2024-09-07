@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": true,
-      "functional": false,
+      "functions": [],
       "atomics": [
         {
           "type": "string",
@@ -45,7 +45,7 @@
           "required": true,
           "optional": false,
           "nullable": true,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "string",

@@ -18,16 +18,17 @@ export namespace LlmSchemaTransformer {
   export const transform =
     (project: IProject) =>
     (expression: ts.CallExpression): ts.Expression => {
+      // GET GENERIC ARGUMENT
       if (!expression.typeArguments?.length)
         throw new TransformerError({
           code: "typia.llm.schema",
           message: "no generic argument.",
         });
 
-      // GET TYPE
       const top: ts.Node = expression.typeArguments[0]!;
       if (ts.isTypeNode(top) === false) return expression;
 
+      // GET TYPE
       const type: ts.Type = project.checker.getTypeFromTypeNode(top);
       const collection: MetadataCollection = new MetadataCollection({
         replace: MetadataCollection.replace,

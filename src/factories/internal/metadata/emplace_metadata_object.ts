@@ -29,6 +29,7 @@ export const emplace_metadata_object =
 
     // PREPARE ASSETS
     const isClass: boolean = parent.isClass();
+    const isProperty = significant(!!options.functional);
     const pred: (node: ts.Declaration) => boolean = isClass
       ? (node) => {
           const kind: ts.SyntaxKind | undefined = node
@@ -162,12 +163,15 @@ export const emplace_metadata_object =
     return obj;
   };
 
-const isProperty = (node: ts.Declaration) =>
-  ts.isParameter(node) ||
-  ts.isPropertyDeclaration(node) ||
-  ts.isPropertyAssignment(node) ||
-  ts.isPropertySignature(node) ||
-  ts.isTypeLiteralNode(node);
+const significant = (functional: boolean) =>
+  functional
+    ? (node: ts.Declaration) => !ts.isAccessor(node)
+    : (node: ts.Declaration) =>
+        ts.isParameter(node) ||
+        ts.isPropertyDeclaration(node) ||
+        ts.isPropertyAssignment(node) ||
+        ts.isPropertySignature(node) ||
+        ts.isTypeLiteralNode(node);
 
 const iterate_optional_coalesce = (meta: Metadata, type: ts.Type): void => {
   if (type.isUnionOrIntersection())
