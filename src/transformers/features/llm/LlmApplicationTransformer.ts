@@ -1,9 +1,13 @@
 import { ILlmApplication } from "@samchon/openapi";
 import ts from "typescript";
 
+import { ExpressionFactory } from "../../../factories/ExpressionFactory";
+import { IdentifierFactory } from "../../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
+import { StatementFactory } from "../../../factories/StatementFactory";
+import { TypeFactory } from "../../../factories/TypeFactory";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
@@ -17,6 +21,7 @@ import { TransformerError } from "../../TransformerError";
 export namespace LlmApplicationTransformer {
   export const transform =
     (project: IProject) =>
+    (modulo: ts.LeftHandSideExpression) =>
     (expression: ts.CallExpression): ts.Expression => {
       // GET GENERIC ARGUMENT
       if (!expression.typeArguments?.length)
@@ -51,6 +56,32 @@ export namespace LlmApplicationTransformer {
       const schema: ILlmApplication = LlmApplicationProgrammer.write(
         result.data,
       );
-      return LiteralFactory.generate(schema);
+
+      return ExpressionFactory.selfCall(
+        ts.factory.createBlock(
+          [
+            StatementFactory.constant("app", LiteralFactory.generate(schema)),
+            ts.factory.createExpressionStatement(
+              ts.factory.createCallExpression(
+                ts.factory.createAsExpression(
+                  IdentifierFactory.access(modulo)("finalize"),
+                  TypeFactory.keyword("any"),
+                ),
+                undefined,
+                [
+                  ts.factory.createIdentifier("app"),
+                  ...(expression.arguments?.[0]
+                    ? [expression.arguments[0]]
+                    : []),
+                ],
+              ),
+            ),
+            ts.factory.createReturnStatement(
+              ts.factory.createIdentifier("app"),
+            ),
+          ],
+          true,
+        ),
+      );
     };
 }
