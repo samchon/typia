@@ -345,7 +345,14 @@ const json_equal_to =
           if (!(y instanceof Array)) container.push(accessor);
           else array(accessor)(x)(y);
         else if (x instanceof Object) object(accessor)(x)(y);
-        else if (x !== y) container.push(accessor);
+        else if (
+          x !== y &&
+          !(
+            typeof x === "string" &&
+            x.replaceAll("\r\n", "\n") === y.replaceAll("\r\n", "n")
+          )
+        )
+          container.push(accessor);
       };
     const array =
       (accessor: string) =>
