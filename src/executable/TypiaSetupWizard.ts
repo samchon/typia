@@ -1,10 +1,13 @@
 import fs from "fs";
+import path from "path";
 import { DetectResult, detect } from "package-manager-detector";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";
 import { PackageManager } from "./setup/PackageManager";
 import { PluginConfigurator } from "./setup/PluginConfigurator";
+
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "../../package.json"), "utf-8"));
 
 export namespace TypiaSetupWizard {
   export interface IArguments {
@@ -22,7 +25,7 @@ export namespace TypiaSetupWizard {
     const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
 
     // INSTALL TYPESCRIPT COMPILERS
-    pack.install({ dev: true, modulo: "typescript", version: "^5.6.2" });
+    pack.install({ dev: true, modulo: "typescript", version: pkg.devDependencies.typescript as string });
     pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
     args.project ??= (() => {
       const runner: string = pack.manager === "npm" ? "npx" : pack.manager;
