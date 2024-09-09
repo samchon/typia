@@ -1,4 +1,5 @@
 import fs from "fs";
+import { DetectResult, detect } from "package-manager-detector";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";
@@ -131,21 +132,29 @@ export namespace TypiaSetupWizard {
 
     // DO CONSTRUCT
     return action(async (options) => {
-      pack.manager = options.manager ??= await select("manager")(
-        "Package Manager",
-      )(
-        [
-          "npm" as const,
-          "pnpm" as const,
-          "bun" as const,
-          "yarn (berry is not supported)" as "yarn",
-        ],
-        (value) => value.split(" ")[0] as "yarn",
-      );
+      pack.manager = options.manager ??=
+        (await detectManager()) ??
+        (await select("manager")("Package Manager")(
+          [
+            "npm" as const,
+            "pnpm" as const,
+            "bun" as const,
+            "yarn (berry is not supported)" as "yarn",
+          ],
+          (value) => value.split(" ")[0] as "yarn",
+        ));
       options.project ??= await configure();
 
       if (questioned.value) console.log("");
       return options as IArguments;
     });
+  };
+
+  const detectManager = async (): Promise<
+    "npm" | "pnpm" | "yarn" | "bun" | null
+  > => {
+    const result: DetectResult | null = await detect({ cwd: process.cwd() });
+    if (result?.name === "npm") return null; // NPM case is still selectable
+    return result?.name ?? null;
   };
 }

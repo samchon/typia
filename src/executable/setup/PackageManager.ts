@@ -7,19 +7,6 @@ import { FileRetriever } from "./FileRetriever";
 const managers = ["npm", "pnpm", "yarn", "bun"] as const;
 type Manager = (typeof managers)[number];
 
-const installCmdTable = {
-  npm: "install",
-  pnpm: "add",
-  yarn: "add",
-  bun: "add",
-} as const satisfies Record<Manager, string>;
-const devOptionTable = {
-  npm: "--save-dev",
-  pnpm: "--save-dev",
-  yarn: "--dev",
-  bun: "--dev",
-} as const satisfies Record<Manager, string>;
-
 export class PackageManager {
   public manager: Manager = "npm";
   public get file(): string {
@@ -84,3 +71,16 @@ export namespace Package {
     devDependencies?: Record<string, string>;
   }
 }
+
+const installCmdTable = {
+  npm: "install",
+  pnpm: "add",
+  yarn: "add",
+  bun: "add",
+} as const satisfies Record<Manager, string>;
+const devOptionTable = {
+  npm: "--save-dev",
+  pnpm: "--save-dev",
+  yarn: "--dev",
+  bun: "--dev",
+} as const satisfies Record<Manager, string>;

@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "6.10.0-dev.20240910",
+  "version": "6.10.0-dev.20240910-2",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -71,6 +71,7 @@
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
+    "package-manager-detector": "^0.2.0",
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
