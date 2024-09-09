@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+          },
+          "postfix": {
+            "type": "string",
+            "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+          },
+          "middle": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "the_false_value",
+                  "the_true_value"
+                ]
+              }
+            ]
+          },
+          "mixed": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "the_A_value",
+                  "the_B_value"
+                ]
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "nullable": false,
+                "required": [
+                  "name"
+                ]
+              }
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "prefix",
+          "postfix",
+          "middle",
+          "mixed"
+        ]
+      }
+    }
+  },
+  "nullable": false,
+  "required": [
+    "value"
+  ]
+}

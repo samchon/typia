@@ -1,0 +1,26 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "boolean"
+      },
+      {
+        "type": "number"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ]
+      }
+    ]
+  },
+  "minItems": 2
+}

@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "matrix": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  },
+  "nullable": false,
+  "required": [
+    "matrix"
+  ]
+}

@@ -1,0 +1,432 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "slope": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "x",
+          "y"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p2": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "width": {
+            "type": "number",
+            "nullable": true
+          },
+          "distance": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p2": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p3": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "width": {
+            "type": "number",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "nullable": true
+          },
+          "area": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "p3"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p2": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p3": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "p4": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "width": {
+            "type": "number",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "nullable": true
+          },
+          "area": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "p3",
+          "p4"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "slope": {
+                  "type": "number",
+                  "nullable": true
+                }
+              },
+              "nullable": false,
+              "required": [
+                "x",
+                "y"
+              ]
+            }
+          },
+          "length": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "points"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "outer": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "slope": {
+                      "type": "number",
+                      "nullable": true
+                    }
+                  },
+                  "nullable": false,
+                  "required": [
+                    "x",
+                    "y"
+                  ]
+                }
+              },
+              "length": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "points"
+            ]
+          },
+          "inner": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "slope": {
+                        "type": "number",
+                        "nullable": true
+                      }
+                    },
+                    "nullable": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  }
+                },
+                "length": {
+                  "type": "number",
+                  "nullable": true
+                }
+              },
+              "nullable": false,
+              "required": [
+                "points"
+              ]
+            }
+          },
+          "area": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "outer"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "radius": {
+            "type": "number"
+          },
+          "centroid": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "slope": {
+                "type": "number",
+                "nullable": true
+              }
+            },
+            "nullable": false,
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "area": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "radius"
+        ]
+      }
+    ]
+  }
+}

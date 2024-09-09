@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "vulnerable": {
+      "type": "string",
+      "deprecated": true
+    },
+    "description": {
+      "type": "string",
+      "title": "Descripted property",
+      "description": "Descripted property."
+    },
+    "title": {
+      "type": "string",
+      "title": "something",
+      "description": "Titled property."
+    },
+    "complicate_title": {
+      "type": "string",
+      "title": "something weirdo with {@link something } tag",
+      "description": "Complicate title."
+    }
+  },
+  "nullable": false,
+  "required": [
+    "vulnerable",
+    "description",
+    "title",
+    "complicate_title"
+  ]
+}

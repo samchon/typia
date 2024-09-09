@@ -1,0 +1,98 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          "nullable": false,
+          "required": [
+            "value"
+          ]
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "nullable": true
+            }
+          },
+          "nullable": false,
+          "required": [
+            "value"
+          ]
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "nullable": false,
+          "required": [
+            "value"
+          ]
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "serial": {
+                  "type": "number",
+                  "nullable": true
+                },
+                "activated": {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              },
+              "nullable": true,
+              "required": [
+                "id",
+                "name",
+                "activated"
+              ]
+            }
+          },
+          "nullable": false,
+          "required": [
+            "value"
+          ]
+        }
+      }
+    ]
+  },
+  "minItems": 4,
+  "maxItems": 4
+}

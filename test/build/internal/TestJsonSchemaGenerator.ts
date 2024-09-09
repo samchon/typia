@@ -3,7 +3,7 @@ import fs from "fs";
 
 import { TestStructure } from "./TestStructure";
 
-export namespace TestJsonApplicationGenerator {
+export namespace TestJsonSchemaGenerator {
   export async function generate(
     structures: TestStructure<any>[],
   ): Promise<void> {

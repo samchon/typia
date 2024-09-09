@@ -14,6 +14,7 @@ export * as http from "./http";
 export * as notations from "./notations";
 export * as misc from "./misc";
 export * as protobuf from "./protobuf";
+export * as llm from "./llm";
 
 export { is };
 

@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "dead": {
+      "type": "boolean",
+      "nullable": true
+    }
+  },
+  "nullable": false,
+  "required": [
+    "id",
+    "name",
+    "dead"
+  ]
+}

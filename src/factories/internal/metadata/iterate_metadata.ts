@@ -11,6 +11,7 @@ import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 import { iterate_metadata_constant } from "./iterate_metadata_constant";
 import { iterate_metadata_escape } from "./iterate_metadata_escape";
+import { iterate_metadata_function } from "./iterate_metadata_function";
 import { iterate_metadata_intersection } from "./iterate_metadata_intersection";
 import { iterate_metadata_map } from "./iterate_metadata_map";
 import { iterate_metadata_native } from "./iterate_metadata_native";
@@ -62,6 +63,11 @@ export const iterate_metadata =
 
     // ITERATE CASES
     iterate_metadata_coalesce(meta, type) ||
+      iterate_metadata_function(checker)(options)(collection)(errors)(
+        meta,
+        type,
+        explore,
+      ) ||
       iterate_metadata_constant(checker)(options)(meta, type) ||
       iterate_metadata_template(checker)(options)(collection)(errors)(
         meta,

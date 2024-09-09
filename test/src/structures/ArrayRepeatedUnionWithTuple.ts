@@ -11,6 +11,8 @@ export type ArrayRepeatedUnionWithTuple =
   | [string, number, boolean]
   | [ArrayRepeatedUnionWithTuple.IBox3D, ArrayRepeatedUnionWithTuple.IPoint3D];
 export namespace ArrayRepeatedUnionWithTuple {
+  export const RECURSIVE = true;
+
   export interface IBox3D {
     scale: IPoint3D;
     position: IPoint3D;

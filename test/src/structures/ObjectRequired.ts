@@ -2,6 +2,8 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export type ObjectRequired = Required<ObjectRequired.IBase>;
 export namespace ObjectRequired {
+  export const RECURSIVE = true;
+
   export interface IBase {
     boolean?: boolean;
     number?: number;

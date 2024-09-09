@@ -17,9 +17,11 @@ export const iterate_metadata_comment_tags =
           property: property.key.isSoleLiteral()
             ? property.key.getSoleLiteral()!
             : {},
+          parameter: null,
           nested: null,
-          escaped: false,
           aliased: false,
+          escaped: false,
+          output: false,
         },
       );
     }
