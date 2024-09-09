@@ -64,9 +64,11 @@ export namespace LlmApplicationProgrammer {
       top: true,
       object: null,
       property: null,
+      parameter: null,
       nested: null,
-      escaped: false,
       aliased: false,
+      escaped: false,
+      output: false,
     });
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
@@ -79,6 +81,9 @@ export namespace LlmApplicationProgrammer {
             p.value.functions.length === 1 &&
             p.value.size() === 1 &&
             p.key.isSoleLiteral(),
+        )
+        .filter(
+          (p) => p.jsDocTags.find((tag) => tag.name === "hidden") === undefined,
         )
         .map((p) =>
           writeFunction({

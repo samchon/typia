@@ -1,0 +1,760 @@
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+
+## `schema()` function
+<Tabs items={[
+    <code>typia</code>,
+    <code>ILlmSchema</code>,
+  ]}>
+  <Tab>
+```typescript filename="typia" showLineNumbers {2}
+export namespace llm {
+  // Individual type schema
+  export function schema<T>(): ILlmSchema;
+
+  // LLM function calling application schema
+  export function application<App extends object>(
+    options?: ILlmApplication.IOptions
+  ): ILlmApplication;
+}
+```
+  </Tab>
+  <Tab>
+```typescript filename="@samchon/openapi"
+/**
+ * Type schema info of LLM function call.
+ *
+ * `ILlmSchema` is a type metadata of LLM (Large Language Model)
+ * function calling.
+ *
+ * `ILlmSchema` basically follows the JSON schema definition of OpenAPI
+ * v3.0 specification; {@link OpenApiV3.IJsonSchema}. However, `ILlmSchema`
+ * does not have the reference type; {@link OpenApiV3.IJsonSchema.IReference}.
+ * It's because the LLM cannot compose the reference typed arguments.
+ *
+ * For reference, the OpenAPI v3.0 based JSON schema definition can't
+ * express the tuple array type. It has been supported since OpenAPI v3.1;
+ * {@link OpenApi.IJsonSchema.ITuple}. Therefore, it would better to avoid
+ * using the tuple array type in the LLM function calling.
+ *
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export type ILlmSchema =
+  | ILlmSchema.IBoolean
+  | ILlmSchema.IInteger
+  | ILlmSchema.INumber
+  | ILlmSchema.IString
+  | ILlmSchema.IArray
+  | ILlmSchema.IObject
+  | ILlmSchema.IUnknown
+  | ILlmSchema.INullOnly
+  | ILlmSchema.IOneOf;
+export namespace ILlmSchema {
+  /**
+   * Boolean type schema info.
+   */
+  export interface IBoolean extends __ISignificant<"boolean"> {
+    /**
+     * Default value.
+     */
+    default?: boolean | null;
+
+    /**
+     * Enumeration values.
+     */
+    enum?: Array<boolean | null>;
+  }
+
+  /**
+   * Integer type schema info.
+   */
+  export interface IInteger extends __ISignificant<"integer"> {
+    /**
+     * Default value.
+     *
+     * @type int64
+     */
+    default?: number | null;
+
+    /**
+     * Enumeration values.
+     *
+     * @type int64
+     */
+    enum?: Array<number | null>;
+
+    /**
+     * Minimum value restriction.
+     *
+     * @type int64
+     */
+    minimum?: number;
+
+    /**
+     * Maximum value restriction.
+     *
+     * @type int64
+     */
+    maximum?: number;
+
+    /**
+     * Exclusive minimum value restriction.
+     *
+     * For reference, even though your Swagger document has defined the
+     * `exclusiveMinimum` value as `number`, it has been forcibly converted
+     * to `boolean` type, and assigns the numeric value to the
+     * {@link minimum} property in the {@link OpenApi} conversion.
+     */
+    exclusiveMinimum?: boolean;
+
+    /**
+     * Exclusive maximum value restriction.
+     *
+     * For reference, even though your Swagger document has defined the
+     * `exclusiveMaximum` value as `number`, it has been forcibly converted
+     * to `boolean` type, and assigns the numeric value to the
+     * {@link maximum} property in the {@link OpenApi} conversion.
+     */
+    exclusiveMaximum?: boolean;
+
+    /**
+     * Multiple of value restriction.
+     *
+     * @type uint64
+     * @exclusiveMinimum 0
+     */
+    multipleOf?: number;
+  }
+
+  /**
+   * Number type schema info.
+   */
+  export interface INumber extends __ISignificant<"number"> {
+    /**
+     * Default value.
+     */
+    default?: number | null;
+
+    /**
+     * Enumeration values.
+     */
+    enum?: Array<number | null>;
+
+    /**
+     * Minimum value restriction.
+     */
+    minimum?: number;
+
+    /**
+     * Maximum value restriction.
+     */
+    maximum?: number;
+
+    /**
+     * Exclusive minimum value restriction.
+     *
+     * For reference, even though your Swagger (or OpenAPI) document has
+     * defined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}
+     * forcibly converts it to `boolean` type, and assign the numeric value to
+     * the {@link minimum} property.
+     */
+    exclusiveMinimum?: boolean;
+
+    /**
+     * Exclusive maximum value restriction.
+     *
+     * For reference, even though your Swagger (or OpenAPI) document has
+     * defined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}
+     * forcibly converts it to `boolean` type, and assign the numeric value to
+     * the {@link maximum} property.
+     */
+    exclusiveMaximum?: boolean;
+
+    /**
+     * Multiple of value restriction.
+     *
+     * @exclusiveMinimum 0
+     */
+    multipleOf?: number;
+  }
+
+  /**
+   * String type schema info.
+   */
+  export interface IString extends __ISignificant<"string"> {
+    /**
+     * Default value.
+     */
+    default?: string | null;
+
+    /**
+     * Enumeration values.
+     */
+    enum?: Array<string | null>;
+
+    /**
+     * Format restriction.
+     */
+    format?:
+      | "binary"
+      | "byte"
+      | "password"
+      | "regex"
+      | "uuid"
+      | "email"
+      | "hostname"
+      | "idn-email"
+      | "idn-hostname"
+      | "iri"
+      | "iri-reference"
+      | "ipv4"
+      | "ipv6"
+      | "uri"
+      | "uri-reference"
+      | "uri-template"
+      | "url"
+      | "date-time"
+      | "date"
+      | "time"
+      | "duration"
+      | "json-pointer"
+      | "relative-json-pointer"
+      | (string & {});
+
+    /**
+     * Pattern restriction.
+     */
+    pattern?: string;
+
+    /**
+     * Minimum length restriction.
+     *
+     * @type uint64
+     */
+    minLength?: number;
+
+    /**
+     * Maximum length restriction.
+     *
+     * @type uint64
+     */
+    maxLength?: number;
+
+    /**
+     * Content media type restriction.
+     */
+    contentMediaType?: string;
+  }
+
+  /**
+   * Array type schema info.
+   */
+  export interface IArray<Schema extends ILlmSchema = ILlmSchema>
+    extends __ISignificant<"array"> {
+    /**
+     * Items type schema info.
+     *
+     * The `items` means the type of the array elements. In other words, it is
+     * the type schema info of the `T` in the TypeScript array type `Array<T>`.
+     */
+    items: Schema;
+
+    /**
+     * Unique items restriction.
+     *
+     * If this property value is `true`, target array must have unique items.
+     */
+    uniqueItems?: boolean;
+
+    /**
+     * Minimum items restriction.
+     *
+     * Restriction of minumum number of items in the array.
+     *
+     * @type uint64
+     */
+    minItems?: number;
+
+    /**
+     * Maximum items restriction.
+     *
+     * Restriction of maximum number of items in the array.
+     *
+     * @type uint64
+     */
+    maxItems?: number;
+  }
+
+  /**
+   * Object type schema info.
+   */
+  export interface IObject<Schema extends ILlmSchema = ILlmSchema>
+    extends __ISignificant<"object"> {
+    /**
+     * Properties of the object.
+     *
+     * The `properties` means a list of key-value pairs of the object's
+     * regular properties. The key is the name of the regular property,
+     * and the value is the type schema info.
+     *
+     * If you need additional properties that is represented by dynamic key,
+     * you can use the {@link additionalProperties} instead.
+     */
+    properties?: Record<string, Schema>;
+
+    /**
+     * List of key values of the required properties.
+     *
+     * The `required` means a list of the key values of the required
+     * {@link properties}. If some property key is not listed in the `required`
+     * list, it means that property is optional. Otherwise some property key
+     * exists in the `required` list, it means that the property must be filled.
+     *
+     * Below is an example of the {@link properties} and `required`.
+     *
+     * ```typescript
+     * interface SomeObject {
+     *   id: string;
+     *   email: string;
+     *   name?: string;
+     * }
+     * ```
+     *
+     * As you can see, `id` and `email` {@link properties} are {@link required},
+     * so that they are listed in the `required` list.
+     *
+     * ```json
+     * {
+     *   "type": "object",
+     *   "properties": {
+     *     "id": { "type": "string" },
+     *     "email": { "type": "string" },
+     *     "name": { "type": "string" }
+     *   },
+     *   "required": ["id", "email"]
+     * }
+     * ```
+     */
+    required?: string[];
+
+    /**
+     * Additional properties' info.
+     *
+     * The `additionalProperties` means the type schema info of the additional
+     * properties that are not listed in the {@link properties}.
+     *
+     * If the value is `true`, it means that the additional properties are not
+     * restricted. They can be any type. Otherwise, if the value is
+     * {@link ILlmSchema} type, it means that the additional properties must
+     * follow the type schema info.
+     *
+     * - `true`: `Record<string, any>`
+     * - `ILlmSchema`: `Record<string, T>`
+     */
+    additionalProperties?: boolean | Schema;
+  }
+
+  /**
+   * Unknown type schema info.
+   *
+   * It means the type of the value is `any`.
+   */
+  export interface IUnknown extends __IAttribute {
+    /**
+     * Type is never be defined.
+     */
+    type?: undefined;
+  }
+
+  /**
+   * Null only type schema info.
+   */
+  export interface INullOnly extends __IAttribute {
+    /**
+     * Type is always `null`.
+     */
+    type: "null";
+
+    /**
+     * Default value.
+     */
+    default?: null;
+  }
+
+  /**
+   * One of type schema info.
+   *
+   * `IOneOf` represents an union type of the TypeScript (`A | B | C`).
+   *
+   * For reference, even though your Swagger (or OpenAPI) document has
+   * defined `anyOf` instead of the `oneOf`, it has been forcibly converted
+   * to `oneOf` type by {@link OpenApi.convert OpenAPI conversion}.
+   */
+  export interface IOneOf<Schema extends ILlmSchema = ILlmSchema>
+    extends __IAttribute {
+    /**
+     * List of the union types.
+     */
+    oneOf: Exclude<Schema, ILlmSchema.IOneOf<Schema>>[];
+  }
+
+  /**
+   * Significant attributes that can be applied to the most types.
+   */
+  export interface __ISignificant<Type extends string> extends __IAttribute {
+    /**
+     * Discriminator value of the type.
+     */
+    type: Type;
+
+    /**
+     * Whether to allow `null` value or not.
+     */
+    nullable?: boolean;
+  }
+
+  /**
+   * Common attributes that can be applied to all types.
+   */
+  export interface __IAttribute {
+    /**
+     * Title of the schema.
+     */
+    title?: string;
+
+    /**
+     * Detailed description of the schema.
+     */
+    description?: string;
+
+    /**
+     * Whether the type is deprecated or not.
+     */
+    deprecated?: boolean;
+  }
+}
+```
+  </Tab>
+</Tabs>
+
+Type schema in the LLM function calling application.
+
+`typia.llm.schema<T>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema, especially in the [`typia.llm.application<App>()`](./application) function. 
+
+Return value type `ILlmSchema` is similar with the JSON schema definition of OpenAPI v3.0 specification, but it does not have the reference type of `OpenApi.IJsonSchema.IReference` type which has the `$ref` property.
+
+<Callout type="info">
+**LLM Function Calling**
+
+LLM selects proper function and fill arguments.
+
+In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
+
+https://platform.openai.com/docs/guides/function-calling
+</Callout>
+
+
+
+
+## Specialization
+You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
+
+If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
+
+  - `@deprecated`
+  - `@hidden`
+  - `@internal`
+  - `@title {string}`
+  - `@default {value}`
+
+Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
+
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/llm-schema.ts" showLineNumbers
+import { ILlmSchema } from "@samchon/openapi";
+import typia, { tags } from "typia";
+
+export const schema: ILlmSchema = typia.llm.schema<Special>();
+
+interface Special {
+  /**
+   * Deprecated tags are just used for marking.
+   *
+   * @title Unsigned integer
+   * @deprecated
+   */
+  type: number & tags.Type<"int32">;
+
+  /**
+   * Internal tagged property never be shown in JSON schema.
+   *
+   * It even doesn't be shown in other `typia` functions like `assert<T>()`.
+   *
+   * @internal
+   */
+  internal: number[];
+
+  /**
+   * Hidden tagged property never be shown in JSON schema.
+   *
+   * However, it would be shown in other `typia` functions like `stringify<T>()`.
+   *
+   * @hidden
+   */
+  hidden: boolean;
+
+  /**
+   * You can limit the range of number.
+   *
+   * @exclusiveMinimum 19
+   * @maximum 100
+   * @default 30
+   */
+  number?: number;
+
+  /**
+   * You can limit the length of string.
+   *
+   * Also, multiple range conditions are also possible.
+   */
+  string: string &
+    (
+      | (tags.MinLength<3> & tags.MaxLength<24>)
+      | (tags.MinLength<40> & tags.MaxLength<100>)
+    );
+
+  /**
+   * You can limit the pattern of string.
+   *
+   * @pattern ^[a-z]+$
+   */
+  pattern: string;
+
+  /**
+   * You can limit the format of string.
+   *
+   * @format date-time
+   */
+  format: string | null;
+
+  /**
+   * In the Array case, possible to restrict its elements.
+   */
+  array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
+}
+```
+  </Tab>
+  <Tab>
+```javascript filename="examples/bin/llm-schema.js" showLineNumbers
+import typia from "typia";
+export const schema = {
+  type: "object",
+  properties: {
+    type: {
+      type: "integer",
+      deprecated: true,
+      title: "Unsigned integer",
+      description: "Deprecated tags are just used for marking.",
+    },
+    number: {
+      type: "number",
+      exclusiveMinimum: true,
+      minimum: 19,
+      maximum: 100,
+      title: "You can limit the range of number",
+      description: "You can limit the range of number.",
+    },
+    string: {
+      oneOf: [
+        {
+          type: "string",
+          minLength: 3,
+          maxLength: 24,
+        },
+        {
+          type: "string",
+          minLength: 40,
+          maxLength: 100,
+        },
+      ],
+      title: "You can limit the length of string",
+      description:
+        "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
+    },
+    pattern: {
+      type: "string",
+      pattern: "^[a-z]+$",
+      title: "You can limit the pattern of string",
+      description: "You can limit the pattern of string.",
+    },
+    format: {
+      type: "string",
+      format: "date-time",
+      nullable: true,
+      title: "You can limit the format of string",
+      description: "You can limit the format of string.",
+    },
+    array: {
+      type: "array",
+      items: {
+        type: "string",
+        format: "uuid",
+      },
+      minItems: 3,
+      title: "In the Array case, possible to restrict its elements",
+      description: "In the Array case, possible to restrict its elements.",
+    },
+  },
+  nullable: false,
+  required: ["type", "string", "pattern", "format", "array"],
+};
+```
+  </Tab>
+</Tabs>
+
+
+
+
+## Customziation
+If what you want is not just filling regular properties of LLM schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+
+For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/llm-schema-custom.ts" copy showLineNumbers {7-9, 13, 17-18}
+import typia, { tags } from "typia";
+ 
+type Monetary<Value extends string> = tags.TagBase<{
+  target: "number";
+  kind: "monetary";
+  value: Value;
+  schema: {
+    "x-monetary": Value;
+  };
+}>;
+
+type Placeholder<Value extends string> = tags.JsonSchemaPlugin<{
+  "x-placeholder": Value;
+}>;
+
+interface IAccount {
+  code: string & Placeholder<"Write you account code please">;
+  balance: number & Monetary<"dollar">;
+};
+ 
+typia.llm.schema<IAccount>();
+```
+  </Tab>
+  <Tab>
+```javascript copy filename="examples/bin/llm-schema-custom.js" showLineNumbers {7, 11}
+import typia from "typia";
+({
+  type: "object",
+  properties: {
+    code: {
+      type: "string",
+      "x-placeholder": "Write you account code please",
+    },
+    balance: {
+      type: "number",
+      "x-monetary": "dollar",
+    },
+  },
+  nullable: false,
+  required: ["code", "balance"],
+});
+```
+  </Tab>
+</Tabs>
+
+
+
+
+## Restrictions
+LLM schema does not support `bigint` type, and recursive type either.
+
+LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specification. Therefore, limitations of the JSON schema is also applied to the LLM schema, and the `bigint` type is not supported in the LLM function calling schema composition.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tab>
+```typescript filename="example/src/llm.schema.recursive.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.schema<bigint>();
+```
+  </Tab>
+  <Tab>
+```bash
+src/llm.schema.bigint.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
+
+- bigint
+  - LLM schema does not support bigint type.
+
+3 typia.llm.schema<bigint>();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Found 1 error in src/llm.schema.bigint.ts:3
+```
+  </Tab>
+</Tabs>
+
+Also, LLM schema does not support reference type that is embodied by the `OpenApi.IJsonSchema.IReference` type with `$ref` property. Therefore, if recursive type comes, no way to express it in the LLM schema, and it would be compilation error in the `typia.llm.application<App>()` function.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tab>
+```typescript filename="example/src/llm.schema.recursive.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.schema<Recursive>();
+
+interface Recursive {
+  id: number;
+  children: Recursive[];
+}
+```
+  </Tab>
+  <Tab>
+```bash
+src/llm.schema.recursive.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
+
+- Recursive
+  - LLM schema does not support recursive type.
+
+- Recursive: Recursive
+  - LLM schema does not support recursive type.
+
+- Recursive.children: Recursive
+  - LLM schema does not support recursive type.
+
+3 typia.llm.schema<Recursive>();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Found 1 error in src/llm.schema.recursive.ts:3
+```
+  </Tab>
+</Tabs>
+
+And if you put any type of native classes like `Map` or `Uint8Array`, it would also be error, either. By the way, only `Date` class type is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tab>
+```typescript filename="example/src/llm.llm.date.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.schema<Date>();
+```
+  </Tab>
+  <Tab>
+```javascript filename="example/schemas/llm.date.js" showLineNumbers
+import typia from "typia";
+const schema = {
+  type: "string",
+  format: "date-time",
+};
+console.log(schema);
+```
+  </Tab>
+</Tabs>
