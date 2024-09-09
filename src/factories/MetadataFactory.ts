@@ -4,6 +4,7 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
+import { MetadataFunction } from "../schemas/metadata/MetadataFunction";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
@@ -32,6 +33,8 @@ export namespace MetadataFactory {
     object: MetadataObject | null;
     property: string | object | null;
     nested: null | MetadataAlias | MetadataArrayType | MetadataTupleType;
+    parameter: string | null;
+    output: boolean;
     escaped: boolean;
     aliased: boolean;
   }
@@ -54,9 +57,11 @@ export namespace MetadataFactory {
         top: true,
         object: null,
         property: null,
+        parameter: null,
         nested: null,
-        escaped: false,
         aliased: false,
+        escaped: false,
+        output: false,
       });
       iterate_metadata_collection(errors)(collection);
       iterate_metadata_sort(collection)(meta);
@@ -105,14 +110,17 @@ export namespace MetadataFactory {
         arrays: new Set(),
         tuples: new Set(),
         aliases: new Set(),
+        functions: new Set(),
       };
       validateMeta(context)(options)(visitor)(meta, {
         object: null,
         property: null,
+        parameter: null,
         nested: null,
         top: true,
         aliased: false,
         escaped: false,
+        output: false,
       });
       return visitor.errors;
     };
@@ -157,6 +165,8 @@ export namespace MetadataFactory {
         validateTuple(context)(options)(visitor)(tuple.type, explore);
       for (const obj of meta.objects)
         validateObject(context)(options)(visitor)(obj);
+      for (const func of meta.functions)
+        validateFunction(context)(options)(visitor)(func, explore);
       for (const set of meta.sets)
         validateMeta(context)(options)(visitor)(set, explore);
       for (const map of meta.maps) {
@@ -230,9 +240,11 @@ export namespace MetadataFactory {
           object,
           top: false,
           property: null,
+          parameter: null,
           nested: null,
-          escaped: false,
           aliased: false,
+          escaped: false,
+          output: false,
         };
         const errors: string[] = options.validate(
           Metadata.create({
@@ -255,10 +267,38 @@ export namespace MetadataFactory {
           property: property.key.isSoleLiteral()
             ? property.key.getSoleLiteral()!
             : {},
+          parameter: null,
           nested: null,
           top: false,
           aliased: false,
           escaped: false,
+          output: false,
+        });
+    };
+
+  const validateFunction =
+    (context?: ts.TransformationContext) =>
+    (options: IOptions) =>
+    (visitor: IValidationVisitor) =>
+    (func: MetadataFunction, explore: IExplore) => {
+      if (visitor.functions.has(func)) return;
+      visitor.functions.add(func);
+
+      for (const param of func.parameters)
+        validateMeta(context)(options)(visitor)(param.type, {
+          ...explore,
+          parameter: param.name,
+          nested: null,
+          top: false,
+          output: false,
+        });
+      if (func.output)
+        validateMeta(context)(options)(visitor)(func.output, {
+          ...explore,
+          parameter: null,
+          nested: null,
+          top: false,
+          output: true,
         });
     };
 
@@ -269,5 +309,6 @@ export namespace MetadataFactory {
     arrays: Set<MetadataArrayType>;
     tuples: Set<MetadataTupleType>;
     aliases: Set<MetadataAlias>;
+    functions: Set<MetadataFunction>;
   }
 }
