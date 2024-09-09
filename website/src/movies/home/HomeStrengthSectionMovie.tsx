@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 const HomeStrengthSectionMovie = (props: HomeStrengthSectionMovie.Props) => (
-  <Grid item xs={12} md={6}>
+  <Grid item xs={12} md={6} lg={4}>
     <Box>
       <CardActionArea href={props.href}>
         <br />

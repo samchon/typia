@@ -5,11 +5,11 @@ import * as Namespace from "./functional/Namespace";
 /**
  * > You must configure the generic argument `App`.
  *
- * TypeScript functions to LLM function schemas.
+ * TypeScript functions to LLM function calling application.
  *
- * Creates an application of LLM (Large Language Model) function calling schemas from
- * a TypeScript class or interface type containig the target functions to be called by
- * the LLM function calling feature.
+ * Creates an application of LLM (Large Language Model) function calling application
+ * from a TypeScript class or interface type containig the target functions to be
+ * called by the LLM function calling feature.
  *
  * If you put the returned {@link ILlmApplication.functions} objects to the LLM provider
  * like [OpenAI (ChatGPT)](https://openai.com/), the LLM will automatically select the
@@ -43,11 +43,11 @@ import * as Namespace from "./functional/Namespace";
 function application(options?: ILlmApplication.IOptions): never;
 
 /**
- * TypeScript functions to LLM function schemas.
+ * TypeScript functions to LLM function calling application.
  *
- * Creates an application of LLM (Large Language Model) function calling schemas from
- * a TypeScript class or interface type containig the target functions to be called by
- * the LLM function calling feature.
+ * Creates an application of LLM (Large Language Model) function calling application
+ * from a TypeScript class or interface type containig the target functions to be
+ * called by the LLM function calling feature.
  *
  * If you put the returned {@link ILlmApplication.functions} objects to the LLM provider
  * like [OpenAI (ChatGPT)](https://openai.com/), the LLM will automatically select the

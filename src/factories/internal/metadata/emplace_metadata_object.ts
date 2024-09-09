@@ -101,9 +101,11 @@ export const emplace_metadata_object =
         top: false,
         object: obj,
         property: prop.name,
+        parameter: null,
         nested: null,
-        escaped: false,
         aliased: false,
+        escaped: false,
+        output: false,
       });
       Writable(value).optional = (prop.flags & ts.SymbolFlags.Optional) !== 0;
       insert(key)(value)(prop);
@@ -119,9 +121,11 @@ export const emplace_metadata_object =
           top: false,
           object: obj,
           property,
+          parameter: null,
           nested: null,
-          escaped: false,
           aliased: false,
+          escaped: false,
+          output: false,
         });
       const key: Metadata = analyzer(index.keyType)(null);
       const value: Metadata = analyzer(index.type)({});
@@ -145,9 +149,11 @@ export const emplace_metadata_object =
             top: false,
             object: obj,
             property: "[key]",
+            parameter: null,
             nested: null,
-            escaped: false,
             aliased: false,
+            escaped: false,
+            output: false,
           },
           messages: [],
         });
