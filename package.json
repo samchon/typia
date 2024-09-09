@@ -6,7 +6,7 @@
   "typings": "lib/index.d.ts",
   "module": "lib/index.mjs",
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./bin/typia.mjs"
   },
   "tsp": {
     "tscOptions": {
@@ -18,8 +18,10 @@
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc && rollup -c",
+    "build": "rimraf lib && tsc && tsc -p ./tsconfig.cli.json && rollup -c",
+    "cli": "node  ./bin/typia.mjs",
     "dev": "rimraf lib && tsc --watch",
+    "dev:cli": "ts-node ./src/index.ts",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
@@ -68,10 +70,13 @@
   "homepage": "https://typia.io",
   "dependencies": {
     "@samchon/openapi": "^1.0.0",
+    "cleye": "^1.3.2",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
-    "inquirer": "^8.2.5",
-    "randexp": "^0.5.3"
+    "consola": "^3.2.3",
+    "package-manager-detector": "^0.2.0",
+    "randexp": "^0.5.3",
+    "tinyglobby": "^0.2.5"
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.6.0"
@@ -103,7 +108,8 @@
     "README.md",
     "package.json",
     "lib",
+    "bin",
     "src"
   ],
-  "private": true
+  "private": false
 }
