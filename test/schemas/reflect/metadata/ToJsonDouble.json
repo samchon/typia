@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -15,7 +15,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -36,7 +36,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -67,7 +67,126 @@
     "objects": [
       {
         "name": "ToJsonDouble.Parent",
-        "properties": [],
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "toJSON"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [
+                {
+                  "parameters": [],
+                  "output": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": {
+                      "original": {
+                        "any": false,
+                        "required": true,
+                        "optional": false,
+                        "nullable": false,
+                        "functions": [],
+                        "atomics": [],
+                        "constants": [],
+                        "templates": [],
+                        "escaped": null,
+                        "rest": null,
+                        "arrays": [],
+                        "tuples": [],
+                        "objects": [
+                          "ToJsonDouble.Child"
+                        ],
+                        "aliases": [],
+                        "natives": [],
+                        "sets": [],
+                        "maps": []
+                      },
+                      "returns": {
+                        "any": false,
+                        "required": true,
+                        "optional": false,
+                        "nullable": false,
+                        "functions": [],
+                        "atomics": [],
+                        "constants": [],
+                        "templates": [],
+                        "escaped": null,
+                        "rest": null,
+                        "arrays": [],
+                        "tuples": [],
+                        "objects": [
+                          "ToJsonDouble.IBrand"
+                        ],
+                        "aliases": [],
+                        "natives": [],
+                        "sets": [],
+                        "maps": []
+                      }
+                    },
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
         "jsDocTags": [],
         "index": 0,
         "recursive": false,
@@ -84,7 +203,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
@@ -112,7 +231,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -140,7 +259,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
@@ -168,7 +287,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -193,6 +312,129 @@
         ],
         "jsDocTags": [],
         "index": 1,
+        "recursive": false,
+        "nullables": [
+          false
+        ]
+      },
+      {
+        "name": "ToJsonDouble.IBrand",
+        "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "code"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "name"
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          }
+        ],
+        "jsDocTags": [],
+        "index": 2,
         "recursive": false,
         "nullables": [
           false

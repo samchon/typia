@@ -1,0 +1,42 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "boolean",
+        "enum": [
+          false
+        ]
+      },
+      {
+        "type": "number",
+        "enum": [
+          1,
+          2
+        ]
+      },
+      {
+        "type": "string",
+        "enum": [
+          "three",
+          "four"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "key"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "key"
+        ]
+      }
+    ]
+  }
+}

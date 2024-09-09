@@ -1,5 +1,5 @@
 const path = require("path");
-const webpack = require("webpack");
+const rspack = require('@rspack/core');
 
 module.exports = {
   entry: ["./src/compilers/index.ts"],
@@ -21,7 +21,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: "ts-loader",
         options: {
-          configFile: "tsconfig.webpack.json",
+          configFile: "tsconfig.rspack.json",
         },
       },
     ],
@@ -30,7 +30,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
-    new webpack.ProvidePlugin({
+    new rspack.ProvidePlugin({
       process: "process/browser",
     }),
   ],

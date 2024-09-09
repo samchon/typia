@@ -8,6 +8,8 @@ export type ArrayRepeatedNullable =
   | string
   | ArrayRepeatedNullable[];
 export namespace ArrayRepeatedNullable {
+  export const RECURSIVE = true;
+
   export function generate(): ArrayRepeatedNullable {
     const random = typia.createRandom<ArrayRepeatedNullable>();
     return [

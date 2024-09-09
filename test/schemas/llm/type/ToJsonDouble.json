@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "flag": {
+      "type": "boolean"
+    }
+  },
+  "nullable": false,
+  "required": [
+    "id",
+    "flag"
+  ]
+}

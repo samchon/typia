@@ -1,0 +1,42 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "nullable": false,
+          "required": [
+            "id"
+          ]
+        }
+      }
+    ]
+  },
+  "minItems": 4,
+  "maxItems": 4
+}

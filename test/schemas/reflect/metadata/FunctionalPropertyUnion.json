@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -36,7 +36,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
@@ -64,7 +64,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -92,7 +92,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
@@ -120,7 +120,61 @@
               "required": false,
               "optional": false,
               "nullable": true,
-              "functional": true,
+              "functions": [
+                {
+                  "parameters": [
+                    {
+                      "name": "args",
+                      "type": {
+                        "any": false,
+                        "required": true,
+                        "optional": false,
+                        "nullable": false,
+                        "functions": [],
+                        "atomics": [],
+                        "constants": [],
+                        "templates": [],
+                        "escaped": null,
+                        "rest": null,
+                        "arrays": [
+                          {
+                            "name": "Array<any>",
+                            "tags": []
+                          }
+                        ],
+                        "tuples": [],
+                        "objects": [],
+                        "aliases": [],
+                        "natives": [],
+                        "sets": [],
+                        "maps": []
+                      },
+                      "description": null,
+                      "jsDocTags": []
+                    }
+                  ],
+                  "output": {
+                    "any": true,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
               "atomics": [
                 {
                   "type": "string",
@@ -164,7 +218,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -175,6 +229,33 @@
           "objects": [
             "FunctionalPropertyUnion.IUnion"
           ],
+          "aliases": [],
+          "natives": [],
+          "sets": [],
+          "maps": []
+        },
+        "nullables": [
+          false
+        ],
+        "recursive": false,
+        "index": null
+      },
+      {
+        "name": "Array<any>",
+        "value": {
+          "any": true,
+          "required": true,
+          "optional": false,
+          "nullable": false,
+          "functions": [],
+          "atomics": [],
+          "constants": [],
+          "templates": [],
+          "escaped": null,
+          "rest": null,
+          "arrays": [],
+          "tuples": [],
+          "objects": [],
           "aliases": [],
           "natives": [],
           "sets": [],

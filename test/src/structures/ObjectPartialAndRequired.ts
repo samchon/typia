@@ -6,6 +6,8 @@ export type ObjectPartialAndRequired = Pick<
 > &
   Required<Pick<ObjectPartialAndRequired.IBase, "array" | "object">>;
 export namespace ObjectPartialAndRequired {
+  export const RECURSIVE = true;
+
   export interface IBase {
     boolean: boolean;
     number: number;

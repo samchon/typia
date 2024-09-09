@@ -7,6 +7,8 @@ import { ObjectUnionImplicit } from "./ObjectUnionImplicit";
 
 export type UltimateUnion = typia.IJsonApplication[];
 export namespace UltimateUnion {
+  export const RECURSIVE = true;
+
   export function generate(): typia.IJsonApplication[] {
     const output = [
       typia.json.application<[ObjectUnionExplicit]>(),

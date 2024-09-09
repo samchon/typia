@@ -9,6 +9,7 @@
   },
   "validators": "Runtime Validators",
   "json": "Enhanced JSON",
+  "llm": "LLM Function Calling",
   "protobuf": "Protocol Buffer",
   "random": "Random Generator",
   "misc": "Miscellaneous",

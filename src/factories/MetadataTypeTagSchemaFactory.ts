@@ -30,7 +30,7 @@ export namespace MetadataTypeTagSchemaFactory {
         meta.atomics.length ||
         meta.arrays.length ||
         meta.natives.length ||
-        meta.functional
+        meta.functions.length
       )
         report(`${parent.object.name}.${parent.key} has non-literal type`);
       else if (meta.size() > 1)

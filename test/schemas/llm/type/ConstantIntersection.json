@@ -1,0 +1,27 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "boolean",
+        "enum": [
+          false
+        ]
+      },
+      {
+        "type": "number",
+        "enum": [
+          1
+        ]
+      },
+      {
+        "type": "string",
+        "enum": [
+          "two"
+        ]
+      }
+    ]
+  },
+  "minItems": 3,
+  "maxItems": 3
+}

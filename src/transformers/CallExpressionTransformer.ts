@@ -64,6 +64,8 @@ import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTrans
 import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
 import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
 import { JsonValidateStringifyTransformer } from "./features/json/JsonValidateStringifyTransformer";
+import { LlmApplicationTransformer } from "./features/llm/LlmApplicationTransformer";
+import { LlmSchemaTransformer } from "./features/llm/LlmSchemaTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
 import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
 import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
@@ -353,9 +355,15 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createAssertQuery: () => CreateHttpAssertQueryTransformer.transform,
     createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
   },
+  llm: {
+    application: () => (project) =>
+      LlmApplicationTransformer.transform(project),
+    schema: () => (project) => () => LlmSchemaTransformer.transform(project),
+  },
   json: {
     // SCHEMA
-    application: () => (P) => () => JsonApplicationTransformer.transform(P),
+    application: () => (project) => () =>
+      JsonApplicationTransformer.transform(project),
 
     // PARSER
     isParse: () => JsonIsParseTransformer.transform,

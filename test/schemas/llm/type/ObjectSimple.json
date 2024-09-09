@@ -1,0 +1,92 @@
+{
+  "type": "object",
+  "properties": {
+    "scale": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "nullable": false,
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "position": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "nullable": false,
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "rotate": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "nullable": false,
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "pivot": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "nullable": false,
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    }
+  },
+  "nullable": false,
+  "required": [
+    "scale",
+    "position",
+    "rotate",
+    "pivot"
+  ]
+}

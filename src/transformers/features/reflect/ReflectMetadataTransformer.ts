@@ -46,6 +46,7 @@ export namespace ReflectMetadataTransformer {
           escape: true,
           constant: true,
           absorb: true,
+          functional: true,
         })(collection)(type);
         if (result.success === false)
           throw TransformerError.from("typia.reflect.metadata")(result.errors);

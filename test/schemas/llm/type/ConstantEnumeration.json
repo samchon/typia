@@ -1,0 +1,22 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "number",
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "type": "string",
+        "enum": [
+          "Three",
+          "Four"
+        ]
+      }
+    ]
+  }
+}

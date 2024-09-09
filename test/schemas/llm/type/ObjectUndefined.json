@@ -1,0 +1,46 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "professor": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "classroom": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "grade": {
+        "type": "number"
+      },
+      "unknown": {}
+    },
+    "nullable": false,
+    "required": [
+      "name",
+      "unknown"
+    ]
+  }
+}

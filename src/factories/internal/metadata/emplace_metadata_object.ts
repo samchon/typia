@@ -29,6 +29,7 @@ export const emplace_metadata_object =
 
     // PREPARE ASSETS
     const isClass: boolean = parent.isClass();
+    const isProperty = significant(!!options.functional);
     const pred: (node: ts.Declaration) => boolean = isClass
       ? (node) => {
           const kind: ts.SyntaxKind | undefined = node
@@ -51,14 +52,14 @@ export const emplace_metadata_object =
       ): MetadataProperty => {
         // COMMENTS AND TAGS
         const description: string | null = symbol
-          ? CommentFactory.description(symbol) ?? null
+          ? (CommentFactory.description(symbol) ?? null)
           : null;
         const jsDocTags: ts.JSDocTagInfo[] = (
           symbol?.getJsDocTags() ?? []
         ).filter(filter ?? (() => true));
 
         // THE PROPERTY
-        const property = MetadataProperty.create({
+        const property: MetadataProperty = MetadataProperty.create({
           key,
           value,
           description,
@@ -100,9 +101,11 @@ export const emplace_metadata_object =
         top: false,
         object: obj,
         property: prop.name,
+        parameter: null,
         nested: null,
-        escaped: false,
         aliased: false,
+        escaped: false,
+        output: false,
       });
       Writable(value).optional = (prop.flags & ts.SymbolFlags.Optional) !== 0;
       insert(key)(value)(prop);
@@ -118,9 +121,11 @@ export const emplace_metadata_object =
           top: false,
           object: obj,
           property,
+          parameter: null,
           nested: null,
-          escaped: false,
           aliased: false,
+          escaped: false,
+          output: false,
         });
       const key: Metadata = analyzer(index.keyType)(null);
       const value: Metadata = analyzer(index.type)({});
@@ -144,9 +149,11 @@ export const emplace_metadata_object =
             top: false,
             object: obj,
             property: "[key]",
+            parameter: null,
             nested: null,
-            escaped: false,
             aliased: false,
+            escaped: false,
+            output: false,
           },
           messages: [],
         });
@@ -162,12 +169,15 @@ export const emplace_metadata_object =
     return obj;
   };
 
-const isProperty = (node: ts.Declaration) =>
-  ts.isParameter(node) ||
-  ts.isPropertyDeclaration(node) ||
-  ts.isPropertyAssignment(node) ||
-  ts.isPropertySignature(node) ||
-  ts.isTypeLiteralNode(node);
+const significant = (functional: boolean) =>
+  functional
+    ? (node: ts.Declaration) => !ts.isAccessor(node)
+    : (node: ts.Declaration) =>
+        ts.isParameter(node) ||
+        ts.isPropertyDeclaration(node) ||
+        ts.isPropertyAssignment(node) ||
+        ts.isPropertySignature(node) ||
+        ts.isTypeLiteralNode(node);
 
 const iterate_optional_coalesce = (meta: Metadata, type: ts.Type): void => {
   if (type.isUnionOrIntersection())

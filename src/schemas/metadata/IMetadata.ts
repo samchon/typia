@@ -2,6 +2,7 @@ import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataConstant } from "./IMetadataConstant";
 import { IMetadataEntry } from "./IMetadataEntry";
 import { IMetadataEscaped } from "./IMetadataEscaped";
+import { IMetadataFunction } from "./IMetadataFunction";
 import { IMetadataTemplate } from "./IMetadataTemplate";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
@@ -10,7 +11,7 @@ export interface IMetadata {
   required: boolean;
   optional: boolean;
   nullable: boolean;
-  functional: boolean;
+  functions: IMetadataFunction[];
 
   atomics: IMetadataAtomic[];
   constants: IMetadataConstant[];

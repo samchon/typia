@@ -32,10 +32,15 @@ export namespace TransformerError {
             e.explore.object === null
               ? ""
               : join(e.explore.object)(e.explore.property);
+          const middle: string = e.explore.parameter
+            ? `(parameter: ${JSON.stringify(e.explore.parameter)})`
+            : e.explore.output
+              ? "(return type)"
+              : "";
           const type: string = `${subject.length ? `${subject}: ` : ""}${
             e.name
           }`;
-          return `- ${type}\n${e.messages
+          return `- ${type}${middle}\n${e.messages
             .map((msg) => `  - ${msg}`)
             .join("\n")}`;
         })
