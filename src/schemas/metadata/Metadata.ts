@@ -10,6 +10,7 @@ import { MetadataArray } from "./MetadataArray";
 import { MetadataAtomic } from "./MetadataAtomic";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
+import { MetadataFunction } from "./MetadataFunction";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
@@ -19,7 +20,6 @@ export class Metadata {
   public required: boolean;
   public optional: boolean;
   public nullable: boolean;
-  public functional: boolean;
 
   public escaped: MetadataEscaped | null;
   public atomics: MetadataAtomic[];
@@ -31,6 +31,7 @@ export class Metadata {
   public arrays: MetadataArray[];
   public tuples: MetadataTuple[];
   public objects: MetadataObject[];
+  public functions: MetadataFunction[];
 
   public natives: string[];
   public sets: Metadata[];
@@ -53,7 +54,7 @@ export class Metadata {
     this.required = props.required;
     this.optional = props.optional;
     this.nullable = props.nullable;
-    this.functional = props.functional;
+    this.functions = props.functions;
 
     this.escaped = props.escaped;
     this.atomics = props.atomics;
@@ -87,7 +88,6 @@ export class Metadata {
       nullable: false,
       required: true,
       optional: false,
-      functional: false,
 
       escaped: null,
       constants: [],
@@ -97,6 +97,7 @@ export class Metadata {
       tuples: [],
       objects: [],
       aliases: [],
+      functions: [],
 
       rest: null,
       natives: [],
@@ -113,7 +114,7 @@ export class Metadata {
       required: this.required,
       optional: this.optional,
       nullable: this.nullable,
-      functional: this.functional,
+      functions: this.functions.map((f) => f.toJSON()),
 
       atomics: this.atomics.map((a) => a.toJSON()),
       constants: this.constants.map((c) => c.toJSON()),
@@ -147,7 +148,7 @@ export class Metadata {
       required: meta.required,
       optional: meta.optional,
       nullable: meta.nullable,
-      functional: meta.functional,
+      functions: meta.functions.map((f) => MetadataFunction.from(f, dict)),
 
       constants: meta.constants.map(MetadataConstant.from),
       atomics: meta.atomics.map(MetadataAtomic.from),
@@ -218,7 +219,6 @@ export class Metadata {
     return (
       (this.any ? 1 : 0) +
       (this.escaped ? 1 : 0) +
-      (this.functional ? 1 : 0) +
       (this.rest ? this.rest.size() : 0) +
       this.templates.length +
       this.atomics.length +
@@ -229,6 +229,7 @@ export class Metadata {
       this.maps.length +
       this.sets.length +
       this.objects.length +
+      this.functions.length +
       this.aliases.length
     );
   }
@@ -237,7 +238,6 @@ export class Metadata {
     return (
       (this.any ? 1 : 0) +
       (this.escaped ? 1 : 0) +
-      (this.functional ? 1 : 0) +
       (this.templates.length ? 1 : 0) +
       (this.atomics.length ? 1 : 0) +
       (this.constants.length ? 1 : 0) +
@@ -248,6 +248,7 @@ export class Metadata {
       (this.sets.length ? 1 : 0) +
       (this.maps.length ? 1 : 0) +
       (this.objects.length ? 1 : 0) +
+      (this.functions.length ? 1 : 0) +
       (this.aliases.length ? 1 : 0)
     );
   }
@@ -301,7 +302,7 @@ export namespace Metadata {
     if (x.any || y.any) return true;
     if (x.isRequired() === false && false === y.isRequired()) return true;
     if (x.nullable === true && true === y.nullable) return true;
-    if (x.functional === true && y.functional === true) return true;
+    if (!!x.functions.length && !!y.functions.length === true) return true;
 
     //----
     // INSTANCES
@@ -459,7 +460,7 @@ export namespace Metadata {
     }
 
     // FUNCTIONAL
-    if (x.functional === false && y.functional) return false;
+    if (!!x.functions.length === false && !!y.functions.length) return false;
 
     // SUCCESS
     return true;
@@ -474,7 +475,7 @@ export namespace Metadata {
       nullable: x.nullable || y.nullable,
       required: x.required && y.required,
       optional: x.optional || y.optional,
-      functional: x.functional || y.functional,
+      functions: x.functions.length ? x.functions : y.functions, // @todo
 
       escaped:
         x.escaped !== null && y.escaped !== null
@@ -482,7 +483,7 @@ export namespace Metadata {
               original: merge(x.escaped.original, y.escaped.original),
               returns: merge(x.escaped.returns, y.escaped.returns),
             })
-          : x.escaped ?? y.escaped,
+          : (x.escaped ?? y.escaped),
       atomics: mergeTaggedTypes({
         container: x.atomics,
         equals: (x, y) => x.type === y.type,
@@ -494,7 +495,7 @@ export namespace Metadata {
       rest:
         x.rest !== null && y.rest !== null
           ? merge(x.rest, y.rest)
-          : x.rest ?? y.rest,
+          : (x.rest ?? y.rest),
       // arrays: x.arrays.slice(),
       arrays: mergeTaggedTypes({
         container: x.arrays,

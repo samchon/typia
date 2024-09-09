@@ -8,6 +8,7 @@ const HomeCodeBlock = (props: {
   method: string;
   color?: string;
   inputColor?: string;
+  template?: string;
 }) => (
   <React.Fragment>
     <span style={{ color: BRIGHT_BLUE }}>typia</span>
@@ -20,7 +21,7 @@ const HomeCodeBlock = (props: {
     ) : null}
     <span style={{ color: props?.color ?? "yellow" }}>{props.method}</span>
     <span style={{ color: BRIGHT_BLUE }}>{"<"}</span>
-    <span style={{ color: CYAN }}>T</span>
+    <span style={{ color: CYAN }}>{props.template ?? "T"}</span>
     <span style={{ color: BRIGHT_BLUE }}>{">("}</span>
     <span style={{ color: props.inputColor ?? "gray" }}>{"input"}</span>
     <span style={{ color: BRIGHT_BLUE }}>{")"}</span>

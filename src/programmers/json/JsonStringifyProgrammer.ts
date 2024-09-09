@@ -233,7 +233,7 @@ export namespace JsonStringifyProgrammer {
               explore,
             ),
         });
-      else if (meta.functional === true)
+      else if (meta.functions.length)
         unions.push({
           type: "functional",
           is: () => IsProgrammer.decode_functional(input),
@@ -797,7 +797,7 @@ export namespace JsonStringifyProgrammer {
     meta: Metadata,
     explore: FeatureProgrammer.IExplore,
   ): ((expression: ts.Expression) => ts.Expression) => {
-    if (meta.functional === false) return (expression) => expression;
+    if (meta.functions.length === 0) return (expression) => expression;
     return (expression) =>
       ts.factory.createConditionalExpression(
         ts.factory.createStrictInequality(
