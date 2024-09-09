@@ -127,12 +127,12 @@ export const iterate_metadata_intersection =
       arrays.size
         ? "array"
         : atomics.size
-          ? atomics.values().next().value
+          ? atomics.values().next().value!
           : constants.length
             ? constants[0]!.constants[0]!.type
             : "string";
     if (target === "array") {
-      const name: string = arrays.values().next().value;
+      const name: string = arrays.values().next().value!;
       if (!meta.arrays.some((a) => a.type.name === name)) {
         iterate_metadata_array(checker)(options)(collection)(errors)(
           meta,
