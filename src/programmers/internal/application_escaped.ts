@@ -10,11 +10,11 @@ export const application_escaped =
   <Version extends "3.0" | "3.1">(
     generator: (meta: Metadata) => Schema<Version>,
   ) =>
-  (resolved: MetadataEscaped): Schema<Version>[] => {
-    const output: Schema<Version> | null = generator(resolved.returns);
+  (escaped: MetadataEscaped): Schema<Version>[] => {
+    const output: Schema<Version> | null = generator(escaped.returns);
     if (output === null) return [];
 
-    if (is_date(new Set())(resolved.original)) {
+    if (is_date(new Set())(escaped.original)) {
       const string: StringSchema<Version> | undefined = is_string(output)
         ? output
         : is_one_of(output)
@@ -27,9 +27,7 @@ export const application_escaped =
       )
         string.format = "date-time";
     }
-    return is_one_of(output)
-      ? (output.oneOf as OneOfSchema<Version>[])
-      : [output];
+    return is_one_of(output) ? (output.oneOf as Schema<Version>[]) : [output];
   };
 
 /**

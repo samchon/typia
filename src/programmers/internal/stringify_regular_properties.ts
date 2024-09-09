@@ -31,14 +31,14 @@ export const stringify_regular_properties = (
       (entry.meta.isRequired() === false &&
         entry.meta.nullable === false &&
         entry.meta.size() === 0) ||
-      (entry.meta.functional &&
+      (!!entry.meta.functions.length &&
         entry.meta.nullable === false &&
         entry.meta.size() === 1);
 
     if (empty === true) return;
     else if (
       entry.meta.isRequired() === false ||
-      entry.meta.functional === true ||
+      entry.meta.functions.length ||
       entry.meta.any === true
     )
       output.push(
@@ -52,7 +52,7 @@ export const stringify_regular_properties = (
                   entry.input,
                 ),
               );
-            if (entry.meta.functional || entry.meta.any)
+            if (entry.meta.functions.length || entry.meta.any)
               conditions.push(
                 ts.factory.createStrictEquality(
                   ts.factory.createStringLiteral("function"),
@@ -78,4 +78,4 @@ export const stringify_regular_properties = (
  * @internal
  */
 const sequence = (meta: Metadata): number =>
-  meta.any || !meta.isRequired() || meta.functional ? 0 : 1;
+  meta.any || !meta.isRequired() || meta.functions.length ? 0 : 1;

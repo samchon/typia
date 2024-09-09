@@ -62,7 +62,7 @@ export namespace ProtobufFactory {
     // PROHIBIT ANY TYPE
     if (meta.any) noSupport("any type");
     // PROHIBIT FUNCTIONAL TYPE
-    if (meta.functional) noSupport("functional type");
+    if (meta.functions.length) noSupport("functional type");
     // PROHIBIT TUPLE TYPE
     if (meta.tuples.length) noSupport("tuple type");
     // PROHIBIT SET TYPE

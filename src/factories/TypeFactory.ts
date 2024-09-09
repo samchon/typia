@@ -4,7 +4,7 @@ export namespace TypeFactory {
   export const isFunction = (type: ts.Type): boolean =>
     getFunction(type) !== null;
 
-  const getFunction = (type: ts.Type) => {
+  export const getFunction = (type: ts.Type) => {
     const node = type.symbol?.declarations?.[0];
     if (node === undefined) return null;
 

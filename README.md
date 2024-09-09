@@ -16,16 +16,23 @@ export function validate<T>(input: unknown): IValidation<T>; // detailed
 
 // JSON FUNCTIONS
 export namespace json {
-    export function application<T>(): IJsonApplication; // JSON schema
-    export function assertParse<T>(input: string): T; // type safe parser
-    export function assertStringify<T>(input: T): string; // safe and faster
+  export function application<T>(): IJsonApplication; // JSON schema
+  export function assertParse<T>(input: string): T; // type safe parser
+  export function assertStringify<T>(input: T): string; // safe and faster
+}
+
+// LLM FUNCTION CALLING APPLICATION
+export namespace llm {
+  // LLM function calling application from a class or interface type
+  export function application<App>(): ILlmApplication;
+  export function schema<T>(): ILlmSchema; // LLM type schema
 }
 
 // PROTOCOL BUFFER
 export namespace protobuf {
-    export function message<T>(): string; // Protocol Buffer message
-    export function assertDecode<T>(buffer: Uint8Array): T; // safe decoder
-    export function assertEncode<T>(input: T): Uint8Array; // safe encoder
+  export function message<T>(): string; // Protocol Buffer message
+  export function assertDecode<T>(buffer: Uint8Array): T; // safe decoder
+  export function assertEncode<T>(input: T): Uint8Array; // safe encoder
 }
 
 // RANDOM GENERATOR
@@ -36,6 +43,7 @@ Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
   - Enhanced JSON functions
+  - LLM function calling application composer
   - Protocol Buffer encoder and decoder
   - Random data generator
 
@@ -59,6 +67,7 @@ Also, `typia` is re-distributing half of donations to core contributors of `typi
   - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
 
 [![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+
 
 
 
@@ -86,9 +95,12 @@ Check out the document in the [website](https://typia.io/docs/):
     - [Functional Module](https://typia.io/docs/validators/functional)
     - [Special Tags](https://typia.io/docs/validators/tags/)
   - Enhanced JSON
-    - [JSON Schema](https://typia.io/docs/json/schema)
+    - [JSON Schema](https://typia.io/docs/json/schema/)
     - [`stringify()` functions](https://typia.io/docs/json/stringify/)
     - [`parse()` functions](https://typia.io/docs/json/parse/)
+  - LLM Function Calling
+    - [`application()` function](https://typia.io/docs/llm/application/)
+    - [`schema()` function](https://typia.io/docs/llm/schema/)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)
     - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
