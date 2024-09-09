@@ -57,6 +57,7 @@ export const iterate_metadata_function =
                   {
                     ...explore,
                     top: false,
+                    parameter: p.name,
                   },
                 ),
                 description: CommentFactory.description(p) ?? null,
@@ -75,6 +76,7 @@ export const iterate_metadata_function =
               {
                 ...explore,
                 top: false,
+                output: true,
               },
             ),
           }),
