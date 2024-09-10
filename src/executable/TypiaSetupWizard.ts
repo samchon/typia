@@ -164,7 +164,7 @@ export namespace TypiaSetupWizard {
 
   const getTypeScriptVersion = async (): Promise<string> => {
     const content: string = await fs.promises.readFile(
-      `${__dirname}/package.json`,
+      `${__dirname}/../../package.json`,
       "utf-8",
     );
     const json: { devDependencies: { typescript: string } } =
