@@ -4,9 +4,6 @@ import path from "path";
 import { CommandExecutor } from "./CommandExecutor";
 import { FileRetriever } from "./FileRetriever";
 
-const managers = ["npm", "pnpm", "yarn", "bun"] as const;
-type Manager = (typeof managers)[number];
-
 export class PackageManager {
   public manager: Manager = "npm";
   public get file(): string {
@@ -72,12 +69,15 @@ export namespace Package {
   }
 }
 
+type Manager = "npm" | "pnpm" | "yarn" | "bun";
+
 const installCmdTable = {
   npm: "install",
   pnpm: "add",
   yarn: "add",
   bun: "add",
 } as const satisfies Record<Manager, string>;
+
 const devOptionTable = {
   npm: "--save-dev",
   pnpm: "--save-dev",
