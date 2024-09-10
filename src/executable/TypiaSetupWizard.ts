@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import { DetectResult, detect } from "package-manager-detector";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
@@ -7,15 +6,13 @@ import { CommandExecutor } from "./setup/CommandExecutor";
 import { PackageManager } from "./setup/PackageManager";
 import { PluginConfigurator } from "./setup/PluginConfigurator";
 
-const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "../../package.json"), "utf-8"));
-
 export namespace TypiaSetupWizard {
   export interface IArguments {
     manager: "npm" | "pnpm" | "yarn" | "bun";
     project: string | null;
   }
 
-  export async function setup(): Promise<void> {
+  export const setup = async (): Promise<void> => {
     console.log("----------------------------------------");
     console.log(" Typia Setup Wizard");
     console.log("----------------------------------------");
@@ -25,7 +22,11 @@ export namespace TypiaSetupWizard {
     const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
 
     // INSTALL TYPESCRIPT COMPILERS
-    pack.install({ dev: true, modulo: "typescript", version: pkg.devDependencies.typescript as string });
+    pack.install({
+      dev: true,
+      modulo: "typescript",
+      version: await getTypeScriptVersion(),
+    });
     pack.install({ dev: true, modulo: "ts-patch", version: "latest" });
     args.project ??= (() => {
       const runner: string = pack.manager === "npm" ? "npx" : pack.manager;
@@ -71,7 +72,7 @@ export namespace TypiaSetupWizard {
     // CONFIGURE TYPIA
     await PluginConfigurator.configure(args);
     CommandExecutor.run(`${pack.manager} run prepare`);
-  }
+  };
 
   const inquiry: ArgumentParser.Inquiry<IArguments> = async (
     pack,
@@ -159,5 +160,15 @@ export namespace TypiaSetupWizard {
     const result: DetectResult | null = await detect({ cwd: process.cwd() });
     if (result?.name === "npm") return null; // NPM case is still selectable
     return result?.name ?? null;
+  };
+
+  const getTypeScriptVersion = async (): Promise<string> => {
+    const content: string = await fs.promises.readFile(
+      `${__dirname}/package.json`,
+      "utf-8",
+    );
+    const json: { devDependencies: { typescript: string } } =
+      JSON.parse(content);
+    return json.devDependencies.typescript;
   };
 }
