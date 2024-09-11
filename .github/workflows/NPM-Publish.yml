@@ -1,0 +1,53 @@
+# Display Name of the workflow
+name: Publish NPM Package
+
+# When this workflow triggers
+on:
+  # Manual Execution Call with Requested Operation
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Type of release to publish
+        type: choice
+        required: true
+        options:
+          - latest
+          - next
+          - patch
+          - tgz
+          - deprecate
+        default: latest
+
+# Define each session of execution that should be executed
+jobs:
+  # Execution Session that deploys the project to NPM
+  Deploy-NPM:
+    # Display name of the job
+    name: Deploy to NPM
+
+    # Configures the filter for which operating system that should be used when selecting runners
+    runs-on: ubuntu-latest
+
+    # Sets the scopes available to the github_token injected to the GH Actions runner
+    permissions:
+      id-token: write
+      contents: none
+
+    # The deploy step runs in the Azure environment context
+    environment: NPM
+
+    # Set of commands to run for the build job
+    steps:
+      # Set up NodeJS on the build host with caching support to optimize execution
+      - name: Set up Node.JS Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+          cache: 'npm'
+
+      # Publish the artifact to NPM with attestation
+      - name: Run Corresponding Package Command
+        run: npm run-script package:${{ inputs.tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
