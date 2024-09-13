@@ -56,7 +56,8 @@ export namespace LlmApplicationTransformer {
       const schema: ILlmApplication = LlmApplicationProgrammer.write(
         result.data,
       );
-
+      const literal: ts.Expression = LiteralFactory.generate(schema);
+      if (!expression.arguments?.[0]) return literal;
       return ExpressionFactory.selfCall(
         ts.factory.createBlock(
           [
@@ -68,12 +69,7 @@ export namespace LlmApplicationTransformer {
                   TypeFactory.keyword("any"),
                 ),
                 undefined,
-                [
-                  ts.factory.createIdentifier("app"),
-                  ...(expression.arguments?.[0]
-                    ? [expression.arguments[0]]
-                    : []),
-                ],
+                [ts.factory.createIdentifier("app"), expression.arguments[0]],
               ),
             ),
             ts.factory.createReturnStatement(
