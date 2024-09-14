@@ -2,14 +2,14 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionalIsParametersProgrammer } from "./FunctionalIsParametersProgrammer";
 import { FunctionalIsReturnProgrammer } from "./FunctionalIsReturnProgrammer";
 
 export namespace FunctionalIsFunctionProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (

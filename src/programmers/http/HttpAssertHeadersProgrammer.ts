@@ -4,7 +4,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -13,7 +13,7 @@ import { HttpHeadersProgrammer } from "./HttpHeadersProgrammer";
 
 export namespace HttpAssertHeadersProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    project: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -21,7 +21,7 @@ export namespace HttpAssertHeadersProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const assert: FeatureProgrammer.IDecomposed = AssertProgrammer.decompose({
       ...props,
-      project: {
+      context: {
         ...props.project,
         options: {
           ...props.project.options,
@@ -71,7 +71,7 @@ export namespace HttpAssertHeadersProgrammer {
   };
 
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());

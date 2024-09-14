@@ -11,7 +11,7 @@ import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
@@ -26,7 +26,7 @@ export namespace HttpQueryProgrammer {
   export const INPUT_TYPE = "string | URLSearchParams";
 
   export const decompose = (props: {
-    project: IProject;
+    project: ITypiaContext;
     importer: FunctionImporter;
     allowOptional: boolean;
     type: ts.Type;
@@ -36,7 +36,7 @@ export namespace HttpQueryProgrammer {
     const collection: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze(
       props.project.checker,
-      props.project.context,
+      props.project.transformer,
     )({
       escape: false,
       constant: true,
@@ -84,7 +84,7 @@ export namespace HttpQueryProgrammer {
   };
 
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression, allowOptional: boolean = false) =>
     (type: ts.Type, name?: string): ts.CallExpression => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());

@@ -12,7 +12,7 @@ import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -27,7 +27,7 @@ import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 export namespace MiscPruneProgrammer {
   export const decompose = (props: {
     validated: boolean;
-    project: IProject;
+    project: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -57,7 +57,7 @@ export namespace MiscPruneProgrammer {
   };
 
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (type: ts.Type, name?: string): ts.CallExpression => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
@@ -111,7 +111,7 @@ export namespace MiscPruneProgrammer {
         );
 
   const write_tuple_functions =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (collection: MetadataCollection): ts.VariableStatement[] =>
@@ -147,7 +147,7 @@ export namespace MiscPruneProgrammer {
         DECODERS
     ----------------------------------------------------------- */
   const decode =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -294,7 +294,7 @@ export namespace MiscPruneProgrammer {
       );
 
   const decode_tuple =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -320,7 +320,7 @@ export namespace MiscPruneProgrammer {
           );
 
   const decode_tuple_inline =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -391,7 +391,7 @@ export namespace MiscPruneProgrammer {
     };
 
   const explore_arrays =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -482,7 +482,7 @@ export namespace MiscPruneProgrammer {
   const PREFIX = "$p";
 
   const configure =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter): FeatureProgrammer.IConfig => {
       const config: FeatureProgrammer.IConfig = {
         types: {
@@ -522,7 +522,7 @@ export namespace MiscPruneProgrammer {
       const collection = new MetadataCollection();
       const result = MetadataFactory.analyze(
         project.checker,
-        project.context,
+        project.transformer,
       )({
         escape: false,
         constant: true,

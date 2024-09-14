@@ -3,7 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { StringUtil } from "../../utils/StringUtil";
 
@@ -13,7 +13,7 @@ import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgram
 
 export namespace FunctionalIsReturnProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (
@@ -50,7 +50,7 @@ export namespace FunctionalIsReturnProgrammer {
     };
 
   export const decompose =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (

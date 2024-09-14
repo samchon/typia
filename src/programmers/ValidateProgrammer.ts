@@ -5,7 +5,8 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 
-import { IProject } from "../transformers/IProject";
+import { IProgrammerProps } from "../transformers/IProgrammerProps";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
@@ -16,11 +17,18 @@ import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
+  export interface IConfig {
+    equals: boolean;
+  }
+  export interface IProps extends IProgrammerProps {
+    config: IConfig;
+  }
+
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
-    equals: boolean;
+    config: IConfig;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -31,8 +39,8 @@ export namespace ValidateProgrammer {
         prefix: "$v",
         path: true,
         trace: true,
-        numeric: OptionPredicator.numeric(props.project.options),
-        equals: props.equals,
+        numeric: OptionPredicator.numeric(props.context.options),
+        equals: props.config.equals,
         atomist: (explore) => (entry) => (input) =>
           [
             ...(entry.expression ? [entry.expression] : []),
@@ -84,8 +92,8 @@ export namespace ValidateProgrammer {
                     ),
                   ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-        combiner: combine(props.equals)(props.project)(props.importer),
-        joiner: joiner(props.equals)(props.project)(props.importer),
+        combiner: combine(props.config.equals)(props.context)(props.importer),
+        joiner: joiner(props.config.equals)(props.context)(props.importer),
         success: ts.factory.createTrue(),
       },
     });
@@ -96,7 +104,7 @@ export namespace ValidateProgrammer {
       ts.factory.createTypeReferenceNode(
         `typia.IValidation<${
           props.name ??
-          TypeFactory.getFullName(props.project.checker)(props.type)
+          TypeFactory.getFullName(props.context.checker)(props.type)
         }>`,
       ),
       undefined,
@@ -214,31 +222,29 @@ export namespace ValidateProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (equals: boolean) =>
-    (type: ts.Type, name?: string) => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        equals,
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps) => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      config: props.config,
+      context: props.context,
+      modulo: props.modulo,
+      importer,
+      type: props.type,
+      name: props.name,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }
 
 const combine =
   (equals: boolean) =>
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
   (explore: CheckerProgrammer.IExplore) => {
     if (explore.tracable === false)
@@ -279,7 +285,9 @@ const combine =
   };
 
 const validate_object =
-  (equals: boolean) => (project: IProject) => (importer: FunctionImporter) =>
+  (equals: boolean) =>
+  (project: ITypiaContext) =>
+  (importer: FunctionImporter) =>
     check_object({
       equals,
       undefined: true,
@@ -309,7 +317,7 @@ const validate_object =
 
 const joiner =
   (equals: boolean) =>
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
     object: validate_object(equals)(project)(importer),
     array: (input, arrow) =>

@@ -14,7 +14,8 @@ import { FunctionalGenericTransformer } from "./features/functional/FunctionalGe
 
 import { NamingConvention } from "../utils/NamingConvention";
 
-import { IProject } from "./IProject";
+import { ITransformProps } from "./ITransformProps";
+import { ITypiaContext } from "./ITypiaContext";
 import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";
@@ -113,14 +114,14 @@ import { ReflectNameTransformer } from "./features/reflect/ReflectNameTransforme
 
 export namespace CallExpressionTransformer {
   export const transform =
-    (project: IProject) =>
+    (context: ITypiaContext) =>
     (expression: ts.CallExpression): ts.Expression | null => {
       //----
       // VALIDATIONS
       //----
       // SIGNATURE DECLARATION
       const declaration: ts.Declaration | undefined =
-        project.checker.getResolvedSignature(expression)?.declaration;
+        context.checker.getResolvedSignature(expression)?.declaration;
       if (!declaration) return expression;
 
       // FILE PATH
@@ -134,16 +135,18 @@ export namespace CallExpressionTransformer {
       //----
       // FUNCTION NAME
       const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
-      const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+      const { name } = context.checker.getTypeAtLocation(declaration).symbol;
 
       // FIND TRANSFORMER
       const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
       if (functor === undefined) return expression;
 
       // RETURNS WITH TRANSFORMATION
-      const result: ts.Expression | null = functor()(project)(
-        expression.expression,
-      )(expression);
+      const result: ts.Expression | null = functor()({
+        context,
+        modulo: expression.expression,
+        expression,
+      });
       return result ?? expression;
     };
 
@@ -155,11 +158,7 @@ export namespace CallExpressionTransformer {
   };
 }
 
-type Task = (
-  project: IProject,
-) => (
-  modulo: ts.LeftHandSideExpression,
-) => (expression: ts.CallExpression) => ts.Expression | null;
+type Task = (props: ITransformProps) => ts.Expression | null;
 
 const FUNCTORS: Record<string, Record<string, () => Task>> = {
   module: {
@@ -169,21 +168,20 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       AssertTransformer.transform({ equals: false, guard: true }),
     assertType: () =>
       AssertTransformer.transform({ equals: false, guard: false }),
-    is: () => IsTransformer.transform(false),
-    validate: () => ValidateTransformer.transform(false),
+    is: () => IsTransformer.transform({ equals: false }),
+    validate: () => ValidateTransformer.transform({ equals: false }),
 
     // STRICT
     assertEquals: () =>
       AssertTransformer.transform({ equals: true, guard: false }),
     assertGuardEquals: () =>
       AssertTransformer.transform({ equals: true, guard: true }),
-    equals: () => IsTransformer.transform(true),
-    validateEquals: () => ValidateTransformer.transform(true),
+    equals: () => IsTransformer.transform({ equals: true }),
+    validateEquals: () => ValidateTransformer.transform({ equals: true }),
 
     // RANDOM + INTERNAL
     random: () => RandomTransformer.transform,
-    metadata: () => (project) => () =>
-      ReflectMetadataTransformer.transform(project),
+    metadata: () => ReflectMetadataTransformer.transform,
 
     // FACTORIES
     createAssert: () =>
@@ -192,14 +190,16 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       CreateAssertTransformer.transform({ equals: false, guard: true }),
     createAssertType: () =>
       CreateAssertTransformer.transform({ equals: false, guard: false }),
-    createIs: () => CreateIsTransformer.transform(false),
-    createValidate: () => CreateValidateTransformer.transform(false),
+    createIs: () => CreateIsTransformer.transform({ equals: false }),
+    createValidate: () =>
+      CreateValidateTransformer.transform({ equals: false }),
     createAssertEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: false }),
     createAssertGuardEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: true }),
-    createEquals: () => CreateIsTransformer.transform(true),
-    createValidateEquals: () => CreateValidateTransformer.transform(true),
+    createEquals: () => CreateIsTransformer.transform({ equals: true }),
+    createValidateEquals: () =>
+      CreateValidateTransformer.transform({ equals: true }),
     createRandom: () => CreateRandomTransformer.transform,
   },
   functional: {
@@ -356,14 +356,12 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
   },
   llm: {
-    application: () => (project) =>
-      LlmApplicationTransformer.transform(project),
-    schema: () => (project) => () => LlmSchemaTransformer.transform(project),
+    application: () => LlmApplicationTransformer.transform,
+    schema: () => LlmSchemaTransformer.transform,
   },
   json: {
     // SCHEMA
-    application: () => (project) => () =>
-      JsonApplicationTransformer.transform(project),
+    application: () => JsonApplicationTransformer.transform,
 
     // PARSER
     isParse: () => JsonIsParseTransformer.transform,
@@ -415,13 +413,11 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       ProtobufCreateValidateDecodeTransformer.transform,
   },
   reflect: {
-    metadata: () => (project) => () =>
-      ReflectMetadataTransformer.transform(project),
-    name: () => (project) => () => ReflectNameTransformer.transform(project),
+    metadata: () => ReflectMetadataTransformer.transform,
+    name: () => ReflectNameTransformer.transform,
   },
   misc: {
-    literals: () => (project) => () =>
-      MiscLiteralsTransformer.transform(project),
+    literals: () => MiscLiteralsTransformer.transform,
 
     // CLONE
     clone: () => MiscCloneTransformer.transform,

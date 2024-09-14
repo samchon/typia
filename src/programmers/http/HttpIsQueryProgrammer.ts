@@ -3,7 +3,7 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -12,7 +12,7 @@ import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
 
 export namespace HttpIsQueryProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    project: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -20,7 +20,7 @@ export namespace HttpIsQueryProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      project: {
+      context: {
         ...props.project,
         options: {
           ...props.project.options,
@@ -84,7 +84,7 @@ export namespace HttpIsQueryProgrammer {
   };
 
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression, allowOptional: boolean = false) =>
     (type: ts.Type, name?: string): ts.CallExpression => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());

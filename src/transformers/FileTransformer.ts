@@ -2,41 +2,41 @@ import ts from "typescript";
 
 import { Singleton } from "../utils/Singleton";
 
-import { IProject } from "./IProject";
+import { ITypiaContext } from "./ITypiaContext";
 import { NodeTransformer } from "./NodeTransformer";
 import { TransformerError } from "./TransformerError";
 
 export namespace FileTransformer {
   export const transform =
-    (environments: Omit<IProject, "context">) =>
-    (context: ts.TransformationContext) =>
+    (environments: Omit<ITypiaContext, "transformer">) =>
+    (transformer: ts.TransformationContext) =>
     (file: ts.SourceFile): ts.SourceFile => {
       if (file.isDeclarationFile) return file;
 
-      const project: IProject = {
+      const project: ITypiaContext = {
         ...environments,
-        context,
+        transformer,
       };
       checkJsDocParsingMode.get(project, file);
 
       return ts.visitEachChild(
         file,
         (node) => iterate_node(project)(node),
-        context,
+        transformer,
       );
     };
 
   const iterate_node =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (node: ts.Node): ts.Node =>
       ts.visitEachChild(
         try_transform_node(project)(node) ?? node,
         (child) => iterate_node(project)(child),
-        project.context,
+        project.transformer,
       );
 
   const try_transform_node =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (node: ts.Node): ts.Node | null => {
       try {
         return NodeTransformer.transform(project)(node);
@@ -65,7 +65,7 @@ const isTransformerError = (error: any): error is TransformerError =>
   typeof error.message === "string";
 
 const checkJsDocParsingMode = new Singleton(
-  (project: IProject, file: ts.SourceFile) => {
+  (project: ITypiaContext, file: ts.SourceFile) => {
     if (
       typeof file.jsDocParsingMode === "number" &&
       file.jsDocParsingMode !== 0

@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionImporter } from "../helpers/FunctionImporter";
 import { ICheckEntry } from "../helpers/ICheckEntry";
@@ -12,7 +12,7 @@ import { check_string } from "./check_string";
 import { check_template } from "./check_template";
 
 export const check_dynamic_key =
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (importer: FunctionImporter) =>
   (input: ts.Expression, metadata: Metadata): ts.Expression => {
     // IF PURE STRING EXISTS, THEN SKIP VALIDATION

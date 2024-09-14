@@ -5,7 +5,8 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { IProject } from "../transformers/IProject";
+import { IProgrammerProps } from "../transformers/IProgrammerProps";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
@@ -17,7 +18,7 @@ import { check_object } from "./internal/check_object";
 export namespace IsProgrammer {
   export const configure =
     (options?: Partial<CONFIG.IOptions>) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
       prefix: "$i",
       equals: !!options?.object,
@@ -96,10 +97,17 @@ export namespace IsProgrammer {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const decompose = (props: {
-    project: IProject;
-    importer: FunctionImporter;
+  export interface IConfig {
     equals: boolean;
+  }
+  export interface IProps extends IProgrammerProps {
+    config: IConfig;
+  }
+
+  export const decompose = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    config: IConfig;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -107,16 +115,16 @@ export namespace IsProgrammer {
     const config: CheckerProgrammer.IConfig = {
       ...configure({
         object: check_object({
-          equals: props.equals,
-          undefined: OptionPredicator.undefined(props.project.options),
+          equals: props.config.equals,
+          undefined: OptionPredicator.undefined(props.context.options),
           assert: true,
           reduce: ts.factory.createLogicalAnd,
           positive: ts.factory.createTrue(),
           superfluous: () => ts.factory.createFalse(),
-        })(props.project)(props.importer),
-        numeric: OptionPredicator.numeric(props.project.options),
-      })(props.project)(props.importer),
-      trace: props.equals,
+        })(props.context)(props.importer),
+        numeric: OptionPredicator.numeric(props.context.options),
+      })(props.context)(props.importer),
+      trace: props.config.equals,
     };
 
     // COMPOSITION
@@ -138,28 +146,26 @@ export namespace IsProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (equals: boolean) =>
-    (type: ts.Type, name?: string) => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        equals,
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps) => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      config: props.config,
+      context: props.context,
+      importer,
+      type: props.type,
+      name: props.name,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   export const write_function_statements =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (collection: MetadataCollection) => {
       const config = configure()(project)(importer);
@@ -191,11 +197,14 @@ export namespace IsProgrammer {
   /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-  export const decode = (project: IProject) => (importer: FunctionImporter) =>
-    CheckerProgrammer.decode(project)(configure()(project)(importer))(importer);
+  export const decode =
+    (project: ITypiaContext) => (importer: FunctionImporter) =>
+      CheckerProgrammer.decode(project)(configure()(project)(importer))(
+        importer,
+      );
 
   export const decode_object =
-    (project: IProject) => (importer: FunctionImporter) =>
+    (project: ITypiaContext) => (importer: FunctionImporter) =>
       CheckerProgrammer.decode_object(configure()(project)(importer))(importer);
 
   export const decode_to_json =

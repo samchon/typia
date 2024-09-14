@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { TypeFactory } from "../../../factories/TypeFactory";
 
-import { IProject } from "../../IProject";
+import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
 
 export namespace FunctionalGenericTransformer {
@@ -10,7 +10,7 @@ export namespace FunctionalGenericTransformer {
     (props: {
       method: string;
       programmer: (
-        project: IProject,
+        project: ITypiaContext,
       ) => (
         modulo: ts.LeftHandSideExpression,
       ) => (
@@ -22,7 +22,7 @@ export namespace FunctionalGenericTransformer {
       ) => ts.Expression;
       equals: boolean;
     }) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (expression: ts.CallExpression) => {
       // CHECK PARAMETER
@@ -37,12 +37,6 @@ export namespace FunctionalGenericTransformer {
         expression.typeArguments && expression.typeArguments[0]
           ? project.checker.getTypeFromTypeNode(expression.typeArguments[0])
           : project.checker.getTypeAtLocation(expression.arguments[0]!);
-      // if (type. === true)
-      //   throw new TransformerError({
-      //     code: `typia.functional.${props.method}`,
-      //     message: `non-specified generic argument.`,
-      //   });
-      // else
       if (TypeFactory.isFunction(type) === false)
         throw new TransformerError({
           code: `typia.functional.${props.method}`,

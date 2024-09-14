@@ -4,7 +4,7 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { IsProgrammer } from "../IsProgrammer";
 import { FunctionalIsFunctionProgrammer } from "./FunctionalIsFunctionProgrammer";
@@ -12,7 +12,7 @@ import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgram
 
 export namespace FunctionalIsParametersProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (
@@ -63,7 +63,7 @@ export namespace FunctionalIsParametersProgrammer {
     };
 
   export const decompose =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (
