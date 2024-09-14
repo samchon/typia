@@ -17,7 +17,7 @@ import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
-import { IProject } from "../transformers/IProject";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 import { TransformerError } from "../transformers/TransformerError";
 
 import { Escaper } from "../utils/Escaper";
@@ -30,17 +30,28 @@ import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";
 
 export namespace RandomProgrammer {
-  export const decompose = (props: {
-    project: IProject;
+  export interface IProps {
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
+    type: ts.Type;
+    name: string | undefined;
+    init: ts.Expression | undefined;
+  }
+  export interface IDecomposeProps {
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
     init: ts.Expression | undefined;
-  }): FeatureProgrammer.IDecomposed => {
+  }
+
+  export const decompose = (
+    props: IDecomposeProps,
+  ): FeatureProgrammer.IDecomposed => {
     const collection: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze(
-      props.project.checker,
-      props.project.context,
+      props.context.checker,
+      props.context.transformer,
     )({
       escape: false,
       constant: true,
@@ -93,7 +104,7 @@ export namespace RandomProgrammer {
         [
           ts.factory.createTypeReferenceNode(
             props.name ??
-              TypeFactory.getFullName(props.project.checker)(props.type),
+              TypeFactory.getFullName(props.context.checker)(props.type),
           ),
         ],
         false,
@@ -125,25 +136,20 @@ export namespace RandomProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (init?: ts.Expression) =>
-    (type: ts.Type, name?: string) => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-        init,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps) => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const write_object_functions =
     (importer: FunctionImporter) =>

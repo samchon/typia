@@ -4,7 +4,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -14,7 +14,7 @@ import { NotationGeneralProgrammer } from "./NotationGeneralProgrammer";
 export namespace NotationAssertGeneralProgrammer {
   export const decompose = (props: {
     rename: (str: string) => string;
-    project: IProject;
+    project: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -70,7 +70,7 @@ export namespace NotationAssertGeneralProgrammer {
 
   export const write =
     (rename: (str: string) => string) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());

@@ -14,7 +14,8 @@ import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
@@ -28,7 +29,7 @@ import { decode_union_object } from "../internal/decode_union_object";
 
 export namespace ProtobufEncodeProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
@@ -36,8 +37,8 @@ export namespace ProtobufEncodeProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const collection: MetadataCollection = new MetadataCollection();
     const meta: Metadata = ProtobufFactory.metadata(props.modulo.getText())(
-      props.project.checker,
-      props.project.context,
+      props.context.checker,
+      props.context.transformer,
     )(collection)(props.type);
 
     const callEncoder = (writer: string) => (factory: ts.NewExpression) =>
@@ -53,7 +54,7 @@ export namespace ProtobufEncodeProgrammer {
       functions: {
         encoder: StatementFactory.constant(
           props.importer.useLocal("encoder"),
-          write_encoder(props.project)(props.importer)(collection)(meta),
+          write_encoder(props.context)(props.importer)(collection)(meta),
         ),
       },
       statements: [],
@@ -65,7 +66,7 @@ export namespace ProtobufEncodeProgrammer {
             "input",
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName(props.context.checker)(props.type),
             ),
           ),
         ],
@@ -101,27 +102,23 @@ export namespace ProtobufEncodeProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const write_encoder =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (collection: MetadataCollection) =>
     (meta: Metadata): ts.ArrowFunction => {
@@ -180,7 +177,7 @@ export namespace ProtobufEncodeProgrammer {
     };
 
   const write_object_function =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (
       input: ts.Expression,
@@ -221,7 +218,7 @@ export namespace ProtobufEncodeProgrammer {
         DECODERS
     ----------------------------------------------------------- */
   const decode =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (index: number | null) =>
     (
@@ -399,7 +396,7 @@ export namespace ProtobufEncodeProgrammer {
       );
 
   const decode_map =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (index: number) =>
     (
@@ -450,7 +447,7 @@ export namespace ProtobufEncodeProgrammer {
     };
 
   const decode_object =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (index: number | null) =>
     (
@@ -518,7 +515,7 @@ export namespace ProtobufEncodeProgrammer {
     };
 
   const decode_array =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (index: number) =>
     (
@@ -724,7 +721,7 @@ export namespace ProtobufEncodeProgrammer {
         EXPLORERS
     ----------------------------------------------------------- */
   const explore_objects =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (level: number) =>
     (index: number | null) =>

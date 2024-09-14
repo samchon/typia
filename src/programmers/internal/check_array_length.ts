@@ -5,7 +5,7 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { ICheckEntry } from "../helpers/ICheckEntry";
 
@@ -13,7 +13,7 @@ import { ICheckEntry } from "../helpers/ICheckEntry";
  * @internal
  */
 export const check_array_length =
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (array: MetadataArray) =>
   (input: ts.Expression): ICheckEntry => {
     const conditions: ICheckEntry.ICondition[][] = check_string_type_tags(
@@ -28,7 +28,7 @@ export const check_array_length =
   };
 
 const check_string_type_tags =
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (matrix: IMetadataTypeTag[][]) =>
   (input: ts.Expression): ICheckEntry.ICondition[][] =>
     matrix
@@ -39,7 +39,7 @@ const check_string_type_tags =
           expected: `Array<> & ${tag.name}`,
           expression: (
             tag.predicate ??
-            ExpressionFactory.transpile(project.context)(tag.validate!)
+            ExpressionFactory.transpile(project.transformer)(tag.validate!)
           )(input),
         })),
       );

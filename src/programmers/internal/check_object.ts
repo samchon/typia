@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
@@ -12,7 +12,7 @@ import { check_everything } from "./check_everything";
  */
 export const check_object =
   (props: check_object.IProps) =>
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (importer: FunctionImporter) =>
   (input: ts.Expression, entries: IExpressionEntry<ts.Expression>[]) => {
     // PREPARE ASSETS

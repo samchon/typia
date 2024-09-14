@@ -4,7 +4,7 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FunctionalAssertFunctionProgrammer } from "./FunctionalAssertFunctionProgrammer";
@@ -12,7 +12,7 @@ import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgram
 
 export namespace FunctionalAssertParametersProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (
@@ -70,7 +70,7 @@ export namespace FunctionalAssertParametersProgrammer {
     };
 
   export const decompose =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (

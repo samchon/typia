@@ -14,7 +14,8 @@ import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { Atomic } from "../../typings/Atomic";
 
@@ -38,18 +39,18 @@ export namespace JsonStringifyProgrammer {
     WRITER
   ----------------------------------------------------------- */
   export const decompose = (props: {
+    context: ITypiaContext;
     validated: boolean;
-    project: IProject;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const config: FeatureProgrammer.IConfig = configure(props.project)(
+    const config: FeatureProgrammer.IConfig = configure(props.context)(
       props.importer,
     );
     if (props.validated === false)
       config.addition = (collection) =>
-        IsProgrammer.write_function_statements(props.project)(props.importer)(
+        IsProgrammer.write_function_statements(props.context)(props.importer)(
           collection,
         );
     const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
@@ -70,24 +71,23 @@ export namespace JsonStringifyProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        validated: false,
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      validated: false,
+      context: props.context,
+      importer,
+      type: props.type,
+      name: props.name,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const write_array_functions =
     (config: FeatureProgrammer.IConfig) =>
@@ -125,7 +125,7 @@ export namespace JsonStringifyProgrammer {
         );
 
   const write_tuple_functions =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (collection: MetadataCollection): ts.VariableStatement[] =>
@@ -161,7 +161,7 @@ export namespace JsonStringifyProgrammer {
     DECODERS
   ----------------------------------------------------------- */
   const decode =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -509,7 +509,7 @@ export namespace JsonStringifyProgrammer {
       );
 
   const decode_tuple =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -535,7 +535,7 @@ export namespace JsonStringifyProgrammer {
           );
 
   const decode_tuple_inline =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -585,7 +585,7 @@ export namespace JsonStringifyProgrammer {
     };
 
   const decode_atomic =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (
       input: ts.Expression,
@@ -615,7 +615,7 @@ export namespace JsonStringifyProgrammer {
     };
 
   const decode_constant_string =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (
       input: ts.Expression,
@@ -632,7 +632,7 @@ export namespace JsonStringifyProgrammer {
     };
 
   const decode_to_json =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -678,7 +678,7 @@ export namespace JsonStringifyProgrammer {
           );
 
   const explore_arrays =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -836,7 +836,7 @@ export namespace JsonStringifyProgrammer {
   const PREFIX = "$s";
 
   const configure =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter): FeatureProgrammer.IConfig => {
       const config: FeatureProgrammer.IConfig = {
         types: {
@@ -875,7 +875,7 @@ export namespace JsonStringifyProgrammer {
     (project) => (importer) => (type) =>
       JsonMetadataFactory.analyze(`typia.json.${importer.method}`)(
         project.checker,
-        project.context,
+        project.transformer,
       )(type);
 
   const create_throw_error =

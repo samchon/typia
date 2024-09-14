@@ -11,82 +11,82 @@ import { JsonApplicationProgrammer } from "../../../programmers/json/JsonApplica
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
-import { IProject } from "../../IProject";
+import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace JsonApplicationTransformer {
-  export const transform =
-    (project: IProject) =>
-    (expression: ts.CallExpression): ts.Expression => {
-      if (!expression.typeArguments?.length)
-        throw new TransformerError({
-          code: "typia.json.application",
-          message: "no generic argument.",
-        });
-
-      //----
-      // GET ARGUMENTS
-      //----
-      // VALIDATE TUPLE ARGUMENTS
-      const top: ts.Node = expression.typeArguments[0]!;
-      if (!ts.isTupleTypeNode(top)) return expression;
-      else if (top.elements.some((child) => !ts.isTypeNode(child)))
-        return expression;
-
-      // GET TYPES
-      const types: ts.Type[] = top.elements.map((child) =>
-        project.checker.getTypeFromTypeNode(child as ts.TypeNode),
-      );
-      if (types.some((t) => t.isTypeParameter()))
-        throw new TransformerError({
-          code: "typia.json.application",
-          message: "non-specified generic argument(s).",
-        });
-
-      // ADDITIONAL PARAMETERS
-      const version: "3.0" | "3.1" = get_parameter<"3.0" | "3.1">({
-        checker: project.checker,
-        name: "Version",
-        is: (str) => str === "3.0" || str === "3.1",
-        cast: (str) => str as "3.0" | "3.1",
-        default: () => "3.1",
-      })(expression.typeArguments[1]);
-
-      //----
-      // GENERATORS
-      //----
-      // METADATA
-      const collection: MetadataCollection = new MetadataCollection({
-        replace: MetadataCollection.replace,
+  export const transform = (
+    props: Pick<ITransformProps, "context" | "expression">,
+  ): ts.Expression => {
+    if (!props.expression.typeArguments?.length)
+      throw new TransformerError({
+        code: "typia.json.application",
+        message: "no generic argument.",
       });
-      const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
-        types.map((type) =>
-          MetadataFactory.analyze(
-            project.checker,
-            project.context,
-          )({
-            escape: true,
-            constant: true,
-            absorb: false,
-            validate: JsonApplicationProgrammer.validate,
-          })(collection)(type),
-        );
 
-      // REPORT BUG IF REQUIRED
-      const metadatas: Metadata[] = [];
-      const errors: MetadataFactory.IError[] = [];
-      for (const r of results) {
-        if (r.success === false) errors.push(...r.errors);
-        else metadatas.push(r.data);
-      }
-      if (errors.length)
-        throw TransformerError.from("typia.json.application")(errors);
+    //----
+    // GET ARGUMENTS
+    //----
+    // VALIDATE TUPLE ARGUMENTS
+    const top: ts.Node = props.expression.typeArguments[0]!;
+    if (!ts.isTupleTypeNode(top)) return props.expression;
+    else if (top.elements.some((child) => !ts.isTypeNode(child)))
+      return props.expression;
 
-      // APPLICATION
-      const app: IJsonApplication<any> =
-        JsonApplicationProgrammer.write(version)(metadatas);
-      return LiteralFactory.generate(app);
-    };
+    // GET TYPES
+    const types: ts.Type[] = top.elements.map((child) =>
+      props.context.checker.getTypeFromTypeNode(child as ts.TypeNode),
+    );
+    if (types.some((t) => t.isTypeParameter()))
+      throw new TransformerError({
+        code: "typia.json.application",
+        message: "non-specified generic argument(s).",
+      });
+
+    // ADDITIONAL PARAMETERS
+    const version: "3.0" | "3.1" = get_parameter<"3.0" | "3.1">({
+      checker: props.context.checker,
+      name: "Version",
+      is: (str) => str === "3.0" || str === "3.1",
+      cast: (str) => str as "3.0" | "3.1",
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
+
+    //----
+    // GENERATORS
+    //----
+    // METADATA
+    const collection: MetadataCollection = new MetadataCollection({
+      replace: MetadataCollection.replace,
+    });
+    const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
+      types.map((type) =>
+        MetadataFactory.analyze(
+          props.context.checker,
+          props.context.transformer,
+        )({
+          escape: true,
+          constant: true,
+          absorb: false,
+          validate: JsonApplicationProgrammer.validate,
+        })(collection)(type),
+      );
+
+    // REPORT BUG IF REQUIRED
+    const metadatas: Metadata[] = [];
+    const errors: MetadataFactory.IError[] = [];
+    for (const r of results) {
+      if (r.success === false) errors.push(...r.errors);
+      else metadatas.push(r.data);
+    }
+    if (errors.length)
+      throw TransformerError.from("typia.json.application")(errors);
+
+    // APPLICATION
+    const app: IJsonApplication<any> =
+      JsonApplicationProgrammer.write(version)(metadatas);
+    return LiteralFactory.generate(app);
+  };
 
   const get_parameter =
     <Value>(props: {

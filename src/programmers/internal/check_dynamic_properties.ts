@@ -4,7 +4,7 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
@@ -17,7 +17,7 @@ import { check_object } from "./check_object";
  */
 export const check_dynamic_properties =
   (props: check_object.IProps) =>
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (importer: FunctionImporter) =>
   (
     input: ts.Expression,
@@ -101,7 +101,7 @@ export const check_dynamic_properties =
 
 const check_dynamic_property =
   (props: check_object.IProps) =>
-  (project: IProject) =>
+  (project: ITypiaContext) =>
   (importer: FunctionImporter) =>
   (
     input: ts.Expression,

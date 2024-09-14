@@ -5,7 +5,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { StringUtil } from "../../utils/StringUtil";
 
@@ -15,7 +15,7 @@ import { FunctionalGeneralProgrammer } from "./internal/FunctionalGeneralProgram
 
 export namespace FunctionalValidateParametersProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (
@@ -85,7 +85,7 @@ export namespace FunctionalValidateParametersProgrammer {
     };
 
   export const decompose =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (

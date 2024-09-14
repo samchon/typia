@@ -8,7 +8,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { AssertProgrammer } from "../AssertProgrammer";
@@ -17,12 +17,12 @@ import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (type: ts.Type, name?: string): ts.ArrowFunction => {
       const result = MetadataFactory.analyze(
         project.checker,
-        project.context,
+        project.transformer,
       )({
         escape: false,
         constant: true,

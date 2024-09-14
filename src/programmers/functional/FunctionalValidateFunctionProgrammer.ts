@@ -3,14 +3,14 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionalValidateParametersProgrammer } from "./FunctionalValidateParametersProgrammer";
 import { FunctionalValidateReturnProgrammer } from "./FunctionalValidateReturnProgrammer";
 
 export namespace FunctionalValidateFunctionProgrammer {
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (equals: boolean) =>
     (

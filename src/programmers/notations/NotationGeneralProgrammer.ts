@@ -12,7 +12,7 @@ import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { StringUtil } from "../../utils/StringUtil";
@@ -34,7 +34,7 @@ export namespace NotationGeneralProgrammer {
   export const decompose = (props: {
     rename: (str: string) => string;
     validated: boolean;
-    project: IProject;
+    project: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -70,7 +70,7 @@ export namespace NotationGeneralProgrammer {
 
   export const write =
     (rename: (str: string) => string) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (modulo: ts.LeftHandSideExpression) =>
     (type: ts.Type, name?: string) => {
       const importer: FunctionImporter = new FunctionImporter(modulo.getText());
@@ -125,7 +125,7 @@ export namespace NotationGeneralProgrammer {
         );
 
   const write_tuple_functions =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (collection: MetadataCollection): ts.VariableStatement[] =>
@@ -161,7 +161,7 @@ export namespace NotationGeneralProgrammer {
         DECODERS
     ----------------------------------------------------------- */
   const decode =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -359,7 +359,7 @@ export namespace NotationGeneralProgrammer {
       );
 
   const decode_tuple =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -385,7 +385,7 @@ export namespace NotationGeneralProgrammer {
           );
 
   const decode_tuple_inline =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -447,7 +447,7 @@ export namespace NotationGeneralProgrammer {
         EXPLORERS FOR UNION TYPES
     ----------------------------------------------------------- */
   const explore_sets =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -478,7 +478,7 @@ export namespace NotationGeneralProgrammer {
       );
 
   const explore_maps =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -541,7 +541,7 @@ export namespace NotationGeneralProgrammer {
     };
 
   const explore_arrays =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: FeatureProgrammer.IConfig) =>
     (importer: FunctionImporter) =>
     (
@@ -622,7 +622,7 @@ export namespace NotationGeneralProgrammer {
 
   const configure =
     (rename: (str: string) => string) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter): FeatureProgrammer.IConfig => {
       const config: FeatureProgrammer.IConfig = {
         types: {
@@ -667,7 +667,7 @@ export namespace NotationGeneralProgrammer {
       const collection = new MetadataCollection();
       const result = MetadataFactory.analyze(
         project.checker,
-        project.context,
+        project.transformer,
       )({
         escape: false,
         constant: true,

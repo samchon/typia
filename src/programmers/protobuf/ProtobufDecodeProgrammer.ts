@@ -14,7 +14,8 @@ import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
@@ -24,7 +25,7 @@ import { ProtobufUtil } from "../helpers/ProtobufUtil";
 
 export namespace ProtobufDecodeProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
@@ -32,8 +33,8 @@ export namespace ProtobufDecodeProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const collection: MetadataCollection = new MetadataCollection();
     const meta: Metadata = ProtobufFactory.metadata(props.modulo.getText())(
-      props.project.checker,
-      props.project.context,
+      props.context.checker,
+      props.context.transformer,
     )(collection)(props.type);
     return {
       functions: Object.fromEntries(
@@ -44,7 +45,7 @@ export namespace ProtobufDecodeProgrammer {
             `${PREFIX}o${obj.index}`,
             StatementFactory.constant(
               props.importer.useLocal(`${PREFIX}o${obj.index}`),
-              write_object_function(props.project)(props.importer)(obj),
+              write_object_function(props.context)(props.importer)(obj),
             ),
           ]),
       ),
@@ -67,7 +68,7 @@ export namespace ProtobufDecodeProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName(props.context.checker)(props.type),
             ),
           ],
         ),
@@ -92,27 +93,23 @@ export namespace ProtobufDecodeProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const write_object_function =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (obj: MetadataObject): ts.ArrowFunction =>
       ts.factory.createArrowFunction(
@@ -178,7 +175,7 @@ export namespace ProtobufDecodeProgrammer {
       );
 
   const write_object_function_body =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (props: { condition: ts.Expression; tag: string; output: string }) =>
     (properties: MetadataProperty[]): ts.Statement[] => {
@@ -304,7 +301,7 @@ export namespace ProtobufDecodeProgrammer {
         DECODERS
     ----------------------------------------------------------- */
   const decode_property =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (index: number) =>
     (
@@ -508,7 +505,7 @@ export namespace ProtobufDecodeProgrammer {
       );
 
   const decode_dynamic_object =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (
       accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
@@ -551,7 +548,7 @@ export namespace ProtobufDecodeProgrammer {
     };
 
   const decode_map =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (
       accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
@@ -581,7 +578,7 @@ export namespace ProtobufDecodeProgrammer {
       })(map, required);
 
   const decode_entry =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter) =>
     (props: {
       initializer: () => ts.Expression;

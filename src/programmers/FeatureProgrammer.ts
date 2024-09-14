@@ -10,7 +10,7 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
-import { IProject } from "../transformers/IProject";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
@@ -46,7 +46,7 @@ export namespace FeatureProgrammer {
      * Initializer of metadata.
      */
     initializer: (
-      project: IProject,
+      project: ITypiaContext,
     ) => (
       importer: FunctionImporter,
     ) => (type: ts.Type) => [MetadataCollection, Metadata];
@@ -212,13 +212,13 @@ export namespace FeatureProgrammer {
   }
 
   export const compose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     config: IConfig;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): IComposed => {
-    const [collection, meta] = props.config.initializer(props.project)(
+    const [collection, meta] = props.config.initializer(props.context)(
       props.importer,
     )(props.type);
     return {
@@ -288,7 +288,7 @@ export namespace FeatureProgrammer {
     );
 
   export const write =
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (config: IConfig) =>
     (importer: FunctionImporter) =>
     (type: ts.Type, name?: string): ts.ArrowFunction => {

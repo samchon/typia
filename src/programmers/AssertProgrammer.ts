@@ -4,7 +4,8 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 
-import { IProject } from "../transformers/IProject";
+import { IProgrammerProps } from "../transformers/IProgrammerProps";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
@@ -14,24 +15,34 @@ import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
-  export const decompose = (props: {
-    project: IProject;
+  export interface IConfig {
     equals: boolean;
     guard: boolean;
+  }
+  export interface IProps extends IProgrammerProps {
+    config: IConfig;
+  }
+
+  export const decompose = (props: {
+    context: ITypiaContext;
+    config: IConfig;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
-    init: ts.Expression | undefined;
+    init?: ts.Expression | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose(props);
+    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
+      ...props,
+      equals: props.config.equals,
+    });
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
       ...props,
       config: {
         prefix: "$a",
         path: true,
         trace: true,
-        numeric: OptionPredicator.numeric(props.project.options),
-        equals: props.equals,
+        numeric: OptionPredicator.numeric(props.context.options),
+        equals: props.config.equals,
         atomist: (explore) => (entry) => (input) =>
           [
             ...(entry.expression ? [entry.expression] : []),
@@ -83,8 +94,8 @@ export namespace AssertProgrammer {
                     ),
                   ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-        combiner: combiner(props.equals)(props.project)(props.importer),
-        joiner: joiner(props.equals)(props.project)(props.importer),
+        combiner: combiner(props.config.equals)(props.context)(props.importer),
+        joiner: joiner(props.config.equals)(props.context)(props.importer),
         success: ts.factory.createTrue(),
       },
     });
@@ -95,18 +106,18 @@ export namespace AssertProgrammer {
         IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
         Guardian.parameter(props.init),
       ],
-      props.guard
+      props.config.guard
         ? ts.factory.createTypePredicateNode(
             ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
             ts.factory.createIdentifier("input"),
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName(props.context.checker)(props.type),
             ),
           )
         : ts.factory.createTypeReferenceNode(
             props.name ??
-              TypeFactory.getFullName(props.project.checker)(props.type),
+              TypeFactory.getFullName(props.context.checker)(props.type),
           ),
       undefined,
       ts.factory.createBlock(
@@ -152,7 +163,7 @@ export namespace AssertProgrammer {
             ),
             undefined,
           ),
-          ...(props.guard === false
+          ...(props.config.guard === false
             ? [
                 ts.factory.createReturnStatement(
                   ts.factory.createIdentifier(`input`),
@@ -179,31 +190,24 @@ export namespace AssertProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (props: boolean | { equals: boolean; guard: boolean }) =>
-    (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
-      if (typeof props === "boolean") props = { equals: props, guard: false };
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        ...props,
-        project,
-        importer,
-        type,
-        name,
-        init,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const combiner =
     (equals: boolean) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
     (explore: CheckerProgrammer.IExplore) => {
       if (explore.tracable === false)
@@ -268,7 +272,9 @@ export namespace AssertProgrammer {
     };
 
   const assert_object =
-    (equals: boolean) => (project: IProject) => (importer: FunctionImporter) =>
+    (equals: boolean) =>
+    (project: ITypiaContext) =>
+    (importer: FunctionImporter) =>
       check_object({
         equals,
         assert: true,
@@ -298,7 +304,7 @@ export namespace AssertProgrammer {
 
   const joiner =
     (equals: boolean) =>
-    (project: IProject) =>
+    (project: ITypiaContext) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
       object: assert_object(equals)(project)(importer),
       array: (input, arrow) =>

@@ -6,16 +6,20 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
 
 export namespace MiscLiteralsProgrammer {
-  export const write = (project: IProject) => (type: ts.Type) => {
+  export interface IProps {
+    context: ITypiaContext;
+    type: ts.Type;
+  }
+  export const write = (props: IProps) => {
     const result = MetadataFactory.analyze(
-      project.checker,
-      project.context,
+      props.context.checker,
+      props.context.transformer,
     )({
       escape: true,
       constant: true,
@@ -30,7 +34,7 @@ export namespace MiscLiteralsProgrammer {
         else if (meta.size() !== length) return [ErrorMessages.ONLY];
         return [];
       },
-    })(new MetadataCollection())(type);
+    })(new MetadataCollection())(props.type);
     if (result.success === false)
       throw TransformerError.from(`typia.misc.literals`)(result.errors);
 
