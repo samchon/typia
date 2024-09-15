@@ -1,9 +1,13 @@
 import { MiscIsPruneProgrammer } from "../../../programmers/misc/MiscIsPruneProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscCreateIsPruneTransformer {
-  export const transform = GenericTransformer.factory("misc.createIsPrune")(
-    (project) => (modulo) => MiscIsPruneProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.factory({
+      ...props,
+      method: "misc.createIsPrune",
+      write: MiscIsPruneProgrammer.write,
+    });
 }

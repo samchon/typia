@@ -12,6 +12,7 @@ import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
@@ -27,15 +28,15 @@ import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 export namespace MiscPruneProgrammer {
   export const decompose = (props: {
     validated: boolean;
-    project: ITypiaContext;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const config = configure(props.project)(props.importer);
+    const config = configure(props.context)(props.importer);
     if (props.validated === false)
       config.addition = (collection) =>
-        IsProgrammer.write_function_statements(props.project)(props.importer)(
+        IsProgrammer.write_function_statements(props.context)(props.importer)(
           collection,
         );
     const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
@@ -56,24 +57,21 @@ export namespace MiscPruneProgrammer {
     };
   };
 
-  export const write =
-    (project: ITypiaContext) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        validated: false,
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      validated: false,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const write_array_functions =
     (config: FeatureProgrammer.IConfig) =>

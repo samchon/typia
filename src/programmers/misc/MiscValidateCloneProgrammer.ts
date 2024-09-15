@@ -4,6 +4,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -13,7 +14,7 @@ import { MiscCloneProgrammer } from "./MiscCloneProgrammer";
 
 export namespace MiscValidateCloneProgrammer {
   export const decompose = (props: {
-    project: ITypiaContext;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
@@ -21,7 +22,9 @@ export namespace MiscValidateCloneProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const validate = ValidateProgrammer.decompose({
       ...props,
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const clone = MiscCloneProgrammer.decompose({
       ...props,
@@ -83,22 +86,18 @@ export namespace MiscValidateCloneProgrammer {
     };
   };
 
-  export const write =
-    (project: ITypiaContext) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

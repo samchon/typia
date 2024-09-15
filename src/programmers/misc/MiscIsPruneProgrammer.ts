@@ -4,6 +4,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -13,14 +14,16 @@ import { MiscPruneProgrammer } from "./MiscPruneProgrammer";
 
 export namespace MiscIsPruneProgrammer {
   export const decompose = (props: {
-    project: ITypiaContext;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const prune: FeatureProgrammer.IDecomposed = MiscPruneProgrammer.decompose({
       ...props,
@@ -71,21 +74,18 @@ export namespace MiscIsPruneProgrammer {
     };
   };
 
-  export const write =
-    (project: ITypiaContext) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }
