@@ -1,9 +1,13 @@
 import { MiscValidatePruneProgrammer } from "../../../programmers/misc/MiscValidatePruneProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscValidatePruneTransformer {
-  export const transform = GenericTransformer.scalar("misc.validatPrune")(
-    (project) => (modulo) => MiscValidatePruneProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.scalar({
+      ...props,
+      method: "misc.validatPrune",
+      write: MiscValidatePruneProgrammer.write,
+    });
 }

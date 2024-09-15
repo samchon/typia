@@ -2,14 +2,19 @@ import { NotationAssertGeneralProgrammer } from "../../../programmers/notations/
 
 import { StringUtil } from "../../../utils/StringUtil";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace NotationAssertGeneralTransformer {
-  export const transform = (rename: (str: string) => string) =>
-    GenericTransformer.scalar(
-      `notations.assert${StringUtil.capitalize(rename.name)}`,
-    )(
-      (project) => (modulo) =>
-        NotationAssertGeneralProgrammer.write(rename)(project)(modulo),
-    );
+  export const transform =
+    (rename: (str: string) => string) => (props: ITransformProps) =>
+      GenericTransformer.scalar({
+        ...props,
+        method: `notations.assert${StringUtil.capitalize(rename.name)}`,
+        write: (x) =>
+          NotationAssertGeneralProgrammer.write({
+            ...x,
+            rename,
+          }),
+      });
 }

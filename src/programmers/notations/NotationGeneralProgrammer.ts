@@ -12,6 +12,7 @@ import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
@@ -27,6 +28,10 @@ import { postfix_of_tuple } from "../internal/postfix_of_tuple";
 import { wrap_metadata_rest_tuple } from "../internal/wrap_metadata_rest_tuple";
 
 export namespace NotationGeneralProgrammer {
+  export interface IProps extends IProgrammerProps {
+    rename: (str: string) => string;
+  }
+
   export const returnType =
     (rename: (str: string) => string) => (type: string) =>
       `typia.${StringUtil.capitalize(rename.name)}Case<${type}>`;
@@ -34,15 +39,15 @@ export namespace NotationGeneralProgrammer {
   export const decompose = (props: {
     rename: (str: string) => string;
     validated: boolean;
-    project: ITypiaContext;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const config = configure(props.rename)(props.project)(props.importer);
+    const config = configure(props.rename)(props.context)(props.importer);
     if (props.validated === false)
       config.addition = (collection) =>
-        IsProgrammer.write_function_statements(props.project)(props.importer)(
+        IsProgrammer.write_function_statements(props.context)(props.importer)(
           collection,
         );
     const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
@@ -59,7 +64,7 @@ export namespace NotationGeneralProgrammer {
         ts.factory.createTypeReferenceNode(
           returnType(props.rename)(
             props.name ??
-              TypeFactory.getFullName(props.project.checker)(props.type),
+              TypeFactory.getFullName(props.context.checker)(props.type),
           ),
         ),
         undefined,
@@ -68,26 +73,21 @@ export namespace NotationGeneralProgrammer {
     };
   };
 
-  export const write =
-    (rename: (str: string) => string) =>
-    (project: ITypiaContext) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string) => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        rename,
-        validated: true,
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        importer,
-        modulo,
-        result,
-      });
-    };
+  export const write = (props: IProps) => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+      validated: true,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      importer,
+      modulo: props.modulo,
+      result,
+    });
+  };
 
   const write_array_functions =
     (config: FeatureProgrammer.IConfig) =>

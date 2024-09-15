@@ -33,7 +33,9 @@ export namespace AssertProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      equals: props.config.equals,
+      config: {
+        equals: props.config.equals,
+      },
     });
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
       ...props,
