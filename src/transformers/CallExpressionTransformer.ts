@@ -207,37 +207,49 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     assertFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "assertFunction",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalAssertFunctionProgrammer.write,
       }),
     assertParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "assertParameters",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalAssertParametersProgrammer.write,
       }),
     assertReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "assertReturn",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionAssertReturnProgrammer.write,
       }),
     assertEqualsFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "assertEqualsFunction",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalAssertFunctionProgrammer.write,
       }),
     assertEqualsParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "assertEqualsParameters",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalAssertParametersProgrammer.write,
       }),
     assertEqualsReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "assertEqualsReturn",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionAssertReturnProgrammer.write,
       }),
 
@@ -245,37 +257,49 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     isFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "isFunction",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalIsFunctionProgrammer.write,
       }),
     isParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "isParameters",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalIsParametersProgrammer.write,
       }),
     isReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "isReturn",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalIsReturnProgrammer.write,
       }),
     equalsFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "equalsFunction",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalIsFunctionProgrammer.write,
       }),
     equalsParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "equalsParameters",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalIsParametersProgrammer.write,
       }),
     equalsReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "equalsReturn",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalIsReturnProgrammer.write,
       }),
 
@@ -283,37 +307,49 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     validateFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "validateFunction",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalValidateFunctionProgrammer.write,
       }),
     validateParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "validateParameters",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalValidateParametersProgrammer.write,
       }),
     validateReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "validateReturn",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalValidateReturnProgrammer.write,
       }),
     validateEqualsFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "validateEqualsFunction",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalValidateFunctionProgrammer.write,
       }),
     validateEqualsParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "validateEqualsParameters",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalValidateParametersProgrammer.write,
       }),
     validateEqualsReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "validateEqualsReturn",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalValidateReturnProgrammer.write,
       }),
   },

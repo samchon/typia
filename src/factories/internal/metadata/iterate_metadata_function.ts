@@ -46,7 +46,10 @@ export const iterate_metadata_function =
         );
       else {
         const { async }: FunctionalGeneralProgrammer.IOutput =
-          FunctionalGeneralProgrammer.getReturnType(checker)(declaration);
+          FunctionalGeneralProgrammer.getReturnType({
+            checker,
+            declaration,
+          });
         metadata.functions.push(
           MetadataFunction.create({
             parameters: signature.parameters.map((p) =>

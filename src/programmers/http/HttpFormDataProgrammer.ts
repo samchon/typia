@@ -11,6 +11,7 @@ import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
@@ -24,7 +25,7 @@ import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpFormDataProgrammer {
   export const decompose = (props: {
-    project: ITypiaContext;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -32,8 +33,8 @@ export namespace HttpFormDataProgrammer {
     // ANALYZE TYPE
     const collection: MetadataCollection = new MetadataCollection();
     const result = MetadataFactory.analyze(
-      props.project.checker,
-      props.project.transformer,
+      props.context.checker,
+      props.context.transformer,
     )({
       escape: false,
       constant: true,
@@ -69,7 +70,7 @@ export namespace HttpFormDataProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName(props.context.checker)(props.type),
             ),
           ],
           false,
@@ -80,23 +81,20 @@ export namespace HttpFormDataProgrammer {
     };
   };
 
-  export const write =
-    (project: ITypiaContext) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   export const validate = (
     meta: Metadata,
