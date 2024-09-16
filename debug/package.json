@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "tstl": "^3.0.0",
-    "typia": "../typia-6.10.0-dev.20240910-2.tgz",
+    "typia": "../typia-7.0.0-dev.20240916.tgz",
     "uuid": "^10.0.0"
   }
 }

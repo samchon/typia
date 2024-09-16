@@ -1,4 +1,4 @@
-import { JsonStringifyProgrammer } from "../../../programmers/json/JsonStringifyProgrammer";
+import { JsonIsStringifyProgrammer } from "../../../programmers/json/JsonIsStringifyProgrammer";
 
 import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
@@ -8,6 +8,6 @@ export namespace JsonCreateIsStringifyTransformer {
     GenericTransformer.factory({
       ...props,
       method: "json.stringify",
-      write: JsonStringifyProgrammer.write,
+      write: JsonIsStringifyProgrammer.write,
     });
 }

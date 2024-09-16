@@ -39,8 +39,8 @@ export namespace JsonStringifyProgrammer {
     WRITER
   ----------------------------------------------------------- */
   export const decompose = (props: {
-    context: ITypiaContext;
     validated: boolean;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -76,11 +76,9 @@ export namespace JsonStringifyProgrammer {
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
       validated: false,
-      context: props.context,
       importer,
-      type: props.type,
-      name: props.name,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
