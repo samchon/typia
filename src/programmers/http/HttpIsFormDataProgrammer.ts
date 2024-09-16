@@ -3,6 +3,7 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -12,7 +13,7 @@ import { HttpFormDataProgrammer } from "./HttpFormDataProgrammer";
 
 export namespace HttpIsFormDataProgrammer {
   export const decompose = (props: {
-    project: ITypiaContext;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -20,14 +21,16 @@ export namespace HttpIsFormDataProgrammer {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
       context: {
-        ...props.project,
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: false,
         },
       },
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const decode: FeatureProgrammer.IDecomposed =
       HttpFormDataProgrammer.decompose(props);
@@ -82,21 +85,18 @@ export namespace HttpIsFormDataProgrammer {
     };
   };
 
-  export const write =
-    (project: ITypiaContext) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

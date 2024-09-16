@@ -1,9 +1,13 @@
 import { HttpValidateQueryProgrammer } from "../../../programmers/http/HttpValidateQueryProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace HttpValidateQueryTransformer {
-  export const transform = GenericTransformer.scalar("http.validateQuery")(
-    (project) => (modulo) => HttpValidateQueryProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.scalar({
+      ...props,
+      method: "http.validateQuery",
+      write: HttpValidateQueryProgrammer.write,
+    });
 }
