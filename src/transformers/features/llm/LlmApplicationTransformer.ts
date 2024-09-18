@@ -36,16 +36,19 @@ export namespace LlmApplicationTransformer {
       replace: MetadataCollection.replace,
     });
     const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-      MetadataFactory.analyze(
-        props.context.checker,
-        props.context.transformer,
-      )({
-        escape: true,
-        constant: true,
-        absorb: false,
-        functional: true,
-        validate: LlmApplicationProgrammer.validate,
-      })(collection)(type);
+      MetadataFactory.analyze({
+        checker: props.context.checker,
+        transformer: props.context.transformer,
+        options: {
+          escape: true,
+          constant: true,
+          absorb: false,
+          functional: true,
+          validate: LlmApplicationProgrammer.validate,
+        },
+        collection,
+        type,
+      });
     if (result.success === false)
       throw TransformerError.from("typia.llm.application")(result.errors);
 

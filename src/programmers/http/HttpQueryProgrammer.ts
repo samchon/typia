@@ -39,15 +39,19 @@ export namespace HttpQueryProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     // ANALYZE TYPE
     const collection: MetadataCollection = new MetadataCollection();
-    const result = MetadataFactory.analyze(
-      props.context.checker,
-      props.context.transformer,
-    )({
-      escape: false,
-      constant: true,
-      absorb: true,
-      validate: (meta, explore) => validate(meta, explore, props.allowOptional),
-    })(collection)(props.type);
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+        validate: (meta, explore) =>
+          validate(meta, explore, props.allowOptional),
+      },
+      collection,
+      type: props.type,
+    });
     if (result.success === false)
       throw TransformerError.from(`typia.http.${props.importer.method}`)(
         result.errors,

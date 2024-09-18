@@ -17,24 +17,27 @@ export namespace MiscLiteralsProgrammer {
     type: ts.Type;
   }
   export const write = (props: IProps) => {
-    const result = MetadataFactory.analyze(
-      props.context.checker,
-      props.context.transformer,
-    )({
-      escape: true,
-      constant: true,
-      absorb: true,
-      validate: (meta) => {
-        const length: number =
-          meta.constants
-            .map((c) => c.values.length)
-            .reduce((a, b) => a + b, 0) +
-          meta.atomics.filter((a) => a.type === "boolean").length;
-        if (0 === length) return [ErrorMessages.NO];
-        else if (meta.size() !== length) return [ErrorMessages.ONLY];
-        return [];
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: true,
+        constant: true,
+        absorb: true,
+        validate: (meta) => {
+          const length: number =
+            meta.constants
+              .map((c) => c.values.length)
+              .reduce((a, b) => a + b, 0) +
+            meta.atomics.filter((a) => a.type === "boolean").length;
+          if (0 === length) return [ErrorMessages.NO];
+          else if (meta.size() !== length) return [ErrorMessages.ONLY];
+          return [];
+        },
       },
-    })(new MetadataCollection())(props.type);
+      collection: new MetadataCollection(),
+      type: props.type,
+    });
     if (result.success === false)
       throw TransformerError.from(`typia.misc.literals`)(result.errors);
 

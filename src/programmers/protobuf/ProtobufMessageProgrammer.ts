@@ -23,10 +23,13 @@ export namespace ProtobufMessageProgrammer {
   export const write = (props: IProps) => {
     // PARSE TARGET TYPE
     const collection: MetadataCollection = new MetadataCollection();
-    ProtobufFactory.metadata("message")(
-      props.context.checker,
-      props.context.transformer,
-    )(collection)(props.type);
+    ProtobufFactory.metadata({
+      method: "message",
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      collection,
+      type: props.type,
+    });
 
     // STRINGIFY
     const hierarchies: Map<string, Hierarchy> = new Map();

@@ -1,56 +1,69 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
+import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 
-export const iterate_metadata_native =
-  (checker: ts.TypeChecker) =>
-  (meta: Metadata, type: ts.Type): boolean => {
-    const validator = validate(checker)(type);
-    const name: string = TypeFactory.getFullName(checker)(
-      type,
-      type.getSymbol(),
-    );
+export const iterate_metadata_native = (
+  props: IMetadataIteratorProps,
+): boolean => {
+  const name: string = TypeFactory.getFullName(props.checker)(
+    props.type,
+    props.type.getSymbol(),
+  );
+  const simple = SIMPLES.get(name);
+  if (
+    simple &&
+    validate({
+      checker: props.checker,
+      type: props.type,
+      info: simple,
+    })
+  ) {
+    ArrayUtil.set(props.metadata.natives, name, (str) => str);
+    return true;
+  }
 
-    const simple = SIMPLES.get(name);
-    if (simple && validator(simple)) {
-      ArrayUtil.set(meta.natives, name, (str) => str);
+  for (const generic of GENERICS)
+    if (
+      name.substring(0, generic.name.length) === generic.name &&
+      validate({
+        checker: props.checker,
+        type: props.type,
+        info: generic,
+      })
+    ) {
+      ArrayUtil.set(props.metadata.natives, generic.name ?? name, (str) => str);
       return true;
     }
+  return false;
+};
 
-    for (const generic of GENERICS)
-      if (
-        name.substring(0, generic.name.length) === generic.name &&
-        validator(generic)
-      ) {
-        ArrayUtil.set(meta.natives, generic.name ?? name, (str) => str);
-        return true;
-      }
-    return false;
-  };
-
-const validate =
-  (checker: ts.TypeChecker) => (type: ts.Type) => (info: IClassInfo) =>
-    (info.methods ?? []).every((method) => {
-      const returnType = TypeFactory.getReturnType(checker)(type)(method.name);
-      return (
-        returnType !== null &&
-        checker.typeToString(returnType) === method.return
-      );
-    }) &&
-    (info.properties ?? []).every((property) => {
-      const prop = checker.getPropertyOfType(type, property.name);
-      const propType = prop?.valueDeclaration
-        ? checker.getTypeAtLocation(prop?.valueDeclaration)
-        : undefined;
-      return (
-        propType !== undefined &&
-        checker.typeToString(propType) === property.type
-      );
-    });
+const validate = (props: {
+  checker: ts.TypeChecker;
+  type: ts.Type;
+  info: IClassInfo;
+}) =>
+  (props.info.methods ?? []).every((method) => {
+    const returnType = TypeFactory.getReturnType(props.checker)(props.type)(
+      method.name,
+    );
+    return (
+      returnType !== null &&
+      props.checker.typeToString(returnType) === method.return
+    );
+  }) &&
+  (props.info.properties ?? []).every((property) => {
+    const prop = props.checker.getPropertyOfType(props.type, property.name);
+    const propType = prop?.valueDeclaration
+      ? props.checker.getTypeAtLocation(prop?.valueDeclaration)
+      : undefined;
+    return (
+      propType !== undefined &&
+      props.checker.typeToString(propType) === property.type
+    );
+  });
 
 const getBinaryProps = (className: string): IClassInfo => ({
   name: className,

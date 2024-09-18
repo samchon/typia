@@ -15,26 +15,33 @@ import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace ProtobufFactory {
-  export const metadata =
-    (method: string) =>
-    (checker: ts.TypeChecker, context?: ts.TransformationContext) =>
-    (collection: MetadataCollection) =>
-    (type: ts.Type): Metadata => {
-      // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
-      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-        MetadataFactory.analyze(
-          checker,
-          context,
-        )({
+  export interface IProps {
+    method: string;
+    checker: ts.TypeChecker;
+    transformer?: ts.TransformationContext;
+    collection: MetadataCollection;
+    type: ts.Type;
+  }
+
+  export const metadata = (props: IProps): Metadata => {
+    // COMPOSE METADATA WITH INDIVIDUAL VALIDATIONS
+    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+      MetadataFactory.analyze({
+        ...props,
+        transformer: props.transformer,
+        options: {
           escape: false,
           constant: true,
           absorb: true,
           validate,
-        })(collection)(type);
-      if (result.success === false)
-        throw TransformerError.from(`typia.protobuf.${method}`)(result.errors);
-      return result.data;
-    };
+        },
+      });
+    if (result.success === false)
+      throw TransformerError.from(`typia.protobuf.${props.method}`)(
+        result.errors,
+      );
+    return result.data;
+  };
 
   const validate = (
     meta: Metadata,

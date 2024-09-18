@@ -222,14 +222,17 @@ export namespace CheckerProgrammer {
       prefix: config.prefix,
       initializer: (project) => (importer) => (type) => {
         const collection: MetadataCollection = new MetadataCollection();
-        const result = MetadataFactory.analyze(
-          project.checker,
-          project.transformer,
-        )({
-          escape: false,
-          constant: true,
-          absorb: true,
-        })(collection)(type);
+        const result = MetadataFactory.analyze({
+          checker: project.checker,
+          transformer: project.transformer,
+          options: {
+            escape: false,
+            constant: true,
+            absorb: true,
+          },
+          collection,
+          type,
+        });
         if (result.success === false)
           throw TransformerError.from(`typia.${importer.method}`)(
             result.errors,
