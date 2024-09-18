@@ -36,10 +36,13 @@ export namespace ProtobufEncodeProgrammer {
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const collection: MetadataCollection = new MetadataCollection();
-    const meta: Metadata = ProtobufFactory.metadata(props.modulo.getText())(
-      props.context.checker,
-      props.context.transformer,
-    )(collection)(props.type);
+    const meta: Metadata = ProtobufFactory.metadata({
+      method: props.modulo.getText(),
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      collection,
+      type: props.type,
+    });
 
     const callEncoder = (writer: string) => (factory: ts.NewExpression) =>
       StatementFactory.constant(

@@ -61,15 +61,18 @@ export namespace JsonApplicationTransformer {
     });
     const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
       types.map((type) =>
-        MetadataFactory.analyze(
-          props.context.checker,
-          props.context.transformer,
-        )({
-          escape: true,
-          constant: true,
-          absorb: false,
-          validate: JsonApplicationProgrammer.validate,
-        })(collection)(type),
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            escape: true,
+            constant: true,
+            absorb: false,
+            validate: JsonApplicationProgrammer.validate,
+          },
+          collection,
+          type,
+        }),
       );
 
     // REPORT BUG IF REQUIRED

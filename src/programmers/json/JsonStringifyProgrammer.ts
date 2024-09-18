@@ -871,10 +871,12 @@ export namespace JsonStringifyProgrammer {
 
   const initializer: FeatureProgrammer.IConfig["initializer"] =
     (project) => (importer) => (type) =>
-      JsonMetadataFactory.analyze(`typia.json.${importer.method}`)(
-        project.checker,
-        project.transformer,
-      )(type);
+      JsonMetadataFactory.analyze({
+        method: `typia.json.${importer.method}`,
+        checker: project.checker,
+        transformer: project.transformer,
+        type,
+      });
 
   const create_throw_error =
     (importer: FunctionImporter) =>

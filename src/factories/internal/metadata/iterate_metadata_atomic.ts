@@ -10,16 +10,16 @@ const same = (type: ts.Type | null) => {
   return (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
 };
 
-export const iterate_metadata_atomic = (
-  meta: Metadata,
-  type: ts.Type,
-): boolean => {
+export const iterate_metadata_atomic = (props: {
+  metadata: Metadata;
+  type: ts.Type;
+}): boolean => {
   // PREPARE INTERNAL FUNCTIONS
-  const filter = same(type);
+  const filter = same(props.type);
   const check = (info: IAtomicInfo) => {
     if (filter(info.atomic) || filter(info.literal)) {
       ArrayUtil.add(
-        meta.atomics,
+        props.metadata.atomics,
         MetadataAtomic.create({ type: info.name, tags: [] }),
         (x, y) => x.type === y.type,
       );

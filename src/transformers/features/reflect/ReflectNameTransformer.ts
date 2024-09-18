@@ -62,14 +62,17 @@ const getMetadata = (props: {
     replace: MetadataCollection.replace,
   });
   const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-    MetadataFactory.analyze(
-      props.context.checker,
-      props.context.transformer,
-    )({
-      escape: false,
-      constant: true,
-      absorb: false,
-    })(collection)(type);
+    MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: false,
+      },
+      collection,
+      type,
+    });
   if (result.success === false)
     throw TransformerError.from("typia.reflect.name")(result.errors);
   return result.data;

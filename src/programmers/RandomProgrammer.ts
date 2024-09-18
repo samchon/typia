@@ -49,22 +49,25 @@ export namespace RandomProgrammer {
     props: IDecomposeProps,
   ): FeatureProgrammer.IDecomposed => {
     const collection: MetadataCollection = new MetadataCollection();
-    const result = MetadataFactory.analyze(
-      props.context.checker,
-      props.context.transformer,
-    )({
-      escape: false,
-      constant: true,
-      absorb: true,
-      validate: (meta) => {
-        const output: string[] = [];
-        if (meta.natives.some((n) => n === "WeakSet"))
-          output.push(`WeakSet is not supported.`);
-        else if (meta.natives.some((n) => n === "WeakMap"))
-          output.push(`WeakMap is not supported.`);
-        return output;
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+        validate: (meta) => {
+          const output: string[] = [];
+          if (meta.natives.some((n) => n === "WeakSet"))
+            output.push(`WeakSet is not supported.`);
+          else if (meta.natives.some((n) => n === "WeakMap"))
+            output.push(`WeakMap is not supported.`);
+          return output;
+        },
       },
-    })(collection)(props.type);
+      collection,
+      type: props.type,
+    });
     if (result.success === false)
       throw TransformerError.from(`typia.${props.importer.method}`)(
         result.errors,

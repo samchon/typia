@@ -17,15 +17,18 @@ import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {
   export const write = (props: IProgrammerProps): ts.ArrowFunction => {
-    const result = MetadataFactory.analyze(
-      props.context.checker,
-      props.context.transformer,
-    )({
-      escape: false,
-      constant: true,
-      absorb: true,
-      validate,
-    })(new MetadataCollection())(props.type);
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+        validate,
+      },
+      collection: new MetadataCollection(),
+      type: props.type,
+    });
     if (result.success === false)
       throw TransformerError.from(props.modulo.getText())(result.errors);
 

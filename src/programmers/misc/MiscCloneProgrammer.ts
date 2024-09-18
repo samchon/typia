@@ -722,22 +722,25 @@ export namespace MiscCloneProgrammer {
   const initializer: FeatureProgrammer.IConfig["initializer"] =
     (project) => (importer) => (type) => {
       const collection = new MetadataCollection();
-      const result = MetadataFactory.analyze(
-        project.checker,
-        project.transformer,
-      )({
-        escape: false,
-        constant: true,
-        absorb: true,
-        validate: (meta) => {
-          const output: string[] = [];
-          if (meta.natives.some((n) => n === "WeakSet"))
-            output.push("unable to clone WeakSet");
-          else if (meta.natives.some((n) => n === "WeakMap"))
-            output.push("unable to clone WeakMap");
-          return output;
+      const result = MetadataFactory.analyze({
+        checker: project.checker,
+        transformer: project.transformer,
+        options: {
+          escape: false,
+          constant: true,
+          absorb: true,
+          validate: (meta) => {
+            const output: string[] = [];
+            if (meta.natives.some((n) => n === "WeakSet"))
+              output.push("unable to clone WeakSet");
+            else if (meta.natives.some((n) => n === "WeakMap"))
+              output.push("unable to clone WeakMap");
+            return output;
+          },
         },
-      })(collection)(type);
+        collection,
+        type,
+      });
       if (result.success === false)
         throw TransformerError.from(`typia.misc.${importer.method}`)(
           result.errors,
