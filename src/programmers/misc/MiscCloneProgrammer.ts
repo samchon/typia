@@ -375,7 +375,7 @@ export namespace MiscCloneProgrammer {
       tuple: MetadataTupleType,
       explore: FeatureProgrammer.IExplore,
     ): ts.Expression => {
-      const children: ts.Expression[] = tuple.elements
+      const elements: ts.Expression[] = tuple.elements
         .filter((m) => m.rest === null)
         .map((elem, index) =>
           decode(project)(config)(importer)(
@@ -410,7 +410,10 @@ export namespace MiscCloneProgrammer {
           },
         );
       })();
-      return CloneJoiner.tuple(children, rest);
+      return CloneJoiner.tuple({
+        elements,
+        rest,
+      });
     };
 
   /* -----------------------------------------------------------

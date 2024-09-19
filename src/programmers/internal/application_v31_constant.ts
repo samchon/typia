@@ -14,8 +14,8 @@ export const application_v31_constant = (
 ): OpenApi.IJsonSchema.IConstant[] =>
   constant.values
     .map((value) =>
-      application_plugin(
-        {
+      application_plugin({
+        schema: {
           const:
             typeof value.value === "bigint"
               ? Number(value.value)
@@ -23,7 +23,7 @@ export const application_v31_constant = (
           title: application_title(value),
           description: application_description(value),
         } satisfies OpenApi.IJsonSchema.IConstant,
-        value.tags ?? [],
-      ),
+        tags: value.tags ?? [],
+      }),
     )
     .flat();

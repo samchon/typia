@@ -10,12 +10,12 @@ import { application_plugin } from "./application_plugin";
 export const application_boolean = <Version extends "3.0" | "3.1">(
   atomic: MetadataAtomic,
 ): Schema<Version>[] =>
-  application_plugin(
-    {
+  application_plugin({
+    schema: {
       type: "boolean",
     } satisfies Schema<Version>,
-    atomic.tags,
-  );
+    tags: atomic.tags,
+  });
 
 /**
  * @internal

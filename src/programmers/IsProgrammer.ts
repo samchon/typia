@@ -72,11 +72,11 @@ export namespace IsProgrammer {
             positive: ts.factory.createTrue(),
             superfluous: () => ts.factory.createFalse(),
           })(project)(importer),
-        array: (input, arrow) =>
+        array: (props) =>
           ts.factory.createCallExpression(
-            IdentifierFactory.access(input)("every"),
+            IdentifierFactory.access(props.input)("every"),
             undefined,
-            [arrow],
+            [props.arrow],
           ),
         failure: () => ts.factory.createFalse(),
       },
@@ -87,10 +87,10 @@ export namespace IsProgrammer {
     export interface IOptions {
       numeric: boolean;
       undefined: boolean;
-      object: (
-        input: ts.Expression,
-        entries: IExpressionEntry<ts.Expression>[],
-      ) => ts.Expression;
+      object: (props: {
+        input: ts.Expression;
+        entries: IExpressionEntry<ts.Expression>[];
+      }) => ts.Expression;
     }
   }
 

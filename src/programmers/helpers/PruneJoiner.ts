@@ -9,14 +9,14 @@ import { prune_object_properties } from "../internal/prune_object_properties";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace PruneJoiner {
-  export const object = (
-    input: ts.Expression,
-    entries: IExpressionEntry[],
-    obj: MetadataObject,
-  ): ts.ConciseBody => {
+  export const object = (props: {
+    input: ts.Expression;
+    entries: IExpressionEntry[];
+    object: MetadataObject;
+  }): ts.ConciseBody => {
     // PREPARE ASSETS
-    const regular = entries.filter((entry) => entry.key.isSoleLiteral());
-    const dynamic = entries.filter((entry) => !entry.key.isSoleLiteral());
+    const regular = props.entries.filter((entry) => entry.key.isSoleLiteral());
+    const dynamic = props.entries.filter((entry) => !entry.key.isSoleLiteral());
 
     const statements: ts.Statement[] = regular
       .map((entry) =>
@@ -28,27 +28,34 @@ export namespace PruneJoiner {
     if (dynamic.length)
       statements.push(
         ts.factory.createExpressionStatement(
-          iterate_dynamic_properties({ regular, dynamic })(input),
+          iterate_dynamic_properties({
+            regular,
+            dynamic,
+            input: props.input,
+          }),
         ),
       );
 
-    statements.push(prune_object_properties(obj));
+    statements.push(prune_object_properties(props.object));
     return ts.factory.createBlock(statements, true);
   };
 
-  export const array = (input: ts.Expression, arrow: ts.ArrowFunction) =>
+  export const array = (props: {
+    input: ts.Expression;
+    arrow: ts.ArrowFunction;
+  }) =>
     ts.factory.createCallExpression(
-      IdentifierFactory.access(input)("forEach"),
+      IdentifierFactory.access(props.input)("forEach"),
       undefined,
-      [arrow],
+      [props.arrow],
     );
 
-  export const tuple = (
-    children: ts.ConciseBody[],
-    rest: ts.ConciseBody | null,
-  ): ts.Block => {
-    const entire: ts.ConciseBody[] = [...children];
-    if (rest !== null) entire.push(rest);
+  export const tuple = (props: {
+    elements: ts.ConciseBody[];
+    rest: ts.ConciseBody | null;
+  }): ts.Block => {
+    const entire: ts.ConciseBody[] = [...props.elements];
+    if (props.rest !== null) entire.push(props.rest);
 
     const statements: ts.Statement[] = entire
       .map((elem) =>
@@ -61,79 +68,77 @@ export namespace PruneJoiner {
   };
 }
 
-const iterate_dynamic_properties =
-  (props: { regular: IExpressionEntry[]; dynamic: IExpressionEntry[] }) =>
-  (input: ts.Expression) =>
-    ts.factory.createCallExpression(
-      IdentifierFactory.access(
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier("Object.entries"),
-          undefined,
-          [input],
-        ),
-      )("forEach"),
-      undefined,
-      [
-        ts.factory.createArrowFunction(
-          undefined,
-          undefined,
-          [
-            IdentifierFactory.parameter(
-              ts.factory.createArrayBindingPattern(
-                ["key", "value"].map((l) =>
-                  ts.factory.createBindingElement(
-                    undefined,
-                    undefined,
-                    ts.factory.createIdentifier(l),
-                    undefined,
-                  ),
+const iterate_dynamic_properties = (props: {
+  regular: IExpressionEntry[];
+  dynamic: IExpressionEntry[];
+  input: ts.Expression;
+}) =>
+  ts.factory.createCallExpression(
+    IdentifierFactory.access(
+      ts.factory.createCallExpression(
+        ts.factory.createIdentifier("Object.entries"),
+        undefined,
+        [props.input],
+      ),
+    )("forEach"),
+    undefined,
+    [
+      ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [
+          IdentifierFactory.parameter(
+            ts.factory.createArrayBindingPattern(
+              ["key", "value"].map((l) =>
+                ts.factory.createBindingElement(
+                  undefined,
+                  undefined,
+                  ts.factory.createIdentifier(l),
+                  undefined,
                 ),
               ),
             ),
-          ],
-          undefined,
-          undefined,
-          ts.factory.createBlock(
-            [
+          ),
+        ],
+        undefined,
+        undefined,
+        ts.factory.createBlock(
+          [
+            ts.factory.createIfStatement(
+              ts.factory.createStrictEquality(
+                ts.factory.createIdentifier("undefined"),
+                ts.factory.createIdentifier("value"),
+              ),
+              ts.factory.createReturnStatement(),
+            ),
+            ...props.regular.map(({ key }) =>
               ts.factory.createIfStatement(
                 ts.factory.createStrictEquality(
-                  ts.factory.createIdentifier("undefined"),
-                  ts.factory.createIdentifier("value"),
+                  ts.factory.createStringLiteral(key.getSoleLiteral()!),
+                  ts.factory.createIdentifier("key"),
                 ),
                 ts.factory.createReturnStatement(),
               ),
-              ...props.regular.map(({ key }) =>
-                ts.factory.createIfStatement(
-                  ts.factory.createStrictEquality(
-                    ts.factory.createStringLiteral(key.getSoleLiteral()!),
-                    ts.factory.createIdentifier("key"),
+            ),
+            ...props.dynamic.map((dynamic) =>
+              ts.factory.createIfStatement(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier(
+                    `RegExp(/${metadata_to_pattern(true)(dynamic.key)}/).test`,
                   ),
-                  ts.factory.createReturnStatement(),
+                  undefined,
+                  [ts.factory.createIdentifier("key")],
                 ),
+                ts.isBlock(dynamic.expression)
+                  ? dynamic.expression
+                  : ts.factory.createBlock([
+                      ts.factory.createExpressionStatement(dynamic.expression),
+                    ]),
               ),
-              ...props.dynamic.map((dynamic) =>
-                ts.factory.createIfStatement(
-                  ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(
-                      `RegExp(/${metadata_to_pattern(true)(
-                        dynamic.key,
-                      )}/).test`,
-                    ),
-                    undefined,
-                    [ts.factory.createIdentifier("key")],
-                  ),
-                  ts.isBlock(dynamic.expression)
-                    ? dynamic.expression
-                    : ts.factory.createBlock([
-                        ts.factory.createExpressionStatement(
-                          dynamic.expression,
-                        ),
-                      ]),
-                ),
-              ),
-            ],
-            true,
-          ),
+            ),
+          ],
+          true,
         ),
-      ],
-    );
+      ),
+    ],
+  );

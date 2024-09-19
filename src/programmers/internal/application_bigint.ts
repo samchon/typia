@@ -10,12 +10,12 @@ import { application_plugin } from "./application_plugin";
 export const application_bigint = <Version extends "3.0" | "3.1">(
   atomic: MetadataAtomic,
 ): Schema<Version>[] =>
-  application_plugin(
-    {
+  application_plugin({
+    schema: {
       type: "integer",
     } satisfies Schema<Version>,
-    atomic.tags,
-  );
+    tags: atomic.tags,
+  });
 
 /**
  * @internal

@@ -320,12 +320,12 @@ const joiner =
   (project: ITypiaContext) =>
   (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
     object: validate_object(equals)(project)(importer),
-    array: (input, arrow) =>
+    array: (props) =>
       check_everything(
         ts.factory.createCallExpression(
-          IdentifierFactory.access(input)("map"),
+          IdentifierFactory.access(props.input)("map"),
           undefined,
-          [arrow],
+          [props.arrow],
         ),
       ),
     failure: (value, expected, explore) =>

@@ -65,8 +65,14 @@ export namespace CheckerProgrammer {
       };
     }
     export interface IJoiner {
-      object(input: ts.Expression, entries: IExpressionEntry[]): ts.Expression;
-      array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
+      object(props: {
+        input: ts.Expression;
+        entries: IExpressionEntry[];
+      }): ts.Expression;
+      array(props: {
+        input: ts.Expression;
+        arrow: ts.ArrowFunction;
+      }): ts.Expression;
       tuple?: undefined | ((exprs: ts.Expression[]) => ts.Expression);
 
       failure(
@@ -303,10 +309,10 @@ export namespace CheckerProgrammer {
     (importer: FunctionImporter) =>
     (
       input: ts.Expression,
-      meta: Metadata,
+      metadata: Metadata,
       explore: IExplore,
     ): ts.Expression => {
-      if (meta.any) return config.success;
+      if (metadata.any) return config.success;
 
       const top: IBinary[] = [];
       const binaries: IBinary[] = [];
@@ -323,25 +329,29 @@ export namespace CheckerProgrammer {
       // CHECK OPTIONAL
       //----
       // @todo -> should be elaborated
-      const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
+      const checkOptional: boolean =
+        metadata.empty() || metadata.isUnionBucket();
 
       // NULLABLE
-      if (checkOptional || meta.nullable)
-        (meta.nullable ? add : create_add(top)(input))(
-          meta.nullable,
+      if (checkOptional || metadata.nullable)
+        (metadata.nullable ? add : create_add(top)(input))(
+          metadata.nullable,
           ValueFactory.NULL(),
         );
 
       // UNDEFINDABLE
-      if (checkOptional || !meta.isRequired())
-        (meta.isRequired() ? create_add(top)(input) : add)(
-          !meta.isRequired(),
+      if (checkOptional || !metadata.isRequired())
+        (metadata.isRequired() ? create_add(top)(input) : add)(
+          !metadata.isRequired(),
           ValueFactory.UNDEFINED(),
         );
 
       // FUNCTIONAL
-      if (meta.functions.length)
-        if (OptionPredicator.functional(project.options) || meta.size() !== 1)
+      if (metadata.functions.length)
+        if (
+          OptionPredicator.functional(project.options) ||
+          metadata.size() !== 1
+        )
           add(
             true,
             ts.factory.createStringLiteral("function"),
@@ -357,8 +367,11 @@ export namespace CheckerProgrammer {
       // VALUES
       //----
       // CONSTANT VALUES
-      const constants: MetadataConstant[] = meta.constants.filter((c) =>
-        AtomicPredicator.constant(meta)(c.type),
+      const constants: MetadataConstant[] = metadata.constants.filter((c) =>
+        AtomicPredicator.constant({
+          metadata,
+          name: c.type,
+        }),
       );
       const constantLength: number = constants
         .map((c) => c.values.length)
@@ -401,12 +414,23 @@ export namespace CheckerProgrammer {
         );
       } else
         for (const c of constants)
-          if (AtomicPredicator.constant(meta)(c.type))
+          if (
+            AtomicPredicator.constant({
+              metadata,
+              name: c.type,
+            })
+          )
             for (const v of c.values) add(true, getConstantValue(v.value));
 
       // ATOMIC VALUES
-      for (const atom of meta.atomics)
-        if (AtomicPredicator.atomic(meta)(atom.type) === false) continue;
+      for (const atom of metadata.atomics)
+        if (
+          AtomicPredicator.atomic({
+            metadata,
+            name: atom.type,
+          }) === false
+        )
+          continue;
         else if (atom.type === "number")
           binaries.push({
             expression: config.atomist(explore)(
@@ -436,17 +460,17 @@ export namespace CheckerProgrammer {
           );
 
       // TEMPLATE LITERAL VALUES
-      if (meta.templates.length)
-        if (AtomicPredicator.template(meta))
+      if (metadata.templates.length)
+        if (AtomicPredicator.template(metadata))
           binaries.push({
             expression: config.atomist(explore)(
-              check_template(meta.templates)(input),
+              check_template(metadata.templates)(input),
             )(input),
             combined: false,
           });
 
       // NATIVE CLASSES
-      for (const native of meta.natives)
+      for (const native of metadata.natives)
         binaries.push({
           expression: check_native(native)(input),
           combined: false,
@@ -471,15 +495,15 @@ export namespace CheckerProgrammer {
           });
 
       // SETS
-      if (meta.sets.length) {
+      if (metadata.sets.length) {
         const install = prepare(
           check_native("Set")(input),
-          meta.sets.map((elem) => `Set<${elem.getName()}>`).join(" | "),
+          metadata.sets.map((elem) => `Set<${elem.getName()}>`).join(" | "),
         );
-        if (meta.sets.some((elem) => elem.any)) install(null);
+        if (metadata.sets.some((elem) => elem.any)) install(null);
         else
           install(
-            explore_sets(project)(config)(importer)(input, meta.sets, {
+            explore_sets(project)(config)(importer)(input, metadata.sets, {
               ...explore,
               from: "array",
             }),
@@ -487,18 +511,18 @@ export namespace CheckerProgrammer {
       }
 
       // MAPS
-      if (meta.maps.length) {
+      if (metadata.maps.length) {
         const install = prepare(
           check_native("Map")(input),
-          meta.maps
+          metadata.maps
             .map(({ key, value }) => `Map<${key}, ${value}>`)
             .join(" | "),
         );
-        if (meta.maps.some((elem) => elem.key.any && elem.value.any))
+        if (metadata.maps.some((elem) => elem.key.any && elem.value.any))
           install(null);
         else
           install(
-            explore_maps(project)(config)(importer)(input, meta.maps, {
+            explore_maps(project)(config)(importer)(input, metadata.maps, {
               ...explore,
               from: "array",
             }),
@@ -506,77 +530,94 @@ export namespace CheckerProgrammer {
       }
 
       // ARRAYS AND TUPLES
-      if (meta.tuples.length + meta.arrays.length > 0) {
+      if (metadata.tuples.length + metadata.arrays.length > 0) {
         const install = prepare(
           config.atomist(explore)({
             expected: [
-              ...meta.tuples.map((t) => t.type.name),
-              ...meta.arrays.map((a) => a.getName()),
+              ...metadata.tuples.map((t) => t.type.name),
+              ...metadata.arrays.map((a) => a.getName()),
             ].join(" | "),
             expression: ExpressionFactory.isArray(input),
             conditions: [],
           })(input),
-          [...meta.tuples, ...meta.arrays]
+          [...metadata.tuples, ...metadata.arrays]
             .map((elem) => elem.type.name)
             .join(" | "),
         );
-        if (meta.arrays.length === 0)
-          if (meta.tuples.length === 1)
+        if (metadata.arrays.length === 0)
+          if (metadata.tuples.length === 1)
             install(
-              decode_tuple(project)(config)(importer)(input, meta.tuples[0]!, {
-                ...explore,
-                from: "array",
-              }),
+              decode_tuple(project)(config)(importer)(
+                input,
+                metadata.tuples[0]!,
+                {
+                  ...explore,
+                  from: "array",
+                },
+              ),
             );
           // TUPLE ONLY
           else
             install(
-              explore_tuples(project)(config)(importer)(input, meta.tuples, {
-                ...explore,
-                from: "array",
-              }),
+              explore_tuples(project)(config)(importer)(
+                input,
+                metadata.tuples,
+                {
+                  ...explore,
+                  from: "array",
+                },
+              ),
             );
-        else if (meta.arrays.some((elem) => elem.type.value.any)) install(null);
-        else if (meta.tuples.length === 0)
-          if (meta.arrays.length === 1)
+        else if (metadata.arrays.some((elem) => elem.type.value.any))
+          install(null);
+        else if (metadata.tuples.length === 0)
+          if (metadata.arrays.length === 1)
             // ARRAY ONLY
             install(
-              decode_array(project)(config)(importer)(input, meta.arrays[0]!, {
-                ...explore,
-                from: "array",
-              }),
+              decode_array(project)(config)(importer)(
+                input,
+                metadata.arrays[0]!,
+                {
+                  ...explore,
+                  from: "array",
+                },
+              ),
             );
           else
             install(
-              explore_arrays(project)(config)(importer)(input, meta.arrays, {
-                ...explore,
-                from: "array",
-              }),
+              explore_arrays(project)(config)(importer)(
+                input,
+                metadata.arrays,
+                {
+                  ...explore,
+                  from: "array",
+                },
+              ),
             );
         else
           install(
             explore_arrays_and_tuples(project)(config)(importer)(
               input,
-              [...meta.tuples, ...meta.arrays],
+              [...metadata.tuples, ...metadata.arrays],
               explore,
             ),
           );
       }
 
       // OBJECT
-      if (meta.objects.length > 0)
+      if (metadata.objects.length > 0)
         prepare(
           ExpressionFactory.isObject({
             checkNull: true,
-            checkArray: meta.objects.some((obj) =>
+            checkArray: metadata.objects.some((obj) =>
               obj.properties.every(
                 (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
               ),
             ),
           })(input),
-          meta.objects.map((obj) => obj.name).join(" | "),
+          metadata.objects.map((obj) => obj.name).join(" | "),
         )(
-          explore_objects(config)(importer)(input, meta, {
+          explore_objects(config)(importer)(input, metadata, {
             ...explore,
             from: "object",
           }),
@@ -604,7 +645,7 @@ export namespace CheckerProgrammer {
                   expression,
                   combined: expression !== pre,
                 })),
-                meta.getName(),
+                metadata.getName(),
               ),
             )(instances[0]!),
           );
@@ -613,31 +654,31 @@ export namespace CheckerProgrammer {
             expression: config.combiner(explore)("or")(
               input,
               instances.map(transformer(ts.factory.createLogicalAnd)),
-              meta.getName(),
+              metadata.getName(),
             ),
             combined: true,
           });
       }
 
       // ESCAPED CASE
-      if (meta.escaped !== null)
+      if (metadata.escaped !== null)
         binaries.push({
           combined: false,
           expression:
-            meta.escaped.original.size() === 1 &&
-            meta.escaped.original.natives.length === 1
-              ? check_native(meta.escaped.original.natives[0]!)(input)
+            metadata.escaped.original.size() === 1 &&
+            metadata.escaped.original.natives.length === 1
+              ? check_native(metadata.escaped.original.natives[0]!)(input)
               : ts.factory.createLogicalAnd(
                   decode(project)(config)(importer)(
                     input,
-                    meta.escaped.original,
+                    metadata.escaped.original,
                     explore,
                   ),
                   ts.factory.createLogicalAnd(
                     IsProgrammer.decode_to_json(false)(input),
                     decode_escaped(project)(config)(importer)(
                       input,
-                      meta.escaped.returns,
+                      metadata.escaped.returns,
                       explore,
                     ),
                   ),
@@ -656,15 +697,15 @@ export namespace CheckerProgrammer {
                 expression: config.combiner(explore)("or")(
                   input,
                   binaries,
-                  meta.getName(),
+                  metadata.getName(),
                 ),
                 combined: true,
               },
             ],
-            meta.getName(),
+            metadata.getName(),
           )
         : binaries.length
-          ? config.combiner(explore)("or")(input, binaries, meta.getName())
+          ? config.combiner(explore)("or")(input, binaries, metadata.getName())
           : config.success;
     };
 

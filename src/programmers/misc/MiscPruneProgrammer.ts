@@ -326,7 +326,7 @@ export namespace MiscPruneProgrammer {
       tuple: MetadataTupleType,
       explore: FeatureProgrammer.IExplore,
     ): ts.Block => {
-      const children: ts.ConciseBody[] = tuple.elements
+      const elements: ts.ConciseBody[] = tuple.elements
         .map((elem, index) => [elem, index] as const)
         .filter(([elem]) => filter(elem) && elem.rest === null)
         .map(([elem, index]) =>
@@ -362,7 +362,10 @@ export namespace MiscPruneProgrammer {
           },
         );
       })();
-      return PruneJoiner.tuple(children, rest);
+      return PruneJoiner.tuple({
+        elements,
+        rest,
+      });
     };
 
   /* -----------------------------------------------------------

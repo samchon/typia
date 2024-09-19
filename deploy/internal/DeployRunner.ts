@@ -69,7 +69,11 @@ export namespace DeployRunner {
       "utf8",
     );
     if (tag === "tgz") cp.execSync("npm pack");
-    else cp.execSync(`npm publish --tag ${tag} --provenance`, { stdio: "inherit" });
+    else
+      cp.execSync(
+        `npm publish --tag ${tag}${tag === "latest" ? " --provenance" : ""}`,
+        { stdio: "inherit" },
+      );
 
     // RESTORE PRIVATE PROPERTY
     pack.private = true;

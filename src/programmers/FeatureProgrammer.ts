@@ -86,11 +86,11 @@ export namespace FeatureProgrammer {
       /**
        * Joiner of expressions from properties.
        */
-      joiner(
-        input: ts.Expression,
-        entries: IExpressionEntry<Output>[],
-        parent: MetadataObject,
-      ): ts.ConciseBody;
+      joiner(props: {
+        entries: IExpressionEntry<Output>[];
+        input?: ts.Expression;
+        object?: MetadataObject;
+      }): ts.ConciseBody;
 
       /**
        * Union type specificator.
@@ -356,29 +356,27 @@ export namespace FeatureProgrammer {
     (config: IConfig) =>
     (importer: FunctionImporter) =>
     (collection: MetadataCollection) =>
-      collection
-        .objects()
-        .map((obj) =>
-          StatementFactory.constant(
-            `${config.prefix}o${obj.index}`,
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              parameterDeclarations(config)(TypeFactory.keyword("any"))(
-                ValueFactory.INPUT(),
-              ),
-              config.objector.type ?? TypeFactory.keyword("any"),
-              undefined,
-              config.objector.joiner(
-                ts.factory.createIdentifier("input"),
-                feature_object_entries(config)(importer)(obj)(
-                  ts.factory.createIdentifier("input"),
-                ),
-                obj,
-              ),
+      collection.objects().map((object) =>
+        StatementFactory.constant(
+          `${config.prefix}o${object.index}`,
+          ts.factory.createArrowFunction(
+            undefined,
+            undefined,
+            parameterDeclarations(config)(TypeFactory.keyword("any"))(
+              ValueFactory.INPUT(),
             ),
+            config.objector.type ?? TypeFactory.keyword("any"),
+            undefined,
+            config.objector.joiner({
+              input: ts.factory.createIdentifier("input"),
+              entries: feature_object_entries(config)(importer)(object)(
+                ts.factory.createIdentifier("input"),
+              ),
+              object,
+            }),
           ),
-        );
+        ),
+      );
 
   export const write_union_functions =
     (config: IConfig) => (collection: MetadataCollection) =>
@@ -420,10 +418,10 @@ export namespace FeatureProgrammer {
     (config: Pick<IConfig, "trace" | "path" | "decoder" | "prefix">) =>
     (importer: FunctionImporter) =>
     (
-      combiner: (
-        input: ts.Expression,
-        arrow: ts.ArrowFunction,
-      ) => ts.Expression,
+      combiner: (props: {
+        input: ts.Expression;
+        arrow: ts.ArrowFunction;
+      }) => ts.Expression,
     ) => {
       const rand: string = importer.increment().toString();
       const tail =
@@ -457,7 +455,10 @@ export namespace FeatureProgrammer {
             postfix: index(explore.start ?? null)(explore.postfix)(rand),
           }),
         );
-        return combiner(input, arrow);
+        return combiner({
+          input,
+          arrow,
+        });
       };
     };
 

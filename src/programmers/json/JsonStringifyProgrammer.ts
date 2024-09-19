@@ -164,19 +164,19 @@ export namespace JsonStringifyProgrammer {
     (importer: FunctionImporter) =>
     (
       input: ts.Expression,
-      meta: Metadata,
+      metadata: Metadata,
       explore: FeatureProgrammer.IExplore,
     ): ts.Expression => {
       // ANY TYPE
-      if (meta.any === true)
+      if (metadata.any === true)
         return wrap_required(
           input,
-          meta,
+          metadata,
           explore,
         )(
           wrap_functional(
             input,
-            meta,
+            metadata,
             explore,
           )(
             ts.factory.createCallExpression(
@@ -188,12 +188,12 @@ export namespace JsonStringifyProgrammer {
         );
 
       // ONLY NULL OR UNDEFINED
-      const size: number = meta.size();
+      const size: number = metadata.size();
       if (
         size === 0 &&
-        (meta.isRequired() === false || meta.nullable === true)
+        (metadata.isRequired() === false || metadata.nullable === true)
       ) {
-        if (meta.isRequired() === false && meta.nullable === true)
+        if (metadata.isRequired() === false && metadata.nullable === true)
           return explore.from === "array"
             ? ts.factory.createStringLiteral("null")
             : ts.factory.createConditionalExpression(
@@ -203,7 +203,7 @@ export namespace JsonStringifyProgrammer {
                 undefined,
                 ts.factory.createIdentifier("undefined"),
               );
-        else if (meta.isRequired() === false)
+        else if (metadata.isRequired() === false)
           return explore.from === "array"
             ? ts.factory.createStringLiteral("null")
             : ts.factory.createIdentifier("undefined");
@@ -216,22 +216,22 @@ export namespace JsonStringifyProgrammer {
       const unions: IUnion[] = [];
 
       // toJSON() METHOD
-      if (meta.escaped !== null)
+      if (metadata.escaped !== null)
         unions.push({
           type: "resolved",
           is:
-            meta.escaped.original.size() === 1 &&
-            meta.escaped.original.natives[0] === "Date"
+            metadata.escaped.original.size() === 1 &&
+            metadata.escaped.original.natives[0] === "Date"
               ? () => check_native("Date")(input)
               : () => IsProgrammer.decode_to_json(false)(input),
           value: () =>
             decode_to_json(project)(config)(importer)(
               input,
-              meta.escaped!.returns,
+              metadata.escaped!.returns,
               explore,
             ),
         });
-      else if (meta.functions.length)
+      else if (metadata.functions.length)
         unions.push({
           type: "functional",
           is: () => IsProgrammer.decode_functional(input),
@@ -240,10 +240,10 @@ export namespace JsonStringifyProgrammer {
 
       // TEMPLATES
       if (
-        meta.templates.length ||
-        ArrayUtil.has(meta.constants, (c) => c.type === "string")
+        metadata.templates.length ||
+        ArrayUtil.has(metadata.constants, (c) => c.type === "string")
       )
-        if (AtomicPredicator.template(meta)) {
+        if (AtomicPredicator.template(metadata)) {
           const partial = Metadata.initialize();
           partial.atomics.push(
             MetadataAtomic.create({ type: "string", tags: [] }),
@@ -258,8 +258,14 @@ export namespace JsonStringifyProgrammer {
         }
 
       // CONSTANTS
-      for (const constant of meta.constants)
-        if (AtomicPredicator.constant(meta)(constant.type) === false) continue;
+      for (const constant of metadata.constants)
+        if (
+          AtomicPredicator.constant({
+            metadata,
+            name: constant.type,
+          }) === false
+        )
+          continue;
         else if (constant.type !== "string")
           unions.push({
             type: "atomic",
@@ -281,7 +287,7 @@ export namespace JsonStringifyProgrammer {
             value: () =>
               decode_atomic(project)(importer)(input, constant.type, explore),
           });
-        else if (meta.templates.length === 0)
+        else if (metadata.templates.length === 0)
           unions.push({
             type: "const string",
             is: () =>
@@ -308,8 +314,13 @@ export namespace JsonStringifyProgrammer {
           });
 
       /// ATOMICS
-      for (const a of meta.atomics)
-        if (AtomicPredicator.atomic(meta)(a.type))
+      for (const a of metadata.atomics)
+        if (
+          AtomicPredicator.atomic({
+            metadata,
+            name: a.type,
+          })
+        )
           unions.push({
             type: "atomic",
             is: () =>
@@ -327,7 +338,7 @@ export namespace JsonStringifyProgrammer {
           });
 
       // TUPLES
-      for (const tuple of meta.tuples)
+      for (const tuple of metadata.tuples)
         unions.push({
           type: "tuple",
           is: () =>
@@ -345,15 +356,15 @@ export namespace JsonStringifyProgrammer {
         });
 
       // ARRAYS
-      if (meta.arrays.length) {
+      if (metadata.arrays.length) {
         const value: () => ts.Expression =
-          meta.arrays.length === 1
+          metadata.arrays.length === 1
             ? () =>
-                decode_array(config)(importer)(input, meta.arrays[0]!, {
+                decode_array(config)(importer)(input, metadata.arrays[0]!, {
                   ...explore,
                   from: "array",
                 })
-            : meta.arrays.some((elem) => elem.type.value.any)
+            : metadata.arrays.some((elem) => elem.type.value.any)
               ? () =>
                   ts.factory.createCallExpression(
                     ts.factory.createIdentifier("JSON.stringify"),
@@ -363,7 +374,7 @@ export namespace JsonStringifyProgrammer {
               : () =>
                   explore_arrays(project)(config)(importer)(
                     input,
-                    meta.arrays,
+                    metadata.arrays,
                     {
                       ...explore,
                       from: "array",
@@ -378,8 +389,8 @@ export namespace JsonStringifyProgrammer {
       }
 
       // BUILT-IN CLASSES
-      if (meta.natives.length)
-        for (const native of meta.natives)
+      if (metadata.natives.length)
+        for (const native of metadata.natives)
           unions.push({
             type: "object",
             is: () => check_native(native)(input),
@@ -394,7 +405,7 @@ export namespace JsonStringifyProgrammer {
           });
 
       // SETS
-      if (meta.sets.length)
+      if (metadata.sets.length)
         unions.push({
           type: "object",
           is: () => ExpressionFactory.isInstanceOf("Set")(input),
@@ -402,7 +413,7 @@ export namespace JsonStringifyProgrammer {
         });
 
       // MAPS
-      if (meta.maps.length)
+      if (metadata.maps.length)
         unions.push({
           type: "object",
           is: () => ExpressionFactory.isInstanceOf("Map")(input),
@@ -410,13 +421,13 @@ export namespace JsonStringifyProgrammer {
         });
 
       // OBJECTS
-      if (meta.objects.length)
+      if (metadata.objects.length)
         unions.push({
           type: "object",
           is: () =>
             ExpressionFactory.isObject({
               checkNull: true,
-              checkArray: meta.objects.some((obj) =>
+              checkArray: metadata.objects.some((obj) =>
                 obj.properties.every(
                   (prop) =>
                     !prop.key.isSoleLiteral() || !prop.value.isRequired(),
@@ -424,7 +435,7 @@ export namespace JsonStringifyProgrammer {
               ),
             })(input),
           value: () =>
-            explore_objects(config)(importer)(input, meta, {
+            explore_objects(config)(importer)(input, metadata, {
               ...explore,
               from: "object",
             }),
@@ -435,7 +446,11 @@ export namespace JsonStringifyProgrammer {
       //----
       // CHECK NULL AND UNDEFINED
       const wrapper = (output: ts.Expression) =>
-        wrap_required(input, meta, explore)(wrap_nullable(input, meta)(output));
+        wrap_required(
+          input,
+          metadata,
+          explore,
+        )(wrap_nullable(input, metadata)(output));
 
       // DIRECT RETURN
       if (unions.length === 0)
@@ -455,7 +470,7 @@ export namespace JsonStringifyProgrammer {
             [],
             undefined,
             undefined,
-            iterate(importer, input, unions, meta.getName()),
+            iterate(importer, input, unions, metadata.getName()),
           ),
           undefined,
           undefined,
@@ -541,7 +556,7 @@ export namespace JsonStringifyProgrammer {
       tuple: MetadataTupleType,
       explore: FeatureProgrammer.IExplore,
     ): ts.Expression => {
-      const children: ts.Expression[] = tuple.elements
+      const elements: ts.Expression[] = tuple.elements
         .filter((elem) => elem.rest === null)
         .map((elem, index) =>
           decode(project)(config)(importer)(
@@ -579,7 +594,10 @@ export namespace JsonStringifyProgrammer {
           [code],
         );
       })();
-      return StringifyJoiner.tuple(children, rest);
+      return StringifyJoiner.tuple({
+        elements,
+        rest,
+      });
     };
 
   const decode_atomic =
