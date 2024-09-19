@@ -70,7 +70,9 @@ export const iterate_metadata_function =
               functional: false,
             })(collection)(errors)(
               async
-                ? (signature.getReturnType().aliasTypeArguments?.[0] ??
+                ? (checker.getTypeArguments(
+                    signature.getReturnType() as ts.TypeReference,
+                  )?.[0] ??
                     checker.getTypeFromTypeNode(TypeFactory.keyword("any")))
                 : signature.getReturnType(),
               {
