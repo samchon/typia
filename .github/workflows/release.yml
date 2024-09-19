@@ -1,23 +1,26 @@
-name: Publish to npm
-
+# author: elliot-huffman
+name: release
 on:
   release:
     types: [created]
-
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: none
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
+          registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: npm install
       - name: Publish to npm
         run: npm run package:latest
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
       - name: Website Setup
         working-directory: website
         run: npm install && npm install typia@latest && npm run build
