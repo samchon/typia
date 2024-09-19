@@ -106,7 +106,7 @@ class SomeClass {
   /**
    * Get performance.
    */
-  getPerformance(): IPerformance {
+  async getPerformance(): Promise<IPerformance> {
     return { level: 3 };
   }
 

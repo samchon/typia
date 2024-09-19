@@ -53,8 +53,12 @@ export namespace LlmApplicationTransformer {
       throw TransformerError.from("typia.llm.application")(result.errors);
 
     // GENERATE LLM APPLICATION
-    const schema: ILlmApplication = LlmApplicationProgrammer.write(result.data);
-
+    const schema: ILlmApplication = LlmApplicationProgrammer.write(
+      result.data,
+    );
+    const literal: ts.Expression = LiteralFactory.generate(schema);
+    if (!props.expression.arguments?.[0]) return literal;
+    
     return ExpressionFactory.selfCall(
       ts.factory.createBlock(
         [
