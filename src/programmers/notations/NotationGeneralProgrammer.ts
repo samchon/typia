@@ -393,7 +393,7 @@ export namespace NotationGeneralProgrammer {
       tuple: MetadataTupleType,
       explore: FeatureProgrammer.IExplore,
     ): ts.Expression => {
-      const children: ts.Expression[] = tuple.elements
+      const elements: ts.Expression[] = tuple.elements
         .filter((m) => m.rest === null)
         .map((elem, index) =>
           decode(project)(config)(importer)(
@@ -428,7 +428,10 @@ export namespace NotationGeneralProgrammer {
           },
         );
       })();
-      return NotationJoiner.tuple(children, rest);
+      return NotationJoiner.tuple({
+        elements,
+        rest,
+      });
     };
 
   /* -----------------------------------------------------------

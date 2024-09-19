@@ -11,28 +11,31 @@ import { check_everything } from "./check_everything";
  * @internal
  */
 export const check_object =
-  (props: check_object.IProps) =>
+  (config: check_object.IProps) =>
   (project: ITypiaContext) =>
   (importer: FunctionImporter) =>
-  (input: ts.Expression, entries: IExpressionEntry<ts.Expression>[]) => {
+  (props: {
+    input: ts.Expression;
+    entries: IExpressionEntry<ts.Expression>[];
+  }) => {
     // PREPARE ASSETS
-    const regular = entries.filter((entry) => entry.key.isSoleLiteral());
-    const dynamic = entries.filter((entry) => !entry.key.isSoleLiteral());
+    const regular = props.entries.filter((entry) => entry.key.isSoleLiteral());
+    const dynamic = props.entries.filter((entry) => !entry.key.isSoleLiteral());
     const flags: ts.Expression[] = regular.map((entry) => entry.expression);
 
     // REGULAR WITHOUT DYNAMIC PROPERTIES
-    if (props.equals === false && dynamic.length === 0)
-      return regular.length === 0 ? props.positive : reduce(props)(flags);
+    if (config.equals === false && dynamic.length === 0)
+      return regular.length === 0 ? config.positive : reduce(config)(flags);
 
     // CHECK DYNAMIC PROPERTIES
     flags.push(
-      check_dynamic_properties(props)(project)(importer)(
-        input,
+      check_dynamic_properties(config)(project)(importer)(
+        props.input,
         regular,
         dynamic,
       ),
     );
-    return reduce(props)(flags);
+    return reduce(config)(flags);
   };
 
 /**

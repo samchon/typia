@@ -2,20 +2,20 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 
 export namespace HttpMetadataUtil {
   export const atomics = (
-    meta: Metadata,
+    metadata: Metadata,
   ): Set<"boolean" | "bigint" | "number" | "string"> =>
     new Set([
-      ...meta.atomics.map((a) => a.type),
-      ...meta.constants.map((c) => c.type),
-      ...(meta.templates.length ? (["string"] as const) : []),
+      ...metadata.atomics.map((a) => a.type),
+      ...metadata.constants.map((c) => c.type),
+      ...(metadata.templates.length ? (["string"] as const) : []),
     ]);
 
-  export const isUnion = (meta: Metadata): boolean =>
-    atomics(meta).size +
-      meta.arrays.length +
-      meta.tuples.length +
-      meta.natives.length +
-      meta.maps.length +
-      meta.objects.length >
+  export const isUnion = (metadata: Metadata): boolean =>
+    atomics(metadata).size +
+      metadata.arrays.length +
+      metadata.tuples.length +
+      metadata.natives.length +
+      metadata.maps.length +
+      metadata.objects.length >
     1;
 }

@@ -309,11 +309,11 @@ export namespace AssertProgrammer {
     (project: ITypiaContext) =>
     (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
       object: assert_object(equals)(project)(importer),
-      array: (input, arrow) =>
+      array: (props) =>
         ts.factory.createCallExpression(
-          IdentifierFactory.access(input)("every"),
+          IdentifierFactory.access(props.input)("every"),
           undefined,
-          [arrow],
+          [props.arrow],
         ),
       failure: (value, expected, explore) =>
         create_guard_call(importer)(

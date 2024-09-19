@@ -43,7 +43,12 @@ export namespace JsonApplicationProgrammer {
   const v30 = (metadatas: Array<Metadata>): IJsonApplication<"3.0"> => {
     const components: OpenApiV3.IComponents = {};
     const generator = (meta: Metadata): OpenApiV3.IJsonSchema | null =>
-      application_v30_schema(true)(components)({})(meta);
+      application_v30_schema({
+        blockNever: true,
+        components,
+        attribute: {},
+        metadata: meta,
+      });
     return {
       version: "3.0",
       components,
@@ -64,7 +69,12 @@ export namespace JsonApplicationProgrammer {
       schemas: {},
     };
     const generator = (meta: Metadata): OpenApi.IJsonSchema | null =>
-      application_v31_schema(true)(components)({})(meta);
+      application_v31_schema({
+        blockNever: true,
+        components,
+        attribute: {},
+        metadata: meta,
+      });
     return {
       version: "3.1",
       components,
