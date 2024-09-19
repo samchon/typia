@@ -28,3 +28,25 @@ updates:
           - "ts-node"
           - "ts-patch"
           - "typescript"
+  - package-ecosystem: "npm"
+    directory: "/website"
+    schedule:
+      interval: "daily"
+    versioning-strategy: increase
+    open-pull-requests-limit: 25
+    allow:
+      - dependency-name: "@samchon/openapi"
+      - dependency-name: "typia"
+      - dependency-name: "ts-patch"
+      - dependency-name: "typescript"
+      - dependency-name: "typedoc"
+    groups:
+      Samchon:
+        patterns:
+          - "@samchon/openapi"
+          - "typia"
+      Ecosystem:
+        patterns:
+          - "ts-patch"
+          - "typescript"
+          - "typedoc"
