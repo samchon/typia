@@ -39,6 +39,7 @@ updates:
       - dependency-name: "typia"
       - dependency-name: "ts-patch"
       - dependency-name: "typescript"
+      - dependency-name: "typedoc"
     groups:
       Samchon:
         patterns:
@@ -48,3 +49,4 @@ updates:
         patterns:
           - "ts-patch"
           - "typescript"
+          - "typedoc"
