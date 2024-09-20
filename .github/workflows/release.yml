@@ -23,7 +23,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
       - name: Website Setup
         working-directory: website
-        run: npm install && npm install typia@latest && npm run build
+        run: npm install && npm run build
       - name: Website Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:

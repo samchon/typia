@@ -81,7 +81,7 @@ export namespace RandomRanger {
       //----
       // INT
       const integer = (value: number) => value === Math.floor(value);
-      if (config.type === "int") {
+      if (config.type === "int" || config.type === "uint") {
         if (range.minimum.value !== undefined) {
           if (range.minimum.exclusive) {
             range.minimum.exclusive = false;
