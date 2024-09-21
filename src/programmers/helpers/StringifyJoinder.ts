@@ -9,52 +9,54 @@ import { FunctionImporter } from "./FunctionImporter";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
-  export const object =
-    (importer: FunctionImporter) =>
-    (props: { entries: IExpressionEntry<ts.Expression>[] }): ts.Expression => {
-      // CHECK AND SORT ENTRIES
-      if (props.entries.length === 0)
-        return ts.factory.createStringLiteral("{}");
+  export const object = (props: {
+    importer: FunctionImporter;
+    entries: IExpressionEntry<ts.Expression>[];
+  }): ts.Expression => {
+    // CHECK AND SORT ENTRIES
+    if (props.entries.length === 0) return ts.factory.createStringLiteral("{}");
 
-      // PROPERTIES
-      const regular: IExpressionEntry<ts.Expression>[] = props.entries.filter(
-        (entry) => entry.key.isSoleLiteral(),
-      );
-      const dynamic: IExpressionEntry<ts.Expression>[] = props.entries.filter(
-        (entry) => !entry.key.isSoleLiteral(),
-      );
-      const expressions: ts.Expression[] = [
-        ...stringify_regular_properties(regular, dynamic),
-        ...(dynamic.length
-          ? [
-              stringify_dynamic_properties(
-                dynamic,
-                regular.map((r) => r.key.getSoleLiteral()!),
-              ),
-            ]
-          : []),
-      ];
+    // PROPERTIES
+    const regular: IExpressionEntry<ts.Expression>[] = props.entries.filter(
+      (entry) => entry.key.isSoleLiteral(),
+    );
+    const dynamic: IExpressionEntry<ts.Expression>[] = props.entries.filter(
+      (entry) => !entry.key.isSoleLiteral(),
+    );
+    const expressions: ts.Expression[] = [
+      ...stringify_regular_properties(regular, dynamic),
+      ...(dynamic.length
+        ? [
+            stringify_dynamic_properties(
+              dynamic,
+              regular.map((r) => r.key.getSoleLiteral()!),
+            ),
+          ]
+        : []),
+    ];
 
-      // POP LAST COMMA, IF REQUIRED
-      const filtered: ts.Expression[] =
-        (regular.length &&
-          regular[regular.length - 1]!.meta.isRequired() &&
-          dynamic.length === 0) ||
-        (regular.length === 0 && dynamic.length)
-          ? expressions
-          : [
-              ts.factory.createCallExpression(importer.use("tail"), undefined, [
-                TemplateFactory.generate(expressions),
-              ]),
-            ];
+    // POP LAST COMMA, IF REQUIRED
+    const filtered: ts.Expression[] =
+      (regular.length &&
+        regular[regular.length - 1]!.meta.isRequired() &&
+        dynamic.length === 0) ||
+      (regular.length === 0 && dynamic.length)
+        ? expressions
+        : [
+            ts.factory.createCallExpression(
+              props.importer.use("tail"),
+              undefined,
+              [TemplateFactory.generate(expressions)],
+            ),
+          ];
 
-      // RETURNS WITH OBJECT BRACKET
-      return TemplateFactory.generate([
-        ts.factory.createStringLiteral(`{`),
-        ...filtered,
-        ts.factory.createStringLiteral(`}`),
-      ]);
-    };
+    // RETURNS WITH OBJECT BRACKET
+    return TemplateFactory.generate([
+      ts.factory.createStringLiteral(`{`),
+      ...filtered,
+      ts.factory.createStringLiteral(`}`),
+    ]);
+  };
 
   export const array = (props: {
     input: ts.Expression;
