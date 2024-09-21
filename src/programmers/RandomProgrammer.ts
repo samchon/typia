@@ -75,18 +75,18 @@ export namespace RandomProgrammer {
 
     // GENERATE FUNCTION
     const functions: Record<string, ts.VariableStatement> = Object.fromEntries([
-      ...write_object_functions(props.importer)(collection).map((v, i) => [
-        Prefix.object(i),
-        v,
-      ]),
-      ...write_array_functions(props.importer)(collection).map((v, i) => [
-        Prefix.array(i),
-        v,
-      ]),
-      ...write_tuple_functions(props.importer)(collection).map((v, i) => [
-        Prefix.tuple(i),
-        v,
-      ]),
+      ...write_object_functions({
+        importer: props.importer,
+        collection,
+      }).map((v, i) => [Prefix.object(i), v]),
+      ...write_array_functions({
+        importer: props.importer,
+        collection,
+      }).map((v, i) => [Prefix.array(i), v]),
+      ...write_tuple_functions({
+        importer: props.importer,
+        collection,
+      }).map((v, i) => [Prefix.tuple(i), v]),
     ]);
     const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
       undefined,
@@ -123,10 +123,14 @@ export namespace RandomProgrammer {
             ),
           ),
           ts.factory.createReturnStatement(
-            decode(props.importer)({
-              function: false,
-              recursive: false,
-            })(result.data),
+            decode({
+              importer: props.importer,
+              explore: {
+                function: false,
+                recursive: false,
+              },
+              metadata: result.data,
+            }),
           ),
         ],
         true,
@@ -154,20 +158,73 @@ export namespace RandomProgrammer {
     });
   };
 
-  const write_object_functions =
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection): ts.VariableStatement[] =>
-      collection.objects().map((obj, i) =>
+  const write_object_functions = (props: {
+    importer: FunctionImporter;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    props.collection.objects().map((obj, i) =>
+      StatementFactory.constant(
+        Prefix.object(i),
+        ts.factory.createArrowFunction(
+          undefined,
+          undefined,
+          [
+            IdentifierFactory.parameter(
+              "_recursive",
+              TypeFactory.keyword("boolean"),
+              ts.factory.createIdentifier(String(obj.recursive)),
+            ),
+            IdentifierFactory.parameter(
+              "_depth",
+              TypeFactory.keyword("number"),
+              ExpressionFactory.number(0),
+            ),
+          ],
+          TypeFactory.keyword("any"),
+          undefined,
+          RandomJoiner.object({
+            coalesce: coalesce(props.importer),
+            decode: (metadata) =>
+              decode({
+                importer: props.importer,
+                explore: {
+                  recursive: obj.recursive,
+                  function: true,
+                },
+                metadata,
+              }),
+            object: obj,
+          }),
+        ),
+      ),
+    );
+
+  const write_array_functions = (props: {
+    importer: FunctionImporter;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    props.collection
+      .arrays()
+      .filter((a) => a.recursive)
+      .map((array, i) =>
         StatementFactory.constant(
-          Prefix.object(i),
+          Prefix.array(i),
           ts.factory.createArrowFunction(
             undefined,
             undefined,
             [
               IdentifierFactory.parameter(
+                "length",
+                TypeFactory.keyword("number"),
+              ),
+              IdentifierFactory.parameter(
+                "unique",
+                TypeFactory.keyword("boolean"),
+              ),
+              IdentifierFactory.parameter(
                 "_recursive",
                 TypeFactory.keyword("boolean"),
-                ts.factory.createIdentifier(String(obj.recursive)),
+                ts.factory.createTrue(),
               ),
               IdentifierFactory.parameter(
                 "_depth",
@@ -177,178 +234,208 @@ export namespace RandomProgrammer {
             ],
             TypeFactory.keyword("any"),
             undefined,
-            RandomJoiner.object(COALESCE(importer))(
-              decode(importer)({
-                recursive: obj.recursive,
+            RandomJoiner.array({
+              coalesce: coalesce(props.importer),
+              decode: (metadata) =>
+                decode({
+                  importer: props.importer,
+                  explore: {
+                    recursive: true,
+                    function: true,
+                  },
+                  metadata,
+                }),
+              explore: {
+                recursive: true,
                 function: true,
-              }),
-            )(obj),
+              },
+              length: ts.factory.createIdentifier("length"),
+              unique: ts.factory.createIdentifier("unique"),
+              metadata: array.value,
+            }),
           ),
         ),
       );
 
-  const write_array_functions =
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection): ts.VariableStatement[] =>
-      collection
-        .arrays()
-        .filter((a) => a.recursive)
-        .map((array, i) =>
-          StatementFactory.constant(
-            Prefix.array(i),
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              [
-                IdentifierFactory.parameter(
-                  "length",
-                  TypeFactory.keyword("number"),
-                ),
-                IdentifierFactory.parameter(
-                  "unique",
-                  TypeFactory.keyword("boolean"),
-                ),
-                IdentifierFactory.parameter(
-                  "_recursive",
-                  TypeFactory.keyword("boolean"),
-                  ts.factory.createTrue(),
-                ),
-                IdentifierFactory.parameter(
-                  "_depth",
-                  TypeFactory.keyword("number"),
-                  ExpressionFactory.number(0),
-                ),
-              ],
-              TypeFactory.keyword("any"),
-              undefined,
-              RandomJoiner.array(COALESCE(importer))(
-                decode(importer)({
-                  recursive: true,
-                  function: true,
+  const write_tuple_functions = (props: {
+    importer: FunctionImporter;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    props.collection
+      .tuples()
+      .filter((a) => a.recursive)
+      .map((tuple, i) =>
+        StatementFactory.constant(
+          Prefix.tuple(i),
+          ts.factory.createArrowFunction(
+            undefined,
+            undefined,
+            [
+              IdentifierFactory.parameter(
+                "_recursive",
+                TypeFactory.keyword("boolean"),
+                ts.factory.createTrue(),
+              ),
+              IdentifierFactory.parameter(
+                "_depth",
+                TypeFactory.keyword("number"),
+                ExpressionFactory.number(0),
+              ),
+            ],
+            TypeFactory.keyword("any"),
+            undefined,
+            RandomJoiner.tuple({
+              decode: (metadata) =>
+                decode({
+                  importer: props.importer,
+                  explore: {
+                    function: true,
+                    recursive: true,
+                  },
+                  metadata,
                 }),
-              )({
-                recursive: true,
-                function: true,
-              })(
-                ts.factory.createIdentifier("length"),
-                ts.factory.createIdentifier("unique"),
-              )(array.value),
-            ),
+              elements: tuple.elements,
+            }),
           ),
-        );
-
-  const write_tuple_functions =
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection): ts.VariableStatement[] =>
-      collection
-        .tuples()
-        .filter((a) => a.recursive)
-        .map((tuple, i) =>
-          StatementFactory.constant(
-            Prefix.tuple(i),
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              [
-                IdentifierFactory.parameter(
-                  "_recursive",
-                  TypeFactory.keyword("boolean"),
-                  ts.factory.createTrue(),
-                ),
-                IdentifierFactory.parameter(
-                  "_depth",
-                  TypeFactory.keyword("number"),
-                  ExpressionFactory.number(0),
-                ),
-              ],
-              TypeFactory.keyword("any"),
-              undefined,
-              RandomJoiner.tuple(
-                decode(importer)({
-                  function: true,
-                  recursive: true,
-                }),
-              )(tuple.elements),
-            ),
-          ),
-        );
+        ),
+      );
 
   /* -----------------------------------------------------------
     DECODERS
   ----------------------------------------------------------- */
-  const decode =
-    (importer: FunctionImporter) =>
-    (explore: IExplore) =>
-    (meta: Metadata): ts.Expression => {
-      const expressions: ts.Expression[] = [];
-      if (meta.any)
-        expressions.push(ts.factory.createStringLiteral("any type used..."));
+  const decode = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    metadata: Metadata;
+  }): ts.Expression => {
+    const expressions: ts.Expression[] = [];
+    if (props.metadata.any === true)
+      expressions.push(ts.factory.createStringLiteral("any type used..."));
 
-      // NULL COALESCING
-      if (meta.isRequired() === false || meta.functions.length)
-        expressions.push(ts.factory.createIdentifier("undefined"));
-      if (meta.nullable === true) expressions.push(ts.factory.createNull());
+    // NULL COALESCING
+    if (
+      props.metadata.isRequired() === false ||
+      props.metadata.functions.length !== 0
+    )
+      expressions.push(ts.factory.createIdentifier("undefined"));
+    if (props.metadata.nullable === true)
+      expressions.push(ts.factory.createNull());
 
-      // CONSTANT TYPES
-      for (const constant of meta.constants)
-        for (const { value } of constant.values)
-          expressions.push(decode_atomic(value));
+    // CONSTANT TYPES
+    for (const constant of props.metadata.constants)
+      for (const { value } of constant.values)
+        expressions.push(decode_atomic(value));
 
-      // ATOMIC VARIABLES
-      for (const template of meta.templates)
-        expressions.push(decode_template(importer)(explore)(template));
-      for (const atomic of meta.atomics)
-        if (atomic.type === "boolean")
-          expressions.push(decode_boolean(importer));
-        else if (atomic.type === "number")
-          expressions.push(...decode_number(importer)(atomic));
-        else if (atomic.type === "string")
-          expressions.push(...decode_string(importer)(atomic));
-        else if (atomic.type === "bigint")
-          expressions.push(...decode_bigint(importer)(atomic));
-
-      // INSTANCE TYPES
-      if (meta.escaped)
-        expressions.push(decode(importer)(explore)(meta.escaped.returns));
-      for (const array of meta.arrays)
-        expressions.push(...decode_array(importer)(explore)(array));
-      for (const tuple of meta.tuples)
-        expressions.push(decode_tuple(importer)(explore)(tuple));
-      for (const o of meta.objects)
-        expressions.push(decode_object(importer)(explore)(o));
-      for (const native of meta.natives)
-        expressions.push(decode_native(importer)(native));
-      for (const set of meta.sets)
-        expressions.push(decode_set(importer)(explore)(set));
-      for (const map of meta.maps)
-        expressions.push(decode_map(importer)(explore)(map));
-
-      // PICK UP A TYPE
-      if (expressions.length === 1) return expressions[0]!;
-      return ts.factory.createCallExpression(
-        ts.factory.createCallExpression(importer.use("pick"), undefined, [
-          ts.factory.createArrayLiteralExpression(
-            expressions.map((expr) =>
-              ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                [],
-                undefined,
-                undefined,
-                expr,
-              ),
-            ),
-            true,
-          ),
-        ]),
-        undefined,
-        undefined,
+    // ATOMIC VARIABLES
+    for (const template of props.metadata.templates)
+      expressions.push(
+        decode_template({
+          ...props,
+          template,
+        }),
       );
-    };
+    for (const atomic of props.metadata.atomics)
+      if (atomic.type === "boolean")
+        expressions.push(decode_boolean(props.importer));
+      else if (atomic.type === "number")
+        expressions.push(
+          ...decode_number({
+            importer: props.importer,
+            atomic,
+          }),
+        );
+      else if (atomic.type === "string")
+        expressions.push(
+          ...decode_string({
+            importer: props.importer,
+            atomic,
+          }),
+        );
+      else if (atomic.type === "bigint")
+        expressions.push(
+          ...decode_bigint({
+            importer: props.importer,
+            atomic,
+          }),
+        );
+
+    // INSTANCE TYPES
+    if (props.metadata.escaped)
+      expressions.push(
+        decode({
+          ...props,
+          metadata: props.metadata.escaped.returns,
+        }),
+      );
+    for (const array of props.metadata.arrays)
+      expressions.push(
+        ...decode_array({
+          ...props,
+          array,
+        }),
+      );
+    for (const tuple of props.metadata.tuples)
+      expressions.push(
+        decode_tuple({
+          ...props,
+          tuple,
+        }),
+      );
+    for (const object of props.metadata.objects)
+      expressions.push(
+        decode_object({
+          ...props,
+          object,
+        }),
+      );
+    for (const name of props.metadata.natives)
+      expressions.push(
+        decode_native({
+          importer: props.importer,
+          name,
+        }),
+      );
+    for (const metadata of props.metadata.sets)
+      expressions.push(
+        decode_set({
+          ...props,
+          metadata,
+        }),
+      );
+    for (const entry of props.metadata.maps)
+      expressions.push(
+        decode_map({
+          ...props,
+          entry,
+        }),
+      );
+
+    // PICK UP A TYPE
+    if (expressions.length === 1) return expressions[0]!;
+    return ts.factory.createCallExpression(
+      ts.factory.createCallExpression(props.importer.use("pick"), undefined, [
+        ts.factory.createArrayLiteralExpression(
+          expressions.map((expr) =>
+            ts.factory.createArrowFunction(
+              undefined,
+              undefined,
+              [],
+              undefined,
+              undefined,
+              expr,
+            ),
+          ),
+          true,
+        ),
+      ]),
+      undefined,
+      undefined,
+    );
+  };
 
   const decode_boolean = (importer: FunctionImporter) =>
     ts.factory.createCallExpression(
-      COALESCE(importer)("boolean"),
+      coalesce(importer)("boolean"),
       undefined,
       undefined,
     );
@@ -362,57 +449,70 @@ export namespace RandomProgrammer {
           ? ts.factory.createStringLiteral(value)
           : ExpressionFactory.bigint(Number(value));
 
-  const decode_template =
-    (importer: FunctionImporter) =>
-    (explore: IExplore) =>
-    (template: MetadataTemplate) =>
-      TemplateFactory.generate(
-        template.row.map((meta) => decode(importer)(explore)(meta)),
-      );
+  const decode_template = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    template: MetadataTemplate;
+  }) =>
+    TemplateFactory.generate(
+      props.template.row.map((metadata) =>
+        decode({
+          ...props,
+          metadata,
+        }),
+      ),
+    );
 
-  const decode_number =
-    (importer: FunctionImporter) =>
-    (atomic: MetadataAtomic): ts.Expression[] =>
-      (atomic.tags.length ? atomic.tags : [[]]).map((tags) => {
-        const type = tags.find(
-          (t) =>
-            t.kind === "type" && (t.value === "int32" || t.value === "int64"),
-        )
-          ? "int"
-          : tags.find(
-                (t) =>
-                  t.kind === "type" &&
-                  (t.value === "uint32" || t.value === "uint64"),
-              )
-            ? "uint"
-            : "double";
-        const multiply = tags.find((t) => t.kind === "multipleOf");
-        return random_custom(COALESCE(importer))("number")(tags)(
-          RandomRanger.number({
+  const decode_number = (props: {
+    importer: FunctionImporter;
+    atomic: MetadataAtomic;
+  }): ts.Expression[] =>
+    (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) => {
+      const type = tags.find(
+        (t) =>
+          t.kind === "type" && (t.value === "int32" || t.value === "int64"),
+      )
+        ? "int"
+        : tags.find(
+              (t) =>
+                t.kind === "type" &&
+                (t.value === "uint32" || t.value === "uint64"),
+            )
+          ? "uint"
+          : "double";
+      const multiply = tags.find((t) => t.kind === "multipleOf");
+      return random_custom(coalesce(props.importer))("number")(tags)(
+        RandomRanger.number({
+          config: {
             type,
             transform: (value) => ExpressionFactory.number(value),
             setter: (args) =>
               ts.factory.createCallExpression(
                 type !== "double" || multiply !== undefined
-                  ? COALESCE(importer)("integer")
-                  : COALESCE(importer)("number"),
+                  ? coalesce(props.importer)("integer")
+                  : coalesce(props.importer)("number"),
                 undefined,
                 args.map((val) => ExpressionFactory.number(val)),
               ),
-          })({
+          },
+          defaults: {
             minimum: 0,
             maximum: 100,
             gap: 10,
-          })(tags),
-        );
-      });
+          },
+          tags,
+        }),
+      );
+    });
 
-  const decode_bigint =
-    (importer: FunctionImporter) =>
-    (atomic: MetadataAtomic): ts.Expression[] =>
-      (atomic.tags.length ? atomic.tags : [[]]).map((tags) =>
-        random_custom(COALESCE(importer))("bigint")(tags)(
-          RandomRanger.number({
+  const decode_bigint = (props: {
+    importer: FunctionImporter;
+    atomic: MetadataAtomic;
+  }): ts.Expression[] =>
+    (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) =>
+      random_custom(coalesce(props.importer))("bigint")(tags)(
+        RandomRanger.number({
+          config: {
             type: tags.find(
               (t) =>
                 t.kind === "type" &&
@@ -423,74 +523,88 @@ export namespace RandomProgrammer {
             transform: (value) => ExpressionFactory.bigint(value),
             setter: (args) =>
               ts.factory.createCallExpression(
-                COALESCE(importer)("bigint"),
+                coalesce(props.importer)("bigint"),
                 undefined,
                 args.map((value) => ExpressionFactory.bigint(value)),
               ),
-          })({
+          },
+          defaults: {
             minimum: 0,
             maximum: 100,
             gap: 10,
-          })(tags),
-        ),
-      );
+          },
+          tags,
+        }),
+      ),
+    );
 
-  const decode_string =
-    (importer: FunctionImporter) =>
-    (atomic: MetadataAtomic): ts.Expression[] =>
-      (atomic.tags.length ? atomic.tags : [[]]).map((tags) =>
-        random_custom(COALESCE(importer))("string")(tags)(
-          (() => {
-            for (const t of tags)
-              if (t.kind === "format")
-                return ts.factory.createCallExpression(
-                  COALESCE(importer)(emendFormat(t.value)),
-                  undefined,
-                  undefined,
-                );
-              else if (t.kind === "pattern")
-                return ts.factory.createCallExpression(
-                  COALESCE(importer)("pattern"),
-                  undefined,
-                  [
-                    ts.factory.createIdentifier(
-                      `RegExp(${JSON.stringify(t.value)})`,
-                    ),
-                  ],
-                );
+  const decode_string = (props: {
+    importer: FunctionImporter;
+    atomic: MetadataAtomic;
+  }): ts.Expression[] =>
+    (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) =>
+      random_custom(coalesce(props.importer))("string")(tags)(
+        (() => {
+          for (const t of tags)
+            if (t.kind === "format")
+              return ts.factory.createCallExpression(
+                coalesce(props.importer)(emendFormat(t.value)),
+                undefined,
+                undefined,
+              );
+            else if (t.kind === "pattern")
+              return ts.factory.createCallExpression(
+                coalesce(props.importer)("pattern"),
+                undefined,
+                [
+                  ts.factory.createIdentifier(
+                    `RegExp(${JSON.stringify(t.value)})`,
+                  ),
+                ],
+              );
 
-            const tail = RandomRanger.length(COALESCE(importer))({
+          const tail = RandomRanger.length({
+            coalesce: coalesce(props.importer),
+            defaults: {
               minimum: 5,
               maximum: 25,
               gap: 5,
-            })({
+            },
+            accessors: {
               minimum: "minLength",
               maximum: "maxLength",
-            })(tags);
-            return ts.factory.createCallExpression(
-              COALESCE(importer)("string"),
-              undefined,
-              tail ? [tail] : undefined,
-            );
-          })(),
-        ),
-      );
+            },
+            tags,
+          });
+          return ts.factory.createCallExpression(
+            coalesce(props.importer)("string"),
+            undefined,
+            tail ? [tail] : undefined,
+          );
+        })(),
+      ),
+    );
 
-  const decode_array =
-    (importer: FunctionImporter) =>
-    (explore: IExplore) =>
-    (array: MetadataArray): ts.Expression[] => {
-      const fixed: Array<
-        [ts.Expression | undefined, ts.Expression | undefined]
-      > = (array.tags.length ? array.tags : [[]]).map((tags) => [
-        RandomRanger.length(COALESCE(importer))({
-          minimum: 0,
-          maximum: 3,
-          gap: 3,
-        })({
-          minimum: "minItems",
-          maximum: "maxItems",
-        })(tags),
+  const decode_array = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    array: MetadataArray;
+  }): ts.Expression[] => {
+    const fixed: Array<[ts.Expression | undefined, ts.Expression | undefined]> =
+      (props.array.tags.length ? props.array.tags : [[]]).map((tags) => [
+        RandomRanger.length({
+          coalesce: coalesce(props.importer),
+          defaults: {
+            minimum: 0,
+            maximum: 3,
+            gap: 3,
+          },
+          accessors: {
+            minimum: "minItems",
+            maximum: "maxItems",
+          },
+          tags,
+        }),
         (() => {
           const uniqueItems = tags.find((t) => t.kind === "uniqueItems");
           return uniqueItems === undefined
@@ -500,212 +614,243 @@ export namespace RandomProgrammer {
               : ts.factory.createTrue();
         })(),
       ]);
-      if (array.type.recursive)
-        return fixed.map(([len, unique]) =>
-          ts.factory.createCallExpression(
-            ts.factory.createIdentifier(
-              importer.useLocal(Prefix.array(array.type.index!)),
-            ),
-            undefined,
-            [
-              len ?? COALESCE(importer)("length"),
-              unique ?? ts.factory.createFalse(),
-              ts.factory.createTrue(),
-              explore.recursive
-                ? ts.factory.createAdd(
-                    ExpressionFactory.number(1),
-                    ts.factory.createIdentifier("_depth"),
-                  )
-                : ExpressionFactory.number(0),
-            ],
+    if (props.array.type.recursive)
+      return fixed.map(([len, unique]) =>
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier(
+            props.importer.useLocal(Prefix.array(props.array.type.index!)),
           ),
-        );
-      return fixed.map(([len, unique]) => {
-        const expr: ts.Expression = RandomJoiner.array(COALESCE(importer))(
-          decode(importer)(explore),
-        )(explore)(
-          len,
-          unique,
-        )(array.type.value);
-        return explore.recursive
-          ? ts.factory.createConditionalExpression(
-              ts.factory.createLogicalAnd(
-                ts.factory.createIdentifier("_recursive"),
-                ts.factory.createLessThan(
-                  ExpressionFactory.number(5),
-                  ts.factory.createIdentifier("_depth"),
-                ),
-              ),
-              undefined,
-              ts.factory.createIdentifier("[]"),
-              undefined,
-              expr,
-            )
-          : expr;
-      });
-    };
-
-  const decode_tuple =
-    (importer: FunctionImporter) =>
-    (explore: IExplore) =>
-    (tuple: MetadataTuple): ts.Expression =>
-      tuple.type.recursive
-        ? ts.factory.createCallExpression(
-            ts.factory.createIdentifier(
-              importer.useLocal(Prefix.tuple(tuple.type.index!)),
-            ),
-            undefined,
-            [
-              ts.factory.createTrue(),
-              explore.recursive
-                ? ts.factory.createAdd(
-                    ExpressionFactory.number(1),
-                    ts.factory.createIdentifier("_depth"),
-                  )
-                : ExpressionFactory.number(0),
-            ],
-          )
-        : RandomJoiner.tuple(decode(importer)(explore))(tuple.type.elements);
-
-  const decode_object =
-    (importer: FunctionImporter) =>
-    (explore: IExplore) =>
-    (object: MetadataObject) =>
-      ts.factory.createCallExpression(
-        ts.factory.createIdentifier(
-          importer.useLocal(Prefix.object(object.index)),
-        ),
-        undefined,
-        explore.function
-          ? [
-              explore.recursive
-                ? ts.factory.createTrue()
-                : ts.factory.createIdentifier("_recursive"),
-              ts.factory.createConditionalExpression(
-                ts.factory.createIdentifier("_recursive"),
-                undefined,
-                ts.factory.createAdd(
+          undefined,
+          [
+            len ?? coalesce(props.importer)("length"),
+            unique ?? ts.factory.createFalse(),
+            ts.factory.createTrue(),
+            props.explore.recursive
+              ? ts.factory.createAdd(
                   ExpressionFactory.number(1),
                   ts.factory.createIdentifier("_depth"),
-                ),
-                undefined,
+                )
+              : ExpressionFactory.number(0),
+          ],
+        ),
+      );
+    return fixed.map(([len, unique]) => {
+      const expr: ts.Expression = RandomJoiner.array({
+        coalesce: coalesce(props.importer),
+        decode: (metadata) =>
+          decode({
+            ...props,
+            metadata,
+          }),
+        explore: props.explore,
+        length: len,
+        unique,
+        metadata: props.array.type.value,
+      });
+      return props.explore.recursive
+        ? ts.factory.createConditionalExpression(
+            ts.factory.createLogicalAnd(
+              ts.factory.createIdentifier("_recursive"),
+              ts.factory.createLessThan(
+                ExpressionFactory.number(5),
                 ts.factory.createIdentifier("_depth"),
               ),
-            ]
-          : undefined,
-      );
+            ),
+            undefined,
+            ts.factory.createIdentifier("[]"),
+            undefined,
+            expr,
+          )
+        : expr;
+    });
+  };
+
+  const decode_tuple = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    tuple: MetadataTuple;
+  }): ts.Expression =>
+    props.tuple.type.recursive
+      ? ts.factory.createCallExpression(
+          ts.factory.createIdentifier(
+            props.importer.useLocal(Prefix.tuple(props.tuple.type.index!)),
+          ),
+          undefined,
+          [
+            ts.factory.createTrue(),
+            props.explore.recursive
+              ? ts.factory.createAdd(
+                  ExpressionFactory.number(1),
+                  ts.factory.createIdentifier("_depth"),
+                )
+              : ExpressionFactory.number(0),
+          ],
+        )
+      : RandomJoiner.tuple({
+          decode: (metadata) =>
+            decode({
+              ...props,
+              metadata,
+            }),
+          elements: props.tuple.type.elements,
+        });
+
+  const decode_object = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    object: MetadataObject;
+  }) =>
+    ts.factory.createCallExpression(
+      ts.factory.createIdentifier(
+        props.importer.useLocal(Prefix.object(props.object.index)),
+      ),
+      undefined,
+      props.explore.function
+        ? [
+            props.explore.recursive
+              ? ts.factory.createTrue()
+              : ts.factory.createIdentifier("_recursive"),
+            ts.factory.createConditionalExpression(
+              ts.factory.createIdentifier("_recursive"),
+              undefined,
+              ts.factory.createAdd(
+                ExpressionFactory.number(1),
+                ts.factory.createIdentifier("_depth"),
+              ),
+              undefined,
+              ts.factory.createIdentifier("_depth"),
+            ),
+          ]
+        : undefined,
+    );
 
   /* -----------------------------------------------------------
     NATIVE CLASSES
   ----------------------------------------------------------- */
-  const decode_set =
-    (importer: FunctionImporter) => (explore: IExplore) => (meta: Metadata) =>
-      ts.factory.createNewExpression(
-        ts.factory.createIdentifier("Set"),
-        undefined,
-        [
-          decode_array(importer)(explore)(
-            MetadataArray.create({
-              tags: [],
-              type: MetadataArrayType.create({
-                value: meta,
-                recursive: false,
-                index: null,
-                nullables: [],
-                name: `Set<${meta.getName()}>`,
+  const decode_set = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    metadata: Metadata;
+  }) =>
+    ts.factory.createNewExpression(
+      ts.factory.createIdentifier("Set"),
+      undefined,
+      [
+        decode_array({
+          ...props,
+          array: MetadataArray.create({
+            tags: [],
+            type: MetadataArrayType.create({
+              value: props.metadata,
+              recursive: false,
+              index: null,
+              nullables: [],
+              name: `Set<${props.metadata.getName()}>`,
+            }),
+          }),
+        })[0]!,
+      ],
+    );
+
+  const decode_map = (props: {
+    importer: FunctionImporter;
+    explore: IExplore;
+    entry: Metadata.Entry;
+  }) =>
+    ts.factory.createNewExpression(
+      ts.factory.createIdentifier("Map"),
+      undefined,
+      [
+        decode_array({
+          ...props,
+          array: MetadataArray.create({
+            tags: [],
+            type: MetadataArrayType.create({
+              name: `Map<${props.entry.key.getName()}, ${props.entry.value.getName()}>`,
+              index: null,
+              recursive: false,
+              nullables: [],
+              value: Metadata.create({
+                ...Metadata.initialize(),
+                tuples: [
+                  (() => {
+                    const type = MetadataTupleType.create({
+                      name: `[${props.entry.key.getName()}, ${props.entry.value.getName()}]`,
+                      index: null,
+                      recursive: false,
+                      nullables: [],
+                      elements: [props.entry.key, props.entry.value],
+                    });
+                    type.of_map = true;
+                    return MetadataTuple.create({
+                      type,
+                      tags: [],
+                    });
+                  })(),
+                ],
               }),
             }),
-          )[0]!,
-        ],
-      );
+          }),
+        })[0]!,
+      ],
+    );
 
-  const decode_map =
-    (importer: FunctionImporter) =>
-    (explore: IExplore) =>
-    (map: Metadata.Entry) =>
-      ts.factory.createNewExpression(
-        ts.factory.createIdentifier("Map"),
+  const decode_native = (props: {
+    importer: FunctionImporter;
+    name: string;
+  }): ts.Expression => {
+    if (props.name === "Boolean") return decode_boolean(props.importer);
+    else if (props.name === "Number")
+      return decode_number({
+        importer: props.importer,
+        atomic: MetadataAtomic.create({
+          type: "number",
+          tags: [],
+        }),
+      })[0]!;
+    else if (props.name === "String")
+      return decode_string({
+        importer: props.importer,
+        atomic: MetadataAtomic.create({
+          type: "string",
+          tags: [],
+        }),
+      })[0]!;
+    else if (props.name === "Date") return decode_native_date(props.importer);
+    else if (
+      props.name === "Uint8Array" ||
+      props.name === "Uint8ClampedArray" ||
+      props.name === "Uint16Array" ||
+      props.name === "Uint32Array" ||
+      props.name === "BigUint64Array" ||
+      props.name === "Int8Array" ||
+      props.name === "Int16Array" ||
+      props.name === "Int32Array" ||
+      props.name === "BigInt64Array" ||
+      props.name === "Float32Array" ||
+      props.name === "Float64Array"
+    )
+      return decode_native_byte_array({
+        ...props,
+        name: props.name,
+      });
+    else if (props.name === "ArrayBuffer" || props.name === "SharedArrayBuffer")
+      return decode_native_array_buffer({
+        ...props,
+        name: props.name,
+      });
+    else if (props.name === "DataView")
+      return decode_native_data_view(props.importer);
+    else if (props.name === "Blob") return decode_native_blob(props.importer);
+    else if (props.name === "File") return decode_native_file(props.importer);
+    else if (props.name === "RegExp") return decode_regexp();
+    else
+      return ts.factory.createNewExpression(
+        ts.factory.createIdentifier(props.name),
         undefined,
-        [
-          decode_array(importer)(explore)(
-            MetadataArray.create({
-              tags: [],
-              type: MetadataArrayType.create({
-                name: `Map<${map.key.getName()}, ${map.value.getName()}>`,
-                index: null,
-                recursive: false,
-                nullables: [],
-                value: Metadata.create({
-                  ...Metadata.initialize(),
-                  tuples: [
-                    (() => {
-                      const type = MetadataTupleType.create({
-                        name: `[${map.key.getName()}, ${map.value.getName()}]`,
-                        index: null,
-                        recursive: false,
-                        nullables: [],
-                        elements: [map.key, map.value],
-                      });
-                      type.of_map = true;
-                      return MetadataTuple.create({
-                        type,
-                        tags: [],
-                      });
-                    })(),
-                  ],
-                }),
-              }),
-            }),
-          )[0]!,
-        ],
+        [],
       );
-
-  const decode_native =
-    (importer: FunctionImporter) =>
-    (type: string): ts.Expression => {
-      if (type === "Boolean") return decode_boolean(importer);
-      else if (type === "Number")
-        return decode_number(importer)(
-          MetadataAtomic.create({
-            type: "number",
-            tags: [],
-          }),
-        )[0]!;
-      else if (type === "String")
-        return decode_string(importer)(
-          MetadataAtomic.create({
-            type: "string",
-            tags: [],
-          }),
-        )[0]!;
-      else if (type === "Date") return decode_native_date(importer);
-      else if (
-        type === "Uint8Array" ||
-        type === "Uint8ClampedArray" ||
-        type === "Uint16Array" ||
-        type === "Uint32Array" ||
-        type === "BigUint64Array" ||
-        type === "Int8Array" ||
-        type === "Int16Array" ||
-        type === "Int32Array" ||
-        type === "BigInt64Array" ||
-        type === "Float32Array" ||
-        type === "Float64Array"
-      )
-        return decode_native_byte_array(importer)(type);
-      else if (type === "ArrayBuffer" || type === "SharedArrayBuffer")
-        return decode_native_array_buffer(importer)(type);
-      else if (type === "DataView") return decode_native_data_view(importer);
-      else if (type === "Blob") return decode_native_blob(importer);
-      else if (type === "File") return decode_native_file(importer);
-      else if (type === "RegExp") return decode_regexp();
-      else
-        return ts.factory.createNewExpression(
-          ts.factory.createIdentifier(type),
-          undefined,
-          [],
-        );
-    };
+  };
 
   const decode_native_date = (importer: FunctionImporter) =>
     ts.factory.createNewExpression(
@@ -713,80 +858,81 @@ export namespace RandomProgrammer {
       undefined,
       [
         ts.factory.createCallExpression(
-          COALESCE(importer)("datetime"),
+          coalesce(importer)("datetime"),
           undefined,
           [],
         ),
       ],
     );
 
-  const decode_native_byte_array =
-    (importer: FunctionImporter) =>
-    (
-      type:
-        | "Uint8Array"
-        | "Uint8ClampedArray"
-        | "Uint16Array"
-        | "Uint32Array"
-        | "BigUint64Array"
-        | "Int8Array"
-        | "Int16Array"
-        | "Int32Array"
-        | "BigInt64Array"
-        | "Float32Array"
-        | "Float64Array",
-    ): ts.Expression => {
-      new BigInt64Array();
-      const [minimum, maximum]: [number, number] = (() => {
-        if (type === "Uint8Array" || type === "Uint8ClampedArray")
-          return [0, 255];
-        else if (type === "Uint16Array") return [0, 65535];
-        else if (type === "Uint32Array") return [0, 4294967295];
-        else if (type === "BigUint64Array") return [0, 18446744073709551615];
-        else if (type === "Int8Array") return [-128, 127];
-        else if (type === "Int16Array") return [-32768, 32767];
-        else if (type === "Int32Array") return [-2147483648, 2147483647];
-        else if (type === "BigInt64Array")
-          return [-9223372036854775808, 9223372036854775807];
-        else if (type === "Float32Array")
-          return [-1.175494351e38, 3.4028235e38];
-        return [Number.MIN_VALUE, Number.MAX_VALUE];
-      })();
-      const literal =
-        type === "BigInt64Array" || type === "BigUint64Array"
-          ? ExpressionFactory.bigint
-          : ExpressionFactory.number;
-      return ts.factory.createNewExpression(
-        ts.factory.createIdentifier(type),
-        [],
-        [
-          ts.factory.createCallExpression(
-            COALESCE(importer)("array"),
-            undefined,
-            [
-              ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                [],
-                TypeFactory.keyword("any"),
-                undefined,
-                ts.factory.createCallExpression(
-                  COALESCE(importer)(
-                    type === "Float32Array" || type === "Float64Array"
-                      ? "number"
-                      : type === "BigInt64Array" || type === "BigUint64Array"
-                        ? "bigint"
-                        : "integer",
-                  ),
-                  undefined,
-                  [literal(minimum), literal(maximum)],
+  const decode_native_byte_array = (props: {
+    importer: FunctionImporter;
+    name:
+      | "Uint8Array"
+      | "Uint8ClampedArray"
+      | "Uint16Array"
+      | "Uint32Array"
+      | "BigUint64Array"
+      | "Int8Array"
+      | "Int16Array"
+      | "Int32Array"
+      | "BigInt64Array"
+      | "Float32Array"
+      | "Float64Array";
+  }): ts.Expression => {
+    new BigInt64Array();
+    const [minimum, maximum]: [number, number] = (() => {
+      if (props.name === "Uint8Array" || props.name === "Uint8ClampedArray")
+        return [0, 255];
+      else if (props.name === "Uint16Array") return [0, 65535];
+      else if (props.name === "Uint32Array") return [0, 4294967295];
+      else if (props.name === "BigUint64Array")
+        return [0, 18446744073709551615];
+      else if (props.name === "Int8Array") return [-128, 127];
+      else if (props.name === "Int16Array") return [-32768, 32767];
+      else if (props.name === "Int32Array") return [-2147483648, 2147483647];
+      else if (props.name === "BigInt64Array")
+        return [-9223372036854775808, 9223372036854775807];
+      else if (props.name === "Float32Array")
+        return [-1.175494351e38, 3.4028235e38];
+      return [Number.MIN_VALUE, Number.MAX_VALUE];
+    })();
+    const literal =
+      props.name === "BigInt64Array" || props.name === "BigUint64Array"
+        ? ExpressionFactory.bigint
+        : ExpressionFactory.number;
+    return ts.factory.createNewExpression(
+      ts.factory.createIdentifier(props.name),
+      [],
+      [
+        ts.factory.createCallExpression(
+          coalesce(props.importer)("array"),
+          undefined,
+          [
+            ts.factory.createArrowFunction(
+              undefined,
+              undefined,
+              [],
+              TypeFactory.keyword("any"),
+              undefined,
+              ts.factory.createCallExpression(
+                coalesce(props.importer)(
+                  props.name === "Float32Array" || props.name === "Float64Array"
+                    ? "number"
+                    : props.name === "BigInt64Array" ||
+                        props.name === "BigUint64Array"
+                      ? "bigint"
+                      : "integer",
                 ),
+                undefined,
+                [literal(minimum), literal(maximum)],
               ),
-            ],
-          ),
-        ],
-      );
-    };
+            ),
+          ],
+        ),
+      ],
+    );
+  };
 
   const decode_native_blob = (importer: FunctionImporter) =>
     ts.factory.createNewExpression(
@@ -794,7 +940,12 @@ export namespace RandomProgrammer {
       undefined,
       [
         ts.factory.createArrayLiteralExpression(
-          [decode_native_byte_array(importer)("Uint8Array")],
+          [
+            decode_native_byte_array({
+              importer,
+              name: "Uint8Array",
+            }),
+          ],
           true,
         ),
       ],
@@ -806,13 +957,18 @@ export namespace RandomProgrammer {
       undefined,
       [
         ts.factory.createArrayLiteralExpression(
-          [decode_native_byte_array(importer)("Uint8Array")],
+          [
+            decode_native_byte_array({
+              importer,
+              name: "Uint8Array",
+            }),
+          ],
           true,
         ),
         ts.factory.createTemplateExpression(ts.factory.createTemplateHead(""), [
           ts.factory.createTemplateSpan(
             ts.factory.createCallExpression(
-              COALESCE(importer)("string"),
+              coalesce(importer)("string"),
               undefined,
               [ts.factory.createNumericLiteral(8)],
             ),
@@ -820,7 +976,7 @@ export namespace RandomProgrammer {
           ),
           ts.factory.createTemplateSpan(
             ts.factory.createCallExpression(
-              COALESCE(importer)("string"),
+              coalesce(importer)("string"),
               undefined,
               [ts.factory.createNumericLiteral(3)],
             ),
@@ -830,80 +986,84 @@ export namespace RandomProgrammer {
       ],
     );
 
-  const decode_native_array_buffer =
-    (importer: FunctionImporter) =>
-    (type: "ArrayBuffer" | "SharedArrayBuffer"): ts.Expression =>
-      type === "ArrayBuffer"
-        ? IdentifierFactory.access(
-            decode_native_byte_array(importer)("Uint8Array"),
-          )("buffer")
-        : ExpressionFactory.selfCall(
-            ts.factory.createBlock(
-              [
-                StatementFactory.constant(
-                  "length",
-                  ts.factory.createCallExpression(
-                    COALESCE(importer)("integer"),
-                    undefined,
-                    [],
-                  ),
+  const decode_native_array_buffer = (props: {
+    importer: FunctionImporter;
+    name: "ArrayBuffer" | "SharedArrayBuffer";
+  }): ts.Expression =>
+    props.name === "ArrayBuffer"
+      ? IdentifierFactory.access(
+          decode_native_byte_array({
+            importer: props.importer,
+            name: "Uint8Array",
+          }),
+        )("buffer")
+      : ExpressionFactory.selfCall(
+          ts.factory.createBlock(
+            [
+              StatementFactory.constant(
+                "length",
+                ts.factory.createCallExpression(
+                  coalesce(props.importer)("integer"),
+                  undefined,
+                  [],
                 ),
-                StatementFactory.constant(
-                  "buffer",
-                  ts.factory.createNewExpression(
-                    ts.factory.createIdentifier("SharedArrayBuffer"),
-                    [],
-                    [ts.factory.createIdentifier("length")],
-                  ),
+              ),
+              StatementFactory.constant(
+                "buffer",
+                ts.factory.createNewExpression(
+                  ts.factory.createIdentifier("SharedArrayBuffer"),
+                  [],
+                  [ts.factory.createIdentifier("length")],
                 ),
-                StatementFactory.constant(
-                  "bytes",
-                  ts.factory.createNewExpression(
-                    ts.factory.createIdentifier("Uint8Array"),
-                    [],
-                    [ts.factory.createIdentifier("buffer")],
-                  ),
+              ),
+              StatementFactory.constant(
+                "bytes",
+                ts.factory.createNewExpression(
+                  ts.factory.createIdentifier("Uint8Array"),
+                  [],
+                  [ts.factory.createIdentifier("buffer")],
                 ),
-                ts.factory.createExpressionStatement(
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(
-                      ts.factory.createIdentifier("bytes"),
-                    )("set"),
-                    undefined,
-                    [
-                      ts.factory.createCallExpression(
-                        COALESCE(importer)("array"),
-                        undefined,
-                        [
-                          ts.factory.createArrowFunction(
+              ),
+              ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                  IdentifierFactory.access(
+                    ts.factory.createIdentifier("bytes"),
+                  )("set"),
+                  undefined,
+                  [
+                    ts.factory.createCallExpression(
+                      coalesce(props.importer)("array"),
+                      undefined,
+                      [
+                        ts.factory.createArrowFunction(
+                          undefined,
+                          undefined,
+                          [],
+                          TypeFactory.keyword("any"),
+                          undefined,
+                          ts.factory.createCallExpression(
+                            coalesce(props.importer)("integer"),
                             undefined,
-                            undefined,
-                            [],
-                            TypeFactory.keyword("any"),
-                            undefined,
-                            ts.factory.createCallExpression(
-                              COALESCE(importer)("integer"),
-                              undefined,
-                              [
-                                ExpressionFactory.number(0),
-                                ExpressionFactory.number(255),
-                              ],
-                            ),
+                            [
+                              ExpressionFactory.number(0),
+                              ExpressionFactory.number(255),
+                            ],
                           ),
-                          ts.factory.createIdentifier("length"),
-                        ],
-                      ),
-                      ExpressionFactory.number(0),
-                    ],
-                  ),
+                        ),
+                        ts.factory.createIdentifier("length"),
+                      ],
+                    ),
+                    ExpressionFactory.number(0),
+                  ],
                 ),
-                ts.factory.createReturnStatement(
-                  ts.factory.createIdentifier("buffer"),
-                ),
-              ],
-              true,
-            ),
-          );
+              ),
+              ts.factory.createReturnStatement(
+                ts.factory.createIdentifier("buffer"),
+              ),
+            ],
+            true,
+          ),
+        );
 
   const decode_native_data_view = (importer: FunctionImporter) =>
     ts.factory.createNewExpression(
@@ -911,7 +1071,10 @@ export namespace RandomProgrammer {
       [],
       [
         IdentifierFactory.access(
-          decode_native_byte_array(importer)("Uint8Array"),
+          decode_native_byte_array({
+            importer,
+            name: "Uint8Array",
+          }),
         )("buffer"),
       ],
     );
@@ -936,7 +1099,7 @@ const Prefix = {
   tuple: (i: number) => `$rt${i}`,
 };
 
-const COALESCE = (importer: FunctionImporter) => (name: string) =>
+const coalesce = (importer: FunctionImporter) => (name: string) =>
   ExpressionFactory.coalesce(
     Escaper.variable(name)
       ? ts.factory.createPropertyAccessChain(

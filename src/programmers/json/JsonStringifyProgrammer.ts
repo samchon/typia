@@ -174,17 +174,16 @@ export namespace JsonStringifyProgrammer {
           metadata,
           explore,
         )(
-          wrap_functional(
+          wrap_functional({
             input,
             metadata,
             explore,
-          )(
-            ts.factory.createCallExpression(
+            expression: ts.factory.createCallExpression(
               ts.factory.createIdentifier("JSON.stringify"),
               undefined,
               [input],
             ),
-          ),
+          }),
         );
 
       // ONLY NULL OR UNDEFINED
@@ -470,7 +469,12 @@ export namespace JsonStringifyProgrammer {
             [],
             undefined,
             undefined,
-            iterate(importer, input, unions, metadata.getName()),
+            iterate({
+              importer,
+              input,
+              unions,
+              expected: metadata.getName(),
+            }),
           ),
           undefined,
           undefined,
@@ -709,7 +713,7 @@ export namespace JsonStringifyProgrammer {
           empty: ts.factory.createStringLiteral("[]"),
           success: ts.factory.createTrue(),
           failure: (input, expected) =>
-            create_throw_error(importer)(expected)(input),
+            create_throw_error({ importer, expected, input }),
         }),
       )(input, elements, explore);
 
@@ -808,40 +812,40 @@ export namespace JsonStringifyProgrammer {
       );
   };
 
-  const wrap_functional = (
-    input: ts.Expression,
-    meta: Metadata,
-    explore: FeatureProgrammer.IExplore,
-  ): ((expression: ts.Expression) => ts.Expression) => {
-    if (meta.functions.length === 0) return (expression) => expression;
-    return (expression) =>
-      ts.factory.createConditionalExpression(
-        ts.factory.createStrictInequality(
-          ts.factory.createStringLiteral("function"),
-          ValueFactory.TYPEOF(input),
-        ),
-        undefined,
-        expression,
-        undefined,
-        decode_functional(explore),
-      );
+  const wrap_functional = (props: {
+    input: ts.Expression;
+    metadata: Metadata;
+    explore: FeatureProgrammer.IExplore;
+    expression: ts.Expression;
+  }): ts.Expression => {
+    if (props.metadata.functions.length === 0) return props.expression;
+    return ts.factory.createConditionalExpression(
+      ts.factory.createStrictInequality(
+        ts.factory.createStringLiteral("function"),
+        ValueFactory.TYPEOF(props.input),
+      ),
+      undefined,
+      props.expression,
+      undefined,
+      decode_functional(props.explore),
+    );
   };
 
-  const iterate = (
-    importer: FunctionImporter,
-    input: ts.Expression,
-    unions: IUnion[],
-    expected: string,
-  ) =>
+  const iterate = (props: {
+    importer: FunctionImporter;
+    input: ts.Expression;
+    unions: IUnion[];
+    expected: string;
+  }) =>
     ts.factory.createBlock(
       [
-        ...unions.map((u) =>
+        ...props.unions.map((u) =>
           ts.factory.createIfStatement(
             u.is(),
             ts.factory.createReturnStatement(u.value()),
           ),
         ),
-        create_throw_error(importer)(expected)(input),
+        create_throw_error(props),
       ],
       true,
     );
@@ -854,7 +858,7 @@ export namespace JsonStringifyProgrammer {
   const configure =
     (project: ITypiaContext) =>
     (importer: FunctionImporter): FeatureProgrammer.IConfig => {
-      const config: FeatureProgrammer.IConfig = {
+      const config: FeatureProgrammer.IConfig<ts.Expression> = {
         types: {
           input: (type, name) =>
             ts.factory.createTypeReferenceNode(
@@ -870,14 +874,18 @@ export namespace JsonStringifyProgrammer {
         objector: {
           checker: () => IsProgrammer.decode(project)(importer),
           decoder: () => decode_object(importer),
-          joiner: StringifyJoiner.object(importer),
+          joiner: (props) =>
+            StringifyJoiner.object({
+              ...props,
+              importer,
+            }),
           unionizer: decode_union_object(
             IsProgrammer.decode_object(project)(importer),
-          )(decode_object(importer))((exp) => exp)((value, expected) =>
-            create_throw_error(importer)(expected)(value),
+          )(decode_object(importer))((exp) => exp)((input, expected) =>
+            create_throw_error({ importer, expected, input }),
           ),
           failure: (input, expected) =>
-            create_throw_error(importer)(expected)(input),
+            create_throw_error({ importer, expected, input }),
         },
         generator: {
           arrays: () => write_array_functions(config)(importer),
@@ -896,28 +904,29 @@ export namespace JsonStringifyProgrammer {
         type,
       });
 
-  const create_throw_error =
-    (importer: FunctionImporter) =>
-    (expected: string) =>
-    (value: ts.Expression) =>
-      ts.factory.createExpressionStatement(
-        ts.factory.createCallExpression(
-          importer.use("throws"),
-          [],
-          [
-            ts.factory.createObjectLiteralExpression(
-              [
-                ts.factory.createPropertyAssignment(
-                  "expected",
-                  ts.factory.createStringLiteral(expected),
-                ),
-                ts.factory.createPropertyAssignment("value", value),
-              ],
-              true,
-            ),
-          ],
-        ),
-      );
+  const create_throw_error = (props: {
+    importer: FunctionImporter;
+    expected: string;
+    input: ts.Expression;
+  }) =>
+    ts.factory.createExpressionStatement(
+      ts.factory.createCallExpression(
+        props.importer.use("throws"),
+        [],
+        [
+          ts.factory.createObjectLiteralExpression(
+            [
+              ts.factory.createPropertyAssignment(
+                "expected",
+                ts.factory.createStringLiteral(props.expected),
+              ),
+              ts.factory.createPropertyAssignment("value", props.input),
+            ],
+            true,
+          ),
+        ],
+      ),
+    );
 }
 
 interface IUnion {
