@@ -43,12 +43,16 @@ export namespace ProtobufDecodeProgrammer {
       functions: Object.fromEntries(
         collection
           .objects()
-          .filter((obj) => ProtobufUtil.isStaticObject(obj))
-          .map((obj) => [
-            `${PREFIX}o${obj.index}`,
+          .filter((object) => ProtobufUtil.isStaticObject(object))
+          .map((object) => [
+            `${PREFIX}o${object.index}`,
             StatementFactory.constant(
-              props.importer.useLocal(`${PREFIX}o${obj.index}`),
-              write_object_function(props.context)(props.importer)(obj),
+              props.importer.useLocal(`${PREFIX}o${object.index}`),
+              write_object_function({
+                context: props.context,
+                importer: props.importer,
+                object,
+              }),
             ),
           ]),
       ),
@@ -87,7 +91,10 @@ export namespace ProtobufDecodeProgrammer {
               ),
             ),
             ts.factory.createReturnStatement(
-              decode_regular_object(true)(meta.objects[0]!),
+              decode_regular_object({
+                top: true,
+                object: meta.objects[0]!,
+              }),
             ),
           ],
           true,
@@ -111,153 +118,163 @@ export namespace ProtobufDecodeProgrammer {
     });
   };
 
-  const write_object_function =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (obj: MetadataObject): ts.ArrowFunction =>
-      ts.factory.createArrowFunction(
-        undefined,
-        undefined,
+  const write_object_function = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    object: MetadataObject;
+  }): ts.ArrowFunction =>
+    ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [
+        IdentifierFactory.parameter("reader"),
+        IdentifierFactory.parameter(
+          "length",
+          TypeFactory.keyword("number"),
+          ExpressionFactory.number(-1),
+        ),
+      ],
+      TypeFactory.keyword("any"),
+      undefined,
+      ts.factory.createBlock(
         [
-          IdentifierFactory.parameter("reader"),
-          IdentifierFactory.parameter(
-            "length",
-            TypeFactory.keyword("number"),
-            ExpressionFactory.number(-1),
+          ts.factory.createExpressionStatement(
+            ts.factory.createBinaryExpression(
+              ts.factory.createIdentifier("length"),
+              ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+              ts.factory.createConditionalExpression(
+                ts.factory.createLessThan(
+                  ts.factory.createIdentifier("length"),
+                  ExpressionFactory.number(0),
+                ),
+                undefined,
+                ts.factory.createCallExpression(
+                  IdentifierFactory.access(READER())("size"),
+                  undefined,
+                  undefined,
+                ),
+                undefined,
+                ts.factory.createAdd(
+                  ts.factory.createCallExpression(
+                    IdentifierFactory.access(READER())("index"),
+                    undefined,
+                    undefined,
+                  ),
+                  ts.factory.createIdentifier("length"),
+                ),
+              ),
+            ),
+          ),
+          ...write_object_function_body({
+            context: props.context,
+            importer: props.importer,
+            condition: ts.factory.createLessThan(
+              ts.factory.createCallExpression(
+                IdentifierFactory.access(READER())("index"),
+                undefined,
+                undefined,
+              ),
+              ts.factory.createIdentifier("length"),
+            ),
+            tag: "tag",
+            output: "output",
+            properties: props.object.properties,
+          }),
+          ts.factory.createReturnStatement(
+            ts.factory.createIdentifier("output"),
           ),
         ],
-        TypeFactory.keyword("any"),
-        undefined,
-        ts.factory.createBlock(
-          [
-            ts.factory.createExpressionStatement(
-              ts.factory.createBinaryExpression(
-                ts.factory.createIdentifier("length"),
-                ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-                ts.factory.createConditionalExpression(
-                  ts.factory.createLessThan(
-                    ts.factory.createIdentifier("length"),
-                    ExpressionFactory.number(0),
-                  ),
-                  undefined,
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER())("size"),
-                    undefined,
-                    undefined,
-                  ),
-                  undefined,
-                  ts.factory.createAdd(
-                    ts.factory.createCallExpression(
-                      IdentifierFactory.access(READER())("index"),
-                      undefined,
-                      undefined,
-                    ),
-                    ts.factory.createIdentifier("length"),
-                  ),
-                ),
-              ),
-            ),
-            ...write_object_function_body(project)(importer)({
-              condition: ts.factory.createLessThan(
-                ts.factory.createCallExpression(
-                  IdentifierFactory.access(READER())("index"),
-                  undefined,
-                  undefined,
-                ),
-                ts.factory.createIdentifier("length"),
-              ),
-              tag: "tag",
-              output: "output",
-            })(obj.properties),
-            ts.factory.createReturnStatement(
-              ts.factory.createIdentifier("output"),
-            ),
-          ],
-          true,
-        ),
-      );
+        true,
+      ),
+    );
 
-  const write_object_function_body =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (props: { condition: ts.Expression; tag: string; output: string }) =>
-    (properties: MetadataProperty[]): ts.Statement[] => {
-      let i: number = 1;
-      const clauses: ts.CaseClause[] = properties
-        .map((p) => {
-          const clause = decode_property(project)(importer)(i)(
-            IdentifierFactory.access(ts.factory.createIdentifier(props.output))(
-              p.key.getSoleLiteral()!,
+  const write_object_function_body = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    condition: ts.Expression;
+    tag: string;
+    output: string;
+    properties: MetadataProperty[];
+  }): ts.Statement[] => {
+    let index: number = 1;
+    const clauses: ts.CaseClause[] = props.properties
+      .map((p) => {
+        const clause = decode_property({
+          context: props.context,
+          importer: props.importer,
+          index,
+          accessor: IdentifierFactory.access(
+            ts.factory.createIdentifier(props.output),
+          )(p.key.getSoleLiteral()!),
+          metadata: p.value,
+        });
+        index += ProtobufUtil.size(p.value);
+        return clause;
+      })
+      .flat();
+    return [
+      StatementFactory.constant(
+        props.output,
+        ts.factory.createAsExpression(
+          ts.factory.createObjectLiteralExpression(
+            props.properties
+              .filter(
+                (p) =>
+                  !(
+                    props.context.compilerOptions.exactOptionalPropertyTypes ===
+                      true && p.value.optional === true
+                  ),
+              )
+              .map((p) =>
+                ts.factory.createPropertyAssignment(
+                  IdentifierFactory.identifier(p.key.getSoleLiteral()!),
+                  write_property_default_value(p.value),
+                ),
+              ),
+            true,
+          ),
+          TypeFactory.keyword("any"),
+        ),
+      ),
+      ts.factory.createWhileStatement(
+        props.condition,
+        ts.factory.createBlock([
+          StatementFactory.constant(
+            props.tag,
+            ts.factory.createCallExpression(
+              IdentifierFactory.access(READER())("uint32"),
+              undefined,
+              undefined,
             ),
-            p.value,
-          );
-          i += ProtobufUtil.size(p.value);
-          return clause;
-        })
-        .flat();
-      return [
-        StatementFactory.constant(
-          props.output,
-          ts.factory.createAsExpression(
-            ts.factory.createObjectLiteralExpression(
-              properties
-                .filter(
-                  (p) =>
-                    !(
-                      project.compilerOptions.exactOptionalPropertyTypes ===
-                        true && p.value.optional === true
-                    ),
-                )
-                .map((p) =>
-                  ts.factory.createPropertyAssignment(
-                    IdentifierFactory.identifier(p.key.getSoleLiteral()!),
-                    write_property_default_value(p.value),
+          ),
+          ts.factory.createSwitchStatement(
+            ts.factory.createUnsignedRightShift(
+              ts.factory.createIdentifier(props.tag),
+              ExpressionFactory.number(3),
+            ),
+            ts.factory.createCaseBlock([
+              ...clauses,
+              ts.factory.createDefaultClause([
+                ts.factory.createExpressionStatement(
+                  ts.factory.createCallExpression(
+                    IdentifierFactory.access(READER())("skipType"),
+                    undefined,
+                    [
+                      ts.factory.createBitwiseAnd(
+                        ts.factory.createIdentifier(props.tag),
+                        ExpressionFactory.number(7),
+                      ),
+                    ],
                   ),
                 ),
-              true,
-            ),
-            TypeFactory.keyword("any"),
-          ),
-        ),
-        ts.factory.createWhileStatement(
-          props.condition,
-          ts.factory.createBlock([
-            StatementFactory.constant(
-              props.tag,
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(READER())("uint32"),
-                undefined,
-                undefined,
-              ),
-            ),
-            ts.factory.createSwitchStatement(
-              ts.factory.createUnsignedRightShift(
-                ts.factory.createIdentifier(props.tag),
-                ExpressionFactory.number(3),
-              ),
-              ts.factory.createCaseBlock([
-                ...clauses,
-                ts.factory.createDefaultClause([
-                  ts.factory.createExpressionStatement(
-                    ts.factory.createCallExpression(
-                      IdentifierFactory.access(READER())("skipType"),
-                      undefined,
-                      [
-                        ts.factory.createBitwiseAnd(
-                          ts.factory.createIdentifier(props.tag),
-                          ExpressionFactory.number(7),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ts.factory.createBreakStatement(),
-                ]),
+                ts.factory.createBreakStatement(),
               ]),
-            ),
-          ]),
-        ),
-      ];
-    };
+            ]),
+          ),
+        ]),
+      ),
+    ];
+  };
 
   const write_property_default_value = (value: Metadata) =>
     ts.factory.createAsExpression(
@@ -303,87 +320,118 @@ export namespace ProtobufDecodeProgrammer {
   /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-  const decode_property =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (index: number) =>
-    (
-      accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
-      meta: Metadata,
-    ): ts.CaseClause[] => {
-      const clauses: ts.CaseClause[] = [];
-      const emplace = (name: string) => (v: ts.Expression | ts.Statement[]) =>
-        clauses.push(
-          ts.factory.createCaseClause(
-            ExpressionFactory.number(index++),
-            Array.isArray(v)
-              ? [
-                  ts.factory.createExpressionStatement(
-                    ts.factory.createIdentifier(`// type: ${name}`),
+  const decode_property = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    index: number;
+    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
+    metadata: Metadata;
+  }): ts.CaseClause[] => {
+    const clauses: ts.CaseClause[] = [];
+    const emplace = (name: string, value: ts.Expression | ts.Statement[]) =>
+      clauses.push(
+        ts.factory.createCaseClause(
+          ExpressionFactory.number(props.index++),
+          Array.isArray(value)
+            ? [
+                ts.factory.createExpressionStatement(
+                  ts.factory.createIdentifier(`// type: ${name}`),
+                ),
+                ...value,
+                ts.factory.createBreakStatement(),
+              ]
+            : [
+                ts.factory.createExpressionStatement(
+                  ts.factory.createIdentifier(`// ${name}`),
+                ),
+                ts.factory.createExpressionStatement(
+                  ts.factory.createBinaryExpression(
+                    props.accessor,
+                    ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                    value,
                   ),
-                  ...v,
-                  ts.factory.createBreakStatement(),
-                ]
-              : [
-                  ts.factory.createExpressionStatement(
-                    ts.factory.createIdentifier(`// ${name}`),
-                  ),
-                  ts.factory.createExpressionStatement(
-                    ts.factory.createBinaryExpression(
-                      accessor,
-                      ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-                      v,
-                    ),
-                  ),
-                  ts.factory.createBreakStatement(),
-                ],
-          ),
-        );
-
-      const required: boolean = meta.isRequired() && !meta.nullable;
-      for (const atomic of ProtobufUtil.getAtomics(meta))
-        emplace(atomic)(decode_atomic(meta)(atomic));
-      if (meta.natives.length) emplace("bytes")(decode_bytes("bytes"));
-      for (const array of meta.arrays)
-        emplace(`Array<${array.type.value.getName()}>`)(
-          decode_array(accessor, array, required),
-        );
-      for (const map of meta.maps)
-        emplace(`Map<string, ${map.value.getName()}>`)(
-          decode_map(project)(importer)(accessor, map, required),
-        );
-      for (const obj of meta.objects)
-        emplace(obj.name)(
-          ProtobufUtil.isStaticObject(obj)
-            ? decode_regular_object(false)(obj)
-            : decode_dynamic_object(project)(importer)(accessor, obj, required),
-        );
-      return clauses;
-    };
-
-  const decode_atomic =
-    (meta: Metadata) =>
-    (atomic: ProtobufAtomic): ts.Expression => {
-      if (atomic === "string") return decode_bytes("string");
-
-      const call: ts.CallExpression = ts.factory.createCallExpression(
-        IdentifierFactory.access(ts.factory.createIdentifier("reader"))(atomic),
-        undefined,
-        undefined,
+                ),
+                ts.factory.createBreakStatement(),
+              ],
+        ),
       );
-      if (atomic !== "int64" && atomic !== "uint64") return call;
 
-      const isNumber: boolean = ProtobufUtil.getNumbers(meta).some(
-        (n) => n === atomic,
+    const required: boolean =
+      props.metadata.isRequired() && !props.metadata.nullable;
+    for (const atomic of ProtobufUtil.getAtomics(props.metadata))
+      emplace(
+        atomic,
+        decode_atomic({
+          metadata: props.metadata,
+          type: atomic,
+        }),
       );
-      return isNumber
-        ? ts.factory.createCallExpression(
-            ts.factory.createIdentifier("Number"),
-            undefined,
-            [call],
-          )
-        : call;
-    };
+    if (props.metadata.natives.length) emplace("bytes", decode_bytes("bytes"));
+    for (const array of props.metadata.arrays)
+      emplace(
+        `Array<${array.type.value.getName()}>`,
+        decode_array({
+          accessor: props.accessor,
+          array,
+          required,
+        }),
+      );
+    for (const entry of props.metadata.maps)
+      emplace(
+        `Map<string, ${entry.value.getName()}>`,
+        decode_map({
+          context: props.context,
+          importer: props.importer,
+          accessor: props.accessor,
+          entry,
+          required,
+        }),
+      );
+    for (const object of props.metadata.objects)
+      emplace(
+        object.name,
+        ProtobufUtil.isStaticObject(object)
+          ? decode_regular_object({
+              top: false,
+              object,
+            })
+          : decode_dynamic_object({
+              context: props.context,
+              importer: props.importer,
+              accessor: props.accessor,
+              object,
+              required,
+            }),
+      );
+    return clauses;
+  };
+
+  const decode_atomic = (props: {
+    metadata: Metadata;
+    type: ProtobufAtomic;
+  }): ts.Expression => {
+    if (props.type === "string") return decode_bytes("string");
+
+    const call: ts.CallExpression = ts.factory.createCallExpression(
+      IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
+        props.type,
+      ),
+      undefined,
+      undefined,
+    );
+    if (props.type !== "int64" && props.type !== "uint64") return call;
+
+    const isNumber: boolean = ProtobufUtil.getNumbers(props.metadata).some(
+      (n) => n === props.type,
+    );
+    return isNumber
+      ? ts.factory.createCallExpression(
+          ts.factory.createIdentifier("Number"),
+          undefined,
+          [call],
+        )
+      : call;
+  };
 
   const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
     ts.factory.createCallExpression(
@@ -392,16 +440,16 @@ export namespace ProtobufDecodeProgrammer {
       undefined,
     );
 
-  const decode_array = (
-    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
-    array: MetadataArray,
-    required: boolean,
-  ): ts.Statement[] => {
+  const decode_array = (props: {
+    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
+    array: MetadataArray;
+    required: boolean;
+  }): ts.Statement[] => {
     const statements: Array<ts.Expression | ts.Statement> = [];
-    if (required === false)
+    if (props.required === false)
       statements.push(
         ts.factory.createBinaryExpression(
-          accessor,
+          props.accessor,
           ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
           ts.factory.createAsExpression(
             ts.factory.createArrayLiteralExpression(),
@@ -409,13 +457,21 @@ export namespace ProtobufDecodeProgrammer {
           ),
         ),
       );
-    const atomics = ProtobufUtil.getAtomics(array.type.value);
+    const atomics = ProtobufUtil.getAtomics(props.array.type.value);
     const decoder = atomics.length
-      ? () => decode_atomic(array.type.value)(atomics[0]!)
-      : array.type.value.natives.length
+      ? () =>
+          decode_atomic({
+            metadata: props.array.type.value,
+            type: atomics[0]!,
+          })
+      : props.array.type.value.natives.length
         ? () => decode_bytes("bytes")
-        : array.type.value.objects.length
-          ? () => decode_regular_object(false)(array.type.value.objects[0]!)
+        : props.array.type.value.objects.length
+          ? () =>
+              decode_regular_object({
+                top: false,
+                object: props.array.type.value.objects[0]!,
+              })
           : null;
     if (decoder === null) throw new Error("Never reach here.");
     else if (atomics.length && atomics[0] !== "string") {
@@ -456,7 +512,7 @@ export namespace ProtobufDecodeProgrammer {
                 ),
                 ts.factory.createExpressionStatement(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(accessor)("push"),
+                    IdentifierFactory.access(props.accessor)("push"),
                     undefined,
                     [decoder()],
                   ),
@@ -467,7 +523,7 @@ export namespace ProtobufDecodeProgrammer {
           ),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
-              IdentifierFactory.access(accessor)("push"),
+              IdentifierFactory.access(props.accessor)("push"),
               undefined,
               [decoder()],
             ),
@@ -477,7 +533,7 @@ export namespace ProtobufDecodeProgrammer {
     } else
       statements.push(
         ts.factory.createCallExpression(
-          IdentifierFactory.access(accessor)("push"),
+          IdentifierFactory.access(props.accessor)("push"),
           undefined,
           [decoder()],
         ),
@@ -487,159 +543,166 @@ export namespace ProtobufDecodeProgrammer {
     );
   };
 
-  const decode_regular_object =
-    (top: boolean) =>
-    (obj: MetadataObject): ts.Expression =>
-      ts.factory.createCallExpression(
-        ts.factory.createIdentifier(`${PREFIX}o${obj.index}`),
-        undefined,
-        [
-          ts.factory.createIdentifier("reader"),
-          ...(top
-            ? []
-            : [
-                ts.factory.createCallExpression(
-                  IdentifierFactory.access(READER())("uint32"),
-                  undefined,
-                  undefined,
-                ),
-              ]),
-        ],
-      );
-
-  const decode_dynamic_object =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (
-      accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
-      obj: MetadataObject,
-      required: boolean,
-    ): ts.Statement[] => {
-      const top = obj.properties[0]!;
-      return decode_entry(project)(importer)({
-        initializer: () =>
-          ts.factory.createBinaryExpression(
-            accessor,
-            ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
-            ts.factory.createObjectLiteralExpression(),
-          ),
-        setter: () =>
-          ts.factory.createBinaryExpression(
-            ts.factory.createElementAccessExpression(
-              accessor,
-              ts.factory.createIdentifier("entry.key"),
-            ),
-            ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-            ts.factory.createIdentifier("entry.value"),
-          ),
-      })(
-        MetadataProperty.create({
-          ...top,
-          key: (() => {
-            const key: Metadata = Metadata.initialize();
-            key.atomics.push(
-              MetadataAtomic.create({
-                type: "string",
-                tags: [],
-              }),
-            );
-            return key;
-          })(),
-        }),
-        required,
-      );
-    };
-
-  const decode_map =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (
-      accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression,
-      map: Metadata.Entry,
-      required: boolean,
-    ): ts.Statement[] =>
-      decode_entry(project)(importer)({
-        initializer: () =>
-          ts.factory.createBinaryExpression(
-            accessor,
-            ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
-            ts.factory.createNewExpression(
-              ts.factory.createIdentifier("Map"),
-              [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
-              [],
-            ),
-          ),
-        setter: () =>
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(accessor)("set"),
-            undefined,
-            [
-              ts.factory.createIdentifier("entry.key"),
-              ts.factory.createIdentifier("entry.value"),
-            ],
-          ),
-      })(map, required);
-
-  const decode_entry =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (props: {
-      initializer: () => ts.Expression;
-      setter: () => ts.Expression;
-    }) =>
-    (map: Metadata.Entry, required: boolean): ts.Statement[] => {
-      const statements: ts.Statement[] = [
-        ...(required
+  const decode_regular_object = (props: {
+    top: boolean;
+    object: MetadataObject;
+  }): ts.Expression =>
+    ts.factory.createCallExpression(
+      ts.factory.createIdentifier(`${PREFIX}o${props.object.index}`),
+      undefined,
+      [
+        ts.factory.createIdentifier("reader"),
+        ...(props.top
           ? []
-          : [ts.factory.createExpressionStatement(props.initializer())]),
-        StatementFactory.constant(
-          "piece",
-          ts.factory.createAdd(
-            ts.factory.createCallExpression(
-              IdentifierFactory.access(READER())("uint32"),
-              undefined,
-              undefined,
-            ),
-            ts.factory.createCallExpression(
-              IdentifierFactory.access(READER())("index"),
-              undefined,
-              undefined,
-            ),
+          : [
+              ts.factory.createCallExpression(
+                IdentifierFactory.access(READER())("uint32"),
+                undefined,
+                undefined,
+              ),
+            ]),
+      ],
+    );
+
+  const decode_dynamic_object = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
+    object: MetadataObject;
+    required: boolean;
+  }): ts.Statement[] => {
+    const top: MetadataProperty = props.object.properties[0]!;
+    return decode_entry({
+      context: props.context,
+      importer: props.importer,
+      initializer: () =>
+        ts.factory.createBinaryExpression(
+          props.accessor,
+          ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
+          ts.factory.createObjectLiteralExpression(),
+        ),
+      setter: () =>
+        ts.factory.createBinaryExpression(
+          ts.factory.createElementAccessExpression(
+            props.accessor,
+            ts.factory.createIdentifier("entry.key"),
+          ),
+          ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+          ts.factory.createIdentifier("entry.value"),
+        ),
+      entry: MetadataProperty.create({
+        ...top,
+        key: (() => {
+          const key: Metadata = Metadata.initialize();
+          key.atomics.push(
+            MetadataAtomic.create({
+              type: "string",
+              tags: [],
+            }),
+          );
+          return key;
+        })(),
+      }),
+      required: props.required,
+    });
+  };
+
+  const decode_map = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
+    entry: Metadata.Entry;
+    required: boolean;
+  }): ts.Statement[] =>
+    decode_entry({
+      context: props.context,
+      importer: props.importer,
+      initializer: () =>
+        ts.factory.createBinaryExpression(
+          props.accessor,
+          ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
+          ts.factory.createNewExpression(
+            ts.factory.createIdentifier("Map"),
+            [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
+            [],
           ),
         ),
-        ...write_object_function_body(project)(importer)({
-          condition: ts.factory.createLessThan(
-            ts.factory.createCallExpression(
-              IdentifierFactory.access(READER())("index"),
-              undefined,
-              undefined,
-            ),
-            ts.factory.createIdentifier("piece"),
+      setter: () =>
+        ts.factory.createCallExpression(
+          IdentifierFactory.access(props.accessor)("set"),
+          undefined,
+          [
+            ts.factory.createIdentifier("entry.key"),
+            ts.factory.createIdentifier("entry.value"),
+          ],
+        ),
+      entry: props.entry,
+      required: props.required,
+    });
+
+  const decode_entry = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    initializer: () => ts.Expression;
+    setter: () => ts.Expression;
+    entry: Metadata.Entry;
+    required: boolean;
+  }): ts.Statement[] => {
+    const statements: ts.Statement[] = [
+      ...(props.required
+        ? []
+        : [ts.factory.createExpressionStatement(props.initializer())]),
+      StatementFactory.constant(
+        "piece",
+        ts.factory.createAdd(
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(READER())("uint32"),
+            undefined,
+            undefined,
           ),
-          tag: "kind",
-          output: "entry",
-        })([
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(READER())("index"),
+            undefined,
+            undefined,
+          ),
+        ),
+      ),
+      ...write_object_function_body({
+        context: props.context,
+        importer: props.importer,
+        condition: ts.factory.createLessThan(
+          ts.factory.createCallExpression(
+            IdentifierFactory.access(READER())("index"),
+            undefined,
+            undefined,
+          ),
+          ts.factory.createIdentifier("piece"),
+        ),
+        tag: "kind",
+        output: "entry",
+        properties: [
           MetadataProperty.create({
             key: MetadataFactory.soleLiteral("key"),
-            value: map.key,
+            value: props.entry.key,
             description: null,
             jsDocTags: [],
           }),
           MetadataProperty.create({
             key: MetadataFactory.soleLiteral("value"),
-            value: map.value,
+            value: props.entry.value,
             description: null,
             jsDocTags: [],
           }),
-        ]),
-        ts.factory.createExpressionStatement(props.setter()),
-      ];
-      return [
-        ts.factory.createExpressionStatement(
-          ExpressionFactory.selfCall(ts.factory.createBlock(statements, true)),
-        ),
-      ];
-    };
+        ],
+      }),
+      ts.factory.createExpressionStatement(props.setter()),
+    ];
+    return [
+      ts.factory.createExpressionStatement(
+        ExpressionFactory.selfCall(ts.factory.createBlock(statements, true)),
+      ),
+    ];
+  };
 }
 
 const PREFIX = "$pd";
