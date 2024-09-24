@@ -642,7 +642,7 @@ import typia, { tags } from "typia";
 
 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 
-console.log(JSON.stringify(app, null, 2));
+console.log(app);
 
 interface BbsArticleController {
   /**
@@ -752,7 +752,7 @@ namespace IBbsArticle {
             "title": {
               "type": "string",
               "title": "Title of the article",
-              "description": "Title of the article.\n\nRepresentative title of the article."      
+              "description": "Title of the article.\n\nRepresentative title of the article."
             },
             "body": {
               "type": "string",
@@ -778,9 +778,57 @@ namespace IBbsArticle {
         }
       ],
       "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key",
+            "description": "Primary Key."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of the article",
+            "description": "Creation time of the article."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last updated time of the article",
+            "description": "Last updated time of the article."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of the article",
+            "description": "Title of the article.\n\nRepresentative title of the article."
+          },
+          "body": {
+            "type": "string",
+            "title": "Content body",
+            "description": "Content body.\n\nContent body of the article writtn in the markdown format."
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "nullable": true,
+            "title": "Thumbnail image URI",
+            "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article."
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "created_at",
+          "updated_at",
+          "title",
+          "body",
+          "thumbnail"
+        ],
         "description": "Newly created article"
       },
-      "description": "Create a new article.\n\nWrites a new article and archives it into the DB." 
+      "description": "Create a new article.\n\nWrites a new article and archives it into the DB."
     },
     {
       "name": "update",
@@ -796,7 +844,7 @@ namespace IBbsArticle {
             "title": {
               "type": "string",
               "title": "Title of the article",
-              "description": "Title of the article.\n\nRepresentative title of the article."      
+              "description": "Title of the article.\n\nRepresentative title of the article."
             },
             "body": {
               "type": "string",
@@ -816,7 +864,6 @@ namespace IBbsArticle {
           "description": "New content to update"
         }
       ],
-      "output": {},
       "description": "Update an article.\n\nUpdates an article with new content."
     },
     {
@@ -828,7 +875,6 @@ namespace IBbsArticle {
           "description": "Target article's "
         }
       ],
-      "output": {},
       "description": "Erase an article.\n\nErases an article from the DB."
     }
   ],
@@ -872,7 +918,7 @@ const app: ILlmApplication = typia.llm.application<BbsArticleController>({
     LlmTypeChecker.isString(schema) && schema.contentMediaType !== undefined,
 });
 
-console.log(JSON.stringify(app, null, 2));
+console.log(app);
 
 interface BbsArticleController {
   /**
@@ -922,7 +968,7 @@ interface BbsArticleController {
             "title": {
               "type": "string",
               "title": "Title of the article",
-              "description": "Title of the article.\n\nRepresentative title of the article."      
+              "description": "Title of the article.\n\nRepresentative title of the article."
             },
             "body": {
               "type": "string",
@@ -948,6 +994,54 @@ interface BbsArticleController {
         }
       ],
       "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key",
+            "description": "Primary Key."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of the article",
+            "description": "Creation time of the article."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last updated time of the article",
+            "description": "Last updated time of the article."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of the article",
+            "description": "Title of the article.\n\nRepresentative title of the article."
+          },
+          "body": {
+            "type": "string",
+            "title": "Content body",
+            "description": "Content body.\n\nContent body of the article writtn in the markdown format."
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "nullable": true,
+            "title": "Thumbnail image URI",
+            "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article."
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "created_at",
+          "updated_at",
+          "title",
+          "body",
+          "thumbnail"
+        ],
         "description": "Newly created article"
       },
       "description": "Create a new article.\n\nWrites a new article and archives it into the DB.",
@@ -961,7 +1055,7 @@ interface BbsArticleController {
                 "title": {
                   "type": "string",
                   "title": "Title of the article",
-                  "description": "Title of the article.\n\nRepresentative title of the article."  
+                  "description": "Title of the article.\n\nRepresentative title of the article."
                 },
                 "body": {
                   "type": "string",
@@ -990,7 +1084,7 @@ interface BbsArticleController {
                   "contentMediaType": "image/*",
                   "nullable": true,
                   "title": "Thumbnail image URI",
-                  "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article."        
+                  "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article."
                 }
               },
               "nullable": false,
@@ -1017,7 +1111,7 @@ interface BbsArticleController {
             "title": {
               "type": "string",
               "title": "Title of the article",
-              "description": "Title of the article.\n\nRepresentative title of the article."      
+              "description": "Title of the article.\n\nRepresentative title of the article."
             },
             "body": {
               "type": "string",
@@ -1037,7 +1131,6 @@ interface BbsArticleController {
           "description": "New content to update"
         }
       ],
-      "output": {},
       "description": "Update an article.\n\nUpdates an article with new content.",
       "separated": {
         "llm": [
@@ -1057,7 +1150,7 @@ interface BbsArticleController {
                 "title": {
                   "type": "string",
                   "title": "Title of the article",
-                  "description": "Title of the article.\n\nRepresentative title of the article."  
+                  "description": "Title of the article.\n\nRepresentative title of the article."
                 },
                 "body": {
                   "type": "string",
@@ -1082,7 +1175,7 @@ interface BbsArticleController {
                   "contentMediaType": "image/*",
                   "nullable": true,
                   "title": "Thumbnail image URI",
-                  "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article."        
+                  "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article."
                 }
               },
               "nullable": false,
@@ -1101,7 +1194,6 @@ interface BbsArticleController {
           "description": "Target article's "
         }
       ],
-      "output": {},
       "description": "Erase an article.\n\nErases an article from the DB.",
       "separated": {
         "llm": [
@@ -1145,7 +1237,7 @@ import typia, { tags } from "typia";
 
 const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 
-console.log(JSON.stringify(app, null, 2));
+console.log(app);
 
 interface BbsArticleController {
   /**
@@ -1330,7 +1422,7 @@ import typia from "typia";
 
 const app: ILlmApplication = typia.llm.application<Controller>();
 
-console.log(JSON.stringify(app, null, 2));
+console.log(app);
 
 interface Controller {
   now(): Date;
