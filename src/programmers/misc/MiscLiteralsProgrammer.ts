@@ -41,13 +41,13 @@ export namespace MiscLiteralsProgrammer {
     if (result.success === false)
       throw TransformerError.from(`typia.misc.literals`)(result.errors);
 
-    const meta: Metadata = result.data;
+    const metadata: Metadata = result.data;
     const values: Set<Atomic.Type | null> = new Set([
-      ...meta.constants.map((c) => c.values.map((v) => v.value)).flat(),
-      ...(meta.atomics.filter((a) => a.type === "boolean").length
+      ...metadata.constants.map((c) => c.values.map((v) => v.value)).flat(),
+      ...(metadata.atomics.filter((a) => a.type === "boolean").length
         ? [true, false]
         : []),
-      ...(meta.nullable ? [null] : []),
+      ...(metadata.nullable ? [null] : []),
     ]);
     return ts.factory.createAsExpression(
       ts.factory.createArrayLiteralExpression(

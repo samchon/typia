@@ -46,7 +46,7 @@ export namespace FeatureProgrammer {
      * Initializer of metadata.
      */
     initializer: (
-      project: ITypiaContext,
+      context: ITypiaContext,
     ) => (
       importer: FunctionImporter,
     ) => (type: ts.Type) => [MetadataCollection, Metadata];
@@ -288,11 +288,11 @@ export namespace FeatureProgrammer {
     );
 
   export const write =
-    (project: ITypiaContext) =>
+    (context: ITypiaContext) =>
     (config: IConfig) =>
     (importer: FunctionImporter) =>
     (type: ts.Type, name?: string): ts.ArrowFunction => {
-      const [collection, meta] = config.initializer(project)(importer)(type);
+      const [collection, meta] = config.initializer(context)(importer)(type);
 
       // ITERATE OVER ALL METADATA
       const output: ts.ConciseBody = config.decoder()(

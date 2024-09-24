@@ -397,7 +397,7 @@ export namespace JsonStringifyProgrammer {
             : () =>
                 explore_arrays({
                   ...props,
-                  elements: props.metadata.arrays,
+                  arrays: props.metadata.arrays,
                   explore: {
                     ...props.explore,
                     from: "array",
@@ -747,11 +747,12 @@ export namespace JsonStringifyProgrammer {
     config: FeatureProgrammer.IConfig;
     importer: FunctionImporter;
     input: ts.Expression;
-    elements: MetadataArray[];
+    arrays: MetadataArray[];
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
     explore_array_like_union_types({
       ...props,
+      elements: props.arrays,
       factory: (next) =>
         UnionExplorer.array({
           checker: IsProgrammer.decode(props.context)(props.importer),
@@ -940,9 +941,9 @@ export namespace JsonStringifyProgrammer {
       initializer,
       decoder: () => (input, metadata, explore) =>
         decode({
-          config,
           context: props.context,
           importer: props.importer,
+          config,
           input,
           metadata,
           explore,
