@@ -104,41 +104,57 @@ export namespace LlmApplicationProgrammer {
     function: MetadataFunction;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): ILlmFunction => ({
-    name: props.name,
-    parameters: props.function.parameters.map((p) => {
-      const jsDocTagDescription = writeDescriptionFromJsDocTag({
-        jsDocTags: p.jsDocTags,
-        tag: "param",
-        parameter: p.name,
-      });
-      return writeSchema({
-        metadata: p.type,
-        description: jsDocTagDescription ?? p.description,
-        jsDocTags: jsDocTagDescription ? [] : p.jsDocTags,
-      });
-    }),
-    output:
-      props.function.output.size() || props.function.output.nullable
-        ? writeSchema({
-            metadata: props.function.output,
-            description:
-              writeDescriptionFromJsDocTag({
-                jsDocTags: props.jsDocTags,
-                tag: "return",
-              }) ??
-              writeDescriptionFromJsDocTag({
-                jsDocTags: props.jsDocTags,
-                tag: "returns",
-              }),
-            jsDocTags: [],
-          })
-        : undefined,
-    description: props.description ?? undefined,
-    deprecated: props.jsDocTags.some((tag) => tag.name === "deprecated")
-      ? true
-      : undefined,
-  });
+  }): ILlmFunction => {
+    const deprecated: boolean = props.jsDocTags.some(
+      (tag) => tag.name === "deprecated",
+    );
+    const tags: string[] = props.jsDocTags
+      .map((tag) =>
+        tag.name === "tag"
+          ? (tag.text?.filter((elem) => elem.kind === "text") ?? [])
+          : [],
+      )
+      .flat()
+      .map((elem) => elem.text)
+      .map((str) => str.trim().split(" ")[0] ?? "")
+      .filter((str) => !!str.length);
+    return {
+      name: props.name,
+      parameters: props.function.parameters.map((p) => {
+        const jsDocTagDescription: string | null = writeDescriptionFromJsDocTag(
+          {
+            jsDocTags: p.jsDocTags,
+            tag: "param",
+            parameter: p.name,
+          },
+        );
+        return writeSchema({
+          metadata: p.type,
+          description: jsDocTagDescription ?? p.description,
+          jsDocTags: jsDocTagDescription ? [] : p.jsDocTags,
+        });
+      }),
+      output:
+        props.function.output.size() || props.function.output.nullable
+          ? writeSchema({
+              metadata: props.function.output,
+              description:
+                writeDescriptionFromJsDocTag({
+                  jsDocTags: props.jsDocTags,
+                  tag: "return",
+                }) ??
+                writeDescriptionFromJsDocTag({
+                  jsDocTags: props.jsDocTags,
+                  tag: "returns",
+                }),
+              jsDocTags: [],
+            })
+          : undefined,
+      description: props.description ?? undefined,
+      deprecated: deprecated || undefined,
+      tags: tags.length ? tags : undefined,
+    };
+  };
 
   const writeSchema = (props: {
     metadata: Metadata;
