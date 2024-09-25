@@ -135,6 +135,9 @@ export namespace LlmApplicationProgrammer {
           })
         : undefined,
     description: props.description ?? undefined,
+    deprecated: props.jsDocTags.some((tag) => tag.name === "deprecated")
+      ? true
+      : undefined,
   });
 
   const writeSchema = (props: {
