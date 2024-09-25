@@ -36,6 +36,6 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "typia": "../typia-6.10.3-dev.20240925.tgz"
+    "typia": "../typia-6.10.4-dev.20240925.tgz"
   }
 }
