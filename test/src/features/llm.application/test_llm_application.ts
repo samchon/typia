@@ -14,6 +14,7 @@ export const test_llm_application = (): void => {
           type: "string",
         },
         description: "Get ID.",
+        deprecated: true,
       },
       {
         name: "getValue",
@@ -35,6 +36,7 @@ export const test_llm_application = (): void => {
         },
         description:
           "Get value.\n\nGet value with plus operation of member value, x and y.",
+        tags: ["mathmatics", "arithmetic"],
       },
       {
         name: "getPerformance",
@@ -53,6 +55,7 @@ export const test_llm_application = (): void => {
           description: "The performance interface.",
         },
         description: "Get performance.",
+        tags: ["monitor"],
       },
       {
         name: "synchronize",
@@ -81,6 +84,8 @@ class SomeClass {
 
   /**
    * Get ID.
+   *
+   * @deprecated
    */
   getId = (): string => {
     return this.id;
@@ -98,6 +103,8 @@ class SomeClass {
    * @returns Sum of them.
    *
    *          `this.value + x + y`
+   * @tag mathmatics
+   * @tag arithmetic
    */
   getValue(x: number, y: number): number {
     return this.value + x + y;
@@ -105,6 +112,8 @@ class SomeClass {
 
   /**
    * Get performance.
+   *
+   * @tag monitor tool
    */
   async getPerformance(): Promise<IPerformance> {
     return { level: 3 };
