@@ -8,4 +8,4 @@ public/compilers/
 public/robots.txt
 public/sitemap*.xml
 
-!package-lock.json
+package-lock.json
