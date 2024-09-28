@@ -158,7 +158,7 @@ export namespace UnionExplorer {
   export namespace array_or_tuple {
     export type IProps = check_union_array_like.IProps<
       MetadataArray | MetadataTuple,
-      Metadata
+      Metadata | MetadataTuple
     >;
   }
 

@@ -234,9 +234,12 @@ export namespace FeatureProgrammer {
       functions: {
         ...Object.fromEntries(
           (
-            props.config.generator.objects?.() ??
-            write_object_functions(props.config)(props.importer)
-          )(collection).map((v, i) => [`${props.config.prefix}o${i}`, v]),
+            props.config.generator.objects?.()(collection) ??
+            write_object_functions({
+              ...props,
+              collection,
+            })
+          ).map((v, i) => [`${props.config.prefix}o${i}`, v]),
         ),
         ...Object.fromEntries(
           (
@@ -308,10 +311,13 @@ export namespace FeatureProgrammer {
 
       // RETURNS THE OPTIMAL ARROW FUNCTION
       const functions = {
-        objects: (
-          config.generator.objects?.() ??
-          write_object_functions(config)(importer)
-        )(collection),
+        objects:
+          config.generator.objects?.()(collection) ??
+          write_object_functions({
+            config,
+            importer,
+            collection,
+          }),
         unions: (config.generator.unions?.() ?? write_union_functions(config))(
           collection,
         ),
@@ -352,31 +358,32 @@ export namespace FeatureProgrammer {
       );
     };
 
-  export const write_object_functions =
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection) =>
-      collection.objects().map((object) =>
-        StatementFactory.constant(
-          `${config.prefix}o${object.index}`,
-          ts.factory.createArrowFunction(
-            undefined,
-            undefined,
-            parameterDeclarations(config)(TypeFactory.keyword("any"))(
-              ValueFactory.INPUT(),
-            ),
-            config.objector.type ?? TypeFactory.keyword("any"),
-            undefined,
-            config.objector.joiner({
-              input: ts.factory.createIdentifier("input"),
-              entries: feature_object_entries(config)(importer)(object)(
-                ts.factory.createIdentifier("input"),
-              ),
-              object,
-            }),
+  export const write_object_functions = (props: {
+    config: IConfig;
+    importer: FunctionImporter;
+    collection: MetadataCollection;
+  }) =>
+    props.collection.objects().map((object) =>
+      StatementFactory.constant(
+        `${props.config.prefix}o${object.index}`,
+        ts.factory.createArrowFunction(
+          undefined,
+          undefined,
+          parameterDeclarations(props.config)(TypeFactory.keyword("any"))(
+            ValueFactory.INPUT(),
           ),
+          props.config.objector.type ?? TypeFactory.keyword("any"),
+          undefined,
+          props.config.objector.joiner({
+            input: ts.factory.createIdentifier("input"),
+            entries: feature_object_entries(props.config)(props.importer)(
+              object,
+            )(ts.factory.createIdentifier("input")),
+            object,
+          }),
         ),
-      );
+      ),
+    );
 
   export const write_union_functions =
     (config: IConfig) => (collection: MetadataCollection) =>
@@ -433,7 +440,6 @@ export namespace FeatureProgrammer {
               ),
             ]
           : [];
-
       return (
         input: ts.Expression,
         array: MetadataArray,

@@ -37,9 +37,11 @@ export namespace MiscCloneProgrammer {
     const config: FeatureProgrammer.IConfig = configure(props);
     if (props.validated === false)
       config.addition = (collection) =>
-        IsProgrammer.write_function_statements(props.context)(props.importer)(
+        IsProgrammer.write_function_statements({
+          context: props.context,
+          importer: props.importer,
           collection,
-        );
+        });
     const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
       ...props,
       config,
@@ -201,15 +203,14 @@ export namespace MiscCloneProgrammer {
       unions.push({
         type: "tuple",
         is: () =>
-          IsProgrammer.decode(props.context)(props.importer)(
-            props.input,
-            (() => {
+          IsProgrammer.decode({
+            ...props,
+            metadata: (() => {
               const partial = Metadata.initialize();
               partial.tuples.push(tuple);
               return partial;
             })(),
-            props.explore,
-          ),
+          }),
         value: () =>
           decode_tuple({
             ...props,
@@ -557,7 +558,14 @@ export namespace MiscCloneProgrammer {
   }): ts.Expression =>
     ts.factory.createCallExpression(
       UnionExplorer.set({
-        checker: IsProgrammer.decode(props.context)(props.importer),
+        checker: (input, metadata, explore) =>
+          IsProgrammer.decode({
+            context: props.context,
+            importer: props.importer,
+            input,
+            metadata,
+            explore,
+          }),
         decoder: (input, array, explore) =>
           ts.factory.createNewExpression(
             ts.factory.createIdentifier("Set"),
@@ -599,19 +607,29 @@ export namespace MiscCloneProgrammer {
   }): ts.Expression =>
     ts.factory.createCallExpression(
       UnionExplorer.map({
-        checker: (top, entry, explore) => {
-          const func = IsProgrammer.decode(props.context)(props.importer);
-          return ts.factory.createLogicalAnd(
-            func(ts.factory.createElementAccessExpression(top, 0), entry[0], {
-              ...explore,
-              postfix: `${explore.postfix}[0]`,
+        checker: (top, entry, explore) =>
+          ts.factory.createLogicalAnd(
+            IsProgrammer.decode({
+              context: props.context,
+              importer: props.importer,
+              input: ts.factory.createElementAccessExpression(top, 0),
+              metadata: entry[0],
+              explore: {
+                ...explore,
+                postfix: `${explore.postfix}[0]`,
+              },
             }),
-            func(ts.factory.createElementAccessExpression(top, 1), entry[1], {
-              ...explore,
-              postfix: `${explore.postfix}[1]`,
+            IsProgrammer.decode({
+              context: props.context,
+              importer: props.importer,
+              input: ts.factory.createElementAccessExpression(top, 1),
+              metadata: entry[1],
+              explore: {
+                ...explore,
+                postfix: `${explore.postfix}[1]`,
+              },
             }),
-          );
-        },
+          ),
         decoder: (input, array, explore) =>
           ts.factory.createNewExpression(
             ts.factory.createIdentifier("Map"),
@@ -678,7 +696,14 @@ export namespace MiscCloneProgrammer {
       elements: props.arrays,
       factory: (next) =>
         UnionExplorer.array({
-          checker: IsProgrammer.decode(props.context)(props.importer),
+          checker: (input, metadata, explore) =>
+            IsProgrammer.decode({
+              context: props.context,
+              importer: props.importer,
+              input,
+              metadata,
+              explore,
+            }),
           decoder: (input, array, explore) =>
             decode_array({
               config: props.config,
@@ -735,7 +760,7 @@ export namespace MiscCloneProgrammer {
         [],
       );
 
-    const explore: FeatureProgrammer.IExplore = {
+    const arrayExplore: FeatureProgrammer.IExplore = {
       ...props.explore,
       source: "function",
       from: "array",
@@ -751,7 +776,7 @@ export namespace MiscCloneProgrammer {
                 TypeFactory.keyword("any"),
               )(ts.factory.createIdentifier("input")),
               explore: {
-                ...explore,
+                ...arrayExplore,
                 postfix: "",
               },
               input: ts.factory.createIdentifier("input"),
@@ -759,7 +784,7 @@ export namespace MiscCloneProgrammer {
         ),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(explore)(props.input),
+      FeatureProgrammer.argumentsArray(props.config)(arrayExplore)(props.input),
     );
   };
 
@@ -807,7 +832,14 @@ export namespace MiscCloneProgrammer {
           explore,
         }),
       objector: {
-        checker: () => IsProgrammer.decode(props.context)(props.importer),
+        checker: () => (input, metadata, explore) =>
+          IsProgrammer.decode({
+            context: props.context,
+            importer: props.importer,
+            input,
+            metadata,
+            explore,
+          }),
         decoder: () => (input, object, explore) =>
           decode_object({
             importer: props.importer,
@@ -816,8 +848,14 @@ export namespace MiscCloneProgrammer {
             explore,
           }),
         joiner: CloneJoiner.object,
-        unionizer: decode_union_object(
-          IsProgrammer.decode_object(props.context)(props.importer),
+        unionizer: decode_union_object((input, object, explore) =>
+          IsProgrammer.decode_object({
+            context: props.context,
+            importer: props.importer,
+            input,
+            object,
+            explore,
+          }),
         )((input, object, explore) =>
           decode_object({
             importer: props.importer,

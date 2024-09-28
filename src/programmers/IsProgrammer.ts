@@ -5,6 +5,9 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 
+import { Metadata } from "../schemas/metadata/Metadata";
+import { MetadataObject } from "../schemas/metadata/MetadataObject";
+
 import { IProgrammerProps } from "../transformers/IProgrammerProps";
 import { ITypiaContext } from "../transformers/ITypiaContext";
 
@@ -27,7 +30,7 @@ export namespace IsProgrammer {
       numeric: OptionPredicator.numeric({
         numeric: options?.numeric,
       }),
-      atomist: () => (entry) => () =>
+      atomist: ({ entry }) =>
         [
           ...(entry.expression ? [entry.expression] : []),
           ...(entry.conditions.length === 0
@@ -42,22 +45,18 @@ export namespace IsProgrammer {
                   .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
               ]),
         ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-      combiner: () => (type: "and" | "or") => {
+      combiner: (next) => {
         const initial: ts.TrueLiteral | ts.FalseLiteral =
-          type === "and" ? ts.factory.createTrue() : ts.factory.createFalse();
+          next.logic === "and"
+            ? ts.factory.createTrue()
+            : ts.factory.createFalse();
         const binder =
-          type === "and"
+          next.logic === "and"
             ? ts.factory.createLogicalAnd
             : ts.factory.createLogicalOr;
-        return (
-          _input: ts.Expression,
-          binaries: CheckerProgrammer.IBinary[],
-        ) =>
-          binaries.length
-            ? binaries
-                .map((binary) => binary.expression)
-                .reduce((x, y) => binder(x, y))
-            : initial;
+        return next.binaries.length
+          ? next.binaries.map((binary) => binary.expression).reduce(binder)
+          : initial;
       },
       joiner: {
         object:
@@ -164,62 +163,91 @@ export namespace IsProgrammer {
     });
   };
 
-  export const write_function_statements =
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection) => {
-      const config = configure()(project)(importer);
-      const objects =
-        CheckerProgrammer.write_object_functions(project)(config)(importer)(
-          collection,
-        );
-      const unions =
-        CheckerProgrammer.write_union_functions(project)(config)(importer)(
-          collection,
-        );
-      const arrays =
-        CheckerProgrammer.write_array_functions(project)(config)(importer)(
-          collection,
-        );
-      const tuples =
-        CheckerProgrammer.write_tuple_functions(project)(config)(importer)(
-          collection,
-        );
-
-      return [
-        ...objects.filter((_, i) => importer.hasLocal(`${config.prefix}o${i}`)),
-        ...unions.filter((_, i) => importer.hasLocal(`${config.prefix}u${i}`)),
-        ...arrays.filter((_, i) => importer.hasLocal(`${config.prefix}a${i}`)),
-        ...tuples.filter((_, i) => importer.hasLocal(`${config.prefix}t${i}`)),
-      ];
+  export const write_function_statements = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    collection: MetadataCollection;
+  }) => {
+    const config: CheckerProgrammer.IConfig = configure()(props.context)(
+      props.importer,
+    );
+    const next = {
+      ...props,
+      config,
     };
+    const objects: ts.VariableStatement[] =
+      CheckerProgrammer.write_object_functions(next);
+    const unions: ts.VariableStatement[] =
+      CheckerProgrammer.write_union_functions(next);
+    const arrays: ts.VariableStatement[] =
+      CheckerProgrammer.write_array_functions(next);
+    const tuples: ts.VariableStatement[] =
+      CheckerProgrammer.write_tuple_functions(next);
+
+    return [
+      ...objects.filter((_, i) =>
+        props.importer.hasLocal(`${config.prefix}o${i}`),
+      ),
+      ...unions.filter((_, i) =>
+        props.importer.hasLocal(`${config.prefix}u${i}`),
+      ),
+      ...arrays.filter((_, i) =>
+        props.importer.hasLocal(`${config.prefix}a${i}`),
+      ),
+      ...tuples.filter((_, i) =>
+        props.importer.hasLocal(`${config.prefix}t${i}`),
+      ),
+    ];
+  };
 
   /* -----------------------------------------------------------
-        DECODERS
-    ----------------------------------------------------------- */
-  export const decode =
-    (project: ITypiaContext) => (importer: FunctionImporter) =>
-      CheckerProgrammer.decode(project)(configure()(project)(importer))(
-        importer,
-      );
+    DECODERS
+  ----------------------------------------------------------- */
+  export const decode = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    metadata: Metadata;
+    input: ts.Expression;
+    explore: CheckerProgrammer.IExplore;
+  }) =>
+    CheckerProgrammer.decode({
+      context: props.context,
+      config: configure()(props.context)(props.importer),
+      importer: props.importer,
+      metadata: props.metadata,
+      input: props.input,
+      explore: props.explore,
+    });
 
-  export const decode_object =
-    (project: ITypiaContext) => (importer: FunctionImporter) =>
-      CheckerProgrammer.decode_object(configure()(project)(importer))(importer);
+  export const decode_object = (props: {
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    object: MetadataObject;
+    input: ts.Expression;
+    explore: FeatureProgrammer.IExplore;
+  }) =>
+    CheckerProgrammer.decode_object({
+      config: configure()(props.context)(props.importer),
+      importer: props.importer,
+      object: props.object,
+      input: props.input,
+      explore: props.explore,
+    });
 
-  export const decode_to_json =
-    (checkNull: boolean) =>
-    (input: ts.Expression): ts.Expression =>
-      ts.factory.createLogicalAnd(
-        ExpressionFactory.isObject({
-          checkArray: false,
-          checkNull,
-        })(input),
-        ts.factory.createStrictEquality(
-          ts.factory.createStringLiteral("function"),
-          ValueFactory.TYPEOF(IdentifierFactory.access(input)("toJSON")),
-        ),
-      );
+  export const decode_to_json = (props: {
+    input: ts.Expression;
+    checkNull: boolean;
+  }): ts.Expression =>
+    ts.factory.createLogicalAnd(
+      ExpressionFactory.isObject({
+        checkArray: false,
+        checkNull: props.checkNull,
+      })(props.input),
+      ts.factory.createStrictEquality(
+        ts.factory.createStringLiteral("function"),
+        ValueFactory.TYPEOF(IdentifierFactory.access(props.input)("toJSON")),
+      ),
+    );
 
   export const decode_functional = (input: ts.Expression) =>
     ts.factory.createStrictEquality(

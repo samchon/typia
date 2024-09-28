@@ -179,9 +179,7 @@ export namespace ProtobufEncodeProgrammer {
         [
           ...props.importer.declareUnions(),
           ...functors,
-          ...IsProgrammer.write_function_statements(props.context)(
-            props.importer,
-          )(props.collection),
+          ...IsProgrammer.write_function_statements(props),
           ...main.statements,
           ts.factory.createReturnStatement(
             ts.factory.createIdentifier("writer"),
@@ -861,7 +859,14 @@ export namespace ProtobufEncodeProgrammer {
 
     if (specList.length === 0) {
       const condition: ts.Expression = decode_union_object(
-        IsProgrammer.decode_object(props.context)(props.importer),
+        (input, object, explore) =>
+          IsProgrammer.decode_object({
+            context: props.context,
+            importer: props.importer,
+            object,
+            input,
+            explore,
+          }),
       )((input, object, explore) =>
         ExpressionFactory.selfCall(
           decode_object({
@@ -895,15 +900,17 @@ export namespace ProtobufEncodeProgrammer {
           key,
         );
         const pred: ts.Expression = spec.neighbour
-          ? IsProgrammer.decode(props.context)(props.importer)(
-              accessor,
-              spec.property.value,
-              {
+          ? IsProgrammer.decode({
+              context: props.context,
+              importer: props.importer,
+              input: accessor,
+              metadata: spec.property.value,
+              explore: {
                 ...props.explore,
                 tracable: false,
                 postfix: IdentifierFactory.postfix(key),
               },
-            )
+            })
           : ExpressionFactory.isRequired(accessor);
         return ts.factory.createIfStatement(
           pred,
