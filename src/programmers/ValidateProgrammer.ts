@@ -41,33 +41,33 @@ export namespace ValidateProgrammer {
         trace: true,
         numeric: OptionPredicator.numeric(props.context.options),
         equals: props.config.equals,
-        atomist: (explore) => (entry) => (input) =>
+        atomist: (next) =>
           [
-            ...(entry.expression ? [entry.expression] : []),
-            ...(entry.conditions.length === 0
+            ...(next.entry.expression ? [next.entry.expression] : []),
+            ...(next.entry.conditions.length === 0
               ? []
-              : entry.conditions.length === 1
-                ? entry.conditions[0]!.map((cond) =>
+              : next.entry.conditions.length === 1
+                ? next.entry.conditions[0]!.map((cond) =>
                     ts.factory.createLogicalOr(
                       cond.expression,
-                      create_report_call(
-                        explore.from === "top"
-                          ? ts.factory.createTrue()
-                          : ts.factory.createIdentifier("_exceptionable"),
-                      )(
-                        ts.factory.createIdentifier(
-                          explore.postfix
-                            ? `_path + ${explore.postfix}`
+                      create_report_call({
+                        exceptionable:
+                          next.explore.from === "top"
+                            ? ts.factory.createTrue()
+                            : ts.factory.createIdentifier("_exceptionable"),
+                        path: ts.factory.createIdentifier(
+                          next.explore.postfix
+                            ? `_path + ${next.explore.postfix}`
                             : "_path",
                         ),
-                        cond.expected,
-                        input,
-                      ),
+                        expected: cond.expected,
+                        input: next.input,
+                      }),
                     ),
                   )
                 : [
                     ts.factory.createLogicalOr(
-                      entry.conditions
+                      next.entry.conditions
                         .map((set) =>
                           set
                             .map((s) => s.expression)
@@ -76,24 +76,24 @@ export namespace ValidateProgrammer {
                             ),
                         )
                         .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-                      create_report_call(
-                        explore.from === "top"
-                          ? ts.factory.createTrue()
-                          : ts.factory.createIdentifier("_exceptionable"),
-                      )(
-                        ts.factory.createIdentifier(
-                          explore.postfix
-                            ? `_path + ${explore.postfix}`
+                      create_report_call({
+                        exceptionable:
+                          next.explore.from === "top"
+                            ? ts.factory.createTrue()
+                            : ts.factory.createIdentifier("_exceptionable"),
+                        path: ts.factory.createIdentifier(
+                          next.explore.postfix
+                            ? `_path + ${next.explore.postfix}`
                             : "_path",
                         ),
-                        entry.expected,
-                        input,
-                      ),
+                        expected: next.entry.expected,
+                        input: next.input,
+                      }),
                     ),
                   ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-        combiner: combine(props.config.equals)(props.context)(props.importer),
-        joiner: joiner(props.config.equals)(props.context)(props.importer),
+        combiner: combine(props),
+        joiner: joiner(props),
         success: ts.factory.createTrue(),
       },
     });
@@ -243,106 +243,119 @@ export namespace ValidateProgrammer {
 }
 
 const combine =
-  (equals: boolean) =>
-  (project: ITypiaContext) =>
-  (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
-  (explore: CheckerProgrammer.IExplore) => {
-    if (explore.tracable === false)
+  (props: {
+    config: ValidateProgrammer.IConfig;
+    context: ITypiaContext;
+    importer: FunctionImporter;
+  }): CheckerProgrammer.IConfig.Combiner =>
+  (next) => {
+    if (next.explore.tracable === false)
       return IsProgrammer.configure({
-        object: validate_object(equals)(project)(importer),
+        object: validate_object(props),
         numeric: true,
-      })(project)(importer).combiner(explore);
+      })(props.context)(props.importer).combiner(next);
 
-    const path: string = explore.postfix
-      ? `_path + ${explore.postfix}`
+    const path: string = next.explore.postfix
+      ? `_path + ${next.explore.postfix}`
       : "_path";
-    return (logic) => (input, binaries, expected) =>
-      logic === "and"
-        ? binaries
-            .map((binary) =>
-              binary.combined
-                ? binary.expression
-                : ts.factory.createLogicalOr(
-                    binary.expression,
-                    create_report_call(
-                      explore.source === "top"
+    return next.logic === "and"
+      ? next.binaries
+          .map((binary) =>
+            binary.combined
+              ? binary.expression
+              : ts.factory.createLogicalOr(
+                  binary.expression,
+                  create_report_call({
+                    exceptionable:
+                      next.explore.source === "top"
                         ? ts.factory.createTrue()
                         : ts.factory.createIdentifier("_exceptionable"),
-                    )(ts.factory.createIdentifier(path), expected, input),
-                  ),
-            )
-            .reduce(ts.factory.createLogicalAnd)
-        : ts.factory.createLogicalOr(
-            binaries
-              .map((binary) => binary.expression)
-              .reduce(ts.factory.createLogicalOr),
-            create_report_call(
-              explore.source === "top"
+                    path: ts.factory.createIdentifier(path),
+                    expected: next.expected,
+                    input: next.input,
+                  }),
+                ),
+          )
+          .reduce(ts.factory.createLogicalAnd)
+      : ts.factory.createLogicalOr(
+          next.binaries
+            .map((binary) => binary.expression)
+            .reduce(ts.factory.createLogicalOr),
+          create_report_call({
+            exceptionable:
+              next.explore.source === "top"
                 ? ts.factory.createTrue()
                 : ts.factory.createIdentifier("_exceptionable"),
-            )(ts.factory.createIdentifier(path), expected, input),
-          );
+            path: ts.factory.createIdentifier(path),
+            expected: next.expected,
+            input: next.input,
+          }),
+        );
   };
 
-const validate_object =
-  (equals: boolean) =>
-  (project: ITypiaContext) =>
-  (importer: FunctionImporter) =>
-    check_object({
-      equals,
-      undefined: true,
-      assert: false,
-      reduce: ts.factory.createLogicalAnd,
-      positive: ts.factory.createTrue(),
-      superfluous: (value) =>
-        create_report_call()(
-          ts.factory.createAdd(
-            ts.factory.createIdentifier("_path"),
-            ts.factory.createCallExpression(importer.use("join"), undefined, [
-              ts.factory.createIdentifier("key"),
-            ]),
+const validate_object = (props: {
+  config: ValidateProgrammer.IConfig;
+  context: ITypiaContext;
+  importer: FunctionImporter;
+}) =>
+  check_object({
+    equals: props.config.equals,
+    undefined: true,
+    assert: false,
+    reduce: ts.factory.createLogicalAnd,
+    positive: ts.factory.createTrue(),
+    superfluous: (input) =>
+      create_report_call({
+        path: ts.factory.createAdd(
+          ts.factory.createIdentifier("_path"),
+          ts.factory.createCallExpression(
+            props.importer.use("join"),
+            undefined,
+            [ts.factory.createIdentifier("key")],
           ),
-          "undefined",
-          value,
         ),
-      halt: (expr) =>
-        ts.factory.createLogicalOr(
-          ts.factory.createStrictEquality(
-            ts.factory.createFalse(),
-            ts.factory.createIdentifier("_exceptionable"),
-          ),
-          expr,
+        expected: "undefined",
+        input,
+      }),
+    halt: (expr) =>
+      ts.factory.createLogicalOr(
+        ts.factory.createStrictEquality(
+          ts.factory.createFalse(),
+          ts.factory.createIdentifier("_exceptionable"),
         ),
-    })(project)(importer);
-
-const joiner =
-  (equals: boolean) =>
-  (project: ITypiaContext) =>
-  (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-    object: validate_object(equals)(project)(importer),
-    array: (props) =>
-      check_everything(
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("map"),
-          undefined,
-          [props.arrow],
-        ),
+        expr,
       ),
-    failure: (value, expected, explore) =>
-      create_report_call(
-        explore?.from === "top"
+  })(props.context)(props.importer);
+
+const joiner = (props: {
+  config: ValidateProgrammer.IConfig;
+  context: ITypiaContext;
+  importer: FunctionImporter;
+}): CheckerProgrammer.IConfig.IJoiner => ({
+  object: validate_object(props),
+  array: (props) =>
+    check_everything(
+      ts.factory.createCallExpression(
+        IdentifierFactory.access(props.input)("map"),
+        undefined,
+        [props.arrow],
+      ),
+    ),
+  failure: (next) =>
+    create_report_call({
+      exceptionable:
+        next.explore?.from === "top"
           ? ts.factory.createTrue()
           : ts.factory.createIdentifier("_exceptionable"),
-      )(
-        ts.factory.createIdentifier(
-          explore?.postfix ? `_path + ${explore.postfix}` : "_path",
-        ),
-        expected,
-        value,
+      path: ts.factory.createIdentifier(
+        next.explore?.postfix ? `_path + ${next.explore.postfix}` : "_path",
       ),
-    tuple: (binaries) =>
-      check_everything(ts.factory.createArrayLiteralExpression(binaries, true)),
-  });
+      expected: next.expected,
+      input: next.input,
+    }),
+  tuple: (binaries) =>
+    check_everything(ts.factory.createArrayLiteralExpression(binaries, true)),
+});
 
 const create_output = () =>
   ts.factory.createObjectLiteralExpression(
@@ -363,28 +376,27 @@ const create_output = () =>
     true,
   );
 
-const create_report_call =
-  (exceptionable?: ts.Expression) =>
-  (
-    path: ts.Expression,
-    expected: string,
-    value: ts.Expression,
-  ): ts.Expression =>
-    ts.factory.createCallExpression(
-      ts.factory.createIdentifier("$report"),
-      undefined,
-      [
-        exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
-        ts.factory.createObjectLiteralExpression(
-          [
-            ts.factory.createPropertyAssignment("path", path),
-            ts.factory.createPropertyAssignment(
-              "expected",
-              ts.factory.createStringLiteral(expected),
-            ),
-            ts.factory.createPropertyAssignment("value", value),
-          ],
-          true,
-        ),
-      ],
-    );
+const create_report_call = (props: {
+  exceptionable?: ts.Expression;
+  path: ts.Expression;
+  expected: string;
+  input: ts.Expression;
+}): ts.Expression =>
+  ts.factory.createCallExpression(
+    ts.factory.createIdentifier("$report"),
+    undefined,
+    [
+      props.exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
+      ts.factory.createObjectLiteralExpression(
+        [
+          ts.factory.createPropertyAssignment("path", props.path),
+          ts.factory.createPropertyAssignment(
+            "expected",
+            ts.factory.createStringLiteral(props.expected),
+          ),
+          ts.factory.createPropertyAssignment("value", props.input),
+        ],
+        true,
+      ),
+    ],
+  );

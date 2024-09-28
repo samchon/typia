@@ -47,9 +47,11 @@ export namespace JsonStringifyProgrammer {
     const config: FeatureProgrammer.IConfig = configure(props);
     if (props.validated === false)
       config.addition = (collection) =>
-        IsProgrammer.write_function_statements(props.context)(props.importer)(
+        IsProgrammer.write_function_statements({
+          context: props.context,
+          importer: props.importer,
           collection,
-        );
+        });
     const composed: FeatureProgrammer.IComposed = FeatureProgrammer.compose({
       ...props,
       config,
@@ -231,7 +233,11 @@ export namespace JsonStringifyProgrammer {
           props.metadata.escaped.original.size() === 1 &&
           props.metadata.escaped.original.natives[0] === "Date"
             ? () => check_native("Date")(props.input)
-            : () => IsProgrammer.decode_to_json(false)(props.input),
+            : () =>
+                IsProgrammer.decode_to_json({
+                  checkNull: false,
+                  input: props.input,
+                }),
         value: () =>
           decode_to_json({
             ...props,
@@ -255,11 +261,10 @@ export namespace JsonStringifyProgrammer {
           unions.push({
             type: "template literal",
             is: () =>
-              IsProgrammer.decode(props.context)(props.importer)(
-                props.input,
-                partial,
-                props.explore,
-              ),
+              IsProgrammer.decode({
+                ...props,
+                metadata: partial,
+              }),
             value: () =>
               decode_atomic({
                 ...props,
@@ -281,9 +286,9 @@ export namespace JsonStringifyProgrammer {
         unions.push({
           type: "atomic",
           is: () =>
-            IsProgrammer.decode(props.context)(props.importer)(
-              props.input,
-              (() => {
+            IsProgrammer.decode({
+              ...props,
+              metadata: (() => {
                 const partial = Metadata.initialize();
                 partial.atomics.push(
                   MetadataAtomic.create({
@@ -293,8 +298,7 @@ export namespace JsonStringifyProgrammer {
                 );
                 return partial;
               })(),
-              props.explore,
-            ),
+            }),
           value: () =>
             decode_atomic({
               ...props,
@@ -305,9 +309,9 @@ export namespace JsonStringifyProgrammer {
         unions.push({
           type: "const string",
           is: () =>
-            IsProgrammer.decode(props.context)(props.importer)(
-              props.input,
-              (() => {
+            IsProgrammer.decode({
+              ...props,
+              metadata: (() => {
                 const partial = Metadata.initialize();
                 partial.atomics.push(
                   MetadataAtomic.create({
@@ -317,8 +321,7 @@ export namespace JsonStringifyProgrammer {
                 );
                 return partial;
               })(),
-              props.explore,
-            ),
+            }),
           value: () =>
             decode_constant_string({
               ...props,
@@ -337,15 +340,14 @@ export namespace JsonStringifyProgrammer {
         unions.push({
           type: "atomic",
           is: () =>
-            IsProgrammer.decode(props.context)(props.importer)(
-              props.input,
-              (() => {
+            IsProgrammer.decode({
+              ...props,
+              metadata: (() => {
                 const partial = Metadata.initialize();
                 partial.atomics.push(a);
                 return partial;
               })(),
-              props.explore,
-            ),
+            }),
           value: () =>
             decode_atomic({
               ...props,
@@ -358,15 +360,14 @@ export namespace JsonStringifyProgrammer {
       unions.push({
         type: "tuple",
         is: () =>
-          IsProgrammer.decode(props.context)(props.importer)(
-            props.input,
-            (() => {
+          IsProgrammer.decode({
+            ...props,
+            metadata: (() => {
               const partial = Metadata.initialize();
               partial.tuples.push(tuple);
               return partial;
             })(),
-            props.explore,
-          ),
+          }),
         value: () =>
           decode_tuple({
             ...props,
@@ -755,7 +756,14 @@ export namespace JsonStringifyProgrammer {
       elements: props.arrays,
       factory: (next) =>
         UnionExplorer.array({
-          checker: IsProgrammer.decode(props.context)(props.importer),
+          checker: (input, metadata, explore) =>
+            IsProgrammer.decode({
+              context: props.context,
+              importer: props.importer,
+              metadata,
+              input,
+              explore,
+            }),
           decoder: (input, array, explore) =>
             decode_array({
               config: props.config,
@@ -812,7 +820,7 @@ export namespace JsonStringifyProgrammer {
         [],
       );
 
-    const explore: FeatureProgrammer.IExplore = {
+    const arrayExplore: FeatureProgrammer.IExplore = {
       ...props.explore,
       source: "function",
       from: "array",
@@ -828,7 +836,7 @@ export namespace JsonStringifyProgrammer {
                 TypeFactory.keyword("any"),
               )(ts.factory.createIdentifier("input")),
               explore: {
-                ...explore,
+                ...arrayExplore,
                 postfix: "",
               },
               input: ts.factory.createIdentifier("input"),
@@ -836,7 +844,7 @@ export namespace JsonStringifyProgrammer {
         ),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(explore)(props.input),
+      FeatureProgrammer.argumentsArray(props.config)(arrayExplore)(props.input),
     );
   };
 
@@ -949,7 +957,14 @@ export namespace JsonStringifyProgrammer {
           explore,
         }),
       objector: {
-        checker: () => IsProgrammer.decode(props.context)(props.importer),
+        checker: () => (input, metadata, explore) =>
+          IsProgrammer.decode({
+            context: props.context,
+            importer: props.importer,
+            metadata,
+            input,
+            explore,
+          }),
         decoder: () => (input, object, explore) =>
           decode_object({
             importer: props.importer,
@@ -962,8 +977,14 @@ export namespace JsonStringifyProgrammer {
             ...next,
             importer: props.importer,
           }),
-        unionizer: decode_union_object(
-          IsProgrammer.decode_object(props.context)(props.importer),
+        unionizer: decode_union_object((input, object, explore) =>
+          IsProgrammer.decode_object({
+            context: props.context,
+            importer: props.importer,
+            input,
+            object,
+            explore,
+          }),
         )((input, object, explore) =>
           decode_object({
             importer: props.importer,
