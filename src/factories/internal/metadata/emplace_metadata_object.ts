@@ -188,7 +188,8 @@ const significant = (functional: boolean) =>
         ts.isPropertyDeclaration(node) ||
         ts.isPropertyAssignment(node) ||
         ts.isPropertySignature(node) ||
-        ts.isTypeLiteralNode(node);
+        ts.isTypeLiteralNode(node) ||
+        ts.isShorthandPropertyAssignment(node);
 
 const iterate_optional_coalesce = (props: {
   metadata: Metadata;
