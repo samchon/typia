@@ -100,9 +100,11 @@ export namespace JsonStringifyProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_array_inline({
@@ -139,9 +141,11 @@ export namespace JsonStringifyProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_tuple_inline({
@@ -520,10 +524,16 @@ export namespace JsonStringifyProgrammer {
     explore: FeatureProgrammer.IExplore;
   }): ts.CallExpression =>
     FeatureProgrammer.decode_object({
-      trace: false,
-      path: false,
-      prefix: PREFIX,
-    })(props.importer)(props.input, props.object, props.explore);
+      config: {
+        trace: false,
+        path: false,
+        prefix: PREFIX,
+      },
+      importer: props.importer,
+      object: props.object,
+      input: props.input,
+      explore: props.explore,
+    });
 
   const decode_array = (props: {
     config: FeatureProgrammer.IConfig;
@@ -540,11 +550,15 @@ export namespace JsonStringifyProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)({
-            ...props.explore,
-            source: "function",
-            from: "array",
-          })(props.input),
+          FeatureProgrammer.argumentsArray({
+            config: props.config,
+            input: props.input,
+            explore: {
+              ...props.explore,
+              source: "function",
+              from: "array",
+            },
+          }),
         )
       : decode_array_inline(props);
 
@@ -555,9 +569,14 @@ export namespace JsonStringifyProgrammer {
     array: MetadataArray;
     explore: FeatureProgrammer.IExplore;
   }) =>
-    FeatureProgrammer.decode_array(props.config)(props.importer)(
-      StringifyJoiner.array,
-    )(props.input, props.array, props.explore);
+    FeatureProgrammer.decode_array({
+      config: props.config,
+      importer: props.importer,
+      combiner: StringifyJoiner.array,
+      array: props.array,
+      input: props.input,
+      explore: props.explore,
+    });
 
   const decode_tuple = (props: {
     context: ITypiaContext;
@@ -575,10 +594,14 @@ export namespace JsonStringifyProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)({
-            ...props.explore,
-            source: "function",
-          })(props.input),
+          FeatureProgrammer.argumentsArray({
+            config: props.config,
+            explore: {
+              ...props.explore,
+              source: "function",
+            },
+            input: props.input,
+          }),
         )
       : decode_tuple_inline({
           ...props,
@@ -738,9 +761,7 @@ export namespace JsonStringifyProgrammer {
             props.importer.useLocal(`${PREFIX}u${props.metadata.union_index!}`),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)(props.explore)(
-            props.input,
-          ),
+          FeatureProgrammer.argumentsArray(props),
         );
 
   const explore_arrays = (props: {
@@ -832,9 +853,11 @@ export namespace JsonStringifyProgrammer {
           props.elements.map((e) => e.type.name).join(" | "),
           () =>
             arrow({
-              parameters: FeatureProgrammer.parameterDeclarations(props.config)(
-                TypeFactory.keyword("any"),
-              )(ts.factory.createIdentifier("input")),
+              parameters: FeatureProgrammer.parameterDeclarations({
+                config: props.config,
+                type: TypeFactory.keyword("any"),
+                input: ts.factory.createIdentifier("input"),
+              }),
               explore: {
                 ...arrayExplore,
                 postfix: "",
@@ -844,7 +867,11 @@ export namespace JsonStringifyProgrammer {
         ),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(arrayExplore)(props.input),
+      FeatureProgrammer.argumentsArray({
+        config: props.config,
+        explore: arrayExplore,
+        input: props.input,
+      }),
     );
   };
 
@@ -947,73 +974,74 @@ export namespace JsonStringifyProgrammer {
       trace: false,
       path: false,
       initializer,
-      decoder: () => (input, metadata, explore) =>
+      decoder: (next) =>
         decode({
           context: props.context,
           importer: props.importer,
           config,
-          input,
-          metadata,
-          explore,
+          metadata: next.metadata,
+          input: next.input,
+          explore: next.explore,
         }),
       objector: {
-        checker: () => (input, metadata, explore) =>
+        checker: (next) =>
           IsProgrammer.decode({
             context: props.context,
             importer: props.importer,
-            metadata,
-            input,
-            explore,
+            metadata: next.metadata,
+            input: next.input,
+            explore: next.explore,
           }),
-        decoder: () => (input, object, explore) =>
+        decoder: (next) =>
           decode_object({
             importer: props.importer,
-            input,
-            object,
-            explore,
+            input: next.input,
+            object: next.object,
+            explore: next.explore,
           }),
         joiner: (next) =>
           StringifyJoiner.object({
             ...next,
             importer: props.importer,
           }),
-        unionizer: decode_union_object((input, object, explore) =>
-          IsProgrammer.decode_object({
-            context: props.context,
-            importer: props.importer,
-            input,
-            object,
-            explore,
-          }),
-        )((input, object, explore) =>
-          decode_object({
-            importer: props.importer,
-            input,
-            object,
-            explore,
-          }),
-        )((exp) => exp)((input, expected) =>
+        unionizer: (next) =>
+          decode_union_object((input, object, explore) =>
+            IsProgrammer.decode_object({
+              context: props.context,
+              importer: props.importer,
+              input,
+              object,
+              explore,
+            }),
+          )((input, object, explore) =>
+            decode_object({
+              importer: props.importer,
+              input,
+              object,
+              explore,
+            }),
+          )((exp) => exp)((input, expected) =>
+            create_throw_error({
+              importer: props.importer,
+              expected,
+              input,
+            }),
+          )(next.input, next.objects, next.explore),
+        failure: (next) =>
           create_throw_error({
             importer: props.importer,
-            expected,
-            input,
-          }),
-        ),
-        failure: (input, expected) =>
-          create_throw_error({
-            importer: props.importer,
-            expected,
-            input,
+            expected: next.expected,
+            input: next.input,
           }),
       },
       generator: {
-        arrays: () => (collection) =>
+        arrays: (collection) =>
           write_array_functions({
             config,
             importer: props.importer,
             collection,
           }),
-        tuples: () => (collection) =>
+        tuples: (collection) =>
           write_tuple_functions({
             config,
             context: props.context,
@@ -1025,14 +1053,13 @@ export namespace JsonStringifyProgrammer {
     return config;
   };
 
-  const initializer: FeatureProgrammer.IConfig["initializer"] =
-    (context) => (importer) => (type) =>
-      JsonMetadataFactory.analyze({
-        method: `typia.json.${importer.method}`,
-        checker: context.checker,
-        transformer: context.transformer,
-        type,
-      });
+  const initializer: FeatureProgrammer.IConfig["initializer"] = (props) =>
+    JsonMetadataFactory.analyze({
+      method: `typia.json.${props.importer.method}`,
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      type: props.type,
+    });
 
   const create_throw_error = (props: {
     importer: FunctionImporter;

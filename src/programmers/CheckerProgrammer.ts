@@ -44,7 +44,11 @@ export namespace CheckerProgrammer {
     equals: boolean;
     numeric: boolean;
     addition?: () => ts.Statement[];
-    decoder?: () => FeatureProgrammer.Decoder<Metadata, ts.Expression>;
+    decoder?: (props: {
+      metadata: Metadata;
+      input: ts.Expression;
+      explore: IExplore;
+    }) => ts.Expression;
     combiner: IConfig.Combiner;
     atomist: (props: {
       entry: ICheckEntry;
@@ -121,10 +125,13 @@ export namespace CheckerProgrammer {
     type: ts.Type;
     name?: string;
   }): ts.ArrowFunction =>
-    FeatureProgrammer.write(props.context)(configure(props))(props.importer)(
-      props.type,
-      props.name,
-    );
+    FeatureProgrammer.write({
+      config: configure(props),
+      context: props.context,
+      importer: props.importer,
+      type: props.type,
+      name: props.name,
+    });
 
   export const write_object_functions = (props: {
     context: ITypiaContext;
@@ -144,8 +151,8 @@ export namespace CheckerProgrammer {
     importer: FunctionImporter;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
-    FeatureProgrammer.write_union_functions(
-      configure({
+    FeatureProgrammer.write_union_functions({
+      config: configure({
         context: props.context,
         config: {
           ...props.config,
@@ -153,7 +160,8 @@ export namespace CheckerProgrammer {
         },
         importer: props.importer,
       }),
-    )(props.collection);
+      collection: props.collection,
+    });
 
   export const write_array_functions = (props: {
     context: ITypiaContext;
@@ -170,9 +178,11 @@ export namespace CheckerProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_array_inline({
@@ -208,9 +218,11 @@ export namespace CheckerProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_tuple_inline({
@@ -249,141 +261,133 @@ export namespace CheckerProgrammer {
     trace: props.config.trace,
     path: props.config.path,
     prefix: props.config.prefix,
-    initializer: (context) => (importer) => (type) => {
+    initializer: (next) => {
       const collection: MetadataCollection = new MetadataCollection();
       const result = MetadataFactory.analyze({
-        checker: context.checker,
-        transformer: context.transformer,
+        checker: next.context.checker,
+        transformer: next.context.transformer,
         options: {
           escape: false,
           constant: true,
           absorb: true,
         },
         collection,
-        type,
+        type: next.type,
       });
       if (result.success === false)
-        throw TransformerError.from(`typia.${importer.method}`)(result.errors);
+        throw TransformerError.from(`typia.${next.importer.method}`)(
+          result.errors,
+        );
       return [collection, result.data];
     },
     addition: props.config.addition,
-    decoder: () =>
-      props.config.decoder
-        ? (input, metadata, explore) =>
-            props.config.decoder!()(input, metadata, explore)
-        : (input, metadata, explore) =>
+    decoder: props.config.decoder
+      ? (next) => props.config.decoder!(next)
+      : (next) =>
+          decode({
+            context: props.context,
+            config: props.config,
+            importer: props.importer,
+            input: next.input,
+            metadata: next.metadata,
+            explore: next.explore,
+          }),
+    objector: {
+      checker: props.config.decoder
+        ? (next) => props.config.decoder!(next)
+        : (next) =>
             decode({
               context: props.context,
               config: props.config,
               importer: props.importer,
-              input,
-              metadata,
-              explore,
+              input: next.input,
+              metadata: next.metadata,
+              explore: next.explore,
             }),
-    objector: {
-      checker: () => (input, metadata, explore) =>
-        props.config.decoder?.()(input, metadata, explore) ??
-        decode({
-          context: props.context,
-          config: props.config,
-          importer: props.importer,
-          input,
-          metadata,
-          explore,
-        }),
-      decoder: () => (input, object, explore) =>
+      decoder: (next) =>
         decode_object({
           config: props.config,
           importer: props.importer,
-          input,
-          object,
-          explore,
+          input: next.input,
+          object: next.object,
+          explore: next.explore,
         }),
       joiner: props.config.joiner.object,
       unionizer: props.config.equals
-        ? decode_union_object((input, object, explore) =>
-            decode_object({
-              config: props.config,
-              importer: props.importer,
-              object,
-              input,
-              explore,
-            }),
-          )((input, object, explore) =>
-            decode_object({
-              config: props.config,
-              importer: props.importer,
-              input,
-              object,
-              explore: {
-                ...explore,
-                tracable: true,
-              },
-            }),
-          )(props.config.joiner.is ?? ((expr) => expr))((input, expected) =>
-            ts.factory.createReturnStatement(
-              props.config.joiner.failure({
+        ? (next) =>
+            decode_union_object((input, object, explore) =>
+              decode_object({
+                config: props.config,
+                importer: props.importer,
+                object,
                 input,
-                expected,
+                explore,
               }),
-            ),
-          )
-        : (input, targets, explore) =>
+            )((input, object, explore) =>
+              decode_object({
+                config: props.config,
+                importer: props.importer,
+                input,
+                object,
+                explore: {
+                  ...explore,
+                  tracable: true,
+                },
+              }),
+            )(props.config.joiner.is ?? ((expr) => expr))((input, expected) =>
+              ts.factory.createReturnStatement(
+                props.config.joiner.failure({
+                  input,
+                  expected,
+                }),
+              ),
+            )(next.input, next.objects, next.explore)
+        : (next) =>
             props.config.combiner({
-              explore,
               logic: "or",
-              input,
-              binaries: targets.map((object) => ({
+              explore: next.explore,
+              input: next.input,
+              binaries: next.objects.map((object) => ({
                 expression: decode_object({
                   config: props.config,
                   importer: props.importer,
-                  input,
                   object,
-                  explore,
+                  input: next.input,
+                  explore: next.explore,
                 }),
                 combined: true,
               })),
-              expected: `(${targets.map((t) => t.name).join(" | ")})`,
+              expected: `(${next.objects.map((t) => t.name).join(" | ")})`,
             }),
-      failure: (input, expected) =>
-        ts.factory.createReturnStatement(
-          props.config.joiner.failure({
-            input,
-            expected,
-          }),
-        ),
+      failure: (next) =>
+        ts.factory.createReturnStatement(props.config.joiner.failure(next)),
       is: props.config.joiner.is,
       required: props.config.joiner.required,
       full: props.config.joiner.full
-        ? (condition) => (input, expected, explore) =>
-            props.config.joiner.full!({
-              condition,
-              input,
-              expected,
-              explore,
-            })
+        ? (next) => props.config.joiner.full!(next)
         : undefined,
       type: TypeFactory.keyword("boolean"),
     },
     generator: {
       unions: props.config.numeric
-        ? () =>
-            FeatureProgrammer.write_union_functions(
-              configure({
+        ? (collection) =>
+            FeatureProgrammer.write_union_functions({
+              config: configure({
                 ...props,
                 config: {
                   ...props.config,
                   numeric: false,
                 },
               }),
-            )
+              collection,
+            })
         : undefined,
-      arrays: () => (collection) =>
+      arrays: (collection) =>
         write_array_functions({
           ...props,
           collection,
         }),
-      tuples: () => (collection) =>
+      tuples: (collection) =>
         write_tuple_functions({
           ...props,
           collection,
@@ -912,11 +916,7 @@ export namespace CheckerProgrammer {
     explore: IExplore;
   }) => {
     props.object.validated ||= true;
-    return FeatureProgrammer.decode_object(props.config)(props.importer)(
-      props.input,
-      props.object,
-      props.explore,
-    );
+    return FeatureProgrammer.decode_object(props);
   };
 
   const decode_array = (props: {
@@ -942,11 +942,15 @@ export namespace CheckerProgrammer {
           ),
         ),
         undefined,
-        FeatureProgrammer.argumentsArray(props.config)({
-          ...arrayExplore,
-          source: "function",
-          from: "array",
-        })(props.input),
+        FeatureProgrammer.argumentsArray({
+          config: props.config,
+          explore: {
+            ...arrayExplore,
+            source: "function",
+            from: "array",
+          },
+          input: props.input,
+        }),
       ),
       props.config.joiner.failure({
         input: props.input,
@@ -968,21 +972,22 @@ export namespace CheckerProgrammer {
       props.input,
     );
     const main: ts.Expression = FeatureProgrammer.decode_array({
-      prefix: props.config.prefix,
-      trace: props.config.trace,
-      path: props.config.path,
-      decoder: () => (input, metadata, explore) =>
-        decode({
-          ...props,
-          input,
-          metadata,
-          explore,
-        }),
-    })(props.importer)(props.config.joiner.array)(
-      props.input,
-      props.array,
-      props.explore,
-    );
+      config: {
+        prefix: props.config.prefix,
+        trace: props.config.trace,
+        path: props.config.path,
+        decoder: (next) =>
+          decode({
+            ...props,
+            ...next,
+          }),
+      },
+      importer: props.importer,
+      combiner: props.config.joiner.array,
+      array: props.array,
+      input: props.input,
+      explore: props.explore,
+    });
     return length.expression === null && length.conditions.length === 0
       ? main
       : ts.factory.createLogicalAnd(
@@ -1021,10 +1026,14 @@ export namespace CheckerProgrammer {
           ),
         ),
         undefined,
-        FeatureProgrammer.argumentsArray(props.config)({
-          ...arrayExplore,
-          source: "function",
-        })(props.input),
+        FeatureProgrammer.argumentsArray({
+          config: props.config,
+          explore: {
+            ...arrayExplore,
+            source: "function",
+          },
+          input: props.input,
+        }),
       ),
       props.config.joiner.failure({
         input: props.input,
@@ -1499,11 +1508,11 @@ export namespace CheckerProgrammer {
             props.definitions.map((e) => e.type.name).join(" | "),
             () =>
               arrow({
-                parameters: FeatureProgrammer.parameterDeclarations(
-                  props.config,
-                )(TypeFactory.keyword("any"))(
-                  ts.factory.createIdentifier("input"),
-                ),
+                parameters: FeatureProgrammer.parameterDeclarations({
+                  config: props.config,
+                  type: TypeFactory.keyword("any"),
+                  input: ts.factory.createIdentifier("input"),
+                }),
                 explore: {
                   ...arrayExplore,
                   postfix: "",
@@ -1513,9 +1522,7 @@ export namespace CheckerProgrammer {
           ),
         ),
         undefined,
-        FeatureProgrammer.argumentsArray(props.config)(arrayExplore)(
-          props.input,
-        ),
+        FeatureProgrammer.argumentsArray(props),
       ),
       props.config.joiner.failure({
         input: props.input,
@@ -1547,9 +1554,7 @@ export namespace CheckerProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)(props.explore)(
-            props.input,
-          ),
+          FeatureProgrammer.argumentsArray(props),
         );
 }
 

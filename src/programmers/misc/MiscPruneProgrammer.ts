@@ -90,9 +90,11 @@ export namespace MiscPruneProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_array_inline({
@@ -129,9 +131,11 @@ export namespace MiscPruneProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_tuple_inline({
@@ -273,10 +277,16 @@ export namespace MiscPruneProgrammer {
     explore: FeatureProgrammer.IExplore;
   }) =>
     FeatureProgrammer.decode_object({
-      trace: false,
-      path: false,
-      prefix: PREFIX,
-    })(props.importer)(props.input, props.object, props.explore);
+      config: {
+        trace: false,
+        path: false,
+        prefix: PREFIX,
+      },
+      importer: props.importer,
+      object: props.object,
+      input: props.input,
+      explore: props.explore,
+    });
 
   const decode_array = (props: {
     config: FeatureProgrammer.IConfig;
@@ -293,11 +303,15 @@ export namespace MiscPruneProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)({
-            ...props.explore,
-            source: "function",
-            from: "array",
-          })(props.input),
+          FeatureProgrammer.argumentsArray({
+            config: props.config,
+            explore: {
+              ...props.explore,
+              source: "function",
+              from: "array",
+            },
+            input: props.input,
+          }),
         )
       : decode_array_inline(props);
 
@@ -308,9 +322,14 @@ export namespace MiscPruneProgrammer {
     array: MetadataArray;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
-    FeatureProgrammer.decode_array(props.config)(props.importer)(
-      PruneJoiner.array,
-    )(props.input, props.array, props.explore);
+    FeatureProgrammer.decode_array({
+      config: props.config,
+      importer: props.importer,
+      combiner: PruneJoiner.array,
+      array: props.array,
+      input: props.input,
+      explore: props.explore,
+    });
 
   const decode_tuple = (props: {
     context: ITypiaContext;
@@ -328,10 +347,14 @@ export namespace MiscPruneProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)({
-            ...props.explore,
-            source: "function",
-          })(props.input),
+          FeatureProgrammer.argumentsArray({
+            config: props.config,
+            explore: {
+              ...props.explore,
+              source: "function",
+            },
+            input: props.input,
+          }),
         )
       : decode_tuple_inline({
           ...props,
@@ -415,9 +438,7 @@ export namespace MiscPruneProgrammer {
         props.importer.useLocal(`${PREFIX}u${props.metadata.union_index!}`),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(props.explore)(
-        props.input,
-      ),
+      FeatureProgrammer.argumentsArray(props),
     );
   };
 
@@ -510,9 +531,11 @@ export namespace MiscPruneProgrammer {
           props.elements.map((e) => e.type.name).join(" | "),
           () =>
             arrow({
-              parameters: FeatureProgrammer.parameterDeclarations(props.config)(
-                TypeFactory.keyword("any"),
-              )(ts.factory.createIdentifier("input")),
+              parameters: FeatureProgrammer.parameterDeclarations({
+                config: props.config,
+                type: TypeFactory.keyword("any"),
+                input: ts.factory.createIdentifier("input"),
+              }),
               explore: {
                 ...arrayExplore,
                 postfix: "",
@@ -522,9 +545,7 @@ export namespace MiscPruneProgrammer {
         ),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(props.explore)(
-        props.input,
-      ),
+      FeatureProgrammer.argumentsArray(props),
     );
   };
 
@@ -560,69 +581,70 @@ export namespace MiscPruneProgrammer {
       trace: false,
       path: false,
       initializer,
-      decoder: () => (input, metadata, explore) =>
+      decoder: (next) =>
         decode({
           context: props.context,
           importer: props.importer,
           config,
-          input,
-          metadata,
-          explore,
+          input: next.input,
+          metadata: next.metadata,
+          explore: next.explore,
         }),
       objector: {
-        checker: () => (input, metadata, explore) =>
+        checker: (next) =>
           IsProgrammer.decode({
             context: props.context,
             importer: props.importer,
-            input,
-            metadata,
-            explore,
+            input: next.input,
+            metadata: next.metadata,
+            explore: next.explore,
           }),
-        decoder: () => (input, object, explore) =>
+        decoder: (next) =>
           decode_object({
             importer: props.importer,
-            input,
-            object,
-            explore,
+            input: next.input,
+            object: next.object,
+            explore: next.explore,
           }),
         joiner: PruneJoiner.object,
-        unionizer: decode_union_object((input, object, explore) =>
-          IsProgrammer.decode_object({
-            context: props.context,
-            importer: props.importer,
-            input,
-            object,
-            explore,
-          }),
-        )((input, object, explore) =>
-          decode_object({
-            importer: props.importer,
-            input,
-            object,
-            explore,
-          }),
-        )((exp) => exp)((input, expected) =>
+        unionizer: (next) =>
+          decode_union_object((input, object, explore) =>
+            IsProgrammer.decode_object({
+              context: props.context,
+              importer: props.importer,
+              input,
+              object,
+              explore,
+            }),
+          )((input, object, explore) =>
+            decode_object({
+              importer: props.importer,
+              input,
+              object,
+              explore,
+            }),
+          )((exp) => exp)((input, expected) =>
+            create_throw_error({
+              importer: props.importer,
+              expected,
+              input,
+            }),
+          )(next.input, next.objects, next.explore),
+        failure: (next) =>
           create_throw_error({
             importer: props.importer,
-            expected,
-            input,
-          }),
-        ),
-        failure: (input, expected) =>
-          create_throw_error({
-            importer: props.importer,
-            expected,
-            input,
+            expected: next.expected,
+            input: next.input,
           }),
       },
       generator: {
-        arrays: () => (collection) =>
+        arrays: (collection) =>
           write_array_functions({
             config,
             importer: props.importer,
             collection,
           }),
-        tuples: () => (collection) =>
+        tuples: (collection) =>
           write_tuple_functions({
             config,
             context: props.context,
@@ -634,26 +656,25 @@ export namespace MiscPruneProgrammer {
     return config;
   };
 
-  const initializer: FeatureProgrammer.IConfig["initializer"] =
-    (context) => (importer) => (type) => {
-      const collection = new MetadataCollection();
-      const result = MetadataFactory.analyze({
-        checker: context.checker,
-        transformer: context.transformer,
-        options: {
-          escape: false,
-          constant: true,
-          absorb: true,
-        },
-        collection,
-        type,
-      });
-      if (result.success === false)
-        throw TransformerError.from(`typia.misc.${importer.method}`)(
-          result.errors,
-        );
-      return [collection, result.data];
-    };
+  const initializer: FeatureProgrammer.IConfig["initializer"] = (props) => {
+    const collection = new MetadataCollection();
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+      },
+      collection,
+      type: props.type,
+    });
+    if (result.success === false)
+      throw TransformerError.from(`typia.misc.${props.importer.method}`)(
+        result.errors,
+      );
+    return [collection, result.data];
+  };
 
   const create_throw_error = (props: {
     importer: FunctionImporter;
