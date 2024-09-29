@@ -9,6 +9,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -105,9 +106,11 @@ export namespace NotationGeneralProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_array_inline({
@@ -143,9 +146,11 @@ export namespace NotationGeneralProgrammer {
           ts.factory.createArrowFunction(
             undefined,
             undefined,
-            FeatureProgrammer.parameterDeclarations(props.config)(
-              TypeFactory.keyword("any"),
-            )(ts.factory.createIdentifier("input")),
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
             TypeFactory.keyword("any"),
             undefined,
             decode_tuple_inline({
@@ -342,12 +347,23 @@ export namespace NotationGeneralProgrammer {
     }
   };
 
-  const decode_object = (importer: FunctionImporter) =>
+  const decode_object = (props: {
+    importer: FunctionImporter;
+    object: MetadataObject;
+    input: ts.Expression;
+    explore: FeatureProgrammer.IExplore;
+  }) =>
     FeatureProgrammer.decode_object({
-      trace: false,
-      path: false,
-      prefix: PREFIX,
-    })(importer);
+      config: {
+        trace: false,
+        path: false,
+        prefix: PREFIX,
+      },
+      importer: props.importer,
+      object: props.object,
+      input: props.input,
+      explore: props.explore,
+    });
 
   const decode_array = (props: {
     config: FeatureProgrammer.IConfig;
@@ -364,11 +380,15 @@ export namespace NotationGeneralProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)({
-            ...props.explore,
-            source: "function",
-            from: "array",
-          })(props.input),
+          FeatureProgrammer.argumentsArray({
+            config: props.config,
+            explore: {
+              ...props.explore,
+              source: "function",
+              from: "array",
+            },
+            input: props.input,
+          }),
         )
       : decode_array_inline(props);
 
@@ -379,9 +399,14 @@ export namespace NotationGeneralProgrammer {
     array: MetadataArray;
     explore: FeatureProgrammer.IExplore;
   }) =>
-    FeatureProgrammer.decode_array(props.config)(props.importer)(
-      NotationJoiner.array,
-    )(props.input, props.array, props.explore);
+    FeatureProgrammer.decode_array({
+      config: props.config,
+      importer: props.importer,
+      combiner: NotationJoiner.array,
+      array: props.array,
+      input: props.input,
+      explore: props.explore,
+    });
 
   const decode_tuple = (props: {
     context: ITypiaContext;
@@ -399,10 +424,14 @@ export namespace NotationGeneralProgrammer {
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(props.config)({
-            ...props.explore,
-            source: "function",
-          })(props.input),
+          FeatureProgrammer.argumentsArray({
+            config: props.config,
+            explore: {
+              ...props.explore,
+              source: "function",
+            },
+            input: props.input,
+          }),
         )
       : decode_tuple_inline({
           ...props,
@@ -588,19 +617,18 @@ export namespace NotationGeneralProgrammer {
     explore: FeatureProgrammer.IExplore;
   }) => {
     if (props.metadata.objects.length === 1)
-      return decode_object(props.importer)(
-        props.input,
-        props.metadata.objects[0]!,
-        props.explore,
-      );
+      return decode_object({
+        importer: props.importer,
+        object: props.metadata.objects[0]!,
+        input: props.input,
+        explore: props.explore,
+      });
     return ts.factory.createCallExpression(
       ts.factory.createIdentifier(
         props.importer.useLocal(`${PREFIX}u${props.metadata.union_index!}`),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(props.explore)(
-        props.input,
-      ),
+      FeatureProgrammer.argumentsArray(props),
     );
   };
 
@@ -682,9 +710,11 @@ export namespace NotationGeneralProgrammer {
           props.elements.map((e) => e.type.name).join(" | "),
           () =>
             arrow(
-              FeatureProgrammer.parameterDeclarations(props.config)(
-                TypeFactory.keyword("any"),
-              )(ts.factory.createIdentifier("input")),
+              FeatureProgrammer.parameterDeclarations({
+                config: props.config,
+                type: TypeFactory.keyword("any"),
+                input: ts.factory.createIdentifier("input"),
+              }),
             )({
               ...arrayExplore,
               postfix: "",
@@ -692,7 +722,11 @@ export namespace NotationGeneralProgrammer {
         ),
       ),
       undefined,
-      FeatureProgrammer.argumentsArray(props.config)(arrayExplore)(props.input),
+      FeatureProgrammer.argumentsArray({
+        config: props.config,
+        explore: arrayExplore,
+        input: props.input,
+      }),
     );
   };
 
@@ -723,56 +757,70 @@ export namespace NotationGeneralProgrammer {
       trace: false,
       path: false,
       initializer,
-      decoder: () => (input, metadata, explore) =>
+      decoder: (next) =>
         decode({
           context: props.context,
           config,
           importer: props.importer,
-          metadata,
-          explore,
-          input,
+          metadata: next.metadata,
+          explore: next.explore,
+          input: next.input,
         }),
       objector: {
-        checker: () => (input, metadata, explore) =>
+        checker: (next) =>
           IsProgrammer.decode({
             context: props.context,
             importer: props.importer,
-            input,
-            metadata,
-            explore,
+            input: next.input,
+            metadata: next.metadata,
+            explore: next.explore,
           }),
-        decoder: () => decode_object(props.importer),
+        decoder: (next) =>
+          decode_object({
+            importer: props.importer,
+            object: next.object,
+            input: next.input,
+            explore: next.explore,
+          }),
         joiner: NotationJoiner.object(props.rename),
-        unionizer: decode_union_object((input, object, explore) =>
-          IsProgrammer.decode_object({
-            context: props.context,
-            importer: props.importer,
-            object,
-            input,
-            explore,
-          }),
-        )(decode_object(props.importer))((exp) => exp)((input, expected) =>
+        unionizer: (next) =>
+          decode_union_object((input, object, explore) =>
+            IsProgrammer.decode_object({
+              context: props.context,
+              importer: props.importer,
+              object,
+              input,
+              explore,
+            }),
+          )((input, object, explore) =>
+            decode_object({
+              importer: props.importer,
+              object,
+              input,
+              explore,
+            }),
+          )((exp) => exp)((input, expected) =>
+            create_throw_error({
+              importer: props.importer,
+              expected,
+              input,
+            }),
+          )(next.input, next.objects, next.explore),
+        failure: (next) =>
           create_throw_error({
             importer: props.importer,
-            expected,
-            input,
-          }),
-        ),
-        failure: (input, expected) =>
-          create_throw_error({
-            importer: props.importer,
-            expected,
-            input,
+            expected: next.expected,
+            input: next.input,
           }),
       },
       generator: {
-        arrays: () => (collection) =>
+        arrays: (collection) =>
           write_array_functions({
             importer: props.importer,
             config,
             collection,
           }),
-        tuples: () => (collection) =>
+        tuples: (collection) =>
           write_tuple_functions({
             context: props.context,
             importer: props.importer,
@@ -784,26 +832,25 @@ export namespace NotationGeneralProgrammer {
     return config;
   };
 
-  const initializer: FeatureProgrammer.IConfig["initializer"] =
-    (project) => (importer) => (type) => {
-      const collection = new MetadataCollection();
-      const result = MetadataFactory.analyze({
-        checker: project.checker,
-        transformer: project.transformer,
-        options: {
-          escape: false,
-          constant: true,
-          absorb: true,
-        },
-        collection,
-        type,
-      });
-      if (result.success === false)
-        throw TransformerError.from(`typia.misc.${importer.method}`)(
-          result.errors,
-        );
-      return [collection, result.data];
-    };
+  const initializer: FeatureProgrammer.IConfig["initializer"] = (props) => {
+    const collection = new MetadataCollection();
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+      },
+      collection,
+      type: props.type,
+    });
+    if (result.success === false)
+      throw TransformerError.from(`typia.misc.${props.importer.method}`)(
+        result.errors,
+      );
+    return [collection, result.data];
+  };
 
   const create_throw_error = (props: {
     importer: FunctionImporter;
@@ -829,12 +876,12 @@ export namespace NotationGeneralProgrammer {
       ),
     );
 
-  const is_instance = (meta: Metadata): boolean =>
-    !!meta.objects.length ||
-    !!meta.arrays.length ||
-    !!meta.tuples.length ||
-    !!meta.sets.length ||
-    !!meta.maps.length ||
-    !!meta.natives.length ||
-    (meta.rest !== null && is_instance(meta.rest));
+  const is_instance = (metadata: Metadata): boolean =>
+    !!metadata.objects.length ||
+    !!metadata.arrays.length ||
+    !!metadata.tuples.length ||
+    !!metadata.sets.length ||
+    !!metadata.maps.length ||
+    !!metadata.natives.length ||
+    (metadata.rest !== null && is_instance(metadata.rest));
 }

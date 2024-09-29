@@ -19,68 +19,69 @@ import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace IsProgrammer {
-  export const configure =
-    (options?: Partial<CONFIG.IOptions>) =>
-    (project: ITypiaContext) =>
-    (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
-      prefix: "$i",
-      equals: !!options?.object,
-      trace: false,
-      path: false,
-      numeric: OptionPredicator.numeric({
-        numeric: options?.numeric,
-      }),
-      atomist: ({ entry }) =>
-        [
-          ...(entry.expression ? [entry.expression] : []),
-          ...(entry.conditions.length === 0
-            ? []
-            : [
-                entry.conditions
-                  .map((set) =>
-                    set
-                      .map((s) => s.expression)
-                      .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
-                  )
-                  .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-              ]),
-        ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-      combiner: (next) => {
-        const initial: ts.TrueLiteral | ts.FalseLiteral =
-          next.logic === "and"
-            ? ts.factory.createTrue()
-            : ts.factory.createFalse();
-        const binder =
-          next.logic === "and"
-            ? ts.factory.createLogicalAnd
-            : ts.factory.createLogicalOr;
-        return next.binaries.length
-          ? next.binaries.map((binary) => binary.expression).reduce(binder)
-          : initial;
-      },
-      joiner: {
-        object:
-          options?.object ||
-          check_object({
-            equals: !!options?.object,
-            undefined: OptionPredicator.undefined({
-              undefined: options?.undefined,
-            }),
-            assert: true,
-            reduce: ts.factory.createLogicalAnd,
-            positive: ts.factory.createTrue(),
-            superfluous: () => ts.factory.createFalse(),
-          })(project)(importer),
-        array: (props) =>
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(props.input)("every"),
-            undefined,
-            [props.arrow],
-          ),
-        failure: () => ts.factory.createFalse(),
-      },
-      success: ts.factory.createTrue(),
-    });
+  export const configure = (props: {
+    options?: Partial<CONFIG.IOptions>;
+    context: ITypiaContext;
+    importer: FunctionImporter;
+  }): CheckerProgrammer.IConfig => ({
+    prefix: "$i",
+    equals: !!props.options?.object,
+    trace: false,
+    path: false,
+    numeric: OptionPredicator.numeric({
+      numeric: props.options?.numeric,
+    }),
+    atomist: ({ entry }) =>
+      [
+        ...(entry.expression ? [entry.expression] : []),
+        ...(entry.conditions.length === 0
+          ? []
+          : [
+              entry.conditions
+                .map((set) =>
+                  set
+                    .map((s) => s.expression)
+                    .reduce((a, b) => ts.factory.createLogicalAnd(a, b)),
+                )
+                .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
+            ]),
+      ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+    combiner: (next) => {
+      const initial: ts.TrueLiteral | ts.FalseLiteral =
+        next.logic === "and"
+          ? ts.factory.createTrue()
+          : ts.factory.createFalse();
+      const binder =
+        next.logic === "and"
+          ? ts.factory.createLogicalAnd
+          : ts.factory.createLogicalOr;
+      return next.binaries.length
+        ? next.binaries.map((binary) => binary.expression).reduce(binder)
+        : initial;
+    },
+    joiner: {
+      object:
+        props.options?.object ||
+        check_object({
+          equals: !!props.options?.object,
+          undefined: OptionPredicator.undefined({
+            undefined: props.options?.undefined,
+          }),
+          assert: true,
+          reduce: ts.factory.createLogicalAnd,
+          positive: ts.factory.createTrue(),
+          superfluous: () => ts.factory.createFalse(),
+        })(props.context)(props.importer),
+      array: (props) =>
+        ts.factory.createCallExpression(
+          IdentifierFactory.access(props.input)("every"),
+          undefined,
+          [props.arrow],
+        ),
+      failure: () => ts.factory.createFalse(),
+    },
+    success: ts.factory.createTrue(),
+  });
 
   export namespace CONFIG {
     export interface IOptions {
@@ -113,16 +114,20 @@ export namespace IsProgrammer {
     // CONFIGURATION
     const config: CheckerProgrammer.IConfig = {
       ...configure({
-        object: check_object({
-          equals: props.config.equals,
-          undefined: OptionPredicator.undefined(props.context.options),
-          assert: true,
-          reduce: ts.factory.createLogicalAnd,
-          positive: ts.factory.createTrue(),
-          superfluous: () => ts.factory.createFalse(),
-        })(props.context)(props.importer),
-        numeric: OptionPredicator.numeric(props.context.options),
-      })(props.context)(props.importer),
+        options: {
+          object: check_object({
+            equals: props.config.equals,
+            undefined: OptionPredicator.undefined(props.context.options),
+            assert: true,
+            reduce: ts.factory.createLogicalAnd,
+            positive: ts.factory.createTrue(),
+            superfluous: () => ts.factory.createFalse(),
+          })(props.context)(props.importer),
+          numeric: OptionPredicator.numeric(props.context.options),
+        },
+        context: props.context,
+        importer: props.importer,
+      }),
       trace: props.config.equals,
     };
 
@@ -168,9 +173,7 @@ export namespace IsProgrammer {
     importer: FunctionImporter;
     collection: MetadataCollection;
   }) => {
-    const config: CheckerProgrammer.IConfig = configure()(props.context)(
-      props.importer,
-    );
+    const config: CheckerProgrammer.IConfig = configure(props);
     const next = {
       ...props,
       config,
@@ -212,7 +215,7 @@ export namespace IsProgrammer {
   }) =>
     CheckerProgrammer.decode({
       context: props.context,
-      config: configure()(props.context)(props.importer),
+      config: configure(props),
       importer: props.importer,
       metadata: props.metadata,
       input: props.input,
@@ -227,7 +230,7 @@ export namespace IsProgrammer {
     explore: FeatureProgrammer.IExplore;
   }) =>
     CheckerProgrammer.decode_object({
-      config: configure()(props.context)(props.importer),
+      config: configure(props),
       importer: props.importer,
       object: props.object,
       input: props.input,

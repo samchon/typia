@@ -251,9 +251,13 @@ const combine =
   (next) => {
     if (next.explore.tracable === false)
       return IsProgrammer.configure({
-        object: validate_object(props),
-        numeric: true,
-      })(props.context)(props.importer).combiner(next);
+        options: {
+          object: validate_object(props),
+          numeric: true,
+        },
+        context: props.context,
+        importer: props.importer,
+      }).combiner(next);
 
     const path: string = next.explore.postfix
       ? `_path + ${next.explore.postfix}`

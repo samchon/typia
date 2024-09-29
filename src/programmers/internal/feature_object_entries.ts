@@ -20,9 +20,9 @@ export const feature_object_entries =
     >,
   ) =>
   (importer: FunctionImporter) =>
-  (obj: MetadataObject) =>
+  (object: MetadataObject) =>
   (input: ts.Expression, from: "object" | "top" | "array" = "object") =>
-    obj.properties.map((prop) => {
+    object.properties.map((prop) => {
       const sole: string | null = prop.key.getSoleLiteral();
       const propInput =
         sole === null
@@ -36,23 +36,26 @@ export const feature_object_entries =
                 input,
                 ts.factory.createStringLiteral(sole),
               );
-
       return {
         input: propInput,
         key: prop.key,
         meta: prop.value,
-        expression: config.decoder()(propInput, prop.value, {
-          tracable: config.path || config.trace,
-          source: "function",
-          from,
-          postfix: config.trace
-            ? sole !== null
-              ? IdentifierFactory.postfix(sole)
-              : (() => {
-                  importer.use("join");
-                  return `$join(key)`;
-                })()
-            : "",
+        expression: config.decoder({
+          input: propInput,
+          metadata: prop.value,
+          explore: {
+            tracable: config.path || config.trace,
+            source: "function",
+            from,
+            postfix: config.trace
+              ? sole !== null
+                ? IdentifierFactory.postfix(sole)
+                : (() => {
+                    importer.use("join");
+                    return `$join(key)`;
+                  })()
+              : "",
+          },
         }),
       };
     });

@@ -218,16 +218,20 @@ export namespace AssertProgrammer {
     (next) => {
       if (next.explore.tracable === false)
         return IsProgrammer.configure({
-          object: (v) =>
-            assert_object({
-              config: props.config,
-              context: props.context,
-              importer: props.importer,
-              entries: v.entries,
-              input: v.input,
-            }),
-          numeric: true,
-        })(props.context)(props.importer).combiner(next);
+          options: {
+            object: (v) =>
+              assert_object({
+                config: props.config,
+                context: props.context,
+                importer: props.importer,
+                entries: v.entries,
+                input: v.input,
+              }),
+            numeric: true,
+          },
+          context: props.context,
+          importer: props.importer,
+        }).combiner(next);
 
       const path: string = next.explore.postfix
         ? `_path + ${next.explore.postfix}`

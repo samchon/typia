@@ -36,23 +36,32 @@ export namespace UnionExplorer {
     ): ts.Expression => {
       // BREAKER
       if (targets.length === 1)
-        return config.objector.decoder()(input, targets[0]!, explore);
+        return config.objector.decoder({
+          input,
+          object: targets[0]!,
+          explore,
+        });
 
       const expected: string = `(${targets.map((t) => t.name).join(" | ")})`;
 
       // POSSIBLE TO SPECIALIZE?
       const specList = UnionPredicator.object(targets);
       if (specList.length === 0) {
-        const condition: ts.Expression = config.objector.unionizer(
+        const condition: ts.Expression = config.objector.unionizer({
           input,
-          targets,
-          {
+          objects: targets,
+          explore: {
             ...explore,
             tracable: false,
           },
-        );
+        });
         return config.objector.full
-          ? config.objector.full(condition)(input, expected, explore)
+          ? config.objector.full({
+              condition,
+              expected,
+              explore,
+              input,
+            })
           : condition;
       }
       const remained: MetadataObject[] = targets.filter(
@@ -66,10 +75,14 @@ export namespace UnionExplorer {
           const key: string = spec.property.key.getSoleLiteral()!;
           const accessor: ts.Expression = IdentifierFactory.access(input)(key);
           const pred: ts.Expression = spec.neighbour
-            ? config.objector.checker()(accessor, spec.property.value, {
-                ...explore,
-                tracable: false,
-                postfix: IdentifierFactory.postfix(key),
+            ? config.objector.checker({
+                input: accessor,
+                metadata: spec.property.value,
+                explore: {
+                  ...explore,
+                  tracable: false,
+                  postfix: IdentifierFactory.postfix(key),
+                },
               })
             : (config.objector.required || ((exp) => exp))(
                 ExpressionFactory.isRequired(accessor),
@@ -77,14 +90,22 @@ export namespace UnionExplorer {
           return ts.factory.createIfStatement(
             (config.objector.is || ((exp) => exp))(pred),
             ts.factory.createReturnStatement(
-              config.objector.decoder()(input, spec.object, explore),
+              config.objector.decoder({
+                object: spec.object,
+                input,
+                explore,
+              }),
             ),
             i === array.length - 1
               ? remained.length
                 ? ts.factory.createReturnStatement(
                     object(config, level + 1)(input, remained, explore),
                   )
-                : config.objector.failure(input, expected, explore)
+                : config.objector.failure({
+                    input,
+                    expected,
+                    explore,
+                  })
               : undefined,
           );
         })
