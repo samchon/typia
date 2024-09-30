@@ -124,7 +124,10 @@ const iterate_dynamic_properties = (props: {
               ts.factory.createIfStatement(
                 ts.factory.createCallExpression(
                   ts.factory.createIdentifier(
-                    `RegExp(/${metadata_to_pattern(true)(dynamic.key)}/).test`,
+                    `RegExp(/${metadata_to_pattern({
+                      top: true,
+                      metadata: dynamic.key,
+                    })}/).test`,
                   ),
                   undefined,
                   [ts.factory.createIdentifier("key")],

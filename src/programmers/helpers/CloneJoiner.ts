@@ -68,7 +68,10 @@ export namespace CloneJoiner {
         ts.factory.createIfStatement(
           ts.factory.createCallExpression(
             ts.factory.createIdentifier(
-              `RegExp(/${metadata_to_pattern(true)(entry.key)}/).test`,
+              `RegExp(/${metadata_to_pattern({
+                top: true,
+                metadata: entry.key,
+              })}/).test`,
             ),
             undefined,
             [key],

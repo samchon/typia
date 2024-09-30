@@ -11,7 +11,7 @@ import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 import { Escaper } from "../../utils/Escaper";
 
 export namespace RandomJoiner {
-  export type Decoder = (meta: Metadata) => ts.Expression;
+  export type Decoder = (metadata: Metadata) => ts.Expression;
 
   export const array = (props: {
     coalesce: (method: string) => ts.Expression;
@@ -54,7 +54,10 @@ export namespace RandomJoiner {
     );
   };
 
-  export const tuple = (props: { decode: Decoder; elements: Metadata[] }) =>
+  export const tuple = (props: {
+    decode: Decoder;
+    elements: Metadata[];
+  }): ts.ArrayLiteralExpression =>
     ts.factory.createArrayLiteralExpression(
       props.elements.map((elem) => props.decode(elem.rest ?? elem)),
       true,

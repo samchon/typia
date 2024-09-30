@@ -24,7 +24,10 @@ export namespace StringifyJoiner {
       (entry) => !entry.key.isSoleLiteral(),
     );
     const expressions: ts.Expression[] = [
-      ...stringify_regular_properties(regular, dynamic),
+      ...stringify_regular_properties({
+        regular,
+        dynamic,
+      }),
       ...(dynamic.length
         ? [
             stringify_dynamic_properties(
