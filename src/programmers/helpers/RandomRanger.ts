@@ -182,7 +182,14 @@ const take = (props: {
   return value !== undefined ? Number(value) : undefined;
 };
 
-const multiplier = (props: { range: IRange; gap: number; value: number }) => {
+const multiplier = (props: {
+  range: IRange;
+  gap: number;
+  value: number;
+}): {
+  minimum: number;
+  maximum: number;
+} => {
   const minimum: number =
     props.range.minimum.value === undefined
       ? 0
