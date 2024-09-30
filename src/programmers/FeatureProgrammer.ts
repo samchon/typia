@@ -411,9 +411,12 @@ export namespace FeatureProgrammer {
           undefined,
           props.config.objector.joiner({
             input: ts.factory.createIdentifier("input"),
-            entries: feature_object_entries(props.config)(props.importer)(
+            entries: feature_object_entries({
+              config: props.config,
+              importer: props.importer,
+              input: ts.factory.createIdentifier("input"),
               object,
-            )(ts.factory.createIdentifier("input")),
+            }),
             object,
           }),
         ),
@@ -434,13 +437,8 @@ export namespace FeatureProgrammer {
       ),
     );
 
-  const write_union = (props: {
-    config: IConfig;
-    objects: MetadataObject[];
-  }) => {
-    const explorer = UnionExplorer.object(props.config);
-    const input = ValueFactory.INPUT();
-    return ts.factory.createArrowFunction(
+  const write_union = (props: { config: IConfig; objects: MetadataObject[] }) =>
+    ts.factory.createArrowFunction(
       undefined,
       undefined,
       parameterDeclarations({
@@ -450,14 +448,18 @@ export namespace FeatureProgrammer {
       }),
       TypeFactory.keyword("any"),
       undefined,
-      explorer(input, props.objects, {
-        tracable: props.config.path || props.config.trace,
-        source: "function",
-        from: "object",
-        postfix: "",
+      UnionExplorer.object({
+        config: props.config,
+        objects: props.objects,
+        input: ValueFactory.INPUT(),
+        explore: {
+          tracable: props.config.path || props.config.trace,
+          source: "function",
+          from: "object",
+          postfix: "",
+        },
       }),
     );
-  };
 
   /* -----------------------------------------------------------
         DECODERS

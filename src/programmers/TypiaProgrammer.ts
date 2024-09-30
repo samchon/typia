@@ -7,47 +7,54 @@ import { ImportTransformer } from "../transformers/ImportTransformer";
 import transform from "../transform";
 
 export namespace TypiaProgrammer {
-  export interface IProps {
+  export interface ILocation {
     input: string;
     output: string;
     project: string;
   }
 
-  export const build = async (props: TypiaProgrammer.IProps): Promise<void> => {
-    props.input = path.resolve(props.input);
-    props.output = path.resolve(props.output);
+  export const build = async (
+    location: TypiaProgrammer.ILocation,
+  ): Promise<void> => {
+    location.input = path.resolve(location.input);
+    location.output = path.resolve(location.output);
 
-    if ((await is_directory(props.input)) === false)
+    if ((await is_directory(location.input)) === false)
       throw new URIError(
         "Error on TypiaGenerator.generate(): input path is not a directory.",
       );
-    else if (fs.existsSync(props.output) === false)
-      await fs.promises.mkdir(props.output, { recursive: true });
-    else if ((await is_directory(props.output)) === false) {
-      const parent: string = path.join(props.output, "..");
+    else if (fs.existsSync(location.output) === false)
+      await fs.promises.mkdir(location.output, { recursive: true });
+    else if ((await is_directory(location.output)) === false) {
+      const parent: string = path.join(location.output, "..");
       if ((await is_directory(parent)) === false)
         throw new URIError(
           "Error on TypiaGenerator.generate(): output path is not a directory.",
         );
-      await fs.promises.mkdir(props.output);
+      await fs.promises.mkdir(location.output);
     }
 
     // CREATE PROGRAM
     const { options: compilerOptions } = ts.parseJsonConfigFileContent(
-      ts.readConfigFile(props.project, ts.sys.readFile).config,
+      ts.readConfigFile(location.project, ts.sys.readFile).config,
       {
         fileExists: ts.sys.fileExists,
         readFile: ts.sys.readFile,
         readDirectory: ts.sys.readDirectory,
         useCaseSensitiveFileNames: ts.sys.useCaseSensitiveFileNames,
       },
-      path.dirname(props.project),
+      path.dirname(location.project),
     );
 
     const program: ts.Program = ts.createProgram(
       await (async () => {
         const container: string[] = [];
-        await gather(props)(container)(props.input)(props.output);
+        await gather({
+          location,
+          container,
+          from: location.input,
+          to: location.output,
+        });
         return container;
       })(),
       compilerOptions,
@@ -61,10 +68,10 @@ export namespace TypiaProgrammer {
         .filter(
           (file) =>
             !file.isDeclarationFile &&
-            path.resolve(file.fileName).indexOf(props.input) !== -1,
+            path.resolve(file.fileName).indexOf(location.input) !== -1,
         ),
       [
-        ImportTransformer.transform(props.input)(props.output),
+        ImportTransformer.transform(location.input)(location.output),
         transform(
           program,
           ((compilerOptions.plugins as any[]) ?? []).find(
@@ -117,7 +124,7 @@ export namespace TypiaProgrammer {
     for (const file of result.transformed) {
       const to: string = path
         .resolve(file.fileName)
-        .replace(props.input, props.output);
+        .replace(location.input, location.output);
 
       const content: string = printer.printFile(file);
       await fs.promises.writeFile(to, content, "utf8");
@@ -129,24 +136,31 @@ export namespace TypiaProgrammer {
     return stat.isDirectory();
   };
 
-  const gather =
-    (props: IProps) =>
-    (container: string[]) =>
-    (from: string) =>
-    async (to: string) => {
-      if (from === props.output) return;
-      else if (fs.existsSync(to) === false) await fs.promises.mkdir(to);
+  const gather = async (props: {
+    location: ILocation;
+    container: string[];
+    from: string;
+    to: string;
+  }) => {
+    if (props.from === props.location.output) return;
+    else if (fs.existsSync(props.to) === false)
+      await fs.promises.mkdir(props.to);
 
-      for (const file of await fs.promises.readdir(from)) {
-        const next: string = path.join(from, file);
-        const stat: fs.Stats = await fs.promises.stat(next);
+    for (const file of await fs.promises.readdir(props.from)) {
+      const next: string = path.join(props.from, file);
+      const stat: fs.Stats = await fs.promises.stat(next);
 
-        if (stat.isDirectory()) {
-          await gather(props)(container)(next)(path.join(to, file));
-          continue;
-        } else if (is_supported_extension(file)) container.push(next);
-      }
-    };
+      if (stat.isDirectory()) {
+        await gather({
+          location: props.location,
+          container: props.container,
+          from: next,
+          to: path.join(props.to, file),
+        });
+        continue;
+      } else if (is_supported_extension(file)) props.container.push(next);
+    }
+  };
 
   const is_supported_extension = (filename: string): boolean => {
     return (

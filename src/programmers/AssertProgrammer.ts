@@ -305,36 +305,39 @@ export namespace AssertProgrammer {
     input: ts.Expression;
   }) =>
     check_object({
-      equals: props.config.equals,
-      assert: true,
-      undefined: true,
-      reduce: ts.factory.createLogicalAnd,
-      positive: ts.factory.createTrue(),
-      superfluous: (input) =>
-        create_guard_call({
-          importer: props.importer,
-          path: ts.factory.createAdd(
-            ts.factory.createIdentifier("_path"),
-            ts.factory.createCallExpression(
-              props.importer.use("join"),
-              undefined,
-              [ts.factory.createIdentifier("key")],
+      config: {
+        equals: props.config.equals,
+        assert: true,
+        undefined: true,
+        reduce: ts.factory.createLogicalAnd,
+        positive: ts.factory.createTrue(),
+        superfluous: (input) =>
+          create_guard_call({
+            importer: props.importer,
+            path: ts.factory.createAdd(
+              ts.factory.createIdentifier("_path"),
+              ts.factory.createCallExpression(
+                props.importer.use("join"),
+                undefined,
+                [ts.factory.createIdentifier("key")],
+              ),
             ),
+            expected: "undefined",
+            input,
+          }),
+        halt: (expr) =>
+          ts.factory.createLogicalOr(
+            ts.factory.createStrictEquality(
+              ts.factory.createFalse(),
+              ts.factory.createIdentifier("_exceptionable"),
+            ),
+            expr,
           ),
-          expected: "undefined",
-          input,
-        }),
-      halt: (expr) =>
-        ts.factory.createLogicalOr(
-          ts.factory.createStrictEquality(
-            ts.factory.createFalse(),
-            ts.factory.createIdentifier("_exceptionable"),
-          ),
-          expr,
-        ),
-    })(props.context)(props.importer)({
-      input: props.input,
+      },
+      context: props.context,
+      importer: props.importer,
       entries: props.entries,
+      input: props.input,
     });
 
   const joiner = (props: {

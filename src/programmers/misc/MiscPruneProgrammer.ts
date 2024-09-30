@@ -455,32 +455,39 @@ export namespace MiscPruneProgrammer {
       elements: props.arrays,
       factory: (next) =>
         UnionExplorer.array({
-          checker: (input, metadata, explore) =>
-            IsProgrammer.decode({
-              context: props.context,
-              importer: props.importer,
-              metadata,
-              input,
-              explore,
-            }),
-          decoder: (input, array, explore) =>
-            decode_array({
-              config: props.config,
-              importer: props.importer,
-              input,
-              array,
-              explore,
-            }),
-          empty: ts.factory.createStringLiteral("[]"),
-          success: ts.factory.createTrue(),
-          failure: (input, expected) =>
-            create_throw_error({
-              importer: props.importer,
-              expected,
-              input,
-            }),
-        })(next.parameters)(next.input, next.elements, next.explore),
+          config: {
+            checker: (v) =>
+              IsProgrammer.decode({
+                context: props.context,
+                importer: props.importer,
+                metadata: v.definition,
+                input: v.input,
+                explore: v.explore,
+              }),
+            decoder: (v) =>
+              decode_array({
+                config: props.config,
+                importer: props.importer,
+                input: v.input,
+                array: v.definition,
+                explore: v.explore,
+              }),
+            empty: ts.factory.createStringLiteral("[]"),
+            success: ts.factory.createTrue(),
+            failure: (v) =>
+              create_throw_error({
+                importer: props.importer,
+                expected: v.expected,
+                input: v.input,
+              }),
+          },
+          parameters: next.parameters,
+          input: next.input,
+          arrays: next.definitions,
+          explore: next.explore,
+        }),
     });
+  //(next.parameters)(next.input, next.elements, next.explore),
 
   const explore_array_like_union_types = <
     T extends MetadataArray | MetadataTuple,
@@ -490,7 +497,7 @@ export namespace MiscPruneProgrammer {
     factory: (next: {
       parameters: ts.ParameterDeclaration[];
       input: ts.Expression;
-      elements: T[];
+      definitions: T[];
       explore: FeatureProgrammer.IExplore;
     }) => ts.ArrowFunction;
     input: ts.Expression;
@@ -503,7 +510,7 @@ export namespace MiscPruneProgrammer {
       input: ts.Expression;
     }): ts.ArrowFunction =>
       props.factory({
-        elements: props.elements,
+        definitions: props.elements,
         parameters: next.parameters,
         input: next.input,
         explore: next.explore,
@@ -608,28 +615,33 @@ export namespace MiscPruneProgrammer {
           }),
         joiner: PruneJoiner.object,
         unionizer: (next) =>
-          decode_union_object((input, object, explore) =>
-            IsProgrammer.decode_object({
-              context: props.context,
-              importer: props.importer,
-              input,
-              object,
-              explore,
-            }),
-          )((input, object, explore) =>
-            decode_object({
-              importer: props.importer,
-              input,
-              object,
-              explore,
-            }),
-          )((exp) => exp)((input, expected) =>
-            create_throw_error({
-              importer: props.importer,
-              expected,
-              input,
-            }),
-          )(next.input, next.objects, next.explore),
+          decode_union_object({
+            checker: (v) =>
+              IsProgrammer.decode_object({
+                context: props.context,
+                importer: props.importer,
+                input: v.input,
+                object: v.object,
+                explore: v.explore,
+              }),
+            decoder: (v) =>
+              decode_object({
+                importer: props.importer,
+                input: v.input,
+                object: v.object,
+                explore: v.explore,
+              }),
+            success: (exp) => exp,
+            escaper: (v) =>
+              create_throw_error({
+                importer: props.importer,
+                expected: v.expected,
+                input: v.input,
+              }),
+            input: next.input,
+            objects: next.objects,
+            explore: next.explore,
+          }),
         failure: (next) =>
           create_throw_error({
             importer: props.importer,

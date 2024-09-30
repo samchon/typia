@@ -95,7 +95,10 @@ const create_object_schema = (props: {
       properties[key] = schema;
       if (property.value.isRequired() === true) required.push(key);
     } else {
-      const pattern: string = metadata_to_pattern(true)(property.key);
+      const pattern: string = metadata_to_pattern({
+        top: true,
+        metadata: property.key,
+      });
       if (pattern === PatternUtil.STRING)
         extraMeta.additionalProperties = [property.value, schema];
       else extraMeta.patternProperties[pattern] = [property.value, schema];
@@ -140,7 +143,7 @@ const join = (props: {
   else if (elements.length === 1) return elements[0]![1]!;
 
   // MERGE METADATA AND GENERATE VULNERABLE SCHEMA
-  const meta: Metadata = elements
+  const metadata: Metadata = elements
     .map((tuple) => tuple[0])
     .reduce((x, y) => Metadata.merge(x, y));
   return (
@@ -148,7 +151,7 @@ const join = (props: {
       blockNever: true,
       components: props.components,
       attribute: {},
-      metadata: meta,
+      metadata,
     }) ?? undefined
   );
 };

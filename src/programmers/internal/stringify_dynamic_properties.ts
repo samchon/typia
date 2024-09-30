@@ -122,7 +122,10 @@ export const stringify_dynamic_properties = (
     const condition: ts.IfStatement = ts.factory.createIfStatement(
       ts.factory.createCallExpression(
         ts.factory.createIdentifier(
-          `RegExp(/${metadata_to_pattern(true)(entry.key)}/).test`,
+          `RegExp(/${metadata_to_pattern({
+            top: true,
+            metadata: entry.key,
+          })}/).test`,
         ),
         undefined,
         [ts.factory.createIdentifier("key")],

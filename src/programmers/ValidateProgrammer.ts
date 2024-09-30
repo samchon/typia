@@ -12,6 +12,7 @@ import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
@@ -252,7 +253,14 @@ const combine =
     if (next.explore.tracable === false)
       return IsProgrammer.configure({
         options: {
-          object: validate_object(props),
+          object: (v) =>
+            validate_object({
+              context: props.context,
+              importer: props.importer,
+              config: props.config,
+              entries: v.entries,
+              input: v.input,
+            }),
           numeric: true,
         },
         context: props.context,
@@ -301,42 +309,57 @@ const validate_object = (props: {
   config: ValidateProgrammer.IConfig;
   context: ITypiaContext;
   importer: FunctionImporter;
+  entries: IExpressionEntry<ts.Expression>[];
+  input: ts.Expression;
 }) =>
   check_object({
-    equals: props.config.equals,
-    undefined: true,
-    assert: false,
-    reduce: ts.factory.createLogicalAnd,
-    positive: ts.factory.createTrue(),
-    superfluous: (input) =>
-      create_report_call({
-        path: ts.factory.createAdd(
-          ts.factory.createIdentifier("_path"),
-          ts.factory.createCallExpression(
-            props.importer.use("join"),
-            undefined,
-            [ts.factory.createIdentifier("key")],
+    config: {
+      equals: props.config.equals,
+      undefined: true,
+      assert: false,
+      reduce: ts.factory.createLogicalAnd,
+      positive: ts.factory.createTrue(),
+      superfluous: (input) =>
+        create_report_call({
+          path: ts.factory.createAdd(
+            ts.factory.createIdentifier("_path"),
+            ts.factory.createCallExpression(
+              props.importer.use("join"),
+              undefined,
+              [ts.factory.createIdentifier("key")],
+            ),
           ),
+          expected: "undefined",
+          input,
+        }),
+      halt: (expr) =>
+        ts.factory.createLogicalOr(
+          ts.factory.createStrictEquality(
+            ts.factory.createFalse(),
+            ts.factory.createIdentifier("_exceptionable"),
+          ),
+          expr,
         ),
-        expected: "undefined",
-        input,
-      }),
-    halt: (expr) =>
-      ts.factory.createLogicalOr(
-        ts.factory.createStrictEquality(
-          ts.factory.createFalse(),
-          ts.factory.createIdentifier("_exceptionable"),
-        ),
-        expr,
-      ),
-  })(props.context)(props.importer);
+    },
+    context: props.context,
+    importer: props.importer,
+    entries: props.entries,
+    input: props.input,
+  });
 
 const joiner = (props: {
   config: ValidateProgrammer.IConfig;
   context: ITypiaContext;
   importer: FunctionImporter;
 }): CheckerProgrammer.IConfig.IJoiner => ({
-  object: validate_object(props),
+  object: (v) =>
+    validate_object({
+      context: props.context,
+      importer: props.importer,
+      config: props.config,
+      entries: v.entries,
+      input: v.input,
+    }),
   array: (props) =>
     check_everything(
       ts.factory.createCallExpression(

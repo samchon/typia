@@ -16,225 +16,250 @@ import { UnionPredicator } from "./UnionPredicator";
 
 export namespace UnionExplorer {
   export interface Decoder<T> {
-    (
-      input: ts.Expression,
-      target: T,
-      explore: FeatureProgrammer.IExplore,
-    ): ts.Expression;
+    (props: {
+      input: ts.Expression;
+      definition: T;
+      explore: FeatureProgrammer.IExplore;
+    }): ts.Expression;
   }
   export type ObjectCombiner = Decoder<MetadataObject[]>;
 
   /* -----------------------------------------------------------
         OBJECT
     ----------------------------------------------------------- */
-  export const object =
-    (config: FeatureProgrammer.IConfig, level: number = 0) =>
-    (
-      input: ts.Expression,
-      targets: MetadataObject[],
-      explore: FeatureProgrammer.IExplore,
-    ): ts.Expression => {
-      // BREAKER
-      if (targets.length === 1)
-        return config.objector.decoder({
-          input,
-          object: targets[0]!,
-          explore,
-        });
+  export const object = (props: {
+    config: FeatureProgrammer.IConfig;
+    level?: number;
+    objects: MetadataObject[];
+    input: ts.Expression;
+    explore: FeatureProgrammer.IExplore;
+  }): ts.Expression => {
+    // BREAKER
+    if (props.objects.length === 1)
+      return props.config.objector.decoder({
+        input: props.input,
+        object: props.objects[0]!,
+        explore: props.explore,
+      });
 
-      const expected: string = `(${targets.map((t) => t.name).join(" | ")})`;
+    const expected: string = `(${props.objects.map((t) => t.name).join(" | ")})`;
 
-      // POSSIBLE TO SPECIALIZE?
-      const specList = UnionPredicator.object(targets);
-      if (specList.length === 0) {
-        const condition: ts.Expression = config.objector.unionizer({
-          input,
-          objects: targets,
-          explore: {
-            ...explore,
-            tracable: false,
-          },
-        });
-        return config.objector.full
-          ? config.objector.full({
-              condition,
-              expected,
-              explore,
-              input,
-            })
-          : condition;
-      }
-      const remained: MetadataObject[] = targets.filter(
-        (t) => specList.find((s) => s.object === t) === undefined,
-      );
+    // POSSIBLE TO SPECIALIZE?
+    const specList = UnionPredicator.object(props.objects);
+    if (specList.length === 0) {
+      const condition: ts.Expression = props.config.objector.unionizer({
+        objects: props.objects,
+        input: props.input,
+        explore: {
+          ...props.explore,
+          tracable: false,
+        },
+      });
+      return props.config.objector.full
+        ? props.config.objector.full({
+            condition,
+            expected,
+            explore: props.explore,
+            input: props.input,
+          })
+        : condition;
+    }
+    const remained: MetadataObject[] = props.objects.filter(
+      (t) => specList.find((s) => s.object === t) === undefined,
+    );
 
-      // DO SPECIALIZE
-      const condition: ts.IfStatement = specList
-        .filter((spec) => spec.property.key.getSoleLiteral() !== null)
-        .map((spec, i, array) => {
-          const key: string = spec.property.key.getSoleLiteral()!;
-          const accessor: ts.Expression = IdentifierFactory.access(input)(key);
-          const pred: ts.Expression = spec.neighbour
-            ? config.objector.checker({
-                input: accessor,
-                metadata: spec.property.value,
-                explore: {
-                  ...explore,
-                  tracable: false,
-                  postfix: IdentifierFactory.postfix(key),
-                },
-              })
-            : (config.objector.required || ((exp) => exp))(
-                ExpressionFactory.isRequired(accessor),
-              );
-          return ts.factory.createIfStatement(
-            (config.objector.is || ((exp) => exp))(pred),
-            ts.factory.createReturnStatement(
-              config.objector.decoder({
-                object: spec.object,
-                input,
-                explore,
-              }),
-            ),
-            i === array.length - 1
-              ? remained.length
-                ? ts.factory.createReturnStatement(
-                    object(config, level + 1)(input, remained, explore),
-                  )
-                : config.objector.failure({
-                    input,
-                    expected,
-                    explore,
-                  })
-              : undefined,
-          );
-        })
-        .reverse()
-        .reduce((a, b) =>
-          ts.factory.createIfStatement(b.expression, b.thenStatement, a),
+    // DO SPECIALIZE
+    const condition: ts.IfStatement = specList
+      .filter((spec) => spec.property.key.getSoleLiteral() !== null)
+      .map((spec, i, array) => {
+        const key: string = spec.property.key.getSoleLiteral()!;
+        const accessor: ts.Expression = IdentifierFactory.access(props.input)(
+          key,
         );
-
-      // RETURNS WITH CONDITIONS
-      return ts.factory.createCallExpression(
-        ts.factory.createArrowFunction(
-          undefined,
-          undefined,
-          [],
-          undefined,
-          undefined,
-          ts.factory.createBlock([condition], true),
-        ),
-        undefined,
-        undefined,
+        const pred: ts.Expression = spec.neighbour
+          ? props.config.objector.checker({
+              input: accessor,
+              metadata: spec.property.value,
+              explore: {
+                ...props.explore,
+                tracable: false,
+                postfix: IdentifierFactory.postfix(key),
+              },
+            })
+          : (props.config.objector.required || ((exp) => exp))(
+              ExpressionFactory.isRequired(accessor),
+            );
+        return ts.factory.createIfStatement(
+          (props.config.objector.is || ((exp) => exp))(pred),
+          ts.factory.createReturnStatement(
+            props.config.objector.decoder({
+              object: spec.object,
+              input: props.input,
+              explore: props.explore,
+            }),
+          ),
+          i === array.length - 1
+            ? remained.length
+              ? ts.factory.createReturnStatement(
+                  object({
+                    config: props.config,
+                    level: (props.level ?? 0) + 1,
+                    input: props.input,
+                    objects: remained,
+                    explore: props.explore,
+                  }),
+                )
+              : props.config.objector.failure({
+                  input: props.input,
+                  explore: props.explore,
+                  expected,
+                })
+            : undefined,
+        );
+      })
+      .reverse()
+      .reduce((a, b) =>
+        ts.factory.createIfStatement(b.expression, b.thenStatement, a),
       );
-    };
+
+    // RETURNS WITH CONDITIONS
+    return ts.factory.createCallExpression(
+      ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [],
+        undefined,
+        undefined,
+        ts.factory.createBlock([condition], true),
+      ),
+      undefined,
+      undefined,
+    );
+  };
 
   /* -----------------------------------------------------------
         ARRAY LIKE
     ----------------------------------------------------------- */
-  export const tuple = (
-    props: check_union_array_like.IProps<MetadataTuple, MetadataTuple>,
-  ) =>
+  export const tuple = (props: {
+    config: check_union_array_like.IConfig<MetadataTuple, MetadataTuple>;
+    parameters: ts.ParameterDeclaration[];
+    input: ts.Expression;
+    tuples: MetadataTuple[];
+    explore: FeatureProgrammer.IExplore;
+  }) =>
     check_union_array_like<MetadataTuple, MetadataTuple, MetadataTuple>({
-      transform: (x) => x,
-      element: (x) => x,
-      size: null!,
-      front: (input) => input,
-      array: (input) => input,
-      name: (t) => t.type.name,
-    })(props);
+      config: props.config,
+      accessor: {
+        transform: (x) => x,
+        element: (x) => x,
+        size: null!,
+        front: (input) => input,
+        array: (input) => input,
+        name: (t) => t.type.name,
+      },
+      parameters: props.parameters,
+      input: props.input,
+      definitions: props.tuples,
+      explore: props.explore,
+    });
   export namespace tuple {
-    export type IProps = check_union_array_like.IProps<
+    export type IConfig = check_union_array_like.IConfig<
       MetadataTuple,
       MetadataTuple
     >;
   }
 
-  export const array = (props: array.IProps) =>
+  export const array = (props: {
+    config: array.IConfig;
+    parameters: ts.ParameterDeclaration[];
+    input: ts.Expression;
+    arrays: MetadataArray[];
+    explore: FeatureProgrammer.IExplore;
+  }) =>
     check_union_array_like<MetadataArray, MetadataArray, Metadata>({
-      transform: (x) => x,
-      element: (x) => x.type.value,
-      size: (input) => IdentifierFactory.access(input)("length"),
-      front: (input) => ts.factory.createElementAccessExpression(input, 0),
-      array: (input) => input,
-      name: (t) => t.type.name,
-    })(props);
+      config: props.config,
+      accessor: {
+        transform: (x) => x,
+        element: (x) => x.type.value,
+        size: (input) => IdentifierFactory.access(input)("length"),
+        front: (input) => ts.factory.createElementAccessExpression(input, 0),
+        array: (input) => input,
+        name: (t) => t.type.name,
+      },
+      parameters: props.parameters,
+      input: props.input,
+      definitions: props.arrays,
+      explore: props.explore,
+    });
   export namespace array {
-    export type IProps = check_union_array_like.IProps<MetadataArray, Metadata>;
+    export type IConfig = check_union_array_like.IConfig<
+      MetadataArray,
+      Metadata
+    >;
   }
 
-  export const array_or_tuple = (props: array_or_tuple.IProps) =>
+  export const array_or_tuple = (props: {
+    config: array_or_tuple.IConfig;
+    parameters: ts.ParameterDeclaration[];
+    input: ts.Expression;
+    definitions: (MetadataArray | MetadataTuple)[];
+    explore: FeatureProgrammer.IExplore;
+  }) =>
     check_union_array_like<
       MetadataArray | MetadataTuple,
       MetadataArray | MetadataTuple,
       Metadata | MetadataTuple
     >({
-      transform: (x) => x,
-      element: (x) => (x instanceof MetadataArray ? x.type.value : x),
-      size: (input) => IdentifierFactory.access(input)("length"),
-      front: (input) => ts.factory.createElementAccessExpression(input, 0),
-      array: (input) => input,
-      name: (m) => m.type.name,
-    })(props);
+      config: props.config,
+      accessor: {
+        transform: (x) => x,
+        element: (x) => (x instanceof MetadataArray ? x.type.value : x),
+        size: (input) => IdentifierFactory.access(input)("length"),
+        front: (input) => ts.factory.createElementAccessExpression(input, 0),
+        array: (input) => input,
+        name: (m) => m.type.name,
+      },
+      parameters: props.parameters,
+      input: props.input,
+      definitions: props.definitions,
+      explore: props.explore,
+    });
   export namespace array_or_tuple {
-    export type IProps = check_union_array_like.IProps<
+    export type IConfig = check_union_array_like.IConfig<
       MetadataArray | MetadataTuple,
       Metadata | MetadataTuple
     >;
   }
 
-  export const set = (props: set.IProps) =>
+  export const set = (props: {
+    config: set.IConfig;
+    parameters: ts.ParameterDeclaration[];
+    input: ts.Expression;
+    sets: Metadata[];
+    explore: FeatureProgrammer.IExplore;
+  }) =>
     check_union_array_like<Metadata, MetadataArray, Metadata>({
-      transform: (value: Metadata) =>
-        MetadataArray.create({
-          tags: [],
-          type: MetadataArrayType.create({
-            name: `Set<${value.getName()}>`,
-            index: null,
-            recursive: false,
-            nullables: [],
-            value,
+      config: props.config,
+      accessor: {
+        transform: (value: Metadata) =>
+          MetadataArray.create({
+            tags: [],
+            type: MetadataArrayType.create({
+              name: `Set<${value.getName()}>`,
+              index: null,
+              recursive: false,
+              nullables: [],
+              value,
+            }),
           }),
-        }),
-      element: (array) => array.type.value,
-      size: (input) => IdentifierFactory.access(input)("size"),
-      front: (input) =>
-        IdentifierFactory.access(
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(input)("values"),
-                undefined,
-                undefined,
-              ),
-            )("next"),
-            undefined,
-            undefined,
-          ),
-        )("value"),
-      array: (input) =>
-        ts.factory.createArrayLiteralExpression(
-          [ts.factory.createSpreadElement(input)],
-          false,
-        ),
-      name: (_m, e) => `Set<${e.getName()}>`,
-    })(props);
-  export namespace set {
-    export type IProps = check_union_array_like.IProps<MetadataArray, Metadata>;
-  }
-
-  export const map = (props: map.IProps) =>
-    check_union_array_like<Metadata.Entry, MetadataArray, [Metadata, Metadata]>(
-      {
-        element: (array) =>
-          array.type.value.tuples[0]!.type.elements as [Metadata, Metadata],
+        element: (array) => array.type.value,
         size: (input) => IdentifierFactory.access(input)("size"),
         front: (input) =>
           IdentifierFactory.access(
             ts.factory.createCallExpression(
               IdentifierFactory.access(
                 ts.factory.createCallExpression(
-                  IdentifierFactory.access(input)("entries"),
+                  IdentifierFactory.access(input)("values"),
                   undefined,
                   undefined,
                 ),
@@ -248,41 +273,93 @@ export namespace UnionExplorer {
             [ts.factory.createSpreadElement(input)],
             false,
           ),
-        name: (_m, [k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
-        transform: (m: Metadata.Entry) =>
-          MetadataArray.create({
-            tags: [],
-            type: MetadataArrayType.create({
-              name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
-              index: null,
-              recursive: false,
-              nullables: [],
-              value: Metadata.create({
-                ...Metadata.initialize(),
-                tuples: [
-                  (() => {
-                    const tuple = MetadataTuple.create({
-                      tags: [],
-                      type: MetadataTupleType.create({
-                        name: `[${m.key.getName()}, ${m.value.getName()}]`,
-                        index: null,
-                        recursive: false,
-                        nullables: [],
-                        elements: [m.key, m.value],
-                      }),
-                    });
-                    tuple.type.of_map = true;
-                    return tuple;
-                  })(),
-                ],
+        name: (_m, e) => `Set<${e.getName()}>`,
+      },
+      parameters: props.parameters,
+      input: props.input,
+      definitions: props.sets,
+      explore: props.explore,
+    });
+  export namespace set {
+    export type IConfig = check_union_array_like.IConfig<
+      MetadataArray,
+      Metadata
+    >;
+  }
+
+  export const map = (props: {
+    config: map.IConfig;
+    parameters: ts.ParameterDeclaration[];
+    input: ts.Expression;
+    maps: Metadata.Entry[];
+    explore: FeatureProgrammer.IExplore;
+  }) =>
+    check_union_array_like<Metadata.Entry, MetadataArray, [Metadata, Metadata]>(
+      {
+        config: props.config,
+        accessor: {
+          element: (array) =>
+            array.type.value.tuples[0]!.type.elements as [Metadata, Metadata],
+          size: (input) => IdentifierFactory.access(input)("size"),
+          front: (input) =>
+            IdentifierFactory.access(
+              ts.factory.createCallExpression(
+                IdentifierFactory.access(
+                  ts.factory.createCallExpression(
+                    IdentifierFactory.access(input)("entries"),
+                    undefined,
+                    undefined,
+                  ),
+                )("next"),
+                undefined,
+                undefined,
+              ),
+            )("value"),
+          array: (input) =>
+            ts.factory.createArrayLiteralExpression(
+              [ts.factory.createSpreadElement(input)],
+              false,
+            ),
+          name: (_m, [k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+          transform: (m: Metadata.Entry) =>
+            MetadataArray.create({
+              tags: [],
+              type: MetadataArrayType.create({
+                name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
+                index: null,
+                recursive: false,
+                nullables: [],
+                value: Metadata.create({
+                  ...Metadata.initialize(),
+                  tuples: [
+                    (() => {
+                      const tuple = MetadataTuple.create({
+                        tags: [],
+                        type: MetadataTupleType.create({
+                          name: `[${m.key.getName()}, ${m.value.getName()}]`,
+                          index: null,
+                          recursive: false,
+                          nullables: [],
+                          elements: [m.key, m.value],
+                        }),
+                      });
+                      tuple.type.of_map = true;
+                      return tuple;
+                    })(),
+                  ],
+                }),
               }),
             }),
-          }),
+        },
+        parameters: props.parameters,
+        input: props.input,
+        definitions: props.maps,
+        explore: props.explore,
       },
-    )(props);
+    );
 
   export namespace map {
-    export type IProps = check_union_array_like.IProps<
+    export type IConfig = check_union_array_like.IConfig<
       MetadataArray,
       [Metadata, Metadata]
     >;

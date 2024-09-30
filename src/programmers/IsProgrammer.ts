@@ -60,18 +60,25 @@ export namespace IsProgrammer {
         : initial;
     },
     joiner: {
-      object:
-        props.options?.object ||
-        check_object({
-          equals: !!props.options?.object,
-          undefined: OptionPredicator.undefined({
-            undefined: props.options?.undefined,
-          }),
-          assert: true,
-          reduce: ts.factory.createLogicalAnd,
-          positive: ts.factory.createTrue(),
-          superfluous: () => ts.factory.createFalse(),
-        })(props.context)(props.importer),
+      object: props.options?.object
+        ? (v) => props.options!.object!(v)
+        : (v) =>
+            check_object({
+              config: {
+                equals: !!props.options?.object,
+                undefined: OptionPredicator.undefined({
+                  undefined: props.options?.undefined,
+                }),
+                assert: true,
+                reduce: ts.factory.createLogicalAnd,
+                positive: ts.factory.createTrue(),
+                superfluous: () => ts.factory.createFalse(),
+              },
+              context: props.context,
+              importer: props.importer,
+              entries: v.entries,
+              input: v.input,
+            }),
       array: (props) =>
         ts.factory.createCallExpression(
           IdentifierFactory.access(props.input)("every"),
@@ -115,14 +122,21 @@ export namespace IsProgrammer {
     const config: CheckerProgrammer.IConfig = {
       ...configure({
         options: {
-          object: check_object({
-            equals: props.config.equals,
-            undefined: OptionPredicator.undefined(props.context.options),
-            assert: true,
-            reduce: ts.factory.createLogicalAnd,
-            positive: ts.factory.createTrue(),
-            superfluous: () => ts.factory.createFalse(),
-          })(props.context)(props.importer),
+          object: (v) =>
+            check_object({
+              config: {
+                equals: props.config.equals,
+                undefined: OptionPredicator.undefined(props.context.options),
+                assert: true,
+                reduce: ts.factory.createLogicalAnd,
+                positive: ts.factory.createTrue(),
+                superfluous: () => ts.factory.createFalse(),
+              },
+              context: props.context,
+              importer: props.importer,
+              entries: v.entries,
+              input: v.input,
+            }),
           numeric: OptionPredicator.numeric(props.context.options),
         },
         context: props.context,

@@ -481,8 +481,11 @@ export namespace RandomProgrammer {
           ? "uint"
           : "double";
       const multiply = tags.find((t) => t.kind === "multipleOf");
-      return random_custom(coalesce(props.importer))("number")(tags)(
-        RandomRanger.number({
+      return random_custom({
+        accessor: coalesce(props.importer),
+        type: "number",
+        tags,
+        expression: RandomRanger.number({
           config: {
             type,
             transform: (value) => ExpressionFactory.number(value),
@@ -502,7 +505,7 @@ export namespace RandomProgrammer {
           },
           tags,
         }),
-      );
+      });
     });
 
   const decode_bigint = (props: {
@@ -510,8 +513,11 @@ export namespace RandomProgrammer {
     atomic: MetadataAtomic;
   }): ts.Expression[] =>
     (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) =>
-      random_custom(coalesce(props.importer))("bigint")(tags)(
-        RandomRanger.number({
+      random_custom({
+        accessor: coalesce(props.importer),
+        type: "bigint",
+        tags,
+        expression: RandomRanger.number({
           config: {
             type: tags.find(
               (t) =>
@@ -535,7 +541,7 @@ export namespace RandomProgrammer {
           },
           tags,
         }),
-      ),
+      }),
     );
 
   const decode_string = (props: {
@@ -543,8 +549,11 @@ export namespace RandomProgrammer {
     atomic: MetadataAtomic;
   }): ts.Expression[] =>
     (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) =>
-      random_custom(coalesce(props.importer))("string")(tags)(
-        (() => {
+      random_custom({
+        accessor: coalesce(props.importer),
+        type: "string",
+        tags,
+        expression: (() => {
           for (const t of tags)
             if (t.kind === "format")
               return ts.factory.createCallExpression(
@@ -582,7 +591,7 @@ export namespace RandomProgrammer {
             tail ? [tail] : undefined,
           );
         })(),
-      ),
+      }),
     );
 
   const decode_array = (props: {
