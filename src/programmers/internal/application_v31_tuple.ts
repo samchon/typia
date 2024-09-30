@@ -7,7 +7,7 @@ import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
  * @internal
  */
 export const application_v31_tuple = (props: {
-  generator: (meta: Metadata) => OpenApi.IJsonSchema;
+  generator: (metadata: Metadata) => OpenApi.IJsonSchema;
   tuple: MetadataTuple;
 }): OpenApi.IJsonSchema.ITuple => {
   const tail: Metadata | null = props.tuple.type.elements.at(-1)?.rest ?? null;

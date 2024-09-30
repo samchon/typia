@@ -33,9 +33,10 @@ export namespace NotationGeneralProgrammer {
     rename: (str: string) => string;
   }
 
-  export const returnType =
-    (rename: (str: string) => string) => (type: string) =>
-      `typia.${StringUtil.capitalize(rename.name)}Case<${type}>`;
+  export const returnType = (props: {
+    rename: (str: string) => string;
+    type: string;
+  }) => `typia.${StringUtil.capitalize(props.rename.name)}Case<${props.type}>`;
 
   export const decompose = (props: {
     rename: (str: string) => string;
@@ -65,10 +66,12 @@ export namespace NotationGeneralProgrammer {
         undefined,
         composed.parameters,
         ts.factory.createTypeReferenceNode(
-          returnType(props.rename)(
-            props.name ??
+          returnType({
+            rename: props.rename,
+            type:
+              props.name ??
               TypeFactory.getFullName(props.context.checker)(props.type),
-          ),
+          }),
         ),
         undefined,
         composed.body,
@@ -243,7 +246,7 @@ export namespace NotationGeneralProgrammer {
         value: () =>
           explore_arrays({
             ...props,
-            elements: props.metadata.arrays,
+            arrays: props.metadata.arrays,
             explore: {
               ...props.explore,
               from: "array",
@@ -514,37 +517,47 @@ export namespace NotationGeneralProgrammer {
   }): ts.Expression =>
     ts.factory.createCallExpression(
       UnionExplorer.set({
-        checker: (input, metadata, explore) =>
-          IsProgrammer.decode({
-            context: props.context,
-            importer: props.importer,
-            input,
-            metadata,
-            explore,
-          }),
-        decoder: (input, array, explore) =>
-          ts.factory.createNewExpression(
+        config: {
+          checker: (v) =>
+            IsProgrammer.decode({
+              context: props.context,
+              importer: props.importer,
+              input: v.input,
+              metadata: v.definition,
+              explore: v.explore,
+            }),
+          decoder: (v) =>
+            ts.factory.createNewExpression(
+              ts.factory.createIdentifier("Set"),
+              [TypeFactory.keyword("any")],
+              [
+                decode_array({
+                  config: props.config,
+                  importer: props.importer,
+                  input: v.input,
+                  array: v.definition,
+                  explore: v.explore,
+                }),
+              ],
+            ),
+          empty: ts.factory.createNewExpression(
             ts.factory.createIdentifier("Set"),
             [TypeFactory.keyword("any")],
-            [
-              decode_array({
-                config: props.config,
-                importer: props.importer,
-                input,
-                array,
-                explore,
-              }),
-            ],
+            [],
           ),
-        empty: ts.factory.createNewExpression(
-          ts.factory.createIdentifier("Set"),
-          [TypeFactory.keyword("any")],
-          [],
-        ),
-        success: ts.factory.createTrue(),
-        failure: (input, expected) =>
-          create_throw_error({ importer: props.importer, expected, input }),
-      })([])(props.input, props.sets, props.explore),
+          success: ts.factory.createTrue(),
+          failure: (v) =>
+            create_throw_error({
+              importer: props.importer,
+              expected: v.expected,
+              input: v.input,
+            }),
+        },
+        parameters: [],
+        input: props.input,
+        sets: props.sets,
+        explore: props.explore,
+      }),
       undefined,
       undefined,
     );
@@ -559,52 +572,62 @@ export namespace NotationGeneralProgrammer {
   }): ts.Expression =>
     ts.factory.createCallExpression(
       UnionExplorer.map({
-        checker: (top, entry, explore) =>
-          ts.factory.createLogicalAnd(
-            IsProgrammer.decode({
-              context: props.context,
-              importer: props.importer,
-              input: ts.factory.createElementAccessExpression(top, 0),
-              metadata: entry[0],
-              explore: {
-                ...props.explore,
-                postfix: `${explore.postfix}[0]`,
-              },
-            }),
-            IsProgrammer.decode({
-              context: props.context,
-              importer: props.importer,
-              input: ts.factory.createElementAccessExpression(top, 1),
-              metadata: entry[1],
-              explore: {
-                ...props.explore,
-                postfix: `${props.explore.postfix}[1]`,
-              },
-            }),
-          ),
-        decoder: (input, array, explore) =>
-          ts.factory.createNewExpression(
+        config: {
+          checker: (v) =>
+            ts.factory.createLogicalAnd(
+              IsProgrammer.decode({
+                context: props.context,
+                importer: props.importer,
+                input: ts.factory.createElementAccessExpression(v.input, 0),
+                metadata: v.definition[0],
+                explore: {
+                  ...props.explore,
+                  postfix: `${v.explore.postfix}[0]`,
+                },
+              }),
+              IsProgrammer.decode({
+                context: props.context,
+                importer: props.importer,
+                input: ts.factory.createElementAccessExpression(v.input, 1),
+                metadata: v.definition[1],
+                explore: {
+                  ...props.explore,
+                  postfix: `${props.explore.postfix}[1]`,
+                },
+              }),
+            ),
+          decoder: (v) =>
+            ts.factory.createNewExpression(
+              ts.factory.createIdentifier("Map"),
+              [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
+              [
+                decode_array({
+                  config: props.config,
+                  importer: props.importer,
+                  input: v.input,
+                  array: v.definition,
+                  explore: v.explore,
+                }),
+              ],
+            ),
+          empty: ts.factory.createNewExpression(
             ts.factory.createIdentifier("Map"),
             [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
-            [
-              decode_array({
-                config: props.config,
-                importer: props.importer,
-                input,
-                array,
-                explore,
-              }),
-            ],
+            [],
           ),
-        empty: ts.factory.createNewExpression(
-          ts.factory.createIdentifier("Map"),
-          [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
-          [],
-        ),
-        success: ts.factory.createTrue(),
-        failure: (input, expected) =>
-          create_throw_error({ importer: props.importer, expected, input }),
-      })([])(props.input, props.maps, props.explore),
+          success: ts.factory.createTrue(),
+          failure: (v) =>
+            create_throw_error({
+              importer: props.importer,
+              expected: v.expected,
+              input: v.input,
+            }),
+        },
+        parameters: [],
+        input: props.input,
+        maps: props.maps,
+        explore: props.explore,
+      }),
       undefined,
       undefined,
     );
@@ -637,37 +660,47 @@ export namespace NotationGeneralProgrammer {
     config: FeatureProgrammer.IConfig;
     importer: FunctionImporter;
     input: ts.Expression;
-    elements: MetadataArray[];
+    arrays: MetadataArray[];
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
     explore_array_like_union_types({
       ...props,
-      factory: UnionExplorer.array({
-        checker: (input, metadata, explore) =>
-          IsProgrammer.decode({
-            context: props.context,
-            importer: props.importer,
-            input,
-            metadata,
-            explore,
-          }),
-        decoder: (input, array, explore) =>
-          decode_array({
-            config: props.config,
-            importer: props.importer,
-            input,
-            array,
-            explore,
-          }),
-        empty: ts.factory.createIdentifier("[]"),
-        success: ts.factory.createTrue(),
-        failure: (input, expected) =>
-          create_throw_error({
-            importer: props.importer,
-            expected,
-            input,
-          }),
-      }),
+      factory: (next) =>
+        UnionExplorer.array({
+          config: {
+            checker: (v) =>
+              IsProgrammer.decode({
+                context: props.context,
+                importer: props.importer,
+                input: v.input,
+                metadata: v.definition,
+                explore: v.explore,
+              }),
+            decoder: (v) =>
+              decode_array({
+                config: props.config,
+                importer: props.importer,
+                input: v.input,
+                array: v.definition,
+                explore: v.explore,
+              }),
+            empty: ts.factory.createIdentifier("[]"),
+            success: ts.factory.createTrue(),
+            failure: (v) =>
+              create_throw_error({
+                importer: props.importer,
+                expected: v.expected,
+                input: v.input,
+              }),
+          },
+          parameters: next.parameters,
+          input: next.input,
+          arrays: next.definitions,
+          explore: next.explore,
+        }),
+      definitions: props.arrays,
+      input: props.input,
+      explore: props.explore,
     });
 
   const explore_array_like_union_types = <
@@ -675,23 +708,27 @@ export namespace NotationGeneralProgrammer {
   >(props: {
     config: FeatureProgrammer.IConfig;
     importer: FunctionImporter;
-    factory: (
-      parameters: ts.ParameterDeclaration[],
-    ) => (
-      input: ts.Expression,
-      elements: T[],
-      explore: FeatureProgrammer.IExplore,
-    ) => ts.ArrowFunction;
+    factory: (next: {
+      parameters: ts.ParameterDeclaration[];
+      input: ts.Expression;
+      definitions: T[];
+      explore: FeatureProgrammer.IExplore;
+    }) => ts.ArrowFunction;
     input: ts.Expression;
-    elements: T[];
+    definitions: T[];
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
     const arrow =
       (parameters: ts.ParameterDeclaration[]) =>
       (explore: FeatureProgrammer.IExplore) =>
       (input: ts.Expression): ts.ArrowFunction =>
-        props.factory(parameters)(input, props.elements, explore);
-    if (props.elements.every((e) => e.type.recursive === false))
+        props.factory({
+          parameters,
+          input,
+          definitions: props.definitions,
+          explore,
+        });
+    if (props.definitions.every((e) => e.type.recursive === false))
       ts.factory.createCallExpression(
         arrow([])(props.explore)(props.input),
         undefined,
@@ -707,7 +744,7 @@ export namespace NotationGeneralProgrammer {
       ts.factory.createIdentifier(
         props.importer.emplaceUnion(
           props.config.prefix,
-          props.elements.map((e) => e.type.name).join(" | "),
+          props.definitions.map((e) => e.type.name).join(" | "),
           () =>
             arrow(
               FeatureProgrammer.parameterDeclarations({
@@ -739,8 +776,8 @@ export namespace NotationGeneralProgrammer {
     rename: (str: string) => string;
     context: ITypiaContext;
     importer: FunctionImporter;
-  }): FeatureProgrammer.IConfig => {
-    const config: FeatureProgrammer.IConfig = {
+  }): FeatureProgrammer.IConfig<ts.Expression> => {
+    const config: FeatureProgrammer.IConfig<ts.Expression> = {
       types: {
         input: (type, name) =>
           ts.factory.createTypeReferenceNode(
@@ -748,9 +785,11 @@ export namespace NotationGeneralProgrammer {
           ),
         output: (type, name) =>
           ts.factory.createTypeReferenceNode(
-            returnType(props.rename)(
-              name ?? TypeFactory.getFullName(props.context.checker)(type),
-            ),
+            returnType({
+              rename: props.rename,
+              type:
+                name ?? TypeFactory.getFullName(props.context.checker)(type),
+            }),
           ),
       },
       prefix: PREFIX,
@@ -782,30 +821,40 @@ export namespace NotationGeneralProgrammer {
             input: next.input,
             explore: next.explore,
           }),
-        joiner: NotationJoiner.object(props.rename),
+        joiner: (next) =>
+          NotationJoiner.object({
+            rename: props.rename,
+            input: next.input!,
+            entries: next.entries,
+          }),
         unionizer: (next) =>
-          decode_union_object((input, object, explore) =>
-            IsProgrammer.decode_object({
-              context: props.context,
-              importer: props.importer,
-              object,
-              input,
-              explore,
-            }),
-          )((input, object, explore) =>
-            decode_object({
-              importer: props.importer,
-              object,
-              input,
-              explore,
-            }),
-          )((exp) => exp)((input, expected) =>
-            create_throw_error({
-              importer: props.importer,
-              expected,
-              input,
-            }),
-          )(next.input, next.objects, next.explore),
+          decode_union_object({
+            checker: (v) =>
+              IsProgrammer.decode_object({
+                context: props.context,
+                importer: props.importer,
+                object: v.object,
+                input: v.input,
+                explore: v.explore,
+              }),
+            decoder: (v) =>
+              decode_object({
+                importer: props.importer,
+                object: v.object,
+                input: v.input,
+                explore: v.explore,
+              }),
+            success: (exp) => exp,
+            escaper: (v) =>
+              create_throw_error({
+                importer: props.importer,
+                expected: v.expected,
+                input: v.input,
+              }),
+            input: next.input,
+            objects: next.objects,
+            explore: next.explore,
+          }),
         failure: (next) =>
           create_throw_error({
             importer: props.importer,

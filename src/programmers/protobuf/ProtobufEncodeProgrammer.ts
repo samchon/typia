@@ -858,33 +858,37 @@ export namespace ProtobufEncodeProgrammer {
       new Map(props.objects.map((t, i) => [t, props.index! + i]));
 
     if (specList.length === 0) {
-      const condition: ts.Expression = decode_union_object(
-        (input, object, explore) =>
+      const condition: ts.Expression = decode_union_object({
+        checker: (v) =>
           IsProgrammer.decode_object({
             context: props.context,
             importer: props.importer,
-            object,
-            input,
-            explore,
+            object: v.object,
+            input: v.input,
+            explore: v.explore,
           }),
-      )((input, object, explore) =>
-        ExpressionFactory.selfCall(
-          decode_object({
-            context: props.context,
+        decoder: (v) =>
+          ExpressionFactory.selfCall(
+            decode_object({
+              context: props.context,
+              importer: props.importer,
+              index: indexes.get(v.object)!,
+              input: v.input,
+              object: v.object,
+              explore: v.explore,
+            }),
+          ),
+        success: (expr) => expr,
+        escaper: (v) =>
+          create_throw_error({
             importer: props.importer,
-            index: indexes.get(object)!,
-            input,
-            object,
-            explore,
+            expected: v.expected,
+            input: v.input,
           }),
-        ),
-      )((expr) => expr)((input, expected) =>
-        create_throw_error({
-          importer: props.importer,
-          expected,
-          input,
-        }),
-      )(props.input, props.objects, props.explore);
+        input: props.input,
+        objects: props.objects,
+        explore: props.explore,
+      });
       return StatementFactory.block(condition);
     }
     const remained: MetadataObject[] = props.objects.filter(

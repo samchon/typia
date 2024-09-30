@@ -38,17 +38,17 @@ export const application_escaped = <Version extends "3.0" | "3.1">(props: {
  * @internal
  */
 const is_string = <Version extends "3.0" | "3.1">(
-  elem: Schema<Version>,
-): elem is StringSchema<Version> =>
-  (elem as StringSchema<Version>).type === "string";
+  schema: Schema<Version>,
+): schema is StringSchema<Version> =>
+  (schema as StringSchema<Version>).type === "string";
 
 /**
  * @internal
  */
 const is_one_of = <Version extends "3.0" | "3.1">(
-  elem: Schema<Version>,
-): elem is OneOfSchema<Version> =>
-  Array.isArray((elem as OneOfSchema<Version>).oneOf);
+  schema: Schema<Version>,
+): schema is OneOfSchema<Version> =>
+  Array.isArray((schema as OneOfSchema<Version>).oneOf);
 
 /**
  * @internal
