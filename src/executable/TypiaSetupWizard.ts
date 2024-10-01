@@ -19,7 +19,7 @@ export namespace TypiaSetupWizard {
 
     // PREPARE ASSETS
     const pack: PackageManager = await PackageManager.mount();
-    const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
+    const args: IArguments = await ArgumentParser.parse(pack, inquiry);
 
     // INSTALL TYPESCRIPT COMPILERS
     pack.install({

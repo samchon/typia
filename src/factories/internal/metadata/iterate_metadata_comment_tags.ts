@@ -11,9 +11,11 @@ export const iterate_metadata_comment_tags = (props: {
   props.object.tagged_ = true;
 
   for (const property of props.object.properties) {
-    MetadataCommentTagFactory.analyze(props.errors)(property.value)(
-      property.jsDocTags,
-      {
+    MetadataCommentTagFactory.analyze({
+      errors: props.errors,
+      metadata: property.value,
+      tags: property.jsDocTags,
+      explore: {
         top: false,
         object: props.object,
         property: property.key.isSoleLiteral()
@@ -25,6 +27,6 @@ export const iterate_metadata_comment_tags = (props: {
         escaped: false,
         output: false,
       },
-    );
+    });
   }
 };

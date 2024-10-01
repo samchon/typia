@@ -128,14 +128,17 @@ export const check_union_array_like = <
 
   if (tupleList.length)
     statements.push(
-      StatementFactory.constant("array", props.accessor.array(props.input)),
-      StatementFactory.constant(
-        "tuplePredicators",
-        ts.factory.createArrayLiteralExpression(
+      StatementFactory.constant({
+        name: "array",
+        value: props.accessor.array(props.input),
+      }),
+      StatementFactory.constant({
+        name: "tuplePredicators",
+        value: ts.factory.createArrayLiteralExpression(
           tupleList.map((x) => predicate(x as Category)),
           true,
         ),
-      ),
+      }),
       iterate({
         init: "pred",
         from: ts.factory.createIdentifier("tuplePredicators"),
@@ -158,10 +161,16 @@ export const check_union_array_like = <
   if (arrayList.length) {
     if (tupleList.length === 0)
       statements.push(
-        StatementFactory.constant("array", props.accessor.array(props.input)),
+        StatementFactory.constant({
+          name: "array",
+          value: props.accessor.array(props.input),
+        }),
       );
     statements.push(
-      StatementFactory.constant("top", props.accessor.front(props.input)),
+      StatementFactory.constant({
+        name: "top",
+        value: props.accessor.front(props.input),
+      }),
       ts.factory.createIfStatement(
         ts.factory.createStrictEquality(
           ExpressionFactory.number(0),
@@ -171,19 +180,20 @@ export const check_union_array_like = <
           ? props.config.empty
           : ts.factory.createReturnStatement(props.config.empty),
       ),
-      StatementFactory.constant(
-        "arrayPredicators",
-        ts.factory.createArrayLiteralExpression(
+      StatementFactory.constant({
+        name: "arrayPredicators",
+        value: ts.factory.createArrayLiteralExpression(
           arrayList.map((x) => predicate(x as Category)),
           true,
         ),
-      ),
-      StatementFactory.constant(
-        "passed",
-        ts.factory.createCallExpression(
+      }),
+      StatementFactory.constant({
+        name: "passed",
+        value: ts.factory.createCallExpression(
           IdentifierFactory.access(
             ts.factory.createIdentifier("arrayPredicators"),
-          )("filter"),
+            "filter",
+          ),
           undefined,
           [
             ts.factory.createArrowFunction(
@@ -200,7 +210,7 @@ export const check_union_array_like = <
             ),
           ],
         ),
-      ),
+      }),
       ts.factory.createIfStatement(
         ts.factory.createStrictEquality(
           ExpressionFactory.number(1),
@@ -228,7 +238,7 @@ export const check_union_array_like = <
             from: ts.factory.createIdentifier("passed"),
             if: ts.factory.createIfStatement(
               ts.factory.createCallExpression(
-                IdentifierFactory.access(array)("every"),
+                IdentifierFactory.access(array, "every"),
                 undefined,
                 [
                   ts.factory.createArrowFunction(

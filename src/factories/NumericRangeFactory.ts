@@ -5,15 +5,15 @@ import { ProtobufAtomic } from "../typings/ProtobufAtomic";
 import { ExpressionFactory } from "./ExpressionFactory";
 
 export namespace NumericRangeFactory {
-  export const number =
-    (type: ProtobufAtomic.Numeric) =>
-    (input: ts.Expression): ts.Expression =>
-      NumberPredicator[type](input);
+  export const number = (
+    type: ProtobufAtomic.Numeric,
+    input: ts.Expression,
+  ): ts.Expression => NumberPredicator[type](input);
 
-  export const bigint =
-    (type: ProtobufAtomic.BigNumeric) =>
-    (input: ts.Expression): ts.Expression =>
-      BigIntPredicator[type](input);
+  export const bigint = (
+    type: ProtobufAtomic.BigNumeric,
+    input: ts.Expression,
+  ): ts.Expression => BigIntPredicator[type](input);
 }
 
 namespace NumberPredicator {

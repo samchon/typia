@@ -84,7 +84,10 @@ export namespace HttpQueryProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
           false,
@@ -198,9 +201,9 @@ export namespace HttpQueryProgrammer {
           ),
         ),
       ),
-      StatementFactory.constant(
-        "output",
-        ts.factory.createObjectLiteralExpression(
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createObjectLiteralExpression(
           props.object.properties.map((p) =>
             decode_regular_property({
               importer: props.importer,
@@ -209,7 +212,7 @@ export namespace HttpQueryProgrammer {
           ),
           true,
         ),
-      ),
+      }),
       ts.factory.createReturnStatement(
         ts.factory.createAsExpression(output, TypeFactory.keyword("any")),
       ),
@@ -253,7 +256,8 @@ export namespace HttpQueryProgrammer {
                   undefined,
                   [ts.factory.createStringLiteral(key)],
                 ),
-              )("map"),
+                "map",
+              ),
               undefined,
               [
                 ts.factory.createArrowFunction(

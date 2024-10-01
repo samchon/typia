@@ -38,7 +38,10 @@ export namespace JsonValidateParseProgrammer {
       functions: validate.functions,
       statements: [
         ...validate.statements,
-        StatementFactory.constant("__validate", validate.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -47,7 +50,10 @@ export namespace JsonValidateParseProgrammer {
         ts.factory.createTypeReferenceNode(
           `typia.IValidation<typia.Primitive<${
             props.name ??
-            TypeFactory.getFullName(props.context.checker)(props.type)
+            TypeFactory.getFullName({
+              checker: props.context.checker,
+              type: props.type,
+            })
           }>>`,
         ),
         undefined,

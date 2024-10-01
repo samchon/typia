@@ -85,9 +85,9 @@ export namespace MiscCloneProgrammer {
       .arrays()
       .filter((a) => a.recursive)
       .map((type, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}a${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}a${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -113,7 +113,7 @@ export namespace MiscCloneProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   const write_tuple_functions = (props: {
@@ -126,9 +126,9 @@ export namespace MiscCloneProgrammer {
       .tuples()
       .filter((t) => t.recursive)
       .map((tuple, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}t${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}t${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -152,7 +152,7 @@ export namespace MiscCloneProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   /* -----------------------------------------------------------
@@ -242,7 +242,7 @@ export namespace MiscCloneProgrammer {
     if (props.metadata.sets.length)
       unions.push({
         type: "set",
-        is: () => ExpressionFactory.isInstanceOf("Set")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Set", props.input),
         value: () =>
           explore_sets({
             ...props,
@@ -256,7 +256,7 @@ export namespace MiscCloneProgrammer {
     if (props.metadata.maps.length)
       unions.push({
         type: "map",
-        is: () => ExpressionFactory.isInstanceOf("Map")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Map", props.input),
         value: () =>
           explore_maps({
             ...props,
@@ -270,11 +270,11 @@ export namespace MiscCloneProgrammer {
     for (const native of props.metadata.natives)
       unions.push({
         type: "native",
-        is: () => ExpressionFactory.isInstanceOf(native)(props.input),
+        is: () => ExpressionFactory.isInstanceOf(native, props.input),
         value: () =>
           native === "Boolean" || native === "Number" || native === "String"
             ? ts.factory.createCallExpression(
-                IdentifierFactory.access(props.input)("valueOf"),
+                IdentifierFactory.access(props.input, "valueOf"),
                 undefined,
                 undefined,
               )
@@ -292,7 +292,8 @@ export namespace MiscCloneProgrammer {
           ExpressionFactory.isObject({
             checkNull: true,
             checkArray: false,
-          })(props.input),
+            input: props.input,
+          }),
         value: () =>
           explore_objects({
             ...props,
@@ -461,7 +462,7 @@ export namespace MiscCloneProgrammer {
         config: props.config,
         importer: props.importer,
         input: ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("slice"),
+          IdentifierFactory.access(props.input, "slice"),
           undefined,
           [ExpressionFactory.number(props.tuple.elements.length - 1)],
         ),
@@ -526,14 +527,14 @@ export namespace MiscCloneProgrammer {
     ExpressionFactory.selfCall(
       ts.factory.createBlock(
         [
-          StatementFactory.constant(
-            "buffer",
-            ts.factory.createNewExpression(
+          StatementFactory.constant({
+            name: "buffer",
+            value: ts.factory.createNewExpression(
               ts.factory.createIdentifier(props.type),
               undefined,
-              [IdentifierFactory.access(props.input)("byteLength")],
+              [IdentifierFactory.access(props.input, "byteLength")],
             ),
-          ),
+          }),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
               IdentifierFactory.access(
@@ -542,7 +543,8 @@ export namespace MiscCloneProgrammer {
                   undefined,
                   [ts.factory.createIdentifier("buffer")],
                 ),
-              )("set"),
+                "set",
+              ),
               undefined,
               [
                 ts.factory.createNewExpression(
@@ -565,7 +567,7 @@ export namespace MiscCloneProgrammer {
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("DataView"),
       undefined,
-      [IdentifierFactory.access(input)("buffer")],
+      [IdentifierFactory.access(input, "buffer")],
     );
 
   /* -----------------------------------------------------------
@@ -847,7 +849,8 @@ export namespace MiscCloneProgrammer {
       types: {
         input: (type, name) =>
           ts.factory.createTypeReferenceNode(
-            name ?? TypeFactory.getFullName(props.context.checker)(type),
+            name ??
+              TypeFactory.getFullName({ checker: props.context.checker, type }),
           ),
         output: (type, name) =>
           ts.factory.createImportTypeNode(
@@ -858,7 +861,11 @@ export namespace MiscCloneProgrammer {
             ts.factory.createIdentifier("Resolved"),
             [
               ts.factory.createTypeReferenceNode(
-                name ?? TypeFactory.getFullName(props.context.checker)(type),
+                name ??
+                  TypeFactory.getFullName({
+                    checker: props.context.checker,
+                    type,
+                  }),
               ),
             ],
             false,

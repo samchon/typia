@@ -80,7 +80,10 @@ export namespace HttpHeadersProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
           false,
@@ -205,9 +208,9 @@ export namespace HttpHeadersProgrammer {
     const output: ts.Identifier = ts.factory.createIdentifier("output");
     const optionals: string[] = [];
     return [
-      StatementFactory.constant(
-        "output",
-        ts.factory.createObjectLiteralExpression(
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createObjectLiteralExpression(
           props.object.properties.map((p) => {
             if (
               !p.value.isRequired() &&
@@ -221,13 +224,13 @@ export namespace HttpHeadersProgrammer {
           }),
           true,
         ),
-      ),
+      }),
       ...optionals.map((key) => {
-        const access = IdentifierFactory.access(output)(key);
+        const access = IdentifierFactory.access(output, key);
         return ts.factory.createIfStatement(
           ts.factory.createStrictEquality(
             ExpressionFactory.number(0),
-            IdentifierFactory.access(access)("length"),
+            IdentifierFactory.access(access, "length"),
           ),
           ts.factory.createExpressionStatement(
             ts.factory.createDeleteExpression(access),
@@ -266,7 +269,8 @@ export namespace HttpHeadersProgrammer {
             })();
     const input = IdentifierFactory.access(
       ts.factory.createIdentifier("input"),
-    )(key.toLowerCase());
+      key.toLowerCase(),
+    );
 
     return ts.factory.createPropertyAssignment(
       Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
@@ -335,7 +339,7 @@ export namespace HttpHeadersProgrammer {
       ExpressionFactory.isArray(props.input),
       undefined,
       ts.factory.createCallExpression(
-        IdentifierFactory.access(props.input)("map"),
+        IdentifierFactory.access(props.input, "map"),
         undefined,
         [props.importer.use(props.type)],
       ),

@@ -117,12 +117,18 @@ export namespace AssertProgrammer {
             ts.factory.createIdentifier("input"),
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           )
         : ts.factory.createTypeReferenceNode(
             props.name ??
-              TypeFactory.getFullName(props.context.checker)(props.type),
+              TypeFactory.getFullName({
+                checker: props.context.checker,
+                type: props.type,
+              }),
           ),
       undefined,
       ts.factory.createBlock(
@@ -187,8 +193,13 @@ export namespace AssertProgrammer {
       statements: [
         ...is.statements,
         ...composed.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.mut("_errorFactory"),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.mut({
+          name: "_errorFactory",
+        }),
       ],
       arrow,
     };
@@ -355,7 +366,7 @@ export namespace AssertProgrammer {
       }),
     array: (props) =>
       ts.factory.createCallExpression(
-        IdentifierFactory.access(props.input)("every"),
+        IdentifierFactory.access(props.input, "every"),
         undefined,
         [props.arrow],
       ),

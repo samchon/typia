@@ -48,8 +48,14 @@ export namespace JsonValidateStringifyProgrammer {
       statements: [
         ...validate.statements,
         ...stringify.statements,
-        StatementFactory.constant("__validate", validate.arrow),
-        StatementFactory.constant("__stringify", stringify.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__stringify",
+          value: stringify.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -60,9 +66,9 @@ export namespace JsonValidateStringifyProgrammer {
         ]),
         undefined,
         ts.factory.createBlock([
-          StatementFactory.constant(
-            "result",
-            ts.factory.createAsExpression(
+          StatementFactory.constant({
+            name: "result",
+            value: ts.factory.createAsExpression(
               ts.factory.createCallExpression(
                 ts.factory.createIdentifier("__validate"),
                 undefined,
@@ -70,7 +76,7 @@ export namespace JsonValidateStringifyProgrammer {
               ),
               TypeFactory.keyword("any"),
             ),
-          ),
+          }),
           ts.factory.createIfStatement(
             ts.factory.createIdentifier("result.success"),
             ts.factory.createExpressionStatement(

@@ -37,8 +37,14 @@ export namespace MiscIsCloneProgrammer {
       statements: [
         ...is.statements,
         ...clone.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__clone", clone.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__clone",
+          value: clone.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

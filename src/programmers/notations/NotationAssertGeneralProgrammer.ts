@@ -45,8 +45,14 @@ export namespace NotationAssertGeneralProgrammer {
       statements: [
         ...assert.statements,
         ...notation.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__notation", notation.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__notation",
+          value: notation.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

@@ -202,9 +202,9 @@ export namespace FunctionalValidateParametersProgrammer {
     );
     return {
       functions: props.declaration.parameters.map((p, i) =>
-        StatementFactory.constant(
-          `__validate_param_${i}`,
-          ValidateProgrammer.write({
+        StatementFactory.constant({
+          name: `__validate_param_${i}`,
+          value: ValidateProgrammer.write({
             ...props,
             type: props.context.checker.getTypeFromTypeNode(
               p.type ?? TypeFactory.keyword("any"),
@@ -212,10 +212,13 @@ export namespace FunctionalValidateParametersProgrammer {
             name: undefined,
             init: undefined,
           }),
-        ),
+        }),
       ),
       statements: [
-        StatementFactory.constant(resultName, failures),
+        StatementFactory.constant({
+          name: resultName,
+          value: failures,
+        }),
         ts.factory.createIfStatement(
           ts.factory.createStrictInequality(
             ts.factory.createNumericLiteral("0"),
@@ -238,7 +241,8 @@ export namespace FunctionalValidateParametersProgrammer {
                       ts.factory.createCallExpression(
                         IdentifierFactory.access(
                           ts.factory.createIdentifier(resultName),
-                        )("map"),
+                          "map",
+                        ),
                         undefined,
                         [
                           ts.factory.createArrowFunction(
@@ -254,11 +258,13 @@ export namespace FunctionalValidateParametersProgrammer {
                             undefined,
                             IdentifierFactory.access(
                               ts.factory.createIdentifier("r"),
-                            )("errors"),
+                              "errors",
+                            ),
                           ),
                         ],
                       ),
-                    )("flat"),
+                      "flat",
+                    ),
                     undefined,
                     undefined,
                   ),

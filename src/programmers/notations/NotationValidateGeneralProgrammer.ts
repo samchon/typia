@@ -43,8 +43,14 @@ export namespace NotationValidateGeneralProgrammer {
       statements: [
         ...validate.statements,
         ...notation.statements,
-        StatementFactory.constant("__validate", validate.arrow),
-        StatementFactory.constant("__notation", notation.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__notation",
+          value: notation.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -56,9 +62,9 @@ export namespace NotationValidateGeneralProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "result",
-              ts.factory.createAsExpression(
+            StatementFactory.constant({
+              name: "result",
+              value: ts.factory.createAsExpression(
                 ts.factory.createCallExpression(
                   ts.factory.createIdentifier("__validate"),
                   undefined,
@@ -66,7 +72,7 @@ export namespace NotationValidateGeneralProgrammer {
                 ),
                 TypeFactory.keyword("any"),
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createIdentifier("result.success"),
               ts.factory.createExpressionStatement(

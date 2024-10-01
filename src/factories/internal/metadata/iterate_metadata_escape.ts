@@ -15,9 +15,11 @@ export const iterate_metadata_escape = (
   if (props.options.escape === false || props.explore.escaped === true)
     return false;
 
-  const escaped: ts.Type | null = TypeFactory.getReturnType(props.checker)(
-    props.type,
-  )("toJSON");
+  const escaped: ts.Type | null = TypeFactory.getReturnTypeOfClassMethod({
+    checker: props.checker,
+    class: props.type,
+    function: "toJSON",
+  });
   if (escaped === null) return false;
 
   if (props.metadata.escaped === null) {

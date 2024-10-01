@@ -39,8 +39,14 @@ export namespace MiscAssertCloneProgrammer {
       statements: [
         ...assert.statements,
         ...clone.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__clone", clone.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__clone",
+          value: clone.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

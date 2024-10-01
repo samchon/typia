@@ -21,7 +21,10 @@ import { iterate_metadata_union } from "./iterate_metadata_union";
 export const iterate_metadata = (props: IMetadataIteratorProps): void => {
   if (props.type.isTypeParameter() === true) {
     props.errors.push({
-      name: TypeFactory.getFullName(props.checker)(props.type),
+      name: TypeFactory.getFullName({
+        checker: props.checker,
+        type: props.type,
+      }),
       explore: { ...props.explore },
       messages: ["non-specified generic argument found."],
     });

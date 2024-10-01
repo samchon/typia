@@ -46,14 +46,14 @@ export namespace ProtobufDecodeProgrammer {
           .filter((object) => ProtobufUtil.isStaticObject(object))
           .map((object) => [
             `${PREFIX}o${object.index}`,
-            StatementFactory.constant(
-              props.importer.useLocal(`${PREFIX}o${object.index}`),
-              write_object_function({
+            StatementFactory.constant({
+              name: props.importer.useLocal(`${PREFIX}o${object.index}`),
+              value: write_object_function({
                 context: props.context,
                 importer: props.importer,
                 object,
               }),
-            ),
+            }),
           ]),
       ),
       statements: [],
@@ -75,21 +75,24 @@ export namespace ProtobufDecodeProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
         ),
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "reader",
-              ts.factory.createNewExpression(
+            StatementFactory.constant({
+              name: "reader",
+              value: ts.factory.createNewExpression(
                 props.importer.use("Reader"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
-            ),
+            }),
             ts.factory.createReturnStatement(
               decode_regular_object({
                 top: true,
@@ -149,14 +152,14 @@ export namespace ProtobufDecodeProgrammer {
                 ),
                 undefined,
                 ts.factory.createCallExpression(
-                  IdentifierFactory.access(READER())("size"),
+                  IdentifierFactory.access(READER(), "size"),
                   undefined,
                   undefined,
                 ),
                 undefined,
                 ts.factory.createAdd(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER())("index"),
+                    IdentifierFactory.access(READER(), "index"),
                     undefined,
                     undefined,
                   ),
@@ -170,7 +173,7 @@ export namespace ProtobufDecodeProgrammer {
             importer: props.importer,
             condition: ts.factory.createLessThan(
               ts.factory.createCallExpression(
-                IdentifierFactory.access(READER())("index"),
+                IdentifierFactory.access(READER(), "index"),
                 undefined,
                 undefined,
               ),
@@ -205,7 +208,8 @@ export namespace ProtobufDecodeProgrammer {
           index,
           accessor: IdentifierFactory.access(
             ts.factory.createIdentifier(props.output),
-          )(p.key.getSoleLiteral()!),
+            p.key.getSoleLiteral()!,
+          ),
           metadata: p.value,
         });
         index += ProtobufUtil.size(p.value);
@@ -213,9 +217,9 @@ export namespace ProtobufDecodeProgrammer {
       })
       .flat();
     return [
-      StatementFactory.constant(
-        props.output,
-        ts.factory.createAsExpression(
+      StatementFactory.constant({
+        name: props.output,
+        value: ts.factory.createAsExpression(
           ts.factory.createObjectLiteralExpression(
             props.properties
               .filter(
@@ -235,18 +239,18 @@ export namespace ProtobufDecodeProgrammer {
           ),
           TypeFactory.keyword("any"),
         ),
-      ),
+      }),
       ts.factory.createWhileStatement(
         props.condition,
         ts.factory.createBlock([
-          StatementFactory.constant(
-            props.tag,
-            ts.factory.createCallExpression(
-              IdentifierFactory.access(READER())("uint32"),
+          StatementFactory.constant({
+            name: props.tag,
+            value: ts.factory.createCallExpression(
+              IdentifierFactory.access(READER(), "uint32"),
               undefined,
               undefined,
             ),
-          ),
+          }),
           ts.factory.createSwitchStatement(
             ts.factory.createUnsignedRightShift(
               ts.factory.createIdentifier(props.tag),
@@ -257,7 +261,7 @@ export namespace ProtobufDecodeProgrammer {
               ts.factory.createDefaultClause([
                 ts.factory.createExpressionStatement(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER())("skipType"),
+                    IdentifierFactory.access(READER(), "skipType"),
                     undefined,
                     [
                       ts.factory.createBitwiseAnd(
@@ -413,9 +417,7 @@ export namespace ProtobufDecodeProgrammer {
     if (props.type === "string") return decode_bytes("string");
 
     const call: ts.CallExpression = ts.factory.createCallExpression(
-      IdentifierFactory.access(ts.factory.createIdentifier("reader"))(
-        props.type,
-      ),
+      IdentifierFactory.access(READER(), props.type),
       undefined,
       undefined,
     );
@@ -435,7 +437,7 @@ export namespace ProtobufDecodeProgrammer {
 
   const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
     ts.factory.createCallExpression(
-      IdentifierFactory.access(ts.factory.createIdentifier("reader"))(method),
+      IdentifierFactory.access(READER(), method),
       undefined,
       undefined,
     );
@@ -486,25 +488,25 @@ export namespace ProtobufDecodeProgrammer {
           ),
           ts.factory.createBlock(
             [
-              StatementFactory.constant(
-                "piece",
-                ts.factory.createAdd(
+              StatementFactory.constant({
+                name: "piece",
+                value: ts.factory.createAdd(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER())("uint32"),
+                    IdentifierFactory.access(READER(), "uint32"),
                     undefined,
                     undefined,
                   ),
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER())("index"),
+                    IdentifierFactory.access(READER(), "index"),
                     undefined,
                     undefined,
                   ),
                 ),
-              ),
+              }),
               ts.factory.createWhileStatement(
                 ts.factory.createLessThan(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER())("index"),
+                    IdentifierFactory.access(READER(), "index"),
                     undefined,
                     undefined,
                   ),
@@ -512,7 +514,7 @@ export namespace ProtobufDecodeProgrammer {
                 ),
                 ts.factory.createExpressionStatement(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(props.accessor)("push"),
+                    IdentifierFactory.access(props.accessor, "push"),
                     undefined,
                     [decoder()],
                   ),
@@ -523,7 +525,7 @@ export namespace ProtobufDecodeProgrammer {
           ),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
-              IdentifierFactory.access(props.accessor)("push"),
+              IdentifierFactory.access(props.accessor, "push"),
               undefined,
               [decoder()],
             ),
@@ -533,7 +535,7 @@ export namespace ProtobufDecodeProgrammer {
     } else
       statements.push(
         ts.factory.createCallExpression(
-          IdentifierFactory.access(props.accessor)("push"),
+          IdentifierFactory.access(props.accessor, "push"),
           undefined,
           [decoder()],
         ),
@@ -556,7 +558,7 @@ export namespace ProtobufDecodeProgrammer {
           ? []
           : [
               ts.factory.createCallExpression(
-                IdentifierFactory.access(READER())("uint32"),
+                IdentifierFactory.access(READER(), "uint32"),
                 undefined,
                 undefined,
               ),
@@ -629,7 +631,7 @@ export namespace ProtobufDecodeProgrammer {
         ),
       setter: () =>
         ts.factory.createCallExpression(
-          IdentifierFactory.access(props.accessor)("set"),
+          IdentifierFactory.access(props.accessor, "set"),
           undefined,
           [
             ts.factory.createIdentifier("entry.key"),
@@ -652,27 +654,27 @@ export namespace ProtobufDecodeProgrammer {
       ...(props.required
         ? []
         : [ts.factory.createExpressionStatement(props.initializer())]),
-      StatementFactory.constant(
-        "piece",
-        ts.factory.createAdd(
+      StatementFactory.constant({
+        name: "piece",
+        value: ts.factory.createAdd(
           ts.factory.createCallExpression(
-            IdentifierFactory.access(READER())("uint32"),
+            IdentifierFactory.access(READER(), "uint32"),
             undefined,
             undefined,
           ),
           ts.factory.createCallExpression(
-            IdentifierFactory.access(READER())("index"),
+            IdentifierFactory.access(READER(), "index"),
             undefined,
             undefined,
           ),
         ),
-      ),
+      }),
       ...write_object_function_body({
         context: props.context,
         importer: props.importer,
         condition: ts.factory.createLessThan(
           ts.factory.createCallExpression(
-            IdentifierFactory.access(READER())("index"),
+            IdentifierFactory.access(READER(), "index"),
             undefined,
             undefined,
           ),

@@ -44,8 +44,14 @@ export namespace ProtobufIsEncodeProgrammer {
       statements: [
         ...is.statements,
         ...encode.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__encode", encode.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__encode",
+          value: encode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

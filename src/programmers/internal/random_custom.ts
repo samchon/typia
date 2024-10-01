@@ -35,4 +35,5 @@ export const random_custom = (props: {
         ),
       ],
     ),
-  )(props.expression);
+    props.expression,
+  );

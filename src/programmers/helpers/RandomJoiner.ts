@@ -104,10 +104,13 @@ export namespace RandomJoiner {
     );
     return ts.factory.createBlock(
       [
-        StatementFactory.constant(
-          "output",
-          ts.factory.createAsExpression(literal, TypeFactory.keyword("any")),
-        ),
+        StatementFactory.constant({
+          name: "output",
+          value: ts.factory.createAsExpression(
+            literal,
+            TypeFactory.keyword("any"),
+          ),
+        }),
         ...(props.object.recursive
           ? [
               ts.factory.createIfStatement(

@@ -76,7 +76,10 @@ export namespace HttpFormDataProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
           false,
@@ -164,9 +167,9 @@ export namespace HttpFormDataProgrammer {
     // const input: ts.Identifier = ts.factory.createIdentifier("input");
     const output: ts.Identifier = ts.factory.createIdentifier("output");
     return [
-      StatementFactory.constant(
-        "output",
-        ts.factory.createObjectLiteralExpression(
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createObjectLiteralExpression(
           props.object.properties.map((p) =>
             decode_regular_property({
               importer: props.importer,
@@ -175,7 +178,7 @@ export namespace HttpFormDataProgrammer {
           ),
           true,
         ),
-      ),
+      }),
       ts.factory.createReturnStatement(
         ts.factory.createAsExpression(output, TypeFactory.keyword("any")),
       ),
@@ -228,7 +231,8 @@ export namespace HttpFormDataProgrammer {
                   undefined,
                   [ts.factory.createStringLiteral(key)],
                 ),
-              )("map"),
+                "map",
+              ),
               undefined,
               [
                 ts.factory.createArrowFunction(

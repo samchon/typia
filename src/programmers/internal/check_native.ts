@@ -9,7 +9,7 @@ export const check_native = (props: {
   type: string;
   input: ts.Expression;
 }): ts.Expression => {
-  const instanceOf = ExpressionFactory.isInstanceOf(props.type)(props.input);
+  const instanceOf = ExpressionFactory.isInstanceOf(props.type, props.input);
   return ATOMIC_LIKE.has(props.type)
     ? ts.factory.createLogicalOr(
         ts.factory.createStrictEquality(

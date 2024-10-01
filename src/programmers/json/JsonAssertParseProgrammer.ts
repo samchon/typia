@@ -38,7 +38,10 @@ export namespace JsonAssertParseProgrammer {
       functions: assert.functions,
       statements: [
         ...assert.statements,
-        StatementFactory.constant("__assert", assert.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -56,7 +59,10 @@ export namespace JsonAssertParseProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
           false,

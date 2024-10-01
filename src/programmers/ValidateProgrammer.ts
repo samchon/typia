@@ -105,7 +105,10 @@ export namespace ValidateProgrammer {
       ts.factory.createTypeReferenceNode(
         `typia.IValidation<${
           props.name ??
-          TypeFactory.getFullName(props.context.checker)(props.type)
+          TypeFactory.getFullName({
+            checker: props.context.checker,
+            type: props.type,
+          })
         }>`,
       ),
       undefined,
@@ -142,7 +145,8 @@ export namespace ValidateProgrammer {
                           TypeFactory.keyword("any"),
                         ),
                       ),
-                    )("report"),
+                      "report",
+                    ),
                     [],
                     [ts.factory.createIdentifier("errors")],
                   ),
@@ -166,13 +170,13 @@ export namespace ValidateProgrammer {
                   ],
                 ),
               ),
-              StatementFactory.constant(
-                "success",
-                ts.factory.createStrictEquality(
+              StatementFactory.constant({
+                name: "success",
+                value: ts.factory.createStrictEquality(
                   ExpressionFactory.number(0),
                   ts.factory.createIdentifier("errors.length"),
                 ),
-              ),
+              }),
               ts.factory.createReturnStatement(
                 ts.factory.createAsExpression(
                   create_output(),
@@ -215,9 +219,12 @@ export namespace ValidateProgrammer {
       statements: [
         ...is.statements,
         ...composed.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.mut("errors"),
-        StatementFactory.mut("$report"),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.mut({ name: "errors" }),
+        StatementFactory.mut({ name: "$report" }),
       ],
       arrow,
     };
@@ -363,7 +370,7 @@ const joiner = (props: {
   array: (props) =>
     check_everything(
       ts.factory.createCallExpression(
-        IdentifierFactory.access(props.input)("map"),
+        IdentifierFactory.access(props.input, "map"),
         undefined,
         [props.arrow],
       ),

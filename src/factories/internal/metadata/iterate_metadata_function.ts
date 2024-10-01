@@ -69,11 +69,11 @@ export const iterate_metadata_function = (
               functional: false,
             },
             type: async
-            ? (props.checker.getTypeArguments(
-                signature.getReturnType() as ts.TypeReference,
-              )?.[0] ??
+              ? (props.checker.getTypeArguments(
+                  signature.getReturnType() as ts.TypeReference,
+                )?.[0] ??
                 props.checker.getTypeFromTypeNode(TypeFactory.keyword("any")))
-            : signature.getReturnType(),
+              : signature.getReturnType(),
             explore: {
               ...props.explore,
               top: false,

@@ -15,103 +15,112 @@ import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
  * @internal
  */
 export namespace MetadataCommentTagFactory {
-  export const analyze =
-    (errors: MetadataFactory.IError[]) =>
-    (metadata: Metadata) =>
-    (
-      commentList: ts.JSDocTagInfo[],
-      explore: MetadataFactory.IExplore,
-    ): void => {
-      // PREPARE MESSAGE CONTAINER
-      const messages: string[] = [];
-      const report = (msg: string) => {
-        messages.push(msg);
-        return null;
-      };
-      const validateReport =
-        (property: string | null) =>
-        (msg: string): false => {
-          messages.push(
-            `the property ${
-              property === null ? `["typia.tag"]` : `["typia.tag.${property}"]`
-            } ${msg}.`,
-          );
-          return false;
-        };
+  export const analyze = (props: {
+    errors: MetadataFactory.IError[];
+    metadata: Metadata;
+    tags: ts.JSDocTagInfo[];
+    explore: MetadataFactory.IExplore;
+  }): void => {
+    // PREPARE MESSAGE CONTAINER
+    const messages: string[] = [];
+    const report = (msg: string) => {
+      messages.push(msg);
+      return null;
+    };
+    const validateReport = (next: {
+      property: string | null;
+      message: string;
+    }): false => {
+      messages.push(
+        `the property ${
+          next.property === null
+            ? `["typia.tag"]`
+            : `["typia.tag.${next.property}"]`
+        } ${next.message}.`,
+      );
+      return false;
+    };
 
-      // VALIDATE AND CONSTRUCT COMMENT TAGS
-      for (const comment of commentList) {
-        const tagger: TagRecord | null = parse(report)(comment);
-        if (tagger === null) continue;
-        for (const [key, value] of Object.entries(tagger)) {
-          const filtered: IMetadataTypeTag[] = value.filter(
-            (v) => v.validate !== null,
-          ) as IMetadataTypeTag[];
-          if (key === "array") {
-            if (metadata.arrays.length === 0) {
-              report(`requires array type`);
-              continue;
-            }
-            for (const a of metadata.arrays) {
-              Writable(a).tags = a.tags.filter((x) =>
-                MetadataTypeTagFactory.validate(validateReport)("array")([
-                  ...x,
-                  ...filtered,
-                ]),
-              );
-              if (a.tags.length === 0) a.tags.push(filtered);
-              else for (const tags of a.tags) tags.push(...filtered);
-            }
-          } else {
-            const atomic = metadata.atomics.find((a) => a.type == key);
-            if (atomic === undefined)
-              if (key === "bigint" || key === "number") {
-                const opposite = key === "bigint" ? "number" : "bigint";
-                if (
-                  tagger[opposite] !== undefined &&
-                  metadata.atomics.some((a) => a.type === opposite)
-                )
-                  continue;
-              } else if (
-                key === "string" &&
-                value[0]?.kind === "format" &&
-                value[0]?.value === "date-time"
+    // VALIDATE AND CONSTRUCT COMMENT TAGS
+    for (const tag of props.tags) {
+      const tagger: TagRecord | null = parse({
+        report,
+        tag,
+      });
+      if (tagger === null) continue;
+      for (const [key, value] of Object.entries(tagger)) {
+        const filtered: IMetadataTypeTag[] = value.filter(
+          (v) => v.validate !== null,
+        ) as IMetadataTypeTag[];
+        if (key === "array") {
+          if (props.metadata.arrays.length === 0) {
+            report(`requires array type`);
+            continue;
+          }
+          for (const a of props.metadata.arrays) {
+            Writable(a).tags = a.tags.filter((x) =>
+              MetadataTypeTagFactory.validate({
+                report: validateReport,
+                type: "array",
+                tags: [...x, ...filtered],
+              }),
+            );
+            if (a.tags.length === 0) a.tags.push(filtered);
+            else for (const tags of a.tags) tags.push(...filtered);
+          }
+        } else {
+          const atomic = props.metadata.atomics.find((a) => a.type == key);
+          if (atomic === undefined)
+            if (key === "bigint" || key === "number") {
+              const opposite = key === "bigint" ? "number" : "bigint";
+              if (
+                tagger[opposite] !== undefined &&
+                props.metadata.atomics.some((a) => a.type === opposite)
               )
                 continue;
-              else report(`requires ${key} type`);
-            else {
-              Writable(atomic).tags = atomic.tags.filter((x) =>
-                MetadataTypeTagFactory.validate(validateReport)(
-                  key as "string",
-                )([...x, ...filtered]),
-              );
-              if (atomic.tags.length === 0) atomic.tags.push(filtered);
-              else for (const tags of atomic.tags) tags.push(...filtered);
-            }
+            } else if (
+              key === "string" &&
+              value[0]?.kind === "format" &&
+              value[0]?.value === "date-time"
+            )
+              continue;
+            else report(`requires ${key} type`);
+          else {
+            Writable(atomic).tags = atomic.tags.filter((x) =>
+              MetadataTypeTagFactory.validate({
+                report: validateReport,
+                type: key as "string",
+                tags: [...x, ...filtered],
+              }),
+            );
+            if (atomic.tags.length === 0) atomic.tags.push(filtered);
+            else for (const tags of atomic.tags) tags.push(...filtered);
           }
         }
       }
+    }
 
-      // DO REPORT
-      if (messages.length !== 0)
-        errors.push({
-          name: "comment tag(s)",
-          explore,
-          messages,
-        });
-    };
+    // DO REPORT
+    if (messages.length !== 0)
+      props.errors.push({
+        name: "comment tag(s)",
+        explore: props.explore,
+        messages,
+      });
+  };
 
-  const parse =
-    (report: (msg: string) => null) =>
-    (comment: ts.JSDocTagInfo): TagRecord | null => {
-      const parser = PARSER[comment.name];
-      if (parser === undefined) return {};
+  const parse = (props: {
+    report: (msg: string) => null;
+    tag: ts.JSDocTagInfo;
+  }): TagRecord | null => {
+    const next = PARSER[props.tag.name];
+    if (next === undefined) return {};
 
-      const text = (comment.text || [])[0]?.text;
-      if (text === undefined && comment.name !== "uniqueItems")
-        return report(`no comment tag value`);
-      return parser(report)(text!);
-    };
+    const text = (props.tag.text || [])[0]?.text;
+    if (text === undefined && props.tag.name !== "uniqueItems")
+      return props.report(`no comment tag value`);
+    return next(props.report)(text!);
+  };
 }
 
 type TagRecord = {

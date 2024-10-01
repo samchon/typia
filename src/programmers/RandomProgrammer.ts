@@ -107,7 +107,10 @@ export namespace RandomProgrammer {
         [
           ts.factory.createTypeReferenceNode(
             props.name ??
-              TypeFactory.getFullName(props.context.checker)(props.type),
+              TypeFactory.getFullName({
+                checker: props.context.checker,
+                type: props.type,
+              }),
           ),
         ],
         false,
@@ -138,7 +141,7 @@ export namespace RandomProgrammer {
     );
     return {
       functions,
-      statements: [StatementFactory.mut("_generator")],
+      statements: [StatementFactory.mut({ name: "_generator" })],
       arrow,
     };
   };
@@ -163,9 +166,9 @@ export namespace RandomProgrammer {
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection.objects().map((obj, i) =>
-      StatementFactory.constant(
-        Prefix.object(i),
-        ts.factory.createArrowFunction(
+      StatementFactory.constant({
+        name: Prefix.object(i),
+        value: ts.factory.createArrowFunction(
           undefined,
           undefined,
           [
@@ -196,7 +199,7 @@ export namespace RandomProgrammer {
             object: obj,
           }),
         ),
-      ),
+      }),
     );
 
   const write_array_functions = (props: {
@@ -207,9 +210,9 @@ export namespace RandomProgrammer {
       .arrays()
       .filter((a) => a.recursive)
       .map((array, i) =>
-        StatementFactory.constant(
-          Prefix.array(i),
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: Prefix.array(i),
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             [
@@ -254,7 +257,7 @@ export namespace RandomProgrammer {
               metadata: array.value,
             }),
           ),
-        ),
+        }),
       );
 
   const write_tuple_functions = (props: {
@@ -265,9 +268,9 @@ export namespace RandomProgrammer {
       .tuples()
       .filter((a) => a.recursive)
       .map((tuple, i) =>
-        StatementFactory.constant(
-          Prefix.tuple(i),
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: Prefix.tuple(i),
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             [
@@ -297,7 +300,7 @@ export namespace RandomProgrammer {
               elements: tuple.elements,
             }),
           ),
-        ),
+        }),
       );
 
   /* -----------------------------------------------------------
@@ -1005,39 +1008,41 @@ export namespace RandomProgrammer {
             importer: props.importer,
             name: "Uint8Array",
           }),
-        )("buffer")
+          "buffer",
+        )
       : ExpressionFactory.selfCall(
           ts.factory.createBlock(
             [
-              StatementFactory.constant(
-                "length",
-                ts.factory.createCallExpression(
+              StatementFactory.constant({
+                name: "length",
+                value: ts.factory.createCallExpression(
                   coalesce(props.importer)("integer"),
                   undefined,
                   [],
                 ),
-              ),
-              StatementFactory.constant(
-                "buffer",
-                ts.factory.createNewExpression(
+              }),
+              StatementFactory.constant({
+                name: "buffer",
+                value: ts.factory.createNewExpression(
                   ts.factory.createIdentifier("SharedArrayBuffer"),
                   [],
                   [ts.factory.createIdentifier("length")],
                 ),
-              ),
-              StatementFactory.constant(
-                "bytes",
-                ts.factory.createNewExpression(
+              }),
+              StatementFactory.constant({
+                name: "bytes",
+                value: ts.factory.createNewExpression(
                   ts.factory.createIdentifier("Uint8Array"),
                   [],
                   [ts.factory.createIdentifier("buffer")],
                 ),
-              ),
+              }),
               ts.factory.createExpressionStatement(
                 ts.factory.createCallExpression(
                   IdentifierFactory.access(
                     ts.factory.createIdentifier("bytes"),
-                  )("set"),
+                    "set",
+                  ),
                   undefined,
                   [
                     ts.factory.createCallExpression(
@@ -1084,7 +1089,8 @@ export namespace RandomProgrammer {
             importer,
             name: "Uint8Array",
           }),
-        )("buffer"),
+          "buffer",
+        ),
       ],
     );
 
@@ -1121,7 +1127,8 @@ const coalesce = (importer: FunctionImporter) => (name: string) =>
           ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
           ts.factory.createStringLiteral(name),
         ),
-  )(IdentifierFactory.access(importer.use("generator"))(name));
+    IdentifierFactory.access(importer.use("generator"), name),
+  );
 
 const emendFormat = (key: keyof Format.Validator) =>
   key === "date-time"

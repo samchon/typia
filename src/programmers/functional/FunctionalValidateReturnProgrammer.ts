@@ -82,25 +82,25 @@ export namespace FunctionalValidateReturnProgrammer {
     return {
       async,
       functions: [
-        StatementFactory.constant(
-          "__validate_return",
-          ValidateProgrammer.write({
+        StatementFactory.constant({
+          name: "__validate_return",
+          value: ValidateProgrammer.write({
             ...props,
             type,
             name: undefined,
             init: undefined,
           }),
-        ),
+        }),
       ],
       statements: [
-        StatementFactory.constant(
+        StatementFactory.constant({
           name,
-          ts.factory.createCallExpression(
+          value: ts.factory.createCallExpression(
             ts.factory.createIdentifier("__validate_return"),
             undefined,
             [async ? ts.factory.createAwaitExpression(caller) : caller],
           ),
-        ),
+        }),
         ts.factory.createIfStatement(
           ts.factory.createStrictEquality(
             ts.factory.createFalse(),

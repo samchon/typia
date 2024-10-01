@@ -46,8 +46,14 @@ export namespace ProtobufAssertEncodeProgrammer {
       statements: [
         ...assert.statements,
         ...encode.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__encode", encode.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__encode",
+          value: encode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

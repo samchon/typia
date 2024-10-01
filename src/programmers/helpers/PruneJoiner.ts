@@ -45,7 +45,7 @@ export namespace PruneJoiner {
     arrow: ts.ArrowFunction;
   }) =>
     ts.factory.createCallExpression(
-      IdentifierFactory.access(props.input)("forEach"),
+      IdentifierFactory.access(props.input, "forEach"),
       undefined,
       [props.arrow],
     );
@@ -80,7 +80,8 @@ const iterate_dynamic_properties = (props: {
         undefined,
         [props.input],
       ),
-    )("forEach"),
+      "forEach",
+    ),
     undefined,
     [
       ts.factory.createArrowFunction(

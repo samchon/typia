@@ -43,8 +43,14 @@ export namespace NotationIsGeneralProgrammer {
       statements: [
         ...is.statements,
         ...notation.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__notation", notation.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__notation",
+          value: notation.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

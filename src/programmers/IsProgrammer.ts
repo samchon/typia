@@ -81,7 +81,7 @@ export namespace IsProgrammer {
             }),
       array: (props) =>
         ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("every"),
+          IdentifierFactory.access(props.input, "every"),
           undefined,
           [props.arrow],
         ),
@@ -259,10 +259,11 @@ export namespace IsProgrammer {
       ExpressionFactory.isObject({
         checkArray: false,
         checkNull: props.checkNull,
-      })(props.input),
+        input: props.input,
+      }),
       ts.factory.createStrictEquality(
         ts.factory.createStringLiteral("function"),
-        ValueFactory.TYPEOF(IdentifierFactory.access(props.input)("toJSON")),
+        ValueFactory.TYPEOF(IdentifierFactory.access(props.input, "toJSON")),
       ),
     );
 

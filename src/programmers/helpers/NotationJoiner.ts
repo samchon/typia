@@ -45,7 +45,8 @@ export namespace NotationJoiner {
                   ts.factory.createStringLiteral(r.key.getSoleLiteral()!),
                 ),
               ),
-            )("some"),
+              "some",
+            ),
             undefined,
             [
               ts.factory.createArrowFunction(
@@ -92,13 +93,19 @@ export namespace NotationJoiner {
     );
 
     return ts.factory.createBlock([
-      StatementFactory.constant(
-        "output",
-        ts.factory.createAsExpression(literal, TypeFactory.keyword("any")),
-      ),
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createAsExpression(
+          literal,
+          TypeFactory.keyword("any"),
+        ),
+      }),
       ts.factory.createForOfStatement(
         undefined,
-        StatementFactory.entry("key")("value"),
+        StatementFactory.entry({
+          key: "key",
+          value: "value",
+        }),
         ts.factory.createCallExpression(
           ts.factory.createIdentifier("Object.entries"),
           undefined,

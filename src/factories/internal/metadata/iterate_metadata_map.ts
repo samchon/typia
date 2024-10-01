@@ -11,10 +11,11 @@ export const iterate_metadata_map = (
 ): boolean => {
   const type: ts.Type = props.checker.getApparentType(props.type);
 
-  const name: string = TypeFactory.getFullName(props.checker)(
+  const name: string = TypeFactory.getFullName({
+    checker: props.checker,
     type,
-    type.getSymbol(),
-  );
+    symbol: type.getSymbol(),
+  });
   const generic: readonly ts.Type[] | undefined = type.aliasSymbol
     ? type.aliasTypeArguments
     : props.checker.getTypeArguments(type as ts.TypeReference);
