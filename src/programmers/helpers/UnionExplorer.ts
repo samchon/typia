@@ -73,7 +73,8 @@ export namespace UnionExplorer {
       .filter((spec) => spec.property.key.getSoleLiteral() !== null)
       .map((spec, i, array) => {
         const key: string = spec.property.key.getSoleLiteral()!;
-        const accessor: ts.Expression = IdentifierFactory.access(props.input)(
+        const accessor: ts.Expression = IdentifierFactory.access(
+          props.input,
           key,
         );
         const pred: ts.Expression = spec.neighbour
@@ -181,7 +182,7 @@ export namespace UnionExplorer {
       accessor: {
         transform: (x) => x,
         element: (x) => x.type.value,
-        size: (input) => IdentifierFactory.access(input)("length"),
+        size: (input) => IdentifierFactory.access(input, "length"),
         front: (input) => ts.factory.createElementAccessExpression(input, 0),
         array: (input) => input,
         name: (t) => t.type.name,
@@ -214,7 +215,7 @@ export namespace UnionExplorer {
       accessor: {
         transform: (x) => x,
         element: (x) => (x instanceof MetadataArray ? x.type.value : x),
-        size: (input) => IdentifierFactory.access(input)("length"),
+        size: (input) => IdentifierFactory.access(input, "length"),
         front: (input) => ts.factory.createElementAccessExpression(input, 0),
         array: (input) => input,
         name: (m) => m.type.name,
@@ -253,21 +254,23 @@ export namespace UnionExplorer {
             }),
           }),
         element: (array) => array.type.value,
-        size: (input) => IdentifierFactory.access(input)("size"),
+        size: (input) => IdentifierFactory.access(input, "size"),
         front: (input) =>
           IdentifierFactory.access(
             ts.factory.createCallExpression(
               IdentifierFactory.access(
                 ts.factory.createCallExpression(
-                  IdentifierFactory.access(input)("values"),
+                  IdentifierFactory.access(input, "values"),
                   undefined,
                   undefined,
                 ),
-              )("next"),
+                "next",
+              ),
               undefined,
               undefined,
             ),
-          )("value"),
+            "value",
+          ),
         array: (input) =>
           ts.factory.createArrayLiteralExpression(
             [ts.factory.createSpreadElement(input)],
@@ -300,21 +303,23 @@ export namespace UnionExplorer {
         accessor: {
           element: (array) =>
             array.type.value.tuples[0]!.type.elements as [Metadata, Metadata],
-          size: (input) => IdentifierFactory.access(input)("size"),
+          size: (input) => IdentifierFactory.access(input, "size"),
           front: (input) =>
             IdentifierFactory.access(
               ts.factory.createCallExpression(
                 IdentifierFactory.access(
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(input)("entries"),
+                    IdentifierFactory.access(input, "entries"),
                     undefined,
                     undefined,
                   ),
-                )("next"),
+                  "next",
+                ),
                 undefined,
                 undefined,
               ),
-            )("value"),
+              "value",
+            ),
           array: (input) =>
             ts.factory.createArrayLiteralExpression(
               [ts.factory.createSpreadElement(input)],

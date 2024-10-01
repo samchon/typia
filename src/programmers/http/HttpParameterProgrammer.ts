@@ -37,9 +37,9 @@ export namespace HttpParameterProgrammer {
       props.modulo.getText(),
     );
     const block: ts.Statement[] = [
-      StatementFactory.constant(
-        "assert",
-        AssertProgrammer.write({
+      StatementFactory.constant({
+        name: "assert",
+        value: AssertProgrammer.write({
           ...props,
           context: {
             ...props.context,
@@ -52,13 +52,15 @@ export namespace HttpParameterProgrammer {
             guard: false,
           },
         }),
-      ),
-      StatementFactory.constant(
-        "value",
-        ts.factory.createCallExpression(importer.use(atomic), undefined, [
-          ts.factory.createIdentifier("input"),
-        ]),
-      ),
+      }),
+      StatementFactory.constant({
+        name: "value",
+        value: ts.factory.createCallExpression(
+          importer.use(atomic),
+          undefined,
+          [ts.factory.createIdentifier("input")],
+        ),
+      }),
       ts.factory.createReturnStatement(
         ts.factory.createCallExpression(
           ts.factory.createIdentifier("assert"),
@@ -79,7 +81,10 @@ export namespace HttpParameterProgrammer {
       ],
       ts.factory.createTypeReferenceNode(
         props.name ??
-          TypeFactory.getFullName(props.context.checker)(props.type),
+          TypeFactory.getFullName({
+            checker: props.context.checker,
+            type: props.type,
+          }),
       ),
       undefined,
       ts.factory.createBlock(

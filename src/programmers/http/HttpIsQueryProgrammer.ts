@@ -47,8 +47,14 @@ export namespace HttpIsQueryProgrammer {
       statements: [
         ...is.statements,
         ...decode.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -61,14 +67,14 @@ export namespace HttpIsQueryProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "value",
-              ts.factory.createCallExpression(
+            StatementFactory.constant({
+              name: "value",
+              value: ts.factory.createCallExpression(
                 ts.factory.createIdentifier("__decode"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createPrefixUnaryExpression(
                 ts.SyntaxKind.ExclamationToken,

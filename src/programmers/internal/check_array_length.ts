@@ -40,7 +40,7 @@ const check_array_type_tags = (props: {
         expected: `Array<> & ${tag.name}`,
         expression: (
           tag.predicate ??
-          ExpressionFactory.transpile(props.context.transformer)(tag.validate!)
+          ExpressionFactory.transpile(props.context.transformer, tag.validate!)
         )(props.input),
       })),
     );

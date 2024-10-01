@@ -92,9 +92,9 @@ export namespace FunctionalAssertParametersProgrammer {
 
   export const decompose = (props: IDecomposeProps): IDecomposeOutput => ({
     functions: props.parameters.map((p, i) =>
-      StatementFactory.constant(
-        `__assert_param_${i}`,
-        AssertProgrammer.write({
+      StatementFactory.constant({
+        name: `__assert_param_${i}`,
+        value: AssertProgrammer.write({
           context: props.context,
           modulo: props.modulo,
           config: {
@@ -124,7 +124,7 @@ export namespace FunctionalAssertParametersProgrammer {
         // ),
         // undefined,
         // [ts.factory.createIdentifier(p.name.getText())],
-      ),
+      }),
     ),
     expressions: props.parameters.map((p, i) =>
       ts.factory.createCallExpression(

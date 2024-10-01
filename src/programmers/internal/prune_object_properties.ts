@@ -50,7 +50,7 @@ export const prune_object_properties = (object: MetadataObject) => {
 
   return ts.factory.createForOfStatement(
     undefined,
-    StatementFactory.constant("key").declarationList,
+    StatementFactory.constant({ name: "key" }).declarationList,
     ts.factory.createCallExpression(
       ts.factory.createIdentifier("Object.keys"),
       undefined,

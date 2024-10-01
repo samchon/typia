@@ -87,9 +87,9 @@ export namespace FunctionAssertReturnProgrammer {
     return {
       async,
       functions: [
-        StatementFactory.constant(
-          "__assert_return",
-          AssertProgrammer.write({
+        StatementFactory.constant({
+          name: "__assert_return",
+          value: AssertProgrammer.write({
             context: props.context,
             modulo: props.modulo,
             config: {
@@ -103,7 +103,7 @@ export namespace FunctionAssertReturnProgrammer {
               replacer: "$input.return",
             }),
           }),
-        ),
+        }),
       ],
       value: ts.factory.createCallExpression(
         ts.factory.createIdentifier("__assert_return"),

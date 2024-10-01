@@ -81,21 +81,21 @@ export namespace FunctionalIsReturnProgrammer {
     return {
       async,
       functions: [
-        StatementFactory.constant(
-          "__is_return",
-          IsProgrammer.write({
+        StatementFactory.constant({
+          name: "__is_return",
+          value: IsProgrammer.write({
             ...props,
             type,
             name: undefined,
             init: undefined,
           }),
-        ),
+        }),
       ],
       statements: [
-        StatementFactory.constant(
+        StatementFactory.constant({
           name,
-          async ? ts.factory.createAwaitExpression(caller) : caller,
-        ),
+          value: async ? ts.factory.createAwaitExpression(caller) : caller,
+        }),
         ts.factory.createReturnStatement(
           ts.factory.createConditionalExpression(
             ts.factory.createCallExpression(

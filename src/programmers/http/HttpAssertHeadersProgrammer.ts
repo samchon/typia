@@ -45,8 +45,14 @@ export namespace HttpAssertHeadersProgrammer {
       statements: [
         ...assert.statements,
         ...decode.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

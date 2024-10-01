@@ -397,9 +397,9 @@ export namespace FeatureProgrammer {
     collection: MetadataCollection;
   }) =>
     props.collection.objects().map((object) =>
-      StatementFactory.constant(
-        `${props.config.prefix}o${object.index}`,
-        ts.factory.createArrowFunction(
+      StatementFactory.constant({
+        name: `${props.config.prefix}o${object.index}`,
+        value: ts.factory.createArrowFunction(
           undefined,
           undefined,
           parameterDeclarations({
@@ -420,7 +420,7 @@ export namespace FeatureProgrammer {
             object,
           }),
         ),
-      ),
+      }),
     );
 
   export const write_union_functions = (props: {
@@ -428,13 +428,13 @@ export namespace FeatureProgrammer {
     collection: MetadataCollection;
   }) =>
     props.collection.unions().map((union, i) =>
-      StatementFactory.constant(
-        `${props.config.prefix}u${i}`,
-        write_union({
+      StatementFactory.constant({
+        name: `${props.config.prefix}u${i}`,
+        value: write_union({
           config: props.config,
           objects: union,
         }),
-      ),
+      }),
     );
 
   const write_union = (props: { config: IConfig; objects: MetadataObject[] }) =>

@@ -39,8 +39,14 @@ export namespace MiscAssertPruneProgrammer {
       statements: [
         ...assert.statements,
         ...prune.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__prune", prune.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__prune",
+          value: prune.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -51,7 +57,10 @@ export namespace MiscAssertPruneProgrammer {
         ],
         ts.factory.createTypeReferenceNode(
           props.name ??
-            TypeFactory.getFullName(props.context.checker)(props.type),
+            TypeFactory.getFullName({
+              checker: props.context.checker,
+              type: props.type,
+            }),
         ),
         undefined,
         ts.factory.createBlock(

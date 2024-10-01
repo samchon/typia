@@ -45,25 +45,25 @@ export namespace ProtobufEncodeProgrammer {
     });
 
     const callEncoder = (writer: string, factory: ts.NewExpression) =>
-      StatementFactory.constant(
-        writer,
-        ts.factory.createCallExpression(
+      StatementFactory.constant({
+        name: writer,
+        value: ts.factory.createCallExpression(
           ts.factory.createIdentifier("encoder"),
           undefined,
           [factory, ts.factory.createIdentifier("input")],
         ),
-      );
+      });
     return {
       functions: {
-        encoder: StatementFactory.constant(
-          props.importer.useLocal("encoder"),
-          write_encoder({
+        encoder: StatementFactory.constant({
+          name: props.importer.useLocal("encoder"),
+          value: write_encoder({
             context: props.context,
             importer: props.importer,
             collection,
             metadata,
           }),
-        ),
+        }),
       },
       statements: [],
       arrow: ts.factory.createArrowFunction(
@@ -74,7 +74,10 @@ export namespace ProtobufEncodeProgrammer {
             "input",
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.context.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ),
         ],
@@ -100,7 +103,7 @@ export namespace ProtobufEncodeProgrammer {
             ),
             ts.factory.createReturnStatement(
               ts.factory.createCallExpression(
-                IdentifierFactory.access(WRITER())("buffer"),
+                IdentifierFactory.access(WRITER(), "buffer"),
                 undefined,
                 undefined,
               ),
@@ -137,9 +140,9 @@ export namespace ProtobufEncodeProgrammer {
       .objects()
       .filter((obj) => ProtobufUtil.isStaticObject(obj))
       .map((object) =>
-        StatementFactory.constant(
-          `${PREFIX}o${object.index}`,
-          write_object_function({
+        StatementFactory.constant({
+          name: `${PREFIX}o${object.index}`,
+          value: write_object_function({
             context: props.context,
             importer: props.importer,
             input: ts.factory.createIdentifier("input"),
@@ -151,7 +154,7 @@ export namespace ProtobufEncodeProgrammer {
               postfix: "",
             },
           }),
-        ),
+        }),
       );
     const main: ts.Block = decode({
       context: props.context,
@@ -203,7 +206,7 @@ export namespace ProtobufEncodeProgrammer {
         const block = decode({
           ...props,
           index,
-          input: IdentifierFactory.access(props.input)(p.key.getSoleLiteral()!),
+          input: IdentifierFactory.access(props.input, p.key.getSoleLiteral()!),
           metadata: p.value,
         });
         index += ProtobufUtil.size(p.value);
@@ -360,7 +363,7 @@ export namespace ProtobufEncodeProgrammer {
     if (props.metadata.natives.length)
       unions.push({
         type: "bytes",
-        is: () => ExpressionFactory.isInstanceOf("Uint8Array")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Uint8Array", props.input),
         value: (index) =>
           decode_bytes({
             method: "bytes",
@@ -390,7 +393,7 @@ export namespace ProtobufEncodeProgrammer {
     if (props.metadata.maps.length)
       unions.push({
         type: "map",
-        is: () => ExpressionFactory.isInstanceOf("Map")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Map", props.input),
         value: (index) =>
           decode_map({
             ...props,
@@ -411,7 +414,8 @@ export namespace ProtobufEncodeProgrammer {
           ExpressionFactory.isObject({
             checkNull: true,
             checkArray: false,
-          })(props.input),
+            input: props.input,
+          }),
         value: (index) =>
           explore_objects({
             ...props,
@@ -483,7 +487,7 @@ export namespace ProtobufEncodeProgrammer {
       ),
       ts.factory.createExpressionStatement(
         ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER())("fork"),
+          IdentifierFactory.access(WRITER(), "fork"),
           undefined,
           undefined,
         ),
@@ -502,7 +506,7 @@ export namespace ProtobufEncodeProgrammer {
       }).statements,
       ts.factory.createExpressionStatement(
         ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER())("ldelim"),
+          IdentifierFactory.access(WRITER(), "ldelim"),
           undefined,
           undefined,
         ),
@@ -512,7 +516,10 @@ export namespace ProtobufEncodeProgrammer {
       [
         ts.factory.createForOfStatement(
           undefined,
-          StatementFactory.entry("key")("value"),
+          StatementFactory.entry({
+            key: "key",
+            value: "value",
+          }),
           props.input,
           ts.factory.createBlock(each),
         ),
@@ -565,7 +572,7 @@ export namespace ProtobufEncodeProgrammer {
                 index: props.index,
               }),
               ts.factory.createCallExpression(
-                IdentifierFactory.access(WRITER())("fork"),
+                IdentifierFactory.access(WRITER(), "fork"),
                 undefined,
                 undefined,
               ),
@@ -581,7 +588,7 @@ export namespace ProtobufEncodeProgrammer {
         ...(props.index !== null
           ? [
               ts.factory.createCallExpression(
-                IdentifierFactory.access(WRITER())("ldelim"),
+                IdentifierFactory.access(WRITER(), "ldelim"),
                 undefined,
                 undefined,
               ),
@@ -622,7 +629,7 @@ export namespace ProtobufEncodeProgrammer {
           ts.factory.createIfStatement(
             ts.factory.createStrictInequality(
               ExpressionFactory.number(0),
-              IdentifierFactory.access(props.input)("length"),
+              IdentifierFactory.access(props.input, "length"),
             ),
             block,
           ),
@@ -643,7 +650,7 @@ export namespace ProtobufEncodeProgrammer {
           ),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
-              IdentifierFactory.access(WRITER())("fork"),
+              IdentifierFactory.access(WRITER(), "fork"),
               undefined,
               undefined,
             ),
@@ -651,7 +658,7 @@ export namespace ProtobufEncodeProgrammer {
           forLoop(null),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
-              IdentifierFactory.access(WRITER())("ldelim"),
+              IdentifierFactory.access(WRITER(), "ldelim"),
               undefined,
               undefined,
             ),
@@ -674,7 +681,7 @@ export namespace ProtobufEncodeProgrammer {
             ]
           : []),
         ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER())("bool"),
+          IdentifierFactory.access(WRITER(), "bool"),
           undefined,
           [props.input],
         ),
@@ -699,7 +706,7 @@ export namespace ProtobufEncodeProgrammer {
               ts.factory.createStringLiteral("number"),
               ts.factory.createTypeOfExpression(props.input),
             ),
-            NumericRangeFactory.number(props.type)(props.input),
+            NumericRangeFactory.number(props.type, props.input),
           ),
     value: (index) =>
       ts.factory.createBlock(
@@ -713,7 +720,7 @@ export namespace ProtobufEncodeProgrammer {
               ]
             : []),
           ts.factory.createCallExpression(
-            IdentifierFactory.access(WRITER())(props.type),
+            IdentifierFactory.access(WRITER(), props.type),
             undefined,
             [props.input],
           ),
@@ -739,7 +746,7 @@ export namespace ProtobufEncodeProgrammer {
               ts.factory.createStringLiteral("bigint"),
               ts.factory.createTypeOfExpression(props.input),
             ),
-            NumericRangeFactory.bigint(props.type)(props.input),
+            NumericRangeFactory.bigint(props.type, props.input),
           ),
     value: (index) =>
       ts.factory.createBlock(
@@ -753,7 +760,7 @@ export namespace ProtobufEncodeProgrammer {
               ]
             : []),
           ts.factory.createCallExpression(
-            IdentifierFactory.access(WRITER())(props.type),
+            IdentifierFactory.access(WRITER(), props.type),
             undefined,
             [props.input],
           ),
@@ -774,7 +781,7 @@ export namespace ProtobufEncodeProgrammer {
           index: props.index,
         }),
         ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER())(props.method),
+          IdentifierFactory.access(WRITER(), props.method),
           undefined,
           [props.input],
         ),
@@ -787,7 +794,7 @@ export namespace ProtobufEncodeProgrammer {
     index: number;
   }): ts.CallExpression =>
     ts.factory.createCallExpression(
-      IdentifierFactory.access(WRITER())("uint32"),
+      IdentifierFactory.access(WRITER(), "uint32"),
       undefined,
       [ExpressionFactory.number((props.index << 3) | props.wire)],
     );
@@ -900,7 +907,8 @@ export namespace ProtobufEncodeProgrammer {
       .filter((spec) => spec.property.key.getSoleLiteral() !== null)
       .map((spec, i, array) => {
         const key: string = spec.property.key.getSoleLiteral()!;
-        const accessor: ts.Expression = IdentifierFactory.access(props.input)(
+        const accessor: ts.Expression = IdentifierFactory.access(
+          props.input,
           key,
         );
         const pred: ts.Expression = spec.neighbour

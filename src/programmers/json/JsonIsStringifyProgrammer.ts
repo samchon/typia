@@ -54,8 +54,14 @@ export namespace JsonIsStringifyProgrammer {
       statements: [
         ...is.statements,
         ...stringify.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__stringify", stringify.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__stringify",
+          value: stringify.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

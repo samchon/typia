@@ -37,8 +37,14 @@ export namespace MiscIsPruneProgrammer {
       statements: [
         ...is.statements,
         ...prune.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__prune", prune.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__prune",
+          value: prune.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

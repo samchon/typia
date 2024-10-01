@@ -48,8 +48,14 @@ export namespace JsonAssertStringifyProgrammer {
       statements: [
         ...assert.statements,
         ...stringify.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__stringify", stringify.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__stringify",
+          value: stringify.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

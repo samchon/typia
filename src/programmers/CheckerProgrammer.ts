@@ -173,9 +173,9 @@ export namespace CheckerProgrammer {
       .arrays()
       .filter((a) => a.recursive)
       .map((type, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}a${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}a${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -200,7 +200,7 @@ export namespace CheckerProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   export const write_tuple_functions = (props: {
@@ -213,9 +213,9 @@ export namespace CheckerProgrammer {
       .tuples()
       .filter((t) => t.recursive)
       .map((tuple, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}t${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}t${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -239,7 +239,7 @@ export namespace CheckerProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   const configure = (props: {
@@ -254,7 +254,8 @@ export namespace CheckerProgrammer {
           undefined,
           "input",
           ts.factory.createTypeReferenceNode(
-            name ?? TypeFactory.getFullName(props.context.checker)(type),
+            name ??
+              TypeFactory.getFullName({ checker: props.context.checker, type }),
           ),
         ),
     },
@@ -530,7 +531,8 @@ export namespace CheckerProgrammer {
                 ],
               ),
             ),
-          )("has"),
+            "has",
+          ),
           undefined,
           [props.input],
         ),
@@ -808,7 +810,8 @@ export namespace CheckerProgrammer {
               (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
             ),
           ),
-        })(props.input),
+          input: props.input,
+        }),
         expected: props.metadata.objects.map((obj) => obj.name).join(" | "),
         body: explore_objects({
           config: props.config,
@@ -1104,7 +1107,7 @@ export namespace CheckerProgrammer {
             context: props.context,
             importer: props.importer,
             input: ts.factory.createCallExpression(
-              IdentifierFactory.access(props.input)("slice"),
+              IdentifierFactory.access(props.input, "slice"),
               undefined,
               [ExpressionFactory.number(props.tuple.elements.length - 1)],
             ),
@@ -1205,7 +1208,7 @@ export namespace CheckerProgrammer {
       undefined,
       [
         ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("toJSON"),
+          IdentifierFactory.access(props.input, "toJSON"),
           undefined,
           [],
         ),

@@ -70,7 +70,7 @@ export namespace StringifyJoiner {
       ts.factory.createCallExpression(
         ts.factory.createPropertyAccessExpression(
           ts.factory.createCallExpression(
-            IdentifierFactory.access(props.input)("map"),
+            IdentifierFactory.access(props.input, "map"),
             undefined,
             [props.arrow],
           ),

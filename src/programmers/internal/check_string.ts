@@ -43,7 +43,7 @@ const check_string_type_tags = (props: {
         expected: `string & ${tag.name}`,
         expression: (
           tag.predicate ??
-          ExpressionFactory.transpile(props.context.transformer)(tag.validate!)
+          ExpressionFactory.transpile(props.context.transformer, tag.validate!)
         )(props.input),
       })),
     );

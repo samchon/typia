@@ -95,9 +95,9 @@ export namespace JsonStringifyProgrammer {
       .arrays()
       .filter((a) => a.recursive)
       .map((type, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}a${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}a${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -123,7 +123,7 @@ export namespace JsonStringifyProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   const write_tuple_functions = (props: {
@@ -136,9 +136,9 @@ export namespace JsonStringifyProgrammer {
       .tuples()
       .filter((t) => t.recursive)
       .map((tuple, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}t${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}t${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -162,7 +162,7 @@ export namespace JsonStringifyProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   /* -----------------------------------------------------------
@@ -443,7 +443,7 @@ export namespace JsonStringifyProgrammer {
     if (props.metadata.sets.length)
       unions.push({
         type: "object",
-        is: () => ExpressionFactory.isInstanceOf("Set")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Set", props.input),
         value: () => ts.factory.createStringLiteral("{}"),
       });
 
@@ -451,7 +451,7 @@ export namespace JsonStringifyProgrammer {
     if (props.metadata.maps.length)
       unions.push({
         type: "object",
-        is: () => ExpressionFactory.isInstanceOf("Map")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Map", props.input),
         value: () => ts.factory.createStringLiteral("{}"),
       });
 
@@ -467,7 +467,8 @@ export namespace JsonStringifyProgrammer {
                 (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
               ),
             ),
-          })(props.input),
+            input: props.input,
+          }),
         value: () =>
           explore_objects({
             ...props,
@@ -648,7 +649,7 @@ export namespace JsonStringifyProgrammer {
       const code = decode({
         ...props,
         input: ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("slice"),
+          IdentifierFactory.access(props.input, "slice"),
           undefined,
           [ExpressionFactory.number(props.tuple.elements.length - 1)],
         ),
@@ -699,7 +700,7 @@ export namespace JsonStringifyProgrammer {
     return props.explore.from !== "top"
       ? props.input
       : ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("toString"),
+          IdentifierFactory.access(props.input, "toString"),
           undefined,
           undefined,
         );
@@ -735,7 +736,7 @@ export namespace JsonStringifyProgrammer {
     return decode({
       ...props,
       input: ts.factory.createCallExpression(
-        IdentifierFactory.access(props.input)("toJSON"),
+        IdentifierFactory.access(props.input, "toJSON"),
         undefined,
         [],
       ),
@@ -981,7 +982,8 @@ export namespace JsonStringifyProgrammer {
       types: {
         input: (type, name) =>
           ts.factory.createTypeReferenceNode(
-            name ?? TypeFactory.getFullName(props.context.checker)(type),
+            name ??
+              TypeFactory.getFullName({ checker: props.context.checker, type }),
           ),
         output: () => TypeFactory.keyword("string"),
       },

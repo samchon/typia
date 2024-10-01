@@ -39,8 +39,14 @@ export namespace MiscValidatePruneProgrammer {
       statements: [
         ...validate.statements,
         ...prune.statements,
-        StatementFactory.constant("__validate", validate.arrow),
-        StatementFactory.constant("__prune", prune.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__prune",
+          value: prune.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -49,20 +55,23 @@ export namespace MiscValidatePruneProgrammer {
         ts.factory.createTypeReferenceNode(
           `typia.IValidation<${
             props.name ??
-            TypeFactory.getFullName(props.context.checker)(props.type)
+            TypeFactory.getFullName({
+              checker: props.context.checker,
+              type: props.type,
+            })
           }>`,
         ),
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "result",
-              ts.factory.createCallExpression(
+            StatementFactory.constant({
+              name: "result",
+              value: ts.factory.createCallExpression(
                 ts.factory.createIdentifier("__validate"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createIdentifier("result.success"),
               ts.factory.createExpressionStatement(

@@ -85,9 +85,9 @@ export namespace MiscPruneProgrammer {
       .arrays()
       .filter((a) => a.recursive)
       .map((type, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}a${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}a${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -113,7 +113,7 @@ export namespace MiscPruneProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   const write_tuple_functions = (props: {
@@ -126,9 +126,9 @@ export namespace MiscPruneProgrammer {
       .tuples()
       .filter((t) => t.recursive)
       .map((tuple, i) =>
-        StatementFactory.constant(
-          `${props.config.prefix}t${i}`,
-          ts.factory.createArrowFunction(
+        StatementFactory.constant({
+          name: `${props.config.prefix}t${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
             undefined,
             FeatureProgrammer.parameterDeclarations({
@@ -152,7 +152,7 @@ export namespace MiscPruneProgrammer {
               },
             }),
           ),
-        ),
+        }),
       );
 
   /* -----------------------------------------------------------
@@ -221,19 +221,19 @@ export namespace MiscPruneProgrammer {
       for (const native of props.metadata.natives)
         unions.push({
           type: "native",
-          is: () => ExpressionFactory.isInstanceOf(native)(props.input),
+          is: () => ExpressionFactory.isInstanceOf(native, props.input),
           value: () => ts.factory.createReturnStatement(),
         });
     if (props.metadata.sets.length)
       unions.push({
         type: "set",
-        is: () => ExpressionFactory.isInstanceOf("Set")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Set", props.input),
         value: () => ts.factory.createReturnStatement(),
       });
     if (props.metadata.maps.length)
       unions.push({
         type: "map",
-        is: () => ExpressionFactory.isInstanceOf("Map")(props.input),
+        is: () => ExpressionFactory.isInstanceOf("Map", props.input),
         value: () => ts.factory.createReturnStatement(),
       });
 
@@ -245,7 +245,8 @@ export namespace MiscPruneProgrammer {
           ExpressionFactory.isObject({
             checkNull: true,
             checkArray: false,
-          })(props.input),
+            input: props.input,
+          }),
         value: () =>
           explore_objects({
             ...props,
@@ -400,7 +401,7 @@ export namespace MiscPruneProgrammer {
         config: props.config,
         importer: props.importer,
         input: ts.factory.createCallExpression(
-          IdentifierFactory.access(props.input)("slice"),
+          IdentifierFactory.access(props.input, "slice"),
           undefined,
           [ExpressionFactory.number(props.tuple.elements.length - 1)],
         ),
@@ -580,7 +581,8 @@ export namespace MiscPruneProgrammer {
       types: {
         input: (type, name) =>
           ts.factory.createTypeReferenceNode(
-            name ?? TypeFactory.getFullName(props.context.checker)(type),
+            name ??
+              TypeFactory.getFullName({ checker: props.context.checker, type }),
           ),
         output: () => TypeFactory.keyword("void"),
       },

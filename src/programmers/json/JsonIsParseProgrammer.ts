@@ -36,7 +36,10 @@ export namespace JsonIsParseProgrammer {
       functions: is.functions,
       statements: [
         ...is.statements,
-        StatementFactory.constant("__is", is.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -52,7 +55,10 @@ export namespace JsonIsParseProgrammer {
             [
               ts.factory.createTypeReferenceNode(
                 props.name ??
-                  TypeFactory.getFullName(props.context.checker)(props.type),
+                  TypeFactory.getFullName({
+                    checker: props.context.checker,
+                    type: props.type,
+                  }),
               ),
             ],
             false,

@@ -80,9 +80,9 @@ export namespace FunctionalIsParametersProgrammer {
 
   export const decompose = (props: IDecomposeProps): IDecomposeOutput => ({
     functions: props.declaration.parameters.map((p, i) =>
-      StatementFactory.constant(
-        `__is_param_${i}`,
-        IsProgrammer.write({
+      StatementFactory.constant({
+        name: `__is_param_${i}`,
+        value: IsProgrammer.write({
           context: props.context,
           modulo: props.modulo,
           config: props.config,
@@ -92,7 +92,7 @@ export namespace FunctionalIsParametersProgrammer {
           init: undefined,
           name: undefined,
         }),
-      ),
+      }),
     ),
     statements: props.declaration.parameters
       .map((p, i) => [

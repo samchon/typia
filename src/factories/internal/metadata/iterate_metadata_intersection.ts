@@ -185,9 +185,12 @@ export const iterate_metadata_intersection = (
 
   // ASSIGN TAGS
   if (objects.length) {
-    const tags: IMetadataTypeTag[] = MetadataTypeTagFactory.analyze(
-      props.errors,
-    )(target)(objects.map((om) => om.objects).flat(), props.explore);
+    const tags: IMetadataTypeTag[] = MetadataTypeTagFactory.analyze({
+      errors: props.errors,
+      type: target,
+      objects: objects.map((om) => om.objects).flat(),
+      explore: props.explore,
+    });
     if (tags.length)
       if (target === "array") props.metadata.arrays.at(-1)!.tags.push(tags);
       else if (atomics.size)

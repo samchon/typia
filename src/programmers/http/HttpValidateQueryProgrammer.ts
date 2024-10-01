@@ -46,8 +46,14 @@ export namespace HttpValidateQueryProgrammer {
       },
       statements: [
         ...validate.statements,
-        StatementFactory.constant("__validate", validate.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,

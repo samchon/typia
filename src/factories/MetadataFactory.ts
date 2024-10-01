@@ -162,7 +162,8 @@ export namespace MetadataFactory {
             (t) => t.validate !== undefined && t.predicate === undefined,
           ))
             try {
-              tag.predicate = ExpressionFactory.transpile(props.transformer)(
+              tag.predicate = ExpressionFactory.transpile(
+                props.transformer,
                 tag.validate!,
               );
             } catch {

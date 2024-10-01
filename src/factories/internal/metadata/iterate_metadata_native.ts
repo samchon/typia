@@ -8,13 +8,14 @@ import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 export const iterate_metadata_native = (
   props: IMetadataIteratorProps,
 ): boolean => {
-  const name: string = TypeFactory.getFullName(props.checker)(
-    props.type,
-    props.type.getSymbol(),
-  );
-  const simple = SIMPLES.get(name);
+  const name: string = TypeFactory.getFullName({
+    checker: props.checker,
+    type: props.type,
+    symbol: props.type.getSymbol(),
+  });
+  const simple: IClassInfo | undefined = SIMPLES.get(name);
   if (
-    simple &&
+    simple !== undefined &&
     validate({
       checker: props.checker,
       type: props.type,
@@ -46,9 +47,11 @@ const validate = (props: {
   info: IClassInfo;
 }) =>
   (props.info.methods ?? []).every((method) => {
-    const returnType = TypeFactory.getReturnType(props.checker)(props.type)(
-      method.name,
-    );
+    const returnType = TypeFactory.getReturnTypeOfClassMethod({
+      checker: props.checker,
+      class: props.type,
+      function: method.name,
+    });
     return (
       returnType !== null &&
       props.checker.typeToString(returnType) === method.return
