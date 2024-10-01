@@ -20,7 +20,7 @@ export namespace UnionPredicator {
       for (const prop of obj.properties) {
         const key: string | null = prop.key.getSoleLiteral();
         if (key !== null)
-          MapUtil.take(matrix)(key, () =>
+          MapUtil.take(matrix, key, () =>
             ArrayUtil.repeat(objects.length, () => null),
           );
       }

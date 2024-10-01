@@ -57,7 +57,7 @@ export namespace ProtobufMessageProgrammer {
     let hierarchies: Map<string, Hierarchy> = props.hierarchies;
     const accessors: string[] = props.object.name.split(".");
     accessors.forEach((access, i) => {
-      const hierarchy: Hierarchy = MapUtil.take(hierarchies)(access, () => ({
+      const hierarchy: Hierarchy = MapUtil.take(hierarchies, access, () => ({
         key: access,
         object: null!,
         children: new Map(),
