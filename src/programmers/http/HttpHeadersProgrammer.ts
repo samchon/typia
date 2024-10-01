@@ -188,7 +188,7 @@ export namespace HttpHeadersProgrammer {
         const key: string | null = prop.key.getSoleLiteral();
         if (key === null) continue;
 
-        MapUtil.take(counter)(key.toLowerCase(), () => new Set()).add(key);
+        MapUtil.take(counter, key.toLowerCase(), () => new Set()).add(key);
       }
       for (const [key, set] of counter)
         if (set.size > 1)

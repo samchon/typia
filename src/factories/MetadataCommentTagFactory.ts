@@ -10,8 +10,6 @@ import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 
 /**
- * Extremely hard coded, but no reason to maintain.
- *
  * @internal
  */
 export namespace MetadataCommentTagFactory {
@@ -116,88 +114,137 @@ export namespace MetadataCommentTagFactory {
     const next = PARSER[props.tag.name];
     if (next === undefined) return {};
 
-    const text = (props.tag.text || [])[0]?.text;
-    if (text === undefined && props.tag.name !== "uniqueItems")
+    const value = (props.tag.text || [])[0]?.text;
+    if (value === undefined && props.tag.name !== "uniqueItems")
       return props.report(`no comment tag value`);
-    return next(props.report)(text!);
+    return next({
+      report: props.report,
+      value: value!,
+    });
   };
 }
 
+/**
+ * @internal
+ */
 type TagRecord = {
   [P in Target]?: NotDeterminedTypeTag[];
 };
+
+/**
+ * @internal
+ */
 type Target = "bigint" | "number" | "string" | "array";
+
+/**
+ * @internal
+ */
 type NotDeterminedTypeTag = Omit<IMetadataTypeTag, "validate" | "schema"> & {
   validate: string | null;
   schema: object | undefined;
 };
 
+/**
+ * @internal
+ */
 const PARSER: Record<
   string,
-  (report: (msg: string) => null) => (text: string) => {
+  (props: { report: (msg: string) => null; value: string }) => {
     [P in Target]?: NotDeterminedTypeTag[];
   }
 > = {
   /* -----------------------------------------------------------
         ARRAY
     ----------------------------------------------------------- */
-  items: (report) => (Value) => ({
+  items: ({ report, value }) => ({
     array: [
       {
-        name: `MinItems<${Value}>`,
+        name: `MinItems<${value}>`,
         target: "array",
         kind: "minItems",
-        value: parse_integer(report)(true)(Value),
-        validate: `${Value} <= $input.length`,
+        value: parse_integer({
+          report,
+          value,
+          unsigned: true,
+        }),
+        validate: `${value} <= $input.length`,
         exclusive: true,
         schema: {
-          minItems: parse_integer(report)(true)(Value),
+          minItems: parse_integer({
+            report,
+            value,
+            unsigned: true,
+          }),
         },
       },
       {
-        name: `MaxItems<${Value}>`,
+        name: `MaxItems<${value}>`,
         target: "array",
         kind: "maxItems",
-        value: parse_integer(report)(true)(Value),
-        validate: `$input.length <= ${Value}`,
+        value: parse_integer({
+          report,
+          value,
+          unsigned: true,
+        }),
+        validate: `$input.length <= ${value}`,
         exclusive: true,
         schema: {
-          maxItems: parse_integer(report)(true)(Value),
+          maxItems: parse_integer({
+            report,
+            unsigned: true,
+            value,
+          }),
         },
       },
     ],
   }),
-  minItems: (report) => (Value) => ({
+  minItems: ({ report, value }) => ({
     array: [
       {
-        name: `MinItems<${Value}>`,
+        name: `MinItems<${value}>`,
         target: "array",
         kind: "minItems",
-        value: parse_integer(report)(true)(Value),
-        validate: `${Value} <= $input.length`,
+        value: parse_integer({
+          report,
+          value,
+          unsigned: true,
+        }),
+        validate: `${value} <= $input.length`,
         exclusive: true,
         schema: {
-          minItems: parse_integer(report)(true)(Value),
+          minItems: parse_integer({
+            report,
+            value,
+            unsigned: true,
+          }),
         },
       },
     ],
   }),
-  maxItems: (report) => (Value) => ({
+  maxItems: ({ report, value }) => ({
     array: [
       {
-        name: `MaxItems<${Value}>`,
+        name: `MaxItems<${value}>`,
         target: "array",
         kind: "maxItems",
-        value: parse_integer(report)(true)(Value),
-        validate: `$input.length <= ${Value}`,
+        value: parse_integer({
+          report,
+          value,
+          unsigned: true,
+        }),
+        validate: `$input.length <= ${value}`,
         exclusive: true,
         schema: {
-          maxItems: parse_integer(report)(true)(Value),
+          maxItems: parse_integer({
+            report,
+            value,
+            unsigned: true,
+          }),
         },
       },
     ],
   }),
-  uniqueItems: () => () => ({
+  uniqueItems: () => ({
     array: [
       {
         name: `UniqueItems`,
@@ -216,54 +263,54 @@ const PARSER: Record<
   /* -----------------------------------------------------------
         NUMBER
     ----------------------------------------------------------- */
-  type: () => (Value) => {
+  type: ({ value }) => {
     // EMENDATIONS
-    if (Value.startsWith("{") && Value.endsWith("}"))
-      Value = Value.substring(1, Value.length - 1);
-    if (Value === "int") Value = "int32";
-    else if (Value === "uint") Value = "uint32";
+    if (value.startsWith("{") && value.endsWith("}"))
+      value = value.substring(1, value.length - 1);
+    if (value === "int") value = "int32";
+    else if (value === "uint") value = "uint32";
 
     // MUST BE ONE OF THEM
     if (
       ["int32", "uint32", "int64", "uint64", "float", "double"].includes(
-        Value,
+        value,
       ) === false
     )
       return {};
     return {
       number: [
         {
-          name: `Type<${JSON.stringify(Value)}>`,
+          name: `Type<${JSON.stringify(value)}>`,
           target: "number",
           kind: "type",
-          value: Value,
+          value: value,
           validate:
-            Value === "int32"
+            value === "int32"
               ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
-              : Value === "uint32"
+              : value === "uint32"
                 ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
-                : Value === "int64"
+                : value === "int64"
                   ? `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`
-                  : Value === "uint64"
+                  : value === "uint64"
                     ? `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`
-                    : Value === "float"
+                    : value === "float"
                       ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
                       : `true`,
           exclusive: true,
-          schema: ["int32", "uint32", "int64", "uint64"].includes(Value)
+          schema: ["int32", "uint32", "int64", "uint64"].includes(value)
             ? { type: "integer" }
             : undefined,
         },
       ],
       bigint:
-        Value === "int64" || "uint64"
+        value === "int64" || "uint64"
           ? [
               {
-                name: `Type<${JSON.stringify(Value)}>`,
+                name: `Type<${JSON.stringify(value)}>`,
                 target: "bigint",
                 kind: "type",
-                value: Value,
-                validate: Value === "int64" ? "true" : "BigInt(0) <= $input",
+                value: value,
+                validate: value === "int64" ? "true" : "BigInt(0) <= $input",
                 exclusive: true,
                 schema: undefined,
               },
@@ -271,148 +318,168 @@ const PARSER: Record<
           : [],
     };
   },
-  minimum: (report) => (Value) => ({
+  minimum: (props) => ({
     number: [
       {
-        name: `Minimum<${Value}>`,
+        name: `Minimum<${props.value}>`,
         target: "number",
         kind: "minimum",
-        value: parse_number(report)(Value),
-        validate: `${Value} <= $input`,
+        value: parse_number(props),
+        validate: `${props.value} <= $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
         schema: {
-          minimum: parse_number(report)(Value),
+          minimum: parse_number(props),
         },
       },
     ],
     bigint: [
       {
-        name: `Minimum<${Value}n>`,
+        name: `Minimum<${props.value}n>`,
         target: "bigint",
         kind: "minimum",
         value: (() => {
-          const value = parse_integer(report)(false)(Value);
-          return value === null ? null : BigInt(value);
+          const parsed = parse_integer({
+            report: props.report,
+            value: props.value,
+            unsigned: false,
+          });
+          return parsed === null ? null : BigInt(parsed);
         })(),
-        validate: `${Value} <= $input`,
+        validate: `${props.value} <= $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
         schema: undefined,
       },
     ],
   }),
-  maximum: (report) => (Value) => ({
+  maximum: (props) => ({
     number: [
       {
-        name: `Maximum<${Value}>`,
+        name: `Maximum<${props.value}>`,
         target: "number",
         kind: "maximum",
-        value: parse_number(report)(Value),
-        validate: `$input <= ${Value}`,
+        value: parse_number(props),
+        validate: `$input <= ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
         schema: {
-          maximum: parse_number(report)(Value),
+          maximum: parse_number(props),
         },
       },
     ],
     bigint: [
       {
-        name: `Maximum<${Value}n>`,
+        name: `Maximum<${props.value}n>`,
         target: "bigint",
         kind: "maximum",
         value: (() => {
-          const value = parse_integer(report)(false)(Value);
-          return value === null ? null : BigInt(value);
+          const parsed = parse_integer({
+            report: props.report,
+            value: props.value,
+            unsigned: false,
+          });
+          return parsed === null ? null : BigInt(parsed);
         })(),
-        validate: `$input <= ${Value}`,
+        validate: `$input <= ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
         schema: undefined,
       },
     ],
   }),
-  exclusiveMinimum: (report) => (Value) => ({
+  exclusiveMinimum: (props) => ({
     number: [
       {
-        name: `ExclusiveMinimum<${Value}>`,
+        name: `ExclusiveMinimum<${props.value}>`,
         target: "number",
         kind: "exclusiveMinimum",
-        value: parse_number(report)(Value),
-        validate: `${Value} < $input`,
+        value: parse_number(props),
+        validate: `${props.value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
         schema: {
           exclusiveMinimum: true,
-          minimum: parse_number(report)(Value),
+          minimum: parse_number(props),
         },
       },
     ],
     bigint: [
       {
-        name: `ExclusiveMinimum<${Value}n>`,
+        name: `ExclusiveMinimum<${props.value}n>`,
         target: "bigint",
         kind: "exclusiveMinimum",
         value: (() => {
-          const value = parse_integer(report)(false)(Value);
-          return value === null ? null : BigInt(value);
+          const parsed = parse_integer({
+            report: props.report,
+            value: props.value,
+            unsigned: false,
+          });
+          return parsed === null ? null : BigInt(parsed);
         })(),
-        validate: `${Value} < $input`,
+        validate: `${props.value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
         schema: undefined,
       },
     ],
   }),
-  exclusiveMaximum: (report) => (Value) => ({
+  exclusiveMaximum: (props) => ({
     number: [
       {
-        name: `ExclusiveMaximum<${Value}>`,
+        name: `ExclusiveMaximum<${props.value}>`,
         target: "number",
         kind: "exclusiveMaximum",
-        value: parse_number(report)(Value),
-        validate: `$input < ${Value}`,
+        value: parse_number(props),
+        validate: `$input < ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
         schema: {
           exclusiveMaximum: true,
-          maximum: parse_number(report)(Value),
+          maximum: parse_number(props),
         },
       },
     ],
     bigint: [
       {
-        name: `ExclusiveMaximum<${Value}n>`,
+        name: `ExclusiveMaximum<${props.value}n>`,
         target: "bigint",
         kind: "exclusiveMaximum",
         value: (() => {
-          const value = parse_integer(report)(false)(Value);
-          return value === null ? null : BigInt(value);
+          const parsed = parse_integer({
+            report: props.report,
+            value: props.value,
+            unsigned: false,
+          });
+          return parsed === null ? null : BigInt(parsed);
         })(),
-        validate: `$input < ${Value}`,
+        validate: `$input < ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
         schema: undefined,
       },
     ],
   }),
-  multipleOf: (report) => (Value) => ({
+  multipleOf: (props) => ({
     number: [
       {
-        name: `MultipleOf<${Value}>`,
+        name: `MultipleOf<${props.value}>`,
         target: "number",
         kind: "multipleOf",
-        value: parse_number(report)(Value),
-        validate: `$input % ${Value} === 0`,
+        value: parse_number(props),
+        validate: `$input % ${props.value} === 0`,
         exclusive: true,
         schema: {
-          multipleOf: parse_number(report)(Value),
+          multipleOf: parse_number(props),
         },
       },
     ],
     bigint: [
       {
-        name: `MultipleOf<${Value}n>`,
+        name: `MultipleOf<${props.value}n>`,
         target: "bigint",
         kind: "multipleOf",
         value: (() => {
-          const value = parse_integer(report)(false)(Value);
-          return value === null ? null : BigInt(value);
+          const parsed = parse_integer({
+            report: props.report,
+            value: props.value,
+            unsigned: false,
+          });
+          return parsed === null ? null : BigInt(parsed);
         })(),
-        validate: `$input % ${Value}n === 0n`,
+        validate: `$input % ${props.value}n === 0n`,
         exclusive: true,
         schema: undefined,
       },
@@ -422,8 +489,8 @@ const PARSER: Record<
   /* -----------------------------------------------------------
         STRING
     ----------------------------------------------------------- */
-  format: () => (Value) => {
-    const matched = FORMATS.get(Value);
+  format: ({ value }) => {
+    const matched = FORMATS.get(value);
     if (matched === undefined) return {};
     return {
       string: [
@@ -441,99 +508,111 @@ const PARSER: Record<
       ],
     };
   },
-  pattern: () => (Value) => ({
+  pattern: ({ value }) => ({
     string: [
       {
-        name: `Pattern<${JSON.stringify(Value)}>`,
+        name: `Pattern<${JSON.stringify(value)}>`,
         target: "string",
         kind: "pattern",
-        value: Value,
-        validate: `RegExp(${JSON.stringify(Value)}).test($input)`,
+        value: value,
+        validate: `RegExp(${JSON.stringify(value)}).test($input)`,
         exclusive: ["format"],
         schema: {
-          pattern: Value,
+          pattern: value,
         },
       },
     ],
   }),
-  length: (report) => (Value) => ({
+  length: (props) => ({
     string: [
       {
-        name: `MinLength<${Value}>`,
+        name: `MinLength<${props.value}>`,
         target: "string",
         kind: "minLength",
-        value: parse_number(report)(Value),
-        validate: `${Value} <= $input.length`,
+        value: parse_number(props),
+        validate: `${props.value} <= $input.length`,
         exclusive: true,
         schema: {
-          minLength: parse_number(report)(Value),
+          minLength: parse_number(props),
         },
       },
       {
-        name: `MaxLength<${Value}>`,
+        name: `MaxLength<${props.value}>`,
         target: "string",
         kind: "maxLength",
-        value: parse_number(report)(Value),
-        validate: `$input.length <= ${Value}`,
+        value: parse_number(props),
+        validate: `$input.length <= ${props.value}`,
         exclusive: true,
         schema: {
-          maxLength: parse_number(report)(Value),
+          maxLength: parse_number(props),
         },
       },
     ],
   }),
-  minLength: (report) => (Value) => ({
+  minLength: ({ report, value }) => ({
     string: [
       {
-        name: `MinLength<${Value}>`,
+        name: `MinLength<${value}>`,
         target: "string",
         kind: "minLength",
-        value: parse_number(report)(Value),
-        validate: `${Value} <= $input.length`,
+        value: parse_number({ report, value }),
+        validate: `${value} <= $input.length`,
         exclusive: true,
         schema: {
-          minLength: parse_number(report)(Value),
+          minLength: parse_number({ report, value }),
         },
       },
     ],
   }),
-  maxLength: (report) => (Value) => ({
+  maxLength: ({ report, value }) => ({
     string: [
       {
-        name: `MaxLength<${Value}>`,
+        name: `MaxLength<${value}>`,
         target: "string",
         kind: "maxLength",
-        value: parse_number(report)(Value),
-        validate: `$input.length <= ${Value}`,
+        value: parse_number({ report, value }),
+        validate: `$input.length <= ${value}`,
         exclusive: true,
         schema: {
-          maxLength: parse_number(report)(Value),
+          maxLength: parse_number({ report, value }),
         },
       },
     ],
   }),
 };
 
-const parse_number =
-  (report: (msg: string) => null) =>
-  (str: string): number | null => {
-    const value: number = Number(str);
-    if (isNaN(value) === true) return report(`invalid number`);
-    return value;
-  };
+/**
+ * @internal
+ */
+const parse_number = (props: {
+  report: (msg: string) => null;
+  value: string;
+}): number | null => {
+  const parsed: number = Number(props.value);
+  if (isNaN(parsed) === true) return props.report(`invalid number`);
+  return parsed;
+};
 
-const parse_integer =
-  (report: (msg: string) => null) =>
-  (unsigned: boolean) =>
-  (str: string): number | null => {
-    const value: number | null = parse_number(report)(str);
-    if (value === null) return null;
-    else if (Math.floor(value) !== value) return report(`invalid integer`);
-    else if (unsigned === true && value < 0)
-      return report(`invalid unsigned integer`);
-    return value;
-  };
+/**
+ * @internal
+ */
+const parse_integer = (props: {
+  report: (msg: string) => null;
+  unsigned: boolean;
+  value: string;
+}): number | null => {
+  const parsed: number | null = parse_number(props);
+  if (parsed === null) return null;
+  else if (Math.floor(parsed) !== parsed)
+    return props.report(`invalid integer`);
+  else if (props.unsigned === true && parsed < 0)
+    return props.report(`invalid unsigned integer`);
+  return parsed;
+};
 
+/**
+ * @internal
+ */
 const FORMATS: Map<string, [string, string]> = new Map([
   ...Object.entries(FormatCheatSheet).map(
     ([key, value]) => [key, [key, value]] as any,
