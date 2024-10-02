@@ -80,11 +80,15 @@ export class MetadataCollection {
 
   private getName(checker: ts.TypeChecker, type: ts.Type): string {
     const name: string = (() => {
-      const str: string = TypeFactory.getFullName(checker)(type);
+      const str: string = TypeFactory.getFullName({
+        checker,
+        type,
+      });
       return this.options?.replace ? this.options.replace(str) : str;
     })();
 
-    const duplicates: Map<ts.Type, string> = MapUtil.take(this.names_)(
+    const duplicates: Map<ts.Type, string> = MapUtil.take(
+      this.names_,
       name,
       () => new Map(),
     );
@@ -103,7 +107,7 @@ export class MetadataCollection {
    */
   public getUnionIndex(meta: Metadata): number {
     const key: string = meta.objects.map((obj) => obj.name).join(" | ");
-    MapUtil.take(this.object_unions_)(key, () => meta.objects);
+    MapUtil.take(this.object_unions_, key, () => meta.objects);
     return [...this.object_unions_.keys()].indexOf(key);
   }
 

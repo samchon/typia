@@ -1,5 +1,30 @@
 import { StringUtil } from "../StringUtil";
 
+const unsnake =
+  (props: {
+    plain: (str: string) => string;
+    snake: (str: string, index: number) => string;
+  }) =>
+  (str: string): string => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let prefix: string = "";
+    for (let i: number = 0; i < str.length; i++) {
+      if (str[i] === "_") prefix += "_";
+      else break;
+    }
+    if (prefix.length !== 0) str = str.substring(prefix.length);
+
+    const out = (s: string) => `${prefix}${s}`;
+    if (str.length === 0) return out("");
+
+    const items: string[] = str.split("_").filter((s) => s.length !== 0);
+    return items.length === 0
+      ? out("")
+      : items.length === 1
+        ? out(props.plain(items[0]!))
+        : out(items.map(props.snake).join(""));
+  };
+
 export function snake(str: string): string {
   if (str.length === 0) return str;
 
@@ -44,46 +69,19 @@ export function snake(str: string): string {
   return out(ret);
 }
 
-export const camel = (str: string): string =>
-  unsnake({
-    plain: (str) =>
-      str.length
-        ? str === str.toUpperCase()
-          ? str.toLocaleLowerCase()
-          : `${str[0]!.toLowerCase()}${str.substring(1)}`
-        : str,
-    snake: (str, i) =>
-      i === 0 ? str.toLowerCase() : StringUtil.capitalize(str.toLowerCase()),
-  })(str);
+export const camel = unsnake({
+  plain: (str) =>
+    str.length
+      ? str === str.toUpperCase()
+        ? str.toLocaleLowerCase()
+        : `${str[0]!.toLowerCase()}${str.substring(1)}`
+      : str,
+  snake: (str, i) =>
+    i === 0 ? str.toLowerCase() : StringUtil.capitalize(str.toLowerCase()),
+});
 
-export const pascal = (str: string): string =>
-  unsnake({
-    plain: (str) =>
-      str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
-    snake: StringUtil.capitalize,
-  })(str);
-
-const unsnake =
-  (props: {
-    plain: (str: string) => string;
-    snake: (str: string, index: number) => string;
-  }) =>
-  (str: string): string => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let prefix: string = "";
-    for (let i: number = 0; i < str.length; i++) {
-      if (str[i] === "_") prefix += "_";
-      else break;
-    }
-    if (prefix.length !== 0) str = str.substring(prefix.length);
-
-    const out = (s: string) => `${prefix}${s}`;
-    if (str.length === 0) return out("");
-
-    const items: string[] = str.split("_").filter((s) => s.length !== 0);
-    return items.length === 0
-      ? out("")
-      : items.length === 1
-        ? out(props.plain(items[0]!))
-        : out(items.map(props.snake).join(""));
-  };
+export const pascal = unsnake({
+  plain: (str) =>
+    str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
+  snake: StringUtil.capitalize,
+});

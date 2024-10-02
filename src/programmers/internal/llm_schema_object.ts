@@ -72,7 +72,10 @@ export const llm_schema_object = (props: {
       properties[key] = schema;
       if (property.value.isRequired() === true) required.push(key);
     } else {
-      const pattern: string = metadata_to_pattern(true)(property.key);
+      const pattern: string = metadata_to_pattern({
+        top: true,
+        metadata: property.key,
+      });
       if (pattern === PatternUtil.STRING)
         extraMeta.additionalProperties = [property.value, schema];
       else extraMeta.patternProperties[pattern] = [property.value, schema];

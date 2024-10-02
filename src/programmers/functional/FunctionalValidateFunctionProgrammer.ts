@@ -3,52 +3,52 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionalValidateParametersProgrammer } from "./FunctionalValidateParametersProgrammer";
 import { FunctionalValidateReturnProgrammer } from "./FunctionalValidateReturnProgrammer";
 
 export namespace FunctionalValidateFunctionProgrammer {
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (equals: boolean) =>
-    (
-      expression: ts.Expression,
-      declaration: ts.FunctionDeclaration,
-    ): ts.CallExpression => {
-      const p =
-        FunctionalValidateParametersProgrammer.decompose(project)(modulo)(
-          equals,
-        )(declaration);
-      const r = FunctionalValidateReturnProgrammer.decompose(project)(modulo)(
-        equals,
-      )(expression, declaration);
-      return ExpressionFactory.selfCall(
-        ts.factory.createBlock(
-          [
-            ...p.functions,
-            ...r.functions,
-            ts.factory.createReturnStatement(
-              ts.factory.createArrowFunction(
-                r.async
-                  ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
-                  : undefined,
-                undefined,
-                declaration.parameters,
-                getReturnTypeNode(declaration, r.async),
-                undefined,
-                ts.factory.createBlock(
-                  [...p.statements, ...r.statements],
-                  true,
-                ),
-              ),
+  export interface IConfig {
+    equals: boolean;
+  }
+  export interface IProps {
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
+    config: IConfig;
+    declaration: ts.FunctionDeclaration;
+    expression: ts.Expression;
+    init?: ts.Expression | undefined;
+  }
+
+  export const write = (props: IProps): ts.CallExpression => {
+    const p = FunctionalValidateParametersProgrammer.decompose(props);
+    const r = FunctionalValidateReturnProgrammer.decompose(props);
+    return ExpressionFactory.selfCall(
+      ts.factory.createBlock(
+        [
+          ...p.functions,
+          ...r.functions,
+          ts.factory.createReturnStatement(
+            ts.factory.createArrowFunction(
+              r.async
+                ? [ts.factory.createModifier(ts.SyntaxKind.AsyncKeyword)]
+                : undefined,
+              undefined,
+              props.declaration.parameters,
+              getReturnTypeNode({
+                declaration: props.declaration,
+                async: r.async,
+              }),
+              undefined,
+              ts.factory.createBlock([...p.statements, ...r.statements], true),
             ),
-          ],
-          true,
-        ),
-      );
-    };
+          ),
+        ],
+        true,
+      ),
+    );
+  };
 
   export const hookErrors = (props: {
     expression: ts.Expression;
@@ -90,13 +90,13 @@ export namespace FunctionalValidateFunctionProgrammer {
       ],
     );
 
-  export const getReturnTypeNode = (
-    declaration: ts.FunctionDeclaration,
-    async: boolean,
-  ): ts.TypeNode | undefined =>
-    declaration.type
-      ? async
-        ? !!(declaration.type! as ts.TypeReferenceNode).typeArguments?.[0]
+  export const getReturnTypeNode = (props: {
+    declaration: ts.FunctionDeclaration;
+    async: boolean;
+  }): ts.TypeNode | undefined =>
+    props.declaration.type
+      ? props.async
+        ? !!(props.declaration.type! as ts.TypeReferenceNode).typeArguments?.[0]
           ? ts.factory.createTypeReferenceNode("Promise", [
               ts.factory.createImportTypeNode(
                 ts.factory.createLiteralTypeNode(
@@ -105,7 +105,7 @@ export namespace FunctionalValidateFunctionProgrammer {
                 undefined,
                 ts.factory.createIdentifier("IValidation"),
                 [
-                  (declaration.type! as ts.TypeReferenceNode)
+                  (props.declaration.type! as ts.TypeReferenceNode)
                     .typeArguments![0]!,
                 ],
               ),
@@ -117,7 +117,7 @@ export namespace FunctionalValidateFunctionProgrammer {
             ),
             undefined,
             ts.factory.createIdentifier("IValidation"),
-            [declaration.type],
+            [props.declaration.type],
           )
       : undefined;
 }

@@ -24,27 +24,29 @@ export const application_templates = <Version extends "3.0" | "3.1">(
   if (pureTemplates.length)
     output.push({
       type: "string",
-      pattern: metadata_to_pattern(true)(
-        Metadata.create({
+      pattern: metadata_to_pattern({
+        top: true,
+        metadata: Metadata.create({
           ...Metadata.initialize(),
           templates: pureTemplates,
         }),
-      ),
+      }),
     });
   for (const tpl of taggedTemplates)
     output.push(
-      application_plugin(
-        {
+      application_plugin({
+        schema: {
           type: "string",
-          pattern: metadata_to_pattern(false)(
-            Metadata.create({
+          pattern: metadata_to_pattern({
+            top: false,
+            metadata: Metadata.create({
               ...Metadata.initialize(),
               templates: [tpl],
             }),
-          ),
+          }),
         },
-        tpl.tags ?? [],
-      ) as any,
+        tags: tpl.tags ?? [],
+      }) as any,
     );
   return output;
 };

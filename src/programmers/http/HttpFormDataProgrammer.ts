@@ -11,7 +11,8 @@ import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
@@ -24,30 +25,37 @@ import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpFormDataProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     // ANALYZE TYPE
     const collection: MetadataCollection = new MetadataCollection();
-    const result = MetadataFactory.analyze(
-      props.project.checker,
-      props.project.context,
-    )({
-      escape: false,
-      constant: true,
-      absorb: true,
-      validate,
-    })(collection)(props.type);
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+        validate,
+      },
+      collection,
+      type: props.type,
+    });
     if (result.success === false)
-      throw TransformerError.from(`typia.http.${props.importer.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.http.${props.importer.method}`,
+        errors: result.errors,
+      });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
-    const statements: ts.Statement[] = decode_object(props.importer)(object);
+    const statements: ts.Statement[] = decode_object({
+      importer: props.importer,
+      object,
+    });
     return {
       functions: {},
       statements: [],
@@ -69,7 +77,10 @@ export namespace HttpFormDataProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
           false,
@@ -80,23 +91,20 @@ export namespace HttpFormDataProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   export const validate = (
     meta: Metadata,
@@ -153,126 +161,145 @@ export namespace HttpFormDataProgrammer {
     return errors;
   };
 
-  const decode_object =
-    (importer: FunctionImporter) =>
-    (object: MetadataObject): ts.Statement[] => {
-      // const input: ts.Identifier = ts.factory.createIdentifier("input");
-      const output: ts.Identifier = ts.factory.createIdentifier("output");
-      return [
-        StatementFactory.constant(
-          "output",
-          ts.factory.createObjectLiteralExpression(
-            object.properties.map((prop) =>
-              decode_regular_property(importer)(prop),
-            ),
-            true,
+  const decode_object = (props: {
+    importer: FunctionImporter;
+    object: MetadataObject;
+  }): ts.Statement[] => {
+    // const input: ts.Identifier = ts.factory.createIdentifier("input");
+    const output: ts.Identifier = ts.factory.createIdentifier("output");
+    return [
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createObjectLiteralExpression(
+          props.object.properties.map((p) =>
+            decode_regular_property({
+              importer: props.importer,
+              property: p,
+            }),
           ),
+          true,
         ),
-        ts.factory.createReturnStatement(
-          ts.factory.createAsExpression(output, TypeFactory.keyword("any")),
-        ),
-      ];
-    };
+      }),
+      ts.factory.createReturnStatement(
+        ts.factory.createAsExpression(output, TypeFactory.keyword("any")),
+      ),
+    ];
+  };
 
-  const decode_regular_property =
-    (importer: FunctionImporter) =>
-    (property: MetadataProperty): ts.PropertyAssignment => {
-      const key: string = property.key.constants[0]!.values[0]!.value as string;
-      const value: Metadata = property.value;
+  const decode_regular_property = (props: {
+    importer: FunctionImporter;
+    property: MetadataProperty;
+  }): ts.PropertyAssignment => {
+    const key: string = props.property.key.constants[0]!.values[0]!
+      .value as string;
+    const value: Metadata = props.property.value;
 
-      const [type, isArray]: [Atomic.Literal | "blob" | "file", boolean] = value
-        .atomics.length
-        ? [value.atomics[0]!.type, false]
-        : value.constants.length
-          ? [value.constants[0]!.type, false]
-          : value.templates.length
-            ? ["string", false]
-            : value.natives.includes("Blob")
-              ? ["blob", false]
-              : value.natives.includes("File")
-                ? ["file", false]
-                : (() => {
-                    const meta =
-                      value.arrays[0]?.type.value ??
-                      value.tuples[0]!.type.elements[0]!;
-                    return meta.atomics.length
-                      ? [meta.atomics[0]!.type, true]
-                      : meta.templates.length
-                        ? ["string", true]
-                        : meta.natives.includes("Blob")
-                          ? ["blob", true]
-                          : meta.natives.includes("File")
-                            ? ["file", true]
-                            : [meta.constants[0]!.type, true];
-                  })();
-      return ts.factory.createPropertyAssignment(
-        Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
-        isArray
-          ? decode_array(importer)(value)(
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(
-                  ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("input.getAll"),
-                    undefined,
-                    [ts.factory.createStringLiteral(key)],
-                  ),
-                )("map"),
-                undefined,
-                [
-                  ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [IdentifierFactory.parameter("elem")],
-                    undefined,
-                    undefined,
-                    decode_value(importer)(type)(false)(
-                      ts.factory.createIdentifier("elem"),
-                    ),
-                  ),
-                ],
+    const [type, isArray]: [Atomic.Literal | "blob" | "file", boolean] = value
+      .atomics.length
+      ? [value.atomics[0]!.type, false]
+      : value.constants.length
+        ? [value.constants[0]!.type, false]
+        : value.templates.length
+          ? ["string", false]
+          : value.natives.includes("Blob")
+            ? ["blob", false]
+            : value.natives.includes("File")
+              ? ["file", false]
+              : (() => {
+                  const meta =
+                    value.arrays[0]?.type.value ??
+                    value.tuples[0]!.type.elements[0]!;
+                  return meta.atomics.length
+                    ? [meta.atomics[0]!.type, true]
+                    : meta.templates.length
+                      ? ["string", true]
+                      : meta.natives.includes("Blob")
+                        ? ["blob", true]
+                        : meta.natives.includes("File")
+                          ? ["file", true]
+                          : [meta.constants[0]!.type, true];
+                })();
+    return ts.factory.createPropertyAssignment(
+      Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
+      isArray
+        ? decode_array({
+            importer: props.importer,
+            metadata: value,
+            input: ts.factory.createCallExpression(
+              IdentifierFactory.access(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("input.getAll"),
+                  undefined,
+                  [ts.factory.createStringLiteral(key)],
+                ),
+                "map",
               ),
-            )
-          : decode_value(importer)(type)(
-              value.nullable === false && value.isRequired() === false,
-            )(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("input.get"),
-                undefined,
-                [ts.factory.createStringLiteral(key)],
-              ),
+              undefined,
+              [
+                ts.factory.createArrowFunction(
+                  undefined,
+                  undefined,
+                  [IdentifierFactory.parameter("elem")],
+                  undefined,
+                  undefined,
+                  decode_value({
+                    importer: props.importer,
+                    type,
+                    coalesce: false,
+                    input: ts.factory.createIdentifier("elem"),
+                  }),
+                ),
+              ],
             ),
-      );
-    };
+          })
+        : decode_value({
+            importer: props.importer,
+            type,
+            coalesce: value.nullable === false && value.isRequired() === false,
+            input: ts.factory.createCallExpression(
+              ts.factory.createIdentifier("input.get"),
+              undefined,
+              [ts.factory.createStringLiteral(key)],
+            ),
+          }),
+    );
+  };
 
-  const decode_value =
-    (importer: FunctionImporter) =>
-    (type: Atomic.Literal | "blob" | "file") =>
-    (onlyUndefindable: boolean) =>
-    (value: ts.Expression) => {
-      const call = ts.factory.createCallExpression(
-        importer.use(type),
-        undefined,
-        [value],
-      );
-      return onlyUndefindable
-        ? ts.factory.createBinaryExpression(
-            call,
-            ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
-            ts.factory.createIdentifier("undefined"),
-          )
-        : call;
-    };
+  const decode_value = (props: {
+    importer: FunctionImporter;
+    type: Atomic.Literal | "blob" | "file";
+    coalesce: boolean;
+    input: ts.Expression;
+  }) => {
+    const call = ts.factory.createCallExpression(
+      props.importer.use(props.type),
+      undefined,
+      [props.input],
+    );
+    return props.coalesce
+      ? ts.factory.createBinaryExpression(
+          call,
+          ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
+          ts.factory.createIdentifier("undefined"),
+        )
+      : call;
+  };
 
-  const decode_array =
-    (importer: FunctionImporter) =>
-    (value: Metadata) =>
-    (expression: ts.Expression): ts.Expression =>
-      value.nullable || value.isRequired() === false
-        ? ts.factory.createCallExpression(importer.use("array"), undefined, [
-            expression,
-            value.nullable
+  const decode_array = (props: {
+    importer: FunctionImporter;
+    metadata: Metadata;
+    input: ts.Expression;
+  }): ts.Expression =>
+    props.metadata.nullable || props.metadata.isRequired() === false
+      ? ts.factory.createCallExpression(
+          props.importer.use("array"),
+          undefined,
+          [
+            props.input,
+            props.metadata.nullable
               ? ts.factory.createNull()
               : ts.factory.createIdentifier("undefined"),
-          ])
-        : expression;
+          ],
+        )
+      : props.input;
 }

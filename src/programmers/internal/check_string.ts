@@ -4,45 +4,46 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { ICheckEntry } from "../helpers/ICheckEntry";
 
 /**
  * @internal
  */
-export const check_string =
-  (project: IProject) =>
-  (atomic: MetadataAtomic) =>
-  (input: ts.Expression): ICheckEntry => {
-    const conditions: ICheckEntry.ICondition[][] =
-      check_string_type_tags(project)(atomic)(input);
-    return {
-      expected: atomic.getName(),
-      expression: ts.factory.createStrictEquality(
-        ts.factory.createStringLiteral("string"),
-        ts.factory.createTypeOfExpression(input),
-      ),
-      conditions,
-    };
+export const check_string = (props: {
+  context: ITypiaContext;
+  atomic: MetadataAtomic;
+  input: ts.Expression;
+}): ICheckEntry => {
+  const conditions: ICheckEntry.ICondition[][] = check_string_type_tags(props);
+  return {
+    expected: props.atomic.getName(),
+    expression: ts.factory.createStrictEquality(
+      ts.factory.createStringLiteral("string"),
+      ts.factory.createTypeOfExpression(props.input),
+    ),
+    conditions,
   };
+};
 
 /**
  * @internal
  */
-const check_string_type_tags =
-  (project: IProject) =>
-  (atomic: MetadataAtomic) =>
-  (input: ts.Expression): ICheckEntry.ICondition[][] =>
-    atomic.tags
-      .map((row) => row.filter((tag) => !!tag.validate))
-      .filter((row) => !!row.length)
-      .map((row) =>
-        row.map((tag) => ({
-          expected: `string & ${tag.name}`,
-          expression: (
-            tag.predicate ??
-            ExpressionFactory.transpile(project.context)(tag.validate!)
-          )(input),
-        })),
-      );
+const check_string_type_tags = (props: {
+  context: ITypiaContext;
+  atomic: MetadataAtomic;
+  input: ts.Expression;
+}): ICheckEntry.ICondition[][] =>
+  props.atomic.tags
+    .map((row) => row.filter((tag) => !!tag.validate))
+    .filter((row) => !!row.length)
+    .map((row) =>
+      row.map((tag) => ({
+        expected: `string & ${tag.name}`,
+        expression: (
+          tag.predicate ??
+          ExpressionFactory.transpile(props.context.transformer, tag.validate!)
+        )(props.input),
+      })),
+    );

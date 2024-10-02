@@ -4,7 +4,8 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
@@ -12,9 +13,13 @@ import { FunctionImporter } from "../helpers/FunctionImporter";
 import { NotationGeneralProgrammer } from "./NotationGeneralProgrammer";
 
 export namespace NotationValidateGeneralProgrammer {
+  export interface IProps extends IProgrammerProps {
+    rename: (str: string) => string;
+  }
+
   export const decompose = (props: {
     rename: (str: string) => string;
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
@@ -22,7 +27,9 @@ export namespace NotationValidateGeneralProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const validate = ValidateProgrammer.decompose({
       ...props,
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const notation = NotationGeneralProgrammer.decompose({
       ...props,
@@ -36,8 +43,14 @@ export namespace NotationValidateGeneralProgrammer {
       statements: [
         ...validate.statements,
         ...notation.statements,
-        StatementFactory.constant("__validate", validate.arrow),
-        StatementFactory.constant("__notation", notation.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__notation",
+          value: notation.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -49,9 +62,9 @@ export namespace NotationValidateGeneralProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "result",
-              ts.factory.createAsExpression(
+            StatementFactory.constant({
+              name: "result",
+              value: ts.factory.createAsExpression(
                 ts.factory.createCallExpression(
                   ts.factory.createIdentifier("__validate"),
                   undefined,
@@ -59,7 +72,7 @@ export namespace NotationValidateGeneralProgrammer {
                 ),
                 TypeFactory.keyword("any"),
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createIdentifier("result.success"),
               ts.factory.createExpressionStatement(
@@ -87,24 +100,18 @@ export namespace NotationValidateGeneralProgrammer {
     };
   };
 
-  export const write =
-    (rename: (str: string) => string) =>
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        rename,
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

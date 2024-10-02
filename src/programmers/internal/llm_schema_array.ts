@@ -9,8 +9,8 @@ import { llm_schema_station } from "./llm_schema_station";
  * @internal
  */
 export const llm_schema_array = (array: MetadataArray): ILlmSchema.IArray[] =>
-  application_plugin(
-    {
+  application_plugin({
+    schema: {
       type: "array",
       items: llm_schema_station({
         metadata: array.type.value,
@@ -18,5 +18,5 @@ export const llm_schema_array = (array: MetadataArray): ILlmSchema.IArray[] =>
         attribute: {},
       }),
     },
-    array.tags,
-  );
+    tags: array.tags,
+  });

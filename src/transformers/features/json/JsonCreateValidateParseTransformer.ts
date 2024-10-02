@@ -1,11 +1,13 @@
 import { JsonValidateParseProgrammer } from "../../../programmers/json/JsonValidateParseProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonCreateValidateParseTransformer {
-  export const transform = GenericTransformer.factory(
-    "json.createValidateParse",
-  )(
-    (project) => (modulo) => JsonValidateParseProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.factory({
+      ...props,
+      method: "json.createValidateParse",
+      write: JsonValidateParseProgrammer.write,
+    });
 }

@@ -15,7 +15,12 @@ export const llm_schema_escaped = (escaped: MetadataEscaped): ILlmSchema[] => {
     attribute: {},
   });
   if (output === null) return [];
-  else if (is_date(new Set())(escaped.original)) {
+  else if (
+    is_date({
+      visited: new Set(),
+      metadata: escaped.original,
+    })
+  ) {
     const string: ILlmSchema.IString | undefined = is_string(output)
       ? output
       : is_one_of(output)
@@ -46,16 +51,34 @@ const is_one_of = (elem: ILlmSchema): elem is ILlmSchema.IOneOf =>
 /**
  * @internal
  */
-const is_date =
-  (visited: Set<Metadata>) =>
-  (meta: Metadata): boolean => {
-    if (visited.has(meta)) return false;
-    visited.add(meta);
+const is_date = (props: {
+  visited: Set<Metadata>;
+  metadata: Metadata;
+}): boolean => {
+  if (props.visited.has(props.metadata)) return false;
+  props.visited.add(props.metadata);
 
-    return (
-      meta.natives.some((name) => name === "Date") ||
-      meta.arrays.some((array) => is_date(visited)(array.type.value)) ||
-      meta.tuples.some((tuple) => tuple.type.elements.some(is_date(visited))) ||
-      meta.aliases.some((alias) => is_date(visited)(alias.value))
-    );
-  };
+  return (
+    props.metadata.natives.some((name) => name === "Date") ||
+    props.metadata.arrays.some((array) =>
+      is_date({
+        visited: props.visited,
+        metadata: array.type.value,
+      }),
+    ) ||
+    props.metadata.tuples.some((tuple) =>
+      tuple.type.elements.some((elem) =>
+        is_date({
+          visited: props.visited,
+          metadata: elem,
+        }),
+      ),
+    ) ||
+    props.metadata.aliases.some((alias) =>
+      is_date({
+        visited: props.visited,
+        metadata: alias.value,
+      }),
+    )
+  );
+};

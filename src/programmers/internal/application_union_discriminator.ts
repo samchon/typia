@@ -5,19 +5,19 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 import { UnionPredicator } from "../helpers/UnionPredicator";
 
 export const application_union_discriminator = (
-  meta: Metadata,
+  metadata: Metadata,
 ): OpenApi.IJsonSchema.IOneOf.IDiscriminator | undefined => {
   if (
-    meta.size() === 0 ||
-    meta.size() !== meta.objects.length ||
-    meta.objects.some((o) => o.isLiteral()) === true
+    metadata.size() === 0 ||
+    metadata.size() !== metadata.objects.length ||
+    metadata.objects.some((o) => o.isLiteral()) === true
   )
     return undefined;
   const specialized: UnionPredicator.ISpecialized[] = UnionPredicator.object(
-    meta.objects,
+    metadata.objects,
   );
   const meet: boolean =
-    specialized.length === meta.objects.length &&
+    specialized.length === metadata.objects.length &&
     specialized.every(
       (s) => s.property.key.isSoleLiteral() && s.property.value.isSoleLiteral(),
     ) &&

@@ -2,27 +2,29 @@ import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
+import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { emend_metadata_atomics } from "./emend_metadata_atomics";
 import { iterate_metadata } from "./iterate_metadata";
 
-export const explore_metadata =
-  (checker: ts.TypeChecker) =>
-  (options: MetadataFactory.IOptions) =>
-  (collection: MetadataCollection) =>
-  (errors: MetadataFactory.IError[]) =>
-  (type: ts.Type | null, explore: MetadataFactory.IExplore): Metadata => {
-    // CONSTRUCT METADATA
-    const meta: Metadata = Metadata.initialize(explore.escaped);
-    if (type === null) return meta;
+export const explore_metadata = (props: IProps): Metadata => {
+  // CONSTRUCT METADATA
+  const metadata: Metadata = Metadata.initialize(props.explore.escaped);
+  if (props.type === null) return metadata;
 
-    // ITERATE TYPESCRIPT TYPES
-    iterate_metadata(checker)(options)(collection)(errors)(meta, type, explore);
-    emend_metadata_atomics(meta);
-    if (meta.escaped) {
-      emend_metadata_atomics(meta.escaped.original);
-      emend_metadata_atomics(meta.escaped.returns);
-    }
-    return meta;
-  };
+  // ITERATE TYPESCRIPT TYPES
+  iterate_metadata({
+    ...props,
+    metadata,
+    type: props.type,
+  });
+  emend_metadata_atomics(metadata);
+  if (metadata.escaped) {
+    emend_metadata_atomics(metadata.escaped.original);
+    emend_metadata_atomics(metadata.escaped.returns);
+  }
+  return metadata;
+};
+
+interface IProps extends Omit<IMetadataIteratorProps, "metadata" | "type"> {
+  type: ts.Type | null;
+}

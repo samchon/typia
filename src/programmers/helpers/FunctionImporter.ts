@@ -37,29 +37,30 @@ export class FunctionImporter {
   ): ts.Statement[] {
     return [
       ...[...this.used_].map((name) =>
-        StatementFactory.constant(
-          "$" + name,
-          IdentifierFactory.access(
+        StatementFactory.constant({
+          name: "$" + name,
+          value: IdentifierFactory.access(
             ts.factory.createParenthesizedExpression(
               ts.factory.createAsExpression(modulo, TypeFactory.keyword("any")),
             ),
-          )(name),
-        ),
+            name,
+          ),
+        }),
       ),
-      ...[...this.variables_.entries()].map(([key, value]) =>
-        StatementFactory.constant(key, value),
+      ...[...this.variables_.entries()].map(([name, value]) =>
+        StatementFactory.constant({ name, value }),
       ),
       ...(includeUnions === true
-        ? [...this.unions_.values()].map(([key, arrow]) =>
-            StatementFactory.constant(key, arrow),
+        ? [...this.unions_.values()].map(([name, value]) =>
+            StatementFactory.constant({ name, value }),
           )
         : []),
     ];
   }
 
   public declareUnions(): ts.Statement[] {
-    return [...this.unions_.values()].map(([key, arrow]) =>
-      StatementFactory.constant(key, arrow),
+    return [...this.unions_.values()].map(([name, value]) =>
+      StatementFactory.constant({ name, value }),
     );
   }
 

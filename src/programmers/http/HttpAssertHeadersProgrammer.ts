@@ -4,7 +4,8 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -13,24 +14,26 @@ import { HttpHeadersProgrammer } from "./HttpHeadersProgrammer";
 
 export namespace HttpAssertHeadersProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
-    init: ts.Expression | undefined;
+    init?: ts.Expression | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const assert: FeatureProgrammer.IDecomposed = AssertProgrammer.decompose({
       ...props,
-      project: {
-        ...props.project,
+      context: {
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: false,
         },
       },
-      equals: false,
-      guard: false,
+      config: {
+        equals: false,
+        guard: false,
+      },
     });
     const decode: FeatureProgrammer.IDecomposed =
       HttpHeadersProgrammer.decompose(props);
@@ -42,8 +45,14 @@ export namespace HttpAssertHeadersProgrammer {
       statements: [
         ...assert.statements,
         ...decode.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -70,22 +79,18 @@ export namespace HttpAssertHeadersProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-        init,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

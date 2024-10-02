@@ -10,21 +10,21 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
 /**
  * @internal
  */
-export const stringify_regular_properties = (
-  regular: IExpressionEntry<ts.Expression>[],
-  dynamic: IExpressionEntry<ts.Expression>[],
-): ts.Expression[] => {
+export const stringify_regular_properties = (props: {
+  regular: IExpressionEntry<ts.Expression>[];
+  dynamic: IExpressionEntry<ts.Expression>[];
+}): ts.Expression[] => {
   const output: ts.Expression[] = [];
 
-  regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
-  regular.forEach((entry, index) => {
+  props.regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
+  props.regular.forEach((entry, index) => {
     // BASE ELEMENTS
     const key: string = entry.key.getSoleLiteral()!;
     const base: ts.Expression[] = [
       ts.factory.createStringLiteral(`${JSON.stringify(key)}:`),
       entry.expression,
     ];
-    if (index !== regular.length - 1 || dynamic.length !== 0)
+    if (index !== props.regular.length - 1 || props.dynamic.length !== 0)
       base.push(ts.factory.createStringLiteral(`,`));
 
     const empty: boolean =

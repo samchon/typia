@@ -1,15 +1,15 @@
 export namespace NameEncoder {
-  export function encode(str: string): string {
+  export const encode = (str: string): string => {
     for (const [before, after] of REPLACERS)
       str = str.split(before).join(after);
     return str;
-  }
+  };
 
-  export function decode(str: string): string {
+  export const decode = (str: string): string => {
     for (const [before, after] of REPLACERS)
       if (after !== "") str = str.split(after).join(before);
     return str;
-  }
+  };
 }
 
 const REPLACERS: [string, string][] = [
