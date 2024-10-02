@@ -282,30 +282,6 @@ export namespace AssertProgrammer {
               input: next.input,
             }),
           );
-      // : (() => {
-      //       const addicted = binaries.slice();
-      //       if (
-      //           addicted[addicted.length - 1]!.combined === false
-      //       ) {
-      //           addicted.push({
-      //               combined: true,
-      //               expression: create_guard_call(importer)(
-      //                   explore.source === "top"
-      //                       ? ts.factory.createTrue()
-      //                       : ts.factory.createIdentifier(
-      //                             "_exceptionable",
-      //                         ),
-      //               )(
-      //                   ts.factory.createIdentifier(path),
-      //                   expected,
-      //                   input,
-      //               ),
-      //           });
-      //       }
-      //       return addicted
-      //           .map((b) => b.expression)
-      //           .reduce(ts.factory.createLogicalOr);
-      //   })();
     };
 
   const assert_object = (props: {

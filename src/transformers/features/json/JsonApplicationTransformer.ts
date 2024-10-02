@@ -83,7 +83,10 @@ export namespace JsonApplicationTransformer {
       else metadatas.push(r.data);
     }
     if (errors.length)
-      throw TransformerError.from("typia.json.application")(errors);
+      throw TransformerError.from({
+        code: "typia.json.application",
+        errors,
+      });
 
     // APPLICATION
     const app: IJsonApplication<any> =

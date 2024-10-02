@@ -276,9 +276,10 @@ export namespace CheckerProgrammer {
         type: next.type,
       });
       if (result.success === false)
-        throw TransformerError.from(`typia.${next.importer.method}`)(
-          result.errors,
-        );
+        throw TransformerError.from({
+          code: `typia.${next.importer.method}`,
+          errors: result.errors,
+        });
       return [collection, result.data];
     },
     addition: props.config.addition,
@@ -827,15 +828,15 @@ export namespace CheckerProgrammer {
 
     if (instances.length) {
       const transformer =
-        (merger: (x: ts.Expression, y: ts.Expression) => ts.Expression) =>
-        (ins: IInstance) =>
-          ins.body
+        (merge: (x: ts.Expression, y: ts.Expression) => ts.Expression) =>
+        (instance: IInstance) =>
+          instance.body
             ? {
-                expression: merger(ins.head, ins.body),
+                expression: merge(instance.head, instance.body),
                 combined: true,
               }
             : {
-                expression: ins.head,
+                expression: instance.head,
                 combined: false,
               };
       if (instances.length === 1)

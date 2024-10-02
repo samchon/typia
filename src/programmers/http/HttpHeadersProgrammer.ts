@@ -49,9 +49,10 @@ export namespace HttpHeadersProgrammer {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(`typia.http.${props.importer.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.http.${props.importer.method}`,
+        errors: result.errors,
+      });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;

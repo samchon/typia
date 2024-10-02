@@ -113,42 +113,42 @@ import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTr
 import { ReflectNameTransformer } from "./features/reflect/ReflectNameTransformer";
 
 export namespace CallExpressionTransformer {
-  export const transform =
-    (context: ITypiaContext) =>
-    (expression: ts.CallExpression): ts.Expression | null => {
-      //----
-      // VALIDATIONS
-      //----
-      // SIGNATURE DECLARATION
-      const declaration: ts.Declaration | undefined =
-        context.checker.getResolvedSignature(expression)?.declaration;
-      if (!declaration) return expression;
+  export const transform = (props: {
+    context: ITypiaContext;
+    expression: ts.CallExpression;
+  }): ts.Expression | null => {
+    //----
+    // VALIDATIONS
+    //----
+    // SIGNATURE DECLARATION
+    const declaration: ts.Declaration | undefined =
+      props.context.checker.getResolvedSignature(props.expression)?.declaration;
+    if (!declaration) return props.expression;
 
-      // FILE PATH
-      const location: string = path.resolve(
-        declaration.getSourceFile().fileName,
-      );
-      if (isTarget(location) === false) return expression;
+    // FILE PATH
+    const location: string = path.resolve(declaration.getSourceFile().fileName);
+    if (isTarget(location) === false) return props.expression;
 
-      //----
-      // TRANSFORMATION
-      //----
-      // FUNCTION NAME
-      const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
-      const { name } = context.checker.getTypeAtLocation(declaration).symbol;
+    //----
+    // TRANSFORMATION
+    //----
+    // FUNCTION NAME
+    const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
+    const { name } =
+      props.context.checker.getTypeAtLocation(declaration).symbol;
 
-      // FIND TRANSFORMER
-      const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
-      if (functor === undefined) return expression;
+    // FIND TRANSFORMER
+    const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
+    if (functor === undefined) return props.expression;
 
-      // RETURNS WITH TRANSFORMATION
-      const result: ts.Expression | null = functor()({
-        context,
-        modulo: expression.expression,
-        expression,
-      });
-      return result ?? expression;
-    };
+    // RETURNS WITH TRANSFORMATION
+    const result: ts.Expression | null = functor()({
+      context: props.context,
+      modulo: props.expression.expression,
+      expression: props.expression,
+    });
+    return result ?? props.expression;
+  };
 
   const isTarget = (location: string): boolean => {
     const files: string[] = Object.keys(FUNCTORS);

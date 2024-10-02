@@ -50,7 +50,10 @@ export namespace LlmApplicationTransformer {
         type,
       });
     if (result.success === false)
-      throw TransformerError.from("typia.llm.application")(result.errors);
+      throw TransformerError.from({
+        code: "typia.llm.application",
+        errors: result.errors,
+      });
 
     // GENERATE LLM APPLICATION
     const schema: ILlmApplication = LlmApplicationProgrammer.write(result.data);

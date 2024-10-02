@@ -76,9 +76,10 @@ export namespace FunctionalValidateReturnProgrammer {
       ),
     );
 
-    const name: string = StringUtil.escapeDuplicate(
-      props.declaration.parameters.map((p) => p.name.getText()),
-    )("result");
+    const name: string = StringUtil.escapeDuplicate({
+      keep: props.declaration.parameters.map((p) => p.name.getText()),
+      input: "result",
+    });
     return {
       async,
       functions: [

@@ -112,18 +112,6 @@ export namespace FunctionalAssertParametersProgrammer {
             replacer: `$input.parameters[${i}]`,
           }),
         }),
-        //   project)(modulo)(equals)(
-        //   p.type
-        //     ? project.checker.getTypeFromTypeNode(p.type)
-        //     : project.checker.getTypeFromTypeNode(TypeFactory.keyword("any")),
-        //   undefined,
-        //   FunctionalAssertFunctionProgrammer.hookPath({
-        //     wrapper: props.wrapper,
-        //     replacer: `$input.parameters[${i}]`,
-        //   }),
-        // ),
-        // undefined,
-        // [ts.factory.createIdentifier(p.name.getText())],
       }),
     ),
     expressions: props.parameters.map((p, i) =>

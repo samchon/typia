@@ -32,7 +32,10 @@ export namespace JsonMetadataFactory {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(props.method)(result.errors);
+      throw TransformerError.from({
+        code: props.method,
+        errors: result.errors,
+      });
     return [collection, result.data];
   };
 

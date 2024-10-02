@@ -74,6 +74,9 @@ const getMetadata = (props: {
       type,
     });
   if (result.success === false)
-    throw TransformerError.from("typia.reflect.name")(result.errors);
+    throw TransformerError.from({
+      code: "typia.reflect.name",
+      errors: result.errors,
+    });
   return result.data;
 };

@@ -75,9 +75,10 @@ export namespace FunctionalIsReturnProgrammer {
         ts.factory.createIdentifier(p.name.getText()),
       ),
     );
-    const name: string = StringUtil.escapeDuplicate(
-      props.declaration.parameters.map((p) => p.name.getText()),
-    )("result");
+    const name: string = StringUtil.escapeDuplicate({
+      keep: props.declaration.parameters.map((p) => p.name.getText()),
+      input: "result",
+    });
     return {
       async,
       functions: [
