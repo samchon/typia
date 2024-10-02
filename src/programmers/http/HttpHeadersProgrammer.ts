@@ -12,7 +12,8 @@ import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
@@ -28,30 +29,37 @@ export namespace HttpHeadersProgrammer {
   export const INPUT_TYPE = "Record<string, string | string[] | undefined>";
 
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     // ANALYZE TYPE
     const collection: MetadataCollection = new MetadataCollection();
-    const result = MetadataFactory.analyze(
-      props.project.checker,
-      props.project.context,
-    )({
-      escape: false,
-      constant: true,
-      absorb: true,
-      validate,
-    })(collection)(props.type);
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: false,
+        constant: true,
+        absorb: true,
+        validate,
+      },
+      collection,
+      type: props.type,
+    });
     if (result.success === false)
-      throw TransformerError.from(`typia.http.${props.importer.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.http.${props.importer.method}`,
+        errors: result.errors,
+      });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
-    const statements: ts.Statement[] = decode_object(props.importer)(object);
+    const statements: ts.Statement[] = decode_object({
+      importer: props.importer,
+      object,
+    });
     return {
       functions: {},
       statements: [],
@@ -73,7 +81,10 @@ export namespace HttpHeadersProgrammer {
           [
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           ],
           false,
@@ -84,23 +95,20 @@ export namespace HttpHeadersProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   export const validate = (
     meta: Metadata,
@@ -181,7 +189,7 @@ export namespace HttpHeadersProgrammer {
         const key: string | null = prop.key.getSoleLiteral();
         if (key === null) continue;
 
-        MapUtil.take(counter)(key.toLowerCase(), () => new Set()).add(key);
+        MapUtil.take(counter, key.toLowerCase(), () => new Set()).add(key);
       }
       for (const [key, set] of counter)
         if (set.size > 1)
@@ -194,135 +202,158 @@ export namespace HttpHeadersProgrammer {
     return errors;
   };
 
-  const decode_object =
-    (importer: FunctionImporter) =>
-    (object: MetadataObject): ts.Statement[] => {
-      const output: ts.Identifier = ts.factory.createIdentifier("output");
-      const optionals: string[] = [];
-      return [
-        StatementFactory.constant(
-          "output",
-          ts.factory.createObjectLiteralExpression(
-            object.properties.map((prop) => {
-              if (
-                !prop.value.isRequired() &&
-                prop.value.arrays.length + prop.value.tuples.length > 0
-              )
-                optionals.push(
-                  prop.key.constants[0]!.values[0]!.value as string,
-                );
-              return decode_regular_property(importer)(prop);
-            }),
-            true,
+  const decode_object = (props: {
+    importer: FunctionImporter;
+    object: MetadataObject;
+  }): ts.Statement[] => {
+    const output: ts.Identifier = ts.factory.createIdentifier("output");
+    const optionals: string[] = [];
+    return [
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createObjectLiteralExpression(
+          props.object.properties.map((p) => {
+            if (
+              !p.value.isRequired() &&
+              p.value.arrays.length + p.value.tuples.length > 0
+            )
+              optionals.push(p.key.constants[0]!.values[0]!.value as string);
+            return decode_regular_property({
+              importer: props.importer,
+              property: p,
+            });
+          }),
+          true,
+        ),
+      }),
+      ...optionals.map((key) => {
+        const access = IdentifierFactory.access(output, key);
+        return ts.factory.createIfStatement(
+          ts.factory.createStrictEquality(
+            ExpressionFactory.number(0),
+            IdentifierFactory.access(access, "length"),
           ),
-        ),
-        ...optionals.map((key) => {
-          const access = IdentifierFactory.access(output)(key);
-          return ts.factory.createIfStatement(
-            ts.factory.createStrictEquality(
-              ExpressionFactory.number(0),
-              IdentifierFactory.access(access)("length"),
-            ),
-            ts.factory.createExpressionStatement(
-              ts.factory.createDeleteExpression(access),
-            ),
-          );
-        }),
-        ts.factory.createReturnStatement(
-          ts.factory.createAsExpression(output, TypeFactory.keyword("any")),
-        ),
-      ];
-    };
-
-  const decode_regular_property =
-    (importer: FunctionImporter) =>
-    (property: MetadataProperty): ts.PropertyAssignment => {
-      const key: string = property.key.constants[0]!.values[0]!.value as string;
-      const value: Metadata = property.value;
-
-      const [type, isArray]: [Atomic.Literal, boolean] = value.atomics.length
-        ? [value.atomics[0]!.type, false]
-        : value.constants.length
-          ? [value.constants[0]!.type, false]
-          : value.templates.length
-            ? ["string", false]
-            : (() => {
-                const meta: Metadata =
-                  value.arrays[0]?.type.value ??
-                  value.tuples[0]!.type.elements[0]!;
-                return meta.atomics.length
-                  ? [meta.atomics[0]!.type, true]
-                  : meta.templates.length
-                    ? ["string", true]
-                    : [meta.constants[0]!.type, true];
-              })();
-      const accessor = IdentifierFactory.access(
-        ts.factory.createIdentifier("input"),
-      )(key.toLowerCase());
-
-      return ts.factory.createPropertyAssignment(
-        Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
-        isArray
-          ? key === "set-cookie"
-            ? accessor
-            : decode_array(importer)(type)(key)(value)(accessor)
-          : decode_value(importer)(type)(accessor),
-      );
-    };
-
-  const decode_value =
-    (importer: FunctionImporter) =>
-    (type: Atomic.Literal) =>
-    (value: ts.Expression) =>
-      type === "string"
-        ? value
-        : ts.factory.createCallExpression(importer.use(type), undefined, [
-            value,
-          ]);
-
-  const decode_array =
-    (importer: FunctionImporter) =>
-    (type: Atomic.Literal) =>
-    (key: string) =>
-    (value: Metadata) =>
-    (accessor: ts.Expression) => {
-      const split: ts.CallChain = ts.factory.createCallChain(
-        ts.factory.createPropertyAccessChain(
-          ts.factory.createCallChain(
-            ts.factory.createPropertyAccessChain(
-              accessor,
-              ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
-              ts.factory.createIdentifier("split"),
-            ),
-            undefined,
-            undefined,
-            [ts.factory.createStringLiteral(key === "cookie" ? "; " : ", ")],
+          ts.factory.createExpressionStatement(
+            ts.factory.createDeleteExpression(access),
           ),
-          ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
-          ts.factory.createIdentifier("map"),
-        ),
-        undefined,
-        undefined,
-        [importer.use(type)],
-      );
-      return ts.factory.createConditionalExpression(
-        ExpressionFactory.isArray(accessor),
-        undefined,
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(accessor)("map"),
+        );
+      }),
+      ts.factory.createReturnStatement(
+        ts.factory.createAsExpression(output, TypeFactory.keyword("any")),
+      ),
+    ];
+  };
+
+  const decode_regular_property = (props: {
+    importer: FunctionImporter;
+    property: MetadataProperty;
+  }): ts.PropertyAssignment => {
+    const key: string = props.property.key.constants[0]!.values[0]!
+      .value as string;
+    const value: Metadata = props.property.value;
+
+    const [type, isArray]: [Atomic.Literal, boolean] = value.atomics.length
+      ? [value.atomics[0]!.type, false]
+      : value.constants.length
+        ? [value.constants[0]!.type, false]
+        : value.templates.length
+          ? ["string", false]
+          : (() => {
+              const meta: Metadata =
+                value.arrays[0]?.type.value ??
+                value.tuples[0]!.type.elements[0]!;
+              return meta.atomics.length
+                ? [meta.atomics[0]!.type, true]
+                : meta.templates.length
+                  ? ["string", true]
+                  : [meta.constants[0]!.type, true];
+            })();
+    const input = IdentifierFactory.access(
+      ts.factory.createIdentifier("input"),
+      key.toLowerCase(),
+    );
+
+    return ts.factory.createPropertyAssignment(
+      Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
+      isArray
+        ? key === "set-cookie"
+          ? input
+          : decode_array({
+              importer: props.importer,
+              type,
+              key,
+              value,
+              input,
+            })
+        : decode_value({
+            importer: props.importer,
+            type,
+            input,
+          }),
+    );
+  };
+
+  const decode_value = (props: {
+    importer: FunctionImporter;
+    type: Atomic.Literal;
+    input: ts.Expression;
+  }) =>
+    props.type === "string"
+      ? props.input
+      : ts.factory.createCallExpression(
+          props.importer.use(props.type),
           undefined,
-          [importer.use(type)],
-        ),
-        undefined,
-        value.isRequired() === false
-          ? split
-          : ts.factory.createBinaryExpression(
-              split,
-              ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
-              ts.factory.createArrayLiteralExpression([], false),
+          [props.input],
+        );
+
+  const decode_array = (props: {
+    importer: FunctionImporter;
+    type: Atomic.Literal;
+    key: string;
+    value: Metadata;
+    input: ts.Expression;
+  }) => {
+    const split: ts.CallChain = ts.factory.createCallChain(
+      ts.factory.createPropertyAccessChain(
+        ts.factory.createCallChain(
+          ts.factory.createPropertyAccessChain(
+            props.input,
+            ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+            ts.factory.createIdentifier("split"),
+          ),
+          undefined,
+          undefined,
+          [
+            ts.factory.createStringLiteral(
+              props.key === "cookie" ? "; " : ", ",
             ),
-      );
-    };
+          ],
+        ),
+        ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+        ts.factory.createIdentifier("map"),
+      ),
+      undefined,
+      undefined,
+      [props.importer.use(props.type)],
+    );
+    return ts.factory.createConditionalExpression(
+      ExpressionFactory.isArray(props.input),
+      undefined,
+      ts.factory.createCallExpression(
+        IdentifierFactory.access(props.input, "map"),
+        undefined,
+        [props.importer.use(props.type)],
+      ),
+      undefined,
+      props.value.isRequired() === false
+        ? split
+        : ts.factory.createBinaryExpression(
+            split,
+            ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
+            ts.factory.createArrayLiteralExpression([], false),
+          ),
+    );
+  };
 }
 
 const SINGULAR: Set<string> = new Set([

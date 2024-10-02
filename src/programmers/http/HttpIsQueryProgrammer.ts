@@ -3,7 +3,8 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -11,8 +12,12 @@ import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
 
 export namespace HttpIsQueryProgrammer {
+  export interface IProps extends IProgrammerProps {
+    allowOptional?: boolean;
+  }
+
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
@@ -20,15 +25,17 @@ export namespace HttpIsQueryProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      project: {
-        ...props.project,
+      context: {
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: true,
         },
       },
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const decode: FeatureProgrammer.IDecomposed =
       HttpQueryProgrammer.decompose(props);
@@ -40,8 +47,14 @@ export namespace HttpIsQueryProgrammer {
       statements: [
         ...is.statements,
         ...decode.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -54,14 +67,14 @@ export namespace HttpIsQueryProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "value",
-              ts.factory.createCallExpression(
+            StatementFactory.constant({
+              name: "value",
+              value: ts.factory.createCallExpression(
                 ts.factory.createIdentifier("__decode"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createPrefixUnaryExpression(
                 ts.SyntaxKind.ExclamationToken,
@@ -83,22 +96,19 @@ export namespace HttpIsQueryProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression, allowOptional: boolean = false) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-        allowOptional,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+      allowOptional: !!props.allowOptional,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

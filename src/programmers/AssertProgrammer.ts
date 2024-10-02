@@ -4,61 +4,76 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 
-import { IProject } from "../transformers/IProject";
+import { IProgrammerProps } from "../transformers/IProgrammerProps";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporter";
+import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
-  export const decompose = (props: {
-    project: IProject;
+  export interface IConfig {
     equals: boolean;
     guard: boolean;
+  }
+  export interface IProps extends IProgrammerProps {
+    config: IConfig;
+  }
+
+  export const decompose = (props: {
+    config: IConfig;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
-    init: ts.Expression | undefined;
+    init?: ts.Expression | undefined;
   }): FeatureProgrammer.IDecomposed => {
-    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose(props);
+    const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
+      ...props,
+      config: {
+        equals: props.config.equals,
+      },
+    });
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
       ...props,
       config: {
         prefix: "$a",
         path: true,
         trace: true,
-        numeric: OptionPredicator.numeric(props.project.options),
-        equals: props.equals,
-        atomist: (explore) => (entry) => (input) =>
+        numeric: OptionPredicator.numeric(props.context.options),
+        equals: props.config.equals,
+        atomist: (next) =>
           [
-            ...(entry.expression ? [entry.expression] : []),
-            ...(entry.conditions.length === 0
+            ...(next.entry.expression ? [next.entry.expression] : []),
+            ...(next.entry.conditions.length === 0
               ? []
-              : entry.conditions.length === 1
-                ? entry.conditions[0]!.map((cond) =>
+              : next.entry.conditions.length === 1
+                ? next.entry.conditions[0]!.map((cond) =>
                     ts.factory.createLogicalOr(
                       cond.expression,
-                      create_guard_call(props.importer)(
-                        explore.from === "top"
-                          ? ts.factory.createTrue()
-                          : ts.factory.createIdentifier("_exceptionable"),
-                      )(
-                        ts.factory.createIdentifier(
-                          explore.postfix
-                            ? `_path + ${explore.postfix}`
+                      create_guard_call({
+                        importer: props.importer,
+                        exceptionable:
+                          next.explore.from === "top"
+                            ? ts.factory.createTrue()
+                            : ts.factory.createIdentifier("_exceptionable"),
+                        path: ts.factory.createIdentifier(
+                          next.explore.postfix
+                            ? `_path + ${next.explore.postfix}`
                             : "_path",
                         ),
-                        cond.expected,
-                        input,
-                      ),
+                        expected: cond.expected,
+                        input: next.input,
+                      }),
                     ),
                   )
                 : [
                     ts.factory.createLogicalOr(
-                      entry.conditions
+                      next.entry.conditions
                         .map((set) =>
                           set
                             .map((s) => s.expression)
@@ -67,24 +82,25 @@ export namespace AssertProgrammer {
                             ),
                         )
                         .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
-                      create_guard_call(props.importer)(
-                        explore.from === "top"
-                          ? ts.factory.createTrue()
-                          : ts.factory.createIdentifier("_exceptionable"),
-                      )(
-                        ts.factory.createIdentifier(
-                          explore.postfix
-                            ? `_path + ${explore.postfix}`
+                      create_guard_call({
+                        importer: props.importer,
+                        exceptionable:
+                          next.explore.from === "top"
+                            ? ts.factory.createTrue()
+                            : ts.factory.createIdentifier("_exceptionable"),
+                        path: ts.factory.createIdentifier(
+                          next.explore.postfix
+                            ? `_path + ${next.explore.postfix}`
                             : "_path",
                         ),
-                        entry.expected,
-                        input,
-                      ),
+                        expected: next.entry.expected,
+                        input: next.input,
+                      }),
                     ),
                   ]),
           ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-        combiner: combiner(props.equals)(props.project)(props.importer),
-        joiner: joiner(props.equals)(props.project)(props.importer),
+        combiner: combiner(props),
+        joiner: joiner(props),
         success: ts.factory.createTrue(),
       },
     });
@@ -95,18 +111,24 @@ export namespace AssertProgrammer {
         IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
         Guardian.parameter(props.init),
       ],
-      props.guard
+      props.config.guard
         ? ts.factory.createTypePredicateNode(
             ts.factory.createToken(ts.SyntaxKind.AssertsKeyword),
             ts.factory.createIdentifier("input"),
             ts.factory.createTypeReferenceNode(
               props.name ??
-                TypeFactory.getFullName(props.project.checker)(props.type),
+                TypeFactory.getFullName({
+                  checker: props.context.checker,
+                  type: props.type,
+                }),
             ),
           )
         : ts.factory.createTypeReferenceNode(
             props.name ??
-              TypeFactory.getFullName(props.project.checker)(props.type),
+              TypeFactory.getFullName({
+                checker: props.context.checker,
+                type: props.type,
+              }),
           ),
       undefined,
       ts.factory.createBlock(
@@ -152,7 +174,7 @@ export namespace AssertProgrammer {
             ),
             undefined,
           ),
-          ...(props.guard === false
+          ...(props.config.guard === false
             ? [
                 ts.factory.createReturnStatement(
                   ts.factory.createIdentifier(`input`),
@@ -163,7 +185,6 @@ export namespace AssertProgrammer {
         true,
       ),
     );
-
     return {
       functions: {
         ...is.functions,
@@ -172,120 +193,125 @@ export namespace AssertProgrammer {
       statements: [
         ...is.statements,
         ...composed.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.mut("_errorFactory"),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.mut({
+          name: "_errorFactory",
+        }),
       ],
       arrow,
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (props: boolean | { equals: boolean; guard: boolean }) =>
-    (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
-      if (typeof props === "boolean") props = { equals: props, guard: false };
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        ...props,
-        project,
-        importer,
-        type,
-        name,
-        init,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 
   const combiner =
-    (equals: boolean) =>
-    (project: IProject) =>
-    (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
-    (explore: CheckerProgrammer.IExplore) => {
-      if (explore.tracable === false)
+    (props: {
+      config: IConfig;
+      context: ITypiaContext;
+      importer: FunctionImporter;
+    }): CheckerProgrammer.IConfig.Combiner =>
+    (next) => {
+      if (next.explore.tracable === false)
         return IsProgrammer.configure({
-          object: assert_object(equals)(project)(importer),
-          numeric: true,
-        })(project)(importer).combiner(explore);
+          options: {
+            object: (v) =>
+              assert_object({
+                config: props.config,
+                context: props.context,
+                importer: props.importer,
+                entries: v.entries,
+                input: v.input,
+              }),
+            numeric: true,
+          },
+          context: props.context,
+          importer: props.importer,
+        }).combiner(next);
 
-      const path: string = explore.postfix
-        ? `_path + ${explore.postfix}`
+      const path: string = next.explore.postfix
+        ? `_path + ${next.explore.postfix}`
         : "_path";
-      return (logic) => (input, binaries, expected) =>
-        logic === "and"
-          ? binaries
-              .map((binary) =>
-                binary.combined
-                  ? binary.expression
-                  : ts.factory.createLogicalOr(
-                      binary.expression,
-                      create_guard_call(importer)(
-                        explore.source === "top"
+      return next.logic === "and"
+        ? next.binaries
+            .map((binary) =>
+              binary.combined
+                ? binary.expression
+                : ts.factory.createLogicalOr(
+                    binary.expression,
+                    create_guard_call({
+                      importer: props.importer,
+                      exceptionable:
+                        next.explore.source === "top"
                           ? ts.factory.createTrue()
                           : ts.factory.createIdentifier("_exceptionable"),
-                      )(ts.factory.createIdentifier(path), expected, input),
-                    ),
-              )
-              .reduce(ts.factory.createLogicalAnd)
-          : ts.factory.createLogicalOr(
-              binaries
-                .map((binary) => binary.expression)
-                .reduce(ts.factory.createLogicalOr),
-              create_guard_call(importer)(
-                explore.source === "top"
+                      path: ts.factory.createIdentifier(path),
+                      expected: next.expected,
+                      input: next.input,
+                    }),
+                  ),
+            )
+            .reduce(ts.factory.createLogicalAnd)
+        : ts.factory.createLogicalOr(
+            next.binaries
+              .map((binary) => binary.expression)
+              .reduce(ts.factory.createLogicalOr),
+            create_guard_call({
+              importer: props.importer,
+              exceptionable:
+                next.explore.source === "top"
                   ? ts.factory.createTrue()
                   : ts.factory.createIdentifier("_exceptionable"),
-              )(ts.factory.createIdentifier(path), expected, input),
-            );
-      // : (() => {
-      //       const addicted = binaries.slice();
-      //       if (
-      //           addicted[addicted.length - 1]!.combined === false
-      //       ) {
-      //           addicted.push({
-      //               combined: true,
-      //               expression: create_guard_call(importer)(
-      //                   explore.source === "top"
-      //                       ? ts.factory.createTrue()
-      //                       : ts.factory.createIdentifier(
-      //                             "_exceptionable",
-      //                         ),
-      //               )(
-      //                   ts.factory.createIdentifier(path),
-      //                   expected,
-      //                   input,
-      //               ),
-      //           });
-      //       }
-      //       return addicted
-      //           .map((b) => b.expression)
-      //           .reduce(ts.factory.createLogicalOr);
-      //   })();
+              path: ts.factory.createIdentifier(path),
+              expected: next.expected,
+              input: next.input,
+            }),
+          );
     };
 
-  const assert_object =
-    (equals: boolean) => (project: IProject) => (importer: FunctionImporter) =>
-      check_object({
-        equals,
+  const assert_object = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    importer: FunctionImporter;
+    entries: IExpressionEntry<ts.Expression>[];
+    input: ts.Expression;
+  }) =>
+    check_object({
+      config: {
+        equals: props.config.equals,
         assert: true,
         undefined: true,
         reduce: ts.factory.createLogicalAnd,
         positive: ts.factory.createTrue(),
-        superfluous: (value) =>
-          create_guard_call(importer)()(
-            ts.factory.createAdd(
+        superfluous: (input) =>
+          create_guard_call({
+            importer: props.importer,
+            path: ts.factory.createAdd(
               ts.factory.createIdentifier("_path"),
-              ts.factory.createCallExpression(importer.use("join"), undefined, [
-                ts.factory.createIdentifier("key"),
-              ]),
+              ts.factory.createCallExpression(
+                props.importer.use("join"),
+                undefined,
+                [ts.factory.createIdentifier("key")],
+              ),
             ),
-            "undefined",
-            value,
-          ),
+            expected: "undefined",
+            input,
+          }),
         halt: (expr) =>
           ts.factory.createLogicalOr(
             ts.factory.createStrictEquality(
@@ -294,67 +320,85 @@ export namespace AssertProgrammer {
             ),
             expr,
           ),
-      })(project)(importer);
-
-  const joiner =
-    (equals: boolean) =>
-    (project: IProject) =>
-    (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-      object: assert_object(equals)(project)(importer),
-      array: (input, arrow) =>
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(input)("every"),
-          undefined,
-          [arrow],
-        ),
-      failure: (value, expected, explore) =>
-        create_guard_call(importer)(
-          explore?.from === "top"
-            ? ts.factory.createTrue()
-            : ts.factory.createIdentifier("_exceptionable"),
-        )(
-          ts.factory.createIdentifier(
-            explore?.postfix ? `_path + ${explore.postfix}` : "_path",
-          ),
-          expected,
-          value,
-        ),
-      full: equals
-        ? undefined
-        : (condition) => (input, expected, explore) =>
-            ts.factory.createLogicalOr(
-              condition,
-              create_guard_call(importer)(
-                explore.from === "top"
-                  ? ts.factory.createTrue()
-                  : ts.factory.createIdentifier("_exceptionable"),
-              )(ts.factory.createIdentifier("_path"), expected, input),
-            ),
+      },
+      context: props.context,
+      importer: props.importer,
+      entries: props.entries,
+      input: props.input,
     });
 
-  const create_guard_call =
-    (importer: FunctionImporter) =>
-    (exceptionable?: ts.Expression) =>
-    (
-      path: ts.Expression,
-      expected: string,
-      value: ts.Expression,
-    ): ts.Expression =>
-      ts.factory.createCallExpression(importer.use("guard"), undefined, [
-        exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
-        ts.factory.createObjectLiteralExpression(
-          [
-            ts.factory.createPropertyAssignment("path", path),
-            ts.factory.createPropertyAssignment(
-              "expected",
-              ts.factory.createStringLiteral(expected),
-            ),
-            ts.factory.createPropertyAssignment("value", value),
-          ],
-          true,
+  const joiner = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    importer: FunctionImporter;
+  }): CheckerProgrammer.IConfig.IJoiner => ({
+    object: (next) =>
+      assert_object({
+        config: props.config,
+        context: props.context,
+        importer: props.importer,
+        entries: next.entries,
+        input: next.input,
+      }),
+    array: (props) =>
+      ts.factory.createCallExpression(
+        IdentifierFactory.access(props.input, "every"),
+        undefined,
+        [props.arrow],
+      ),
+    failure: (next) =>
+      create_guard_call({
+        importer: props.importer,
+        exceptionable:
+          next.explore?.from === "top"
+            ? ts.factory.createTrue()
+            : ts.factory.createIdentifier("_exceptionable"),
+        path: ts.factory.createIdentifier(
+          next.explore?.postfix ? `_path + ${next.explore.postfix}` : "_path",
         ),
-        ts.factory.createIdentifier("_errorFactory"),
-      ]);
+        expected: next.expected,
+        input: next.input,
+      }),
+    full: props.config.equals
+      ? undefined
+      : (next) =>
+          ts.factory.createLogicalOr(
+            next.condition,
+            create_guard_call({
+              importer: props.importer,
+              exceptionable:
+                next.explore.from === "top"
+                  ? ts.factory.createTrue()
+                  : ts.factory.createIdentifier("_exceptionable"),
+              path: ts.factory.createIdentifier("_path"),
+              expected: next.expected,
+              input: next.input,
+            }),
+          ),
+  });
+
+  const create_guard_call = (props: {
+    importer: FunctionImporter;
+    expected: string;
+    input: ts.Expression;
+    path: ts.Expression;
+    exceptionable?: ts.Expression;
+  }): ts.Expression =>
+    ts.factory.createCallExpression(props.importer.use("guard"), undefined, [
+      props.exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
+      ts.factory.createObjectLiteralExpression(
+        [
+          ts.factory.createPropertyAssignment("path", props.path),
+          ts.factory.createPropertyAssignment(
+            "expected",
+            ts.factory.createStringLiteral(props.expected),
+          ),
+          ts.factory.createPropertyAssignment("value", props.input),
+        ],
+        true,
+      ),
+      ts.factory.createIdentifier("_errorFactory"),
+    ]);
 
   export namespace Guardian {
     export const identifier = () => ts.factory.createIdentifier("errorFactory");

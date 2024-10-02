@@ -2,58 +2,81 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 export namespace MetadataTypeTagSchemaFactory {
-  export const object =
-    (report: (msg: string) => false) =>
-    (obj: MetadataObject): object | undefined => {
-      if (obj.recursive) {
-        report(`${obj.name} has recursive type`);
-        return undefined;
+  export const object = (props: {
+    report: (msg: string) => false;
+    object: MetadataObject;
+  }): object | undefined => {
+    if (props.object.recursive) {
+      props.report(`${props.object.name} has recursive type`);
+      return undefined;
+    }
+    const output: any = {};
+    for (const p of props.object.properties) {
+      const key: string | null = p.key.getSoleLiteral()!;
+      if (key === null) {
+        props.report(
+          `${props.object.name} has non-literal key type: ${p.key.getName()}`,
+        );
+        continue;
       }
-      const output: any = {};
-      for (const p of obj.properties) {
-        const key: string | null = p.key.getSoleLiteral()!;
-        if (key === null) {
-          report(`${obj.name} has non-literal key type: ${p.key.getName()}`);
-          continue;
-        }
-        output[key] = iterate(report)({ object: obj, key })(p.value);
-      }
-      return output;
-    };
+      output[key] = iterate({
+        report: props.report,
+        object: props.object,
+        key,
+        metadata: p.value,
+      });
+    }
+    return output;
+  };
 
-  const iterate =
-    (report: (msg: string) => false) =>
-    (parent: { object: MetadataObject; key: string }) =>
-    (meta: Metadata): any => {
-      if (
-        meta.any ||
-        meta.atomics.length ||
-        meta.arrays.length ||
-        meta.natives.length ||
-        meta.functions.length
-      )
-        report(`${parent.object.name}.${parent.key} has non-literal type`);
-      else if (meta.size() > 1)
-        report(`${parent.object.name}.${parent.key} has union type`);
-      else if (meta.size() === 0)
-        if (meta.nullable) return null;
-        else if (meta.isRequired() === true)
-          report(`${parent.object.name}.${parent.key} has non-literal type`);
-        else return undefined;
-      else if (meta.constants.length)
-        return meta.constants[0]!.values[0]!.value;
-      else if (meta.tuples.length) {
-        const tuple = meta.tuples[0]!;
-        if (tuple.type.isRest())
-          report(`${parent.object.name}.${parent.key} has rest tuple type`);
-        else if (tuple.type.recursive)
-          report(
-            `${parent.object.name}.${parent.key} has recursive tuple type`,
-          );
-        else if (tuple.type.elements.some((e) => e.required === false))
-          report(`${parent.object.name}.${parent.key} has optional tuple type`);
-        return tuple.type.elements.map(iterate(report)(parent));
-      } else if (meta.objects.length) return object(report)(meta.objects[0]!);
-      else report(`${parent.object.name}.${parent.key} has non-literal type`);
-    };
+  const iterate = (props: {
+    report: (message: string) => false;
+    object: MetadataObject;
+    key: string;
+    metadata: Metadata;
+  }): any => {
+    if (
+      props.metadata.any ||
+      props.metadata.atomics.length ||
+      props.metadata.arrays.length ||
+      props.metadata.natives.length ||
+      props.metadata.functions.length
+    )
+      props.report(`${props.object.name}.${props.key} has non-literal type`);
+    else if (props.metadata.size() > 1)
+      props.report(`${props.object.name}.${props.key} has union type`);
+    else if (props.metadata.size() === 0)
+      if (props.metadata.nullable) return null;
+      else if (props.metadata.isRequired() === true)
+        props.report(`${props.object.name}.${props.key} has non-literal type`);
+      else return undefined;
+    else if (props.metadata.constants.length)
+      return props.metadata.constants[0]!.values[0]!.value;
+    else if (props.metadata.tuples.length) {
+      const tuple = props.metadata.tuples[0]!;
+      if (tuple.type.isRest())
+        props.report(`${props.object.name}.${props.key} has rest tuple type`);
+      else if (tuple.type.recursive)
+        props.report(
+          `${props.object.name}.${props.key} has recursive tuple type`,
+        );
+      else if (tuple.type.elements.some((e) => e.required === false))
+        props.report(
+          `${props.object.name}.${props.key} has optional tuple type`,
+        );
+      return tuple.type.elements.map((elem) =>
+        iterate({
+          report: props.report,
+          object: props.object,
+          key: props.key,
+          metadata: elem,
+        }),
+      );
+    } else if (props.metadata.objects.length)
+      return object({
+        report: props.report,
+        object: props.metadata.objects[0]!,
+      });
+    else props.report(`${props.object.name}.${props.key} has non-literal type`);
+  };
 }

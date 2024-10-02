@@ -4,7 +4,8 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -12,16 +13,22 @@ import { FunctionImporter } from "../helpers/FunctionImporter";
 import { NotationGeneralProgrammer } from "./NotationGeneralProgrammer";
 
 export namespace NotationIsGeneralProgrammer {
+  export interface IProps extends IProgrammerProps {
+    rename: (str: string) => string;
+  }
+
   export const decompose = (props: {
     rename: (str: string) => string;
-    project: IProject;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const notation: FeatureProgrammer.IDecomposed =
       NotationGeneralProgrammer.decompose({
@@ -36,8 +43,14 @@ export namespace NotationIsGeneralProgrammer {
       statements: [
         ...is.statements,
         ...notation.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__notation", notation.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__notation",
+          value: notation.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -75,23 +88,18 @@ export namespace NotationIsGeneralProgrammer {
     };
   };
 
-  export const write =
-    (rename: (str: string) => string) =>
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        rename,
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

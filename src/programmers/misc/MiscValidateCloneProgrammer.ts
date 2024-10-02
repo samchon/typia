@@ -4,7 +4,8 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
@@ -13,7 +14,7 @@ import { MiscCloneProgrammer } from "./MiscCloneProgrammer";
 
 export namespace MiscValidateCloneProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     importer: FunctionImporter;
     type: ts.Type;
@@ -21,7 +22,9 @@ export namespace MiscValidateCloneProgrammer {
   }): FeatureProgrammer.IDecomposed => {
     const validate = ValidateProgrammer.decompose({
       ...props,
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const clone = MiscCloneProgrammer.decompose({
       ...props,
@@ -35,8 +38,14 @@ export namespace MiscValidateCloneProgrammer {
       statements: [
         ...validate.statements,
         ...clone.statements,
-        StatementFactory.constant("__validate", validate.arrow),
-        StatementFactory.constant("__clone", clone.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__clone",
+          value: clone.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -48,9 +57,9 @@ export namespace MiscValidateCloneProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "result",
-              ts.factory.createAsExpression(
+            StatementFactory.constant({
+              name: "result",
+              value: ts.factory.createAsExpression(
                 ts.factory.createCallExpression(
                   ts.factory.createIdentifier("__validate"),
                   undefined,
@@ -58,7 +67,7 @@ export namespace MiscValidateCloneProgrammer {
                 ),
                 TypeFactory.keyword("any"),
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createIdentifier("result.success"),
               ts.factory.createExpressionStatement(
@@ -83,22 +92,18 @@ export namespace MiscValidateCloneProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

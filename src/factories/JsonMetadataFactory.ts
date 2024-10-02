@@ -10,24 +10,34 @@ import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace JsonMetadataFactory {
-  export const analyze =
-    (method: string) =>
-    (checker: ts.TypeChecker, context?: ts.TransformationContext) =>
-    (type: ts.Type): [MetadataCollection, Metadata] => {
-      const collection = new MetadataCollection();
-      const result = MetadataFactory.analyze(
-        checker,
-        context,
-      )({
+  export interface IProps {
+    method: string;
+    checker: ts.TypeChecker;
+    transformer?: ts.TransformationContext;
+    type: ts.Type;
+  }
+
+  export const analyze = (props: IProps): [MetadataCollection, Metadata] => {
+    const collection = new MetadataCollection();
+    const result = MetadataFactory.analyze({
+      checker: props.checker,
+      transformer: props.transformer,
+      options: {
         escape: true,
         constant: true,
         absorb: true,
         validate,
-      })(collection)(type);
-      if (result.success === false)
-        throw TransformerError.from(method)(result.errors);
-      return [collection, result.data];
-    };
+      },
+      collection,
+      type: props.type,
+    });
+    if (result.success === false)
+      throw TransformerError.from({
+        code: props.method,
+        errors: result.errors,
+      });
+    return [collection, result.data];
+  };
 
   export const validate = (meta: Metadata) => {
     const output: string[] = [];

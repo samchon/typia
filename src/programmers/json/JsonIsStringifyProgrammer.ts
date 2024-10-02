@@ -4,7 +4,8 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
@@ -13,30 +14,32 @@ import { JsonStringifyProgrammer } from "./JsonStringifyProgrammer";
 
 export namespace JsonIsStringifyProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     importer: FunctionImporter;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      project: {
-        ...props.project,
+      context: {
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: true,
         },
       },
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const stringify: FeatureProgrammer.IDecomposed =
       JsonStringifyProgrammer.decompose({
         ...props,
-        project: {
-          ...props.project,
+        context: {
+          ...props.context,
           options: {
-            ...props.project.options,
+            ...props.context.options,
             functional: false,
             numeric: true,
           },
@@ -51,8 +54,14 @@ export namespace JsonIsStringifyProgrammer {
       statements: [
         ...is.statements,
         ...stringify.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__stringify", stringify.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__stringify",
+          value: stringify.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -82,21 +91,18 @@ export namespace JsonIsStringifyProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const importer: FunctionImporter = new FunctionImporter(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      importer,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      importer,
+      result,
+    });
+  };
 }

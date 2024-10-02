@@ -1,104 +1,101 @@
 import ts from "typescript";
 
-import { IProject } from "../IProject";
+import { IProgrammerProps } from "../IProgrammerProps";
+import { ITransformProps } from "../ITransformProps";
 import { TransformerError } from "../TransformerError";
 
 export namespace GenericTransformer {
-  export const scalar =
-    (method: string) =>
-    (
-      programmer: (
-        project: IProject,
-      ) => (
-        modulo: ts.LeftHandSideExpression,
-      ) => (type: ts.Type, name: string) => ts.Expression | ts.ArrowFunction,
-    ) =>
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (expression: ts.CallExpression) => {
-      // CHECK PARAMETER
-      if (expression.arguments.length === 0)
-        throw new TransformerError({
-          code: `typia.${method}`,
-          message: `no input value.`,
-        });
+  export interface IProps extends ITransformProps {
+    method: string;
+    write: (props: IProgrammerProps) => ts.Expression | ts.ArrowFunction;
+  }
 
-      // GET TYPE INFO
-      const [type, node, generic]: [ts.Type, ts.Node, boolean] =
-        expression.typeArguments && expression.typeArguments[0]
-          ? [
-              project.checker.getTypeFromTypeNode(expression.typeArguments[0]),
-              expression.typeArguments[0],
-              true,
-            ]
-          : [
-              project.checker.getTypeAtLocation(expression.arguments[0]!),
-              expression.arguments[0]!,
-              false,
-            ];
-      if (type.isTypeParameter())
-        throw new TransformerError({
-          code: `typia.${method}`,
-          message: `non-specified generic argument.`,
-        });
+  export const scalar = (props: IProps) => {
+    // CHECK PARAMETER
+    if (props.expression.arguments.length === 0)
+      throw new TransformerError({
+        code: `typia.${props.method}`,
+        message: `no input value.`,
+      });
 
-      // DO TRANSFORM
-      return ts.factory.createCallExpression(
-        programmer(project)(modulo)(
-          type,
-          generic
-            ? node.getFullText().trim()
-            : name(project.checker)(type)(node),
-        ),
-        undefined,
-        expression.arguments,
-      );
-    };
+    // GET TYPE INFO
+    const [type, node, generic]: [ts.Type, ts.Node, boolean] =
+      props.expression.typeArguments && props.expression.typeArguments[0]
+        ? [
+            props.context.checker.getTypeFromTypeNode(
+              props.expression.typeArguments[0],
+            ),
+            props.expression.typeArguments[0],
+            true,
+          ]
+        : [
+            props.context.checker.getTypeAtLocation(
+              props.expression.arguments[0]!,
+            ),
+            props.expression.arguments[0]!,
+            false,
+          ];
+    if (type.isTypeParameter())
+      throw new TransformerError({
+        code: `typia.${props.method}`,
+        message: `non-specified generic argument.`,
+      });
 
-  export const factory =
-    (method: string) =>
-    (
-      programmer: (
-        project: IProject,
-      ) => (
-        modulo: ts.LeftHandSideExpression,
-      ) => (
-        type: ts.Type,
-        name: string,
-        init?: ts.Expression,
-      ) => ts.Expression | ts.ArrowFunction,
-    ) =>
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (expression: ts.CallExpression) => {
-      // CHECK GENERIC ARGUMENT EXISTENCE
-      if (!expression.typeArguments?.[0])
-        throw new TransformerError({
-          code: `typia.${method}`,
-          message: `generic argument is not specified.`,
-        });
-
-      // GET TYPE INFO
-      const node: ts.TypeNode = expression.typeArguments[0];
-      const type: ts.Type = project.checker.getTypeFromTypeNode(node);
-
-      if (type.isTypeParameter())
-        throw new TransformerError({
-          code: `typia.${method}`,
-          message: `non-specified generic argument.`,
-        });
-
-      // DO TRANSFORM
-      return programmer(project)(modulo)(
+    // DO TRANSFORM
+    return ts.factory.createCallExpression(
+      props.write({
+        context: props.context,
+        modulo: props.modulo,
         type,
-        node.getFullText().trim(),
-        expression.arguments[0],
-      );
-    };
+        name: generic
+          ? node.getFullText().trim()
+          : getTypeName({
+              checker: props.context.checker,
+              type,
+              node,
+            }),
+      }),
+      undefined,
+      props.expression.arguments,
+    );
+  };
 
-  const name =
-    (checker: ts.TypeChecker) =>
-    (type: ts.Type) =>
-    (node: ts.Node): string =>
-      checker.typeToString(type, node, ts.TypeFormatFlags.NodeBuilderFlagsMask);
+  export const factory = (props: IProps) => {
+    // CHECK GENERIC ARGUMENT EXISTENCE
+    if (!props.expression.typeArguments?.[0])
+      throw new TransformerError({
+        code: `typia.${props.method}`,
+        message: `generic argument is not specified.`,
+      });
+
+    // GET TYPE INFO
+    const node: ts.TypeNode = props.expression.typeArguments[0];
+    const type: ts.Type = props.context.checker.getTypeFromTypeNode(node);
+
+    if (type.isTypeParameter())
+      throw new TransformerError({
+        code: `typia.${props.method}`,
+        message: `non-specified generic argument.`,
+      });
+
+    // DO TRANSFORM
+    return props.write({
+      context: props.context,
+      modulo: props.modulo,
+      type,
+      name: node.getFullText().trim(),
+      init: props.expression.arguments[0],
+    });
+  };
+
+  const getTypeName = (props: {
+    checker: ts.TypeChecker;
+    type: ts.Type;
+    node: ts.Node;
+  }): string =>
+    props.checker.typeToString(
+      props.type,
+      props.node,
+      ts.TypeFormatFlags.NodeBuilderFlagsMask,
+    );
 }

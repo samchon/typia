@@ -39,7 +39,7 @@ export namespace ProtobufUtil {
     return [...set].sort(compare);
   };
 
-  export const getNumbers = (meta: Metadata) => {
+  export const getNumbers = (meta: Metadata): ProtobufAtomic.Numeric[] => {
     const set: Set<ProtobufAtomic.Numeric> = new Set();
     for (const c of meta.constants)
       if (c.type === "number")
@@ -50,7 +50,7 @@ export namespace ProtobufUtil {
     return [...set].sort(compare);
   };
 
-  export const getBigints = (meta: Metadata) => {
+  export const getBigints = (meta: Metadata): ProtobufAtomic.BigNumeric[] => {
     const set: Set<ProtobufAtomic.BigNumeric> = new Set();
     for (const c of meta.constants) if (c.type === "bigint") set.add("uint64");
     for (const atomic of meta.atomics)
