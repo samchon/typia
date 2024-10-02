@@ -101,9 +101,10 @@ export namespace FunctionalValidateParametersProgrammer {
   };
 
   export const decompose = (props: IDecomposeProps): IDecomposeOutput => {
-    const resultName: string = StringUtil.escapeDuplicate(
-      props.declaration.parameters.map((p) => p.name.getText()),
-    )("paramErrorResults");
+    const resultName: string = StringUtil.escapeDuplicate({
+      keep: props.declaration.parameters.map((p) => p.name.getText()),
+      input: "paramErrorResults",
+    });
     const validationResultArray: ts.ArrayLiteralExpression =
       ts.factory.createArrayLiteralExpression(
         props.declaration.parameters.map((p, i) =>

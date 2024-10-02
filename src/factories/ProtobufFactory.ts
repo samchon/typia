@@ -37,9 +37,10 @@ export namespace ProtobufFactory {
         },
       });
     if (result.success === false)
-      throw TransformerError.from(`typia.protobuf.${props.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.protobuf.${props.method}`,
+        errors: result.errors,
+      });
     return result.data;
   };
 

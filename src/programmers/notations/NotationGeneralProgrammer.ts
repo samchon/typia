@@ -722,19 +722,24 @@ export namespace NotationGeneralProgrammer {
     definitions: T[];
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
-    const arrow =
-      (parameters: ts.ParameterDeclaration[]) =>
-      (explore: FeatureProgrammer.IExplore) =>
-      (input: ts.Expression): ts.ArrowFunction =>
-        props.factory({
-          parameters,
-          input,
-          definitions: props.definitions,
-          explore,
-        });
+    const arrow = (next: {
+      parameters: ts.ParameterDeclaration[];
+      explore: FeatureProgrammer.IExplore;
+      input: ts.Expression;
+    }): ts.ArrowFunction =>
+      props.factory({
+        parameters: next.parameters,
+        definitions: props.definitions,
+        explore: next.explore,
+        input: next.input,
+      });
     if (props.definitions.every((e) => e.type.recursive === false))
       ts.factory.createCallExpression(
-        arrow([])(props.explore)(props.input),
+        arrow({
+          parameters: [],
+          explore: props.explore,
+          input: props.input,
+        }),
         undefined,
         [],
       );
@@ -750,16 +755,18 @@ export namespace NotationGeneralProgrammer {
           props.config.prefix,
           props.definitions.map((e) => e.type.name).join(" | "),
           () =>
-            arrow(
-              FeatureProgrammer.parameterDeclarations({
+            arrow({
+              parameters: FeatureProgrammer.parameterDeclarations({
                 config: props.config,
                 type: TypeFactory.keyword("any"),
                 input: ts.factory.createIdentifier("input"),
               }),
-            )({
-              ...arrayExplore,
-              postfix: "",
-            })(ts.factory.createIdentifier("input")),
+              explore: {
+                ...arrayExplore,
+                postfix: "",
+              },
+              input: ts.factory.createIdentifier("input"),
+            }),
         ),
       ),
       undefined,
@@ -904,9 +911,10 @@ export namespace NotationGeneralProgrammer {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(`typia.misc.${props.importer.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.misc.${props.importer.method}`,
+        errors: result.errors,
+      });
     return [collection, result.data];
   };
 

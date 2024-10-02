@@ -47,7 +47,10 @@ export namespace LlmSchemaTransformer {
         type,
       });
     if (result.success === false)
-      throw TransformerError.from("typia.llm.schema")(result.errors);
+      throw TransformerError.from({
+        code: "typia.llm.schema",
+        errors: result.errors,
+      });
 
     // GENERATE LLM SCHEMA
     const schema: ILlmSchema = LlmSchemaProgrammer.write(result.data);

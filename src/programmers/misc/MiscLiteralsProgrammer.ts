@@ -39,7 +39,10 @@ export namespace MiscLiteralsProgrammer {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(`typia.misc.literals`)(result.errors);
+      throw TransformerError.from({
+        code: `typia.misc.literals`,
+        errors: result.errors,
+      });
 
     const metadata: Metadata = result.data;
     const values: Set<Atomic.Type | null> = new Set([

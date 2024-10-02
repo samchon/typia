@@ -81,9 +81,10 @@ export namespace FunctionalAssertFunctionProgrammer {
     name: string;
     variable: ts.VariableStatement;
   } => {
-    const name: string = StringUtil.escapeDuplicate(
-      props.parameters.map((p) => p.name.getText()),
-    )("errorFactoryWrapper");
+    const name: string = StringUtil.escapeDuplicate({
+      keep: props.parameters.map((p) => p.name.getText()),
+      input: "errorFactoryWrapper",
+    });
     const variable: ts.VariableStatement = ts.factory.createVariableStatement(
       undefined,
       ts.factory.createVariableDeclarationList(

@@ -69,9 +69,10 @@ export namespace RandomProgrammer {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(`typia.${props.importer.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.${props.importer.method}`,
+        errors: result.errors,
+      });
 
     // GENERATE FUNCTION
     const functions: Record<string, ts.VariableStatement> = Object.fromEntries([

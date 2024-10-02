@@ -977,9 +977,10 @@ export namespace MiscCloneProgrammer {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(`typia.misc.${props.importer.method}`)(
-        result.errors,
-      );
+      throw TransformerError.from({
+        code: `typia.misc.${props.importer.method}`,
+        errors: result.errors,
+      });
     return [collection, result.data];
   };
 

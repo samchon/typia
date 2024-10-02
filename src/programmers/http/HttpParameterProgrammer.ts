@@ -30,7 +30,10 @@ export namespace HttpParameterProgrammer {
       type: props.type,
     });
     if (result.success === false)
-      throw TransformerError.from(props.modulo.getText())(result.errors);
+      throw TransformerError.from({
+        code: props.modulo.getText(),
+        errors: result.errors,
+      });
 
     const atomic = [...HttpMetadataUtil.atomics(result.data)][0]!;
     const importer: FunctionImporter = new FunctionImporter(

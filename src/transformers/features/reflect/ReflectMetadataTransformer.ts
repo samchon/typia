@@ -52,7 +52,10 @@ export namespace ReflectMetadataTransformer {
         type,
       });
       if (result.success === false)
-        throw TransformerError.from("typia.reflect.metadata")(result.errors);
+        throw TransformerError.from({
+          code: "typia.reflect.metadata",
+          errors: result.errors,
+        });
       return result.data;
     });
 
