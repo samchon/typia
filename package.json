@@ -19,7 +19,7 @@
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
-    "dev": "rimraf lib && tsc --watch",
+    "dev": "tsc --project tsconfig.test.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
