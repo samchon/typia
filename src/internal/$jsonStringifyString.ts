@@ -11,7 +11,7 @@
  * @reference https://github.com/fastify/fast-json-stringify/blob/master/lib/serializer.js
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
-export const $jsonStringifyOfString = (str: string): string => {
+export const $jsonStringifyString = (str: string): string => {
   const len = str.length;
   let result = "";
   let last = -1;
