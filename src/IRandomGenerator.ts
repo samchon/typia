@@ -1,32 +1,18 @@
-import { OpenApi } from "@samchon/openapi";
-
 import { Customizable } from "./typings/Customizable";
 
 export interface IRandomGenerator {
   // REGULAR
   boolean(): boolean;
-  integer(props: OpenApi.IJsonSchema.IInteger): number;
-  bigint(
-    props: Omit<
-      OpenApi.IJsonSchema.IInteger,
-      "type" | "default" | "minimum" | "maximum" | "multipleOf"
-    > & {
-      type: "bigint";
-      minimum?: bigint;
-      maximum?: bigint;
-      exclusiveMinimum?: boolean;
-      exclusiveMaximum?: boolean;
-      multipleOf?: bigint;
-      default?: bigint;
-    },
-  ): bigint;
-  number(props: OpenApi.IJsonSchema.INumber): number;
-  string(props: Omit<OpenApi.IJsonSchema.IString, "format">): string;
+  integer(minimum?: number, maximum?: number): number;
+  bigint(minimum?: bigint, maximum?: bigint): bigint;
+  number(minimum?: number, maximum?: number): number;
+  string(length?: number): string;
   array<T>(
-    props: OpenApi.IJsonSchema.IArray & {
-      element: (index: number, count: number) => T;
-    },
+    closure: (index: number) => T,
+    count?: number,
+    unique?: boolean,
   ): T[];
+  length(): number;
   pattern(regex: RegExp): string;
 
   //----
@@ -53,8 +39,8 @@ export interface IRandomGenerator {
   url(): string;
 
   // TIMESTAMPS
-  datetime(props: { minimum?: number; maximum?: number }): string;
-  date(props: { minimum?: number; maximum?: number }): string;
+  datetime(minimum?: number, maximum?: number): string;
+  date(minimum?: number, maximum?: number): string;
   time(): string;
   duration(): string;
 

@@ -1,6 +1,6 @@
 import { Resolved } from "../Resolved";
 
-export const $cloneAny = <T>(value: T): Resolved<T> =>
+export const $miscCloneAny = <T>(value: T): Resolved<T> =>
   $cloneMain(value) as Resolved<T>;
 
 const $cloneMain = (value: any): any => {
