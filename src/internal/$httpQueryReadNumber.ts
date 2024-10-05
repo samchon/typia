@@ -1,4 +1,4 @@
-export const $httpQueryNumber = (
+export const $httpQueryReadNumber = (
   str: string | null,
 ): number | null | undefined =>
   !!str?.length ? (str === "null" ? null : (toNumber(str) as any)) : undefined;

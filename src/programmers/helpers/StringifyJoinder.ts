@@ -3,14 +3,15 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
 
+import { ITypiaContext } from "../../transformers/ITypiaContext";
+
 import { stringify_dynamic_properties } from "../internal/stringify_dynamic_properties";
 import { stringify_regular_properties } from "../internal/stringify_regular_properties";
-import { FunctionProgrammer } from "./FunctionProgrammer";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
   export const object = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     entries: IExpressionEntry<ts.Expression>[];
   }): ts.Expression => {
     // CHECK AND SORT ENTRIES
@@ -47,7 +48,7 @@ export namespace StringifyJoiner {
         ? expressions
         : [
             ts.factory.createCallExpression(
-              props.functor.use("tail"),
+              props.context.importer.internal("jsonStringifyTail"),
               undefined,
               [TemplateFactory.generate(expressions)],
             ),

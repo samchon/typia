@@ -88,7 +88,7 @@ export namespace ProtobufEncodeProgrammer {
             callEncoder(
               "sizer",
               ts.factory.createNewExpression(
-                props.functor.use("Sizer"),
+                props.context.importer.internal("ProtobufSizer"),
                 undefined,
                 [],
               ),
@@ -96,7 +96,7 @@ export namespace ProtobufEncodeProgrammer {
             callEncoder(
               "writer",
               ts.factory.createNewExpression(
-                props.functor.use("Writer"),
+                props.context.importer.internal("ProtobufWriter"),
                 undefined,
                 [ts.factory.createIdentifier("sizer")],
               ),
@@ -434,6 +434,7 @@ export namespace ProtobufEncodeProgrammer {
     else
       return wrapper(
         iterate({
+          context: props.context,
           functor: props.functor,
           index: props.index,
           unions,
@@ -444,6 +445,7 @@ export namespace ProtobufEncodeProgrammer {
   };
 
   const iterate = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     index: number | null;
     unions: IUnion[];
@@ -888,6 +890,7 @@ export namespace ProtobufEncodeProgrammer {
         success: (expr) => expr,
         escaper: (v) =>
           create_throw_error({
+            context: props.context,
             functor: props.functor,
             expected: v.expected,
             input: v.input,
@@ -955,6 +958,7 @@ export namespace ProtobufEncodeProgrammer {
                   ),
                 )
               : create_throw_error({
+                  context: props.context,
                   functor: props.functor,
                   input: props.input,
                   expected,
@@ -977,17 +981,22 @@ export namespace ProtobufEncodeProgrammer {
   const PREFIX = "$pe";
 
   const create_throw_error = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
   }) =>
     ts.factory.createExpressionStatement(
       ts.factory.createCallExpression(
-        props.functor.use("throws"),
+        props.context.importer.internal("throwTypeGuardError"),
         [],
         [
           ts.factory.createObjectLiteralExpression(
             [
+              ts.factory.createPropertyAssignment(
+                "method",
+                ts.factory.createStringLiteral(props.functor.method),
+              ),
               ts.factory.createPropertyAssignment(
                 "expected",
                 ts.factory.createStringLiteral(props.expected),

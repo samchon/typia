@@ -84,7 +84,7 @@ export namespace ExpressionFactory {
   export const currying = (props: {
     function: ts.Expression;
     arguments: ts.Expression[];
-  }) => {
+  }): ts.CallExpression => {
     if (props.arguments.length === 0)
       return ts.factory.createCallExpression(
         props.function,

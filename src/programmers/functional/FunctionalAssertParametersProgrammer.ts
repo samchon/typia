@@ -36,7 +36,7 @@ export namespace FunctionalAssertParametersProgrammer {
 
   export const write = (props: IProps): ts.CallExpression => {
     const wrapper = FunctionalAssertFunctionProgrammer.errorFactoryWrapper({
-      modulo: props.modulo,
+      context: props.context,
       parameters: props.declaration.parameters,
       init: props.init,
     });

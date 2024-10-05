@@ -477,6 +477,7 @@ export namespace MiscPruneProgrammer {
             success: ts.factory.createTrue(),
             failure: (v) =>
               create_throw_error({
+                context: props.context,
                 functor: props.functor,
                 expected: v.expected,
                 input: v.input,
@@ -636,6 +637,7 @@ export namespace MiscPruneProgrammer {
             success: (exp) => exp,
             escaper: (v) =>
               create_throw_error({
+                context: props.context,
                 functor: props.functor,
                 expected: v.expected,
                 input: v.input,
@@ -646,6 +648,7 @@ export namespace MiscPruneProgrammer {
           }),
         failure: (next) =>
           create_throw_error({
+            context: props.context,
             functor: props.functor,
             expected: next.expected,
             input: next.input,
@@ -685,24 +688,29 @@ export namespace MiscPruneProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.misc.${props.functor.method}`,
+        code: props.functor.method,
         errors: result.errors,
       });
     return [collection, result.data];
   };
 
   const create_throw_error = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
   }) =>
     ts.factory.createExpressionStatement(
       ts.factory.createCallExpression(
-        props.functor.use("throws"),
+        props.context.importer.internal("throwTypeGuardError"),
         [],
         [
           ts.factory.createObjectLiteralExpression(
             [
+              ts.factory.createPropertyAssignment(
+                "method",
+                ts.factory.createStringLiteral(props.functor.method),
+              ),
               ts.factory.createPropertyAssignment(
                 "expected",
                 ts.factory.createStringLiteral(props.expected),

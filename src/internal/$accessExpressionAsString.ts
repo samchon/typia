@@ -1,4 +1,4 @@
-export const $accessExpressionString = (str: string): string =>
+export const $accessExpressionAsString = (str: string): string =>
   variable(str) ? `.${str}` : `[${JSON.stringify(str)}]`;
 
 const variable = (str: string): boolean =>

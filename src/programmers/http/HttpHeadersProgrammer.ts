@@ -20,6 +20,7 @@ import { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
+import { StringUtil } from "../../utils/StringUtil";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
@@ -50,14 +51,14 @@ export namespace HttpHeadersProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.http.${props.functor.method}`,
+        code: props.functor.method,
         errors: result.errors,
       });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
     const statements: ts.Statement[] = decode_object({
-      functor: props.functor,
+      context: props.context,
       object,
     });
     return {
@@ -111,7 +112,7 @@ export namespace HttpHeadersProgrammer {
   };
 
   export const validate = (
-    meta: Metadata,
+    metadata: Metadata,
     explore: MetadataFactory.IExplore,
   ): string[] => {
     const errors: string[] = [];
@@ -119,10 +120,10 @@ export namespace HttpHeadersProgrammer {
 
     if (explore.top === true) {
       // TOP MUST BE ONLY OBJECT
-      if (meta.objects.length !== 1 || meta.bucket() !== 1)
+      if (metadata.objects.length !== 1 || metadata.bucket() !== 1)
         insert("only one object type is allowed.");
-      if (meta.nullable === true) insert("headers cannot be null.");
-      if (meta.isRequired() === false) insert("headers cannot be null.");
+      if (metadata.nullable === true) insert("headers cannot be null.");
+      if (metadata.isRequired() === false) insert("headers cannot be null.");
     } else if (
       explore.nested !== null &&
       explore.nested instanceof MetadataArrayType
@@ -130,17 +131,19 @@ export namespace HttpHeadersProgrammer {
       //----
       // ARRAY
       //----
-      const atomics = HttpMetadataUtil.atomics(meta);
+      const atomics = HttpMetadataUtil.atomics(metadata);
       const expected: number =
-        meta.atomics.length +
-        meta.templates.length +
-        meta.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0);
+        metadata.atomics.length +
+        metadata.templates.length +
+        metadata.constants
+          .map((c) => c.values.length)
+          .reduce((a, b) => a + b, 0);
       if (atomics.size > 1) insert("union type is not allowed in array.");
-      if (meta.size() !== expected)
+      if (metadata.size() !== expected)
         insert("only atomic or constant types are allowed in array.");
-      if (meta.nullable === true)
+      if (metadata.nullable === true)
         insert("nullable type is not allowed in array.");
-      if (meta.isRequired() === false)
+      if (metadata.isRequired() === false)
         insert("optional type is not allowed in array.");
     } else if (explore.object && explore.property !== null) {
       //----
@@ -150,25 +153,26 @@ export namespace HttpHeadersProgrammer {
       if (typeof explore.property === "object")
         insert("dynamic property is not allowed.");
       // DO NOT ALLOW TUPLE TYPE
-      if (meta.tuples.length) insert("tuple type is not allowed.");
+      if (metadata.tuples.length) insert("tuple type is not allowed.");
       // DO NOT ALLOW UNION TYPE
-      if (HttpMetadataUtil.isUnion(meta)) insert("union type is not allowed.");
+      if (HttpMetadataUtil.isUnion(metadata))
+        insert("union type is not allowed.");
       // DO NOT ALLOW NESTED OBJECT
       if (
-        meta.objects.length ||
-        meta.sets.length ||
-        meta.maps.length ||
-        meta.natives.length
+        metadata.objects.length ||
+        metadata.sets.length ||
+        metadata.maps.length ||
+        metadata.natives.length
       )
         insert("nested object type is not allowed.");
       // DO NOT ALLOW NULLABLE
-      if (meta.nullable === true) insert("nullable type is not allowed.");
+      if (metadata.nullable === true) insert("nullable type is not allowed.");
 
       //----
       // SPECIAL KEY NAMES
       //----
       const isArray: boolean =
-        meta.arrays.length >= 1 || meta.tuples.length >= 1;
+        metadata.arrays.length >= 1 || metadata.tuples.length >= 1;
       // SET-COOKIE MUST BE ARRAY
       if (
         typeof explore.property === "string" &&
@@ -203,7 +207,7 @@ export namespace HttpHeadersProgrammer {
   };
 
   const decode_object = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     object: MetadataObject;
   }): ts.Statement[] => {
     const output: ts.Identifier = ts.factory.createIdentifier("output");
@@ -219,7 +223,7 @@ export namespace HttpHeadersProgrammer {
             )
               optionals.push(p.key.constants[0]!.values[0]!.value as string);
             return decode_regular_property({
-              functor: props.functor,
+              context: props.context,
               property: p,
             });
           }),
@@ -245,7 +249,7 @@ export namespace HttpHeadersProgrammer {
   };
 
   const decode_regular_property = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     property: MetadataProperty;
   }): ts.PropertyAssignment => {
     const key: string = props.property.key.constants[0]!.values[0]!
@@ -279,14 +283,14 @@ export namespace HttpHeadersProgrammer {
         ? key === "set-cookie"
           ? input
           : decode_array({
-              functor: props.functor,
+              context: props.context,
               type,
               key,
               value,
               input,
             })
         : decode_value({
-            functor: props.functor,
+            context: props.context,
             type,
             input,
           }),
@@ -294,25 +298,47 @@ export namespace HttpHeadersProgrammer {
   };
 
   const decode_value = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     type: Atomic.Literal;
     input: ts.Expression;
   }) =>
     props.type === "string"
       ? props.input
       : ts.factory.createCallExpression(
-          props.functor.use(props.type),
+          props.context.importer.internal(
+            `httpHeaderRead${StringUtil.capitalize(props.type)}`,
+          ),
           undefined,
           [props.input],
         );
 
   const decode_array = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     type: Atomic.Literal;
     key: string;
     value: Metadata;
     input: ts.Expression;
   }) => {
+    const reader =
+      props.type === "string"
+        ? ts.factory.createArrowFunction(
+            undefined,
+            undefined,
+            [IdentifierFactory.parameter("str")],
+            undefined,
+            undefined,
+            ts.factory.createCallExpression(
+              IdentifierFactory.access(
+                ts.factory.createIdentifier("str"),
+                "trim",
+              ),
+              undefined,
+              undefined,
+            ),
+          )
+        : props.context.importer.internal(
+            `httpHeaderRead${StringUtil.capitalize(props.type)}`,
+          );
     const split: ts.CallChain = ts.factory.createCallChain(
       ts.factory.createPropertyAccessChain(
         ts.factory.createCallChain(
@@ -334,7 +360,7 @@ export namespace HttpHeadersProgrammer {
       ),
       undefined,
       undefined,
-      [props.functor.use(props.type)],
+      [reader],
     );
     return ts.factory.createConditionalExpression(
       ExpressionFactory.isArray(props.input),
@@ -342,7 +368,7 @@ export namespace HttpHeadersProgrammer {
       ts.factory.createCallExpression(
         IdentifierFactory.access(props.input, "map"),
         undefined,
-        [props.functor.use(props.type)],
+        [reader],
       ),
       undefined,
       props.value.isRequired() === false

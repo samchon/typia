@@ -1,4 +1,4 @@
-export const $httpQueryBigint = (
+export const $httpQueryReadBigint = (
   str: string | null,
 ): bigint | null | undefined =>
   !!str?.length ? (str === "null" ? null : (toBigint(str) as any)) : undefined;

@@ -88,7 +88,7 @@ export namespace ProtobufDecodeProgrammer {
             StatementFactory.constant({
               name: "reader",
               value: ts.factory.createNewExpression(
-                props.functor.use("Reader"),
+                props.context.importer.internal("ProtobufReader"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),

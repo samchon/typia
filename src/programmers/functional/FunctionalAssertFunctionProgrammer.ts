@@ -2,7 +2,6 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { TypeFactory } from "../../factories/TypeFactory";
 
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
@@ -27,7 +26,7 @@ export namespace FunctionalAssertFunctionProgrammer {
 
   export const write = (props: IProps): ts.CallExpression => {
     const wrapper = errorFactoryWrapper({
-      modulo: props.modulo,
+      context: props.context,
       parameters: props.declaration.parameters,
       init: props.init,
     });
@@ -74,7 +73,7 @@ export namespace FunctionalAssertFunctionProgrammer {
   };
 
   export const errorFactoryWrapper = (props: {
-    modulo: ts.LeftHandSideExpression;
+    context: ITypiaContext;
     parameters: readonly ts.ParameterDeclaration[];
     init: ts.Expression | undefined;
   }): {
@@ -94,12 +93,8 @@ export namespace FunctionalAssertFunctionProgrammer {
             undefined,
             AssertProgrammer.Guardian.type(),
             props.init ??
-              ts.factory.createPropertyAccessExpression(
-                ts.factory.createAsExpression(
-                  props.modulo,
-                  TypeFactory.keyword("any"),
-                ),
-                "errorFactory",
+              props.context.importer.internal(
+                "functionalTypeGuardErrorFactory",
               ),
           ),
         ],

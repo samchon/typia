@@ -1,4 +1,4 @@
-export const $httpQueryBoolean = (
+export const $httpQueryReadBoolean = (
   str: string | null,
 ): boolean | null | undefined =>
   str === null

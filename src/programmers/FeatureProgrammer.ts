@@ -341,7 +341,7 @@ export namespace FeatureProgrammer {
         props.config.generator.objects?.(collection) ??
         write_object_functions({
           config: props.config,
-          functor: props.functor,
+          context: props.context,
           collection,
         }),
       unions:
@@ -393,7 +393,7 @@ export namespace FeatureProgrammer {
 
   export const write_object_functions = (props: {
     config: IConfig;
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     collection: MetadataCollection;
   }) =>
     props.collection.objects().map((object) =>
@@ -413,7 +413,7 @@ export namespace FeatureProgrammer {
             input: ts.factory.createIdentifier("input"),
             entries: feature_object_entries({
               config: props.config,
-              functor: props.functor,
+              context: props.context,
               input: ts.factory.createIdentifier("input"),
               object,
             }),

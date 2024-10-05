@@ -1,4 +1,6 @@
-export const $httpQueryParse = (input: string | URLSearchParams) => {
+export const $httpQueryParseURLSearchParams = (
+  input: string | URLSearchParams,
+) => {
   if (typeof input === "string") {
     const index: number = input.indexOf("?");
     input = index === -1 ? "" : input.substring(index + 1);

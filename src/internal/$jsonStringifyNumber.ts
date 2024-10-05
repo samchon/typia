@@ -1,6 +1,6 @@
 import { TypeGuardError } from "../TypeGuardError";
 
-export const $$jsonStringifyNumber = (value: number): number => {
+export const $jsonStringifyNumber = (value: number): number => {
   if (isFinite(value) === false)
     throw new TypeGuardError({
       method: "typia.json.stringify",
