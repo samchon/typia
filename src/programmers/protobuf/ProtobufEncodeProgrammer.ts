@@ -21,7 +21,7 @@ import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { ProtobufUtil } from "../helpers/ProtobufUtil";
 import { ProtobufWire } from "../helpers/ProtobufWire";
 import { UnionPredicator } from "../helpers/UnionPredicator";
@@ -31,7 +31,7 @@ export namespace ProtobufEncodeProgrammer {
   export const decompose = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -56,10 +56,10 @@ export namespace ProtobufEncodeProgrammer {
     return {
       functions: {
         encoder: StatementFactory.constant({
-          name: props.importer.useLocal("encoder"),
+          name: props.functor.useLocal("encoder"),
           value: write_encoder({
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             collection,
             metadata,
           }),
@@ -88,7 +88,7 @@ export namespace ProtobufEncodeProgrammer {
             callEncoder(
               "sizer",
               ts.factory.createNewExpression(
-                props.importer.use("Sizer"),
+                props.functor.use("Sizer"),
                 undefined,
                 [],
               ),
@@ -96,7 +96,7 @@ export namespace ProtobufEncodeProgrammer {
             callEncoder(
               "writer",
               ts.factory.createNewExpression(
-                props.importer.use("Writer"),
+                props.functor.use("Writer"),
                 undefined,
                 [ts.factory.createIdentifier("sizer")],
               ),
@@ -116,23 +116,23 @@ export namespace ProtobufEncodeProgrammer {
   };
 
   export const write = (props: IProgrammerProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
 
   const write_encoder = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
     metadata: Metadata;
   }): ts.ArrowFunction => {
@@ -144,7 +144,7 @@ export namespace ProtobufEncodeProgrammer {
           name: `${PREFIX}o${object.index}`,
           value: write_object_function({
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             input: ts.factory.createIdentifier("input"),
             object,
             explore: {
@@ -158,7 +158,7 @@ export namespace ProtobufEncodeProgrammer {
       );
     const main: ts.Block = decode({
       context: props.context,
-      importer: props.importer,
+      functor: props.functor,
       index: null,
       input: ts.factory.createIdentifier("input"),
       metadata: props.metadata,
@@ -180,7 +180,7 @@ export namespace ProtobufEncodeProgrammer {
       undefined,
       ts.factory.createBlock(
         [
-          ...props.importer.declareUnions(),
+          ...props.functor.declareUnions(),
           ...functors,
           ...IsProgrammer.write_function_statements(props),
           ...main.statements,
@@ -195,7 +195,7 @@ export namespace ProtobufEncodeProgrammer {
 
   const write_object_function = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     input: ts.Expression;
     object: MetadataObject;
     explore: FeatureProgrammer.IExplore;
@@ -235,7 +235,7 @@ export namespace ProtobufEncodeProgrammer {
     ----------------------------------------------------------- */
   const decode = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     index: number | null;
     input: ts.Expression;
     metadata: Metadata;
@@ -434,7 +434,7 @@ export namespace ProtobufEncodeProgrammer {
     else
       return wrapper(
         iterate({
-          importer: props.importer,
+          functor: props.functor,
           index: props.index,
           unions,
           expected: props.metadata.getName(),
@@ -444,7 +444,7 @@ export namespace ProtobufEncodeProgrammer {
   };
 
   const iterate = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     index: number | null;
     unions: IUnion[];
     expected: string;
@@ -472,7 +472,7 @@ export namespace ProtobufEncodeProgrammer {
 
   const decode_map = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     index: number;
     input: ts.Expression;
     entry: Metadata.Entry;
@@ -530,7 +530,7 @@ export namespace ProtobufEncodeProgrammer {
 
   const decode_object = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     index: number | null;
     input: ts.Expression;
     object: MetadataObject;
@@ -580,7 +580,7 @@ export namespace ProtobufEncodeProgrammer {
           : []),
         ts.factory.createCallExpression(
           ts.factory.createIdentifier(
-            props.importer.useLocal(`${PREFIX}o${props.object.index}`),
+            props.functor.useLocal(`${PREFIX}o${props.object.index}`),
           ),
           [],
           [props.input],
@@ -601,7 +601,7 @@ export namespace ProtobufEncodeProgrammer {
 
   const decode_array = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     index: number;
     input: ts.Expression;
     array: MetadataArray;
@@ -834,7 +834,7 @@ export namespace ProtobufEncodeProgrammer {
     ----------------------------------------------------------- */
   const explore_objects = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     level: number;
     index: number | null;
     input: ts.Expression;
@@ -845,7 +845,7 @@ export namespace ProtobufEncodeProgrammer {
     if (props.objects.length === 1)
       return decode_object({
         context: props.context,
-        importer: props.importer,
+        functor: props.functor,
         index: props.indexes
           ? props.indexes.get(props.objects[0]!)!
           : props.index,
@@ -869,7 +869,7 @@ export namespace ProtobufEncodeProgrammer {
         checker: (v) =>
           IsProgrammer.decode_object({
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             object: v.object,
             input: v.input,
             explore: v.explore,
@@ -878,7 +878,7 @@ export namespace ProtobufEncodeProgrammer {
           ExpressionFactory.selfCall(
             decode_object({
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               index: indexes.get(v.object)!,
               input: v.input,
               object: v.object,
@@ -888,7 +888,7 @@ export namespace ProtobufEncodeProgrammer {
         success: (expr) => expr,
         escaper: (v) =>
           create_throw_error({
-            importer: props.importer,
+            functor: props.functor,
             expected: v.expected,
             input: v.input,
           }),
@@ -914,7 +914,7 @@ export namespace ProtobufEncodeProgrammer {
         const pred: ts.Expression = spec.neighbour
           ? IsProgrammer.decode({
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               input: accessor,
               metadata: spec.property.value,
               explore: {
@@ -930,7 +930,7 @@ export namespace ProtobufEncodeProgrammer {
             ExpressionFactory.selfCall(
               decode_object({
                 context: props.context,
-                importer: props.importer,
+                functor: props.functor,
                 index: indexes.get(spec.object)!,
                 input: props.input,
                 object: spec.object,
@@ -944,7 +944,7 @@ export namespace ProtobufEncodeProgrammer {
                   ExpressionFactory.selfCall(
                     explore_objects({
                       context: props.context,
-                      importer: props.importer,
+                      functor: props.functor,
                       level: props.level + 1,
                       index: props.index,
                       input: props.input,
@@ -955,7 +955,7 @@ export namespace ProtobufEncodeProgrammer {
                   ),
                 )
               : create_throw_error({
-                  importer: props.importer,
+                  functor: props.functor,
                   input: props.input,
                   expected,
                 })
@@ -977,13 +977,13 @@ export namespace ProtobufEncodeProgrammer {
   const PREFIX = "$pe";
 
   const create_throw_error = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
   }) =>
     ts.factory.createExpressionStatement(
       ts.factory.createCallExpression(
-        props.importer.use("throws"),
+        props.functor.use("throws"),
         [],
         [
           ts.factory.createObjectLiteralExpression(

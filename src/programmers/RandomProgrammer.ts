@@ -24,7 +24,7 @@ import { Escaper } from "../utils/Escaper";
 
 import { Format } from "../tags";
 import { FeatureProgrammer } from "./FeatureProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { RandomJoiner } from "./helpers/RandomJoiner";
 import { RandomRanger } from "./helpers/RandomRanger";
 import { random_custom } from "./internal/random_custom";
@@ -39,7 +39,7 @@ export namespace RandomProgrammer {
   }
   export interface IDecomposeProps {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
     init: ts.Expression | undefined;
@@ -70,22 +70,22 @@ export namespace RandomProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.${props.importer.method}`,
+        code: `typia.${props.functor.method}`,
         errors: result.errors,
       });
 
     // GENERATE FUNCTION
     const functions: Record<string, ts.VariableStatement> = Object.fromEntries([
       ...write_object_functions({
-        importer: props.importer,
+        functor: props.functor,
         collection,
       }).map((v, i) => [Prefix.object(i), v]),
       ...write_array_functions({
-        importer: props.importer,
+        functor: props.functor,
         collection,
       }).map((v, i) => [Prefix.array(i), v]),
       ...write_tuple_functions({
-        importer: props.importer,
+        functor: props.functor,
         collection,
       }).map((v, i) => [Prefix.tuple(i), v]),
     ]);
@@ -128,7 +128,7 @@ export namespace RandomProgrammer {
           ),
           ts.factory.createReturnStatement(
             decode({
-              importer: props.importer,
+              functor: props.functor,
               explore: {
                 function: false,
                 recursive: false,
@@ -148,22 +148,22 @@ export namespace RandomProgrammer {
   };
 
   export const write = (props: IProps) => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
 
   const write_object_functions = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection.objects().map((obj, i) =>
@@ -187,10 +187,10 @@ export namespace RandomProgrammer {
           TypeFactory.keyword("any"),
           undefined,
           RandomJoiner.object({
-            coalesce: coalesce(props.importer),
+            coalesce: coalesce(props.functor),
             decode: (metadata) =>
               decode({
-                importer: props.importer,
+                functor: props.functor,
                 explore: {
                   recursive: obj.recursive,
                   function: true,
@@ -204,7 +204,7 @@ export namespace RandomProgrammer {
     );
 
   const write_array_functions = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
@@ -239,10 +239,10 @@ export namespace RandomProgrammer {
             TypeFactory.keyword("any"),
             undefined,
             RandomJoiner.array({
-              coalesce: coalesce(props.importer),
+              coalesce: coalesce(props.functor),
               decode: (metadata) =>
                 decode({
-                  importer: props.importer,
+                  functor: props.functor,
                   explore: {
                     recursive: true,
                     function: true,
@@ -262,7 +262,7 @@ export namespace RandomProgrammer {
       );
 
   const write_tuple_functions = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
@@ -291,7 +291,7 @@ export namespace RandomProgrammer {
             RandomJoiner.tuple({
               decode: (metadata) =>
                 decode({
-                  importer: props.importer,
+                  functor: props.functor,
                   explore: {
                     function: true,
                     recursive: true,
@@ -308,7 +308,7 @@ export namespace RandomProgrammer {
     DECODERS
   ----------------------------------------------------------- */
   const decode = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     metadata: Metadata;
   }): ts.Expression => {
@@ -340,25 +340,25 @@ export namespace RandomProgrammer {
       );
     for (const atomic of props.metadata.atomics)
       if (atomic.type === "boolean")
-        expressions.push(decode_boolean(props.importer));
+        expressions.push(decode_boolean(props.functor));
       else if (atomic.type === "number")
         expressions.push(
           ...decode_number({
-            importer: props.importer,
+            functor: props.functor,
             atomic,
           }),
         );
       else if (atomic.type === "string")
         expressions.push(
           ...decode_string({
-            importer: props.importer,
+            functor: props.functor,
             atomic,
           }),
         );
       else if (atomic.type === "bigint")
         expressions.push(
           ...decode_bigint({
-            importer: props.importer,
+            functor: props.functor,
             atomic,
           }),
         );
@@ -395,7 +395,7 @@ export namespace RandomProgrammer {
     for (const name of props.metadata.natives)
       expressions.push(
         decode_native({
-          importer: props.importer,
+          functor: props.functor,
           name,
         }),
       );
@@ -417,7 +417,7 @@ export namespace RandomProgrammer {
     // PICK UP A TYPE
     if (expressions.length === 1) return expressions[0]!;
     return ts.factory.createCallExpression(
-      ts.factory.createCallExpression(props.importer.use("pick"), undefined, [
+      ts.factory.createCallExpression(props.functor.use("pick"), undefined, [
         ts.factory.createArrayLiteralExpression(
           expressions.map((expr) =>
             ts.factory.createArrowFunction(
@@ -437,9 +437,9 @@ export namespace RandomProgrammer {
     );
   };
 
-  const decode_boolean = (importer: FunctionImporter) =>
+  const decode_boolean = (functor: FunctionProgrammer) =>
     ts.factory.createCallExpression(
-      coalesce(importer)("boolean"),
+      coalesce(functor)("boolean"),
       undefined,
       undefined,
     );
@@ -454,7 +454,7 @@ export namespace RandomProgrammer {
           : ExpressionFactory.bigint(Number(value));
 
   const decode_template = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     template: MetadataTemplate;
   }) =>
@@ -468,7 +468,7 @@ export namespace RandomProgrammer {
     );
 
   const decode_number = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     atomic: MetadataAtomic;
   }): ts.Expression[] =>
     (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) => {
@@ -486,7 +486,7 @@ export namespace RandomProgrammer {
           : "double";
       const multiply = tags.find((t) => t.kind === "multipleOf");
       return random_custom({
-        accessor: coalesce(props.importer),
+        accessor: coalesce(props.functor),
         type: "number",
         tags,
         expression: RandomRanger.number({
@@ -496,8 +496,8 @@ export namespace RandomProgrammer {
             setter: (args) =>
               ts.factory.createCallExpression(
                 type !== "double" || multiply !== undefined
-                  ? coalesce(props.importer)("integer")
-                  : coalesce(props.importer)("number"),
+                  ? coalesce(props.functor)("integer")
+                  : coalesce(props.functor)("number"),
                 undefined,
                 args.map((val) => ExpressionFactory.number(val)),
               ),
@@ -513,12 +513,12 @@ export namespace RandomProgrammer {
     });
 
   const decode_bigint = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     atomic: MetadataAtomic;
   }): ts.Expression[] =>
     (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) =>
       random_custom({
-        accessor: coalesce(props.importer),
+        accessor: coalesce(props.functor),
         type: "bigint",
         tags,
         expression: RandomRanger.number({
@@ -533,7 +533,7 @@ export namespace RandomProgrammer {
             transform: (value) => ExpressionFactory.bigint(value),
             setter: (args) =>
               ts.factory.createCallExpression(
-                coalesce(props.importer)("bigint"),
+                coalesce(props.functor)("bigint"),
                 undefined,
                 args.map((value) => ExpressionFactory.bigint(value)),
               ),
@@ -549,25 +549,25 @@ export namespace RandomProgrammer {
     );
 
   const decode_string = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     atomic: MetadataAtomic;
   }): ts.Expression[] =>
     (props.atomic.tags.length ? props.atomic.tags : [[]]).map((tags) =>
       random_custom({
-        accessor: coalesce(props.importer),
+        accessor: coalesce(props.functor),
         type: "string",
         tags,
         expression: (() => {
           for (const t of tags)
             if (t.kind === "format")
               return ts.factory.createCallExpression(
-                coalesce(props.importer)(emendFormat(t.value)),
+                coalesce(props.functor)(emendFormat(t.value)),
                 undefined,
                 undefined,
               );
             else if (t.kind === "pattern")
               return ts.factory.createCallExpression(
-                coalesce(props.importer)("pattern"),
+                coalesce(props.functor)("pattern"),
                 undefined,
                 [
                   ts.factory.createIdentifier(
@@ -577,7 +577,7 @@ export namespace RandomProgrammer {
               );
 
           const tail = RandomRanger.length({
-            coalesce: coalesce(props.importer),
+            coalesce: coalesce(props.functor),
             defaults: {
               minimum: 5,
               maximum: 25,
@@ -590,7 +590,7 @@ export namespace RandomProgrammer {
             tags,
           });
           return ts.factory.createCallExpression(
-            coalesce(props.importer)("string"),
+            coalesce(props.functor)("string"),
             undefined,
             tail ? [tail] : undefined,
           );
@@ -599,14 +599,14 @@ export namespace RandomProgrammer {
     );
 
   const decode_array = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     array: MetadataArray;
   }): ts.Expression[] => {
     const fixed: Array<[ts.Expression | undefined, ts.Expression | undefined]> =
       (props.array.tags.length ? props.array.tags : [[]]).map((tags) => [
         RandomRanger.length({
-          coalesce: coalesce(props.importer),
+          coalesce: coalesce(props.functor),
           defaults: {
             minimum: 0,
             maximum: 3,
@@ -631,11 +631,11 @@ export namespace RandomProgrammer {
       return fixed.map(([len, unique]) =>
         ts.factory.createCallExpression(
           ts.factory.createIdentifier(
-            props.importer.useLocal(Prefix.array(props.array.type.index!)),
+            props.functor.useLocal(Prefix.array(props.array.type.index!)),
           ),
           undefined,
           [
-            len ?? coalesce(props.importer)("length"),
+            len ?? coalesce(props.functor)("length"),
             unique ?? ts.factory.createFalse(),
             ts.factory.createTrue(),
             props.explore.recursive
@@ -649,7 +649,7 @@ export namespace RandomProgrammer {
       );
     return fixed.map(([len, unique]) => {
       const expr: ts.Expression = RandomJoiner.array({
-        coalesce: coalesce(props.importer),
+        coalesce: coalesce(props.functor),
         decode: (metadata) =>
           decode({
             ...props,
@@ -679,14 +679,14 @@ export namespace RandomProgrammer {
   };
 
   const decode_tuple = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     tuple: MetadataTuple;
   }): ts.Expression =>
     props.tuple.type.recursive
       ? ts.factory.createCallExpression(
           ts.factory.createIdentifier(
-            props.importer.useLocal(Prefix.tuple(props.tuple.type.index!)),
+            props.functor.useLocal(Prefix.tuple(props.tuple.type.index!)),
           ),
           undefined,
           [
@@ -709,13 +709,13 @@ export namespace RandomProgrammer {
         });
 
   const decode_object = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     object: MetadataObject;
   }) =>
     ts.factory.createCallExpression(
       ts.factory.createIdentifier(
-        props.importer.useLocal(Prefix.object(props.object.index)),
+        props.functor.useLocal(Prefix.object(props.object.index)),
       ),
       undefined,
       props.explore.function
@@ -741,7 +741,7 @@ export namespace RandomProgrammer {
     NATIVE CLASSES
   ----------------------------------------------------------- */
   const decode_set = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     metadata: Metadata;
   }) =>
@@ -766,7 +766,7 @@ export namespace RandomProgrammer {
     );
 
   const decode_map = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     explore: IExplore;
     entry: Metadata.Entry;
   }) =>
@@ -809,13 +809,13 @@ export namespace RandomProgrammer {
     );
 
   const decode_native = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     name: string;
   }): ts.Expression => {
-    if (props.name === "Boolean") return decode_boolean(props.importer);
+    if (props.name === "Boolean") return decode_boolean(props.functor);
     else if (props.name === "Number")
       return decode_number({
-        importer: props.importer,
+        functor: props.functor,
         atomic: MetadataAtomic.create({
           type: "number",
           tags: [],
@@ -823,13 +823,13 @@ export namespace RandomProgrammer {
       })[0]!;
     else if (props.name === "String")
       return decode_string({
-        importer: props.importer,
+        functor: props.functor,
         atomic: MetadataAtomic.create({
           type: "string",
           tags: [],
         }),
       })[0]!;
-    else if (props.name === "Date") return decode_native_date(props.importer);
+    else if (props.name === "Date") return decode_native_date(props.functor);
     else if (
       props.name === "Uint8Array" ||
       props.name === "Uint8ClampedArray" ||
@@ -853,9 +853,9 @@ export namespace RandomProgrammer {
         name: props.name,
       });
     else if (props.name === "DataView")
-      return decode_native_data_view(props.importer);
-    else if (props.name === "Blob") return decode_native_blob(props.importer);
-    else if (props.name === "File") return decode_native_file(props.importer);
+      return decode_native_data_view(props.functor);
+    else if (props.name === "Blob") return decode_native_blob(props.functor);
+    else if (props.name === "File") return decode_native_file(props.functor);
     else if (props.name === "RegExp") return decode_regexp();
     else
       return ts.factory.createNewExpression(
@@ -865,13 +865,13 @@ export namespace RandomProgrammer {
       );
   };
 
-  const decode_native_date = (importer: FunctionImporter) =>
+  const decode_native_date = (functor: FunctionProgrammer) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("Date"),
       undefined,
       [
         ts.factory.createCallExpression(
-          coalesce(importer)("datetime"),
+          coalesce(functor)("datetime"),
           undefined,
           [],
         ),
@@ -879,7 +879,7 @@ export namespace RandomProgrammer {
     );
 
   const decode_native_byte_array = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     name:
       | "Uint8Array"
       | "Uint8ClampedArray"
@@ -919,7 +919,7 @@ export namespace RandomProgrammer {
       [],
       [
         ts.factory.createCallExpression(
-          coalesce(props.importer)("array"),
+          coalesce(props.functor)("array"),
           undefined,
           [
             ts.factory.createArrowFunction(
@@ -929,7 +929,7 @@ export namespace RandomProgrammer {
               TypeFactory.keyword("any"),
               undefined,
               ts.factory.createCallExpression(
-                coalesce(props.importer)(
+                coalesce(props.functor)(
                   props.name === "Float32Array" || props.name === "Float64Array"
                     ? "number"
                     : props.name === "BigInt64Array" ||
@@ -947,7 +947,7 @@ export namespace RandomProgrammer {
     );
   };
 
-  const decode_native_blob = (importer: FunctionImporter) =>
+  const decode_native_blob = (functor: FunctionProgrammer) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("Blob"),
       undefined,
@@ -955,7 +955,7 @@ export namespace RandomProgrammer {
         ts.factory.createArrayLiteralExpression(
           [
             decode_native_byte_array({
-              importer,
+              functor,
               name: "Uint8Array",
             }),
           ],
@@ -964,7 +964,7 @@ export namespace RandomProgrammer {
       ],
     );
 
-  const decode_native_file = (importer: FunctionImporter) =>
+  const decode_native_file = (functor: FunctionProgrammer) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("File"),
       undefined,
@@ -972,7 +972,7 @@ export namespace RandomProgrammer {
         ts.factory.createArrayLiteralExpression(
           [
             decode_native_byte_array({
-              importer,
+              functor,
               name: "Uint8Array",
             }),
           ],
@@ -981,7 +981,7 @@ export namespace RandomProgrammer {
         ts.factory.createTemplateExpression(ts.factory.createTemplateHead(""), [
           ts.factory.createTemplateSpan(
             ts.factory.createCallExpression(
-              coalesce(importer)("string"),
+              coalesce(functor)("string"),
               undefined,
               [ts.factory.createNumericLiteral(8)],
             ),
@@ -989,7 +989,7 @@ export namespace RandomProgrammer {
           ),
           ts.factory.createTemplateSpan(
             ts.factory.createCallExpression(
-              coalesce(importer)("string"),
+              coalesce(functor)("string"),
               undefined,
               [ts.factory.createNumericLiteral(3)],
             ),
@@ -1000,13 +1000,13 @@ export namespace RandomProgrammer {
     );
 
   const decode_native_array_buffer = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     name: "ArrayBuffer" | "SharedArrayBuffer";
   }): ts.Expression =>
     props.name === "ArrayBuffer"
       ? IdentifierFactory.access(
           decode_native_byte_array({
-            importer: props.importer,
+            functor: props.functor,
             name: "Uint8Array",
           }),
           "buffer",
@@ -1017,7 +1017,7 @@ export namespace RandomProgrammer {
               StatementFactory.constant({
                 name: "length",
                 value: ts.factory.createCallExpression(
-                  coalesce(props.importer)("integer"),
+                  coalesce(props.functor)("integer"),
                   undefined,
                   [],
                 ),
@@ -1047,7 +1047,7 @@ export namespace RandomProgrammer {
                   undefined,
                   [
                     ts.factory.createCallExpression(
-                      coalesce(props.importer)("array"),
+                      coalesce(props.functor)("array"),
                       undefined,
                       [
                         ts.factory.createArrowFunction(
@@ -1057,7 +1057,7 @@ export namespace RandomProgrammer {
                           TypeFactory.keyword("any"),
                           undefined,
                           ts.factory.createCallExpression(
-                            coalesce(props.importer)("integer"),
+                            coalesce(props.functor)("integer"),
                             undefined,
                             [
                               ExpressionFactory.number(0),
@@ -1080,14 +1080,14 @@ export namespace RandomProgrammer {
           ),
         );
 
-  const decode_native_data_view = (importer: FunctionImporter) =>
+  const decode_native_data_view = (functor: FunctionProgrammer) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("DataView"),
       [],
       [
         IdentifierFactory.access(
           decode_native_byte_array({
-            importer,
+            functor,
             name: "Uint8Array",
           }),
           "buffer",
@@ -1115,7 +1115,7 @@ const Prefix = {
   tuple: (i: number) => `$rt${i}`,
 };
 
-const coalesce = (importer: FunctionImporter) => (name: string) =>
+const coalesce = (functor: FunctionProgrammer) => (name: string) =>
   ExpressionFactory.coalesce(
     Escaper.variable(name)
       ? ts.factory.createPropertyAccessChain(
@@ -1128,7 +1128,7 @@ const coalesce = (importer: FunctionImporter) => (name: string) =>
           ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
           ts.factory.createStringLiteral(name),
         ),
-    IdentifierFactory.access(importer.use("generator"), name),
+    IdentifierFactory.access(functor.use("generator"), name),
   );
 
 const emendFormat = (key: keyof Format.Validator) =>

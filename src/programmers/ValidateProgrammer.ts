@@ -11,7 +11,7 @@ import { ITypiaContext } from "../transformers/ITypiaContext";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_everything } from "./internal/check_everything";
@@ -28,7 +28,7 @@ export namespace ValidateProgrammer {
   export const decompose = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     config: IConfig;
     type: ts.Type;
     name: string | undefined;
@@ -231,20 +231,20 @@ export namespace ValidateProgrammer {
   };
 
   export const write = (props: IProps) => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       config: props.config,
       context: props.context,
       modulo: props.modulo,
-      importer,
+      functor,
       type: props.type,
       name: props.name,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
@@ -254,7 +254,7 @@ const combine =
   (props: {
     config: ValidateProgrammer.IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
   }): CheckerProgrammer.IConfig.Combiner =>
   (next) => {
     if (next.explore.tracable === false)
@@ -263,7 +263,7 @@ const combine =
           object: (v) =>
             validate_object({
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               config: props.config,
               entries: v.entries,
               input: v.input,
@@ -271,7 +271,7 @@ const combine =
           numeric: true,
         },
         context: props.context,
-        importer: props.importer,
+        functor: props.functor,
       }).combiner(next);
 
     const path: string = next.explore.postfix
@@ -315,7 +315,7 @@ const combine =
 const validate_object = (props: {
   config: ValidateProgrammer.IConfig;
   context: ITypiaContext;
-  importer: FunctionImporter;
+  functor: FunctionProgrammer;
   entries: IExpressionEntry<ts.Expression>[];
   input: ts.Expression;
 }) =>
@@ -331,7 +331,7 @@ const validate_object = (props: {
           path: ts.factory.createAdd(
             ts.factory.createIdentifier("_path"),
             ts.factory.createCallExpression(
-              props.importer.use("join"),
+              props.functor.use("join"),
               undefined,
               [ts.factory.createIdentifier("key")],
             ),
@@ -349,7 +349,7 @@ const validate_object = (props: {
         ),
     },
     context: props.context,
-    importer: props.importer,
+    functor: props.functor,
     entries: props.entries,
     input: props.input,
   });
@@ -357,12 +357,12 @@ const validate_object = (props: {
 const joiner = (props: {
   config: ValidateProgrammer.IConfig;
   context: ITypiaContext;
-  importer: FunctionImporter;
+  functor: FunctionProgrammer;
 }): CheckerProgrammer.IConfig.IJoiner => ({
   object: (v) =>
     validate_object({
       context: props.context,
-      importer: props.importer,
+      functor: props.functor,
       config: props.config,
       entries: v.entries,
       input: v.input,

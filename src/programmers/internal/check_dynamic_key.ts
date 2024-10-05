@@ -4,7 +4,7 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { ICheckEntry } from "../helpers/ICheckEntry";
 import { check_bigint } from "./check_bigint";
 import { check_number } from "./check_number";
@@ -16,7 +16,7 @@ import { check_template } from "./check_template";
  */
 export const check_dynamic_key = (props: {
   context: ITypiaContext;
-  importer: FunctionImporter;
+  functor: FunctionProgrammer;
   metadata: Metadata;
   input: ts.Expression;
 }): ts.Expression => {
@@ -71,7 +71,7 @@ export const check_dynamic_key = (props: {
       conditions.push(
         ts.factory.createLogicalAnd(
           ts.factory.createCallExpression(
-            props.importer.use("is_bigint_string"),
+            props.functor.use("is_bigint_string"),
             undefined,
             [props.input],
           ),
@@ -153,7 +153,7 @@ export const check_dynamic_key = (props: {
     else if (native === "BigInt")
       conditions.push(
         ts.factory.createCallExpression(
-          props.importer.use("is_bigint_string"),
+          props.functor.use("is_bigint_string"),
           undefined,
           [props.input],
         ),

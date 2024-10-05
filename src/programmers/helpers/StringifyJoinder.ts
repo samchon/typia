@@ -5,12 +5,12 @@ import { TemplateFactory } from "../../factories/TemplateFactory";
 
 import { stringify_dynamic_properties } from "../internal/stringify_dynamic_properties";
 import { stringify_regular_properties } from "../internal/stringify_regular_properties";
-import { FunctionImporter } from "./FunctionImporter";
+import { FunctionProgrammer } from "./FunctionProgrammer";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
   export const object = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     entries: IExpressionEntry<ts.Expression>[];
   }): ts.Expression => {
     // CHECK AND SORT ENTRIES
@@ -47,7 +47,7 @@ export namespace StringifyJoiner {
         ? expressions
         : [
             ts.factory.createCallExpression(
-              props.importer.use("tail"),
+              props.functor.use("tail"),
               undefined,
               [TemplateFactory.generate(expressions)],
             ),

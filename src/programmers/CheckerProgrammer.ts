@@ -21,7 +21,7 @@ import { TransformerError } from "../transformers/TransformerError";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { ICheckEntry } from "./helpers/ICheckEntry";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -109,7 +109,7 @@ export namespace CheckerProgrammer {
   export const compose = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IComposed =>
@@ -121,14 +121,14 @@ export namespace CheckerProgrammer {
   export const write = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name?: string;
   }): ts.ArrowFunction =>
     FeatureProgrammer.write({
       config: configure(props),
       context: props.context,
-      importer: props.importer,
+      functor: props.functor,
       type: props.type,
       name: props.name,
     });
@@ -136,19 +136,19 @@ export namespace CheckerProgrammer {
   export const write_object_functions = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_object_functions({
       config: configure(props),
-      importer: props.importer,
+      functor: props.functor,
       collection: props.collection,
     });
 
   export const write_union_functions = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_union_functions({
@@ -158,7 +158,7 @@ export namespace CheckerProgrammer {
           ...props.config,
           numeric: false,
         },
-        importer: props.importer,
+        functor: props.functor,
       }),
       collection: props.collection,
     });
@@ -166,7 +166,7 @@ export namespace CheckerProgrammer {
   export const write_array_functions = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
@@ -206,7 +206,7 @@ export namespace CheckerProgrammer {
   export const write_tuple_functions = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
     props.collection
@@ -228,7 +228,7 @@ export namespace CheckerProgrammer {
             decode_tuple_inline({
               config: props.config,
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               input: ts.factory.createIdentifier("input"),
               tuple,
               explore: {
@@ -245,7 +245,7 @@ export namespace CheckerProgrammer {
   const configure = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
   }): FeatureProgrammer.IConfig => ({
     types: {
       input: () => TypeFactory.keyword("any"),
@@ -277,7 +277,7 @@ export namespace CheckerProgrammer {
       });
       if (result.success === false)
         throw TransformerError.from({
-          code: `typia.${next.importer.method}`,
+          code: `typia.${next.functor.method}`,
           errors: result.errors,
         });
       return [collection, result.data];
@@ -289,7 +289,7 @@ export namespace CheckerProgrammer {
           decode({
             context: props.context,
             config: props.config,
-            importer: props.importer,
+            functor: props.functor,
             input: next.input,
             metadata: next.metadata,
             explore: next.explore,
@@ -301,7 +301,7 @@ export namespace CheckerProgrammer {
             decode({
               context: props.context,
               config: props.config,
-              importer: props.importer,
+              functor: props.functor,
               input: next.input,
               metadata: next.metadata,
               explore: next.explore,
@@ -309,7 +309,7 @@ export namespace CheckerProgrammer {
       decoder: (next) =>
         decode_object({
           config: props.config,
-          importer: props.importer,
+          functor: props.functor,
           input: next.input,
           object: next.object,
           explore: next.explore,
@@ -321,7 +321,7 @@ export namespace CheckerProgrammer {
               checker: (v) =>
                 decode_object({
                   config: props.config,
-                  importer: props.importer,
+                  functor: props.functor,
                   object: v.object,
                   input: v.input,
                   explore: v.explore,
@@ -329,7 +329,7 @@ export namespace CheckerProgrammer {
               decoder: (v) =>
                 decode_object({
                   config: props.config,
-                  importer: props.importer,
+                  functor: props.functor,
                   input: v.input,
                   object: v.object,
                   explore: {
@@ -354,7 +354,7 @@ export namespace CheckerProgrammer {
               binaries: next.objects.map((object) => ({
                 expression: decode_object({
                   config: props.config,
-                  importer: props.importer,
+                  functor: props.functor,
                   object,
                   input: next.input,
                   explore: next.explore,
@@ -405,7 +405,7 @@ export namespace CheckerProgrammer {
   export const decode = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     input: ts.Expression;
     metadata: Metadata;
     explore: IExplore;
@@ -510,8 +510,8 @@ export namespace CheckerProgrammer {
         left: ts.factory.createTrue(),
         right: ts.factory.createCallExpression(
           IdentifierFactory.access(
-            props.importer.emplaceVariable(
-              `${props.config.prefix}v${props.importer.increment()}`,
+            props.functor.emplaceVariable(
+              `${props.config.prefix}v${props.functor.increment()}`,
               ts.factory.createNewExpression(
                 ts.factory.createIdentifier("Set"),
                 undefined,
@@ -663,7 +663,7 @@ export namespace CheckerProgrammer {
           explore_sets({
             config: props.config,
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             sets: props.metadata.sets,
             input: props.input,
             explore: {
@@ -694,7 +694,7 @@ export namespace CheckerProgrammer {
           explore_maps({
             config: props.config,
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             maps: props.metadata.maps,
             input: props.input,
             explore: {
@@ -732,7 +732,7 @@ export namespace CheckerProgrammer {
             decode_tuple({
               config: props.config,
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               tuple: props.metadata.tuples[0]!,
               input: props.input,
               explore: {
@@ -747,7 +747,7 @@ export namespace CheckerProgrammer {
             explore_tuples({
               config: props.config,
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               tuples: props.metadata.tuples,
               input: props.input,
               explore: {
@@ -765,7 +765,7 @@ export namespace CheckerProgrammer {
             decode_array({
               config: props.config,
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               array: props.metadata.arrays[0]!,
               input: props.input,
               explore: {
@@ -779,7 +779,7 @@ export namespace CheckerProgrammer {
             explore_arrays({
               config: props.config,
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               arrays: props.metadata.arrays,
               input: props.input,
               explore: {
@@ -793,7 +793,7 @@ export namespace CheckerProgrammer {
           explore_arrays_and_tuples({
             config: props.config,
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             definitions: [...props.metadata.tuples, ...props.metadata.arrays],
             input: props.input,
             explore: props.explore,
@@ -816,7 +816,7 @@ export namespace CheckerProgrammer {
         expected: props.metadata.objects.map((obj) => obj.name).join(" | "),
         body: explore_objects({
           config: props.config,
-          importer: props.importer,
+          functor: props.functor,
           metadata: props.metadata,
           input: props.input,
           explore: {
@@ -882,7 +882,7 @@ export namespace CheckerProgrammer {
                 decode({
                   context: props.context,
                   config: props.config,
-                  importer: props.importer,
+                  functor: props.functor,
                   metadata: props.metadata.escaped.original,
                   input: props.input,
                   explore: props.explore,
@@ -895,7 +895,7 @@ export namespace CheckerProgrammer {
                   decode_escaped({
                     config: props.config,
                     context: props.context,
-                    importer: props.importer,
+                    functor: props.functor,
                     metadata: props.metadata.escaped.returns,
                     input: props.input,
                     explore: props.explore,
@@ -940,7 +940,7 @@ export namespace CheckerProgrammer {
 
   export const decode_object = (props: {
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     object: MetadataObject;
     input: ts.Expression;
     explore: IExplore;
@@ -952,7 +952,7 @@ export namespace CheckerProgrammer {
   const decode_array = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     array: MetadataArray;
     input: ts.Expression;
     explore: IExplore;
@@ -967,7 +967,7 @@ export namespace CheckerProgrammer {
     return ts.factory.createLogicalOr(
       ts.factory.createCallExpression(
         ts.factory.createIdentifier(
-          props.importer.useLocal(
+          props.functor.useLocal(
             `${props.config.prefix}a${props.array.type.index}`,
           ),
         ),
@@ -993,7 +993,7 @@ export namespace CheckerProgrammer {
   const decode_array_inline = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     array: MetadataArray;
     input: ts.Expression;
     explore: IExplore;
@@ -1014,7 +1014,7 @@ export namespace CheckerProgrammer {
             ...next,
           }),
       },
-      importer: props.importer,
+      functor: props.functor,
       combiner: props.config.joiner.array,
       array: props.array,
       input: props.input,
@@ -1035,7 +1035,7 @@ export namespace CheckerProgrammer {
   const decode_tuple = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     tuple: MetadataTuple;
     input: ts.Expression;
     explore: IExplore;
@@ -1053,7 +1053,7 @@ export namespace CheckerProgrammer {
     return ts.factory.createLogicalOr(
       ts.factory.createCallExpression(
         ts.factory.createIdentifier(
-          props.importer.useLocal(
+          props.functor.useLocal(
             `${props.config.prefix}t${props.tuple.type.index}`,
           ),
         ),
@@ -1078,7 +1078,7 @@ export namespace CheckerProgrammer {
   const decode_tuple_inline = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     tuple: MetadataTupleType;
     input: ts.Expression;
     explore: IExplore;
@@ -1089,7 +1089,7 @@ export namespace CheckerProgrammer {
         decode({
           context: props.context,
           config: props.config,
-          importer: props.importer,
+          functor: props.functor,
           input: ts.factory.createElementAccessExpression(props.input, index),
           metadata,
           explore: {
@@ -1106,7 +1106,7 @@ export namespace CheckerProgrammer {
         ? decode({
             config: props.config,
             context: props.context,
-            importer: props.importer,
+            functor: props.functor,
             input: ts.factory.createCallExpression(
               IdentifierFactory.access(props.input, "slice"),
               undefined,
@@ -1187,7 +1187,7 @@ export namespace CheckerProgrammer {
   const decode_escaped = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     metadata: Metadata;
     input: ts.Expression;
     explore: IExplore;
@@ -1222,7 +1222,7 @@ export namespace CheckerProgrammer {
   const explore_sets = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     sets: Metadata[];
     input: ts.Expression;
     explore: IExplore;
@@ -1234,7 +1234,7 @@ export namespace CheckerProgrammer {
             decode({
               context: props.context,
               config: props.config,
-              importer: props.importer,
+              functor: props.functor,
               input: v.input,
               metadata: v.definition,
               explore: v.explore,
@@ -1243,7 +1243,7 @@ export namespace CheckerProgrammer {
             decode_array({
               config: props.config,
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               array: v.definition,
               input: v.input,
               explore: v.explore,
@@ -1265,7 +1265,7 @@ export namespace CheckerProgrammer {
   const explore_maps = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     input: ts.Expression;
     maps: Metadata.Entry[];
     explore: IExplore;
@@ -1278,7 +1278,7 @@ export namespace CheckerProgrammer {
               decode({
                 config: props.config,
                 context: props.context,
-                importer: props.importer,
+                functor: props.functor,
                 input: ts.factory.createElementAccessExpression(v.input, 0),
                 metadata: v.definition[0],
                 explore: {
@@ -1289,7 +1289,7 @@ export namespace CheckerProgrammer {
               decode({
                 config: props.config,
                 context: props.context,
-                importer: props.importer,
+                functor: props.functor,
                 input: ts.factory.createElementAccessExpression(v.input, 1),
                 metadata: v.definition[1],
                 explore: {
@@ -1302,7 +1302,7 @@ export namespace CheckerProgrammer {
             decode_array({
               context: props.context,
               config: props.config,
-              importer: props.importer,
+              functor: props.functor,
               array: v.definition,
               input: v.input,
               explore: v.explore,
@@ -1324,14 +1324,14 @@ export namespace CheckerProgrammer {
   const explore_tuples = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     tuples: MetadataTuple[];
     input: ts.Expression;
     explore: IExplore;
   }): ts.Expression =>
     explore_array_like_union_types<MetadataTuple>({
       config: props.config,
-      importer: props.importer,
+      functor: props.functor,
       factory: (next) =>
         UnionExplorer.tuple({
           config: {
@@ -1339,7 +1339,7 @@ export namespace CheckerProgrammer {
               decode_tuple({
                 context: props.context,
                 config: props.config,
-                importer: props.importer,
+                functor: props.functor,
                 input: v.input,
                 tuple: v.definition,
                 explore: v.explore,
@@ -1348,7 +1348,7 @@ export namespace CheckerProgrammer {
               decode_tuple({
                 context: props.context,
                 config: props.config,
-                importer: props.importer,
+                functor: props.functor,
                 tuple: v.definition,
                 input: v.input,
                 explore: v.explore,
@@ -1371,14 +1371,14 @@ export namespace CheckerProgrammer {
   const explore_arrays = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     arrays: MetadataArray[];
     input: ts.Expression;
     explore: IExplore;
   }): ts.Expression =>
     explore_array_like_union_types<MetadataArray>({
       config: props.config,
-      importer: props.importer,
+      functor: props.functor,
       factory: (next) =>
         UnionExplorer.array({
           config: {
@@ -1386,7 +1386,7 @@ export namespace CheckerProgrammer {
               decode({
                 context: props.context,
                 config: props.config,
-                importer: props.importer,
+                functor: props.functor,
                 metadata: v.definition,
                 input: v.input,
                 explore: v.explore,
@@ -1395,7 +1395,7 @@ export namespace CheckerProgrammer {
               decode_array({
                 context: props.context,
                 config: props.config,
-                importer: props.importer,
+                functor: props.functor,
                 array: v.definition,
                 input: v.input,
                 explore: v.explore,
@@ -1418,14 +1418,14 @@ export namespace CheckerProgrammer {
   const explore_arrays_and_tuples = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     definitions: Array<MetadataArray | MetadataTuple>;
     input: ts.Expression;
     explore: IExplore;
   }): ts.Expression =>
     explore_array_like_union_types<MetadataArray | MetadataTuple>({
       config: props.config,
-      importer: props.importer,
+      functor: props.functor,
       factory: (next) =>
         UnionExplorer.array_or_tuple({
           config: {
@@ -1434,7 +1434,7 @@ export namespace CheckerProgrammer {
                 ? decode_tuple({
                     config: props.config,
                     context: props.context,
-                    importer: props.importer,
+                    functor: props.functor,
                     input: v.input,
                     tuple: v.definition,
                     explore: v.explore,
@@ -1450,7 +1450,7 @@ export namespace CheckerProgrammer {
                         )
                         .join(" | "),
                       expression: decode({
-                        importer: props.importer,
+                        functor: props.functor,
                         context: props.context,
                         config: props.config,
                         metadata: v.definition,
@@ -1466,7 +1466,7 @@ export namespace CheckerProgrammer {
                 ? decode_tuple({
                     context: props.context,
                     config: props.config,
-                    importer: props.importer,
+                    functor: props.functor,
                     input: v.input,
                     tuple: v.definition,
                     explore: v.explore,
@@ -1474,7 +1474,7 @@ export namespace CheckerProgrammer {
                 : decode_array({
                     context: props.context,
                     config: props.config,
-                    importer: props.importer,
+                    functor: props.functor,
                     input: v.input,
                     array: v.definition,
                     explore: v.explore,
@@ -1498,7 +1498,7 @@ export namespace CheckerProgrammer {
     T extends MetadataArray | MetadataTuple,
   >(props: {
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     factory: (next: {
       parameters: ts.ParameterDeclaration[];
       definitions: T[];
@@ -1538,7 +1538,7 @@ export namespace CheckerProgrammer {
     return ts.factory.createLogicalOr(
       ts.factory.createCallExpression(
         ts.factory.createIdentifier(
-          props.importer.emplaceUnion(
+          props.functor.emplaceUnion(
             props.config.prefix,
             props.definitions.map((e) => e.type.name).join(" | "),
             () =>
@@ -1569,7 +1569,7 @@ export namespace CheckerProgrammer {
 
   const explore_objects = (props: {
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     input: ts.Expression;
     metadata: Metadata;
     explore: IExplore;
@@ -1577,14 +1577,14 @@ export namespace CheckerProgrammer {
     props.metadata.objects.length === 1
       ? decode_object({
           config: props.config,
-          importer: props.importer,
+          functor: props.functor,
           object: props.metadata.objects[0]!,
           input: props.input,
           explore: props.explore,
         })
       : ts.factory.createCallExpression(
           ts.factory.createIdentifier(
-            props.importer.useLocal(
+            props.functor.useLocal(
               `${props.config.prefix}u${props.metadata.union_index!}`,
             ),
           ),

@@ -7,14 +7,14 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { Escaper } from "../../utils/Escaper";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 
 /**
  * @internal
  */
 export const feature_object_entries = <Output extends ts.ConciseBody>(props: {
   config: Pick<FeatureProgrammer.IConfig<Output>, "decoder" | "path" | "trace">;
-  importer: FunctionImporter;
+  functor: FunctionProgrammer;
   object: MetadataObject;
   input: ts.Expression;
   from?: "object" | "top" | "array";
@@ -48,7 +48,7 @@ export const feature_object_entries = <Output extends ts.ConciseBody>(props: {
             ? sole !== null
               ? IdentifierFactory.postfix(sole)
               : (() => {
-                  props.importer.use("join");
+                  props.functor.use("join");
                   return `$join(key)`;
                 })()
             : "",
