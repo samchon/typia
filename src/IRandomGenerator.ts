@@ -7,7 +7,6 @@ export interface IRandomGenerator {
   bigint(minimum?: bigint, maximum?: bigint): bigint;
   number(minimum?: number, maximum?: number): number;
   string(length?: number): string;
-
   array<T>(
     closure: (index: number) => T,
     count?: number,
