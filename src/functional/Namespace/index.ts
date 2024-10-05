@@ -1,6 +1,5 @@
 import { RandomGenerator } from "../../utils/RandomGenerator";
 
-import { $every } from "../$every";
 import { $guard } from "../$guard";
 import { $join } from "../$join";
 import { $report } from "../$report";
@@ -21,7 +20,6 @@ export { is };
 export const assert = (method: string) => ({
   ...is(),
   join: $join,
-  every: $every,
   guard: $guard(`typia.${method}`),
   predicate: (
     matched: boolean,
