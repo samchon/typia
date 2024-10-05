@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ImportProgrammer } from "../programmers/ImportProgrammer";
+
 import { ITransformOptions } from "./ITransformOptions";
 
 export interface ITypiaContext {
@@ -9,6 +11,7 @@ export interface ITypiaContext {
   printer: ts.Printer;
   options: ITransformOptions;
   transformer: ts.TransformationContext;
+  functor: ImportProgrammer;
   extras: {
     addDiagnostic: (diag: ts.Diagnostic) => number;
   };

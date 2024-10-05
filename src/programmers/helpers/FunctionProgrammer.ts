@@ -4,7 +4,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-export class FunctionImporter {
+export class FunctionProgrammer {
   private readonly used_: Set<string> = new Set();
   private readonly local_: Set<string> = new Set();
   private readonly unions_: Map<string, [string, ts.ArrowFunction]> = new Map();
@@ -17,6 +17,9 @@ export class FunctionImporter {
     return this.used_.size === 0;
   }
 
+  /**
+   * @deprecated
+   */
   public use(name: string): ts.Identifier {
     this.used_.add(name);
     return ts.factory.createIdentifier("$" + name);

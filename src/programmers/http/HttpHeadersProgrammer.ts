@@ -22,7 +22,7 @@ import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpHeadersProgrammer {
@@ -30,7 +30,7 @@ export namespace HttpHeadersProgrammer {
 
   export const decompose = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -50,14 +50,14 @@ export namespace HttpHeadersProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.http.${props.importer.method}`,
+        code: `typia.http.${props.functor.method}`,
         errors: result.errors,
       });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
     const statements: ts.Statement[] = decode_object({
-      importer: props.importer,
+      functor: props.functor,
       object,
     });
     return {
@@ -96,16 +96,16 @@ export namespace HttpHeadersProgrammer {
   };
 
   export const write = (props: IProgrammerProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
@@ -203,7 +203,7 @@ export namespace HttpHeadersProgrammer {
   };
 
   const decode_object = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     object: MetadataObject;
   }): ts.Statement[] => {
     const output: ts.Identifier = ts.factory.createIdentifier("output");
@@ -219,7 +219,7 @@ export namespace HttpHeadersProgrammer {
             )
               optionals.push(p.key.constants[0]!.values[0]!.value as string);
             return decode_regular_property({
-              importer: props.importer,
+              functor: props.functor,
               property: p,
             });
           }),
@@ -245,7 +245,7 @@ export namespace HttpHeadersProgrammer {
   };
 
   const decode_regular_property = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     property: MetadataProperty;
   }): ts.PropertyAssignment => {
     const key: string = props.property.key.constants[0]!.values[0]!
@@ -279,14 +279,14 @@ export namespace HttpHeadersProgrammer {
         ? key === "set-cookie"
           ? input
           : decode_array({
-              importer: props.importer,
+              functor: props.functor,
               type,
               key,
               value,
               input,
             })
         : decode_value({
-            importer: props.importer,
+            functor: props.functor,
             type,
             input,
           }),
@@ -294,20 +294,20 @@ export namespace HttpHeadersProgrammer {
   };
 
   const decode_value = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: Atomic.Literal;
     input: ts.Expression;
   }) =>
     props.type === "string"
       ? props.input
       : ts.factory.createCallExpression(
-          props.importer.use(props.type),
+          props.functor.use(props.type),
           undefined,
           [props.input],
         );
 
   const decode_array = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: Atomic.Literal;
     key: string;
     value: Metadata;
@@ -334,7 +334,7 @@ export namespace HttpHeadersProgrammer {
       ),
       undefined,
       undefined,
-      [props.importer.use(props.type)],
+      [props.functor.use(props.type)],
     );
     return ts.factory.createConditionalExpression(
       ExpressionFactory.isArray(props.input),
@@ -342,7 +342,7 @@ export namespace HttpHeadersProgrammer {
       ts.factory.createCallExpression(
         IdentifierFactory.access(props.input, "map"),
         undefined,
-        [props.importer.use(props.type)],
+        [props.functor.use(props.type)],
       ),
       undefined,
       props.value.isRequired() === false

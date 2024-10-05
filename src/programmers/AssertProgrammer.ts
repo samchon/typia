@@ -10,7 +10,7 @@ import { ITypiaContext } from "../transformers/ITypiaContext";
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
@@ -27,7 +27,7 @@ export namespace AssertProgrammer {
   export const decompose = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
     init?: ts.Expression | undefined;
@@ -56,7 +56,7 @@ export namespace AssertProgrammer {
                     ts.factory.createLogicalOr(
                       cond.expression,
                       create_guard_call({
-                        importer: props.importer,
+                        functor: props.functor,
                         exceptionable:
                           next.explore.from === "top"
                             ? ts.factory.createTrue()
@@ -83,7 +83,7 @@ export namespace AssertProgrammer {
                         )
                         .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
                       create_guard_call({
-                        importer: props.importer,
+                        functor: props.functor,
                         exceptionable:
                           next.explore.from === "top"
                             ? ts.factory.createTrue()
@@ -206,16 +206,16 @@ export namespace AssertProgrammer {
   };
 
   export const write = (props: IProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
@@ -224,7 +224,7 @@ export namespace AssertProgrammer {
     (props: {
       config: IConfig;
       context: ITypiaContext;
-      importer: FunctionImporter;
+      functor: FunctionProgrammer;
     }): CheckerProgrammer.IConfig.Combiner =>
     (next) => {
       if (next.explore.tracable === false)
@@ -234,14 +234,14 @@ export namespace AssertProgrammer {
               assert_object({
                 config: props.config,
                 context: props.context,
-                importer: props.importer,
+                functor: props.functor,
                 entries: v.entries,
                 input: v.input,
               }),
             numeric: true,
           },
           context: props.context,
-          importer: props.importer,
+          functor: props.functor,
         }).combiner(next);
 
       const path: string = next.explore.postfix
@@ -255,7 +255,7 @@ export namespace AssertProgrammer {
                 : ts.factory.createLogicalOr(
                     binary.expression,
                     create_guard_call({
-                      importer: props.importer,
+                      functor: props.functor,
                       exceptionable:
                         next.explore.source === "top"
                           ? ts.factory.createTrue()
@@ -272,7 +272,7 @@ export namespace AssertProgrammer {
               .map((binary) => binary.expression)
               .reduce(ts.factory.createLogicalOr),
             create_guard_call({
-              importer: props.importer,
+              functor: props.functor,
               exceptionable:
                 next.explore.source === "top"
                   ? ts.factory.createTrue()
@@ -287,7 +287,7 @@ export namespace AssertProgrammer {
   const assert_object = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     entries: IExpressionEntry<ts.Expression>[];
     input: ts.Expression;
   }) =>
@@ -300,11 +300,11 @@ export namespace AssertProgrammer {
         positive: ts.factory.createTrue(),
         superfluous: (input) =>
           create_guard_call({
-            importer: props.importer,
+            functor: props.functor,
             path: ts.factory.createAdd(
               ts.factory.createIdentifier("_path"),
               ts.factory.createCallExpression(
-                props.importer.use("join"),
+                props.functor.use("join"),
                 undefined,
                 [ts.factory.createIdentifier("key")],
               ),
@@ -322,7 +322,7 @@ export namespace AssertProgrammer {
           ),
       },
       context: props.context,
-      importer: props.importer,
+      functor: props.functor,
       entries: props.entries,
       input: props.input,
     });
@@ -330,13 +330,13 @@ export namespace AssertProgrammer {
   const joiner = (props: {
     config: IConfig;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
   }): CheckerProgrammer.IConfig.IJoiner => ({
     object: (next) =>
       assert_object({
         config: props.config,
         context: props.context,
-        importer: props.importer,
+        functor: props.functor,
         entries: next.entries,
         input: next.input,
       }),
@@ -348,7 +348,7 @@ export namespace AssertProgrammer {
       ),
     failure: (next) =>
       create_guard_call({
-        importer: props.importer,
+        functor: props.functor,
         exceptionable:
           next.explore?.from === "top"
             ? ts.factory.createTrue()
@@ -365,7 +365,7 @@ export namespace AssertProgrammer {
           ts.factory.createLogicalOr(
             next.condition,
             create_guard_call({
-              importer: props.importer,
+              functor: props.functor,
               exceptionable:
                 next.explore.from === "top"
                   ? ts.factory.createTrue()
@@ -378,13 +378,13 @@ export namespace AssertProgrammer {
   });
 
   const create_guard_call = (props: {
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
     path: ts.Expression;
     exceptionable?: ts.Expression;
   }): ts.Expression =>
-    ts.factory.createCallExpression(props.importer.use("guard"), undefined, [
+    ts.factory.createCallExpression(props.functor.use("guard"), undefined, [
       props.exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
       ts.factory.createObjectLiteralExpression(
         [

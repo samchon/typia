@@ -13,7 +13,7 @@ import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
@@ -22,7 +22,7 @@ export namespace IsProgrammer {
   export const configure = (props: {
     options?: Partial<CONFIG.IOptions>;
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
   }): CheckerProgrammer.IConfig => ({
     prefix: "$i",
     equals: !!props.options?.object,
@@ -75,7 +75,7 @@ export namespace IsProgrammer {
                 superfluous: () => ts.factory.createFalse(),
               },
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               entries: v.entries,
               input: v.input,
             }),
@@ -113,7 +113,7 @@ export namespace IsProgrammer {
 
   export const decompose = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     config: IConfig;
     type: ts.Type;
     name: string | undefined;
@@ -133,14 +133,14 @@ export namespace IsProgrammer {
                 superfluous: () => ts.factory.createFalse(),
               },
               context: props.context,
-              importer: props.importer,
+              functor: props.functor,
               entries: v.entries,
               input: v.input,
             }),
           numeric: OptionPredicator.numeric(props.context.options),
         },
         context: props.context,
-        importer: props.importer,
+        functor: props.functor,
       }),
       trace: props.config.equals,
     };
@@ -165,26 +165,26 @@ export namespace IsProgrammer {
   };
 
   export const write = (props: IProps) => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       config: props.config,
       context: props.context,
-      importer,
+      functor,
       type: props.type,
       name: props.name,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
 
   export const write_function_statements = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     collection: MetadataCollection;
   }) => {
     const config: CheckerProgrammer.IConfig = configure(props);
@@ -203,16 +203,16 @@ export namespace IsProgrammer {
 
     return [
       ...objects.filter((_, i) =>
-        props.importer.hasLocal(`${config.prefix}o${i}`),
+        props.functor.hasLocal(`${config.prefix}o${i}`),
       ),
       ...unions.filter((_, i) =>
-        props.importer.hasLocal(`${config.prefix}u${i}`),
+        props.functor.hasLocal(`${config.prefix}u${i}`),
       ),
       ...arrays.filter((_, i) =>
-        props.importer.hasLocal(`${config.prefix}a${i}`),
+        props.functor.hasLocal(`${config.prefix}a${i}`),
       ),
       ...tuples.filter((_, i) =>
-        props.importer.hasLocal(`${config.prefix}t${i}`),
+        props.functor.hasLocal(`${config.prefix}t${i}`),
       ),
     ];
   };
@@ -222,7 +222,7 @@ export namespace IsProgrammer {
   ----------------------------------------------------------- */
   export const decode = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     metadata: Metadata;
     input: ts.Expression;
     explore: CheckerProgrammer.IExplore;
@@ -230,7 +230,7 @@ export namespace IsProgrammer {
     CheckerProgrammer.decode({
       context: props.context,
       config: configure(props),
-      importer: props.importer,
+      functor: props.functor,
       metadata: props.metadata,
       input: props.input,
       explore: props.explore,
@@ -238,14 +238,14 @@ export namespace IsProgrammer {
 
   export const decode_object = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     object: MetadataObject;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }) =>
     CheckerProgrammer.decode_object({
       config: configure(props),
-      importer: props.importer,
+      functor: props.functor,
       object: props.object,
       input: props.input,
       explore: props.explore,
