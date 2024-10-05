@@ -18,6 +18,7 @@ import { TransformerError } from "../../transformers/TransformerError";
 import { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
+import { StringUtil } from "../../utils/StringUtil";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
@@ -54,14 +55,14 @@ export namespace HttpQueryProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.http.${props.functor.method}`,
+        code: props.functor.method,
         errors: result.errors,
       });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
     const statements: ts.Statement[] = decode_object({
-      functor: props.functor,
+      context: props.context,
       object,
     });
     return {
@@ -181,7 +182,7 @@ export namespace HttpQueryProgrammer {
   };
 
   const decode_object = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     object: MetadataObject;
   }): ts.Statement[] => {
     const input: ts.Identifier = ts.factory.createIdentifier("input");
@@ -194,7 +195,7 @@ export namespace HttpQueryProgrammer {
           ts.factory.createToken(ts.SyntaxKind.EqualsToken),
           ts.factory.createAsExpression(
             ts.factory.createCallExpression(
-              props.functor.use("params"),
+              props.context.importer.internal("httpQueryParseURLSearchParams"),
               undefined,
               [input],
             ),
@@ -207,7 +208,7 @@ export namespace HttpQueryProgrammer {
         value: ts.factory.createObjectLiteralExpression(
           props.object.properties.map((p) =>
             decode_regular_property({
-              functor: props.functor,
+              context: props.context,
               property: p,
             }),
           ),
@@ -221,7 +222,7 @@ export namespace HttpQueryProgrammer {
   };
 
   const decode_regular_property = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     property: MetadataProperty;
   }): ts.PropertyAssignment => {
     const key: string = props.property.key.constants[0]!.values[0]!
@@ -248,7 +249,7 @@ export namespace HttpQueryProgrammer {
       Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
       isArray
         ? decode_array({
-            functor: props.functor,
+            context: props.context,
             metadata: value,
             input: ts.factory.createCallExpression(
               IdentifierFactory.access(
@@ -268,7 +269,7 @@ export namespace HttpQueryProgrammer {
                   undefined,
                   undefined,
                   decode_value({
-                    functor: props.functor,
+                    context: props.context,
                     type,
                     coalesce: false,
                     input: ts.factory.createIdentifier("elem"),
@@ -278,7 +279,7 @@ export namespace HttpQueryProgrammer {
             ),
           })
         : decode_value({
-            functor: props.functor,
+            context: props.context,
             type,
             coalesce: value.nullable === false && value.isRequired() === false,
             input: ts.factory.createCallExpression(
@@ -291,13 +292,15 @@ export namespace HttpQueryProgrammer {
   };
 
   const decode_value = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     type: Atomic.Literal;
     coalesce: boolean;
     input: ts.Expression;
   }) => {
     const call = ts.factory.createCallExpression(
-      props.functor.use(props.type),
+      props.context.importer.internal(
+        `httpQueryRead${StringUtil.capitalize(props.type)}`,
+      ),
       undefined,
       [props.input],
     );
@@ -311,16 +314,20 @@ export namespace HttpQueryProgrammer {
   };
 
   const decode_array = (props: {
-    functor: FunctionProgrammer;
+    context: ITypiaContext;
     metadata: Metadata;
     input: ts.Expression;
   }): ts.Expression =>
     props.metadata.nullable || props.metadata.isRequired() === false
-      ? ts.factory.createCallExpression(props.functor.use("array"), undefined, [
-          props.input,
-          props.metadata.nullable
-            ? ts.factory.createNull()
-            : ts.factory.createIdentifier("undefined"),
-        ])
+      ? ts.factory.createCallExpression(
+          props.context.importer.internal("httpQueryReadArray"),
+          undefined,
+          [
+            props.input,
+            props.metadata.nullable
+              ? ts.factory.createNull()
+              : ts.factory.createIdentifier("undefined"),
+          ],
+        )
       : props.input;
 }

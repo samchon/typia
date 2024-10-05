@@ -5,9 +5,11 @@ import { MapUtil } from "../utils/MapUtil";
 export class ImportProgrammer {
   private readonly assets_: Map<string, IAsset> = new Map();
 
+  public constructor() {}
+
   public namespace(props: { file: string; name: string }): ts.Identifier {
     const asset: IAsset = this.take(props.file);
-    asset.namespace ??= alias(props.name);
+    asset.namespace ??= props.name;
     return ts.factory.createIdentifier(asset.namespace);
   }
 
@@ -43,7 +45,7 @@ export class ImportProgrammer {
                       ts.factory.createImportSpecifier(
                         false,
                         undefined,
-                        ts.factory.createIdentifier(alias(name)),
+                        ts.factory.createIdentifier(name),
                       ),
                     ),
                   )
@@ -64,11 +66,24 @@ export class ImportProgrammer {
     if (name.startsWith("$") === false) name = `$${name}`;
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
-        file: `typia/lib/internal/${name}`,
+        file: `typia/lib/internal/${name}.js`,
         name: alias(name),
       }),
       name,
     );
+  }
+
+  /**
+   * @internal
+   */
+  public getInternalText(name: string): string {
+    if (name.startsWith("$") === false) name = `$${name}`;
+    const asset: IAsset | undefined = this.take(
+      `typia/lib/internal/${name}.js`,
+    );
+    if (asset === undefined)
+      throw new Error(`Internal asset not found: ${name}`);
+    return `${asset.namespace}.${name}`;
   }
 
   /**

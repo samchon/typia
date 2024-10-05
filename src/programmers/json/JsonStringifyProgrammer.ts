@@ -514,6 +514,7 @@ export namespace JsonStringifyProgrammer {
           undefined,
           undefined,
           iterate({
+            context: props.context,
             functor: props.functor,
             input: props.input,
             expected: props.metadata.getName(),
@@ -660,7 +661,7 @@ export namespace JsonStringifyProgrammer {
         },
       });
       return ts.factory.createCallExpression(
-        props.functor.use("rest"),
+        props.context.importer.internal("jsonStringifyRest"),
         undefined,
         [code],
       );
@@ -673,14 +674,13 @@ export namespace JsonStringifyProgrammer {
 
   const decode_atomic = (props: {
     context: ITypiaContext;
-    functor: FunctionProgrammer;
     input: ts.Expression;
     type: string;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
     if (props.type === "string")
       return ts.factory.createCallExpression(
-        props.functor.use("string"),
+        props.context.importer.internal("jsonStringifyString"),
         undefined,
         [props.input],
       );
@@ -691,7 +691,7 @@ export namespace JsonStringifyProgrammer {
       props = {
         ...props,
         input: ts.factory.createCallExpression(
-          props.functor.use("number"),
+          props.context.importer.internal("jsonStringifyNumber"),
           undefined,
           [props.input],
         ),
@@ -807,6 +807,7 @@ export namespace JsonStringifyProgrammer {
             success: ts.factory.createTrue(),
             failure: (v) =>
               create_throw_error({
+                context: props.context,
                 functor: props.functor,
                 expected: v.expected,
                 input: v.input,
@@ -951,6 +952,7 @@ export namespace JsonStringifyProgrammer {
   };
 
   const iterate = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     input: ts.Expression;
     unions: IUnion[];
@@ -1019,7 +1021,7 @@ export namespace JsonStringifyProgrammer {
         joiner: (next) =>
           StringifyJoiner.object({
             ...next,
-            functor: props.functor,
+            context: props.context,
           }),
         unionizer: (next) =>
           decode_union_object({
@@ -1041,6 +1043,7 @@ export namespace JsonStringifyProgrammer {
             success: (exp) => exp,
             escaper: (v) =>
               create_throw_error({
+                context: props.context,
                 functor: props.functor,
                 expected: v.expected,
                 input: v.input,
@@ -1051,6 +1054,7 @@ export namespace JsonStringifyProgrammer {
           }),
         failure: (next) =>
           create_throw_error({
+            context: props.context,
             functor: props.functor,
             expected: next.expected,
             input: next.input,
@@ -1077,24 +1081,29 @@ export namespace JsonStringifyProgrammer {
 
   const initializer: FeatureProgrammer.IConfig["initializer"] = (props) =>
     JsonMetadataFactory.analyze({
-      method: `typia.json.${props.functor.method}`,
+      method: props.functor.method,
       checker: props.context.checker,
       transformer: props.context.transformer,
       type: props.type,
     });
 
   const create_throw_error = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
   }) =>
     ts.factory.createExpressionStatement(
       ts.factory.createCallExpression(
-        props.functor.use("throws"),
+        props.context.importer.internal("throwTypeGuardError"),
         [],
         [
           ts.factory.createObjectLiteralExpression(
             [
+              ts.factory.createPropertyAssignment(
+                "method",
+                ts.factory.createStringLiteral(props.functor.method),
+              ),
               ts.factory.createPropertyAssignment(
                 "expected",
                 ts.factory.createStringLiteral(props.expected),

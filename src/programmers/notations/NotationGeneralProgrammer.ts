@@ -138,8 +138,9 @@ export namespace NotationGeneralProgrammer {
       );
 
   const write_tuple_functions = (props: {
-    context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
+    rename: (str: string) => string;
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     collection: MetadataCollection;
   }): ts.VariableStatement[] =>
@@ -178,8 +179,9 @@ export namespace NotationGeneralProgrammer {
         DECODERS
     ----------------------------------------------------------- */
   const decode = (props: {
-    context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
+    rename: (str: string) => string;
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     metadata: Metadata;
     explore: FeatureProgrammer.IExplore;
@@ -193,11 +195,15 @@ export namespace NotationGeneralProgrammer {
         (t) => !!t.type.elements.length && t.type.elements.every((e) => e.any),
       )
     )
-      return ts.factory.createCallExpression(
-        props.functor.use("any"),
-        undefined,
-        [props.input],
-      );
+      return ExpressionFactory.currying({
+        function: props.context.importer.internal("notationAny"),
+        arguments: [
+          props.context.importer.internal(
+            `notation${StringUtil.capitalize(props.rename.name)}`,
+          ),
+          props.input,
+        ],
+      });
 
     interface IUnion {
       type: string;
@@ -416,8 +422,9 @@ export namespace NotationGeneralProgrammer {
     });
 
   const decode_tuple = (props: {
-    context: ITypiaContext;
     config: FeatureProgrammer.IConfig;
+    rename: (str: string) => string;
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     tuple: MetadataTuple;
     explore: FeatureProgrammer.IExplore;
@@ -447,6 +454,7 @@ export namespace NotationGeneralProgrammer {
 
   const decode_tuple_inline = (props: {
     context: ITypiaContext;
+    rename: (str: string) => string;
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     explore: FeatureProgrammer.IExplore;
@@ -552,6 +560,7 @@ export namespace NotationGeneralProgrammer {
           success: ts.factory.createTrue(),
           failure: (v) =>
             create_throw_error({
+              context: props.context,
               functor: props.functor,
               expected: v.expected,
               input: v.input,
@@ -622,6 +631,7 @@ export namespace NotationGeneralProgrammer {
           success: ts.factory.createTrue(),
           failure: (v) =>
             create_throw_error({
+              context: props.context,
               functor: props.functor,
               expected: v.expected,
               input: v.input,
@@ -692,6 +702,7 @@ export namespace NotationGeneralProgrammer {
             success: ts.factory.createTrue(),
             failure: (v) =>
               create_throw_error({
+                context: props.context,
                 functor: props.functor,
                 expected: v.expected,
                 input: v.input,
@@ -814,8 +825,9 @@ export namespace NotationGeneralProgrammer {
       initializer,
       decoder: (next) =>
         decode({
-          context: props.context,
           config,
+          rename: props.rename,
+          context: props.context,
           functor: props.functor,
           metadata: next.metadata,
           explore: next.explore,
@@ -863,6 +875,7 @@ export namespace NotationGeneralProgrammer {
             success: (exp) => exp,
             escaper: (v) =>
               create_throw_error({
+                context: props.context,
                 functor: props.functor,
                 expected: v.expected,
                 input: v.input,
@@ -873,6 +886,7 @@ export namespace NotationGeneralProgrammer {
           }),
         failure: (next) =>
           create_throw_error({
+            context: props.context,
             functor: props.functor,
             expected: next.expected,
             input: next.input,
@@ -887,6 +901,7 @@ export namespace NotationGeneralProgrammer {
           }),
         tuples: (collection) =>
           write_tuple_functions({
+            rename: props.rename,
             context: props.context,
             functor: props.functor,
             config,
@@ -912,24 +927,29 @@ export namespace NotationGeneralProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.misc.${props.functor.method}`,
+        code: props.functor.method,
         errors: result.errors,
       });
     return [collection, result.data];
   };
 
   const create_throw_error = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
   }) =>
     ts.factory.createExpressionStatement(
       ts.factory.createCallExpression(
-        props.functor.use("throws"),
-        [],
+        props.context.importer.internal("throwTypeGuardError"),
+        undefined,
         [
           ts.factory.createObjectLiteralExpression(
             [
+              ts.factory.createPropertyAssignment(
+                "method",
+                ts.factory.createStringLiteral(props.functor.method),
+              ),
               ts.factory.createPropertyAssignment(
                 "expected",
                 ts.factory.createStringLiteral(props.expected),

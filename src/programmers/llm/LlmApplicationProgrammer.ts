@@ -12,23 +12,23 @@ import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
   export const validate = (
-    meta: Metadata,
+    metadata: Metadata,
     explore: MetadataFactory.IExplore,
   ): string[] => {
-    if (explore.top === false) return LlmSchemaProgrammer.validate(meta);
+    if (explore.top === false) return LlmSchemaProgrammer.validate(metadata);
 
     const output: string[] = [];
     const valid: boolean =
-      meta.size() === 1 &&
-      meta.objects.length === 1 &&
-      meta.isRequired() === true &&
-      meta.nullable === false;
+      metadata.size() === 1 &&
+      metadata.objects.length === 1 &&
+      metadata.isRequired() === true &&
+      metadata.nullable === false;
     if (valid === false)
       output.push(
         "LLM application's generic arugment must be a class/interface type.",
       );
 
-    const object: MetadataObject | undefined = meta.objects[0];
+    const object: MetadataObject | undefined = metadata.objects[0];
     if (object !== undefined) {
       if (object.properties.some((p) => p.key.isSoleLiteral() === false))
         output.push("LLM application does not allow dynamic keys.");
@@ -124,7 +124,7 @@ export namespace LlmApplicationProgrammer {
         const jsDocTagDescription: string | null = writeDescriptionFromJsDocTag(
           {
             jsDocTags: p.jsDocTags,
-            tag: "param",
+            name: "param",
             parameter: p.name,
           },
         );
@@ -141,11 +141,11 @@ export namespace LlmApplicationProgrammer {
               description:
                 writeDescriptionFromJsDocTag({
                   jsDocTags: props.jsDocTags,
-                  tag: "return",
+                  name: "return",
                 }) ??
                 writeDescriptionFromJsDocTag({
                   jsDocTags: props.jsDocTags,
-                  tag: "returns",
+                  name: "returns",
                 }),
               jsDocTags: [],
             })
@@ -201,7 +201,7 @@ export namespace LlmApplicationProgrammer {
 
   const writeDescriptionFromJsDocTag = (props: {
     jsDocTags: IJsDocTagInfo[];
-    tag: string;
+    name: string;
     parameter?: string;
   }): string | null => {
     const parametric: (elem: IJsDocTagInfo) => boolean = props.parameter
@@ -212,7 +212,7 @@ export namespace LlmApplicationProgrammer {
           ) !== undefined
       : () => true;
     const tag: IJsDocTagInfo | undefined = props.jsDocTags.find(
-      (tag) => tag.name === props.tag && tag.text && parametric(tag),
+      (tag) => tag.name === props.name && tag.text && parametric(tag),
     );
     return tag && tag.text
       ? (tag.text.find((elem) => elem.kind === "text")?.text ?? null)

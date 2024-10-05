@@ -56,6 +56,7 @@ export namespace AssertProgrammer {
                     ts.factory.createLogicalOr(
                       cond.expression,
                       create_guard_call({
+                        context: props.context,
                         functor: props.functor,
                         exceptionable:
                           next.explore.from === "top"
@@ -83,6 +84,7 @@ export namespace AssertProgrammer {
                         )
                         .reduce((a, b) => ts.factory.createLogicalOr(a, b)),
                       create_guard_call({
+                        context: props.context,
                         functor: props.functor,
                         exceptionable:
                           next.explore.from === "top"
@@ -255,6 +257,7 @@ export namespace AssertProgrammer {
                 : ts.factory.createLogicalOr(
                     binary.expression,
                     create_guard_call({
+                      context: props.context,
                       functor: props.functor,
                       exceptionable:
                         next.explore.source === "top"
@@ -272,6 +275,7 @@ export namespace AssertProgrammer {
               .map((binary) => binary.expression)
               .reduce(ts.factory.createLogicalOr),
             create_guard_call({
+              context: props.context,
               functor: props.functor,
               exceptionable:
                 next.explore.source === "top"
@@ -300,11 +304,12 @@ export namespace AssertProgrammer {
         positive: ts.factory.createTrue(),
         superfluous: (input) =>
           create_guard_call({
+            context: props.context,
             functor: props.functor,
             path: ts.factory.createAdd(
               ts.factory.createIdentifier("_path"),
               ts.factory.createCallExpression(
-                props.functor.use("join"),
+                props.context.importer.internal("accessExpressionAsString"),
                 undefined,
                 [ts.factory.createIdentifier("key")],
               ),
@@ -322,7 +327,6 @@ export namespace AssertProgrammer {
           ),
       },
       context: props.context,
-      functor: props.functor,
       entries: props.entries,
       input: props.input,
     });
@@ -348,6 +352,7 @@ export namespace AssertProgrammer {
       ),
     failure: (next) =>
       create_guard_call({
+        context: props.context,
         functor: props.functor,
         exceptionable:
           next.explore?.from === "top"
@@ -365,6 +370,7 @@ export namespace AssertProgrammer {
           ts.factory.createLogicalOr(
             next.condition,
             create_guard_call({
+              context: props.context,
               functor: props.functor,
               exceptionable:
                 next.explore.from === "top"
@@ -378,27 +384,36 @@ export namespace AssertProgrammer {
   });
 
   const create_guard_call = (props: {
+    context: ITypiaContext;
     functor: FunctionProgrammer;
     expected: string;
     input: ts.Expression;
     path: ts.Expression;
     exceptionable?: ts.Expression;
   }): ts.Expression =>
-    ts.factory.createCallExpression(props.functor.use("guard"), undefined, [
-      props.exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
-      ts.factory.createObjectLiteralExpression(
-        [
-          ts.factory.createPropertyAssignment("path", props.path),
-          ts.factory.createPropertyAssignment(
-            "expected",
-            ts.factory.createStringLiteral(props.expected),
-          ),
-          ts.factory.createPropertyAssignment("value", props.input),
-        ],
-        true,
-      ),
-      ts.factory.createIdentifier("_errorFactory"),
-    ]);
+    ts.factory.createCallExpression(
+      props.context.importer.internal("assertGuard"),
+      undefined,
+      [
+        props.exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
+        ts.factory.createObjectLiteralExpression(
+          [
+            ts.factory.createPropertyAssignment(
+              "method",
+              ts.factory.createStringLiteral(props.functor.method),
+            ),
+            ts.factory.createPropertyAssignment("path", props.path),
+            ts.factory.createPropertyAssignment(
+              "expected",
+              ts.factory.createStringLiteral(props.expected),
+            ),
+            ts.factory.createPropertyAssignment("value", props.input),
+          ],
+          true,
+        ),
+        ts.factory.createIdentifier("_errorFactory"),
+      ],
+    );
 
   export namespace Guardian {
     export const identifier = () => ts.factory.createIdentifier("errorFactory");

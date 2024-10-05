@@ -11,7 +11,7 @@ export interface ITypiaContext {
   printer: ts.Printer;
   options: ITransformOptions;
   transformer: ts.TransformationContext;
-  functor: ImportProgrammer;
+  importer: ImportProgrammer;
   extras: {
     addDiagnostic: (diag: ts.Diagnostic) => number;
   };

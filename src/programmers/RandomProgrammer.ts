@@ -70,7 +70,7 @@ export namespace RandomProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.${props.functor.method}`,
+        code: props.functor.method,
         errors: result.errors,
       });
 

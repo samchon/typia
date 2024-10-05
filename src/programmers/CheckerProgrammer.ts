@@ -141,7 +141,7 @@ export namespace CheckerProgrammer {
   }): ts.VariableStatement[] =>
     FeatureProgrammer.write_object_functions({
       config: configure(props),
-      functor: props.functor,
+      context: props.context,
       collection: props.collection,
     });
 

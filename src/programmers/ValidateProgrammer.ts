@@ -138,14 +138,9 @@ export namespace ValidateProgrammer {
                   ts.factory.createIdentifier("$report"),
                   ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                   ts.factory.createCallExpression(
-                    IdentifierFactory.access(
-                      ts.factory.createParenthesizedExpression(
-                        ts.factory.createAsExpression(
-                          props.modulo,
-                          TypeFactory.keyword("any"),
-                        ),
-                      ),
-                      "report",
+                    ts.factory.createAsExpression(
+                      props.context.importer.internal("$validateReport"),
+                      TypeFactory.keyword("any"),
                     ),
                     [],
                     [ts.factory.createIdentifier("errors")],
@@ -331,7 +326,7 @@ const validate_object = (props: {
           path: ts.factory.createAdd(
             ts.factory.createIdentifier("_path"),
             ts.factory.createCallExpression(
-              props.functor.use("join"),
+              props.context.importer.internal("accessExpressionAsString"),
               undefined,
               [ts.factory.createIdentifier("key")],
             ),
@@ -349,7 +344,6 @@ const validate_object = (props: {
         ),
     },
     context: props.context,
-    functor: props.functor,
     entries: props.entries,
     input: props.input,
   });

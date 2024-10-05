@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "7.0.0-dev.20241003",
+  "version": "7.0.0-dev.20241005",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -15,7 +15,7 @@
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
-    "dev": "rimraf lib && tsc --watch",
+    "dev": "tsc --project tsconfig.test.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
@@ -63,7 +63,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "7.0.0-dev.20241003"
+    "typia": "7.0.0-dev.20241005"
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.7.0"
