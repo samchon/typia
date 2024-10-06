@@ -1,5 +1,3 @@
-import * as Namespace from "./functional/Namespace";
-
 import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
@@ -553,7 +551,7 @@ export function validateEquals(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function random(generator?: Partial<IRandomGenerator>): never;
+export function random(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Generate random data.
@@ -571,19 +569,14 @@ function random(generator?: Partial<IRandomGenerator>): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
+export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 
 /**
  * @internal
  */
-function random(): never {
+export function random(): never {
   halt("random");
 }
-const randomPure = /** @__PURE__ */ Object.assign<typeof random, {}>(
-  random,
-  /** @__PURE__ */ Namespace.random(),
-);
-export { randomPure as random };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -908,7 +901,7 @@ export function createValidateEquals(): (input: unknown) => IValidation {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createRandom(generator?: Partial<IRandomGenerator>): never;
+export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Creates a resuable {@link random} function.
@@ -919,21 +912,16 @@ function createRandom(generator?: Partial<IRandomGenerator>): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createRandom<T>(
+export function createRandom<T>(
   generator?: Partial<IRandomGenerator>,
 ): () => Resolved<T>;
 
 /**
  * @internal
  */
-function createRandom(): never {
+export function createRandom(): never {
   halt("createRandom");
 }
-const createRandomPure = /** @__PURE__ */ Object.assign<
-  typeof createRandom,
-  {}
->(createRandom, randomPure);
-export { createRandomPure as createRandom };
 
 /**
  * @internal

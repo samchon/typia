@@ -55,7 +55,7 @@ export namespace LlmApplicationTransformer {
 
     // GENERATE LLM APPLICATION
     const schema: ILlmApplication = LlmApplicationProgrammer.write(result.data);
-    const literal: ts.Expression = LiteralFactory.generate(schema);
+    const literal: ts.Expression = LiteralFactory.write(schema);
     if (!props.expression.arguments?.[0]) return literal;
 
     return ExpressionFactory.selfCall(
@@ -63,7 +63,7 @@ export namespace LlmApplicationTransformer {
         [
           StatementFactory.constant({
             name: "app",
-            value: LiteralFactory.generate(schema),
+            value: LiteralFactory.write(schema),
           }),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(

@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { RandomGenerator } from "../utils/RandomGenerator";
+import { $randomFormatUuid } from "../internal/$randomFormatUuid";
 
 export namespace ExpressionFactory {
   export const number = (value: number) =>
@@ -134,7 +134,7 @@ export namespace ExpressionFactory {
     script: string,
   ) => {
     const file: ts.SourceFile = ts.createSourceFile(
-      `${RandomGenerator.uuid()}.ts`,
+      `${$randomFormatUuid()}.ts`,
       script,
       ts.ScriptTarget.ESNext,
       true,

@@ -64,6 +64,6 @@ export namespace ReflectMetadataTransformer {
       metadatas: metadatas.map((metadata) => metadata.toJSON()),
       components: collection.toJSON(),
     };
-    return LiteralFactory.generate(app);
+    return LiteralFactory.write(app);
   };
 }

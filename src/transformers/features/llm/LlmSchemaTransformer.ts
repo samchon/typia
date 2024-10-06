@@ -54,6 +54,6 @@ export namespace LlmSchemaTransformer {
 
     // GENERATE LLM SCHEMA
     const schema: ILlmSchema = LlmSchemaProgrammer.write(result.data);
-    return LiteralFactory.generate(schema);
+    return LiteralFactory.write(schema);
   };
 }

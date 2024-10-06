@@ -5,6 +5,7 @@ export const $randomFormatIpv4 = (): string =>
 
 const random = () =>
   $randomInteger({
+    type: "integer",
     minimum: 0,
     maximum: 255,
   });

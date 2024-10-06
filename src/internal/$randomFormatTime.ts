@@ -3,6 +3,7 @@ import { $randomInteger } from "./$randomInteger";
 export const $randomFormatTime = (): string =>
   new Date(
     $randomInteger({
+      type: "integer",
       minimum: 0,
       maximum: DAY,
     }),
