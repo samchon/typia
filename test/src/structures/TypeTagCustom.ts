@@ -39,29 +39,21 @@ export namespace TypeTagCustom {
     },
   ];
 
-  export const RANDOM: typia.IRandomGenerator = {
+  export const RANDOM: Partial<typia.IRandomGenerator> = {
     ...TestRandomGenerator,
-    customs: {
-      string: (tags) => {
-        if (
-          tags.find((t) => t.kind === "monetary" && t.value === "dollar") !==
-          undefined
-        )
-          return "$" + TestRandomGenerator.integer();
-        const postfix = tags.find((t) => t.kind === "postfix");
-        if (postfix !== undefined)
-          return TestRandomGenerator.string() + postfix.value;
-        return undefined;
-      },
-      number: (tags) => {
-        const powerOf = tags.find((t) => t.kind === "powerOf");
-        if (powerOf !== undefined)
-          return Math.pow(
-            Number(powerOf.value),
-            TestRandomGenerator.integer(1, 10),
-          );
-        return undefined;
-      },
+    string: (schema) => {
+      if ((schema as any)["x-typia-postfix"] === "dollar")
+        return "$" + TestRandomGenerator.integer();
+      else if ((schema as any)["x-typia-postfix"] !== undefined)
+        return (
+          TestRandomGenerator.string() + (schema as any)["x-typia-postfix"]
+        );
+    },
+    number: (schema) => {
+      if ((schema as any)["x-typia-powerOf"] !== undefined) {
+        const powerOf = (schema as any)["x-typia-powerOf"];
+        return Math.pow(powerOf, TestRandomGenerator.integer(1, 10));
+      }
     },
   };
 }

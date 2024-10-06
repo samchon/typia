@@ -6,6 +6,7 @@ export const $randomFormatDate = (props?: {
 }) =>
   new Date(
     $randomInteger({
+      type: "integer",
       minimum: props?.minimum ?? 0,
       maximum:
         (props?.maximum ?? props?.minimum === undefined)

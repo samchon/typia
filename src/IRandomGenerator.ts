@@ -1,18 +1,17 @@
-import { Customizable } from "./typings/Customizable";
+import { OpenApi } from "@samchon/openapi";
 
 export interface IRandomGenerator {
   // REGULAR
-  boolean(): boolean;
-  integer(minimum?: number, maximum?: number): number;
-  bigint(minimum?: bigint, maximum?: bigint): bigint;
-  number(minimum?: number, maximum?: number): number;
-  string(length?: number): string;
+  boolean(): boolean | undefined;
+  number(schema: OpenApi.IJsonSchema.INumber): number;
+  integer(schema: OpenApi.IJsonSchema.IInteger): number;
+  bigint(schema: OpenApi.IJsonSchema.IInteger): bigint;
+  string(schema: OpenApi.IJsonSchema.IString): string;
   array<T>(
-    closure: (index: number) => T,
-    count?: number,
-    unique?: boolean,
+    schema: OpenApi.IJsonSchema.IArray & {
+      element: (index: number, count: number) => T;
+    },
   ): T[];
-  length(): number;
   pattern(regex: RegExp): string;
 
   //----
@@ -39,27 +38,12 @@ export interface IRandomGenerator {
   url(): string;
 
   // TIMESTAMPS
-  datetime(minimum?: number, maximum?: number): string;
-  date(minimum?: number, maximum?: number): string;
+  datetime(props?: { minimum?: number; maximum?: number }): string;
+  date(props?: { minimum?: number; maximum?: number }): string;
   time(): string;
   duration(): string;
 
   // POINTERS
   jsonPointer(): string;
   relativeJsonPointer(): string;
-
-  customs?: IRandomGenerator.CustomMap;
-}
-export namespace IRandomGenerator {
-  export type CustomMap = {
-    [Type in keyof Customizable]?: (
-      tags: ITypeTag[],
-    ) => Customizable[Type] | undefined;
-  };
-
-  export interface ITypeTag {
-    name: string;
-    kind: string;
-    value: any;
-  }
 }

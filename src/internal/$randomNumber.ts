@@ -1,8 +1,6 @@
 import { OpenApi } from "@samchon/openapi";
 
-export const $randomNumber = (
-  props: Omit<OpenApi.IJsonSchema.INumber, "type">,
-): number => {
+export const $randomNumber = (props: OpenApi.IJsonSchema.INumber): number => {
   const minimum: number =
     props.minimum ?? (props.maximum === undefined ? 0 : props.maximum - 100);
   const maximum: number =
