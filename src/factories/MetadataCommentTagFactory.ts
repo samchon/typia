@@ -122,6 +122,22 @@ export namespace MetadataCommentTagFactory {
       value: value!,
     });
   };
+
+  export const get = (props: {
+    kind: string;
+    type: "array" | "bigint" | "number" | "string";
+    value: string;
+  }): IMetadataTypeTag[] => {
+    const output: IMetadataTypeTag[] | undefined = PARSER[props.kind]?.({
+      report: () => null,
+      value: props.value,
+    })?.[props.type];
+    if (output === undefined)
+      throw new Error(
+        `no tag found for (kind: ${props.kind}, type: ${props.type}).`,
+      );
+    return output;
+  };
 }
 
 /**
@@ -140,7 +156,7 @@ type Target = "bigint" | "number" | "string" | "array";
  * @internal
  */
 type NotDeterminedTypeTag = Omit<IMetadataTypeTag, "validate" | "schema"> & {
-  validate: string | null;
+  validate: string | undefined;
   schema: object | undefined;
 };
 
@@ -312,7 +328,7 @@ const PARSER: Record<
                 value: value,
                 validate: value === "int64" ? "true" : "BigInt(0) <= $input",
                 exclusive: true,
-                schema: undefined,
+                schema: value === "uint64" ? { minimum: 0 } : undefined,
               },
             ]
           : [],
@@ -347,7 +363,9 @@ const PARSER: Record<
         })(),
         validate: `${props.value} <= $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
-        schema: undefined,
+        schema: {
+          minimum: parse_number(props),
+        },
       },
     ],
   }),
@@ -380,7 +398,9 @@ const PARSER: Record<
         })(),
         validate: `$input <= ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
-        schema: undefined,
+        schema: {
+          maximum: parse_number(props),
+        },
       },
     ],
   }),
@@ -414,7 +434,10 @@ const PARSER: Record<
         })(),
         validate: `${props.value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
-        schema: undefined,
+        schema: {
+          exclusiveMinimum: true,
+          minimum: parse_number(props),
+        },
       },
     ],
   }),
@@ -448,7 +471,10 @@ const PARSER: Record<
         })(),
         validate: `$input < ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
-        schema: undefined,
+        schema: {
+          exclusiveMaximum: true,
+          maximum: parse_number(props),
+        },
       },
     ],
   }),
@@ -481,7 +507,9 @@ const PARSER: Record<
         })(),
         validate: `$input % ${props.value}n === 0n`,
         exclusive: true,
-        schema: undefined,
+        schema: {
+          multipleOf: parse_number(props),
+        },
       },
     ],
   }),

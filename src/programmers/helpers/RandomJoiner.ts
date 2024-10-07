@@ -20,11 +20,12 @@ export namespace RandomJoiner {
 
   export const array = (props: {
     decode: Decoder;
+    recursive: boolean;
     expression: ts.Expression;
     array: MetadataArrayType;
     schema: Omit<OpenApi.IJsonSchema.IArray, "items"> | undefined;
   }): ts.Expression => {
-    const generator: ts.Expression = ts.factory.createCallExpression(
+    const call: ts.Expression = ts.factory.createCallExpression(
       props.expression,
       undefined,
       [
@@ -63,14 +64,14 @@ export namespace RandomJoiner {
         ),
       ],
     );
-    if (props.array.recursive === false) return generator;
+    if (props.recursive === false) return call;
     return ts.factory.createConditionalExpression(
       ts.factory.createGreaterThanEquals(
         ExpressionFactory.number(5),
         ts.factory.createIdentifier("_depth"),
       ),
       undefined,
-      generator,
+      call,
       undefined,
       ts.factory.createArrayLiteralExpression([]),
     );
@@ -138,11 +139,10 @@ export namespace RandomJoiner {
     const array: MetadataArray = MetadataArray.create({
       type: MetadataArrayType.create({
         name: `Array<[${props.property.key.getName()}, ${props.property.value.getName()}]>`,
-        value: (() => {
-          const elem: Metadata = Metadata.initialize();
-          elem.tuples.push(tuple);
-          return elem;
-        })(),
+        value: Metadata.create({
+          ...Metadata.initialize(),
+          tuples: [tuple],
+        }),
         nullables: [false],
         recursive: false,
         index: null,
@@ -157,34 +157,12 @@ export namespace RandomJoiner {
       undefined,
       [
         props.decode(
-          (() => {
-            const elem: Metadata = Metadata.initialize();
-            elem.arrays.push(array);
-            return elem;
-          })(),
+          Metadata.create({
+            ...Metadata.initialize(),
+            arrays: [array],
+          }),
         ),
       ],
     );
   };
-  // ts.factory.createCallExpression(props.coalesce("array"), undefined, [
-  //   ts.factory.createArrowFunction(
-  //     undefined,
-  //     undefined,
-  //     [],
-  //     undefined,
-  //     undefined,
-  //     ts.factory.createBinaryExpression(
-  //       ts.factory.createElementAccessExpression(
-  //         ts.factory.createIdentifier("output"),
-  //         props.decode(props.property.key),
-  //       ),
-  //       ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-  //       props.decode(props.property.value),
-  //     ),
-  //   ),
-  //   ts.factory.createCallExpression(props.coalesce("integer"), undefined, [
-  //     ExpressionFactory.number(0),
-  //     ExpressionFactory.number(3),
-  //   ]),
-  // ]);
 }

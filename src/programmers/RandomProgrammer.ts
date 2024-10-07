@@ -26,13 +26,14 @@ import { StringUtil } from "../utils/StringUtil";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { RandomJoiner } from "./helpers/RandomJoiner";
-import { application_boolean } from "./internal/application_boolean";
-import { application_number } from "./internal/application_number";
-import { application_string } from "./internal/application_string";
 import { LiteralFactory } from "../factories/LiteralFactory";
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
 import { application_array } from "./internal/application_array";
 import { application_v31_schema } from "./internal/application_v31_schema";
+import { MetadataCommentTagFactory } from "../factories/MetadataCommentTagFactory";
+import { application_boolean } from "./internal/application_boolean";
+import { application_string } from "./internal/application_string";
+import { application_bigint } from "./internal/application_bigint";
+import { application_number } from "./internal/application_number";
 
 export namespace RandomProgrammer {
   export interface IProps {
@@ -256,6 +257,7 @@ export namespace RandomProgrammer {
                   },
                   metadata,
                 }),
+              recursive: true,
               expression: coalesce({
                 context: props.context,
                 method: "array",
@@ -397,6 +399,8 @@ export namespace RandomProgrammer {
       expressions.push(
         decode_native({
           context: props.context,
+          functor: props.functor,
+          explore: props.explore,
           name,
         }),
       );
@@ -442,20 +446,13 @@ export namespace RandomProgrammer {
     context: ITypiaContext;
     atomic: MetadataAtomic;
   }) => {
-    // const schemaList: OpenApi.IJsonSchema[] =
-    //   props.atomic.type === "boolean"
-    //     ? application_boolean<"3.1">(props.atomic)
-    //     : props.atomic.type === "number" || props.atomic.type === "bigint"
-    //       ? application_number<"3.1">(props.atomic)
-    //       : application_string<"3.1">(props.atomic);
-    const schemaList: OpenApi.IJsonSchema[] = [
-      {
-        type: props.atomic.type === "bigint" ? "integer" : props.atomic.type,
-      }
-    ];
-    application_number;
-    application_string;
-    application_boolean;
+    const schemaList: OpenApi.IJsonSchema[] = props.atomic.type === "boolean"
+      ? application_boolean<"3.1">(props.atomic)
+      : props.atomic.type === "string"
+      ? application_string<"3.1">(props.atomic)
+      : props.atomic.type === "bigint"
+      ? application_bigint<"3.1">(props.atomic)
+      : application_number<"3.1">(props.atomic);
     return schemaList.map((schema) => {
       const { method, internal } = (() => {
         if (props.atomic.type === "string") {
@@ -473,7 +470,10 @@ export namespace RandomProgrammer {
                 .split("-")
                 .map((s, i) => (i === 0 ? s : StringUtil.capitalize(s)))
                 .join(""),
-              internal: `randomFormat${StringUtil.capitalize(format)}`,
+              internal: `randomFormat${format
+                .split("-")
+                .map(StringUtil.capitalize)
+                .join("")}`,
             };
           } else if (string.pattern !== undefined)
             return {
@@ -508,7 +508,15 @@ export namespace RandomProgrammer {
       ),
       undefined,
       [
-        LiteralFactory.write(schema)
+        method === "pattern"
+        ? ts.factory.createNewExpression(
+          ts.factory.createIdentifier("RegExp"),
+          undefined,
+          [
+            ts.factory.createStringLiteral((schema as OpenApi.IJsonSchema.IString).pattern!)
+          ]
+        )
+        : LiteralFactory.write(schema)
       ]
     )
     });
@@ -578,6 +586,7 @@ export namespace RandomProgrammer {
           internal: "randomArray",
         }),
         array: props.array.type,
+        recursive: props.explore.recursive,
         schema,
       })
     );
@@ -718,6 +727,8 @@ export namespace RandomProgrammer {
 
   const decode_native = (props: {
     context: ITypiaContext;
+    functor: FunctionProgrammer;
+    explore: IExplore;
     name: string;
   }): ts.Expression => {
     if (
@@ -756,10 +767,9 @@ export namespace RandomProgrammer {
         ...props,
         name: props.name,
       });
-    else if (props.name === "DataView")
-      return decode_native_data_view(props.context);
-    else if (props.name === "Blob") return decode_native_blob(props.context);
-    else if (props.name === "File") return decode_native_file(props.context);
+    else if (props.name === "DataView")return decode_native_data_view(props);
+    else if (props.name === "Blob") return decode_native_blob(props);
+    else if (props.name === "File") return decode_native_file(props);
     else if (props.name === "RegExp") return decode_regexp(props.context);
     else
       return ts.factory.createNewExpression(
@@ -788,6 +798,8 @@ export namespace RandomProgrammer {
 
   const decode_native_byte_array = (props: {
     context: ITypiaContext;
+    functor: FunctionProgrammer;
+    explore: IExplore;
     name:
       | "Uint8Array"
       | "Uint8ClampedArray"
@@ -802,67 +814,80 @@ export namespace RandomProgrammer {
       | "Float64Array";
   }): ts.Expression => {
     new BigInt64Array();
-    const [minimum, maximum]: [number, number] = (() => {
+    const [type, minimum, maximum]: [string, number, number] = (() => {
       if (props.name === "Uint8Array" || props.name === "Uint8ClampedArray")
-        return [0, 255];
-      else if (props.name === "Uint16Array") return [0, 65535];
-      else if (props.name === "Uint32Array") return [0, 4294967295];
+        return ["uint32", 0, 255];
+      else if (props.name === "Uint16Array") return ["uint32", 0, 65535];
+      else if (props.name === "Uint32Array") return ["uint32", 0, 4294967295];
       else if (props.name === "BigUint64Array")
-        return [0, 18446744073709551615];
-      else if (props.name === "Int8Array") return [-128, 127];
-      else if (props.name === "Int16Array") return [-32768, 32767];
-      else if (props.name === "Int32Array") return [-2147483648, 2147483647];
+        return ["uint64", 0, 18446744073709551615];
+      else if (props.name === "Int8Array") return ["int32", -128, 127];
+      else if (props.name === "Int16Array") return ["int32", -32768, 32767];
+      else if (props.name === "Int32Array") return ["int32", -2147483648, 2147483647];
       else if (props.name === "BigInt64Array")
-        return [-9223372036854775808, 9223372036854775807];
+        return ["uint64", -9223372036854775808, 9223372036854775807];
       else if (props.name === "Float32Array")
-        return [-1.175494351e38, 3.4028235e38];
-      return [Number.MIN_VALUE, Number.MAX_VALUE];
+        return ["float", -1.175494351e38, 3.4028235e38];
+      return ["double", Number.MIN_VALUE, Number.MAX_VALUE];
     })();
-    const literal =
-      props.name === "BigInt64Array" || props.name === "BigUint64Array"
-        ? ExpressionFactory.bigint
-        : ExpressionFactory.number;
-    const atomic = props.name === "Float32Array" || props.name === "Float64Array"
-    ? "number"
-    : props.name === "BigInt64Array" ||
+    const atomic: "bigint" | "number" = 
+      props.name === "BigInt64Array" ||
         props.name === "BigUint64Array"
       ? "bigint"
-      : "integer"
+      : "number"
+    const value: Metadata = Metadata.create({
+      ...Metadata.initialize(),
+      atomics: [
+        MetadataAtomic.create({
+          type: atomic,
+          tags: [
+            [
+              ...MetadataCommentTagFactory.get({
+                kind: "type",
+                type: atomic,
+                value: type,
+              }),
+              ...MetadataCommentTagFactory.get({
+                kind: "minimum",
+                type: "number",
+                value: minimum.toString(),
+              }),
+              ...MetadataCommentTagFactory.get({
+                kind: "maximum",
+                type: "number",
+                value: maximum.toString(),
+              }),
+            ]
+          ],
+        })
+      ],
+    });
     return ts.factory.createNewExpression(
       ts.factory.createIdentifier(props.name),
       [],
-      [
-        ts.factory.createCallExpression(
-          coalesce({
-            context: props.context,
-            method: "array",
-            internal: "randomArray"
+      decode_array({
+        context: props.context,
+        functor: props.functor,
+        explore: props.explore,
+        array: MetadataArray.create({
+          tags: [],
+          type: MetadataArrayType.create({
+            name: `${props.name}<${atomic}>`,
+            value,
+            recursive: false,
+            index: null,
+            nullables: [],
           }),
-          undefined,
-          [
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              [],
-              TypeFactory.keyword("any"),
-              undefined,
-              ts.factory.createCallExpression(
-                coalesce({
-                  context: props.context,
-                  method: atomic,
-                  internal: `random${StringUtil.capitalize(atomic)}`,
-                }),
-                undefined,
-                [literal(minimum), literal(maximum)],
-              ),
-            ),
-          ],
-        ),
-      ],
+        }),
+      }),
     );
   };
 
-  const decode_native_blob = (context: ITypiaContext) =>
+  const decode_native_blob = (props: {
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    explore: IExplore;
+  }) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("Blob"),
       undefined,
@@ -870,7 +895,9 @@ export namespace RandomProgrammer {
         ts.factory.createArrayLiteralExpression(
           [
             decode_native_byte_array({
-              context,
+              context: props.context,
+              functor: props.functor,
+              explore: props.explore,
               name: "Uint8Array",
             }),
           ],
@@ -879,7 +906,11 @@ export namespace RandomProgrammer {
       ],
     );
 
-  const decode_native_file = (context: ITypiaContext) =>
+  const decode_native_file = (props: {
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    explore: IExplore;
+  }) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("File"),
       undefined,
@@ -887,7 +918,9 @@ export namespace RandomProgrammer {
         ts.factory.createArrayLiteralExpression(
           [
             decode_native_byte_array({
-              context,
+              context: props.context,
+              functor: props.functor,
+              explore: props.explore,
               name: "Uint8Array",
             }),
           ],
@@ -895,16 +928,18 @@ export namespace RandomProgrammer {
         ),
         ts.factory.createTemplateExpression(ts.factory.createTemplateHead(""), [
           ts.factory.createTemplateSpan(
-            writeFixedStringLength({
-              context,
-              length: 8,
+            writeRangedString({
+              context: props.context,
+              minLength: 1,
+              maxLength: 8,
             }),
             ts.factory.createTemplateMiddle("."),
           ),
           ts.factory.createTemplateSpan(
-            writeFixedStringLength({
-              context,
-              length: 3,
+            writeRangedString({
+              context: props.context,
+              minLength: 3,
+              maxLength: 3,
             }),
             ts.factory.createTemplateTail(""),
           ),
@@ -914,12 +949,16 @@ export namespace RandomProgrammer {
 
   const decode_native_array_buffer = (props: {
     context: ITypiaContext;
+    functor: FunctionProgrammer;
+    explore: IExplore;
     name: "ArrayBuffer" | "SharedArrayBuffer";
   }): ts.Expression =>
     props.name === "ArrayBuffer"
       ? IdentifierFactory.access(
           decode_native_byte_array({
             context: props.context,
+            functor: props.functor,
+            explore: props.explore,
             name: "Uint8Array",
           }),
           "buffer",
@@ -929,15 +968,19 @@ export namespace RandomProgrammer {
             [
               StatementFactory.constant({
                 name: "length",
-                value: ts.factory.createCallExpression(
-                  coalesce({
-                    context: props.context,
-                    method: "integer",
-                    internal: "randomInteger",
+                value: decode_atomic({
+                  context: props.context,
+                  atomic: MetadataAtomic.create({
+                    type: "number",
+                    tags: [
+                      MetadataCommentTagFactory.get({
+                        type: "number",
+                        kind: "type",
+                        value: "uint32",
+                      }),
+                    ],
                   }),
-                  undefined,
-                  [],
-                ),
+                })[0]!,
               }),
               StatementFactory.constant({
                 name: "buffer",
@@ -964,36 +1007,54 @@ export namespace RandomProgrammer {
                   undefined,
                   [
                     ts.factory.createCallExpression(
-                      coalesce({
-                        context: props.context,
-                        method: "array",
-                        internal: "randomArray",
-                      }),
-                      undefined,
-                      [
-                        ts.factory.createArrowFunction(
-                          undefined,
-                          undefined,
-                          [],
-                          TypeFactory.keyword("any"),
-                          undefined,
-                          ts.factory.createCallExpression(
-                            coalesce({
-                              context: props.context,
-                              method: "integer",
-                              internal: "randomInteger",
-                            }),
-                            undefined,
-                            [
-                              LiteralFactory.write({
-                                minimum: 0,
-                                maximum: 255,
-                              }),
-                            ],
+                      ts.factory.createPropertyAccessExpression(
+                        ts.factory.createCallExpression(
+                          ts.factory.createPropertyAccessExpression(
+                            ts.factory.createNewExpression(
+                              ts.factory.createIdentifier("Array"),
+                              undefined,
+                              [ts.factory.createIdentifier("length")]
+                            ),
+                            ts.factory.createIdentifier("fill")
                           ),
+                          undefined,
+                          [ts.factory.createNumericLiteral("0")]
                         ),
-                        ts.factory.createIdentifier("length"),
-                      ],
+                        ts.factory.createIdentifier("map")
+                      ),
+                      undefined,
+                      [ts.factory.createArrowFunction(
+                        undefined,
+                        undefined,
+                        [],
+                        undefined,
+                        undefined,
+                        decode_atomic({
+                          context: props.context,
+                          atomic: MetadataAtomic.create({
+                            type: "number",
+                            tags: [
+                              [
+                                ...MetadataCommentTagFactory.get({
+                                  kind: "type",
+                                  type: "number",
+                                  value: "uint32",
+                                }),
+                                ...MetadataCommentTagFactory.get({
+                                  kind: "minimum",
+                                  type: "number",
+                                  value: "0",
+                                }),
+                                ...MetadataCommentTagFactory.get({
+                                  kind: "maximum",
+                                  type: "number",
+                                  value: "255",
+                                }),
+                              ]
+                            ],
+                          }),
+                        })[0]!
+                      )]
                     ),
                     ExpressionFactory.number(0),
                   ],
@@ -1007,14 +1068,20 @@ export namespace RandomProgrammer {
           ),
         );
 
-  const decode_native_data_view = (context: ITypiaContext) =>
+  const decode_native_data_view = (props: {
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    explore: IExplore;
+  }) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("DataView"),
       [],
       [
         IdentifierFactory.access(
           decode_native_byte_array({
-            context,
+            context: props.context,
+            functor: props.functor,
+            explore: props.explore,
             name: "Uint8Array",
           }),
           "buffer",
@@ -1023,47 +1090,41 @@ export namespace RandomProgrammer {
     );
 
   const decode_regexp = (context: ITypiaContext) =>
-    ts.factory.createCallExpression(
-    coalesce({
-      context,
-      method: "regex",
-      internal: "randomRegex",
-    }),
-    undefined,
-    undefined,
-  );
+    ts.factory.createNewExpression(
+      ts.factory.createIdentifier("RegExp"),
+      [],
+      [
+        ts.factory.createCallExpression(
+        coalesce({
+          context,
+          method: "regex",
+          internal: "randomFormatRegex",
+        }),
+        undefined,
+        undefined,
+      )
+    ]);
 
-  const writeFixedStringLength = (props: {
+  const writeRangedString = (props: {
     context: ITypiaContext;
-    length: number;
+    minLength: number;
+    maxLength: number;
   }): ts.CallExpression =>
     decode_atomic({
       context: props.context,
       atomic: MetadataAtomic.create({
         type: "string",
         tags: [[
-          {
-            target: "string",
-            name: `MinLength<${props.length}>`,
+          ...MetadataCommentTagFactory.get({
             kind: "minLength",
-            value: `${props.length}`,
-            validate: `${props.length} <= $input.length`,
-            exclusive: true,
-            schema: {
-              minLength: props.length,
-            }
-          } satisfies IMetadataTypeTag,
-          {
-            target: "string",
-            name: `MaxLength<${props.length}>`,
+            type: "string",
+            value: props.minLength.toString(),
+          }),
+          ...MetadataCommentTagFactory.get({
             kind: "maxLength",
-            value: `${props.length}`,
-            validate: `$input.length <= ${props.length}`,
-            exclusive: true,
-            schema: {
-              maxLength: props.length,
-            }
-          } satisfies IMetadataTypeTag,
+            type: "string",
+            value: props.maxLength.toString(),
+          }),
         ]],
       }),
     })[0]!;
