@@ -1,29 +1,14 @@
 import ts from "typescript";
 
-import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
-import { TypeFactory } from "../../factories/TypeFactory";
 
 export class FunctionProgrammer {
-  private readonly used_: Set<string> = new Set();
   private readonly local_: Set<string> = new Set();
   private readonly unions_: Map<string, [string, ts.ArrowFunction]> = new Map();
   private readonly variables_: Map<string, ts.Expression> = new Map();
   private sequence_: number = 0;
 
   public constructor(public readonly method: string) {}
-
-  public empty(): boolean {
-    return this.used_.size === 0;
-  }
-
-  /**
-   * @deprecated
-   */
-  public use(name: string): ts.Identifier {
-    this.used_.add(name);
-    return ts.factory.createIdentifier("$" + name);
-  }
 
   public useLocal(name: string): string {
     this.local_.add(name);
@@ -34,22 +19,8 @@ export class FunctionProgrammer {
     return this.local_.has(name);
   }
 
-  public declare(
-    modulo: ts.LeftHandSideExpression,
-    includeUnions: boolean = true,
-  ): ts.Statement[] {
+  public declare(includeUnions: boolean = true): ts.Statement[] {
     return [
-      ...[...this.used_].map((name) =>
-        StatementFactory.constant({
-          name: "$" + name,
-          value: IdentifierFactory.access(
-            ts.factory.createParenthesizedExpression(
-              ts.factory.createAsExpression(modulo, TypeFactory.keyword("any")),
-            ),
-            name,
-          ),
-        }),
-      ),
       ...[...this.variables_.entries()].map(([name, value]) =>
         StatementFactory.constant({ name, value }),
       ),
@@ -92,10 +63,5 @@ export class FunctionProgrammer {
   public emplaceVariable(name: string, value: ts.Expression): ts.Expression {
     this.variables_.set(name, value);
     return ts.factory.createIdentifier(name);
-  }
-
-  public trace(): void {
-    console.log(...this.used_);
-    console.log(...this.local_);
   }
 }

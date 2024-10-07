@@ -9,6 +9,6 @@ export const $randomFormatTime = (): string =>
     }),
   )
     .toISOString()
-    .substring(11, 23);
+    .substring(11);
 
 const DAY = 86_400_000;

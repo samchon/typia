@@ -303,7 +303,7 @@ export namespace FeatureProgrammer {
         undefined,
         undefined,
         ts.factory.createBlock([
-          ...props.functor.declare(props.modulo),
+          ...props.functor.declare(),
           ...Object.entries(props.result.functions)
             .filter(([k]) => props.functor.hasLocal(k))
             .map(([_k, v]) => v),
