@@ -9,7 +9,7 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpQueryProgrammer } from "./HttpQueryProgrammer";
 
 export namespace HttpAssertQueryProgrammer {
@@ -19,7 +19,7 @@ export namespace HttpAssertQueryProgrammer {
 
   export const decompose = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
     init?: ts.Expression | undefined;
@@ -64,7 +64,10 @@ export namespace HttpAssertQueryProgrammer {
         undefined,
         [
           IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
         decode.arrow.type,
         undefined,
@@ -85,17 +88,17 @@ export namespace HttpAssertQueryProgrammer {
   };
 
   export const write = (props: IProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
       allowOptional: !!props.allowOptional,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };

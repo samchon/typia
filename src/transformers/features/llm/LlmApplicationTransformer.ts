@@ -2,12 +2,10 @@ import { ILlmApplication } from "@samchon/openapi";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../../factories/ExpressionFactory";
-import { IdentifierFactory } from "../../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { StatementFactory } from "../../../factories/StatementFactory";
-import { TypeFactory } from "../../../factories/TypeFactory";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
@@ -57,7 +55,7 @@ export namespace LlmApplicationTransformer {
 
     // GENERATE LLM APPLICATION
     const schema: ILlmApplication = LlmApplicationProgrammer.write(result.data);
-    const literal: ts.Expression = LiteralFactory.generate(schema);
+    const literal: ts.Expression = LiteralFactory.write(schema);
     if (!props.expression.arguments?.[0]) return literal;
 
     return ExpressionFactory.selfCall(
@@ -65,14 +63,11 @@ export namespace LlmApplicationTransformer {
         [
           StatementFactory.constant({
             name: "app",
-            value: LiteralFactory.generate(schema),
+            value: LiteralFactory.write(schema),
           }),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
-              ts.factory.createAsExpression(
-                IdentifierFactory.access(props.modulo, "finalize"),
-                TypeFactory.keyword("any"),
-              ),
+              props.context.importer.internal("$llmApplicationFinalize"),
               undefined,
               [
                 ts.factory.createIdentifier("app"),

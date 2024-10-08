@@ -3,11 +3,12 @@ import { OpenApi } from "@samchon/openapi";
 import { $randomInteger } from "./$randomInteger";
 
 export const $randomArray = <T>(
-  props: Omit<OpenApi.IJsonSchema.IArray, "type" | "items"> & {
+  props: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
     element: (index: number, count: number) => T;
   },
 ) => {
   const count: number = $randomInteger({
+    type: "integer",
     minimum: props.minItems ?? 0,
     maximum: props.maxItems ?? (props.minItems ?? 0) + 5,
   });

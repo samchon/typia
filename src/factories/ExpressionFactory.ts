@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { RandomGenerator } from "../utils/RandomGenerator";
+import { $randomFormatUuid } from "../internal/$randomFormatUuid";
 
 export namespace ExpressionFactory {
   export const number = (value: number) =>
@@ -84,7 +84,7 @@ export namespace ExpressionFactory {
   export const currying = (props: {
     function: ts.Expression;
     arguments: ts.Expression[];
-  }) => {
+  }): ts.CallExpression => {
     if (props.arguments.length === 0)
       return ts.factory.createCallExpression(
         props.function,
@@ -134,7 +134,7 @@ export namespace ExpressionFactory {
     script: string,
   ) => {
     const file: ts.SourceFile = ts.createSourceFile(
-      `${RandomGenerator.uuid()}.ts`,
+      `${$randomFormatUuid()}.ts`,
       script,
       ts.ScriptTarget.ESNext,
       true,

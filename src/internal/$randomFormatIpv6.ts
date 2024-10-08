@@ -5,6 +5,7 @@ export const $randomFormatIpv6 = (): string =>
 
 const random = () =>
   $randomInteger({
+    type: "integer",
     minimum: 0,
     maximum: 65_535,
   }).toString(16);

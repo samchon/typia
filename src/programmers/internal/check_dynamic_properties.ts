@@ -6,7 +6,6 @@ import { StatementFactory } from "../../factories/StatementFactory";
 
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_key } from "./check_dynamic_key";
 import { check_everything } from "./check_everything";
@@ -18,7 +17,6 @@ import { check_object } from "./check_object";
 export const check_dynamic_properties = (props: {
   config: check_object.IConfig;
   context: ITypiaContext;
-  importer: FunctionImporter;
   regular: IExpressionEntry<ts.Expression>[];
   dynamic: IExpressionEntry<ts.Expression>[];
   input: ts.Expression;
@@ -42,7 +40,7 @@ export const check_dynamic_properties = (props: {
             length,
           )
         : ts.factory.createCallExpression(
-            props.importer.use("is_between"),
+            props.context.importer.internal("isBetween"),
             [],
             [
               length,
@@ -97,7 +95,6 @@ export const check_dynamic_properties = (props: {
 const check_dynamic_property = (props: {
   config: check_object.IConfig;
   context: ITypiaContext;
-  importer: FunctionImporter;
   regular: IExpressionEntry<ts.Expression>[];
   dynamic: IExpressionEntry<ts.Expression>[];
   input: ts.Expression;
@@ -140,7 +137,6 @@ const check_dynamic_property = (props: {
   for (const entry of props.dynamic) {
     const condition: ts.Expression = check_dynamic_key({
       context: props.context,
-      importer: props.importer,
       metadata: entry.key,
       input: key,
     });

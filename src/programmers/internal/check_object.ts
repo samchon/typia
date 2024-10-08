@@ -2,7 +2,6 @@ import ts from "typescript";
 
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { FunctionImporter } from "../helpers/FunctionImporter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_properties } from "./check_dynamic_properties";
 import { check_everything } from "./check_everything";
@@ -13,7 +12,6 @@ import { check_everything } from "./check_everything";
 export const check_object = (props: {
   config: check_object.IConfig;
   context: ITypiaContext;
-  importer: FunctionImporter;
   input: ts.Expression;
   entries: IExpressionEntry<ts.Expression>[];
 }) => {
@@ -36,7 +34,6 @@ export const check_object = (props: {
     check_dynamic_properties({
       config: props.config,
       context: props.context,
-      importer: props.importer,
       input: props.input,
       regular,
       dynamic,

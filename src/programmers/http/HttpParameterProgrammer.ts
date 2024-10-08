@@ -11,8 +11,9 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { TransformerError } from "../../transformers/TransformerError";
 
+import { StringUtil } from "../../utils/StringUtil";
+
 import { AssertProgrammer } from "../AssertProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpParameterProgrammer {
@@ -36,9 +37,6 @@ export namespace HttpParameterProgrammer {
       });
 
     const atomic = [...HttpMetadataUtil.atomics(result.data)][0]!;
-    const importer: FunctionImporter = new FunctionImporter(
-      props.modulo.getText(),
-    );
     const block: ts.Statement[] = [
       StatementFactory.constant({
         name: "assert",
@@ -59,7 +57,9 @@ export namespace HttpParameterProgrammer {
       StatementFactory.constant({
         name: "value",
         value: ts.factory.createCallExpression(
-          importer.use(atomic),
+          props.context.importer.internal(
+            `httpParameterRead${StringUtil.capitalize(atomic)}`,
+          ),
           undefined,
           [ts.factory.createIdentifier("input")],
         ),
@@ -90,10 +90,7 @@ export namespace HttpParameterProgrammer {
           }),
       ),
       undefined,
-      ts.factory.createBlock(
-        [...importer.declare(props.modulo), ...block],
-        true,
-      ),
+      ts.factory.createBlock(block, true),
     );
   };
 

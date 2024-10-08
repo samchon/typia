@@ -7,8 +7,6 @@
 ==============================================================
     LITERALS
 ----------------------------------------------------------- */
-import * as Namespace from "./functional/Namespace";
-
 import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
@@ -77,19 +75,14 @@ export function literals(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function clone<T>(input: T): Resolved<T>;
+export function clone<T>(input: T): Resolved<T>;
 
 /**
  * @internal
  */
-function clone(): never {
+export function clone(): never {
   halt("clone");
 }
-const clonePure = /** @__PURE__ */ Object.assign<typeof clone, {}>(
-  clone,
-  /** @__PURE__ */ Namespace.misc.clone("clone"),
-);
-export { clonePure as clone };
 
 /**
  * Clone a data with type assertion.
@@ -109,7 +102,7 @@ export { clonePure as clone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertClone<T>(
+export function assertClone<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
@@ -132,7 +125,7 @@ function assertClone<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertClone<T>(
+export function assertClone<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
@@ -140,19 +133,9 @@ function assertClone<T>(
 /**
  * @internal
  */
-function assertClone(): never {
+export function assertClone(): never {
   halt("assertClone");
 }
-const assertClonePure = /** @__PURE__ */ Object.assign<
-  typeof assertClone,
-  {},
-  {}
->(
-  assertClone,
-  /** @__PURE__ */ Namespace.assert("misc.assertClone"),
-  /** @__PURE__ */ Namespace.misc.clone("assertClone"),
-);
-export { assertClonePure as assertClone };
 
 /**
  * Clone a data with type checking.
@@ -171,7 +154,7 @@ export { assertClonePure as assertClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isClone<T>(input: T): Resolved<T> | null;
+export function isClone<T>(input: T): Resolved<T> | null;
 
 /**
  * Clone a data with type checking.
@@ -190,20 +173,14 @@ function isClone<T>(input: T): Resolved<T> | null;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isClone<T>(input: unknown): Resolved<T> | null;
+export function isClone<T>(input: unknown): Resolved<T> | null;
 
 /**
  * @internal
  */
-function isClone(): never {
+export function isClone(): never {
   halt("isClone");
 }
-const isClonePure = /** @__PURE__ */ Object.assign<typeof isClone, {}, {}>(
-  isClone,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.misc.clone("isClone"),
-);
-export { isClonePure as isClone };
 
 /**
  * Clone a data with detailed type validation.
@@ -221,7 +198,7 @@ export { isClonePure as isClone };
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
-function validateClone<T>(input: T): IValidation<Resolved<T>>;
+export function validateClone<T>(input: T): IValidation<Resolved<T>>;
 
 /**
  * Clone a data with detailed type validation.
@@ -239,24 +216,14 @@ function validateClone<T>(input: T): IValidation<Resolved<T>>;
  * @param input A value to be cloned
  * @returns Validation result with cloned value
  */
-function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
+export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-function validateClone(): never {
+export function validateClone(): never {
   halt("validateClone");
 }
-const validateClonePure = /** @__PURE__ */ Object.assign<
-  typeof validateClone,
-  {},
-  {}
->(
-  validateClone,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.misc.clone("validateClone"),
-);
-export { validateClonePure as validateClone };
 
 /* -----------------------------------------------------------
     PRUNE
@@ -282,19 +249,14 @@ export { validateClonePure as validateClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function prune<T extends object>(input: T): void;
+export function prune<T extends object>(input: T): void;
 
 /**
  * @internal
  */
-function prune(): never {
+export function prune(): never {
   halt("prune");
 }
-const prunePure = /** @__PURE__ */ Object.assign<typeof prune, {}>(
-  prune,
-  /** @__PURE__ */ Namespace.misc.prune("prune"),
-);
-export { prunePure as prune };
 
 /**
  * Prune, erase superfluous properties, with type assertion.
@@ -314,7 +276,7 @@ export { prunePure as prune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPrune<T>(
+export function assertPrune<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -337,7 +299,7 @@ function assertPrune<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertPrune<T>(
+export function assertPrune<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -345,19 +307,9 @@ function assertPrune<T>(
 /**
  * @internal
  */
-function assertPrune(): unknown {
+export function assertPrune(): unknown {
   halt("assertPrune");
 }
-const assertPrunePure = /** @__PURE__ */ Object.assign<
-  typeof assertPrune,
-  {},
-  {}
->(
-  assertPrune,
-  /** @__PURE__ */ Namespace.assert("misc.assertPrune"),
-  /** @__PURE__ */ Namespace.misc.prune("assertPrune"),
-);
-export { assertPrunePure as assertPrune };
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -376,7 +328,7 @@ export { assertPrunePure as assertPrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isPrune<T>(input: T): input is T;
+export function isPrune<T>(input: T): input is T;
 
 /**
  * Prune, erase superfluous properties, with type checking.
@@ -395,20 +347,14 @@ function isPrune<T>(input: T): input is T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isPrune<T>(input: unknown): input is T;
+export function isPrune<T>(input: unknown): input is T;
 
 /**
  * @internal
  */
-function isPrune(): never {
+export function isPrune(): never {
   halt("isPrune");
 }
-const isPrunePure = /** @__PURE__ */ Object.assign<typeof isPrune, {}, {}>(
-  isPrune,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.misc.prune("isPrune"),
-);
-export { isPrunePure as isPrune };
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -428,7 +374,7 @@ export { isPrunePure as isPrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validatePrune<T>(input: T): IValidation<T>;
+export function validatePrune<T>(input: T): IValidation<T>;
 
 /**
  * Prune, erase superfluous properties, with type validation.
@@ -448,25 +394,14 @@ function validatePrune<T>(input: T): IValidation<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validatePrune<T>(input: unknown): IValidation<T>;
+export function validatePrune<T>(input: unknown): IValidation<T>;
 
 /**
  * @internal
  */
-function validatePrune<T>(): IValidation<T> {
+export function validatePrune<T>(): IValidation<T> {
   halt("validatePrune");
 }
-
-const validatePrunePure = /** @__PURE__ */ Object.assign<
-  typeof validatePrune,
-  {},
-  {}
->(
-  validatePrune,
-  /** @__PURE__ */ Namespace.misc.prune("validatePrune"),
-  /** @__PURE__ */ Namespace.validate(),
-);
-export { validatePrunePure as validatePrune };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -480,7 +415,7 @@ export { validatePrunePure as validatePrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createClone(): never;
+export function createClone(): never;
 
 /**
  * Creates a resuable {@link clone} function.
@@ -490,19 +425,14 @@ function createClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createClone<T>(): (input: T) => Resolved<T>;
+export function createClone<T>(): (input: T) => Resolved<T>;
 
 /**
  * @internal
  */
-function createClone(): never {
+export function createClone(): never {
   halt("createClone");
 }
-const createClonePure = /** @__PURE__ */ Object.assign<typeof createClone, {}>(
-  createClone,
-  clonePure,
-);
-export { createClonePure as createClone };
 
 /**
  * Creates a reusable {@link assertClone} function.
@@ -514,7 +444,7 @@ export { createClonePure as createClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertClone(
+export function createAssertClone(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -527,21 +457,16 @@ function createAssertClone(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertClone<T>(
+export function createAssertClone<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => Resolved<T>;
 
 /**
  * @internal
  */
-function createAssertClone(): never {
+export function createAssertClone(): never {
   halt("createAssertClone");
 }
-const createAssertClonePure = /** @__PURE__ */ Object.assign<
-  typeof createAssertClone,
-  {}
->(createAssertClone, assertClonePure);
-export { createAssertClonePure as createAssertClone };
 
 /**
  * Creates a reusable {@link isClone} function.
@@ -552,7 +477,7 @@ export { createAssertClonePure as createAssertClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsClone(): never;
+export function createIsClone(): never;
 
 /**
  * Creates a resuable {@link isClone} function.
@@ -562,19 +487,14 @@ function createIsClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
+export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
 
 /**
  * @internal
  */
-function createIsClone(): never {
+export function createIsClone(): never {
   halt("createIsClone");
 }
-const createIsClonePure = /** @__PURE__ */ Object.assign<
-  typeof createIsClone,
-  {}
->(createIsClone, isClonePure);
-export { createIsClonePure as createIsClone };
 
 /**
  * Creates a reusable {@link validateClone} function.
@@ -585,7 +505,7 @@ export { createIsClonePure as createIsClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateClone(): never;
+export function createValidateClone(): never;
 
 /**
  * Creates a resuable {@link validateClone} function.
@@ -595,19 +515,16 @@ function createValidateClone(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateClone<T>(): (input: unknown) => IValidation<Resolved<T>>;
+export function createValidateClone<T>(): (
+  input: unknown,
+) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-function createValidateClone(): never {
+export function createValidateClone(): never {
   halt("createValidateClone");
 }
-const createValidateClonePure = /** @__PURE__ */ Object.assign<
-  typeof createValidateClone,
-  {}
->(createValidateClone, validateClonePure);
-export { createValidateClonePure as createValidateClone };
 
 /**
  * Creates a reusable {@link prune} function.
@@ -618,7 +535,7 @@ export { createValidateClonePure as createValidateClone };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createPrune(): never;
+export function createPrune(): never;
 
 /**
  * Creates a resuable {@link prune} function.
@@ -628,19 +545,14 @@ function createPrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createPrune<T extends object>(): (input: T) => void;
+export function createPrune<T extends object>(): (input: T) => void;
 
 /**
  * @internal
  */
-function createPrune<T extends object>(): (input: T) => void {
+export function createPrune<T extends object>(): (input: T) => void {
   halt("createPrune");
 }
-const createPrunePure = /** @__PURE__ */ Object.assign<typeof createPrune, {}>(
-  createPrune,
-  prunePure,
-);
-export { createPrunePure as createPrune };
 
 /**
  * Creates a reusable {@link assertPrune} function.
@@ -652,7 +564,7 @@ export { createPrunePure as createPrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPrune(
+export function createAssertPrune(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -665,21 +577,16 @@ function createAssertPrune(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertPrune<T extends object>(
+export function createAssertPrune<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => T;
 
 /**
  * @internal
  */
-function createAssertPrune<T extends object>(): (input: T) => T {
+export function createAssertPrune<T extends object>(): (input: T) => T {
   halt("createAssertPrune");
 }
-const createAssertPrunePure = /** @__PURE__ */ Object.assign<
-  typeof createAssertPrune,
-  {}
->(createAssertPrune, assertPrunePure);
-export { createAssertPrunePure as createAssertPrune };
 
 /**
  * Creates a reusable {@link isPrune} function.
@@ -690,7 +597,7 @@ export { createAssertPrunePure as createAssertPrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsPrune(): never;
+export function createIsPrune(): never;
 
 /**
  * Creates a resuable {@link isPrune} function.
@@ -700,19 +607,14 @@ function createIsPrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsPrune<T extends object>(): (input: T) => input is T;
+export function createIsPrune<T extends object>(): (input: T) => input is T;
 
 /**
  * @internal
  */
-function createIsPrune<T extends object>(): (input: T) => input is T {
+export function createIsPrune<T extends object>(): (input: T) => input is T {
   halt("createIsPrune");
 }
-const createIsPrunePure = /** @__PURE__ */ Object.assign<
-  typeof createIsPrune,
-  {}
->(createIsPrune, isPrunePure);
-export { createIsPrunePure as createIsPrune };
 
 /**
  * Creates a reusable {@link validatePrune} function.
@@ -723,7 +625,7 @@ export { createIsPrunePure as createIsPrune };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidatePrune(): never;
+export function createValidatePrune(): never;
 
 /**
  * Creates a resuable {@link validatePrune} function.
@@ -733,19 +635,18 @@ function createValidatePrune(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidatePrune<T extends object>(): (input: T) => IValidation<T>;
+export function createValidatePrune<T extends object>(): (
+  input: T,
+) => IValidation<T>;
 
 /**
  * @internal
  */
-function createValidatePrune<T extends object>(): (input: T) => IValidation<T> {
+export function createValidatePrune<T extends object>(): (
+  input: T,
+) => IValidation<T> {
   halt("createValidatePrune");
 }
-const createValidatePrunePure = /** @__PURE__ */ Object.assign<
-  typeof createValidatePrune,
-  {}
->(createValidatePrune, validatePrunePure);
-export { createValidatePrunePure as createValidatePrune };
 
 /**
  * @internal

@@ -1,10 +1,10 @@
 import { Singleton } from "../utils/Singleton";
 
+import { $IProtobufWriter } from "./$IProtobufWriter";
 import { $ProtobufSizer } from "./$ProtobufSizer";
-import { $__IProtobufWriter } from "./private/$__IProtobufWriter";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedWriter.ts
-export class $ProtobufWriter implements $__IProtobufWriter {
+export class $ProtobufWriter implements $IProtobufWriter {
   /**
    * Related sizer
    */

@@ -9,13 +9,13 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { JsonStringifyProgrammer } from "./JsonStringifyProgrammer";
 
 export namespace JsonAssertStringifyProgrammer {
   export const decompose = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
     init: ts.Expression | undefined;
@@ -62,7 +62,10 @@ export namespace JsonAssertStringifyProgrammer {
         undefined,
         [
           IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
         stringify.arrow.type,
         undefined,
@@ -93,19 +96,19 @@ export namespace JsonAssertStringifyProgrammer {
   };
 
   export const write = (props: IProgrammerProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       context: props.context,
-      importer,
+      functor,
       type: props.type,
       name: props.name,
       init: props.init,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };

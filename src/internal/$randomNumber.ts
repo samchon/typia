@@ -1,27 +1,29 @@
 import { OpenApi } from "@samchon/openapi";
 
-export const $randomNumber = (
-  props: Omit<OpenApi.IJsonSchema.INumber, "type">,
-): number => {
+export const $randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
   const minimum: number =
-    props.minimum ?? (props.maximum === undefined ? 0 : props.maximum - 100);
+    schema.minimum ??
+    (schema.multipleOf ?? 1) *
+      (schema.maximum === undefined ? 0 : schema.maximum - 100);
   const maximum: number =
-    props.maximum ?? (props.minimum === undefined ? 100 : props.minimum + 100);
+    schema.maximum ??
+    (schema.multipleOf ?? 1) *
+      (schema.minimum === undefined ? 100 : schema.minimum + 100);
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
-  return props.multipleOf === undefined
+  return schema.multipleOf === undefined
     ? scalar({
         minimum,
         maximum,
-        exclusiveMinimum: props.exclusiveMinimum,
-        exclusiveMaximum: props.exclusiveMaximum,
+        exclusiveMinimum: schema.exclusiveMinimum,
+        exclusiveMaximum: schema.exclusiveMaximum,
       })
     : multiple({
         minimum,
         maximum,
-        multipleOf: props.multipleOf,
-        exclusiveMinimum: props.exclusiveMinimum,
-        exclusiveMaximum: props.exclusiveMaximum,
+        multipleOf: schema.multipleOf,
+        exclusiveMinimum: schema.exclusiveMinimum,
+        exclusiveMaximum: schema.exclusiveMaximum,
       });
 };
 
@@ -62,10 +64,11 @@ const multiple = (p: {
     throw new Error(
       "The range of the integer is smaller than the multipleOf value.",
     );
-  return scalar({
+  const value: number = scalar({
     minimum,
     maximum,
     exclusiveMinimum: p.exclusiveMinimum,
     exclusiveMaximum: p.exclusiveMaximum,
   });
+  return value - (value % p.multipleOf);
 };

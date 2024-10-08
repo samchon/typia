@@ -71,20 +71,24 @@ export namespace NamingConvention {
     return out(ret);
   }
 
-  export const camel = unsnake({
-    plain: (str) =>
-      str.length
-        ? str === str.toUpperCase()
-          ? str.toLocaleLowerCase()
-          : `${str[0]!.toLowerCase()}${str.substring(1)}`
-        : str,
-    snake: (str, i) =>
-      i === 0 ? str.toLowerCase() : StringUtil.capitalize(str.toLowerCase()),
-  });
+  export function camel(str: string) {
+    return unsnake({
+      plain: (str) =>
+        str.length
+          ? str === str.toUpperCase()
+            ? str.toLocaleLowerCase()
+            : `${str[0]!.toLowerCase()}${str.substring(1)}`
+          : str,
+      snake: (str, i) =>
+        i === 0 ? str.toLowerCase() : StringUtil.capitalize(str.toLowerCase()),
+    })(str);
+  }
 
-  export const pascal = unsnake({
-    plain: (str) =>
-      str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
-    snake: StringUtil.capitalize,
-  });
+  export function pascal(str: string) {
+    return unsnake({
+      plain: (str) =>
+        str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
+      snake: StringUtil.capitalize,
+    })(str);
+  }
 }

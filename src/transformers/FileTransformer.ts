@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ImportProgrammer } from "../programmers/ImportProgrammer";
+
 import { Singleton } from "../utils/Singleton";
 
 import { ITypiaContext } from "./ITypiaContext";
@@ -8,18 +10,20 @@ import { TransformerError } from "./TransformerError";
 
 export namespace FileTransformer {
   export const transform =
-    (environments: Omit<ITypiaContext, "transformer">) =>
+    (environments: Omit<ITypiaContext, "transformer" | "importer">) =>
     (transformer: ts.TransformationContext) =>
     (file: ts.SourceFile): ts.SourceFile => {
       if (file.isDeclarationFile) return file;
 
+      const importer: ImportProgrammer = new ImportProgrammer();
       const context: ITypiaContext = {
         ...environments,
         transformer,
+        importer,
       };
       checkJsDocParsingMode.get(context, file);
 
-      return ts.visitEachChild(
+      file = ts.visitEachChild(
         file,
         (node) =>
           iterate_node({
@@ -28,6 +32,21 @@ export namespace FileTransformer {
           }),
         transformer,
       );
+      return ts.factory.updateSourceFile(
+        file,
+        [...importer.toStatements(), ...file.statements],
+        false,
+        file.referencedFiles,
+        file.typeReferenceDirectives,
+        file.hasNoDefaultLib,
+        file.libReferenceDirectives,
+      );
+      // return ts.factory.createSourceFile(
+      //   file.statements,
+      //   // [...importer.toStatements(), ...file.statements],
+      //   file.endOfFileToken as any,
+      //   file.flags,
+      // );
     };
 
   const iterate_node = (props: {

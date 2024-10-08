@@ -9,13 +9,13 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 
 export namespace JsonValidateParseProgrammer {
   export const decompose = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -47,15 +47,25 @@ export namespace JsonValidateParseProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("string"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<typia.Primitive<${
-            props.name ??
-            TypeFactory.getFullName({
-              checker: props.context.checker,
-              type: props.type,
-            })
-          }>>`,
-        ),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [
+            props.context.importer.type({
+              file: "typia",
+              name: "Primitive",
+              arguments: [
+                ts.factory.createTypeReferenceNode(
+                  props.name ??
+                    TypeFactory.getFullName({
+                      checker: props.context.checker,
+                      type: props.type,
+                    }),
+                ),
+              ],
+            }),
+          ],
+        }),
         undefined,
         ts.factory.createAsExpression(
           ts.factory.createCallExpression(
@@ -76,19 +86,19 @@ export namespace JsonValidateParseProgrammer {
   };
 
   export const write = (props: IProgrammerProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       context: props.context,
       modulo: props.modulo,
-      importer,
+      functor,
       type: props.type,
       name: props.name,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };

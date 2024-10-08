@@ -9,14 +9,14 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { MiscCloneProgrammer } from "./MiscCloneProgrammer";
 
 export namespace MiscValidateCloneProgrammer {
   export const decompose = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -51,9 +51,11 @@ export namespace MiscValidateCloneProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          clone.arrow.type ?? TypeFactory.keyword("any"),
-        ]),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [clone.arrow.type ?? TypeFactory.keyword("any")],
+        }),
         undefined,
         ts.factory.createBlock(
           [
@@ -93,16 +95,16 @@ export namespace MiscValidateCloneProgrammer {
   };
 
   export const write = (props: IProgrammerProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };

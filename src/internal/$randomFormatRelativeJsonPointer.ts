@@ -1,8 +1,8 @@
-import { $randomString } from "./$randomString";
+import { $randomInteger } from "./$randomInteger";
 
 export const $randomFormatRelativeJsonPointer = (): string =>
-  `${$randomString({
-    type: "string",
-    minLength: 3,
-    maxLength: 10,
+  `${$randomInteger({
+    type: "integer",
+    minimum: 0,
+    maximum: 10,
   })}#`;

@@ -13,7 +13,7 @@ import { MetadataObject } from "../schemas/metadata/MetadataObject";
 import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { feature_object_entries } from "./internal/feature_object_entries";
@@ -47,7 +47,7 @@ export namespace FeatureProgrammer {
      */
     initializer: (props: {
       context: ITypiaContext;
-      importer: FunctionImporter;
+      functor: FunctionProgrammer;
       type: ts.Type;
     }) => [MetadataCollection, Metadata];
 
@@ -232,7 +232,7 @@ export namespace FeatureProgrammer {
   export const compose = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): IComposed => {
@@ -292,7 +292,7 @@ export namespace FeatureProgrammer {
 
   export const writeDecomposed = (props: {
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     result: IDecomposed;
   }): ts.CallExpression =>
     ts.factory.createCallExpression(
@@ -303,9 +303,9 @@ export namespace FeatureProgrammer {
         undefined,
         undefined,
         ts.factory.createBlock([
-          ...props.importer.declare(props.modulo),
+          ...props.functor.declare(),
           ...Object.entries(props.result.functions)
-            .filter(([k]) => props.importer.hasLocal(k))
+            .filter(([k]) => props.functor.hasLocal(k))
             .map(([_k, v]) => v),
           ...props.result.statements,
           ts.factory.createReturnStatement(props.result.arrow),
@@ -318,7 +318,7 @@ export namespace FeatureProgrammer {
   export const write = (props: {
     context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name?: string | undefined;
   }): ts.ArrowFunction => {
@@ -341,7 +341,7 @@ export namespace FeatureProgrammer {
         props.config.generator.objects?.(collection) ??
         write_object_functions({
           config: props.config,
-          importer: props.importer,
+          context: props.context,
           collection,
         }),
       unions:
@@ -371,16 +371,16 @@ export namespace FeatureProgrammer {
         [
           ...added,
           ...functions.objects.filter((_, i) =>
-            props.importer.hasLocal(`${props.config.prefix}o${i}`),
+            props.functor.hasLocal(`${props.config.prefix}o${i}`),
           ),
           ...functions.unions.filter((_, i) =>
-            props.importer.hasLocal(`${props.config.prefix}u${i}`),
+            props.functor.hasLocal(`${props.config.prefix}u${i}`),
           ),
           ...functions.arrays.filter((_, i) =>
-            props.importer.hasLocal(`${props.config.prefix}a${i}`),
+            props.functor.hasLocal(`${props.config.prefix}a${i}`),
           ),
           ...functions.tuples.filter((_, i) =>
-            props.importer.hasLocal(`${props.config.prefix}t${i}`),
+            props.functor.hasLocal(`${props.config.prefix}t${i}`),
           ),
           ...(ts.isBlock(output)
             ? output.statements
@@ -393,7 +393,7 @@ export namespace FeatureProgrammer {
 
   export const write_object_functions = (props: {
     config: IConfig;
-    importer: FunctionImporter;
+    context: ITypiaContext;
     collection: MetadataCollection;
   }) =>
     props.collection.objects().map((object) =>
@@ -413,7 +413,7 @@ export namespace FeatureProgrammer {
             input: ts.factory.createIdentifier("input"),
             entries: feature_object_entries({
               config: props.config,
-              importer: props.importer,
+              context: props.context,
               input: ts.factory.createIdentifier("input"),
               object,
             }),
@@ -466,7 +466,7 @@ export namespace FeatureProgrammer {
     ----------------------------------------------------------- */
   export const decode_array = (props: {
     config: Pick<IConfig, "trace" | "path" | "decoder" | "prefix">;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     combiner: (next: {
       input: ts.Expression;
       arrow: ts.ArrowFunction;
@@ -475,7 +475,7 @@ export namespace FeatureProgrammer {
     input: ts.Expression;
     explore: IExplore;
   }) => {
-    const rand: string = props.importer.increment().toString();
+    const rand: string = props.functor.increment().toString();
     const tail =
       props.config.path || props.config.trace
         ? [
@@ -517,14 +517,14 @@ export namespace FeatureProgrammer {
 
   export const decode_object = (props: {
     config: Pick<IConfig, "trace" | "path" | "prefix">;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     object: MetadataObject;
     input: ts.Expression;
     explore: IExplore;
   }) =>
     ts.factory.createCallExpression(
       ts.factory.createIdentifier(
-        props.importer.useLocal(`${props.config.prefix}o${props.object.index}`),
+        props.functor.useLocal(`${props.config.prefix}o${props.object.index}`),
       ),
       undefined,
       argumentsArray(props),
