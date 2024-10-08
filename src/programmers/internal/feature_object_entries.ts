@@ -4,17 +4,18 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
+import { ITypiaContext } from "../../transformers/ITypiaContext";
+
 import { Escaper } from "../../utils/Escaper";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
 
 /**
  * @internal
  */
 export const feature_object_entries = <Output extends ts.ConciseBody>(props: {
   config: Pick<FeatureProgrammer.IConfig<Output>, "decoder" | "path" | "trace">;
-  importer: FunctionImporter;
+  context: ITypiaContext;
   object: MetadataObject;
   input: ts.Expression;
   from?: "object" | "top" | "array";
@@ -48,11 +49,13 @@ export const feature_object_entries = <Output extends ts.ConciseBody>(props: {
             ? sole !== null
               ? IdentifierFactory.postfix(sole)
               : (() => {
-                  props.importer.use("join");
-                  return `$join(key)`;
+                  props.context.importer.internal(ACCESSOR);
+                  return `${props.context.importer.getInternalText(ACCESSOR)}(key)`;
                 })()
             : "",
         },
       }),
     };
   });
+
+const ACCESSOR = "accessExpressionAsString";

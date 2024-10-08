@@ -1,5 +1,3 @@
-import * as Namespace from "./functional/Namespace";
-
 import { IValidation } from "./IValidation";
 import { TypeGuardError } from "./TypeGuardError";
 
@@ -43,7 +41,7 @@ import { TypeGuardError } from "./TypeGuardError";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertFunction<T extends (...args: any[]) => any>(
+export function assertFunction<T extends (...args: any[]) => any>(
   func: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -51,19 +49,9 @@ function assertFunction<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function assertFunction(): never {
+export function assertFunction(): never {
   halt("assertFunction");
 }
-const assertFunctionPure = /** @__PURE__ */ Object.assign<
-  typeof assertFunction,
-  {},
-  {}
->(
-  assertFunction,
-  /** @__PURE__ */ Namespace.assert("functional.assertFunction"),
-  /** @__PURE__ */ Namespace.functional.functionalAssert(),
-);
-export { assertFunctionPure as assertFunction };
 
 /**
  * Asserts parameters.
@@ -93,7 +81,7 @@ export { assertFunctionPure as assertFunction };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertParameters<T extends (...args: any[]) => any>(
+export function assertParameters<T extends (...args: any[]) => any>(
   func: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -101,19 +89,9 @@ function assertParameters<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function assertParameters(): never {
+export function assertParameters(): never {
   halt("assertParameters");
 }
-const assertParametersPure = /** @__PURE__ */ Object.assign<
-  typeof assertParameters,
-  {},
-  {}
->(
-  assertFunction,
-  /** @__PURE__ */ Namespace.assert("functional.assertFunction"),
-  /** @__PURE__ */ Namespace.functional.functionalAssert(),
-);
-export { assertParametersPure as assertParameters };
 
 /**
  * Asserts return value.
@@ -143,7 +121,7 @@ export { assertParametersPure as assertParameters };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertReturn<T extends (...args: any[]) => any>(
+export function assertReturn<T extends (...args: any[]) => any>(
   func: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -151,19 +129,9 @@ function assertReturn<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function assertReturn(): never {
+export function assertReturn(): never {
   halt("assertReturn");
 }
-const assertReturnPure = /** @__PURE__ */ Object.assign<
-  typeof assertReturn,
-  {},
-  {}
->(
-  assertReturn,
-  /** @__PURE__ */ Namespace.assert("functional.assertReturn"),
-  /** @__PURE__ */ Namespace.functional.functionalAssert(),
-);
-export { assertReturnPure as assertReturn };
 
 /**
  * Asserts a function with strict equality.
@@ -198,7 +166,7 @@ export { assertReturnPure as assertReturn };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEqualsFunction<T extends (...args: any[]) => any>(
+export function assertEqualsFunction<T extends (...args: any[]) => any>(
   func: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -206,19 +174,9 @@ function assertEqualsFunction<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function assertEqualsFunction(): never {
+export function assertEqualsFunction(): never {
   halt("assertEqualsFunction");
 }
-const assertEqualsFunctionPure = /** @__PURE__ */ Object.assign<
-  typeof assertEqualsFunction,
-  {},
-  {}
->(
-  assertEqualsFunction,
-  /** @__PURE__ */ Namespace.assert("functional.assertEqualsFunction"),
-  /** @__PURE__ */ Namespace.functional.functionalAssert(),
-);
-export { assertEqualsFunctionPure as assertEqualsFunction };
 
 /**
  * Asserts parameters with strict equality.
@@ -249,7 +207,7 @@ export { assertEqualsFunctionPure as assertEqualsFunction };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEqualsParameters<T extends (...args: any[]) => any>(
+export function assertEqualsParameters<T extends (...args: any[]) => any>(
   func: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -257,19 +215,9 @@ function assertEqualsParameters<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function assertEqualsParameters(): never {
+export function assertEqualsParameters(): never {
   halt("assertEqualsParameters");
 }
-const assertEqualsParametersPure = /** @__PURE__ */ Object.assign<
-  typeof assertEqualsParameters,
-  {},
-  {}
->(
-  assertEqualsParameters,
-  /** @__PURE__ */ Namespace.assert("functional.assertEqualsParameters"),
-  /** @__PURE__ */ Namespace.functional.functionalAssert(),
-);
-export { assertEqualsParametersPure as assertEqualsParameters };
 
 /**
  * Asserts return value with strict equality.
@@ -299,7 +247,7 @@ export { assertEqualsParametersPure as assertEqualsParameters };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEqualsReturn<T extends (...args: any[]) => any>(
+export function assertEqualsReturn<T extends (...args: any[]) => any>(
   func: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -307,19 +255,9 @@ function assertEqualsReturn<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function assertEqualsReturn(): never {
+export function assertEqualsReturn(): never {
   halt("assertEqualsReturn");
 }
-const assertEqualsReturnPure = /** @__PURE__ */ Object.assign<
-  typeof assertEqualsReturn,
-  {},
-  {}
->(
-  assertEqualsReturn,
-  /** @__PURE__ */ Namespace.assert("functional.assertEqualsReturn"),
-  /** @__PURE__ */ Namespace.functional.functionalAssert(),
-);
-export { assertEqualsReturnPure as assertEqualsReturn };
 
 /* -----------------------------------------------------------
   IS
@@ -346,7 +284,7 @@ export { assertEqualsReturnPure as assertEqualsReturn };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isFunction<T extends (...args: any[]) => any>(
+export function isFunction<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -357,14 +295,9 @@ function isFunction<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function isFunction(): never {
+export function isFunction(): never {
   halt("isFunction");
 }
-const isFunctionPure = /** @__PURE__ */ Object.assign<typeof isFunction, {}>(
-  isFunction,
-  /** @__PURE__ */ Namespace.is(),
-);
-export { isFunctionPure as isFunction };
 
 /**
  * Tests parameters.
@@ -388,7 +321,7 @@ export { isFunctionPure as isFunction };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isParameters<T extends (...args: any[]) => any>(
+export function isParameters<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -399,14 +332,9 @@ function isParameters<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function isParameters(): never {
+export function isParameters(): never {
   halt("isParameters");
 }
-const isParametersPure = /** @__PURE__ */ Object.assign<
-  typeof isParameters,
-  {}
->(isParameters, /** @__PURE__ */ Namespace.is());
-export { isParametersPure as isParameters };
 
 /**
  * Tests return value.
@@ -430,7 +358,7 @@ export { isParametersPure as isParameters };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isReturn<T extends (...args: any[]) => any>(
+export function isReturn<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -441,14 +369,9 @@ function isReturn<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function isReturn(): never {
+export function isReturn(): never {
   halt("isReturn");
 }
-const isReturnPure = /** @__PURE__ */ Object.assign<typeof isReturn, {}>(
-  isReturn,
-  /** @__PURE__ */ Namespace.is(),
-);
-export { isReturnPure as isReturn };
 
 /**
  * Tests a function with strict equality.
@@ -471,7 +394,7 @@ export { isReturnPure as isReturn };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function equalsFunction<T extends (...args: any[]) => any>(
+export function equalsFunction<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -482,14 +405,9 @@ function equalsFunction<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function equalsFunction(): never {
+export function equalsFunction(): never {
   halt("equalsFunction");
 }
-const equalsFunctionPure = /** @__PURE__ */ Object.assign<
-  typeof equalsFunction,
-  {}
->(equalsFunction, /** @__PURE__ */ Namespace.is());
-export { equalsFunctionPure as equalsFunction };
 
 /**
  * Tests parameters with strict equality.
@@ -509,7 +427,7 @@ export { equalsFunctionPure as equalsFunction };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function equalsParameters<T extends (...args: any[]) => any>(
+export function equalsParameters<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -520,14 +438,9 @@ function equalsParameters<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function equalsParameters(): never {
+export function equalsParameters(): never {
   halt("equalsParameters");
 }
-const equalsParametersPure = /** @__PURE__ */ Object.assign<
-  typeof equalsParameters,
-  {}
->(equalsParameters, /** @__PURE__ */ Namespace.is());
-export { equalsParametersPure as equalsParameters };
 
 /**
  * Tests return value with strict equality.
@@ -550,7 +463,7 @@ export { equalsParametersPure as equalsParameters };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function equalsReturn<T extends (...args: any[]) => any>(
+export function equalsReturn<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -561,14 +474,9 @@ function equalsReturn<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function equalsReturn(): never {
+export function equalsReturn(): never {
   halt("equalsReturn");
 }
-const equalsReturnPure = /** @__PURE__ */ Object.assign<
-  typeof equalsReturn,
-  {}
->(equalsReturn, /** @__PURE__ */ Namespace.is());
-export { equalsReturnPure as equalsReturn };
 
 /* -----------------------------------------------------------
   VALIDATE
@@ -604,7 +512,7 @@ export { equalsReturnPure as equalsReturn };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateFunction<T extends (...args: any[]) => any>(
+export function validateFunction<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -615,14 +523,9 @@ function validateFunction<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function validateFunction(): never {
+export function validateFunction(): never {
   halt("validateFunction");
 }
-const validateFunctionPure = /** @__PURE__ */ Object.assign<
-  typeof validateFunction,
-  {}
->(validateFunction, /** @__PURE__ */ Namespace.validate());
-export { validateFunctionPure as validateFunction };
 
 /**
  * Validates parameters.
@@ -650,7 +553,7 @@ export { validateFunctionPure as validateFunction };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateParameters<T extends (...args: any[]) => any>(
+export function validateParameters<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -661,14 +564,9 @@ function validateParameters<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function validateParameters(): never {
+export function validateParameters(): never {
   halt("validateReturn");
 }
-const validateParametersPure = /** @__PURE__ */ Object.assign<
-  typeof validateParameters,
-  {}
->(validateParameters, /** @__PURE__ */ Namespace.validate());
-export { validateParametersPure as validateParameters };
 
 /**
  * Validates return value.
@@ -696,7 +594,7 @@ export { validateParametersPure as validateParameters };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateReturn<T extends (...args: any[]) => any>(
+export function validateReturn<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -707,14 +605,9 @@ function validateReturn<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function validateReturn(): never {
+export function validateReturn(): never {
   halt("validateReturn");
 }
-const validateReturnPure = /** @__PURE__ */ Object.assign<
-  typeof validateReturn,
-  {}
->(validateReturn, /** @__PURE__ */ Namespace.validate());
-export { validateReturnPure as validateReturn };
 
 /**
  * Validates a function with strict equality.
@@ -747,7 +640,7 @@ export { validateReturnPure as validateReturn };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEqualsFunction<T extends (...args: any[]) => any>(
+export function validateEqualsFunction<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -758,14 +651,9 @@ function validateEqualsFunction<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function validateEqualsFunction(): never {
+export function validateEqualsFunction(): never {
   halt("validateEqualsFunction");
 }
-const validateEqualsFunctionPure = /** @__PURE__ */ Object.assign<
-  typeof validateEqualsFunction,
-  {}
->(validateEqualsFunction, /** @__PURE__ */ Namespace.validate());
-export { validateEqualsFunctionPure as validateEqualsFunction };
 
 /**
  * Validates parameters with strict equality.
@@ -793,7 +681,7 @@ export { validateEqualsFunctionPure as validateEqualsFunction };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEqualsParameters<T extends (...args: any[]) => any>(
+export function validateEqualsParameters<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -804,14 +692,9 @@ function validateEqualsParameters<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function validateEqualsParameters(): never {
+export function validateEqualsParameters(): never {
   halt("validateEqualsParameters");
 }
-const validateEqualsParametersPure = /** @__PURE__ */ Object.assign<
-  typeof validateEqualsParameters,
-  {}
->(validateEqualsParameters, /** @__PURE__ */ Namespace.validate());
-export { validateEqualsParametersPure as validateEqualsParameters };
 
 /**
  * Validates return value with strict equality.
@@ -839,7 +722,7 @@ export { validateEqualsParametersPure as validateEqualsParameters };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEqualsReturn<T extends (...args: any[]) => any>(
+export function validateEqualsReturn<T extends (...args: any[]) => any>(
   func: T,
 ): T extends (...args: infer Arguments) => infer Output
   ? Output extends Promise<infer R>
@@ -850,14 +733,9 @@ function validateEqualsReturn<T extends (...args: any[]) => any>(
 /**
  * @internal
  */
-function validateEqualsReturn(): never {
+export function validateEqualsReturn(): never {
   halt("validateEqualsReturn");
 }
-const validateEqualsReturnPure = /** @__PURE__ */ Object.assign<
-  typeof validateEqualsReturn,
-  {}
->(validateEqualsReturn, /** @__PURE__ */ Namespace.validate());
-export { validateEqualsReturnPure as validateEqualsReturn };
 
 /* -----------------------------------------------------------
   HALTER

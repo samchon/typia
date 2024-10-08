@@ -1,7 +1,5 @@
 import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 
-import * as Namespace from "./functional/Namespace";
-
 /**
  * > You must configure the generic argument `App`.
  *
@@ -40,7 +38,7 @@ import * as Namespace from "./functional/Namespace";
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-function application(options?: ILlmApplication.IOptions): never;
+export function application(options?: ILlmApplication.IOptions): never;
 
 /**
  * TypeScript functions to LLM function calling application.
@@ -78,22 +76,16 @@ function application(options?: ILlmApplication.IOptions): never;
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-function application<App extends object>(
+export function application<App extends object>(
   options?: ILlmApplication.IOptions,
 ): ILlmApplication;
 
 /**
  * @internal
  */
-function application(): never {
+export function application(): never {
   halt("application");
 }
-
-const applicationPure = /** @__PURE__ */ Object.assign<typeof application, {}>(
-  application,
-  /** @__PURE__ */ Namespace.llm.application(),
-);
-export { applicationPure as application };
 
 /**
  * > You must configure the generic argument `T`.

@@ -37,6 +37,7 @@ export namespace FunctionalValidateFunctionProgrammer {
               undefined,
               props.declaration.parameters,
               getReturnTypeNode({
+                context: props.context,
                 declaration: props.declaration,
                 async: r.async,
               }),
@@ -91,6 +92,7 @@ export namespace FunctionalValidateFunctionProgrammer {
     );
 
   export const getReturnTypeNode = (props: {
+    context: ITypiaContext;
     declaration: ts.FunctionDeclaration;
     async: boolean;
   }): ts.TypeNode | undefined =>
@@ -98,26 +100,20 @@ export namespace FunctionalValidateFunctionProgrammer {
       ? props.async
         ? !!(props.declaration.type! as ts.TypeReferenceNode).typeArguments?.[0]
           ? ts.factory.createTypeReferenceNode("Promise", [
-              ts.factory.createImportTypeNode(
-                ts.factory.createLiteralTypeNode(
-                  ts.factory.createStringLiteral("typia"),
-                ),
-                undefined,
-                ts.factory.createIdentifier("IValidation"),
-                [
+              props.context.importer.type({
+                file: "typia",
+                name: "IValidation",
+                arguments: [
                   (props.declaration.type! as ts.TypeReferenceNode)
                     .typeArguments![0]!,
                 ],
-              ),
+              }),
             ])
           : undefined
-        : ts.factory.createImportTypeNode(
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("typia"),
-            ),
-            undefined,
-            ts.factory.createIdentifier("IValidation"),
-            [props.declaration.type],
-          )
+        : props.context.importer.type({
+            file: "typia",
+            name: "IValidation",
+            arguments: [props.declaration.type],
+          })
       : undefined;
 }

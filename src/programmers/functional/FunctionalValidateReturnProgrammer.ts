@@ -50,6 +50,7 @@ export namespace FunctionalValidateReturnProgrammer {
               undefined,
               props.declaration.parameters,
               FunctionalValidateFunctionProgrammer.getReturnTypeNode({
+                context: props.context,
                 declaration: props.declaration,
                 async: result.async,
               }),

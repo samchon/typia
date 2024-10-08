@@ -1,13 +1,15 @@
 import { OpenApi } from "@samchon/openapi";
 
-export const $randomInteger = (
-  props: Omit<OpenApi.IJsonSchema.IInteger, "type">,
-) => {
+export const $randomInteger = (props: OpenApi.IJsonSchema.IInteger) => {
   let minimum: number =
-    props.minimum ?? (props.maximum === undefined ? 0 : props.maximum - 100);
+    props.minimum ??
+    (props.multipleOf ?? 1) *
+      (props.maximum === undefined ? 0 : props.maximum - 100);
   if (props.minimum !== undefined && props.exclusiveMinimum === true) minimum++;
   let maximum: number =
-    props.maximum ?? (props.minimum === undefined ? 100 : props.minimum + 100);
+    props.maximum ??
+    (props.multipleOf ?? 1) *
+      (props.minimum === undefined ? 100 : props.minimum + 100);
   if (props.maximum !== undefined && props.exclusiveMaximum === true) maximum--;
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
@@ -37,8 +39,9 @@ const multiple = (p: {
     throw new Error(
       "The range of the integer is smaller than the multipleOf value.",
     );
-  return scalar({
+  const value: number = scalar({
     minimum,
     maximum,
   });
+  return value - (value % p.multipleOf);
 };

@@ -61,6 +61,7 @@ export namespace FunctionalValidateParametersProgrammer {
               undefined,
               props.declaration.parameters,
               FunctionalValidateFunctionProgrammer.getReturnTypeNode({
+                context: props.context,
                 declaration: props.declaration,
                 async,
               }),
@@ -114,18 +115,10 @@ export namespace FunctionalValidateParametersProgrammer {
               undefined,
               [ts.factory.createIdentifier(p.name.getText())],
             ),
-            ts.factory.createImportTypeNode(
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("typia"),
-              ),
-              undefined,
-              ts.factory.createQualifiedName(
-                ts.factory.createIdentifier("IValidation"),
-                ts.factory.createIdentifier("IFailure"),
-              ),
-              undefined,
-              false,
-            ),
+            props.context.importer.type({
+              file: "typia",
+              name: "IValidation.IFailure",
+            }),
           ),
         ),
         true,

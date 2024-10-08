@@ -18,15 +18,16 @@ import { TransformerError } from "../../transformers/TransformerError";
 import { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
+import { StringUtil } from "../../utils/StringUtil";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpFormDataProgrammer {
   export const decompose = (props: {
     context: ITypiaContext;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
@@ -46,14 +47,14 @@ export namespace HttpFormDataProgrammer {
     });
     if (result.success === false)
       throw TransformerError.from({
-        code: `typia.http.${props.importer.method}`,
+        code: props.functor.method,
         errors: result.errors,
       });
 
     // DO TRANSFORM
     const object: MetadataObject = result.data.objects[0]!;
     const statements: ts.Statement[] = decode_object({
-      importer: props.importer,
+      context: props.context,
       object,
     });
     return {
@@ -68,13 +69,10 @@ export namespace HttpFormDataProgrammer {
             ts.factory.createTypeReferenceNode("FormData"),
           ),
         ],
-        ts.factory.createImportTypeNode(
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral("typia"),
-          ),
-          undefined,
-          ts.factory.createIdentifier("Resolved"),
-          [
+        props.context.importer.type({
+          file: "typia",
+          name: "Resolved",
+          arguments: [
             ts.factory.createTypeReferenceNode(
               props.name ??
                 TypeFactory.getFullName({
@@ -83,8 +81,7 @@ export namespace HttpFormDataProgrammer {
                 }),
             ),
           ],
-          false,
-        ),
+        }),
         undefined,
         ts.factory.createBlock(statements, true),
       ),
@@ -92,16 +89,16 @@ export namespace HttpFormDataProgrammer {
   };
 
   export const write = (props: IProgrammerProps): ts.CallExpression => {
-    const importer: FunctionImporter = new FunctionImporter(
+    const functor: FunctionProgrammer = new FunctionProgrammer(
       props.modulo.getText(),
     );
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
-      importer,
+      functor,
     });
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
-      importer,
+      functor,
       result,
     });
   };
@@ -162,7 +159,7 @@ export namespace HttpFormDataProgrammer {
   };
 
   const decode_object = (props: {
-    importer: FunctionImporter;
+    context: ITypiaContext;
     object: MetadataObject;
   }): ts.Statement[] => {
     // const input: ts.Identifier = ts.factory.createIdentifier("input");
@@ -173,7 +170,7 @@ export namespace HttpFormDataProgrammer {
         value: ts.factory.createObjectLiteralExpression(
           props.object.properties.map((p) =>
             decode_regular_property({
-              importer: props.importer,
+              context: props.context,
               property: p,
             }),
           ),
@@ -187,7 +184,7 @@ export namespace HttpFormDataProgrammer {
   };
 
   const decode_regular_property = (props: {
-    importer: FunctionImporter;
+    context: ITypiaContext;
     property: MetadataProperty;
   }): ts.PropertyAssignment => {
     const key: string = props.property.key.constants[0]!.values[0]!
@@ -223,7 +220,7 @@ export namespace HttpFormDataProgrammer {
       Escaper.variable(key) ? key : ts.factory.createStringLiteral(key),
       isArray
         ? decode_array({
-            importer: props.importer,
+            context: props.context,
             metadata: value,
             input: ts.factory.createCallExpression(
               IdentifierFactory.access(
@@ -243,7 +240,7 @@ export namespace HttpFormDataProgrammer {
                   undefined,
                   undefined,
                   decode_value({
-                    importer: props.importer,
+                    context: props.context,
                     type,
                     coalesce: false,
                     input: ts.factory.createIdentifier("elem"),
@@ -253,7 +250,7 @@ export namespace HttpFormDataProgrammer {
             ),
           })
         : decode_value({
-            importer: props.importer,
+            context: props.context,
             type,
             coalesce: value.nullable === false && value.isRequired() === false,
             input: ts.factory.createCallExpression(
@@ -266,13 +263,15 @@ export namespace HttpFormDataProgrammer {
   };
 
   const decode_value = (props: {
-    importer: FunctionImporter;
+    context: ITypiaContext;
     type: Atomic.Literal | "blob" | "file";
     coalesce: boolean;
     input: ts.Expression;
   }) => {
     const call = ts.factory.createCallExpression(
-      props.importer.use(props.type),
+      props.context.importer.internal(
+        `httpFormDataRead${StringUtil.capitalize(props.type)}`,
+      ),
       undefined,
       [props.input],
     );
@@ -286,13 +285,13 @@ export namespace HttpFormDataProgrammer {
   };
 
   const decode_array = (props: {
-    importer: FunctionImporter;
+    context: ITypiaContext;
     metadata: Metadata;
     input: ts.Expression;
   }): ts.Expression =>
     props.metadata.nullable || props.metadata.isRequired() === false
       ? ts.factory.createCallExpression(
-          props.importer.use("array"),
+          props.context.importer.internal("httpFormDataReadArray"),
           undefined,
           [
             props.input,

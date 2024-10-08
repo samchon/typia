@@ -21,6 +21,7 @@ const durate = (elements: [string, number][]) =>
     .join("");
 const random = (minimum: number, maximum: number) =>
   $randomInteger({
+    type: "integer",
     minimum,
     maximum,
   });

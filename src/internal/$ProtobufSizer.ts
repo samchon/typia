@@ -1,7 +1,7 @@
-import { $__IProtobufWriter } from "./private/$__IProtobufWriter";
+import { $IProtobufWriter } from "./$IProtobufWriter";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedSizer.ts
-export class $ProtobufSizer implements $__IProtobufWriter {
+export class $ProtobufSizer implements $IProtobufWriter {
   /**
    * Total length.
    */

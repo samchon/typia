@@ -91,7 +91,7 @@ export namespace JsonApplicationTransformer {
     // APPLICATION
     const app: IJsonApplication<any> =
       JsonApplicationProgrammer.write(version)(metadatas);
-    return LiteralFactory.generate(app);
+    return LiteralFactory.write(app);
   };
 
   const get_parameter =
