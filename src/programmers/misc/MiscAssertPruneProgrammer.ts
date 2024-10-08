@@ -53,7 +53,10 @@ export namespace MiscAssertPruneProgrammer {
         undefined,
         [
           IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
         ts.factory.createTypeReferenceNode(
           props.name ??

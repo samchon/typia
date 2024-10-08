@@ -54,9 +54,11 @@ export namespace HttpValidateFormDataProgrammer {
         undefined,
         undefined,
         decode.arrow.parameters,
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          decode.arrow.type ?? TypeFactory.keyword("any"),
-        ]),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [decode.arrow.type ?? TypeFactory.keyword("any")],
+        }),
         undefined,
         ts.factory.createCallExpression(
           ts.factory.createIdentifier("__validate"),

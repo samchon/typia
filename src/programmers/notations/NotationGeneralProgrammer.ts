@@ -35,8 +35,14 @@ export namespace NotationGeneralProgrammer {
 
   export const returnType = (props: {
     rename: (str: string) => string;
+    context: ITypiaContext;
     type: string;
-  }) => `typia.${StringUtil.capitalize(props.rename.name)}Case<${props.type}>`;
+  }) =>
+    props.context.importer.type({
+      file: "typia",
+      name: `${StringUtil.capitalize(props.rename.name)}Case`,
+      arguments: [ts.factory.createTypeReferenceNode(props.type)],
+    });
 
   export const decompose = (props: {
     rename: (str: string) => string;
@@ -65,17 +71,16 @@ export namespace NotationGeneralProgrammer {
         undefined,
         undefined,
         composed.parameters,
-        ts.factory.createTypeReferenceNode(
-          returnType({
-            rename: props.rename,
-            type:
-              props.name ??
-              TypeFactory.getFullName({
-                checker: props.context.checker,
-                type: props.type,
-              }),
-          }),
-        ),
+        returnType({
+          rename: props.rename,
+          context: props.context,
+          type:
+            props.name ??
+            TypeFactory.getFullName({
+              checker: props.context.checker,
+              type: props.type,
+            }),
+        }),
         undefined,
         composed.body,
       ),
@@ -807,17 +812,16 @@ export namespace NotationGeneralProgrammer {
               TypeFactory.getFullName({ checker: props.context.checker, type }),
           ),
         output: (type, name) =>
-          ts.factory.createTypeReferenceNode(
-            returnType({
-              rename: props.rename,
-              type:
-                name ??
-                TypeFactory.getFullName({
-                  checker: props.context.checker,
-                  type,
-                }),
-            }),
-          ),
+          returnType({
+            rename: props.rename,
+            context: props.context,
+            type:
+              name ??
+              TypeFactory.getFullName({
+                checker: props.context.checker,
+                type,
+              }),
+          }),
       },
       prefix: PREFIX,
       trace: false,

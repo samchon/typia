@@ -171,12 +171,24 @@ export namespace ProtobufEncodeProgrammer {
     });
     return ts.factory.createArrowFunction(
       undefined,
-      undefined,
       [
-        IdentifierFactory.parameter("writer"),
+        ts.factory.createTypeParameterDeclaration(
+          undefined,
+          "Writer",
+          props.context.importer.type({
+            file: "typia/lib/internal/$IProtobufWriter.js",
+            name: "$IProtobufWriter",
+          }),
+        ),
+      ],
+      [
+        IdentifierFactory.parameter(
+          "writer",
+          ts.factory.createTypeReferenceNode("Writer"),
+        ),
         IdentifierFactory.parameter("input"),
       ],
-      TypeFactory.keyword("any"),
+      ts.factory.createTypeReferenceNode("Writer"),
       undefined,
       ts.factory.createBlock(
         [

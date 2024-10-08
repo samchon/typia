@@ -3,7 +3,9 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { LiteralFactory } from "../factories/LiteralFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
+import { MetadataCommentTagFactory } from "../factories/MetadataCommentTagFactory";
 import { MetadataFactory } from "../factories/MetadataFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TemplateFactory } from "../factories/TemplateFactory";
@@ -26,14 +28,12 @@ import { StringUtil } from "../utils/StringUtil";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { RandomJoiner } from "./helpers/RandomJoiner";
-import { LiteralFactory } from "../factories/LiteralFactory";
 import { application_array } from "./internal/application_array";
-import { application_v31_schema } from "./internal/application_v31_schema";
-import { MetadataCommentTagFactory } from "../factories/MetadataCommentTagFactory";
-import { application_boolean } from "./internal/application_boolean";
-import { application_string } from "./internal/application_string";
 import { application_bigint } from "./internal/application_bigint";
+import { application_boolean } from "./internal/application_boolean";
 import { application_number } from "./internal/application_number";
+import { application_string } from "./internal/application_string";
+import { application_v31_schema } from "./internal/application_v31_schema";
 
 export namespace RandomProgrammer {
   export interface IProps {
@@ -104,17 +104,19 @@ export namespace RandomProgrammer {
       [
         IdentifierFactory.parameter(
           "generator",
-          ts.factory.createTypeReferenceNode("Partial<typia.IRandomGenerator>"),
+          ts.factory.createTypeReferenceNode("Partial", [
+            props.context.importer.type({
+              file: "typia",
+              name: "IRandomGenerator",
+            }),
+          ]),
           props.init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
         ),
       ],
-      ts.factory.createImportTypeNode(
-        ts.factory.createLiteralTypeNode(
-          ts.factory.createStringLiteral("typia"),
-        ),
-        undefined,
-        ts.factory.createIdentifier("Resolved"),
-        [
+      props.context.importer.type({
+        file: "typia",
+        name: "Resolved",
+        arguments: [
           ts.factory.createTypeReferenceNode(
             props.name ??
               TypeFactory.getFullName({
@@ -123,8 +125,7 @@ export namespace RandomProgrammer {
               }),
           ),
         ],
-        false,
-      ),
+      }),
       undefined,
       ts.factory.createBlock(
         [
@@ -152,7 +153,20 @@ export namespace RandomProgrammer {
     );
     return {
       functions,
-      statements: [StatementFactory.mut({ name: "_generator" })],
+      statements: [
+        StatementFactory.mut({
+          name: "_generator",
+          type: ts.factory.createUnionTypeNode([
+            ts.factory.createTypeReferenceNode("Partial", [
+              props.context.importer.type({
+                file: "typia",
+                name: "IRandomGenerator",
+              }),
+            ]),
+            ts.factory.createTypeReferenceNode("undefined"),
+          ]),
+        }),
+      ],
       arrow,
     };
   };
@@ -264,7 +278,7 @@ export namespace RandomProgrammer {
                 internal: "randomArray",
               }),
               array,
-              schema: undefined
+              schema: undefined,
             }),
           ),
         }),
@@ -342,12 +356,14 @@ export namespace RandomProgrammer {
       for (const { value } of constant.values)
         expressions.push(
           constant.type === "boolean"
-            ? value === true ? ts.factory.createTrue() : ts.factory.createFalse()
+            ? value === true
+              ? ts.factory.createTrue()
+              : ts.factory.createFalse()
             : constant.type === "bigint"
-            ? ExpressionFactory.bigint(<bigint>value)
-            : constant.type === "number"
-            ? ExpressionFactory.number(<number>value)
-            : ts.factory.createStringLiteral(<string>value),
+              ? ExpressionFactory.bigint(value as bigint)
+              : constant.type === "number"
+                ? ExpressionFactory.number(value as number)
+                : ts.factory.createStringLiteral(value as string),
         );
 
     // ATOMIC VARIABLES
@@ -422,21 +438,25 @@ export namespace RandomProgrammer {
     // PICK UP A TYPE
     if (expressions.length === 1) return expressions[0]!;
     return ts.factory.createCallExpression(
-      ts.factory.createCallExpression(props.context.importer.internal("randomPick"), undefined, [
-        ts.factory.createArrayLiteralExpression(
-          expressions.map((expr) =>
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              [],
-              undefined,
-              undefined,
-              expr,
+      ts.factory.createCallExpression(
+        props.context.importer.internal("randomPick"),
+        undefined,
+        [
+          ts.factory.createArrayLiteralExpression(
+            expressions.map((expr) =>
+              ts.factory.createArrowFunction(
+                undefined,
+                undefined,
+                [],
+                undefined,
+                undefined,
+                expr,
+              ),
             ),
+            true,
           ),
-          true,
-        ),
-      ]),
+        ],
+      ),
       undefined,
       undefined,
     );
@@ -446,15 +466,21 @@ export namespace RandomProgrammer {
     context: ITypiaContext;
     atomic: MetadataAtomic;
   }) => {
-    const schemaList: OpenApi.IJsonSchema[] = props.atomic.type === "boolean"
-      ? application_boolean<"3.1">(props.atomic)
-      : props.atomic.type === "string"
-      ? application_string<"3.1">(props.atomic)
-      : props.atomic.type === "bigint"
-      ? application_bigint<"3.1">(props.atomic)
-      : application_number<"3.1">(props.atomic);
+    const schemaList: OpenApi.IJsonSchema[] =
+      props.atomic.type === "boolean"
+        ? application_boolean<"3.1">(props.atomic)
+        : props.atomic.type === "string"
+          ? application_string<"3.1">(props.atomic)
+          : props.atomic.type === "bigint"
+            ? application_bigint<"3.1">(props.atomic)
+            : application_number<"3.1">(props.atomic);
     return schemaList.map((schema) => {
-      const { method, internal } = (() => {
+      interface IComposed {
+        method: string;
+        internal: string;
+        arguments: ts.Expression[];
+      }
+      const composed = ((): IComposed => {
         if (props.atomic.type === "string") {
           const string: OpenApi.IJsonSchema.IString =
             schema as OpenApi.IJsonSchema.IString;
@@ -464,6 +490,7 @@ export namespace RandomProgrammer {
               return {
                 method: "datetime",
                 internal: "randomFormatDatetime",
+                arguments: [],
               };
             return {
               method: format
@@ -474,11 +501,23 @@ export namespace RandomProgrammer {
                 .split("-")
                 .map(StringUtil.capitalize)
                 .join("")}`,
+              arguments: [],
             };
           } else if (string.pattern !== undefined)
             return {
               method: "pattern",
               internal: "randomPattern",
+              arguments: [
+                ts.factory.createNewExpression(
+                  ts.factory.createIdentifier("RegExp"),
+                  undefined,
+                  [
+                    ts.factory.createStringLiteral(
+                      (schema as OpenApi.IJsonSchema.IString).pattern!,
+                    ),
+                  ],
+                ),
+              ],
             };
         } else if (props.atomic.type === "number") {
           const number:
@@ -490,35 +529,27 @@ export namespace RandomProgrammer {
             return {
               method: "integer",
               internal: "randomInteger",
+              arguments: [LiteralFactory.write(schema)],
             };
         }
         return {
           method: props.atomic.type,
           internal: `random${StringUtil.capitalize(props.atomic.type)}`,
+          arguments: [LiteralFactory.write(schema)],
         };
       })();
       return ts.factory.createCallExpression(
         ExpressionFactory.coalesce(
-        ts.factory.createPropertyAccessChain(
-          ts.factory.createIdentifier("_generator"),
-          ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
-          ts.factory.createIdentifier(method),
+          ts.factory.createPropertyAccessChain(
+            ts.factory.createIdentifier("_generator"),
+            ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+            ts.factory.createIdentifier(composed.method),
+          ),
+          props.context.importer.internal(composed.internal),
         ),
-        props.context.importer.internal(internal),
-      ),
-      undefined,
-      [
-        method === "pattern"
-        ? ts.factory.createNewExpression(
-          ts.factory.createIdentifier("RegExp"),
-          undefined,
-          [
-            ts.factory.createStringLiteral((schema as OpenApi.IJsonSchema.IString).pattern!)
-          ]
-        )
-        : LiteralFactory.write(schema)
-      ]
-    )
+        undefined,
+        composed.arguments,
+      );
     });
   };
 
@@ -545,35 +576,39 @@ export namespace RandomProgrammer {
   }): ts.Expression[] => {
     const components: OpenApi.IComponents = {};
     const schemaList: OpenApi.IJsonSchema.IArray[] = application_array<"3.1">({
-      generator: (value) => application_v31_schema({
-        blockNever: true,
-        components,
-        attribute: {},
-        metadata: value,
-      })!,
+      generator: (value) =>
+        application_v31_schema({
+          blockNever: true,
+          components,
+          attribute: {},
+          metadata: value,
+        })!,
       components,
       array: props.array,
     }) as OpenApi.IJsonSchema.IArray[];
     if (props.array.type.recursive)
-      return schemaList.map(schema =>
+      return schemaList.map((schema) =>
         ts.factory.createCallExpression(
           ts.factory.createIdentifier(
             props.functor.useLocal(Prefix.array(props.array.type.index!)),
           ),
           undefined,
           [
-            ts.factory.createObjectLiteralExpression(Object.entries(schema)
-            .filter(([key]) => key !== "items")
-            .map(([key, value]) =>
-              ts.factory.createPropertyAssignment(
-                key,
-                LiteralFactory.write(value),
-              ),
-            ), true),
+            ts.factory.createObjectLiteralExpression(
+              Object.entries(schema)
+                .filter(([key]) => key !== "items")
+                .map(([key, value]) =>
+                  ts.factory.createPropertyAssignment(
+                    key,
+                    LiteralFactory.write(value),
+                  ),
+                ),
+              true,
+            ),
           ],
         ),
       );
-    return schemaList.map(schema => 
+    return schemaList.map((schema) =>
       RandomJoiner.array({
         decode: (metadata) =>
           decode({
@@ -588,9 +623,9 @@ export namespace RandomProgrammer {
         array: props.array.type,
         recursive: props.explore.recursive,
         schema,
-      })
+      }),
     );
-  }
+  };
 
   const decode_tuple = (props: {
     context: ITypiaContext;
@@ -767,7 +802,7 @@ export namespace RandomProgrammer {
         ...props,
         name: props.name,
       });
-    else if (props.name === "DataView")return decode_native_data_view(props);
+    else if (props.name === "DataView") return decode_native_data_view(props);
     else if (props.name === "Blob") return decode_native_blob(props);
     else if (props.name === "File") return decode_native_file(props);
     else if (props.name === "RegExp") return decode_regexp(props.context);
@@ -789,7 +824,7 @@ export namespace RandomProgrammer {
             context,
             method: "datetime",
             internal: "randomFormatDatetime",
-         }),
+          }),
           undefined,
           [],
         ),
@@ -823,18 +858,18 @@ export namespace RandomProgrammer {
         return ["uint64", 0, 18446744073709551615];
       else if (props.name === "Int8Array") return ["int32", -128, 127];
       else if (props.name === "Int16Array") return ["int32", -32768, 32767];
-      else if (props.name === "Int32Array") return ["int32", -2147483648, 2147483647];
+      else if (props.name === "Int32Array")
+        return ["int32", -2147483648, 2147483647];
       else if (props.name === "BigInt64Array")
         return ["uint64", -9223372036854775808, 9223372036854775807];
       else if (props.name === "Float32Array")
         return ["float", -1.175494351e38, 3.4028235e38];
       return ["double", Number.MIN_VALUE, Number.MAX_VALUE];
     })();
-    const atomic: "bigint" | "number" = 
-      props.name === "BigInt64Array" ||
-        props.name === "BigUint64Array"
-      ? "bigint"
-      : "number"
+    const atomic: "bigint" | "number" =
+      props.name === "BigInt64Array" || props.name === "BigUint64Array"
+        ? "bigint"
+        : "number";
     const value: Metadata = Metadata.create({
       ...Metadata.initialize(),
       atomics: [
@@ -857,9 +892,9 @@ export namespace RandomProgrammer {
                 type: "number",
                 value: maximum.toString(),
               }),
-            ]
+            ],
           ],
-        })
+        }),
       ],
     });
     return ts.factory.createNewExpression(
@@ -1013,48 +1048,50 @@ export namespace RandomProgrammer {
                             ts.factory.createNewExpression(
                               ts.factory.createIdentifier("Array"),
                               undefined,
-                              [ts.factory.createIdentifier("length")]
+                              [ts.factory.createIdentifier("length")],
                             ),
-                            ts.factory.createIdentifier("fill")
+                            ts.factory.createIdentifier("fill"),
                           ),
                           undefined,
-                          [ts.factory.createNumericLiteral("0")]
+                          [ts.factory.createNumericLiteral("0")],
                         ),
-                        ts.factory.createIdentifier("map")
+                        ts.factory.createIdentifier("map"),
                       ),
                       undefined,
-                      [ts.factory.createArrowFunction(
-                        undefined,
-                        undefined,
-                        [],
-                        undefined,
-                        undefined,
-                        decode_atomic({
-                          context: props.context,
-                          atomic: MetadataAtomic.create({
-                            type: "number",
-                            tags: [
-                              [
-                                ...MetadataCommentTagFactory.get({
-                                  kind: "type",
-                                  type: "number",
-                                  value: "uint32",
-                                }),
-                                ...MetadataCommentTagFactory.get({
-                                  kind: "minimum",
-                                  type: "number",
-                                  value: "0",
-                                }),
-                                ...MetadataCommentTagFactory.get({
-                                  kind: "maximum",
-                                  type: "number",
-                                  value: "255",
-                                }),
-                              ]
-                            ],
-                          }),
-                        })[0]!
-                      )]
+                      [
+                        ts.factory.createArrowFunction(
+                          undefined,
+                          undefined,
+                          [],
+                          undefined,
+                          undefined,
+                          decode_atomic({
+                            context: props.context,
+                            atomic: MetadataAtomic.create({
+                              type: "number",
+                              tags: [
+                                [
+                                  ...MetadataCommentTagFactory.get({
+                                    kind: "type",
+                                    type: "number",
+                                    value: "uint32",
+                                  }),
+                                  ...MetadataCommentTagFactory.get({
+                                    kind: "minimum",
+                                    type: "number",
+                                    value: "0",
+                                  }),
+                                  ...MetadataCommentTagFactory.get({
+                                    kind: "maximum",
+                                    type: "number",
+                                    value: "255",
+                                  }),
+                                ],
+                              ],
+                            }),
+                          })[0]!,
+                        ),
+                      ],
                     ),
                     ExpressionFactory.number(0),
                   ],
@@ -1095,15 +1132,16 @@ export namespace RandomProgrammer {
       [],
       [
         ts.factory.createCallExpression(
-        coalesce({
-          context,
-          method: "regex",
-          internal: "randomFormatRegex",
-        }),
-        undefined,
-        undefined,
-      )
-    ]);
+          coalesce({
+            context,
+            method: "regex",
+            internal: "randomFormatRegex",
+          }),
+          undefined,
+          undefined,
+        ),
+      ],
+    );
 
   const writeRangedString = (props: {
     context: ITypiaContext;
@@ -1114,27 +1152,29 @@ export namespace RandomProgrammer {
       context: props.context,
       atomic: MetadataAtomic.create({
         type: "string",
-        tags: [[
-          ...MetadataCommentTagFactory.get({
-            kind: "minLength",
-            type: "string",
-            value: props.minLength.toString(),
-          }),
-          ...MetadataCommentTagFactory.get({
-            kind: "maxLength",
-            type: "string",
-            value: props.maxLength.toString(),
-          }),
-        ]],
+        tags: [
+          [
+            ...MetadataCommentTagFactory.get({
+              kind: "minLength",
+              type: "string",
+              value: props.minLength.toString(),
+            }),
+            ...MetadataCommentTagFactory.get({
+              kind: "maxLength",
+              type: "string",
+              value: props.maxLength.toString(),
+            }),
+          ],
+        ],
       }),
     })[0]!;
 }
 
 const coalesce = (props: {
-  context: ITypiaContext, 
-  method: string,
-  internal: string,
-}): ts.Expression => 
+  context: ITypiaContext;
+  method: string;
+  internal: string;
+}): ts.Expression =>
   ExpressionFactory.coalesce(
     ts.factory.createPropertyAccessChain(
       ts.factory.createIdentifier("_generator"),

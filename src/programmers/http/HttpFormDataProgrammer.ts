@@ -69,13 +69,10 @@ export namespace HttpFormDataProgrammer {
             ts.factory.createTypeReferenceNode("FormData"),
           ),
         ],
-        ts.factory.createImportTypeNode(
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral("typia"),
-          ),
-          undefined,
-          ts.factory.createIdentifier("Resolved"),
-          [
+        props.context.importer.type({
+          file: "typia",
+          name: "Resolved",
+          arguments: [
             ts.factory.createTypeReferenceNode(
               props.name ??
                 TypeFactory.getFullName({
@@ -84,8 +81,7 @@ export namespace HttpFormDataProgrammer {
                 }),
             ),
           ],
-          false,
-        ),
+        }),
         undefined,
         ts.factory.createBlock(statements, true),
       ),

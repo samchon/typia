@@ -91,7 +91,7 @@ export namespace FunctionalAssertFunctionProgrammer {
           ts.factory.createVariableDeclaration(
             name,
             undefined,
-            AssertProgrammer.Guardian.type(),
+            AssertProgrammer.Guardian.type(props.context),
             props.init ??
               props.context.importer.internal(
                 "functionalTypeGuardErrorFactory",

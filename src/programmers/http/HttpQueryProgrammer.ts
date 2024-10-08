@@ -77,13 +77,10 @@ export namespace HttpQueryProgrammer {
             ts.factory.createTypeReferenceNode(INPUT_TYPE),
           ),
         ],
-        ts.factory.createImportTypeNode(
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral("typia"),
-          ),
-          undefined,
-          ts.factory.createIdentifier("Resolved"),
-          [
+        props.context.importer.type({
+          file: "typia",
+          name: "Resolved",
+          arguments: [
             ts.factory.createTypeReferenceNode(
               props.name ??
                 TypeFactory.getFullName({
@@ -92,8 +89,7 @@ export namespace HttpQueryProgrammer {
                 }),
             ),
           ],
-          false,
-        ),
+        }),
         undefined,
         ts.factory.createBlock(statements, true),
       ),

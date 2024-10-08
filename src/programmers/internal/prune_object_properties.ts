@@ -1,7 +1,5 @@
 import ts from "typescript";
 
-import { StatementFactory } from "../../factories/StatementFactory";
-
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { metadata_to_pattern } from "./metadata_to_pattern";
@@ -50,7 +48,17 @@ export const prune_object_properties = (object: MetadataObject) => {
 
   return ts.factory.createForOfStatement(
     undefined,
-    StatementFactory.constant({ name: "key" }).declarationList,
+    ts.factory.createVariableDeclarationList(
+      [
+        ts.factory.createVariableDeclaration(
+          ts.factory.createIdentifier("key"),
+          undefined,
+          undefined,
+          undefined,
+        ),
+      ],
+      ts.NodeFlags.Const,
+    ),
     ts.factory.createCallExpression(
       ts.factory.createIdentifier("Object.keys"),
       undefined,

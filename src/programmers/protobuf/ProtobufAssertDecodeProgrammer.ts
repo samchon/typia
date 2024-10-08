@@ -58,7 +58,10 @@ export namespace ProtobufAssertDecodeProgrammer {
         undefined,
         [
           ...decode.arrow.parameters,
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
         decode.arrow.type,
         undefined,

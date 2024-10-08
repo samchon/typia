@@ -102,15 +102,19 @@ export namespace ValidateProgrammer {
       undefined,
       undefined,
       [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-      ts.factory.createTypeReferenceNode(
-        `typia.IValidation<${
-          props.name ??
-          TypeFactory.getFullName({
-            checker: props.context.checker,
-            type: props.type,
-          })
-        }>`,
-      ),
+      props.context.importer.type({
+        file: "typia",
+        name: "IValidation",
+        arguments: [
+          ts.factory.createTypeReferenceNode(
+            props.name ??
+              TypeFactory.getFullName({
+                checker: props.context.checker,
+                type: props.type,
+              }),
+          ),
+        ],
+      }),
       undefined,
       ts.factory.createBlock(
         [
