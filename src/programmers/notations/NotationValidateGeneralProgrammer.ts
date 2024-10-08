@@ -56,9 +56,11 @@ export namespace NotationValidateGeneralProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          notation.arrow.type ?? TypeFactory.keyword("any"),
-        ]),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [notation.arrow.type ?? TypeFactory.keyword("any")],
+        }),
         undefined,
         ts.factory.createBlock(
           [

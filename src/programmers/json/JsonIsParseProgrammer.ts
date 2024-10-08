@@ -46,13 +46,10 @@ export namespace JsonIsParseProgrammer {
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("string"))],
         ts.factory.createUnionTypeNode([
-          ts.factory.createImportTypeNode(
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("typia"),
-            ),
-            undefined,
-            ts.factory.createIdentifier("Primitive"),
-            [
+          props.context.importer.type({
+            file: "typia",
+            name: "Primitive",
+            arguments: [
               ts.factory.createTypeReferenceNode(
                 props.name ??
                   TypeFactory.getFullName({
@@ -61,8 +58,7 @@ export namespace JsonIsParseProgrammer {
                   }),
               ),
             ],
-            false,
-          ),
+          }),
           ts.factory.createTypeReferenceNode("null"),
         ]),
         undefined,

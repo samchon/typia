@@ -61,9 +61,14 @@ export namespace JsonValidateStringifyProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          stringify.arrow.type ?? ts.factory.createTypeReferenceNode("string"),
-        ]),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [
+            stringify.arrow.type ??
+              ts.factory.createTypeReferenceNode("string"),
+          ],
+        }),
         undefined,
         ts.factory.createBlock([
           StatementFactory.constant({

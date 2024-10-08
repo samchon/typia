@@ -856,13 +856,10 @@ export namespace MiscCloneProgrammer {
               TypeFactory.getFullName({ checker: props.context.checker, type }),
           ),
         output: (type, name) =>
-          ts.factory.createImportTypeNode(
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("typia"),
-            ),
-            undefined,
-            ts.factory.createIdentifier("Resolved"),
-            [
+          props.context.importer.type({
+            file: "typia",
+            name: "Resolved",
+            arguments: [
               ts.factory.createTypeReferenceNode(
                 name ??
                   TypeFactory.getFullName({
@@ -871,8 +868,7 @@ export namespace MiscCloneProgrammer {
                   }),
               ),
             ],
-            false,
-          ),
+          }),
       },
       prefix: PREFIX,
       trace: false,

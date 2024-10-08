@@ -8,7 +8,7 @@ export interface IRandomGenerator {
   bigint(schema: OpenApi.IJsonSchema.IInteger): bigint;
   string(schema: OpenApi.IJsonSchema.IString): string;
   array<T>(
-    schema: OpenApi.IJsonSchema.IArray & {
+    schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
       element: (index: number, count: number) => T;
     },
   ): T[];

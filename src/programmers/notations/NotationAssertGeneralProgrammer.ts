@@ -59,7 +59,10 @@ export namespace NotationAssertGeneralProgrammer {
         undefined,
         [
           IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
         notation.arrow.type,
         undefined,

@@ -66,13 +66,10 @@ export namespace ProtobufDecodeProgrammer {
             ts.factory.createTypeReferenceNode("Uint8Array"),
           ),
         ],
-        ts.factory.createImportTypeNode(
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral("typia"),
-          ),
-          undefined,
-          ts.factory.createIdentifier("Resolved"),
-          [
+        props.context.importer.type({
+          file: "typia",
+          name: "Resolved",
+          arguments: [
             ts.factory.createTypeReferenceNode(
               props.name ??
                 TypeFactory.getFullName({
@@ -81,7 +78,7 @@ export namespace ProtobufDecodeProgrammer {
                 }),
             ),
           ],
-        ),
+        }),
         undefined,
         ts.factory.createBlock(
           [
@@ -298,7 +295,7 @@ export namespace ProtobufDecodeProgrammer {
                 ? ts.factory.createNewExpression(
                     ts.factory.createIdentifier("Uint8Array"),
                     undefined,
-                    [],
+                    [ts.factory.createArrayLiteralExpression([])],
                   )
                 : value.atomics.some((a) => a.type === "string") ||
                     value.constants.some(

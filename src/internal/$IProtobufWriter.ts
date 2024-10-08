@@ -1,4 +1,4 @@
-export interface $__IProtobufWriter {
+export interface $IProtobufWriter {
   bool(value: boolean): void;
   int32(value: number): void;
   sint32(value: number): void;

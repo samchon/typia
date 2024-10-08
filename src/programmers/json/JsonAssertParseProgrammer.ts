@@ -48,15 +48,15 @@ export namespace JsonAssertParseProgrammer {
         undefined,
         [
           IdentifierFactory.parameter("input", TypeFactory.keyword("string")),
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
-        ts.factory.createImportTypeNode(
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral("typia"),
-          ),
-          undefined,
-          ts.factory.createIdentifier("Primitive"),
-          [
+        props.context.importer.type({
+          file: "typia",
+          name: "Primitive",
+          arguments: [
             ts.factory.createTypeReferenceNode(
               props.name ??
                 TypeFactory.getFullName({
@@ -65,20 +65,22 @@ export namespace JsonAssertParseProgrammer {
                 }),
             ),
           ],
-          false,
-        ),
+        }),
         undefined,
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier("__assert"),
-          undefined,
-          [
-            ts.factory.createCallExpression(
-              ts.factory.createIdentifier("JSON.parse"),
-              undefined,
-              [ts.factory.createIdentifier("input")],
-            ),
-            AssertProgrammer.Guardian.identifier(),
-          ],
+        ts.factory.createAsExpression(
+          ts.factory.createCallExpression(
+            ts.factory.createIdentifier("__assert"),
+            undefined,
+            [
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("JSON.parse"),
+                undefined,
+                [ts.factory.createIdentifier("input")],
+              ),
+              AssertProgrammer.Guardian.identifier(),
+            ],
+          ),
+          TypeFactory.keyword("any"),
         ),
       ),
     };

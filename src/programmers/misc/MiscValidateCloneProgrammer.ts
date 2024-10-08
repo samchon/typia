@@ -51,9 +51,11 @@ export namespace MiscValidateCloneProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          clone.arrow.type ?? TypeFactory.keyword("any"),
-        ]),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [clone.arrow.type ?? TypeFactory.keyword("any")],
+        }),
         undefined,
         ts.factory.createBlock(
           [

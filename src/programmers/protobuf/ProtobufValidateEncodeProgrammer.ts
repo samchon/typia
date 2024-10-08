@@ -56,9 +56,14 @@ export namespace ProtobufValidateEncodeProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-        ts.factory.createTypeReferenceNode("typia.IValidation", [
-          encode.arrow.type ?? ts.factory.createTypeReferenceNode("Uint8Array"),
-        ]),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [
+            encode.arrow.type ??
+              ts.factory.createTypeReferenceNode("Uint8Array"),
+          ],
+        }),
         undefined,
         ts.factory.createBlock(
           [

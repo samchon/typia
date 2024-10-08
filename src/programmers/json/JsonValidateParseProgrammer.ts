@@ -47,15 +47,25 @@ export namespace JsonValidateParseProgrammer {
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("string"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<typia.Primitive<${
-            props.name ??
-            TypeFactory.getFullName({
-              checker: props.context.checker,
-              type: props.type,
-            })
-          }>>`,
-        ),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [
+            props.context.importer.type({
+              file: "typia",
+              name: "Primitive",
+              arguments: [
+                ts.factory.createTypeReferenceNode(
+                  props.name ??
+                    TypeFactory.getFullName({
+                      checker: props.context.checker,
+                      type: props.type,
+                    }),
+                ),
+              ],
+            }),
+          ],
+        }),
         undefined,
         ts.factory.createAsExpression(
           ts.factory.createCallExpression(

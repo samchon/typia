@@ -111,7 +111,10 @@ export namespace AssertProgrammer {
       undefined,
       [
         IdentifierFactory.parameter("input", TypeFactory.keyword("any")),
-        Guardian.parameter(props.init),
+        Guardian.parameter({
+          context: props.context,
+          init: props.init,
+        }),
       ],
       props.config.guard
         ? ts.factory.createTypePredicateNode(
@@ -417,13 +420,16 @@ export namespace AssertProgrammer {
 
   export namespace Guardian {
     export const identifier = () => ts.factory.createIdentifier("errorFactory");
-    export const parameter = (init: ts.Expression | undefined) =>
+    export const parameter = (props: {
+      context: ITypiaContext;
+      init: ts.Expression | undefined;
+    }) =>
       IdentifierFactory.parameter(
         "errorFactory",
-        type(),
-        init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+        type(props.context),
+        props.init ?? ts.factory.createToken(ts.SyntaxKind.QuestionToken),
       );
-    export const type = () =>
+    export const type = (context: ITypiaContext) =>
       ts.factory.createFunctionTypeNode(
         undefined,
         [
@@ -432,18 +438,10 @@ export namespace AssertProgrammer {
             undefined,
             ts.factory.createIdentifier("p"),
             undefined,
-            ts.factory.createImportTypeNode(
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral("typia"),
-              ),
-              undefined,
-              ts.factory.createQualifiedName(
-                ts.factory.createIdentifier("TypeGuardError"),
-                ts.factory.createIdentifier("IProps"),
-              ),
-              undefined,
-              false,
-            ),
+            context.importer.type({
+              file: "typia",
+              name: "TypeGuardError.IProps",
+            }),
             undefined,
           ),
         ],
