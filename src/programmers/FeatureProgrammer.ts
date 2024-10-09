@@ -49,7 +49,10 @@ export namespace FeatureProgrammer {
       context: ITypiaContext;
       functor: FunctionProgrammer;
       type: ts.Type;
-    }) => [MetadataCollection, Metadata];
+    }) => {
+      collection: MetadataCollection;
+      metadata: Metadata;
+    };
 
     /**
      * Decoder, station of every types.
@@ -236,7 +239,7 @@ export namespace FeatureProgrammer {
     type: ts.Type;
     name: string | undefined;
   }): IComposed => {
-    const [collection, metadata] = props.config.initializer(props);
+    const { collection, metadata } = props.config.initializer(props);
     return {
       body: props.config.decoder({
         input: ValueFactory.INPUT(),
@@ -323,7 +326,7 @@ export namespace FeatureProgrammer {
     name?: string | undefined;
   }): ts.ArrowFunction => {
     // ITERATE OVER ALL METADATA
-    const [collection, metadata] = props.config.initializer(props);
+    const { collection, metadata } = props.config.initializer(props);
     const output: ts.ConciseBody = props.config.decoder({
       metadata,
       input: ValueFactory.INPUT(),

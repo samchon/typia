@@ -6,6 +6,8 @@ import { AtomicPredicator } from "../programmers/helpers/AtomicPredicator";
 
 import { TransformerError } from "../transformers/TransformerError";
 
+import { ValidationPipe } from "../typings/ValidationPipe";
+
 import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 
@@ -16,27 +18,35 @@ export namespace JsonMetadataFactory {
     transformer?: ts.TransformationContext;
     type: ts.Type;
   }
+  export interface IOutput {
+    collection: MetadataCollection;
+    metadata: Metadata;
+  }
 
-  export const analyze = (props: IProps): [MetadataCollection, Metadata] => {
-    const collection = new MetadataCollection();
-    const result = MetadataFactory.analyze({
-      checker: props.checker,
-      transformer: props.transformer,
-      options: {
-        escape: true,
-        constant: true,
-        absorb: true,
-        validate,
-      },
-      collection,
-      type: props.type,
-    });
+  export const analyze = (props: IProps): IOutput => {
+    const collection: MetadataCollection = new MetadataCollection();
+    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+      MetadataFactory.analyze({
+        checker: props.checker,
+        transformer: props.transformer,
+        options: {
+          escape: true,
+          constant: true,
+          absorb: true,
+          validate,
+        },
+        collection,
+        type: props.type,
+      });
     if (result.success === false)
       throw TransformerError.from({
         code: props.method,
         errors: result.errors,
       });
-    return [collection, result.data];
+    return {
+      collection,
+      metadata: result.data,
+    };
   };
 
   export const validate = (meta: Metadata) => {
