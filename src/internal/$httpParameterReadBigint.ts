@@ -1,4 +1,4 @@
-export const $httpParameterBigint = (value: string) =>
+export const $httpParameterReadBigint = (value: string) =>
   value !== "null" ? toBigint(value) : null;
 
 const toBigint = (str: string): bigint | string => {
