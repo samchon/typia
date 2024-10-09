@@ -1,4 +1,4 @@
-export const $httpParameterBoolean = (value: string) =>
+export const $httpParameterReadBoolean = (value: string) =>
   value !== "null"
     ? value === "true" || value === "1"
       ? true

@@ -1,4 +1,4 @@
-export const $httpParameterNumber = (value: string) =>
+export const $httpParameterReadNumber = (value: string) =>
   value !== "null" ? toNumber(value) : null;
 
 const toNumber = (str: string): number | string => {
