@@ -71,7 +71,10 @@ export namespace TypiaProgrammer {
             path.resolve(file.fileName).indexOf(location.input) !== -1,
         ),
       [
-        ImportTransformer.transform(location.input)(location.output),
+        ImportTransformer.transform({
+          from: location.input,
+          to: location.output,
+        }),
         transform(
           program,
           ((compilerOptions.plugins as any[]) ?? []).find(
