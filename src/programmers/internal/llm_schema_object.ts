@@ -98,7 +98,7 @@ export const llm_schema_object = (props: {
 /**
  * @internal
  */
-const join = (extra: ISuperfluous): ILlmSchema | undefined => {
+const join = (extra: ISuperfluous): ILlmSchema | false => {
   // LIST UP METADATA
   const elements: [Metadata, ILlmSchema][] = Object.values(
     extra.patternProperties || {},
@@ -106,7 +106,7 @@ const join = (extra: ISuperfluous): ILlmSchema | undefined => {
   if (extra.additionalProperties) elements.push(extra.additionalProperties);
 
   // SHORT RETURN
-  if (elements.length === 0) return undefined;
+  if (elements.length === 0) return false;
   else if (elements.length === 1) return elements[0]![1]!;
 
   // MERGE METADATA AND GENERATE VULNERABLE SCHEMA
