@@ -691,7 +691,10 @@ export namespace MiscPruneProgrammer {
         code: props.functor.method,
         errors: result.errors,
       });
-    return [collection, result.data];
+    return {
+      collection,
+      metadata: result.data,
+    };
   };
 
   const create_throw_error = (props: {

@@ -280,7 +280,10 @@ export namespace CheckerProgrammer {
           code: `typia.${next.functor.method}`,
           errors: result.errors,
         });
-      return [collection, result.data];
+      return {
+        collection,
+        metadata: result.data,
+      };
     },
     addition: props.config.addition,
     decoder: props.config.decoder

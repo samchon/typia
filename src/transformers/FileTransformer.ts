@@ -41,12 +41,6 @@ export namespace FileTransformer {
         file.hasNoDefaultLib,
         file.libReferenceDirectives,
       );
-      // return ts.factory.createSourceFile(
-      //   file.statements,
-      //   // [...importer.toStatements(), ...file.statements],
-      //   file.endOfFileToken as any,
-      //   file.flags,
-      // );
     };
 
   const iterate_node = (props: {
