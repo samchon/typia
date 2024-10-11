@@ -6,7 +6,7 @@ type MyObj = {
   private: boolean | null;
 };
 
-export const test_issue_1321_private_key_in_protobuf = (): void => {
+export const test_issue_1321_protobuf_reserved_keyword = (): void => {
   const input: MyObj = {
     private: true,
   };
