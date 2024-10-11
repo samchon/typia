@@ -11,6 +11,7 @@ export namespace TypiaProgrammer {
     input: string;
     output: string;
     project: string;
+    ignoreGeneratedTypeErrors?: boolean;
   }
 
   export const build = async (props: TypiaProgrammer.IProps): Promise<void> => {
@@ -120,7 +121,12 @@ export namespace TypiaProgrammer {
         .replace(props.input, props.output);
 
       const content: string = printer.printFile(file);
-      await fs.promises.writeFile(to, content, "utf8");
+
+      const finalContent: string = props.ignoreGeneratedTypeErrors
+        ? "// @ts-nocheck\n" + content
+        : content;
+
+      await fs.promises.writeFile(to, finalContent, "utf8");
     }
   };
 
