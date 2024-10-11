@@ -10,11 +10,11 @@ export const application_union_discriminator = (
   if (
     metadata.size() === 0 ||
     metadata.size() !== metadata.objects.length ||
-    metadata.objects.some((o) => o.isLiteral()) === true
+    metadata.objects.some((o) => o.type.isLiteral()) === true
   )
     return undefined;
   const specialized: UnionPredicator.ISpecialized[] = UnionPredicator.object(
-    metadata.objects,
+    metadata.objects.map((o) => o.type),
   );
   const meet: boolean =
     specialized.length === metadata.objects.length &&

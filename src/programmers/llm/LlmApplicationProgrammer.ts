@@ -5,7 +5,7 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { IJsDocTagInfo } from "../../module";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
@@ -20,7 +20,7 @@ export namespace LlmApplicationProgrammer {
       top ??= metadata;
       if (explore.top === false)
         if (
-          explore.object === top?.objects[0] &&
+          explore.object === top?.objects[0]?.type &&
           typeof explore.property === "string" &&
           metadata.size() === 1 &&
           metadata.nullable === false &&
@@ -41,7 +41,7 @@ export namespace LlmApplicationProgrammer {
           "LLM application's generic arugment must be a class/interface type.",
         );
 
-      const object: MetadataObject | undefined = metadata.objects[0];
+      const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
       if (object !== undefined) {
         if (object.properties.some((p) => p.key.isSoleLiteral() === false))
           output.push("LLM application does not allow dynamic keys.");
@@ -98,7 +98,7 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const object: MetadataObject = metadata.objects[0]!;
+    const object: MetadataObjectType = metadata.objects[0]!.type;
     return {
       functions: object.properties
         .filter(

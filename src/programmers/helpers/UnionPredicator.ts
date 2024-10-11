@@ -1,5 +1,5 @@
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
@@ -8,12 +8,14 @@ import { MapUtil } from "../../utils/MapUtil";
 export namespace UnionPredicator {
   export interface ISpecialized {
     index: number;
-    object: MetadataObject;
+    object: MetadataObjectType;
     property: MetadataProperty;
     neighbour: boolean;
   }
 
-  export const object = (objects: MetadataObject[]): Array<ISpecialized> => {
+  export const object = (
+    objects: MetadataObjectType[],
+  ): Array<ISpecialized> => {
     // PROPERTY MATRIX
     const matrix: Map<string, Array<MetadataProperty | null>> = new Map();
     for (const obj of objects)

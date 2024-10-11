@@ -9,7 +9,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -336,7 +336,7 @@ export namespace MiscCloneProgrammer {
   const decode_object = (props: {
     functor: FunctionProgrammer;
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }) =>
     FeatureProgrammer.decode_object({
@@ -711,7 +711,7 @@ export namespace MiscCloneProgrammer {
     props.metadata.objects.length === 1
       ? decode_object({
           ...props,
-          object: props.metadata.objects[0]!,
+          object: props.metadata.objects[0]!.type,
         })
       : ts.factory.createCallExpression(
           ts.factory.createIdentifier(

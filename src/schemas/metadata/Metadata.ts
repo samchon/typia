@@ -12,6 +12,7 @@ import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataFunction } from "./MetadataFunction";
 import { MetadataObject } from "./MetadataObject";
+import { MetadataObjectType } from "./MetadataObjectType";
 import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
 
@@ -122,15 +123,9 @@ export class Metadata {
       escaped: this.escaped ? this.escaped.toJSON() : null,
 
       rest: this.rest ? this.rest.toJSON() : null,
-      arrays: this.arrays.map((array) => ({
-        name: array.type.name,
-        tags: array.tags.map((r) => r.slice()),
-      })),
-      tuples: this.tuples.map((tuple) => ({
-        name: tuple.type.name,
-        tags: tuple.tags.map((r) => r.slice()),
-      })),
-      objects: this.objects.map((obj) => obj.name),
+      arrays: this.arrays.map((array) => array.toJSON()),
+      tuples: this.tuples.map((tuple) => tuple.toJSON()),
+      objects: this.objects.map((obj) => obj.toJSON()),
       aliases: this.aliases.map((alias) => alias.name),
 
       natives: this.natives.slice(),
@@ -178,13 +173,16 @@ export class Metadata {
           tags: t.tags.map((r) => r.slice()),
         });
       }),
-      objects: meta.objects.map((name) => {
-        const found = dict.objects.get(name);
+      objects: meta.objects.map((obj) => {
+        const found = dict.objects.get(obj.name);
         if (found === undefined)
           throw new RangeError(
             `Error on Metadata.from(): failed to find object "${name}".`,
           );
-        return found;
+        return MetadataObject.create({
+          type: found,
+          tags: obj.tags.map((r) => r.slice()),
+        });
       }),
       aliases: meta.aliases.map((alias) => {
         const found = dict.aliases.get(alias);
@@ -194,7 +192,6 @@ export class Metadata {
           );
         return found;
       }),
-
       natives: meta.natives.slice(),
       sets: meta.sets.map((meta) => this.from(meta, dict)),
       maps: meta.maps.map((entry) => ({
@@ -418,7 +415,10 @@ export namespace Metadata {
 
     // OBJECTS
     for (const yo of y.objects)
-      if (x.objects.some((xo) => MetadataObject.covers(xo, yo)) === false)
+      if (
+        x.objects.some((xo) => MetadataObjectType.covers(xo.type, yo.type)) ===
+        false
+      )
         return false;
 
     // ALIASES
@@ -528,7 +528,7 @@ export namespace Metadata {
         ArrayUtil.add(target.values, value, (a, b) => a.value === b.value);
     }
     for (const obj of y.objects)
-      ArrayUtil.set(output.objects, obj, (elem) => elem.name);
+      ArrayUtil.set(output.objects, obj, (elem) => elem.type.name);
     for (const alias of y.aliases)
       ArrayUtil.set(output.aliases, alias, (elem) => elem.name);
 
@@ -563,7 +563,7 @@ const getName = (metadata: Metadata): string => {
   if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
   for (const tuple of metadata.tuples) elements.push(tuple.type.name);
   for (const array of metadata.arrays) elements.push(array.getName());
-  for (const object of metadata.objects) elements.push(object.name);
+  for (const object of metadata.objects) elements.push(object.getName());
   for (const alias of metadata.aliases) elements.push(alias.name);
   if (metadata.escaped !== null) elements.push(metadata.escaped.getName());
 

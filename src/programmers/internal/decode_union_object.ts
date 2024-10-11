@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 
@@ -10,17 +10,17 @@ import { FeatureProgrammer } from "../FeatureProgrammer";
 export const decode_union_object = (props: {
   checker: (next: {
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }) => ts.Expression;
   decoder: (next: {
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }) => ts.Expression;
   success: (exp: ts.Expression) => ts.Expression;
   escaper: (next: { input: ts.Expression; expected: string }) => ts.Statement;
-  objects: MetadataObject[];
+  objects: MetadataObjectType[];
   input: ts.Expression;
   explore: FeatureProgrammer.IExplore;
 }): ts.CallExpression =>

@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { Writable } from "../../../typings/Writable";
@@ -16,7 +16,7 @@ import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 
 export const emplace_metadata_object = (
   props: IMetadataIteratorProps,
-): MetadataObject => {
+): MetadataObjectType => {
   // EMPLACE OBJECT
   const [obj, newbie] = props.collection.emplace(props.checker, props.type);
   ArrayUtil.add(

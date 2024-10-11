@@ -1,11 +1,11 @@
 import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 export namespace ProtobufUtil {
-  export const isStaticObject = (obj: MetadataObject): boolean =>
+  export const isStaticObject = (obj: MetadataObjectType): boolean =>
     obj.properties.length >= 1 &&
     obj.properties.every((p) => p.key.isSoleLiteral());
 

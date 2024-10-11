@@ -15,7 +15,7 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataAtomic } from "../schemas/metadata/MetadataAtomic";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
@@ -408,7 +408,7 @@ export namespace RandomProgrammer {
       expressions.push(
         decode_object({
           ...props,
-          object,
+          object: object.type,
         }),
       );
     for (const name of props.metadata.natives)
@@ -661,7 +661,7 @@ export namespace RandomProgrammer {
   const decode_object = (props: {
     functor: FunctionProgrammer;
     explore: IExplore;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }) =>
     ts.factory.createCallExpression(
       ts.factory.createIdentifier(

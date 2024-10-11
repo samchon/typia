@@ -11,7 +11,7 @@ import { ValueFactory } from "../../factories/ValueFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -462,8 +462,8 @@ export namespace JsonStringifyProgrammer {
         is: () =>
           ExpressionFactory.isObject({
             checkNull: true,
-            checkArray: props.metadata.objects.some((objects) =>
-              objects.properties.every(
+            checkArray: props.metadata.objects.some((object) =>
+              object.type.properties.every(
                 (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
               ),
             ),
@@ -530,7 +530,7 @@ export namespace JsonStringifyProgrammer {
   const decode_object = (props: {
     functor: FunctionProgrammer;
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }): ts.CallExpression =>
     FeatureProgrammer.decode_object({
@@ -762,7 +762,7 @@ export namespace JsonStringifyProgrammer {
       ? decode_object({
           functor: props.functor,
           input: props.input,
-          object: props.metadata.objects[0]!,
+          object: props.metadata.objects[0]!.type,
           explore: props.explore,
         })
       : ts.factory.createCallExpression(

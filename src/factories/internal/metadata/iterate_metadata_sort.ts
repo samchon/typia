@@ -1,5 +1,5 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 
 import { MetadataCollection } from "../../MetadataCollection";
 
@@ -45,7 +45,11 @@ const iterate = (props: {
   // SORT OBJECTS
   if (props.metadata.objects.length > 1) {
     props.metadata.objects.sort((x, y) =>
-      MetadataObject.covers(x, y) ? -1 : MetadataObject.covers(y, x) ? 1 : 0,
+      MetadataObjectType.covers(x.type, y.type)
+        ? -1
+        : MetadataObjectType.covers(y.type, x.type)
+          ? 1
+          : 0,
     );
     props.metadata.union_index = props.collection.getUnionIndex(props.metadata);
   }

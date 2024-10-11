@@ -9,7 +9,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -367,7 +367,7 @@ export namespace NotationGeneralProgrammer {
 
   const decode_object = (props: {
     functor: FunctionProgrammer;
-    object: MetadataObject;
+    object: MetadataObjectType;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }) =>
@@ -661,7 +661,7 @@ export namespace NotationGeneralProgrammer {
     if (props.metadata.objects.length === 1)
       return decode_object({
         functor: props.functor,
-        object: props.metadata.objects[0]!,
+        object: props.metadata.objects[0]!.type,
         input: props.input,
         explore: props.explore,
       });

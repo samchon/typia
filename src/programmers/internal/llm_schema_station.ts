@@ -144,14 +144,14 @@ export const llm_schema_station = (props: {
 
   // OBJECT
   for (const object of props.metadata.objects)
-    if (object.recursive)
+    if (object.type.recursive)
       throw new Error(
         "Error on LlmSchemaProgrammer.write(): LLM schema does not allow recursive object type.",
       );
     else
       insert(
         llm_schema_object({
-          object,
+          object: object.type,
           nullable: props.metadata.nullable,
         }),
       );

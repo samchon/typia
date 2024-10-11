@@ -99,7 +99,7 @@ export const iterate_metadata_intersection = (
       c.isRequired() === true &&
       c.objects.length &&
       c.objects.length === c.size() &&
-      c.objects.every((o) => o.properties.every((p) => p.value.optional)),
+      c.objects.every((o) => o.type.properties.every((p) => p.value.optional)),
   );
   const arrays: Set<string> = new Set(
     individuals.map(([c]) => c.arrays.map((a) => a.type.name)).flat(),
@@ -188,7 +188,10 @@ export const iterate_metadata_intersection = (
     const tags: IMetadataTypeTag[] = MetadataTypeTagFactory.analyze({
       errors: props.errors,
       type: target,
-      objects: objects.map((om) => om.objects).flat(),
+      objects: objects
+        .map((om) => om.objects)
+        .flat()
+        .map((om) => om.type),
       explore: props.explore,
     });
     if (tags.length)

@@ -180,7 +180,7 @@ export const application_v30_schema = <BlockNever extends boolean>(props: {
   for (const object of props.metadata.objects)
     insert(
       application_v30_object({
-        object,
+        object: object.type,
         components: props.components,
         nullable: props.metadata.nullable,
       }),

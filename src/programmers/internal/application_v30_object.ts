@@ -4,7 +4,7 @@ import { CommentFactory } from "../../factories/CommentFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
@@ -17,7 +17,7 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  */
 export const application_v30_object = (props: {
   components: OpenApiV3.IComponents;
-  object: MetadataObject;
+  object: MetadataObjectType;
   nullable: boolean;
 }): OpenApiV3.IJsonSchema.IReference | OpenApiV3.IJsonSchema.IObject => {
   if (props.object.isLiteral() === true) return create_object_schema(props);
@@ -38,7 +38,7 @@ export const application_v30_object = (props: {
  */
 const create_object_schema = (props: {
   components: OpenApiV3.IComponents;
-  object: MetadataObject;
+  object: MetadataObjectType;
   nullable: boolean;
 }): OpenApiV3.IJsonSchema.IObject => {
   // ITERATE PROPERTIES

@@ -178,7 +178,7 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
     insert(
       application_v31_object({
         components: props.components,
-        object,
+        object: object.type,
       }),
     );
 
