@@ -42,7 +42,7 @@ export namespace LlmApplicationTransformer {
           constant: true,
           absorb: false,
           functional: true,
-          validate: LlmApplicationProgrammer.validate,
+          validate: LlmApplicationProgrammer.validate(),
         },
         collection,
         type,
