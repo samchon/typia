@@ -142,10 +142,5 @@ export class $ProtobufSizer implements $IProtobufWriter {
   }
 }
 
-const strlen = (s: string): number => {
-  let b: number;
-  let i: number;
-  let c: number;
-  for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
-  return b;
-};
+export const strlen = (str: string): number => new Blob([str]).size;
+

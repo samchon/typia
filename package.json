@@ -1,6 +1,10 @@
 {
   "name": "typia",
+<<<<<<< HEAD
   "version": "7.0.0-dev.20241011",
+=======
+  "version": "6.11.2",
+>>>>>>> f1ad1a5748990c9ce0ab1d28de70ca83c5d76864
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -67,7 +71,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": "^1.1.0",
+    "@samchon/openapi": "^1.1.1",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
