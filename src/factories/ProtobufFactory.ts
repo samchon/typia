@@ -9,8 +9,6 @@ import { TransformerError } from "../transformers/TransformerError";
 
 import { ValidationPipe } from "../typings/ValidationPipe";
 
-import { Escaper } from "../utils/Escaper";
-
 import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 
@@ -167,18 +165,6 @@ export namespace ProtobufFactory {
       noSupport(
         "object type with mixed static and dynamic key typed properties. Keep statics or dynamic only.",
       );
-    // STATIC PROPERTY, BUT INVALID KEY NAME
-    if (
-      meta.objects.length &&
-      meta.objects.some((obj) =>
-        obj.properties.some(
-          (p) =>
-            p.key.isSoleLiteral() === true &&
-            Escaper.variable(p.key.getSoleLiteral()!) === false,
-        ),
-      )
-    )
-      noSupport(`object type with invalid static key name.`);
     // DYNAMIC OBJECT, BUT PROPERTY VALUE TYPE IS ARRAY
     if (
       meta.objects.length &&
