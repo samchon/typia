@@ -47,6 +47,7 @@
       "minItems",
       "maxItems",
       "both"
-    ]
+    ],
+    "additionalProperties": false
   }
 }

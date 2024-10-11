@@ -35,11 +35,13 @@
           "type": "string"
         }
       },
-      "nullable": false
+      "nullable": false,
+      "additionalProperties": false
     }
   },
   "nullable": false,
   "required": [
     "value"
-  ]
+  ],
+  "additionalProperties": false
 }

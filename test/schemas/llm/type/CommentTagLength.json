@@ -37,12 +37,14 @@
           "maximum",
           "minimum_and_maximum",
           "equal"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
   "nullable": false,
   "required": [
     "value"
-  ]
+  ],
+  "additionalProperties": false
 }

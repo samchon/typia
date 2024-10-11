@@ -12,5 +12,6 @@
   "required": [
     "something-interesting-do-you-want?",
     "or-something-crazy-do-you-want?"
-  ]
+  ],
+  "additionalProperties": false
 }

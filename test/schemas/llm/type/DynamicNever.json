@@ -1,5 +1,6 @@
 {
   "type": "object",
   "properties": {},
-  "nullable": false
+  "nullable": false,
+  "additionalProperties": false
 }

@@ -26,7 +26,8 @@
         "required": [
           "time",
           "zone"
-        ]
+        ],
+        "additionalProperties": false
       },
       "departments": {
         "type": "array",
@@ -56,7 +57,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "additionalProperties": false
             },
             "employees": {
               "type": "array",
@@ -89,7 +91,8 @@
                     "required": [
                       "time",
                       "zone"
-                    ]
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "nullable": false,
@@ -99,7 +102,8 @@
                   "age",
                   "grade",
                   "employeed_at"
-                ]
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -110,7 +114,8 @@
             "sales",
             "created_at",
             "employees"
-          ]
+          ],
+          "additionalProperties": false
         }
       }
     },
@@ -121,6 +126,7 @@
       "name",
       "established_at",
       "departments"
-    ]
+    ],
+    "additionalProperties": false
   }
 }

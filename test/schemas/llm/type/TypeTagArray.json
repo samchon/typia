@@ -57,12 +57,14 @@
           "both",
           "equal",
           "unique"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
   "nullable": false,
   "required": [
     "value"
-  ]
+  ],
+  "additionalProperties": false
 }

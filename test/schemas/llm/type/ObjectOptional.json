@@ -14,5 +14,6 @@
       "type": "number"
     }
   },
-  "nullable": false
+  "nullable": false,
+  "additionalProperties": false
 }

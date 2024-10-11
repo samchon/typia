@@ -44,5 +44,6 @@
   "nullable": false,
   "required": [
     "tuple"
-  ]
+  ],
+  "additionalProperties": false
 }

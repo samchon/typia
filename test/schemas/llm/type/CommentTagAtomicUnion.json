@@ -23,12 +23,14 @@
         "nullable": false,
         "required": [
           "value"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
   "nullable": false,
   "required": [
     "value"
-  ]
+  ],
+  "additionalProperties": false
 }

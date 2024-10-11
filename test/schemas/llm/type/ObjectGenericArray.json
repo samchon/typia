@@ -23,7 +23,8 @@
         "limit",
         "total_count",
         "total_pages"
-      ]
+      ],
+      "additionalProperties": false
     },
     "data": {
       "type": "array",
@@ -41,7 +42,8 @@
         "required": [
           "name",
           "age"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
@@ -49,5 +51,6 @@
   "required": [
     "pagination",
     "data"
-  ]
+  ],
+  "additionalProperties": false
 }
