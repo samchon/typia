@@ -4,9 +4,8 @@ import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1188_json_schema_tuple_type = (): void => {
   TestValidator.equals("tuples")(
-    typia.json.application<
-      [[boolean, number], [boolean, number, ...string[]]]
-    >().schemas,
+    typia.json.schemas<[[boolean, number], [boolean, number, ...string[]]]>()
+      .schemas,
   )([
     {
       type: "array",

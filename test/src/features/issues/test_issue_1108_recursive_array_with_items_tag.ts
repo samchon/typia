@@ -5,7 +5,7 @@ export const test_issue_1108_recursive_array_with_items_tag = () => {
   typia.createAssert<Tree>();
   typia.createValidate<Tree>();
   typia.json.createAssertStringify<Tree>();
-  typia.json.application<[Tree]>();
+  typia.json.schemas<[Tree]>();
   typia.protobuf.createAssertEncode<Tree>();
 };
 interface Tree {
