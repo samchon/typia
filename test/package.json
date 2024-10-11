@@ -53,10 +53,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-<<<<<<< HEAD
     "typia": "../typia-7.0.0-dev.20241011.tgz"
-=======
-    "typia": "../typia-6.11.2.tgz"
->>>>>>> f1ad1a5748990c9ce0ab1d28de70ca83c5d76864
   }
 }
