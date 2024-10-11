@@ -15,7 +15,8 @@
           "nullable": false,
           "required": [
             "value"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       {
@@ -31,7 +32,8 @@
           "nullable": false,
           "required": [
             "value"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       {
@@ -47,7 +49,8 @@
           "nullable": false,
           "required": [
             "value"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       {
@@ -82,13 +85,15 @@
                 "id",
                 "name",
                 "activated"
-              ]
+              ],
+              "additionalProperties": false
             }
           },
           "nullable": false,
           "required": [
             "value"
-          ]
+          ],
+          "additionalProperties": false
         }
       }
     ]

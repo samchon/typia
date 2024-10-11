@@ -16,5 +16,6 @@
     "id",
     "name",
     "age"
-  ]
+  ],
+  "additionalProperties": false
 }

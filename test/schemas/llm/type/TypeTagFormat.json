@@ -114,5 +114,6 @@
     "duration",
     "jsonPointer",
     "relativeJsonPointer"
-  ]
+  ],
+  "additionalProperties": false
 }

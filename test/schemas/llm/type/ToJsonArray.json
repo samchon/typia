@@ -32,7 +32,8 @@
           "nullable": false,
           "required": [
             "id"
-          ]
+          ],
+          "additionalProperties": false
         }
       }
     ]

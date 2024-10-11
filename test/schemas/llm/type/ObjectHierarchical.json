@@ -39,7 +39,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       "nullable": false,
@@ -51,7 +52,8 @@
         "exclusive",
         "priority",
         "created_at"
-      ]
+      ],
+      "additionalProperties": false
     },
     "member": {
       "type": "object",
@@ -82,7 +84,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "additionalProperties": false
             }
           },
           "nullable": false,
@@ -90,7 +93,8 @@
             "id",
             "code",
             "created_at"
-          ]
+          ],
+          "additionalProperties": false
         },
         "enterprise": {
           "type": "object",
@@ -121,7 +125,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "additionalProperties": false
                 }
               },
               "nullable": false,
@@ -129,7 +134,8 @@
                 "id",
                 "code",
                 "created_at"
-              ]
+              ],
+              "additionalProperties": false
             },
             "name": {
               "type": "string"
@@ -151,7 +157,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "additionalProperties": false
             }
           },
           "nullable": true,
@@ -161,7 +168,8 @@
             "name",
             "grade",
             "created_at"
-          ]
+          ],
+          "additionalProperties": false
         },
         "emails": {
           "type": "array",
@@ -183,7 +191,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "additionalProperties": false
         },
         "authorized": {
           "type": "boolean"
@@ -197,7 +206,8 @@
         "emails",
         "created_at",
         "authorized"
-      ]
+      ],
+      "additionalProperties": false
     },
     "account": {
       "type": "object",
@@ -222,7 +232,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       "nullable": true,
@@ -230,7 +241,8 @@
         "id",
         "code",
         "created_at"
-      ]
+      ],
+      "additionalProperties": false
     },
     "href": {
       "type": "string"
@@ -260,7 +272,8 @@
       "required": [
         "time",
         "zone"
-      ]
+      ],
+      "additionalProperties": false
     }
   },
   "nullable": false,
@@ -273,5 +286,6 @@
     "referrer",
     "ip",
     "created_at"
-  ]
+  ],
+  "additionalProperties": false
 }

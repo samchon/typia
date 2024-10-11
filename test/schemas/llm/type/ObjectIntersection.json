@@ -16,5 +16,6 @@
     "email",
     "name",
     "vulnerable"
-  ]
+  ],
+  "additionalProperties": false
 }

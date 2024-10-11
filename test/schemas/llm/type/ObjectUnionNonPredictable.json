@@ -24,13 +24,15 @@
                         "nullable": false,
                         "required": [
                           "value"
-                        ]
+                        ],
+                        "additionalProperties": false
                       }
                     },
                     "nullable": false,
                     "required": [
                       "value"
-                    ]
+                    ],
+                    "additionalProperties": false
                   },
                   {
                     "type": "object",
@@ -45,13 +47,15 @@
                         "nullable": false,
                         "required": [
                           "value"
-                        ]
+                        ],
+                        "additionalProperties": false
                       }
                     },
                     "nullable": false,
                     "required": [
                       "value"
-                    ]
+                    ],
+                    "additionalProperties": false
                   },
                   {
                     "type": "object",
@@ -66,13 +70,15 @@
                         "nullable": false,
                         "required": [
                           "value"
-                        ]
+                        ],
+                        "additionalProperties": false
                       }
                     },
                     "nullable": false,
                     "required": [
                       "value"
-                    ]
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               }
@@ -80,18 +86,21 @@
             "nullable": false,
             "required": [
               "value"
-            ]
+            ],
+            "additionalProperties": false
           }
         },
         "nullable": false,
         "required": [
           "value"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
   "nullable": false,
   "required": [
     "value"
-  ]
+  ],
+  "additionalProperties": false
 }
