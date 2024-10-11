@@ -4,28 +4,46 @@ import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
-import { IJsonApplication } from "../../../schemas/json/IJsonApplication";
+import { IJsonSchemaCollection } from "../../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { JsonApplicationProgrammer } from "../../../programmers/json/JsonApplicationProgrammer";
+import { JsonSchemasProgrammer } from "../../../programmers/json/JsonSchemasProgrammer";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
-export namespace JsonApplicationTransformer {
-  export const transform = (props: ITransformProps): ts.Expression => {
-    // GET GENERIC ARGUMENT
+export namespace JsonSchemasTransformer {
+  export const transform = (
+    props: Pick<ITransformProps, "context" | "expression">,
+  ): ts.Expression => {
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
         code: "typia.json.application",
         message: "no generic argument.",
       });
 
+    //----
+    // GET ARGUMENTS
+    //----
+    // VALIDATE TUPLE ARGUMENTS
     const top: ts.Node = props.expression.typeArguments[0]!;
-    if (ts.isTypeNode(top) === false) return props.expression;
+    if (!ts.isTupleTypeNode(top)) return props.expression;
+    else if (top.elements.some((child) => !ts.isTypeNode(child)))
+      return props.expression;
 
+    // GET TYPES
+    const types: ts.Type[] = top.elements.map((child) =>
+      props.context.checker.getTypeFromTypeNode(child as ts.TypeNode),
+    );
+    if (types.some((t) => t.isTypeParameter()))
+      throw new TransformerError({
+        code: "typia.json.application",
+        message: "non-specified generic argument(s).",
+      });
+
+    // ADDITIONAL PARAMETERS
     const version: "3.0" | "3.1" = get_parameter<"3.0" | "3.1">({
       checker: props.context.checker,
       name: "Version",
@@ -34,39 +52,46 @@ export namespace JsonApplicationTransformer {
       default: () => "3.1",
     })(props.expression.typeArguments[1]);
 
-    // GET TYPE
-    const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
+    //----
+    // GENERATORS
+    //----
+    // METADATA
     const collection: MetadataCollection = new MetadataCollection({
       replace: MetadataCollection.replace,
     });
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-      MetadataFactory.analyze({
-        checker: props.context.checker,
-        transformer: props.context.transformer,
-        options: {
-          escape: true,
-          constant: true,
-          absorb: false,
-          functional: true,
-          validate: JsonApplicationProgrammer.validate,
-        },
-        collection,
-        type,
-      });
-    if (result.success === false)
+    const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
+      types.map((type) =>
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            escape: true,
+            constant: true,
+            absorb: false,
+            validate: JsonSchemasProgrammer.validate,
+          },
+          collection,
+          type,
+        }),
+      );
+
+    // REPORT BUG IF REQUIRED
+    const metadatas: Metadata[] = [];
+    const errors: MetadataFactory.IError[] = [];
+    for (const r of results) {
+      if (r.success === false) errors.push(...r.errors);
+      else metadatas.push(r.data);
+    }
+    if (errors.length)
       throw TransformerError.from({
         code: "typia.json.application",
-        errors: result.errors,
+        errors,
       });
 
-    // GENERATE LLM APPLICATION
-    const app: IJsonApplication<"3.0" | "3.1"> =
-      JsonApplicationProgrammer.write({
-        version,
-        metadata: result.data,
-      });
-    const literal: ts.Expression = LiteralFactory.write(app);
-    return literal;
+    // APPLICATION
+    const app: IJsonSchemaCollection<any> =
+      JsonSchemasProgrammer.write(version)(metadatas);
+    return LiteralFactory.write(app);
   };
 
   const get_parameter =

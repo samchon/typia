@@ -1,5 +1,5 @@
 import { OpenApi } from "@samchon/openapi";
-import { IJsonApplication } from "typia";
+import { IJsonSchemaCollection } from "typia";
 import { z } from "zod";
 
 const Schema: z.ZodType<OpenApi.IJsonSchema> = z.lazy(
@@ -89,7 +89,7 @@ const Components: z.ZodType<OpenApi.IComponents> = z.lazy(() =>
   }),
 );
 
-const Application: z.ZodType<IJsonApplication> = z.lazy(
+const Application: z.ZodType<IJsonSchemaCollection> = z.lazy(
   () =>
     z.object({
       schemas: z.array(Schema),

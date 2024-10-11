@@ -11,56 +11,81 @@ import { IJsDocTagInfo } from "../../module";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = (
-    metadata: Metadata,
-    explore: MetadataFactory.IExplore,
-  ): string[] => {
-    if (explore.top === false) return LlmSchemaProgrammer.validate(metadata);
+  export const validate = () => {
+    let top: Metadata | undefined;
+    return (
+      metadata: Metadata,
+      explore: MetadataFactory.IExplore,
+    ): string[] => {
+      top ??= metadata;
+      if (explore.top === false)
+        if (
+          explore.object === top?.objects[0] &&
+          typeof explore.property === "string" &&
+          metadata.size() === 1 &&
+          metadata.nullable === false &&
+          metadata.isRequired() === true &&
+          metadata.functions.length === 1
+        )
+          return validateFunction(metadata.functions[0]!);
+        else return LlmSchemaProgrammer.validate(metadata);
 
-    const output: string[] = [];
-    const valid: boolean =
-      metadata.size() === 1 &&
-      metadata.objects.length === 1 &&
-      metadata.isRequired() === true &&
-      metadata.nullable === false;
-    if (valid === false)
-      output.push(
-        "LLM application's generic arugment must be a class/interface type.",
-      );
+      const output: string[] = [];
+      const valid: boolean =
+        metadata.size() === 1 &&
+        metadata.objects.length === 1 &&
+        metadata.isRequired() === true &&
+        metadata.nullable === false;
+      if (valid === false)
+        output.push(
+          "LLM application's generic arugment must be a class/interface type.",
+        );
 
-    const object: MetadataObject | undefined = metadata.objects[0];
-    if (object !== undefined) {
-      if (object.properties.some((p) => p.key.isSoleLiteral() === false))
-        output.push("LLM application does not allow dynamic keys.");
-      let least: boolean = false;
-      for (const p of object.properties) {
-        const value: Metadata = p.value;
-        if (value.functions.length) {
-          least ||= true;
-          if (valid === false) {
-            if (value.functions.length !== 1 || value.size() !== 1)
-              output.push(
-                "LLM application's function type does not allow union type.",
-              );
-            if (value.isRequired() === false)
-              output.push("LLM application's function type must be required.");
-            if (value.nullable === true)
-              output.push(
-                "LLM application's function type must not be nullable.",
-              );
+      const object: MetadataObject | undefined = metadata.objects[0];
+      if (object !== undefined) {
+        if (object.properties.some((p) => p.key.isSoleLiteral() === false))
+          output.push("LLM application does not allow dynamic keys.");
+        let least: boolean = false;
+        for (const p of object.properties) {
+          const value: Metadata = p.value;
+          if (value.functions.length) {
+            least ||= true;
+            if (valid === false) {
+              if (value.functions.length !== 1 || value.size() !== 1)
+                output.push(
+                  "LLM application's function type does not allow union type.",
+                );
+              if (value.isRequired() === false)
+                output.push(
+                  "LLM application's function type must be required.",
+                );
+              if (value.nullable === true)
+                output.push(
+                  "LLM application's function type must not be nullable.",
+                );
+            }
           }
         }
+        if (least === false)
+          output.push(
+            "LLM application's target type must have at least a function type.",
+          );
       }
-      if (least === false)
-        output.push(
-          "LLM application's target type must have at least a function type.",
-        );
-    }
+      return output;
+    };
+  };
+
+  const validateFunction = (func: MetadataFunction): string[] => {
+    const output: string[] = [];
+    if (func.output.size() && func.output.isRequired() === false)
+      output.push(
+        "LLM application's function return type must not be union type with undefined.",
+      );
     return output;
   };
 
   export const write = (metadata: Metadata): ILlmApplication => {
-    const errors: string[] = validate(metadata, {
+    const errors: string[] = validate()(metadata, {
       top: true,
       object: null,
       property: null,
