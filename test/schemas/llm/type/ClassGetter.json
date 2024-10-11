@@ -17,5 +17,6 @@
     "id",
     "name",
     "dead"
-  ]
+  ],
+  "additionalProperties": false
 }

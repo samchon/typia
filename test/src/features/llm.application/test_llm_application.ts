@@ -52,6 +52,7 @@ export const test_llm_application = (): void => {
           },
           nullable: false,
           required: ["level"],
+          additionalProperties: false,
           description: "The performance interface.",
         },
         description: "Get performance.",

@@ -20,7 +20,8 @@
           "id",
           "code",
           "name"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -40,7 +41,8 @@
           "id",
           "mobile",
           "name"
-        ]
+        ],
+        "additionalProperties": false
       }
     ]
   },

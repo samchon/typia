@@ -27,5 +27,6 @@
     "description",
     "title",
     "complicate_title"
-  ]
+  ],
+  "additionalProperties": false
 }

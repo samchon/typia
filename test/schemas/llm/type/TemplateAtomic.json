@@ -47,5 +47,6 @@
     "middle_boolean",
     "ipv4",
     "email"
-  ]
+  ],
+  "additionalProperties": false
 }
