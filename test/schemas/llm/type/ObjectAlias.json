@@ -50,6 +50,7 @@
       "sex",
       "age",
       "dead"
-    ]
+    ],
+    "additionalProperties": false
   }
 }

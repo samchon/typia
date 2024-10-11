@@ -18,7 +18,8 @@
         "nullable": false,
         "required": [
           "value"
-        ]
+        ],
+        "additionalProperties": false
       }
     ]
   },

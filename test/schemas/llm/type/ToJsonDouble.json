@@ -12,5 +12,6 @@
   "required": [
     "id",
     "flag"
-  ]
+  ],
+  "additionalProperties": false
 }

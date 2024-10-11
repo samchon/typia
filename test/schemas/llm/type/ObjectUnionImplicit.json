@@ -20,7 +20,8 @@
         "required": [
           "x",
           "y"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -43,7 +44,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "p2": {
             "type": "object",
@@ -63,7 +65,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "width": {
             "type": "number",
@@ -78,7 +81,8 @@
         "required": [
           "p1",
           "p2"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -101,7 +105,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "p2": {
             "type": "object",
@@ -121,7 +126,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "p3": {
             "type": "object",
@@ -141,7 +147,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "width": {
             "type": "number",
@@ -161,7 +168,8 @@
           "p1",
           "p2",
           "p3"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -184,7 +192,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "p2": {
             "type": "object",
@@ -204,7 +213,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "p3": {
             "type": "object",
@@ -224,7 +234,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "p4": {
             "type": "object",
@@ -244,7 +255,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "width": {
             "type": "number",
@@ -265,7 +277,8 @@
           "p2",
           "p3",
           "p4"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -290,7 +303,8 @@
               "required": [
                 "x",
                 "y"
-              ]
+              ],
+              "additionalProperties": false
             }
           },
           "length": {
@@ -301,7 +315,8 @@
         "nullable": false,
         "required": [
           "points"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -329,7 +344,8 @@
                   "required": [
                     "x",
                     "y"
-                  ]
+                  ],
+                  "additionalProperties": false
                 }
               },
               "length": {
@@ -340,7 +356,8 @@
             "nullable": false,
             "required": [
               "points"
-            ]
+            ],
+            "additionalProperties": false
           },
           "inner": {
             "type": "array",
@@ -367,7 +384,8 @@
                     "required": [
                       "x",
                       "y"
-                    ]
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "length": {
@@ -378,7 +396,8 @@
               "nullable": false,
               "required": [
                 "points"
-              ]
+              ],
+              "additionalProperties": false
             }
           },
           "area": {
@@ -389,7 +408,8 @@
         "nullable": false,
         "required": [
           "outer"
-        ]
+        ],
+        "additionalProperties": false
       },
       {
         "type": "object",
@@ -415,7 +435,8 @@
             "required": [
               "x",
               "y"
-            ]
+            ],
+            "additionalProperties": false
           },
           "area": {
             "type": "number",
@@ -425,7 +446,8 @@
         "nullable": false,
         "required": [
           "radius"
-        ]
+        ],
+        "additionalProperties": false
       }
     ]
   }

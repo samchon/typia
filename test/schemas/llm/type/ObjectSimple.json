@@ -19,7 +19,8 @@
         "x",
         "y",
         "z"
-      ]
+      ],
+      "additionalProperties": false
     },
     "position": {
       "type": "object",
@@ -39,7 +40,8 @@
         "x",
         "y",
         "z"
-      ]
+      ],
+      "additionalProperties": false
     },
     "rotate": {
       "type": "object",
@@ -59,7 +61,8 @@
         "x",
         "y",
         "z"
-      ]
+      ],
+      "additionalProperties": false
     },
     "pivot": {
       "type": "object",
@@ -79,7 +82,8 @@
         "x",
         "y",
         "z"
-      ]
+      ],
+      "additionalProperties": false
     }
   },
   "nullable": false,
@@ -88,5 +92,6 @@
     "position",
     "rotate",
     "pivot"
-  ]
+  ],
+  "additionalProperties": false
 }

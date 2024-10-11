@@ -49,5 +49,6 @@
     "nullables1",
     "nullables2",
     "union"
-  ]
+  ],
+  "additionalProperties": false
 }

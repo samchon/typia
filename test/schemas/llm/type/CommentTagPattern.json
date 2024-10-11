@@ -24,5 +24,6 @@
     "email",
     "ipv4",
     "ipv6"
-  ]
+  ],
+  "additionalProperties": false
 }

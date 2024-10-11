@@ -58,7 +58,8 @@
                 "nullable": false,
                 "required": [
                   "name"
-                ]
+                ],
+                "additionalProperties": false
               }
             ]
           }
@@ -69,12 +70,14 @@
           "postfix",
           "middle",
           "mixed"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
   "nullable": false,
   "required": [
     "value"
-  ]
+  ],
+  "additionalProperties": false
 }

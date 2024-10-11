@@ -25,7 +25,8 @@
         "required": [
           "code",
           "name"
-        ]
+        ],
+        "additionalProperties": false
       }
     ]
   },

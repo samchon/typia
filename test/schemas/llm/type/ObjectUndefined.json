@@ -30,7 +30,8 @@
         "required": [
           "id",
           "name"
-        ]
+        ],
+        "additionalProperties": false
       },
       "grade": {
         "type": "number"
@@ -41,6 +42,7 @@
     "required": [
       "name",
       "unknown"
-    ]
+    ],
+    "additionalProperties": false
   }
 }
