@@ -35,7 +35,7 @@ export namespace LlmSchemaProgrammer {
     if (
       metadata.aliases.some((a) => a.recursive) ||
       metadata.arrays.some((a) => a.type.recursive) ||
-      metadata.objects.some((o) => o.recursive) ||
+      metadata.objects.some((o) => o.type.recursive) ||
       metadata.tuples.some((t) => t.type.recursive)
     )
       output.push("LLM schema does not support recursive type.");

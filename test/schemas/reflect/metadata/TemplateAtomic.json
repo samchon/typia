@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateAtomic"
+        {
+          "name": "TemplateAtomic",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

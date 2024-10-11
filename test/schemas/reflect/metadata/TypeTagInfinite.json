@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagInfinite"
+        {
+          "name": "TypeTagInfinite",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ConstantAtomicTagged"
+        {
+          "name": "ConstantAtomicTagged",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectClosure.IRecord"
+        {
+          "name": "ObjectClosure.IRecord",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

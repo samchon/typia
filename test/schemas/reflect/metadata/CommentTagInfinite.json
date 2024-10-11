@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagInfinite"
+        {
+          "name": "CommentTagInfinite",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagTypeBigInt"
+        {
+          "name": "TypeTagTypeBigInt",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

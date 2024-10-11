@@ -1888,11 +1888,26 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRecursiveUnionExplicit.IDirectory",
-                "ArrayRecursiveUnionExplicit.IImageFile",
-                "ArrayRecursiveUnionExplicit.ITextFile",
-                "ArrayRecursiveUnionExplicit.IZipFile",
-                "ArrayRecursiveUnionExplicit.IShortcut"
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IImageFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.ITextFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IZipFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IShortcut",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -2051,11 +2066,26 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionExplicit.IDirectory",
-            "ArrayRecursiveUnionExplicit.IImageFile",
-            "ArrayRecursiveUnionExplicit.ITextFile",
-            "ArrayRecursiveUnionExplicit.IZipFile",
-            "ArrayRecursiveUnionExplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionExplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -2084,11 +2114,26 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionExplicit.IDirectory",
-            "ArrayRecursiveUnionExplicit.IImageFile",
-            "ArrayRecursiveUnionExplicit.ITextFile",
-            "ArrayRecursiveUnionExplicit.IZipFile",
-            "ArrayRecursiveUnionExplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionExplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

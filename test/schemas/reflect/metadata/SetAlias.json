@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "SetAlias"
+        {
+          "name": "SetAlias",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -391,7 +394,10 @@
                   "arrays": [],
                   "tuples": [],
                   "objects": [
-                    "SetAlias.Person"
+                    {
+                      "name": "SetAlias.Person",
+                      "tags": []
+                    }
                   ],
                   "aliases": [],
                   "natives": [],

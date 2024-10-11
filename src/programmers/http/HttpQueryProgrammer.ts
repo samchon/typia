@@ -8,7 +8,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
@@ -60,7 +60,7 @@ export namespace HttpQueryProgrammer {
       });
 
     // DO TRANSFORM
-    const object: MetadataObject = result.data.objects[0]!;
+    const object: MetadataObjectType = result.data.objects[0]!.type;
     const statements: ts.Statement[] = decode_object({
       context: props.context,
       object,
@@ -130,7 +130,7 @@ export namespace HttpQueryProgrammer {
           const everyPropertiesAreOptional: boolean =
             meta.size() === 1 &&
             meta.objects.length === 1 &&
-            meta.objects[0]!.properties.every(
+            meta.objects[0]!.type.properties.every(
               (p) => p.value.isRequired() === false,
             );
           if (everyPropertiesAreOptional === false)
@@ -179,7 +179,7 @@ export namespace HttpQueryProgrammer {
 
   const decode_object = (props: {
     context: ITypiaContext;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ts.Statement[] => {
     const input: ts.Identifier = ts.factory.createIdentifier("input");
     const output: ts.Identifier = ts.factory.createIdentifier("output");

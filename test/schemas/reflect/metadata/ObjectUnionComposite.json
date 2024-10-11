@@ -196,7 +196,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -249,7 +252,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -313,7 +319,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -366,7 +375,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -419,7 +431,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -483,7 +498,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -536,7 +554,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -589,7 +610,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -642,7 +666,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -773,7 +800,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPolyline"
+                {
+                  "name": "ObjectUnionComposite.IPolyline",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -949,7 +979,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1013,7 +1046,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionComposite.IPoint"
+                {
+                  "name": "ObjectUnionComposite.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1106,14 +1142,38 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionComposite.IPoint",
-            "ObjectUnionComposite.ILine",
-            "ObjectUnionComposite.ITriangle",
-            "ObjectUnionComposite.IRectangle",
-            "ObjectUnionComposite.IPolyline",
-            "ObjectUnionComposite.IPointedShape",
-            "ObjectUnionComposite.IPolygon",
-            "ObjectUnionComposite.ICircle"
+            {
+              "name": "ObjectUnionComposite.IPoint",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.ILine",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.ITriangle",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.IRectangle",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.IPolyline",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.IPointedShape",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.IPolygon",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionComposite.ICircle",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1142,7 +1202,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionComposite.IPoint"
+            {
+              "name": "ObjectUnionComposite.IPoint",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1171,7 +1234,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionComposite.IPolyline"
+            {
+              "name": "ObjectUnionComposite.IPolyline",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

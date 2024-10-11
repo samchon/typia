@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectJsonTag"
+        {
+          "name": "ObjectJsonTag",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

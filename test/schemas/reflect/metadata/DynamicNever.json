@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicNever"
+        {
+          "name": "DynamicNever",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

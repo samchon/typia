@@ -444,7 +444,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "MapUnion.Person"
+                  {
+                    "name": "MapUnion.Person",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],

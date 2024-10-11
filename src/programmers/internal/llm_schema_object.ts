@@ -4,7 +4,7 @@ import { CommentFactory } from "../../factories/CommentFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
@@ -16,7 +16,7 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  * @internal
  */
 export const llm_schema_object = (props: {
-  object: MetadataObject;
+  object: MetadataObjectType;
   nullable: boolean;
 }): ILlmSchema.IObject => {
   // ITERATE PROPERTIES

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectPrimitive.IArticle"
+        {
+          "name": "ObjectPrimitive.IArticle",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -750,7 +753,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectPrimitive.IFile"
+            {
+              "name": "ObjectPrimitive.IFile",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

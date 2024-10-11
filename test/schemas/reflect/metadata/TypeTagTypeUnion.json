@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagTypeUnion"
+        {
+          "name": "TypeTagTypeUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

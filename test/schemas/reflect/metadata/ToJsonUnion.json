@@ -351,7 +351,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "ToJsonUnion.ICitizen"
+                      {
+                        "name": "ToJsonUnion.ICitizen",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
@@ -439,7 +442,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "ToJsonUnion.IProduct"
+                      {
+                        "name": "ToJsonUnion.IProduct",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
@@ -690,9 +696,18 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ToJsonUnion.IWrapper<boolean>",
-                "ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>",
-                "ToJsonUnion.IWrapper<ToJsonUnion.IProduct>"
+                {
+                  "name": "ToJsonUnion.IWrapper<boolean>",
+                  "tags": []
+                },
+                {
+                  "name": "ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>",
+                  "tags": []
+                },
+                {
+                  "name": "ToJsonUnion.IWrapper<ToJsonUnion.IProduct>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -718,8 +733,14 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ToJsonUnion.ICitizen",
-                "ToJsonUnion.IProduct"
+                {
+                  "name": "ToJsonUnion.ICitizen",
+                  "tags": []
+                },
+                {
+                  "name": "ToJsonUnion.IProduct",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -731,7 +752,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonUnion.ICitizen"
+            {
+              "name": "ToJsonUnion.ICitizen",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

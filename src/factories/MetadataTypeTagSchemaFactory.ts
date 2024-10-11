@@ -1,10 +1,10 @@
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 export namespace MetadataTypeTagSchemaFactory {
   export const object = (props: {
     report: (msg: string) => false;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): object | undefined => {
     if (props.object.recursive) {
       props.report(`${props.object.name} has recursive type`);
@@ -31,7 +31,7 @@ export namespace MetadataTypeTagSchemaFactory {
 
   const iterate = (props: {
     report: (message: string) => false;
-    object: MetadataObject;
+    object: MetadataObjectType;
     key: string;
     metadata: Metadata;
   }): any => {
@@ -75,7 +75,7 @@ export namespace MetadataTypeTagSchemaFactory {
     } else if (props.metadata.objects.length)
       return object({
         report: props.report,
-        object: props.metadata.objects[0]!,
+        object: props.metadata.objects[0]!.type,
       });
     else props.report(`${props.object.name}.${props.key} has non-literal type`);
   };

@@ -5,7 +5,7 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { ITypiaContext } from "../../transformers/ITypiaContext";
@@ -52,7 +52,7 @@ export namespace ProtobufMessageProgrammer {
 
   const emplace = (props: {
     hierarchies: Map<string, Hierarchy>;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }) => {
     let hierarchies: Map<string, Hierarchy> = props.hierarchies;
     const accessors: string[] = props.object.name.split(".");
@@ -67,7 +67,7 @@ export namespace ProtobufMessageProgrammer {
     });
   };
 
-  const is_dynamic_object = (object: MetadataObject): boolean =>
+  const is_dynamic_object = (object: MetadataObjectType): boolean =>
     object.properties.length === 1 &&
     object.properties[0]!.key.isSoleLiteral() === false;
 
@@ -95,7 +95,7 @@ export namespace ProtobufMessageProgrammer {
     return elements.join("\n");
   };
 
-  const write_object = (object: MetadataObject): string => {
+  const write_object = (object: MetadataObjectType): string => {
     const sequence: IPointer<number> = { value: 0 };
     return object.properties
       .map((p) => {
@@ -137,11 +137,11 @@ export namespace ProtobufMessageProgrammer {
       );
     for (const obj of props.metadata.objects)
       elements.add(
-        is_dynamic_object(obj)
+        is_dynamic_object(obj.type)
           ? decode_map({
               sequence: props.sequence,
               entry: MetadataProperty.create({
-                ...obj.properties[0]!,
+                ...obj.type.properties[0]!,
                 key: (() => {
                   const key: Metadata = Metadata.initialize();
                   key.atomics.push(
@@ -154,7 +154,7 @@ export namespace ProtobufMessageProgrammer {
                 })(),
               }),
             })
-          : NameEncoder.encode(obj.name),
+          : NameEncoder.encode(obj.type.name),
       );
     for (const entry of props.metadata.maps)
       elements.add(
@@ -190,7 +190,7 @@ export namespace ProtobufMessageProgrammer {
 
 interface Hierarchy {
   key: string;
-  object: MetadataObject | null;
+  object: MetadataObjectType | null;
   children: Map<string, Hierarchy>;
 }
 

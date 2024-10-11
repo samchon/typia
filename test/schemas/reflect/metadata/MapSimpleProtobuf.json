@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapSimpleProtobuf"
+        {
+          "name": "MapSimpleProtobuf",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -750,7 +753,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapSimpleProtobuf"
+                      {
+                        "name": "MapSimpleProtobuf",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],

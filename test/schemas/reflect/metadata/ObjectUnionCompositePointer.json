@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectUnionCompositePointer"
+        {
+          "name": "ObjectUnionCompositePointer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -137,14 +140,38 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint",
-                "ObjectUnionCompositePointer.ILine",
-                "ObjectUnionCompositePointer.ITriangle",
-                "ObjectUnionCompositePointer.IRectangle",
-                "ObjectUnionCompositePointer.IPolyline",
-                "ObjectUnionCompositePointer.IPointedShape",
-                "ObjectUnionCompositePointer.IPolygon",
-                "ObjectUnionCompositePointer.ICircle"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.ILine",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.ITriangle",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IRectangle",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IPolyline",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IPointedShape",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IPolygon",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.ICircle",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -331,7 +358,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -384,7 +414,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -448,7 +481,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -501,7 +537,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -554,7 +593,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -618,7 +660,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -671,7 +716,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -724,7 +772,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -777,7 +828,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -908,7 +962,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPolyline"
+                {
+                  "name": "ObjectUnionCompositePointer.IPolyline",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1084,7 +1141,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1148,7 +1208,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1241,7 +1304,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "IPointer<IPoint | ILine | ITriangle | IRectangle | IPolyline | IPolygon | IPointedShape | ICircle>"
+            {
+              "name": "IPointer<IPoint | ILine | ITriangle | IRectangle | IPolyline | IPolygon | IPointedShape | ICircle>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1270,7 +1336,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionCompositePointer.IPoint"
+            {
+              "name": "ObjectUnionCompositePointer.IPoint",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1299,7 +1368,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionCompositePointer.IPolyline"
+            {
+              "name": "ObjectUnionCompositePointer.IPolyline",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

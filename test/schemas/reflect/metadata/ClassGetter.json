@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ClassGetter.Person"
+        {
+          "name": "ClassGetter.Person",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

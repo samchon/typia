@@ -359,7 +359,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagArrayUnion.Type"
+            {
+              "name": "TypeTagArrayUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

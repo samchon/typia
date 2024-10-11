@@ -27,7 +27,10 @@ export interface IMetadata {
     name: string;
     tags: IMetadataTypeTag[][];
   }[];
-  objects: string[];
+  objects: {
+    name: string;
+    tags: IMetadataTypeTag[][];
+  }[];
   aliases: string[];
 
   natives: string[];

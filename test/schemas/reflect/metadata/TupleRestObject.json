@@ -174,7 +174,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "TupleRestObject.IObject"
+                {
+                  "name": "TupleRestObject.IObject",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

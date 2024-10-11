@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapSimple"
+        {
+          "name": "MapSimple",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -497,7 +500,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapSimple.Person"
+                      {
+                        "name": "MapSimple.Person",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectSimpleProtobufOptional"
+        {
+          "name": "ObjectSimpleProtobufOptional",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

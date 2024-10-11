@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ArrayHierarchicalPointer"
+        {
+          "name": "ArrayHierarchicalPointer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -305,7 +308,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchicalPointer.ITimestamp"
+                {
+                  "name": "ArrayHierarchicalPointer.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -716,7 +722,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchicalPointer.ITimestamp"
+                {
+                  "name": "ArrayHierarchicalPointer.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1060,7 +1069,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchicalPointer.ITimestamp"
+                {
+                  "name": "ArrayHierarchicalPointer.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1097,7 +1109,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchicalPointer.ICompany"
+            {
+              "name": "ArrayHierarchicalPointer.ICompany",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1126,7 +1141,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchicalPointer.IDepartment"
+            {
+              "name": "ArrayHierarchicalPointer.IDepartment",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1155,7 +1173,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchicalPointer.IEmployee"
+            {
+              "name": "ArrayHierarchicalPointer.IEmployee",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -4,7 +4,7 @@ import { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { Writable } from "../typings/Writable";
@@ -15,8 +15,8 @@ import { CommentFactory } from "./CommentFactory";
 import { TypeFactory } from "./TypeFactory";
 
 export class MetadataCollection {
-  private objects_: Map<ts.Type, MetadataObject>;
-  private object_unions_: Map<string, MetadataObject[]>;
+  private objects_: Map<ts.Type, MetadataObjectType>;
+  private object_unions_: Map<string, MetadataObjectType[]>;
   private aliases_: Map<ts.Type, MetadataAlias>;
   private arrays_: Map<ts.Type, MetadataArrayType>;
   private tuples_: Map<ts.Type, MetadataTupleType>;
@@ -62,11 +62,11 @@ export class MetadataCollection {
     return [...this.aliases_.values()];
   }
 
-  public objects(): MetadataObject[] {
+  public objects(): MetadataObjectType[] {
     return [...this.objects_.values()];
   }
 
-  public unions(): MetadataObject[][] {
+  public unions(): MetadataObjectType[][] {
     return [...this.object_unions_.values()];
   }
 
@@ -106,8 +106,10 @@ export class MetadataCollection {
    * @internal
    */
   public getUnionIndex(meta: Metadata): number {
-    const key: string = meta.objects.map((obj) => obj.name).join(" | ");
-    MapUtil.take(this.object_unions_, key, () => meta.objects);
+    const key: string = meta.objects.map((obj) => obj.type.name).join(" | ");
+    MapUtil.take(this.object_unions_, key, () =>
+      meta.objects.map((o) => o.type),
+    );
     return [...this.object_unions_.keys()].indexOf(key);
   }
 
@@ -117,12 +119,12 @@ export class MetadataCollection {
   public emplace(
     checker: ts.TypeChecker,
     type: ts.Type,
-  ): [MetadataObject, boolean] {
+  ): [MetadataObjectType, boolean] {
     const oldbie = this.objects_.get(type);
     if (oldbie !== undefined) return [oldbie, false];
 
     const $id: string = this.getName(checker, type);
-    const obj: MetadataObject = MetadataObject.create({
+    const obj: MetadataObjectType = MetadataObjectType.create({
       name: $id,
       properties: [],
       description:
@@ -202,7 +204,7 @@ export class MetadataCollection {
   /**
    * @internal
    */
-  public setObjectRecursive(obj: MetadataObject, recursive: boolean): void {
+  public setObjectRecursive(obj: MetadataObjectType, recursive: boolean): void {
     Writable(obj).recursive = recursive;
   }
 

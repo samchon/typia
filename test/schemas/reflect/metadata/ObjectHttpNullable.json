@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpNullable"
+        {
+          "name": "ObjectHttpNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

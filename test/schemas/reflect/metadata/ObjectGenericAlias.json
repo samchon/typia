@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectGenericAlias.Alias"
+        {
+          "name": "ObjectGenericAlias.Alias",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

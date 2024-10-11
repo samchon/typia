@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicSimple"
+        {
+          "name": "DynamicSimple",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -70,7 +73,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

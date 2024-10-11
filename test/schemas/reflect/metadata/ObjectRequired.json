@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "Required<ObjectRequired.IBase>"
+        {
+          "name": "Required<ObjectRequired.IBase>",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -294,7 +297,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectRequired.IBase"
+                {
+                  "name": "ObjectRequired.IBase",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -583,7 +589,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectRequired.IBase"
+                {
+                  "name": "ObjectRequired.IBase",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

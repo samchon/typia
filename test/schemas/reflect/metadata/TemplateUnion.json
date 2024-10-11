@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateUnion"
+        {
+          "name": "TemplateUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -723,7 +726,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -827,7 +833,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TemplateUnion.Type"
+            {
+              "name": "TemplateUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

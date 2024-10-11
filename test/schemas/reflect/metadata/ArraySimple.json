@@ -404,7 +404,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArraySimple.IPerson"
+            {
+              "name": "ArraySimple.IPerson",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -433,7 +436,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArraySimple.IHobby"
+            {
+              "name": "ArraySimple.IHobby",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -20,7 +20,7 @@ export const application_v30_alias = <BlockNever extends boolean>(props: {
 }): OpenApiV3.IJsonSchema.IReference => {
   if (props.alias.value.size() === 1 && props.alias.value.objects.length === 1)
     return application_v30_object({
-      object: props.alias.value.objects[0]!,
+      object: props.alias.value.objects[0]!.type,
       components: props.components,
       nullable: props.nullable,
     }) as OpenApiV3.IJsonSchema.IReference;

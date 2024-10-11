@@ -24,7 +24,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonNull"
+            {
+              "name": "ToJsonNull",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
@@ -16,7 +16,7 @@ import { FeatureProgrammer } from "../FeatureProgrammer";
 export const feature_object_entries = <Output extends ts.ConciseBody>(props: {
   config: Pick<FeatureProgrammer.IConfig<Output>, "decoder" | "path" | "trace">;
   context: ITypiaContext;
-  object: MetadataObject;
+  object: MetadataObjectType;
   input: ts.Expression;
   from?: "object" | "top" | "array";
 }) =>

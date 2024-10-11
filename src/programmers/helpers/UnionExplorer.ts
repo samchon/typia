@@ -6,7 +6,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -22,7 +22,7 @@ export namespace UnionExplorer {
       explore: FeatureProgrammer.IExplore;
     }): ts.Expression;
   }
-  export type ObjectCombiner = Decoder<MetadataObject[]>;
+  export type ObjectCombiner = Decoder<MetadataObjectType[]>;
 
   /* -----------------------------------------------------------
         OBJECT
@@ -30,7 +30,7 @@ export namespace UnionExplorer {
   export const object = (props: {
     config: FeatureProgrammer.IConfig;
     level?: number;
-    objects: MetadataObject[];
+    objects: MetadataObjectType[];
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
@@ -64,7 +64,7 @@ export namespace UnionExplorer {
           })
         : condition;
     }
-    const remained: MetadataObject[] = props.objects.filter(
+    const remained: MetadataObjectType[] = props.objects.filter(
       (t) => specList.find((s) => s.object === t) === undefined,
     );
 

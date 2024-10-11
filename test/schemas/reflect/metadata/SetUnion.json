@@ -338,7 +338,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "SetUnion.Person"
+                {
+                  "name": "SetUnion.Person",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

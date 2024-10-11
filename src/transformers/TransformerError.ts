@@ -1,6 +1,6 @@
 import { MetadataFactory } from "../factories/MetadataFactory";
 
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 import { Escaper } from "../utils/Escaper";
 
@@ -50,10 +50,11 @@ export namespace TransformerError {
     });
   };
 
-  const join = (object: MetadataObject) => (key: string | object | null) => {
-    if (key === null) return object.name;
-    else if (typeof key === "object") return `${object.name}[key]`;
-    else if (Escaper.variable(key)) return `${object.name}.${key}`;
-    return `${object.name}[${JSON.stringify(key)}]`;
-  };
+  const join =
+    (object: MetadataObjectType) => (key: string | object | null) => {
+      if (key === null) return object.name;
+      else if (typeof key === "object") return `${object.name}[key]`;
+      else if (Escaper.variable(key)) return `${object.name}.${key}`;
+      return `${object.name}[${JSON.stringify(key)}]`;
+    };
 }

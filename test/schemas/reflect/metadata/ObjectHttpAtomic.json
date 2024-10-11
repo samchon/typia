@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpAtomic"
+        {
+          "name": "ObjectHttpAtomic",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

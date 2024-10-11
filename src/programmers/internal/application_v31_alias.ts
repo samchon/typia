@@ -18,7 +18,7 @@ export const application_v31_alias = <BlockNever extends boolean>(props: {
   if (props.alias.value.size() === 1 && props.alias.value.objects.length === 1)
     return application_v31_object({
       components: props.components,
-      object: props.alias.value.objects[0]!,
+      object: props.alias.value.objects[0]!.type,
     }) as OpenApi.IJsonSchema.IReference;
 
   const $ref: string = `#/components/schemas/${props.alias.name}`;

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagType"
+        {
+          "name": "TypeTagType",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -611,7 +614,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagType.Type"
+            {
+              "name": "TypeTagType.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

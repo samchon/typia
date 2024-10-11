@@ -1,6 +1,6 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
 import { MetadataCollection } from "../../MetadataCollection";
@@ -114,7 +114,7 @@ const isTupleRecursive = (props: {
 
 const isObjectRecursive = (props: {
   visited: Set<Metadata>;
-  object: MetadataObject;
+  object: MetadataObjectType;
   metadata: Metadata;
 }): boolean => {
   if (props.visited.has(props.metadata)) return false;
@@ -128,7 +128,8 @@ const isObjectRecursive = (props: {
   return (
     props.metadata.objects.some(
       (o) =>
-        props.object === o || o.properties.some((prop) => next(prop.value)),
+        props.object === o.type ||
+        o.type.properties.some((prop) => next(prop.value)),
     ) ||
     props.metadata.aliases.some((alias) => next(alias.value)) ||
     props.metadata.arrays.some(

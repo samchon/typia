@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "SetSimple"
+        {
+          "name": "SetSimple",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -391,7 +394,10 @@
                   "arrays": [],
                   "tuples": [],
                   "objects": [
-                    "SetSimple.Person"
+                    {
+                      "name": "SetSimple.Person",
+                      "tags": []
+                    }
                   ],
                   "aliases": [],
                   "natives": [],

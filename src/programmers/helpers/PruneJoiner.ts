@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { metadata_to_pattern } from "../internal/metadata_to_pattern";
 import { prune_object_properties } from "../internal/prune_object_properties";
@@ -12,7 +12,7 @@ export namespace PruneJoiner {
   export const object = (props: {
     input: ts.Expression;
     entries: IExpressionEntry[];
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ts.ConciseBody => {
     // PREPARE ASSETS
     const regular = props.entries.filter((entry) => entry.key.isSoleLiteral());

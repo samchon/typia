@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagPattern"
+        {
+          "name": "CommentTagPattern",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

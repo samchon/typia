@@ -134,7 +134,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IComponents<OpenApi.IJsonSchema>"
+                {
+                  "name": "OpenApi.IComponents<OpenApi.IJsonSchema>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -310,7 +313,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, OpenApi.IJsonSchema>"
+                {
+                  "name": "Record<string, OpenApi.IJsonSchema>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -363,7 +369,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, OpenApi.ISecurityScheme>"
+                {
+                  "name": "Record<string, OpenApi.ISecurityScheme>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -424,18 +433,54 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.INumber",
-                "OpenApi.IJsonSchema.IConstant",
-                "OpenApi.IJsonSchema.IBoolean",
-                "OpenApi.IJsonSchema.IInteger",
-                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.INull",
-                "OpenApi.IJsonSchema.IUnknown"
+                {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IConstant",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IBoolean",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IInteger",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IReference<string>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INull",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1164,7 +1209,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1932,7 +1980,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -2280,7 +2331,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -2681,7 +2735,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -3482,7 +3539,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -3547,18 +3607,54 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.INumber",
-                "OpenApi.IJsonSchema.IConstant",
-                "OpenApi.IJsonSchema.IBoolean",
-                "OpenApi.IJsonSchema.IInteger",
-                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.INull",
-                "OpenApi.IJsonSchema.IUnknown"
+                {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IConstant",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IBoolean",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IInteger",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IReference<string>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INull",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -4107,7 +4203,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -4233,18 +4332,54 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.INumber",
-                "OpenApi.IJsonSchema.IConstant",
-                "OpenApi.IJsonSchema.IBoolean",
-                "OpenApi.IJsonSchema.IInteger",
-                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.INull",
-                "OpenApi.IJsonSchema.IUnknown"
+                {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IConstant",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IBoolean",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IInteger",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IReference<string>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INull",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -4793,7 +4928,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -4858,7 +4996,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, OpenApi.IJsonSchema>"
+                {
+                  "name": "Record<string, OpenApi.IJsonSchema>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -4916,18 +5057,54 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IJsonSchema.IString",
-                "OpenApi.IJsonSchema.INumber",
-                "OpenApi.IJsonSchema.IConstant",
-                "OpenApi.IJsonSchema.IBoolean",
-                "OpenApi.IJsonSchema.IInteger",
-                "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.IReference<string>",
-                "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-                "OpenApi.IJsonSchema.INull",
-                "OpenApi.IJsonSchema.IUnknown"
+                {
+                  "name": "OpenApi.IJsonSchema.IString",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INumber",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IConstant",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IBoolean",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IInteger",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IReference<string>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.INull",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -5316,7 +5493,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -5656,7 +5836,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -5777,7 +5960,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.IJsonSchema.IOneOf.IDiscriminator"
+                {
+                  "name": "OpenApi.IJsonSchema.IOneOf.IDiscriminator",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -6049,7 +6235,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -6445,7 +6634,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -6780,7 +6972,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, any>"
+                {
+                  "name": "Record<string, any>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -6901,7 +7096,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, string>"
+                {
+                  "name": "Record<string, string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -7026,11 +7224,26 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.ISecurityScheme.IApiKey",
-                "OpenApi.ISecurityScheme.IHttpBasic",
-                "OpenApi.ISecurityScheme.IHttpBearer",
-                "OpenApi.ISecurityScheme.IOAuth2",
-                "OpenApi.ISecurityScheme.IOpenId"
+                {
+                  "name": "OpenApi.ISecurityScheme.IApiKey",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.ISecurityScheme.IHttpBasic",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.ISecurityScheme.IHttpBearer",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.ISecurityScheme.IOAuth2",
+                  "tags": []
+                },
+                {
+                  "name": "OpenApi.ISecurityScheme.IOpenId",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -7846,7 +8059,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.ISecurityScheme.IOAuth2.IFlowSet"
+                {
+                  "name": "OpenApi.ISecurityScheme.IOAuth2.IFlowSet",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -7967,7 +8183,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "OpenApi.ISecurityScheme.IOAuth2.IFlow"
+                {
+                  "name": "OpenApi.ISecurityScheme.IOAuth2.IFlow",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8020,7 +8239,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, \"tokenUrl\">"
+                {
+                  "name": "Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, \"tokenUrl\">",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8073,7 +8295,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, \"authorizationUrl\">"
+                {
+                  "name": "Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, \"authorizationUrl\">",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8126,7 +8351,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, \"authorizationUrl\">"
+                {
+                  "name": "Omit<OpenApi.ISecurityScheme.IOAuth2.IFlow, \"authorizationUrl\">",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8358,7 +8586,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, string>"
+                {
+                  "name": "Record<string, string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8534,7 +8765,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, string>"
+                {
+                  "name": "Record<string, string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8711,7 +8945,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, string>"
+                {
+                  "name": "Record<string, string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -8933,7 +9170,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "IJsonSchemaCollection.IV3_1<Array<unknown>>"
+            {
+              "name": "IJsonSchemaCollection.IV3_1<Array<unknown>>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -8962,18 +9202,54 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "OpenApi.IJsonSchema.IString",
-            "OpenApi.IJsonSchema.INumber",
-            "OpenApi.IJsonSchema.IConstant",
-            "OpenApi.IJsonSchema.IBoolean",
-            "OpenApi.IJsonSchema.IInteger",
-            "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.IReference<string>",
-            "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.INull",
-            "OpenApi.IJsonSchema.IUnknown"
+            {
+              "name": "OpenApi.IJsonSchema.IString",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.INumber",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IConstant",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IBoolean",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IInteger",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IReference<string>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IOneOf<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.INull",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IUnknown",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -9002,17 +9278,50 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "OpenApi.IJsonSchema.IString",
-            "OpenApi.IJsonSchema.INumber",
-            "OpenApi.IJsonSchema.IConstant",
-            "OpenApi.IJsonSchema.IBoolean",
-            "OpenApi.IJsonSchema.IInteger",
-            "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
-            "OpenApi.IJsonSchema.IReference<string>",
-            "OpenApi.IJsonSchema.INull",
-            "OpenApi.IJsonSchema.IUnknown"
+            {
+              "name": "OpenApi.IJsonSchema.IString",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.INumber",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IConstant",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IBoolean",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IInteger",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IArray<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.ITuple<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IObject<OpenApi.IJsonSchema>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IReference<string>",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.INull",
+              "tags": []
+            },
+            {
+              "name": "OpenApi.IJsonSchema.IUnknown",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

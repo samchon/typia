@@ -11,7 +11,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
@@ -810,13 +810,15 @@ export namespace CheckerProgrammer {
         head: ExpressionFactory.isObject({
           checkNull: true,
           checkArray: props.metadata.objects.some((obj) =>
-            obj.properties.every(
+            obj.type.properties.every(
               (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
             ),
           ),
           input: props.input,
         }),
-        expected: props.metadata.objects.map((obj) => obj.name).join(" | "),
+        expected: props.metadata.objects
+          .map((obj) => obj.type.name)
+          .join(" | "),
         body: explore_objects({
           config: props.config,
           functor: props.functor,
@@ -944,7 +946,7 @@ export namespace CheckerProgrammer {
   export const decode_object = (props: {
     config: IConfig;
     functor: FunctionProgrammer;
-    object: MetadataObject;
+    object: MetadataObjectType;
     input: ts.Expression;
     explore: IExplore;
   }) => {
@@ -1581,7 +1583,7 @@ export namespace CheckerProgrammer {
       ? decode_object({
           config: props.config,
           functor: props.functor,
-          object: props.metadata.objects[0]!,
+          object: props.metadata.objects[0]!.type,
           input: props.input,
           explore: props.explore,
         })

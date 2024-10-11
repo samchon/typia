@@ -251,8 +251,14 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagObjectUnion.Literal",
-            "CommentTagObjectUnion.Numeric"
+            {
+              "name": "CommentTagObjectUnion.Literal",
+              "tags": []
+            },
+            {
+              "name": "CommentTagObjectUnion.Numeric",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

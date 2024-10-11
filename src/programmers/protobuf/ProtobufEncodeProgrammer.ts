@@ -11,7 +11,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
@@ -209,7 +209,7 @@ export namespace ProtobufEncodeProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }): ts.ArrowFunction => {
     let index: number = 1;
@@ -433,7 +433,7 @@ export namespace ProtobufEncodeProgrammer {
             ...props,
             level: 0,
             index,
-            objects: props.metadata.objects,
+            objects: props.metadata.objects.map((o) => o.type),
             explore: {
               ...props.explore,
               from: "object",
@@ -547,7 +547,7 @@ export namespace ProtobufEncodeProgrammer {
     functor: FunctionProgrammer;
     index: number | null;
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }): ts.Block => {
     const top: MetadataProperty = props.object.properties[0]!;
@@ -852,9 +852,9 @@ export namespace ProtobufEncodeProgrammer {
     level: number;
     index: number | null;
     input: ts.Expression;
-    objects: MetadataObject[];
+    objects: MetadataObjectType[];
     explore: FeatureProgrammer.IExplore;
-    indexes?: Map<MetadataObject, number>;
+    indexes?: Map<MetadataObjectType, number>;
   }): ts.Block => {
     if (props.objects.length === 1)
       return decode_object({
@@ -874,7 +874,7 @@ export namespace ProtobufEncodeProgrammer {
     const specList: UnionPredicator.ISpecialized[] = UnionPredicator.object(
       props.objects,
     );
-    const indexes: Map<MetadataObject, number> =
+    const indexes: Map<MetadataObjectType, number> =
       props.indexes ??
       new Map(props.objects.map((t, i) => [t, props.index! + i]));
 
@@ -913,7 +913,7 @@ export namespace ProtobufEncodeProgrammer {
       });
       return StatementFactory.block(condition);
     }
-    const remained: MetadataObject[] = props.objects.filter(
+    const remained: MetadataObjectType[] = props.objects.filter(
       (t) => specList.find((s) => s.object === t) === undefined,
     );
 

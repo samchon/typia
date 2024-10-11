@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagNaN"
+        {
+          "name": "CommentTagNaN",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

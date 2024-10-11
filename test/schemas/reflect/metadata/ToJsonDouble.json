@@ -24,7 +24,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonDouble.Parent"
+            {
+              "name": "ToJsonDouble.Parent",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -45,7 +48,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonDouble.Child"
+            {
+              "name": "ToJsonDouble.Child",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -129,7 +135,10 @@
                         "arrays": [],
                         "tuples": [],
                         "objects": [
-                          "ToJsonDouble.Child"
+                          {
+                            "name": "ToJsonDouble.Child",
+                            "tags": []
+                          }
                         ],
                         "aliases": [],
                         "natives": [],
@@ -150,7 +159,10 @@
                         "arrays": [],
                         "tuples": [],
                         "objects": [
-                          "ToJsonDouble.IBrand"
+                          {
+                            "name": "ToJsonDouble.IBrand",
+                            "tags": []
+                          }
                         ],
                         "aliases": [],
                         "natives": [],

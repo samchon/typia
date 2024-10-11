@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicTree"
+        {
+          "name": "DynamicTree",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -182,7 +185,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, DynamicTree>"
+                {
+                  "name": "Record<string, DynamicTree>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -242,7 +248,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "DynamicTree"
+                {
+                  "name": "DynamicTree",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

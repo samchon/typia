@@ -1,6 +1,6 @@
 import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 
 import { MetadataFactory } from "./MetadataFactory";
@@ -10,7 +10,7 @@ export namespace MetadataTypeTagFactory {
   export const analyze = (props: {
     errors: MetadataFactory.IError[];
     type: "boolean" | "bigint" | "number" | "string" | "array";
-    objects: MetadataObject[];
+    objects: MetadataObjectType[];
     explore: MetadataFactory.IExplore;
   }): IMetadataTypeTag[] => {
     const messages: string[] = [];
@@ -31,7 +31,7 @@ export namespace MetadataTypeTagFactory {
     //----
     // VALIDATION PROCESS
     //----
-    const filtered: MetadataObject[] = props.objects.filter((obj) => {
+    const filtered: MetadataObjectType[] = props.objects.filter((obj) => {
       // ONLY ONE PROPERTY
       if (obj.properties.length !== 1) return false;
 
@@ -50,7 +50,7 @@ export namespace MetadataTypeTagFactory {
         });
 
       // CHECK LIST OF PROPERTIES
-      const tag: MetadataObject = top.value.objects[0]!;
+      const tag: MetadataObjectType = top.value.objects[0]!.type;
       const statics: string[] = tag.properties
         .map((p) => p.key.getSoleLiteral()!)
         .filter((str) => str !== null);
@@ -230,9 +230,10 @@ export namespace MetadataTypeTagFactory {
         return true;
 
       // RECORD<TARGET, STRING>
-      const target: string[] | undefined = props.value.objects[0]?.properties
-        .map((p) => p.key.getSoleLiteral()!)
-        .filter((str) => str !== null) as string[] | undefined;
+      const target: string[] | undefined =
+        props.value.objects[0]?.type.properties
+          .map((p) => p.key.getSoleLiteral()!)
+          .filter((str) => str !== null) as string[] | undefined;
       if (target === undefined)
         return props.report({
           property: "target",
@@ -241,7 +242,7 @@ export namespace MetadataTypeTagFactory {
       const variadic: boolean =
         props.value.size() === 1 &&
         props.value.objects.length === 1 &&
-        props.value.objects[0]!.properties.every(
+        props.value.objects[0]!.type.properties.every(
           (vp) =>
             vp.value.size() === 1 &&
             vp.value.isRequired() &&
@@ -262,10 +263,10 @@ export namespace MetadataTypeTagFactory {
 
   const create_metadata_type_tag = (props: {
     report: (next: { property: string | null; message: string }) => false;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ITypeTag | null => {
     const find = (key: string): MetadataProperty | undefined =>
-      props.object.properties[0]?.value.objects[0]?.properties.find(
+      props.object.properties[0]?.value.objects[0]?.type.properties.find(
         (p) => p.key.getSoleLiteral() === key,
       );
 
@@ -294,7 +295,7 @@ export namespace MetadataTypeTagFactory {
           ]),
         );
       return Object.fromEntries(
-        validate.objects[0]!.properties.map((p) => [
+        validate.objects[0]!.type.properties.map((p) => [
           p.key.getSoleLiteral()!,
           p.value.constants[0]!.values[0]!.value as string,
         ]),
@@ -316,7 +317,7 @@ export namespace MetadataTypeTagFactory {
               property: "schema",
               message,
             }),
-          object: p.objects[0]!,
+          object: p.objects[0]!.type,
         });
       props.report({
         property: "schema",

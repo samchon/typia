@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectGenericUnion"
+        {
+          "name": "ObjectGenericUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -70,8 +73,14 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGenericUnion.ISaleReview",
-                "ObjectGenericUnion.ISaleQuestion"
+                {
+                  "name": "ObjectGenericUnion.ISaleReview",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectGenericUnion.ISaleQuestion",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -191,7 +200,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGenericUnion.ISaleAnswer"
+                {
+                  "name": "ObjectGenericUnion.ISaleAnswer",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1240,7 +1252,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGenericUnion.ISaleAnswer"
+                {
+                  "name": "ObjectGenericUnion.ISaleAnswer",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1848,7 +1863,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGenericUnion.ISaleArticle.IContent"
+            {
+              "name": "ObjectGenericUnion.ISaleArticle.IContent",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1877,7 +1895,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGenericUnion.IAttachmentFile"
+            {
+              "name": "ObjectGenericUnion.IAttachmentFile",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1906,7 +1927,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGenericUnion.ISaleReview.IContent"
+            {
+              "name": "ObjectGenericUnion.ISaleReview.IContent",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectNullable"
+        {
+          "name": "ObjectNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -193,7 +196,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectNullable.IManufacturer"
+                {
+                  "name": "ObjectNullable.IManufacturer",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -246,7 +252,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectNullable.IBrand"
+                {
+                  "name": "ObjectNullable.IBrand",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -299,8 +308,14 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectNullable.IBrand",
-                "ObjectNullable.IManufacturer"
+                {
+                  "name": "ObjectNullable.IBrand",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectNullable.IManufacturer",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -594,7 +609,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectNullable.IProduct"
+            {
+              "name": "ObjectNullable.IProduct",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

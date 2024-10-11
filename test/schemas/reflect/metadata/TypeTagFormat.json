@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagFormat"
+        {
+          "name": "TypeTagFormat",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

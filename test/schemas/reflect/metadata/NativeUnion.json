@@ -375,7 +375,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "NativeUnion.Union"
+            {
+              "name": "NativeUnion.Union",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

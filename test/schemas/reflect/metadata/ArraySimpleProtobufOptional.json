@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ArraySimpleProtobufOptional"
+        {
+          "name": "ArraySimpleProtobufOptional",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -983,7 +986,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArraySimpleProtobufOptional"
+            {
+              "name": "ArraySimpleProtobufOptional",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

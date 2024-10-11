@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "Partial<ObjectPartial.IBase>"
+        {
+          "name": "Partial<ObjectPartial.IBase>",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -294,7 +297,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectPartial.IBase"
+                {
+                  "name": "ObjectPartial.IBase",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -583,7 +589,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectPartial.IBase"
+                {
+                  "name": "ObjectPartial.IBase",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectPartialAndRequired"
+        {
+          "name": "ObjectPartialAndRequired",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -238,7 +241,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectPartialAndRequired"
+                {
+                  "name": "ObjectPartialAndRequired",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

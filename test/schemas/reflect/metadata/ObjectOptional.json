@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectOptional"
+        {
+          "name": "ObjectOptional",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

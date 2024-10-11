@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpConstant"
+        {
+          "name": "ObjectHttpConstant",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

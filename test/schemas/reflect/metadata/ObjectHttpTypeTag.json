@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpTypeTag"
+        {
+          "name": "ObjectHttpTypeTag",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectDynamic"
+        {
+          "name": "ObjectDynamic",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

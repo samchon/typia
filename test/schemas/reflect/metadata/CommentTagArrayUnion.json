@@ -408,7 +408,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagArrayUnion.Type"
+            {
+              "name": "CommentTagArrayUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

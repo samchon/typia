@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectIntersection"
+        {
+          "name": "ObjectIntersection",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

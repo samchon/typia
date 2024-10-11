@@ -415,7 +415,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectAlias.IMember"
+            {
+              "name": "ObjectAlias.IMember",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
