@@ -7,20 +7,20 @@ export namespace TestJsonSchemaGenerator {
   export async function generate(
     structures: TestStructure<any>[],
   ): Promise<void> {
-    const location: string = `${__dirname}/../../src/features/json.application`;
+    const location: string = `${__dirname}/../../src/features/json.schemas`;
     if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
     await fs.promises.mkdir(location);
 
     for (const version of ["3.0", "3.1"] as const)
-      await application(structures, version);
+      await functor(structures, version);
   }
 
-  async function application(
+  async function functor(
     structures: TestStructure<any>[],
     version: "3.0" | "3.1",
   ): Promise<void> {
     const title: string = `v${version.replace(".", "_")}`;
-    const path: string = `${__dirname}/../../src/features/json.application/${title}`;
+    const path: string = `${__dirname}/../../src/features/json.schemas/${title}`;
     await fs.promises.mkdir(path);
 
     for (const s of structures) {
@@ -29,16 +29,16 @@ export namespace TestJsonSchemaGenerator {
       const content: string[] = [
         `import typia from "typia";`,
         `import { ${s.name} } from "../../../structures/${s.name}";`,
-        `import { _test_json_application } from "../../../internal/_test_json_application";`,
+        `import { _test_json_schemas } from "../../../internal/_test_json_schemas";`,
         "",
-        `export const test_json_application_${title}_${s.name} = `,
-        `  _test_json_application({`,
+        `export const test_json_schemas_${title}_${s.name} = `,
+        `  _test_json_schemas({`,
         `    version: "${version}",`,
         `    name: "${s.name}", `,
-        `  })(typia.json.application<[${s.name}], "${version}">());`,
+        `  })(typia.json.schemas<[${s.name}], "${version}">());`,
       ];
       await fs.promises.writeFile(
-        `${__dirname}/../../src/features/json.application/${title}/test_json_application_${title}_${s.name}.ts`,
+        `${__dirname}/../../src/features/json.schemas/${title}/test_json_schemas_${title}_${s.name}.ts`,
         content.join("\n"),
         "utf8",
       );
@@ -60,7 +60,7 @@ export namespace TestJsonSchemaGenerator {
 
   async function iterate(version: "3.0" | "3.1") {
     const title: string = `v${version.replace(".", "_")}`;
-    const path: string = `${__dirname}/../../src/features/json.application/${title}`;
+    const path: string = `${__dirname}/../../src/features/json.schemas/${title}`;
     const schemaPath: string = `${__dirname}/../../schemas/json/${title}`;
     await mkdir(schemaPath);
 
@@ -68,12 +68,12 @@ export namespace TestJsonSchemaGenerator {
       if (file.substring(file.length - 3) !== ".ts") continue;
 
       const name: string = file.substring(
-        `test_json_application_${title}_`.length,
+        `test_json_schemas_${title}_`.length,
         file.length - 3,
       );
       const location: string =
         __dirname +
-        `/../../bin/features/json.application/${title}/${file.slice(0, -3)}.js`;
+        `/../../bin/features/json.schemas/${title}/${file.slice(0, -3)}.js`;
       const schema: object = getSchema(
         await fs.promises.readFile(location, "utf8"),
       );

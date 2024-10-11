@@ -3,7 +3,7 @@ import typia, { tags } from "typia";
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_jsonSchema_plugin = () => {
-  const app: typia.IJsonApplication = typia.json.application<
+  const collection: typia.IJsonSchemaCollection = typia.json.schemas<
     [
       string &
         tags.JsonSchemaPlugin<{
@@ -11,7 +11,7 @@ export const test_issue_jsonSchema_plugin = () => {
         }>,
     ]
   >();
-  TestValidator.equals("plugin")(app.schemas[0])({
+  TestValidator.equals("plugin")(collection.schemas[0])({
     type: "string",
     "x-typia-easy-to-learn": true,
   } as any);

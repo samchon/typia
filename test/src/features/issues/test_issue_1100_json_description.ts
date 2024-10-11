@@ -1,21 +1,20 @@
 import { OpenApi } from "@samchon/openapi";
-import typia, { IJsonApplication } from "typia";
+import typia, { IJsonSchemaCollection } from "typia";
 
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1100_json_description = (): void => {
-  const v30 = typia.json.application<[Something], "3.0">();
-  const v31 = typia.json.application<[Something], "3.1">();
+  const v30 = typia.json.schemas<[Something], "3.0">();
+  const v31 = typia.json.schemas<[Something], "3.1">();
 
   validate(v30);
   validate(v31);
 };
 
-const validate = (
-  app: IJsonApplication.IV3_0 | IJsonApplication.IV3_1,
-): void => {
-  const something: OpenApi.IJsonSchema.IObject = (app.components.schemas as any)
-    .Something;
+const validate = (collection: IJsonSchemaCollection<"3.0" | "3.1">): void => {
+  const something: OpenApi.IJsonSchema.IObject = (
+    collection.components.schemas as any
+  ).Something;
   const id: OpenApi.IJsonSchema.IString = something.properties
     ?.id as OpenApi.IJsonSchema.IString;
   const name: OpenApi.IJsonSchema.IString = something.properties

@@ -28,7 +28,7 @@
   "components": {
     "objects": [
       {
-        "name": "IJsonApplication.IV3_1<Array<unknown>>",
+        "name": "IJsonSchemaCollection.IV3_1<Array<unknown>>",
         "properties": [
           {
             "key": {
@@ -8933,7 +8933,7 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "IJsonApplication.IV3_1<Array<unknown>>"
+            "IJsonSchemaCollection.IV3_1<Array<unknown>>"
           ],
           "aliases": [],
           "natives": [],

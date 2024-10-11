@@ -5,10 +5,10 @@
       "UltimateUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/IJsonApplication.IV3_1Arrayunknown"
+          "$ref": "#/components/schemas/IJsonSchemaCollection.IV3_1Arrayunknown"
         }
       },
-      "IJsonApplication.IV3_1Arrayunknown": {
+      "IJsonSchemaCollection.IV3_1Arrayunknown": {
         "type": "object",
         "properties": {
           "version": {
