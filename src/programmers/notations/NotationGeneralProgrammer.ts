@@ -9,7 +9,9 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -298,19 +300,21 @@ export namespace NotationGeneralProgrammer {
           }),
       });
     for (const native of props.metadata.natives) {
-      if (native === "WeakSet" || native === "WeakMap") continue;
+      if (native.name === "WeakSet" || native.name === "WeakMap") continue;
       unions.push({
         type: "native",
-        is: () => ExpressionFactory.isInstanceOf(native, props.input),
+        is: () => ExpressionFactory.isInstanceOf(native.name, props.input),
         value: () =>
-          native === "Boolean" || native === "Number" || native === "String"
+          native.name === "Boolean" ||
+          native.name === "Number" ||
+          native.name === "String"
             ? ts.factory.createCallExpression(
                 IdentifierFactory.access(props.input, "valueOf"),
                 undefined,
                 undefined,
               )
             : decode_native({
-                name: native,
+                name: native.name,
                 input: props.input,
               }),
       });
@@ -367,7 +371,7 @@ export namespace NotationGeneralProgrammer {
 
   const decode_object = (props: {
     functor: FunctionProgrammer;
-    object: MetadataObject;
+    object: MetadataObjectType;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }) =>
@@ -530,7 +534,7 @@ export namespace NotationGeneralProgrammer {
     functor: FunctionProgrammer;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
-    sets: Metadata[];
+    sets: Array<MetadataSet>;
   }): ts.Expression =>
     ts.factory.createCallExpression(
       UnionExplorer.set({
@@ -585,7 +589,7 @@ export namespace NotationGeneralProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    maps: Metadata.Entry[];
+    maps: Array<MetadataMap>;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
     ts.factory.createCallExpression(
@@ -661,7 +665,7 @@ export namespace NotationGeneralProgrammer {
     if (props.metadata.objects.length === 1)
       return decode_object({
         functor: props.functor,
-        object: props.metadata.objects[0]!,
+        object: props.metadata.objects[0]!.type,
         input: props.input,
         explore: props.explore,
       });

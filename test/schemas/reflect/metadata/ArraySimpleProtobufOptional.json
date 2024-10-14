@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ArraySimpleProtobufOptional"
+        {
+          "name": "ArraySimpleProtobufOptional",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -956,7 +959,10 @@
           "objects": [],
           "aliases": [],
           "natives": [
-            "Uint8Array"
+            {
+              "name": "Uint8Array",
+              "tags": []
+            }
           ],
           "sets": [],
           "maps": []
@@ -983,7 +989,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArraySimpleProtobufOptional"
+            {
+              "name": "ArraySimpleProtobufOptional",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

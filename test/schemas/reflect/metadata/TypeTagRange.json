@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagRange"
+        {
+          "name": "TypeTagRange",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -953,7 +956,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagRange.Type"
+            {
+              "name": "TypeTagRange.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

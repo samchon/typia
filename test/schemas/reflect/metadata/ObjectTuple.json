@@ -407,7 +407,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectTuple.ISection"
+              {
+                "name": "ObjectTuple.ISection",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -428,7 +431,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectTuple.ICitizen"
+              {
+                "name": "ObjectTuple.ICitizen",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

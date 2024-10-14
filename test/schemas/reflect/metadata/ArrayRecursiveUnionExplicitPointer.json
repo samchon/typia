@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ArrayRecursiveUnionExplicitPointer"
+        {
+          "name": "ArrayRecursiveUnionExplicitPointer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -137,11 +140,26 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRecursiveUnionExplicitPointer.IDirectory",
-                "ArrayRecursiveUnionExplicitPointer.IImageFile",
-                "ArrayRecursiveUnionExplicitPointer.ITextFile",
-                "ArrayRecursiveUnionExplicitPointer.IZipFile",
-                "ArrayRecursiveUnionExplicitPointer.IShortcut"
+                {
+                  "name": "ArrayRecursiveUnionExplicitPointer.IDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicitPointer.IImageFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicitPointer.ITextFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicitPointer.IZipFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicitPointer.IShortcut",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -2020,7 +2038,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRecursiveUnionExplicitPointer.IBucket"
+                {
+                  "name": "ArrayRecursiveUnionExplicitPointer.IBucket",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -2179,7 +2200,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionExplicitPointer.IBucket"
+            {
+              "name": "ArrayRecursiveUnionExplicitPointer.IBucket",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -2208,7 +2232,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionExplicitPointer.IBucket"
+            {
+              "name": "ArrayRecursiveUnionExplicitPointer.IBucket",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

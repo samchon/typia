@@ -227,7 +227,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "FunctionalPropertyUnion.IUnion"
+            {
+              "name": "FunctionalPropertyUnion.IUnion",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

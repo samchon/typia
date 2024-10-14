@@ -11,7 +11,7 @@ export namespace AtomicPredicator {
   }): boolean =>
     !ArrayUtil.has(
       props.metadata.natives,
-      (native) => native.toLowerCase() === props.name,
+      (native) => native.name.toLowerCase() === props.name,
     );
 
   export const atomic = (props: {
@@ -20,7 +20,7 @@ export namespace AtomicPredicator {
   }): boolean =>
     !ArrayUtil.has(
       props.metadata.natives,
-      (native) => native.toLowerCase() === props.name,
+      (native) => native.name.toLowerCase() === props.name,
     );
 
   export const native = (name: string) => LIKE.has(name.toLowerCase());
@@ -28,7 +28,7 @@ export namespace AtomicPredicator {
   export const template = (metadata: Metadata): boolean =>
     !ArrayUtil.has(
       metadata.natives,
-      (native) => native.toLowerCase() === "string",
+      (native) => native.name.toLowerCase() === "string",
     );
 }
 

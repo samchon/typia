@@ -195,7 +195,10 @@
                         "arrays": [],
                         "tuples": [],
                         "objects": [
-                          "FunctionalObjectUnion.IPoint"
+                          {
+                            "name": "FunctionalObjectUnion.IPoint",
+                            "tags": []
+                          }
                         ],
                         "aliases": [],
                         "natives": [],
@@ -303,7 +306,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "FunctionalObjectUnion.IPoint"
+                {
+                  "name": "FunctionalObjectUnion.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -356,7 +362,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "FunctionalObjectUnion.IPoint"
+                {
+                  "name": "FunctionalObjectUnion.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -847,10 +856,22 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "FunctionalObjectUnion.IPoint",
-            "FunctionalObjectUnion.ILine",
-            "FunctionalObjectUnion.IPolyline",
-            "FunctionalObjectUnion.IPolygon"
+            {
+              "name": "FunctionalObjectUnion.IPoint",
+              "tags": []
+            },
+            {
+              "name": "FunctionalObjectUnion.ILine",
+              "tags": []
+            },
+            {
+              "name": "FunctionalObjectUnion.IPolyline",
+              "tags": []
+            },
+            {
+              "name": "FunctionalObjectUnion.IPolygon",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -879,7 +900,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "FunctionalObjectUnion.IPoint"
+            {
+              "name": "FunctionalObjectUnion.IPoint",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

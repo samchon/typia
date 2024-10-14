@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpUndefindable"
+        {
+          "name": "ObjectHttpUndefindable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

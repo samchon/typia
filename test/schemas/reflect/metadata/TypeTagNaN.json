@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagNaN"
+        {
+          "name": "TypeTagNaN",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

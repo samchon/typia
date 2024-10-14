@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectGenericArray"
+        {
+          "name": "ObjectGenericArray",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -70,7 +73,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGenericArray.IPagination"
+                {
+                  "name": "ObjectGenericArray.IPagination",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -521,7 +527,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGenericArray.IPerson"
+            {
+              "name": "ObjectGenericArray.IPerson",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

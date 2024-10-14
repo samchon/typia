@@ -155,7 +155,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ToJsonAtomicUnion.IToJson"
+                {
+                  "name": "ToJsonAtomicUnion.IToJson",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

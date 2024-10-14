@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { Writable } from "../../../typings/Writable";
@@ -16,7 +16,7 @@ import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 
 export const emplace_metadata_object = (
   props: IMetadataIteratorProps,
-): MetadataObject => {
+): MetadataObjectType => {
   // EMPLACE OBJECT
   const [obj, newbie] = props.collection.emplace(props.checker, props.type);
   ArrayUtil.add(
@@ -144,11 +144,11 @@ export const emplace_metadata_object = (
         key.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0) +
         key.templates.length +
         key.natives.filter(
-          (type) =>
-            type === "Boolean" ||
-            type === "BigInt" ||
-            type === "Number" ||
-            type === "String",
+          (native) =>
+            native.name === "Boolean" ||
+            native.name === "BigInt" ||
+            native.name === "Number" ||
+            native.name === "String",
         ).length !==
       key.size()
     )

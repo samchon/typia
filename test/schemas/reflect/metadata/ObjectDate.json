@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectDate"
+        {
+          "name": "ObjectDate",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -82,7 +85,10 @@
                   "objects": [],
                   "aliases": [],
                   "natives": [
-                    "Date"
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
                   ],
                   "sets": [],
                   "maps": []

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapAlias"
+        {
+          "name": "MapAlias",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -122,7 +125,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -224,7 +228,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -326,7 +331,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -428,7 +434,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -497,7 +504,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapAlias.Person"
+                      {
+                        "name": "MapAlias.Person",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
@@ -527,7 +537,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },

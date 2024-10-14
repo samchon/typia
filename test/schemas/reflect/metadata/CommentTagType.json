@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagType"
+        {
+          "name": "CommentTagType",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -678,7 +681,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagType.Type"
+            {
+              "name": "CommentTagType.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

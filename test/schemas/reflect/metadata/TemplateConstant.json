@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateConstant"
+        {
+          "name": "TemplateConstant",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -352,7 +355,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TemplateConstant.Type"
+            {
+              "name": "TemplateConstant.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

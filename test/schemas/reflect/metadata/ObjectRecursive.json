@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectRecursive.IDepartment"
+        {
+          "name": "ObjectRecursive.IDepartment",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -70,7 +73,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectRecursive.IDepartment"
+                {
+                  "name": "ObjectRecursive.IDepartment",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -347,7 +353,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectRecursive.ITimestamp"
+                {
+                  "name": "ObjectRecursive.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

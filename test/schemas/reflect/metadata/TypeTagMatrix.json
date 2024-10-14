@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagMatrix"
+        {
+          "name": "TypeTagMatrix",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

@@ -222,8 +222,14 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagObjectUnion.Literal",
-            "TypeTagObjectUnion.Numeric"
+            {
+              "name": "TypeTagObjectUnion.Literal",
+              "tags": []
+            },
+            {
+              "name": "TypeTagObjectUnion.Numeric",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

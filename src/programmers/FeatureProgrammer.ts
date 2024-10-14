@@ -8,7 +8,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 import { ITypiaContext } from "../transformers/ITypiaContext";
 
@@ -94,7 +94,7 @@ export namespace FeatureProgrammer {
        */
       decoder: (props: {
         input: ts.Expression;
-        object: MetadataObject;
+        object: MetadataObjectType;
         explore: IExplore;
       }) => ts.Expression;
 
@@ -104,7 +104,7 @@ export namespace FeatureProgrammer {
       joiner(props: {
         entries: IExpressionEntry<Output>[];
         input?: ts.Expression;
-        object?: MetadataObject;
+        object?: MetadataObjectType;
       }): ts.ConciseBody;
 
       /**
@@ -114,7 +114,7 @@ export namespace FeatureProgrammer {
        * the `decoder` function of the specified object type.
        */
       unionizer: (props: {
-        objects: MetadataObject[];
+        objects: MetadataObjectType[];
         input: ts.Expression;
         explore: IExplore;
       }) => ts.Expression;
@@ -440,7 +440,10 @@ export namespace FeatureProgrammer {
       }),
     );
 
-  const write_union = (props: { config: IConfig; objects: MetadataObject[] }) =>
+  const write_union = (props: {
+    config: IConfig;
+    objects: MetadataObjectType[];
+  }) =>
     ts.factory.createArrowFunction(
       undefined,
       undefined,
@@ -521,7 +524,7 @@ export namespace FeatureProgrammer {
   export const decode_object = (props: {
     config: Pick<IConfig, "trace" | "path" | "prefix">;
     functor: FunctionProgrammer;
-    object: MetadataObject;
+    object: MetadataObjectType;
     input: ts.Expression;
     explore: IExplore;
   }) =>

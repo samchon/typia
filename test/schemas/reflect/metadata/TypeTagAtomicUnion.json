@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagAtomicUnion"
+        {
+          "name": "TypeTagAtomicUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -223,7 +226,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagAtomicUnion.Type"
+            {
+              "name": "TypeTagAtomicUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

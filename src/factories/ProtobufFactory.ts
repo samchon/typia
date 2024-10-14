@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
 
@@ -53,7 +53,7 @@ export namespace ProtobufFactory {
       const onlyObject: boolean =
         meta.size() === 1 &&
         meta.objects.length === 1 &&
-        meta.objects[0]!.properties.every((p) => p.key.isSoleLiteral()) &&
+        meta.objects[0]!.type.properties.every((p) => p.key.isSoleLiteral()) &&
         meta.isRequired() === true &&
         meta.nullable === false;
       if (onlyObject === false)
@@ -76,11 +76,11 @@ export namespace ProtobufFactory {
     // NATIVE TYPE, BUT NOT Uint8Array
     if (meta.natives.length)
       for (const native of meta.natives) {
-        if (native === "Uint8Array") continue;
+        if (native.name === "Uint8Array") continue;
 
-        const instead = BANNED_NATIVE_TYPES.get(native);
-        if (instead === undefined) noSupport(`${native} type`);
-        else noSupport(`${native} type. Use ${instead} type instead.`);
+        const instead = BANNED_NATIVE_TYPES.get(native.name);
+        if (instead === undefined) noSupport(`${native.name} type`);
+        else noSupport(`${native.name} type. Use ${instead} type instead.`);
       }
     //----
     // ATOMIC CASES
@@ -133,7 +133,7 @@ export namespace ProtobufFactory {
           a.type.value.maps.length ||
           (a.type.value.objects.length &&
             a.type.value.objects.some(
-              (o) => ProtobufUtil.isStaticObject(o) === false,
+              (o) => ProtobufUtil.isStaticObject(o.type) === false,
             )),
       )
     )
@@ -147,7 +147,7 @@ export namespace ProtobufFactory {
     // EMPTY PROPERTY
     if (
       meta.objects.length &&
-      meta.objects.some((obj) => obj.properties.length === 0)
+      meta.objects.some((obj) => obj.type.properties.length === 0)
     )
       noSupport("empty object type");
     // MULTIPLE DYNAMIC KEY TYPED PROPERTIES
@@ -155,7 +155,7 @@ export namespace ProtobufFactory {
       meta.objects.length &&
       meta.objects.some(
         (obj) =>
-          obj.properties.filter((p) => !p.key.isSoleLiteral()).length > 1,
+          obj.type.properties.filter((p) => !p.key.isSoleLiteral()).length > 1,
       )
     )
       noSupport(
@@ -166,8 +166,8 @@ export namespace ProtobufFactory {
       meta.objects.length &&
       meta.objects.some(
         (obj) =>
-          obj.properties.some((p) => p.key.isSoleLiteral()) &&
-          obj.properties.some((p) => !p.key.isSoleLiteral()),
+          obj.type.properties.some((p) => p.key.isSoleLiteral()) &&
+          obj.type.properties.some((p) => !p.key.isSoleLiteral()),
       )
     )
       noSupport(
@@ -176,15 +176,15 @@ export namespace ProtobufFactory {
     // DYNAMIC OBJECT, BUT PROPERTY VALUE TYPE IS ARRAY
     if (
       meta.objects.length &&
-      isDynamicObject(meta.objects[0]!) &&
-      meta.objects[0]!.properties.some((p) => !!p.value.arrays.length)
+      isDynamicObject(meta.objects[0]!.type) &&
+      meta.objects[0]!.type.properties.some((p) => !!p.value.arrays.length)
     )
       noSupport("dynamic object with array value type");
-    // UNION WITH DYNAMIC OBJECT
+    // UNION WITH DYNAMIC OBJECTa
     if (
       meta.size() > 1 &&
       meta.objects.length &&
-      isDynamicObject(meta.objects[0]!)
+      isDynamicObject(meta.objects[0]!.type)
     )
       noSupport("union type with dynamic object type");
     // UNION IN DYNAMIC PROPERTY VALUE
@@ -192,8 +192,8 @@ export namespace ProtobufFactory {
       meta.objects.length &&
       meta.objects.some(
         (obj) =>
-          isDynamicObject(obj) &&
-          obj.properties.some((p) => ProtobufUtil.isUnion(p.value)),
+          isDynamicObject(obj.type) &&
+          obj.type.properties.some((p) => ProtobufUtil.isUnion(p.value)),
       )
     )
       noSupport("union type in dynamic property");
@@ -231,7 +231,7 @@ export namespace ProtobufFactory {
   };
 }
 
-const isDynamicObject = (obj: MetadataObject): boolean =>
+const isDynamicObject = (obj: MetadataObjectType): boolean =>
   obj.properties[0]!.key.isSoleLiteral() === false;
 
 const BANNED_NATIVE_TYPES: Map<string, string | null> = new Map([

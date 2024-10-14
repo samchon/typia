@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ClassClosure.Something"
+        {
+          "name": "ClassClosure.Something",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

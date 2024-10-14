@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateAtomic"
+        {
+          "name": "TemplateAtomic",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -119,7 +122,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -227,7 +231,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -363,7 +368,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -499,7 +505,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -635,7 +642,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -936,7 +944,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -1120,7 +1129,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

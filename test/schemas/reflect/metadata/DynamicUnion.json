@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicUnion"
+        {
+          "name": "DynamicUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -143,7 +146,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -247,7 +251,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -403,7 +408,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

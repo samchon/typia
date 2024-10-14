@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectUnionNonPredictable"
+        {
+          "name": "ObjectUnionNonPredictable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -137,7 +140,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<ObjectUnionNonPredictable.IUnion>"
+                {
+                  "name": "IPointer<ObjectUnionNonPredictable.IUnion>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -201,9 +207,18 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionNonPredictable.IWrapper<string>",
-                "ObjectUnionNonPredictable.IWrapper<number>",
-                "ObjectUnionNonPredictable.IWrapper<boolean>"
+                {
+                  "name": "ObjectUnionNonPredictable.IWrapper<string>",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionNonPredictable.IWrapper<number>",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionNonPredictable.IWrapper<boolean>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -267,7 +282,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<boolean>"
+                {
+                  "name": "IPointer<boolean>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -398,7 +416,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<number>"
+                {
+                  "name": "IPointer<number>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -529,7 +550,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<string>"
+                {
+                  "name": "IPointer<string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -633,7 +657,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
+            {
+              "name": "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

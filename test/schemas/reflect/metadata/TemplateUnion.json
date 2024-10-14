@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateUnion"
+        {
+          "name": "TemplateUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -186,7 +189,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 },
                 {
                   "row": [
@@ -242,7 +246,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -350,7 +355,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 },
                 {
                   "row": [
@@ -406,7 +412,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -556,7 +563,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -715,7 +723,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -723,7 +732,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -827,7 +839,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TemplateUnion.Type"
+            {
+              "name": "TemplateUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

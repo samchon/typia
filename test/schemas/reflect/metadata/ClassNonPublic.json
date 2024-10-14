@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ClassNonPublic.Accessor"
+        {
+          "name": "ClassNonPublic.Accessor",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

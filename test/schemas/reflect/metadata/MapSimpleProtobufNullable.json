@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapSimpleProtobufNullable"
+        {
+          "name": "MapSimpleProtobufNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -122,7 +125,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -238,7 +242,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -340,7 +345,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -442,7 +448,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -558,7 +565,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -653,11 +661,15 @@
                     "objects": [],
                     "aliases": [],
                     "natives": [
-                      "Uint8Array"
+                      {
+                        "name": "Uint8Array",
+                        "tags": []
+                      }
                     ],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -750,13 +762,17 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapSimpleProtobufNullable"
+                      {
+                        "name": "MapSimpleProtobufNullable",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },

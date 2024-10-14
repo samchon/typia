@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagDefault"
+        {
+          "name": "CommentTagDefault",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -821,7 +824,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

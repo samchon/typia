@@ -8,7 +8,7 @@ import { LiteralFactory } from "../../factories/LiteralFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
@@ -88,7 +88,7 @@ export namespace RandomJoiner {
 
   export const object = (props: {
     decode: Decoder;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ts.ConciseBody => {
     if (props.object.properties.length === 0) return LiteralFactory.write({});
 

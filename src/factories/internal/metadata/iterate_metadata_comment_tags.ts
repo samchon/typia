@@ -1,11 +1,11 @@
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 
 import { MetadataCommentTagFactory } from "../../MetadataCommentTagFactory";
 import { MetadataFactory } from "../../MetadataFactory";
 
 export const iterate_metadata_comment_tags = (props: {
   errors: MetadataFactory.IError[];
-  object: MetadataObject;
+  object: MetadataObjectType;
 }) => {
   if (props.object.tagged_ === true) return;
   props.object.tagged_ = true;

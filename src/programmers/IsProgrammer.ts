@@ -6,7 +6,7 @@ import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 import { IProgrammerProps } from "../transformers/IProgrammerProps";
 import { ITypiaContext } from "../transformers/ITypiaContext";
@@ -237,7 +237,7 @@ export namespace IsProgrammer {
   export const decode_object = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    object: MetadataObject;
+    object: MetadataObjectType;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }) =>

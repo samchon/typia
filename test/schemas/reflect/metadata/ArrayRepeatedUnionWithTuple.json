@@ -99,7 +99,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -152,7 +155,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -205,7 +211,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -258,7 +267,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -564,7 +576,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRepeatedUnionWithTuple.IBox3D"
+            {
+              "name": "ArrayRepeatedUnionWithTuple.IBox3D",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -679,7 +694,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ArrayRepeatedUnionWithTuple.IBox3D"
+              {
+                "name": "ArrayRepeatedUnionWithTuple.IBox3D",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -700,7 +718,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ArrayRepeatedUnionWithTuple.IPoint3D"
+              {
+                "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

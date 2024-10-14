@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpConstant"
+        {
+          "name": "ObjectHttpConstant",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -379,7 +382,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

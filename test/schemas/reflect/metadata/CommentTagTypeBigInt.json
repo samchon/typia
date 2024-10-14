@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagTypeBigInt"
+        {
+          "name": "CommentTagTypeBigInt",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

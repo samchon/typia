@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectSimple.IBox3D"
+        {
+          "name": "ObjectSimple.IBox3D",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -70,7 +73,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -123,7 +129,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -176,7 +185,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -229,7 +241,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

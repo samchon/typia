@@ -241,7 +241,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchical.ITimestamp"
+                {
+                  "name": "ArrayHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -652,7 +655,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchical.ITimestamp"
+                {
+                  "name": "ArrayHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -996,7 +1002,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchical.ITimestamp"
+                {
+                  "name": "ArrayHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1033,7 +1042,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchical.ICompany"
+            {
+              "name": "ArrayHierarchical.ICompany",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1062,7 +1074,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchical.IDepartment"
+            {
+              "name": "ArrayHierarchical.IDepartment",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1091,7 +1106,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchical.IEmployee"
+            {
+              "name": "ArrayHierarchical.IEmployee",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

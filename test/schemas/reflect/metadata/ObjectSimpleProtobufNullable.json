@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectSimpleProtobufNullable"
+        {
+          "name": "ObjectSimpleProtobufNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -590,7 +593,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8Array"
+                {
+                  "name": "Uint8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []

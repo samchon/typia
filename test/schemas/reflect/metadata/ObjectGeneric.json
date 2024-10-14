@@ -129,7 +129,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGeneric.IChild<boolean, boolean>"
+                {
+                  "name": "ObjectGeneric.IChild<boolean, boolean>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -428,7 +431,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGeneric.IChild<number, number>"
+                {
+                  "name": "ObjectGeneric.IChild<number, number>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -727,7 +733,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGeneric.IChild<string, string>"
+                {
+                  "name": "ObjectGeneric.IChild<string, string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -943,7 +952,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGeneric.IChild<boolean, boolean>"
+            {
+              "name": "ObjectGeneric.IChild<boolean, boolean>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -972,7 +984,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGeneric.IChild<number, number>"
+            {
+              "name": "ObjectGeneric.IChild<number, number>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1001,7 +1016,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGeneric.IChild<string, string>"
+            {
+              "name": "ObjectGeneric.IChild<string, string>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1034,7 +1052,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectGeneric.ISomething<boolean>"
+              {
+                "name": "ObjectGeneric.ISomething<boolean>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -1055,7 +1076,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectGeneric.ISomething<number>"
+              {
+                "name": "ObjectGeneric.ISomething<number>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -1076,7 +1100,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectGeneric.ISomething<string>"
+              {
+                "name": "ObjectGeneric.ISomething<string>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

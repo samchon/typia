@@ -59,7 +59,7 @@ const is_date = (props: {
   props.visited.add(props.metadata);
 
   return (
-    props.metadata.natives.some((name) => name === "Date") ||
+    props.metadata.natives.some((native) => native.name === "Date") ||
     props.metadata.arrays.some((array) =>
       is_date({
         visited: props.visited,
@@ -77,7 +77,7 @@ const is_date = (props: {
     props.metadata.aliases.some((alias) =>
       is_date({
         visited: props.visited,
-        metadata: alias.value,
+        metadata: alias.type.value,
       }),
     )
   );

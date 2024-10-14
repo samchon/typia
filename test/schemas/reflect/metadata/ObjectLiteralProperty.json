@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectLiteralProperty.ISomething"
+        {
+          "name": "ObjectLiteralProperty.ISomething",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

@@ -2,6 +2,7 @@ import { OpenApi } from "@samchon/openapi";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import { MetadataNative } from "../../schemas/metadata/MetadataNative";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_array } from "./application_array";
@@ -112,8 +113,8 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
 
   // NATIVES
   for (const native of props.metadata.natives)
-    if (AtomicPredicator.native(native)) {
-      const type: string = native.toLowerCase();
+    if (AtomicPredicator.native(native.name)) {
+      const type: string = native.name.toLowerCase();
       if (props.metadata.atomics.some((a) => a.type === type)) continue;
       else if (type === "boolean")
         insert(
@@ -152,45 +153,41 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
           )[0]! as any,
         );
     } else
-      insert(
-        application_v31_native({
-          components: props.components,
-          name: native,
-        }),
-      );
+      application_v31_native({
+        components: props.components,
+        native,
+      }).forEach(insert);
   if (props.metadata.sets.length)
-    insert(
-      application_v31_native({
+    application_v31_native({
+      native: MetadataNative.create({
         name: "Set",
-        components: props.components,
+        tags: [],
       }),
-    );
+      components: props.components,
+    }).forEach(insert);
   if (props.metadata.maps.length)
-    insert(
-      application_v31_native({
+    application_v31_native({
+      native: MetadataNative.create({
         name: "Map",
-        components: props.components,
+        tags: [],
       }),
-    );
+      components: props.components,
+    }).forEach(insert);
 
   // OBJECT
   for (const object of props.metadata.objects)
-    insert(
-      application_v31_object({
-        components: props.components,
-        object,
-      }),
-    );
+    application_v31_object({
+      components: props.components,
+      object,
+    }).forEach(insert);
 
   // ALIASES
   for (const alias of props.metadata.aliases)
-    insert(
-      application_v31_alias({
-        alias,
-        blockNever: props.blockNever,
-        components: props.components,
-      }),
-    );
+    application_v31_alias({
+      alias,
+      blockNever: props.blockNever,
+      components: props.components,
+    }).forEach(insert);
 
   //----
   // RETURNS

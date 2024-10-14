@@ -35,8 +35,6 @@ export const iterate_metadata_template = (
         }),
       );
   });
-  props.metadata.templates.push(
-    MetadataTemplate.create({ row, tags: undefined }),
-  );
+  props.metadata.templates.push(MetadataTemplate.create({ row, tags: [] }));
   return true;
 };

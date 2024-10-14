@@ -277,7 +277,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             },
             {
               "key": {
@@ -327,7 +328,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             },
             {
               "key": {
@@ -377,7 +379,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             },
             {
               "key": {
@@ -427,7 +430,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             },
             {
               "key": {
@@ -444,7 +448,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "MapUnion.Person"
+                  {
+                    "name": "MapUnion.Person",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -474,7 +481,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             }
           ]
         },

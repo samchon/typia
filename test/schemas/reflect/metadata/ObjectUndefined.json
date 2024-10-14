@@ -189,7 +189,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUndefined.IClassroom"
+                {
+                  "name": "ObjectUndefined.IClassroom",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -558,7 +561,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUndefined.ILecture"
+            {
+              "name": "ObjectUndefined.ILecture",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

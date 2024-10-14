@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagRangeBigInt"
+        {
+          "name": "TypeTagRangeBigInt",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -896,7 +899,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagRangeBigInt.Type"
+            {
+              "name": "TypeTagRangeBigInt.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

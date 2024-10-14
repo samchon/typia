@@ -250,7 +250,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ConstantAtomicWrapper.IPointer<boolean>"
+              {
+                "name": "ConstantAtomicWrapper.IPointer<boolean>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -271,7 +274,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ConstantAtomicWrapper.IPointer<number>"
+              {
+                "name": "ConstantAtomicWrapper.IPointer<number>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -292,7 +298,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ConstantAtomicWrapper.IPointer<string>"
+              {
+                "name": "ConstantAtomicWrapper.IPointer<string>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

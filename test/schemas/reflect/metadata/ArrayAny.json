@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ArrayAny"
+        {
+          "name": "ArrayAny",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],

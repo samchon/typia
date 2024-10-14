@@ -1761,12 +1761,30 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRecursiveUnionImplicit.IDirectory",
-                "ArrayRecursiveUnionImplicit.ISharedDirectory",
-                "ArrayRecursiveUnionImplicit.IImageFile",
-                "ArrayRecursiveUnionImplicit.ITextFile",
-                "ArrayRecursiveUnionImplicit.IZipFile",
-                "ArrayRecursiveUnionImplicit.IShortcut"
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.ISharedDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IImageFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.ITextFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IZipFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IShortcut",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1803,12 +1821,30 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionImplicit.IDirectory",
-            "ArrayRecursiveUnionImplicit.ISharedDirectory",
-            "ArrayRecursiveUnionImplicit.IImageFile",
-            "ArrayRecursiveUnionImplicit.ITextFile",
-            "ArrayRecursiveUnionImplicit.IZipFile",
-            "ArrayRecursiveUnionImplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionImplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ISharedDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1837,12 +1873,30 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionImplicit.IDirectory",
-            "ArrayRecursiveUnionImplicit.ISharedDirectory",
-            "ArrayRecursiveUnionImplicit.IImageFile",
-            "ArrayRecursiveUnionImplicit.ITextFile",
-            "ArrayRecursiveUnionImplicit.IZipFile",
-            "ArrayRecursiveUnionImplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionImplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ISharedDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

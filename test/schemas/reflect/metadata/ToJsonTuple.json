@@ -354,7 +354,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "ToJsonTuple.IHobby"
+                      {
+                        "name": "ToJsonTuple.IHobby",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
@@ -543,7 +546,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonTuple.IToJson<string>"
+                  {
+                    "name": "ToJsonTuple.IToJson<string>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -608,7 +614,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonTuple.IToJson<number>"
+                  {
+                    "name": "ToJsonTuple.IToJson<number>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -673,7 +682,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonTuple.IToJson<boolean>"
+                  {
+                    "name": "ToJsonTuple.IToJson<boolean>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -738,7 +750,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonTuple.IObject"
+                  {
+                    "name": "ToJsonTuple.IObject",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -759,7 +774,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonTuple.IHobby"
+                  {
+                    "name": "ToJsonTuple.IHobby",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],

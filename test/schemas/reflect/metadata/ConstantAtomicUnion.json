@@ -154,7 +154,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "__type"
+            {
+              "name": "__type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

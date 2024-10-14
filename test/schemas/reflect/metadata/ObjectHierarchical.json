@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHierarchical.ICustomer"
+        {
+          "name": "ObjectHierarchical.ICustomer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -126,7 +129,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IChannel"
+                {
+                  "name": "ObjectHierarchical.IChannel",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -179,7 +185,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IMember"
+                {
+                  "name": "ObjectHierarchical.IMember",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -232,7 +241,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IAccount"
+                {
+                  "name": "ObjectHierarchical.IAccount",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -453,7 +465,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -853,7 +868,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1096,7 +1114,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IAccount"
+                {
+                  "name": "ObjectHierarchical.IAccount",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1149,7 +1170,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IEnterprise"
+                {
+                  "name": "ObjectHierarchical.IEnterprise",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1258,7 +1282,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1490,7 +1517,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1611,7 +1641,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IAccount"
+                {
+                  "name": "ObjectHierarchical.IAccount",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1776,7 +1809,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
