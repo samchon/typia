@@ -5,6 +5,7 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -177,7 +178,7 @@ export namespace ProtobufMessageProgrammer {
 
   const decode_map = (props: {
     sequence: IPointer<number>;
-    entry: Metadata.Entry;
+    entry: MetadataMap | MetadataProperty;
   }): string =>
     `map<${decode({
       sequence: props.sequence,

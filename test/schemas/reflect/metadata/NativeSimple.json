@@ -85,7 +85,10 @@
                   "objects": [],
                   "aliases": [],
                   "natives": [
-                    "Date"
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
                   ],
                   "sets": [],
                   "maps": []
@@ -172,7 +175,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8Array"
+                {
+                  "name": "Uint8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -225,7 +231,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8ClampedArray"
+                {
+                  "name": "Uint8ClampedArray",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -278,7 +287,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint16Array"
+                {
+                  "name": "Uint16Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -331,7 +343,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint32Array"
+                {
+                  "name": "Uint32Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -384,7 +399,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "BigUint64Array"
+                {
+                  "name": "BigUint64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -437,7 +455,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int8Array"
+                {
+                  "name": "Int8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -490,7 +511,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int16Array"
+                {
+                  "name": "Int16Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -543,7 +567,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int32Array"
+                {
+                  "name": "Int32Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -596,7 +623,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "BigInt64Array"
+                {
+                  "name": "BigInt64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -649,7 +679,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Float32Array"
+                {
+                  "name": "Float32Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -702,7 +735,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Float64Array"
+                {
+                  "name": "Float64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -755,7 +791,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "ArrayBuffer"
+                {
+                  "name": "ArrayBuffer",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -808,7 +847,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "SharedArrayBuffer"
+                {
+                  "name": "SharedArrayBuffer",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -861,7 +903,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "DataView"
+                {
+                  "name": "DataView",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []

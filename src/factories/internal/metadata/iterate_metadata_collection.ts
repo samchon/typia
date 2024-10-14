@@ -73,12 +73,12 @@ const isArrayRecursive = (props: {
     props.metadata.arrays.some(
       (a) => a.type === props.array || next(a.type.value),
     ) ||
-    props.metadata.aliases.some((alias) => next(alias.value)) ||
+    props.metadata.aliases.some((alias) => next(alias.type.value)) ||
     props.metadata.tuples.some(
       (t) => !t.type.recursive && t.type.elements.some(next),
     ) ||
     props.metadata.maps.some((m) => next(m.value)) ||
-    props.metadata.sets.some(next) ||
+    props.metadata.sets.some((s) => next(s.value)) ||
     (props.metadata.escaped !== null && next(props.metadata.escaped.returns)) ||
     (props.metadata.rest !== null && next(props.metadata.rest))
   );
@@ -105,8 +105,8 @@ const isTupleRecursive = (props: {
       (a) => !a.type.recursive && next(a.type.value),
     ) ||
     props.metadata.maps.some((m) => next(m.value)) ||
-    props.metadata.sets.some((s) => next(s)) ||
-    props.metadata.aliases.some((alias) => next(alias.value)) ||
+    props.metadata.sets.some((s) => next(s.value)) ||
+    props.metadata.aliases.some((alias) => next(alias.type.value)) ||
     (props.metadata.escaped !== null && next(props.metadata.escaped.returns)) ||
     (props.metadata.rest !== null && next(props.metadata.rest))
   );
@@ -131,7 +131,7 @@ const isObjectRecursive = (props: {
         props.object === o.type ||
         o.type.properties.some((prop) => next(prop.value)),
     ) ||
-    props.metadata.aliases.some((alias) => next(alias.value)) ||
+    props.metadata.aliases.some((alias) => next(alias.type.value)) ||
     props.metadata.arrays.some(
       (array) => !array.type.recursive && next(array.type.value),
     ) ||
@@ -139,7 +139,7 @@ const isObjectRecursive = (props: {
       (tuple) => !tuple.type.recursive && tuple.type.elements.some(next),
     ) ||
     props.metadata.maps.some((map) => next(map.value)) ||
-    props.metadata.sets.some(next) ||
+    props.metadata.sets.some((set) => next(set.value)) ||
     (props.metadata.escaped !== null && next(props.metadata.escaped.returns)) ||
     (props.metadata.rest !== null && next(props.metadata.rest))
   );

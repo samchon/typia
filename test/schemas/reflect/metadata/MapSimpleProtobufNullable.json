@@ -125,7 +125,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -241,7 +242,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -343,7 +345,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -445,7 +448,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -561,7 +565,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -656,11 +661,15 @@
                     "objects": [],
                     "aliases": [],
                     "natives": [
-                      "Uint8Array"
+                      {
+                        "name": "Uint8Array",
+                        "tags": []
+                      }
                     ],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -762,7 +771,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },

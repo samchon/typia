@@ -221,7 +221,7 @@ export namespace MiscPruneProgrammer {
       for (const native of props.metadata.natives)
         unions.push({
           type: "native",
-          is: () => ExpressionFactory.isInstanceOf(native, props.input),
+          is: () => ExpressionFactory.isInstanceOf(native.name, props.input),
           value: () => ts.factory.createReturnStatement(),
         });
     if (props.metadata.sets.length)

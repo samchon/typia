@@ -129,7 +129,9 @@ export namespace HttpFormDataProgrammer {
         meta.atomics.length +
         meta.templates.length +
         meta.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0) +
-        meta.natives.filter((n) => n === "Blob" || n === "File").length;
+        meta.natives.filter(
+          (native) => native.name === "Blob" || native.name === "File",
+        ).length;
       if (atomics.size > 1) insert("union type is not allowed in array.");
       if (meta.size() !== expected)
         insert(
@@ -151,7 +153,9 @@ export namespace HttpFormDataProgrammer {
         meta.objects.length ||
         meta.sets.length ||
         meta.maps.length ||
-        meta.natives.filter((n) => n !== "Blob" && n !== "File").length
+        meta.natives.filter(
+          (native) => native.name !== "Blob" && native.name !== "File",
+        ).length
       )
         insert("nested object type is not allowed.");
     }
@@ -198,9 +202,9 @@ export namespace HttpFormDataProgrammer {
         ? [value.constants[0]!.type, false]
         : value.templates.length
           ? ["string", false]
-          : value.natives.includes("Blob")
+          : value.natives.some((native) => native.name === "Blob")
             ? ["blob", false]
-            : value.natives.includes("File")
+            : value.natives.some((native) => native.name === "File")
               ? ["file", false]
               : (() => {
                   const meta =
@@ -210,9 +214,9 @@ export namespace HttpFormDataProgrammer {
                     ? [meta.atomics[0]!.type, true]
                     : meta.templates.length
                       ? ["string", true]
-                      : meta.natives.includes("Blob")
+                      : meta.natives.some((native) => native.name === "Blob")
                         ? ["blob", true]
-                        : meta.natives.includes("File")
+                        : meta.natives.some((native) => native.name === "File")
                           ? ["file", true]
                           : [meta.constants[0]!.type, true];
                 })();

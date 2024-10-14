@@ -2,6 +2,7 @@ import { OpenApiV3 } from "@samchon/openapi";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import { MetadataNative } from "../../schemas/metadata/MetadataNative";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_array } from "./application_array";
@@ -70,7 +71,7 @@ export const application_v30_schema = <BlockNever extends boolean>(props: {
     props.metadata.templates.length &&
     AtomicPredicator.template(props.metadata)
   )
-    application_templates(props.metadata).map(insert);
+    application_templates(props.metadata).forEach(insert);
   for (const constant of props.metadata.constants)
     if (
       AtomicPredicator.constant({
@@ -112,8 +113,8 @@ export const application_v30_schema = <BlockNever extends boolean>(props: {
 
   // NATIVES
   for (const native of props.metadata.natives)
-    if (AtomicPredicator.native(native)) {
-      const type: string = native.toLowerCase();
+    if (AtomicPredicator.native(native.name)) {
+      const type: string = native.name.toLowerCase();
       if (props.metadata.atomics.some((a) => a.type === type)) continue;
       else if (type === "boolean")
         insert(
@@ -152,50 +153,46 @@ export const application_v30_schema = <BlockNever extends boolean>(props: {
           )[0]!,
         );
     } else
-      insert(
-        application_v30_native({
-          name: native,
-          components: props.components,
-          nullable: props.metadata.nullable,
-        }),
-      );
+      application_v30_native({
+        native,
+        components: props.components,
+        nullable: props.metadata.nullable,
+      }).forEach(insert);
   if (props.metadata.sets.length)
-    insert(
-      application_v30_native({
+    application_v30_native({
+      native: MetadataNative.create({
         name: "Set",
-        components: props.components,
-        nullable: props.metadata.nullable,
+        tags: [],
       }),
-    );
+      components: props.components,
+      nullable: props.metadata.nullable,
+    }).forEach(insert);
   if (props.metadata.maps.length)
-    insert(
-      application_v30_native({
+    application_v30_native({
+      native: MetadataNative.create({
         name: "Map",
-        components: props.components,
-        nullable: props.metadata.nullable,
+        tags: [],
       }),
-    );
+      components: props.components,
+      nullable: props.metadata.nullable,
+    }).forEach(insert);
 
   // OBJECT
   for (const object of props.metadata.objects)
-    insert(
-      application_v30_object({
-        object: object.type,
-        components: props.components,
-        nullable: props.metadata.nullable,
-      }),
-    );
+    application_v30_object({
+      object,
+      components: props.components,
+      nullable: props.metadata.nullable,
+    }).forEach(insert);
 
   // ALIASES
   for (const alias of props.metadata.aliases)
-    insert(
-      application_v30_alias({
-        alias,
-        blockNever: props.blockNever,
-        components: props.components,
-        nullable: props.metadata.nullable,
-      }),
-    );
+    application_v30_alias({
+      alias,
+      blockNever: props.blockNever,
+      components: props.components,
+      nullable: props.metadata.nullable,
+    }).forEach(insert);
 
   //----
   // RETURNS

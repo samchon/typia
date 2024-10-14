@@ -26,14 +26,14 @@ export namespace LlmSchemaProgrammer {
       output.push("LLM schema does not support Set type.");
     for (const native of metadata.natives)
       if (
-        AtomicPredicator.native(native) === false &&
-        native !== "Date" &&
-        native !== "Blob" &&
-        native !== "File"
+        AtomicPredicator.native(native.name) === false &&
+        native.name !== "Date" &&
+        native.name !== "Blob" &&
+        native.name !== "File"
       )
-        output.push(`LLM schema does not support ${native} type.`);
+        output.push(`LLM schema does not support ${native.name} type.`);
     if (
-      metadata.aliases.some((a) => a.recursive) ||
+      metadata.aliases.some((a) => a.type.recursive) ||
       metadata.arrays.some((a) => a.type.recursive) ||
       metadata.objects.some((o) => o.type.recursive) ||
       metadata.tuples.some((t) => t.type.recursive)

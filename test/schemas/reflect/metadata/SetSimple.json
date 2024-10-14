@@ -77,28 +77,31 @@
               "natives": [],
               "sets": [
                 {
-                  "any": false,
-                  "required": true,
-                  "optional": false,
-                  "nullable": false,
-                  "functions": [],
-                  "atomics": [
-                    {
-                      "type": "boolean",
-                      "tags": []
-                    }
-                  ],
-                  "constants": [],
-                  "templates": [],
-                  "escaped": null,
-                  "rest": null,
-                  "arrays": [],
-                  "tuples": [],
-                  "objects": [],
-                  "aliases": [],
-                  "natives": [],
-                  "sets": [],
-                  "maps": []
+                  "value": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [
+                      {
+                        "type": "boolean",
+                        "tags": []
+                      }
+                    ],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "tags": []
                 }
               ],
               "maps": []
@@ -153,28 +156,31 @@
               "natives": [],
               "sets": [
                 {
-                  "any": false,
-                  "required": true,
-                  "optional": false,
-                  "nullable": false,
-                  "functions": [],
-                  "atomics": [
-                    {
-                      "type": "number",
-                      "tags": []
-                    }
-                  ],
-                  "constants": [],
-                  "templates": [],
-                  "escaped": null,
-                  "rest": null,
-                  "arrays": [],
-                  "tuples": [],
-                  "objects": [],
-                  "aliases": [],
-                  "natives": [],
-                  "sets": [],
-                  "maps": []
+                  "value": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [
+                      {
+                        "type": "number",
+                        "tags": []
+                      }
+                    ],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "tags": []
                 }
               ],
               "maps": []
@@ -229,28 +235,31 @@
               "natives": [],
               "sets": [
                 {
-                  "any": false,
-                  "required": true,
-                  "optional": false,
-                  "nullable": false,
-                  "functions": [],
-                  "atomics": [
-                    {
-                      "type": "string",
-                      "tags": []
-                    }
-                  ],
-                  "constants": [],
-                  "templates": [],
-                  "escaped": null,
-                  "rest": null,
-                  "arrays": [],
-                  "tuples": [],
-                  "objects": [],
-                  "aliases": [],
-                  "natives": [],
-                  "sets": [],
-                  "maps": []
+                  "value": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [
+                      {
+                        "type": "string",
+                        "tags": []
+                      }
+                    ],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "tags": []
                 }
               ],
               "maps": []
@@ -305,28 +314,31 @@
               "natives": [],
               "sets": [
                 {
-                  "any": false,
-                  "required": true,
-                  "optional": false,
-                  "nullable": false,
-                  "functions": [],
-                  "atomics": [],
-                  "constants": [],
-                  "templates": [],
-                  "escaped": null,
-                  "rest": null,
-                  "arrays": [
-                    {
-                      "name": "Array<number>",
-                      "tags": []
-                    }
-                  ],
-                  "tuples": [],
-                  "objects": [],
-                  "aliases": [],
-                  "natives": [],
-                  "sets": [],
-                  "maps": []
+                  "value": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [
+                      {
+                        "name": "Array<number>",
+                        "tags": []
+                      }
+                    ],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "tags": []
                 }
               ],
               "maps": []
@@ -381,28 +393,31 @@
               "natives": [],
               "sets": [
                 {
-                  "any": false,
-                  "required": true,
-                  "optional": false,
-                  "nullable": false,
-                  "functions": [],
-                  "atomics": [],
-                  "constants": [],
-                  "templates": [],
-                  "escaped": null,
-                  "rest": null,
-                  "arrays": [],
-                  "tuples": [],
-                  "objects": [
-                    {
-                      "name": "SetSimple.Person",
-                      "tags": []
-                    }
-                  ],
-                  "aliases": [],
-                  "natives": [],
-                  "sets": [],
-                  "maps": []
+                  "value": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [
+                      {
+                        "name": "SetSimple.Person",
+                        "tags": []
+                      }
+                    ],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "tags": []
                 }
               ],
               "maps": []

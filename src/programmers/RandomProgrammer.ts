@@ -15,7 +15,9 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataAtomic } from "../schemas/metadata/MetadataAtomic";
+import { MetadataMap } from "../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../schemas/metadata/MetadataSet";
 import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
@@ -64,9 +66,9 @@ export namespace RandomProgrammer {
         absorb: true,
         validate: (meta) => {
           const output: string[] = [];
-          if (meta.natives.some((n) => n === "WeakSet"))
+          if (meta.natives.some((native) => native.name === "WeakSet"))
             output.push(`WeakSet is not supported.`);
-          else if (meta.natives.some((n) => n === "WeakMap"))
+          else if (meta.natives.some((native) => native.name === "WeakMap"))
             output.push(`WeakMap is not supported.`);
           return output;
         },
@@ -411,27 +413,27 @@ export namespace RandomProgrammer {
           object: object.type,
         }),
       );
-    for (const name of props.metadata.natives)
+    for (const native of props.metadata.natives)
       expressions.push(
         decode_native({
           context: props.context,
           functor: props.functor,
           explore: props.explore,
-          name,
+          name: native.name,
         }),
       );
-    for (const metadata of props.metadata.sets)
+    for (const set of props.metadata.sets)
       expressions.push(
         decode_set({
           ...props,
-          metadata,
+          set,
         }),
       );
     for (const entry of props.metadata.maps)
       expressions.push(
         decode_map({
           ...props,
-          entry,
+          map: entry,
         }),
       );
 
@@ -694,7 +696,7 @@ export namespace RandomProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     explore: IExplore;
-    metadata: Metadata;
+    set: MetadataSet;
   }) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("Set"),
@@ -705,11 +707,11 @@ export namespace RandomProgrammer {
           array: MetadataArray.create({
             tags: [],
             type: MetadataArrayType.create({
-              value: props.metadata,
+              value: props.set.value,
               recursive: false,
               index: null,
               nullables: [],
-              name: `Set<${props.metadata.getName()}>`,
+              name: props.set.getName(),
             }),
           }),
         })[0]!,
@@ -720,7 +722,7 @@ export namespace RandomProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     explore: IExplore;
-    entry: Metadata.Entry;
+    map: MetadataMap;
   }) =>
     ts.factory.createNewExpression(
       ts.factory.createIdentifier("Map"),
@@ -731,7 +733,7 @@ export namespace RandomProgrammer {
           array: MetadataArray.create({
             tags: [],
             type: MetadataArrayType.create({
-              name: `Map<${props.entry.key.getName()}, ${props.entry.value.getName()}>`,
+              name: props.map.getName(),
               index: null,
               recursive: false,
               nullables: [],
@@ -740,11 +742,11 @@ export namespace RandomProgrammer {
                 tuples: [
                   (() => {
                     const type = MetadataTupleType.create({
-                      name: `[${props.entry.key.getName()}, ${props.entry.value.getName()}]`,
+                      name: `[${props.map.key.getName()}, ${props.map.value.getName()}]`,
                       index: null,
                       recursive: false,
                       nullables: [],
-                      elements: [props.entry.key, props.entry.value],
+                      elements: [props.map.key, props.map.value],
                     });
                     type.of_map = true;
                     return MetadataTuple.create({

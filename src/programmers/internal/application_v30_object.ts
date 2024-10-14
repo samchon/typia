@@ -4,11 +4,12 @@ import { CommentFactory } from "../../factories/CommentFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { application_description } from "./application_description";
+import { application_plugin } from "./application_plugin";
 import { application_v30_schema } from "./application_v30_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -17,12 +18,26 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  */
 export const application_v30_object = (props: {
   components: OpenApiV3.IComponents;
-  object: MetadataObjectType;
+  object: MetadataObject;
+  nullable: boolean;
+}): Array<OpenApiV3.IJsonSchema.IReference | OpenApiV3.IJsonSchema.IObject> =>
+  application_plugin({
+    schema: emplace_object(props),
+    tags: props.object.tags,
+  });
+
+/**
+ * @internal
+ */
+const emplace_object = (props: {
+  components: OpenApiV3.IComponents;
+  object: MetadataObject;
   nullable: boolean;
 }): OpenApiV3.IJsonSchema.IReference | OpenApiV3.IJsonSchema.IObject => {
-  if (props.object.isLiteral() === true) return create_object_schema(props);
+  if (props.object.type.isLiteral() === true)
+    return create_object_schema(props);
 
-  const key: string = `${props.object.name}${props.nullable ? ".Nullable" : ""}`;
+  const key: string = `${props.object.type.name}${props.nullable ? ".Nullable" : ""}`;
   const $ref: string = `#/components/schemas/${key}`;
   if (props.components.schemas?.[key] !== undefined) return { $ref };
 
@@ -38,7 +53,7 @@ export const application_v30_object = (props: {
  */
 const create_object_schema = (props: {
   components: OpenApiV3.IComponents;
-  object: MetadataObjectType;
+  object: MetadataObject;
   nullable: boolean;
 }): OpenApiV3.IJsonSchema.IObject => {
   // ITERATE PROPERTIES
@@ -49,7 +64,7 @@ const create_object_schema = (props: {
   };
   const required: string[] = [];
 
-  for (const property of props.object.properties) {
+  for (const property of props.object.type.properties) {
     if (
       // FUNCTIONAL TYPE
       property.value.functions.length &&
@@ -111,12 +126,12 @@ const create_object_schema = (props: {
     nullable: props.nullable,
     required: required.length ? required : undefined,
     title: (() => {
-      const info: IJsDocTagInfo | undefined = props.object.jsDocTags.find(
+      const info: IJsDocTagInfo | undefined = props.object.type.jsDocTags.find(
         (tag) => tag.name === "title",
       );
       return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
     })(),
-    description: application_description(props.object),
+    description: application_description(props.object.type),
     additionalProperties: join({
       components: props.components,
       extra: extraMeta,

@@ -959,7 +959,10 @@
           "objects": [],
           "aliases": [],
           "natives": [
-            "Uint8Array"
+            {
+              "name": "Uint8Array",
+              "tags": []
+            }
           ],
           "sets": [],
           "maps": []

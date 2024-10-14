@@ -2088,32 +2088,38 @@
           ],
           "aliases": [],
           "natives": [
-            "Uint8Array"
+            {
+              "name": "Uint8Array",
+              "tags": []
+            }
           ],
           "sets": [
             {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "boolean",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "boolean",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
             }
           ],
           "maps": [
@@ -2155,7 +2161,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             }
           ]
         },

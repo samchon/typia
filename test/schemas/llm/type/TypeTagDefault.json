@@ -2,8 +2,7 @@
   "type": "object",
   "properties": {
     "boolean": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "number": {
       "type": "number",
@@ -28,8 +27,7 @@
           "default": "two"
         },
         {
-          "type": "boolean",
-          "default": false
+          "type": "boolean"
         }
       ]
     },
@@ -42,8 +40,7 @@
           "type": "number"
         },
         {
-          "type": "boolean",
-          "default": false
+          "type": "boolean"
         }
       ]
     },
@@ -86,8 +83,7 @@
           "default": 2
         },
         {
-          "type": "boolean",
-          "default": false
+          "type": "boolean"
         }
       ]
     }

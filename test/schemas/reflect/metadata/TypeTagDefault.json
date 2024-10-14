@@ -68,20 +68,7 @@
               "atomics": [
                 {
                   "type": "boolean",
-                  "tags": [
-                    [
-                      {
-                        "target": "boolean",
-                        "name": "Default<false>",
-                        "kind": "default",
-                        "value": false,
-                        "exclusive": true,
-                        "schema": {
-                          "default": false
-                        }
-                      }
-                    ]
-                  ]
+                  "tags": []
                 }
               ],
               "constants": [],
@@ -378,20 +365,7 @@
                 },
                 {
                   "type": "boolean",
-                  "tags": [
-                    [
-                      {
-                        "target": "boolean",
-                        "name": "Default<false>",
-                        "kind": "default",
-                        "value": false,
-                        "exclusive": true,
-                        "schema": {
-                          "default": false
-                        }
-                      }
-                    ]
-                  ]
+                  "tags": []
                 }
               ],
               "constants": [],
@@ -455,20 +429,7 @@
                 },
                 {
                   "type": "boolean",
-                  "tags": [
-                    [
-                      {
-                        "target": "boolean",
-                        "name": "Default<false>",
-                        "kind": "default",
-                        "value": false,
-                        "exclusive": true,
-                        "schema": {
-                          "default": false
-                        }
-                      }
-                    ]
-                  ]
+                  "tags": []
                 }
               ],
               "constants": [],
@@ -695,20 +656,7 @@
                 },
                 {
                   "type": "boolean",
-                  "tags": [
-                    [
-                      {
-                        "target": "boolean",
-                        "name": "Default<false>",
-                        "kind": "default",
-                        "value": false,
-                        "exclusive": true,
-                        "schema": {
-                          "default": false
-                        }
-                      }
-                    ]
-                  ]
+                  "tags": []
                 }
               ],
               "constants": [],
@@ -767,7 +715,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

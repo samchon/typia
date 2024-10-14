@@ -4,11 +4,12 @@ import { CommentFactory } from "../../factories/CommentFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { application_description } from "./application_description";
+import { application_plugin } from "./application_plugin";
 import { application_title } from "./application_title";
 import { application_v31_schema } from "./application_v31_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
@@ -18,11 +19,21 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  */
 export const application_v31_object = (props: {
   components: OpenApi.IComponents;
-  object: MetadataObjectType;
-}): OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject => {
-  if (props.object.isLiteral() === true) return create_object_schema(props);
+  object: MetadataObject;
+}): Array<OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject> =>
+  application_plugin({
+    schema: emplace_object(props),
+    tags: props.object.tags,
+  });
 
-  const key: string = props.object.name;
+const emplace_object = (props: {
+  components: OpenApi.IComponents;
+  object: MetadataObject;
+}): OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject => {
+  if (props.object.type.isLiteral() === true)
+    return create_object_schema(props);
+
+  const key: string = props.object.type.name;
   const $ref: string = `#/components/schemas/${key}`;
   if (props.components.schemas?.[key] !== undefined) return { $ref };
 
@@ -38,7 +49,7 @@ export const application_v31_object = (props: {
  */
 const create_object_schema = (props: {
   components: OpenApi.IComponents;
-  object: MetadataObjectType;
+  object: MetadataObject;
 }): OpenApi.IJsonSchema.IObject => {
   // ITERATE PROPERTIES
   const properties: Record<string, any> = {};
@@ -48,7 +59,7 @@ const create_object_schema = (props: {
   };
   const required: string[] = [];
 
-  for (const property of props.object.properties) {
+  for (const property of props.object.type.properties) {
     if (
       // FUNCTIONAL TYPE
       property.value.functions.length &&
@@ -93,12 +104,12 @@ const create_object_schema = (props: {
     properties,
     required: required.length ? required : undefined,
     title: (() => {
-      const info: IJsDocTagInfo | undefined = props.object.jsDocTags.find(
+      const info: IJsDocTagInfo | undefined = props.object.type.jsDocTags.find(
         (tag) => tag.name === "title",
       );
       return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
     })(),
-    description: application_description(props.object),
+    description: application_description(props.object.type),
     additionalProperties: join({
       components: props.components,
       extra: extraMeta,

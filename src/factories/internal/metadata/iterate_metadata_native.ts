@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { MetadataNative } from "../../../schemas/metadata/MetadataNative";
+
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
@@ -22,7 +24,15 @@ export const iterate_metadata_native = (
       info: simple,
     })
   ) {
-    ArrayUtil.set(props.metadata.natives, name, (str) => str);
+    ArrayUtil.take(
+      props.metadata.natives,
+      (native) => native.name === name,
+      () =>
+        MetadataNative.create({
+          name,
+          tags: [],
+        }),
+    );
     return true;
   }
 
@@ -35,7 +45,15 @@ export const iterate_metadata_native = (
         info: generic,
       })
     ) {
-      ArrayUtil.set(props.metadata.natives, generic.name ?? name, (str) => str);
+      ArrayUtil.take(
+        props.metadata.natives,
+        (native) => native.name === name,
+        () =>
+          MetadataNative.create({
+            name: generic.name ?? name,
+            tags: [],
+          }),
+      );
       return true;
     }
   return false;

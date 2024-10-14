@@ -1,7 +1,8 @@
 import { IMetadata } from "./IMetadata";
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
-export interface IMetadataTemplate {
-  row: IMetadata[];
+export interface IMetadataMap {
+  key: IMetadata;
+  value: IMetadata;
   tags: IMetadataTypeTag[][];
 }

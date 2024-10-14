@@ -235,10 +235,10 @@ export namespace JsonStringifyProgrammer {
         type: "resolved",
         is:
           props.metadata.escaped.original.size() === 1 &&
-          props.metadata.escaped.original.natives[0] === "Date"
+          props.metadata.escaped.original.natives[0]?.name === "Date"
             ? () =>
                 check_native({
-                  type: "Date",
+                  name: "Date",
                   input: props.input,
                 })
             : () =>
@@ -427,14 +427,14 @@ export namespace JsonStringifyProgrammer {
           type: "object",
           is: () =>
             check_native({
-              type: native,
+              name: native.name,
               input: props.input,
             }),
           value: () =>
-            AtomicPredicator.native(native)
+            AtomicPredicator.native(native.name)
               ? decode_atomic({
                   ...props,
-                  type: native.toLowerCase() as Atomic.Literal,
+                  type: native.name.toLowerCase() as Atomic.Literal,
                 })
               : ts.factory.createStringLiteral("{}"),
         });

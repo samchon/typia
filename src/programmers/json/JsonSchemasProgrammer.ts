@@ -30,12 +30,12 @@ export namespace JsonSchemasProgrammer {
       output.push("JSON schema does not support Set type.");
     for (const native of metadata.natives)
       if (
-        AtomicPredicator.native(native) === false &&
-        native !== "Date" &&
-        native !== "Blob" &&
-        native !== "File"
+        AtomicPredicator.native(native.name) === false &&
+        native.name !== "Date" &&
+        native.name !== "Blob" &&
+        native.name !== "File"
       )
-        output.push(`JSON schema does not support ${native} type.`);
+        output.push(`JSON schema does not support ${native.name} type.`);
     return output;
   };
 
