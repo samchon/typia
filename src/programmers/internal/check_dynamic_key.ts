@@ -28,7 +28,7 @@ export const check_dynamic_key = (props: {
             .length === 0,
       )) ||
     (props.metadata.natives.length !== 0 &&
-      props.metadata.natives.some((type) => type === "String"))
+      props.metadata.natives.some((native) => native.name === "String"))
   )
     return ts.factory.createTrue();
 
@@ -135,7 +135,7 @@ export const check_dynamic_key = (props: {
 
   // NATIVES
   for (const native of props.metadata.natives)
-    if (native === "Boolean")
+    if (native.name === "Boolean")
       conditions.push(
         ts.factory.createLogicalOr(
           ts.factory.createStrictEquality(
@@ -148,7 +148,7 @@ export const check_dynamic_key = (props: {
           ),
         ),
       );
-    else if (native === "BigInt")
+    else if (native.name === "BigInt")
       conditions.push(
         ts.factory.createCallExpression(
           props.context.importer.internal("isBigintString"),
@@ -156,7 +156,7 @@ export const check_dynamic_key = (props: {
           [props.input],
         ),
       );
-    else if (native === "Number")
+    else if (native.name === "Number")
       conditions.push(
         ts.factory.createStrictEquality(
           ts.factory.createFalse(),

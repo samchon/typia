@@ -1,9 +1,16 @@
 import { TagBase } from "./TagBase";
 
 export type Example<
-  Value extends boolean | bigint | number | string | Array<unknown> | null,
+  Value extends
+    | boolean
+    | bigint
+    | number
+    | string
+    | object
+    | Array<unknown>
+    | null,
 > = TagBase<{
-  target: "boolean" | "bigint" | "number" | "string" | "array";
+  target: "boolean" | "bigint" | "number" | "string" | "array" | "object";
   kind: "example";
   value: Value;
   exclusive: true;

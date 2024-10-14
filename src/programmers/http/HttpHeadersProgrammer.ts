@@ -9,7 +9,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
@@ -56,7 +56,7 @@ export namespace HttpHeadersProgrammer {
       });
 
     // DO TRANSFORM
-    const object: MetadataObject = result.data.objects[0]!;
+    const object: MetadataObjectType = result.data.objects[0]!.type;
     const statements: ts.Statement[] = decode_object({
       context: props.context,
       object,
@@ -204,7 +204,7 @@ export namespace HttpHeadersProgrammer {
 
   const decode_object = (props: {
     context: ITypiaContext;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ts.Statement[] => {
     const output: ts.Identifier = ts.factory.createIdentifier("output");
     const optionals: string[] = [];

@@ -31,7 +31,7 @@ export const iterate_metadata = (props: IMetadataIteratorProps): void => {
     return;
   }
   // CHECK SPECIAL CASES
-  else if (
+  if (
     (props.explore.aliased !== true && iterate_metadata_alias(props)) ||
     iterate_metadata_intersection(props) ||
     iterate_metadata_union(props) ||

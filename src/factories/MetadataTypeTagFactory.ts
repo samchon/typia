@@ -1,16 +1,40 @@
 import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 
 import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagSchemaFactory } from "./MetadataTypeTagSchemaFactory";
 
 export namespace MetadataTypeTagFactory {
+  export const is = (obj: MetadataObjectType): boolean => {
+    if (obj.properties.length !== 1) return false;
+
+    const top: MetadataProperty = obj.properties[0]!;
+    if (top.key.isSoleLiteral() === false) return false;
+    else if (top.key.getSoleLiteral() !== "typia.tag") return false;
+
+    const value: Metadata = top.value;
+    if (
+      value.size() !== 1 ||
+      value.objects.length !== 1 ||
+      value.isRequired() === true ||
+      value.nullable === true
+    )
+      return false;
+
+    const tag: MetadataObjectType = top.value.objects[0]!.type;
+    const statics: string[] = tag.properties
+      .map((p) => p.key.getSoleLiteral()!)
+      .filter((str) => str !== null);
+    if (ESSENTIAL_FIELDS.some((f) => !statics.includes(f))) return false;
+    return true;
+  };
+
   export const analyze = (props: {
     errors: MetadataFactory.IError[];
-    type: "boolean" | "bigint" | "number" | "string" | "array";
-    objects: MetadataObject[];
+    type: "boolean" | "bigint" | "number" | "string" | "array" | "object";
+    objects: MetadataObjectType[];
     explore: MetadataFactory.IExplore;
   }): IMetadataTypeTag[] => {
     const messages: string[] = [];
@@ -31,7 +55,7 @@ export namespace MetadataTypeTagFactory {
     //----
     // VALIDATION PROCESS
     //----
-    const filtered: MetadataObject[] = props.objects.filter((obj) => {
+    const filtered: MetadataObjectType[] = props.objects.filter((obj) => {
       // ONLY ONE PROPERTY
       if (obj.properties.length !== 1) return false;
 
@@ -50,7 +74,7 @@ export namespace MetadataTypeTagFactory {
         });
 
       // CHECK LIST OF PROPERTIES
-      const tag: MetadataObject = top.value.objects[0]!;
+      const tag: MetadataObjectType = top.value.objects[0]!.type;
       const statics: string[] = tag.properties
         .map((p) => p.key.getSoleLiteral()!)
         .filter((str) => str !== null);
@@ -120,7 +144,7 @@ export namespace MetadataTypeTagFactory {
 
   export const validate = (props: {
     report: (next: { property: string | null; message: string }) => false;
-    type: "boolean" | "bigint" | "number" | "string" | "array";
+    type: "boolean" | "bigint" | "number" | "string" | "array" | "object";
     tags: IMetadataTypeTag[];
   }): boolean => {
     let success: boolean = true;
@@ -176,12 +200,13 @@ export namespace MetadataTypeTagFactory {
             v.value !== "bigint" &&
             v.value !== "number" &&
             v.value !== "string" &&
-            v.value !== "array",
+            v.value !== "array" &&
+            v.value !== "object",
         ))
     )
       return props.report({
         property: props.key,
-        message: `must be one of 'boolean', 'bigint', 'number', 'string', 'array'`,
+        message: `must be one of 'boolean', 'bigint', 'number', 'string', 'array', 'object'`,
       });
     else if (
       // KIND
@@ -230,18 +255,19 @@ export namespace MetadataTypeTagFactory {
         return true;
 
       // RECORD<TARGET, STRING>
-      const target: string[] | undefined = props.value.objects[0]?.properties
-        .map((p) => p.key.getSoleLiteral()!)
-        .filter((str) => str !== null) as string[] | undefined;
+      const target: string[] | undefined =
+        props.value.objects[0]?.type.properties
+          .map((p) => p.key.getSoleLiteral()!)
+          .filter((str) => str !== null) as string[] | undefined;
       if (target === undefined)
         return props.report({
           property: "target",
-          message: `must be one of 'boolean', 'bigint', 'number', 'string', 'array'`,
+          message: `must be one of 'boolean', 'bigint', 'number', 'string', 'array', 'object`,
         });
       const variadic: boolean =
         props.value.size() === 1 &&
         props.value.objects.length === 1 &&
-        props.value.objects[0]!.properties.every(
+        props.value.objects[0]!.type.properties.every(
           (vp) =>
             vp.value.size() === 1 &&
             vp.value.isRequired() &&
@@ -262,10 +288,10 @@ export namespace MetadataTypeTagFactory {
 
   const create_metadata_type_tag = (props: {
     report: (next: { property: string | null; message: string }) => false;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ITypeTag | null => {
     const find = (key: string): MetadataProperty | undefined =>
-      props.object.properties[0]?.value.objects[0]?.properties.find(
+      props.object.properties[0]?.value.objects[0]?.type.properties.find(
         (p) => p.key.getSoleLiteral() === key,
       );
 
@@ -294,7 +320,7 @@ export namespace MetadataTypeTagFactory {
           ]),
         );
       return Object.fromEntries(
-        validate.objects[0]!.properties.map((p) => [
+        validate.objects[0]!.type.properties.map((p) => [
           p.key.getSoleLiteral()!,
           p.value.constants[0]!.values[0]!.value as string,
         ]),
@@ -316,7 +342,7 @@ export namespace MetadataTypeTagFactory {
               property: "schema",
               message,
             }),
-          object: p.objects[0]!,
+          object: p.objects[0]!.type,
         });
       props.report({
         property: "schema",
@@ -373,7 +399,7 @@ export namespace MetadataTypeTagFactory {
 
 interface ITypeTag {
   name: string;
-  target: Array<"bigint" | "number" | "string" | "array">;
+  target: Array<"bigint" | "number" | "string" | "array" | "object">;
   kind: string;
   value?: undefined | boolean | bigint | number | string;
   validate: Record<string, string>;

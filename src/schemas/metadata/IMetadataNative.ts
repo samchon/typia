@@ -1,6 +1,6 @@
 import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
-export interface IMetadataArray {
+export interface IMetadataNative {
   name: string;
   tags: IMetadataTypeTag[][];
 }

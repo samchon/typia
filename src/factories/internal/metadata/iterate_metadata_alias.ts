@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { MetadataAlias } from "../../../schemas/metadata/MetadataAlias";
+import { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -18,11 +19,15 @@ export const iterate_metadata_alias = (
   if (node === undefined) return false;
 
   // CONSTRUCT DEFINITION
-  const alias: MetadataAlias = emplace_metadata_alias(props);
-  ArrayUtil.add(
+  const type: MetadataAliasType = emplace_metadata_alias(props);
+  ArrayUtil.take(
     props.metadata.aliases,
-    alias,
-    (elem) => elem.name === alias.name,
+    (elem) => elem.type.name === type.name,
+    () =>
+      MetadataAlias.create({
+        type,
+        tags: [],
+      }),
   );
   return true;
 };

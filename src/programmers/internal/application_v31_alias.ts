@@ -14,18 +14,21 @@ export const application_v31_alias = <BlockNever extends boolean>(props: {
   blockNever: BlockNever;
   components: OpenApi.IComponents;
   alias: MetadataAlias;
-}): OpenApi.IJsonSchema.IReference => {
-  if (props.alias.value.size() === 1 && props.alias.value.objects.length === 1)
+}): OpenApi.IJsonSchema.IReference[] => {
+  if (
+    props.alias.type.value.size() === 1 &&
+    props.alias.type.value.objects.length === 1
+  )
     return application_v31_object({
       components: props.components,
-      object: props.alias.value.objects[0]!,
-    }) as OpenApi.IJsonSchema.IReference;
+      object: props.alias.type.value.objects[0]!,
+    }) as OpenApi.IJsonSchema.IReference[];
 
-  const $ref: string = `#/components/schemas/${props.alias.name}`;
-  if (props.components.schemas?.[props.alias.name] === undefined) {
+  const $ref: string = `#/components/schemas/${props.alias.type.name}`;
+  if (props.components.schemas?.[props.alias.type.name] === undefined) {
     // TEMPORARY ASSIGNMENT
     props.components.schemas ??= {};
-    props.components.schemas[props.alias.name] = {};
+    props.components.schemas[props.alias.type.name] = {};
 
     // GENERATE SCHEMA
     const schema: OpenApi.IJsonSchema | null = application_v31_schema({
@@ -33,15 +36,15 @@ export const application_v31_alias = <BlockNever extends boolean>(props: {
       components: props.components,
       attribute: {
         deprecated:
-          props.alias.jsDocTags.some((tag) => tag.name === "deprecated") ||
+          props.alias.type.jsDocTags.some((tag) => tag.name === "deprecated") ||
           undefined,
-        title: application_title(props.alias),
-        description: application_description(props.alias),
+        title: application_title(props.alias.type),
+        description: application_description(props.alias.type),
       },
-      metadata: props.alias.value,
+      metadata: props.alias.type.value,
     });
     if (schema !== null)
-      Object.assign(props.components.schemas[props.alias.name]!, schema);
+      Object.assign(props.components.schemas[props.alias.type.name]!, schema);
   }
-  return { $ref };
+  return [{ $ref }];
 };

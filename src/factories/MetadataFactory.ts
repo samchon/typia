@@ -1,11 +1,12 @@
 import ts from "typescript";
 
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
+import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
 import { MetadataFunction } from "../schemas/metadata/MetadataFunction";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
 import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";
@@ -36,9 +37,9 @@ export namespace MetadataFactory {
   }
   export interface IExplore {
     top: boolean;
-    object: MetadataObject | null;
+    object: MetadataObjectType | null;
     property: string | object | null;
-    nested: null | MetadataAlias | MetadataArrayType | MetadataTupleType;
+    nested: null | MetadataAliasType | MetadataArrayType | MetadataTupleType;
     parameter: string | null;
     output: boolean;
     escaped: boolean;
@@ -185,7 +186,7 @@ export namespace MetadataFactory {
     for (const alias of props.metadata.aliases)
       validateAlias({
         ...props,
-        alias,
+        alias: alias.type,
       });
     for (const array of props.metadata.arrays)
       validateArray({
@@ -200,7 +201,7 @@ export namespace MetadataFactory {
     for (const object of props.metadata.objects)
       validateObject({
         ...props,
-        object,
+        object: object.type,
       });
     for (const func of props.metadata.functions)
       validateFunction({
@@ -210,7 +211,7 @@ export namespace MetadataFactory {
     for (const set of props.metadata.sets)
       validateMeta({
         ...props,
-        metadata: set,
+        metadata: set.value,
       });
     for (const map of props.metadata.maps) {
       validateMeta({
@@ -238,7 +239,7 @@ export namespace MetadataFactory {
     transformer?: ts.TransformationContext;
     options: IOptions;
     visitor: IValidationVisitor;
-    alias: MetadataAlias;
+    alias: MetadataAliasType;
     explore: IExplore;
   }) => {
     if (props.visitor.aliases.has(props.alias)) return;
@@ -302,7 +303,7 @@ export namespace MetadataFactory {
     transformer?: ts.TransformationContext;
     options: IOptions;
     visitor: IValidationVisitor;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }) => {
     if (props.visitor.objects.has(props.object)) return;
     props.visitor.objects.add(props.object);
@@ -321,7 +322,12 @@ export namespace MetadataFactory {
       const errors: string[] = props.options.validate(
         Metadata.create({
           ...Metadata.initialize(),
-          objects: [props.object],
+          objects: [
+            MetadataObject.create({
+              type: props.object,
+              tags: [],
+            }),
+          ],
         }),
         explore,
       );
@@ -391,10 +397,10 @@ export namespace MetadataFactory {
   interface IValidationVisitor {
     functor: Validator;
     errors: IError[];
-    objects: Set<MetadataObject>;
+    objects: Set<MetadataObjectType>;
     arrays: Set<MetadataArrayType>;
     tuples: Set<MetadataTupleType>;
-    aliases: Set<MetadataAlias>;
+    aliases: Set<MetadataAliasType>;
     functions: Set<MetadataFunction>;
   }
 }

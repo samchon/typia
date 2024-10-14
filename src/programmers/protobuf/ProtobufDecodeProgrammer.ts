@@ -11,7 +11,8 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
@@ -93,7 +94,7 @@ export namespace ProtobufDecodeProgrammer {
             ts.factory.createReturnStatement(
               decode_regular_object({
                 top: true,
-                object: meta.objects[0]!,
+                object: meta.objects[0]!.type,
               }),
             ),
           ],
@@ -121,7 +122,7 @@ export namespace ProtobufDecodeProgrammer {
   const write_object_function = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ts.ArrowFunction =>
     ts.factory.createArrowFunction(
       undefined,
@@ -311,7 +312,7 @@ export namespace ProtobufDecodeProgrammer {
                   ? ts.factory.createStringLiteral("")
                   : value.objects.length &&
                       value.objects.some(
-                        (obj) => !ProtobufUtil.isStaticObject(obj),
+                        (obj) => !ProtobufUtil.isStaticObject(obj.type),
                       )
                     ? ts.factory.createObjectLiteralExpression()
                     : ts.factory.createIdentifier("undefined"),
@@ -390,17 +391,17 @@ export namespace ProtobufDecodeProgrammer {
       );
     for (const object of props.metadata.objects)
       emplace(
-        object.name,
-        ProtobufUtil.isStaticObject(object)
+        object.type.name,
+        ProtobufUtil.isStaticObject(object.type)
           ? decode_regular_object({
               top: false,
-              object,
+              object: object.type,
             })
           : decode_dynamic_object({
               context: props.context,
               functor: props.functor,
               accessor: props.accessor,
-              object,
+              object: object.type,
               required,
             }),
       );
@@ -469,7 +470,7 @@ export namespace ProtobufDecodeProgrammer {
           ? () =>
               decode_regular_object({
                 top: false,
-                object: props.array.type.value.objects[0]!,
+                object: props.array.type.value.objects[0]!.type,
               })
           : null;
     if (decoder === null) throw new Error("Never reach here.");
@@ -544,7 +545,7 @@ export namespace ProtobufDecodeProgrammer {
 
   const decode_regular_object = (props: {
     top: boolean;
-    object: MetadataObject;
+    object: MetadataObjectType;
   }): ts.Expression =>
     ts.factory.createCallExpression(
       ts.factory.createIdentifier(`${PREFIX}o${props.object.index}`),
@@ -567,7 +568,7 @@ export namespace ProtobufDecodeProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     required: boolean;
   }): ts.Statement[] => {
     const top: MetadataProperty = props.object.properties[0]!;
@@ -610,7 +611,7 @@ export namespace ProtobufDecodeProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
-    entry: Metadata.Entry;
+    entry: MetadataMap | MetadataProperty;
     required: boolean;
   }): ts.Statement[] =>
     decode_entry({
@@ -644,7 +645,7 @@ export namespace ProtobufDecodeProgrammer {
     functor: FunctionProgrammer;
     initializer: () => ts.Expression;
     setter: () => ts.Expression;
-    entry: Metadata.Entry;
+    entry: MetadataMap | MetadataProperty;
     required: boolean;
   }): ts.Statement[] => {
     const statements: ts.Statement[] = [

@@ -99,8 +99,8 @@ export const llm_schema_station = (props: {
 
   // NATIVES
   for (const native of props.metadata.natives)
-    if (AtomicPredicator.native(native)) {
-      const type: string = native.toLowerCase();
+    if (AtomicPredicator.native(native.name)) {
+      const type: string = native.name.toLowerCase();
       if (props.metadata.atomics.some((a) => a.type === type)) continue;
       else if (type === "boolean")
         insert(
@@ -138,27 +138,25 @@ export const llm_schema_station = (props: {
             }),
           )[0]!,
         );
-    } else insert(llm_schema_native(native));
+    } else insert(llm_schema_native(native.name));
   if (props.metadata.sets.length) insert(llm_schema_native("Set"));
   if (props.metadata.maps.length) insert(llm_schema_native("Map"));
 
   // OBJECT
   for (const object of props.metadata.objects)
-    if (object.recursive)
+    if (object.type.recursive)
       throw new Error(
         "Error on LlmSchemaProgrammer.write(): LLM schema does not allow recursive object type.",
       );
     else
-      insert(
-        llm_schema_object({
-          object,
-          nullable: props.metadata.nullable,
-        }),
-      );
+      llm_schema_object({
+        object,
+        nullable: props.metadata.nullable,
+      }).forEach(insert);
 
   // ALIASES
   for (const alias of props.metadata.aliases)
-    if (alias.recursive)
+    if (alias.type.recursive)
       throw new Error(
         "Error on LlmSchemaProgrammer.write(): LLM schema does not allow recursive alias type.",
       );
@@ -166,7 +164,7 @@ export const llm_schema_station = (props: {
       insert(
         llm_schema_station({
           ...props,
-          metadata: alias.value,
+          metadata: alias.type.value,
         }),
       );
 

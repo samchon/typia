@@ -3,7 +3,7 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { IJsonApplication } from "../../schemas/json/IJsonApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { IJsDocTagInfo } from "../../module";
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
@@ -26,7 +26,7 @@ export namespace JsonApplicationProgrammer {
         "JSON application's generic arugment must be a class/interface type.",
       );
 
-    const object: MetadataObject | undefined = metadata.objects[0];
+    const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
     if (object !== undefined) {
       if (object.properties.some((p) => p.key.isSoleLiteral() === false))
         output.push("JSON application does not allow dynamic keys.");
@@ -74,7 +74,7 @@ export namespace JsonApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const object: MetadataObject = props.metadata.objects[0]!;
+    const object: MetadataObjectType = props.metadata.objects[0]!.type;
     const definitions: Metadata[] = [];
     const setters: Array<(schema: IJsonApplication.Schema<Version>) => void> =
       [];

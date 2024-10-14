@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { MetadataMap } from "../../../schemas/metadata/MetadataMap";
+
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
@@ -26,7 +28,7 @@ export const iterate_metadata_map = (
 
   ArrayUtil.set(
     props.metadata.maps,
-    {
+    MetadataMap.create({
       key: explore_metadata({
         ...props,
         type: key,
@@ -45,7 +47,8 @@ export const iterate_metadata_map = (
           aliased: false,
         },
       }),
-    },
+      tags: [],
+    }),
     (elem) => `Map<${elem.key.getName()}, ${elem.value.getName()}>`,
   );
   return true;

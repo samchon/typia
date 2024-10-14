@@ -9,7 +9,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -221,7 +221,7 @@ export namespace MiscPruneProgrammer {
       for (const native of props.metadata.natives)
         unions.push({
           type: "native",
-          is: () => ExpressionFactory.isInstanceOf(native, props.input),
+          is: () => ExpressionFactory.isInstanceOf(native.name, props.input),
           value: () => ts.factory.createReturnStatement(),
         });
     if (props.metadata.sets.length)
@@ -274,7 +274,7 @@ export namespace MiscPruneProgrammer {
   const decode_object = (props: {
     functor: FunctionProgrammer;
     input: ts.Expression;
-    object: MetadataObject;
+    object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }) =>
     FeatureProgrammer.decode_object({
@@ -431,7 +431,7 @@ export namespace MiscPruneProgrammer {
     if (props.metadata.objects.length === 1)
       return decode_object({
         ...props,
-        object: props.metadata.objects[0]!,
+        object: props.metadata.objects[0]!.type,
       });
 
     return ts.factory.createCallExpression(

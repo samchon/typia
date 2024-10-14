@@ -6,7 +6,9 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -22,7 +24,7 @@ export namespace UnionExplorer {
       explore: FeatureProgrammer.IExplore;
     }): ts.Expression;
   }
-  export type ObjectCombiner = Decoder<MetadataObject[]>;
+  export type ObjectCombiner = Decoder<MetadataObjectType[]>;
 
   /* -----------------------------------------------------------
         OBJECT
@@ -30,7 +32,7 @@ export namespace UnionExplorer {
   export const object = (props: {
     config: FeatureProgrammer.IConfig;
     level?: number;
-    objects: MetadataObject[];
+    objects: MetadataObjectType[];
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression => {
@@ -64,7 +66,7 @@ export namespace UnionExplorer {
           })
         : condition;
     }
-    const remained: MetadataObject[] = props.objects.filter(
+    const remained: MetadataObjectType[] = props.objects.filter(
       (t) => specList.find((s) => s.object === t) === undefined,
     );
 
@@ -236,7 +238,7 @@ export namespace UnionExplorer {
     config: set.IConfig;
     parameters: ts.ParameterDeclaration[];
     input: ts.Expression;
-    sets: Metadata[];
+    sets: MetadataSet[];
     explore: FeatureProgrammer.IExplore;
   }) =>
     check_union_array_like<Metadata, MetadataArray, Metadata>({
@@ -280,7 +282,7 @@ export namespace UnionExplorer {
       },
       parameters: props.parameters,
       input: props.input,
-      definitions: props.sets,
+      definitions: props.sets.map((s) => s.value),
       explore: props.explore,
     });
   export namespace set {
@@ -294,74 +296,72 @@ export namespace UnionExplorer {
     config: map.IConfig;
     parameters: ts.ParameterDeclaration[];
     input: ts.Expression;
-    maps: Metadata.Entry[];
+    maps: MetadataMap[];
     explore: FeatureProgrammer.IExplore;
   }) =>
-    check_union_array_like<Metadata.Entry, MetadataArray, [Metadata, Metadata]>(
-      {
-        config: props.config,
-        accessor: {
-          element: (array) =>
-            array.type.value.tuples[0]!.type.elements as [Metadata, Metadata],
-          size: (input) => IdentifierFactory.access(input, "size"),
-          front: (input) =>
-            IdentifierFactory.access(
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(input, "entries"),
-                    undefined,
-                    undefined,
-                  ),
-                  "next",
+    check_union_array_like<MetadataMap, MetadataArray, [Metadata, Metadata]>({
+      config: props.config,
+      accessor: {
+        element: (array) =>
+          array.type.value.tuples[0]!.type.elements as [Metadata, Metadata],
+        size: (input) => IdentifierFactory.access(input, "size"),
+        front: (input) =>
+          IdentifierFactory.access(
+            ts.factory.createCallExpression(
+              IdentifierFactory.access(
+                ts.factory.createCallExpression(
+                  IdentifierFactory.access(input, "entries"),
+                  undefined,
+                  undefined,
                 ),
-                undefined,
-                undefined,
+                "next",
               ),
-              "value",
+              undefined,
+              undefined,
             ),
-          array: (input) =>
-            ts.factory.createArrayLiteralExpression(
-              [ts.factory.createSpreadElement(input)],
-              false,
-            ),
-          name: (_m, [k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
-          transform: (m: Metadata.Entry) =>
-            MetadataArray.create({
-              tags: [],
-              type: MetadataArrayType.create({
-                name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
-                index: null,
-                recursive: false,
-                nullables: [],
-                value: Metadata.create({
-                  ...Metadata.initialize(),
-                  tuples: [
-                    (() => {
-                      const tuple = MetadataTuple.create({
-                        tags: [],
-                        type: MetadataTupleType.create({
-                          name: `[${m.key.getName()}, ${m.value.getName()}]`,
-                          index: null,
-                          recursive: false,
-                          nullables: [],
-                          elements: [m.key, m.value],
-                        }),
-                      });
-                      tuple.type.of_map = true;
-                      return tuple;
-                    })(),
-                  ],
-                }),
+            "value",
+          ),
+        array: (input) =>
+          ts.factory.createArrayLiteralExpression(
+            [ts.factory.createSpreadElement(input)],
+            false,
+          ),
+        name: (_m, [k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+        transform: (m: MetadataMap) =>
+          MetadataArray.create({
+            tags: [],
+            type: MetadataArrayType.create({
+              name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
+              index: null,
+              recursive: false,
+              nullables: [],
+              value: Metadata.create({
+                ...Metadata.initialize(),
+                tuples: [
+                  (() => {
+                    const tuple = MetadataTuple.create({
+                      tags: [],
+                      type: MetadataTupleType.create({
+                        name: `[${m.key.getName()}, ${m.value.getName()}]`,
+                        index: null,
+                        recursive: false,
+                        nullables: [],
+                        elements: [m.key, m.value],
+                      }),
+                    });
+                    tuple.type.of_map = true;
+                    return tuple;
+                  })(),
+                ],
               }),
             }),
-        },
-        parameters: props.parameters,
-        input: props.input,
-        definitions: props.maps,
-        explore: props.explore,
+          }),
       },
-    );
+      parameters: props.parameters,
+      input: props.input,
+      definitions: props.maps,
+      explore: props.explore,
+    });
 
   export namespace map {
     export type IConfig = check_union_array_like.IConfig<

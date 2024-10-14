@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -21,7 +22,14 @@ export const iterate_metadata_object = (
       return false;
   }
 
-  const obj: MetadataObject = emplace_metadata_object(props);
-  ArrayUtil.add(props.metadata.objects, obj, (elem) => elem.name === obj.name);
+  const obj: MetadataObjectType = emplace_metadata_object(props);
+  ArrayUtil.add(
+    props.metadata.objects,
+    MetadataObject.create({
+      type: obj,
+      tags: [],
+    }),
+    (elem) => elem.type.name === obj.name,
+  );
   return true;
 };

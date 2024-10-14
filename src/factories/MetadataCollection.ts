@@ -2,9 +2,9 @@ import ts from "typescript";
 
 import { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
+import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
 import { Writable } from "../typings/Writable";
@@ -15,9 +15,9 @@ import { CommentFactory } from "./CommentFactory";
 import { TypeFactory } from "./TypeFactory";
 
 export class MetadataCollection {
-  private objects_: Map<ts.Type, MetadataObject>;
-  private object_unions_: Map<string, MetadataObject[]>;
-  private aliases_: Map<ts.Type, MetadataAlias>;
+  private objects_: Map<ts.Type, MetadataObjectType>;
+  private object_unions_: Map<string, MetadataObjectType[]>;
+  private aliases_: Map<ts.Type, MetadataAliasType>;
   private arrays_: Map<ts.Type, MetadataArrayType>;
   private tuples_: Map<ts.Type, MetadataTupleType>;
 
@@ -58,15 +58,15 @@ export class MetadataCollection {
   /* -----------------------------------------------------------
         ACCESSORS
     ----------------------------------------------------------- */
-  public aliases(): MetadataAlias[] {
+  public aliases(): MetadataAliasType[] {
     return [...this.aliases_.values()];
   }
 
-  public objects(): MetadataObject[] {
+  public objects(): MetadataObjectType[] {
     return [...this.objects_.values()];
   }
 
-  public unions(): MetadataObject[][] {
+  public unions(): MetadataObjectType[][] {
     return [...this.object_unions_.values()];
   }
 
@@ -106,8 +106,10 @@ export class MetadataCollection {
    * @internal
    */
   public getUnionIndex(meta: Metadata): number {
-    const key: string = meta.objects.map((obj) => obj.name).join(" | ");
-    MapUtil.take(this.object_unions_, key, () => meta.objects);
+    const key: string = meta.objects.map((obj) => obj.type.name).join(" | ");
+    MapUtil.take(this.object_unions_, key, () =>
+      meta.objects.map((o) => o.type),
+    );
     return [...this.object_unions_.keys()].indexOf(key);
   }
 
@@ -117,12 +119,12 @@ export class MetadataCollection {
   public emplace(
     checker: ts.TypeChecker,
     type: ts.Type,
-  ): [MetadataObject, boolean] {
+  ): [MetadataObjectType, boolean] {
     const oldbie = this.objects_.get(type);
     if (oldbie !== undefined) return [oldbie, false];
 
     const $id: string = this.getName(checker, type);
-    const obj: MetadataObject = MetadataObject.create({
+    const obj: MetadataObjectType = MetadataObjectType.create({
       name: $id,
       properties: [],
       description:
@@ -144,12 +146,12 @@ export class MetadataCollection {
     checker: ts.TypeChecker,
     type: ts.Type,
     symbol: ts.Symbol,
-  ): [MetadataAlias, boolean, (meta: Metadata) => void] {
+  ): [MetadataAliasType, boolean, (meta: Metadata) => void] {
     const oldbie = this.aliases_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
     const $id: string = this.getName(checker, type);
-    const alias: MetadataAlias = MetadataAlias.create({
+    const alias: MetadataAliasType = MetadataAliasType.create({
       name: $id,
       value: null!,
       description: CommentFactory.description(symbol) ?? null,
@@ -202,14 +204,14 @@ export class MetadataCollection {
   /**
    * @internal
    */
-  public setObjectRecursive(obj: MetadataObject, recursive: boolean): void {
+  public setObjectRecursive(obj: MetadataObjectType, recursive: boolean): void {
     Writable(obj).recursive = recursive;
   }
 
   /**
    * @internal
    */
-  public setAliasRecursive(alias: MetadataAlias, recursive: boolean): void {
+  public setAliasRecursive(alias: MetadataAliasType, recursive: boolean): void {
     Writable(alias).recursive = recursive;
   }
 
