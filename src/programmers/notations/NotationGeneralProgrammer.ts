@@ -9,7 +9,9 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -298,19 +300,21 @@ export namespace NotationGeneralProgrammer {
           }),
       });
     for (const native of props.metadata.natives) {
-      if (native === "WeakSet" || native === "WeakMap") continue;
+      if (native.name === "WeakSet" || native.name === "WeakMap") continue;
       unions.push({
         type: "native",
-        is: () => ExpressionFactory.isInstanceOf(native, props.input),
+        is: () => ExpressionFactory.isInstanceOf(native.name, props.input),
         value: () =>
-          native === "Boolean" || native === "Number" || native === "String"
+          native.name === "Boolean" ||
+          native.name === "Number" ||
+          native.name === "String"
             ? ts.factory.createCallExpression(
                 IdentifierFactory.access(props.input, "valueOf"),
                 undefined,
                 undefined,
               )
             : decode_native({
-                name: native,
+                name: native.name,
                 input: props.input,
               }),
       });
@@ -530,7 +534,7 @@ export namespace NotationGeneralProgrammer {
     functor: FunctionProgrammer;
     input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
-    sets: Metadata[];
+    sets: Array<MetadataSet>;
   }): ts.Expression =>
     ts.factory.createCallExpression(
       UnionExplorer.set({
@@ -585,7 +589,7 @@ export namespace NotationGeneralProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    maps: Metadata.Entry[];
+    maps: Array<MetadataMap>;
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
     ts.factory.createCallExpression(

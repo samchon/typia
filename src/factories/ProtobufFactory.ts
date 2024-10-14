@@ -76,11 +76,11 @@ export namespace ProtobufFactory {
     // NATIVE TYPE, BUT NOT Uint8Array
     if (meta.natives.length)
       for (const native of meta.natives) {
-        if (native === "Uint8Array") continue;
+        if (native.name === "Uint8Array") continue;
 
-        const instead = BANNED_NATIVE_TYPES.get(native);
-        if (instead === undefined) noSupport(`${native} type`);
-        else noSupport(`${native} type. Use ${instead} type instead.`);
+        const instead = BANNED_NATIVE_TYPES.get(native.name);
+        if (instead === undefined) noSupport(`${native.name} type`);
+        else noSupport(`${native.name} type. Use ${instead} type instead.`);
       }
     //----
     // ATOMIC CASES

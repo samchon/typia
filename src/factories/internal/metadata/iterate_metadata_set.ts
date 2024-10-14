@@ -1,5 +1,8 @@
 import ts from "typescript";
 
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataSet } from "../../../schemas/metadata/MetadataSet";
+
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
@@ -22,18 +25,31 @@ export const iterate_metadata_set = (
   if (name.substring(0, 4) !== "Set<" || generic?.length !== 1) return false;
 
   const key: ts.Type = generic[0]!;
-  ArrayUtil.set(
+  const value: Metadata = explore_metadata({
+    ...props,
+    type: key,
+    explore: {
+      ...props.explore,
+      escaped: false,
+      aliased: false,
+    },
+  });
+  ArrayUtil.take(
     props.metadata.sets,
-    explore_metadata({
-      ...props,
-      type: key,
-      explore: {
-        ...props.explore,
-        escaped: false,
-        aliased: false,
-      },
-    }),
-    (elem) => elem.getName(),
+    (elem) => elem.value.getName() === value.getName(),
+    () =>
+      MetadataSet.create({
+        value: explore_metadata({
+          ...props,
+          type: key,
+          explore: {
+            ...props.explore,
+            escaped: false,
+            aliased: false,
+          },
+        }),
+        tags: [],
+      }),
   );
   return true;
 };

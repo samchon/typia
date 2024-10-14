@@ -38,7 +38,7 @@ const iterate = (props: {
 
   // ITERATE CHILDREN
   for (const map of props.metadata.maps) next(map.value);
-  for (const set of props.metadata.sets) next(set);
+  for (const set of props.metadata.sets) next(set.value);
   if (props.metadata.escaped !== null) next(props.metadata.escaped.returns);
   if (props.metadata.rest !== null) next(props.metadata.rest);
 

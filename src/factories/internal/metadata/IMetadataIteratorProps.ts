@@ -13,4 +13,5 @@ export interface IMetadataIteratorProps<Type extends ts.Type = ts.Type> {
   metadata: Metadata;
   type: Type;
   explore: MetadataFactory.IExplore;
+  intersected?: boolean;
 }

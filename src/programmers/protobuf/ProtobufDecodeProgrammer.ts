@@ -11,6 +11,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -610,7 +611,7 @@ export namespace ProtobufDecodeProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
-    entry: Metadata.Entry;
+    entry: MetadataMap | MetadataProperty;
     required: boolean;
   }): ts.Statement[] =>
     decode_entry({
@@ -644,7 +645,7 @@ export namespace ProtobufDecodeProgrammer {
     functor: FunctionProgrammer;
     initializer: () => ts.Expression;
     setter: () => ts.Expression;
-    entry: Metadata.Entry;
+    entry: MetadataMap | MetadataProperty;
     required: boolean;
   }): ts.Statement[] => {
     const statements: ts.Statement[] = [

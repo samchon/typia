@@ -12,6 +12,7 @@ export const explore_metadata = (props: IProps): Metadata => {
   if (props.type === null) return metadata;
 
   // ITERATE TYPESCRIPT TYPES
+  props.intersected ??= false;
   iterate_metadata({
     ...props,
     metadata,

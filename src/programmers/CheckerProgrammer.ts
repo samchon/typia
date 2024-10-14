@@ -11,7 +11,9 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
+import { MetadataMap } from "../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
@@ -630,7 +632,7 @@ export namespace CheckerProgrammer {
     for (const native of props.metadata.natives)
       binaries.push({
         expression: check_native({
-          type: native,
+          name: native.name,
           input: props.input,
         }),
         combined: false,
@@ -652,7 +654,7 @@ export namespace CheckerProgrammer {
       const install = (body: ts.Expression | null) =>
         prepare({
           head: check_native({
-            type: "Set",
+            name: "Set",
             input: props.input,
           }),
           expected: props.metadata.sets
@@ -660,7 +662,7 @@ export namespace CheckerProgrammer {
             .join(" | "),
           body,
         });
-      if (props.metadata.sets.some((elem) => elem.any)) install(null);
+      if (props.metadata.sets.some((elem) => elem.value.any)) install(null);
       else
         install(
           explore_sets({
@@ -682,7 +684,7 @@ export namespace CheckerProgrammer {
       const install = (body: ts.Expression | null) =>
         prepare({
           head: check_native({
-            type: "Map",
+            name: "Map",
             input: props.input,
           }),
           expected: props.metadata.maps
@@ -880,7 +882,7 @@ export namespace CheckerProgrammer {
           props.metadata.escaped.original.size() === 1 &&
           props.metadata.escaped.original.natives.length === 1
             ? check_native({
-                type: props.metadata.escaped.original.natives[0]!,
+                name: props.metadata.escaped.original.natives[0]!.name,
                 input: props.input,
               })
             : ts.factory.createLogicalAnd(
@@ -1228,7 +1230,7 @@ export namespace CheckerProgrammer {
     context: ITypiaContext;
     config: IConfig;
     functor: FunctionProgrammer;
-    sets: Metadata[];
+    sets: MetadataSet[];
     input: ts.Expression;
     explore: IExplore;
   }): ts.Expression =>
@@ -1272,7 +1274,7 @@ export namespace CheckerProgrammer {
     config: IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    maps: Metadata.Entry[];
+    maps: MetadataMap[];
     explore: IExplore;
   }): ts.Expression =>
     ts.factory.createCallExpression(

@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
+import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
@@ -17,7 +17,7 @@ import { TypeFactory } from "./TypeFactory";
 export class MetadataCollection {
   private objects_: Map<ts.Type, MetadataObjectType>;
   private object_unions_: Map<string, MetadataObjectType[]>;
-  private aliases_: Map<ts.Type, MetadataAlias>;
+  private aliases_: Map<ts.Type, MetadataAliasType>;
   private arrays_: Map<ts.Type, MetadataArrayType>;
   private tuples_: Map<ts.Type, MetadataTupleType>;
 
@@ -58,7 +58,7 @@ export class MetadataCollection {
   /* -----------------------------------------------------------
         ACCESSORS
     ----------------------------------------------------------- */
-  public aliases(): MetadataAlias[] {
+  public aliases(): MetadataAliasType[] {
     return [...this.aliases_.values()];
   }
 
@@ -146,12 +146,12 @@ export class MetadataCollection {
     checker: ts.TypeChecker,
     type: ts.Type,
     symbol: ts.Symbol,
-  ): [MetadataAlias, boolean, (meta: Metadata) => void] {
+  ): [MetadataAliasType, boolean, (meta: Metadata) => void] {
     const oldbie = this.aliases_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
     const $id: string = this.getName(checker, type);
-    const alias: MetadataAlias = MetadataAlias.create({
+    const alias: MetadataAliasType = MetadataAliasType.create({
       name: $id,
       value: null!,
       description: CommentFactory.description(symbol) ?? null,
@@ -211,7 +211,7 @@ export class MetadataCollection {
   /**
    * @internal
    */
-  public setAliasRecursive(alias: MetadataAlias, recursive: boolean): void {
+  public setAliasRecursive(alias: MetadataAliasType, recursive: boolean): void {
     Writable(alias).recursive = recursive;
   }
 

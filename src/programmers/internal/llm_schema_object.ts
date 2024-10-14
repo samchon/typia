@@ -4,11 +4,12 @@ import { CommentFactory } from "../../factories/CommentFactory";
 
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { application_description } from "./application_description";
+import { application_plugin } from "./application_plugin";
 import { llm_schema_station } from "./llm_schema_station";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -16,9 +17,9 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  * @internal
  */
 export const llm_schema_object = (props: {
-  object: MetadataObjectType;
+  object: MetadataObject;
   nullable: boolean;
-}): ILlmSchema.IObject => {
+}): ILlmSchema.IObject[] => {
   // ITERATE PROPERTIES
   const properties: Record<string, any> = {};
   const extraMeta: ISuperfluous = {
@@ -27,7 +28,7 @@ export const llm_schema_object = (props: {
   };
   const required: string[] = [];
 
-  for (const property of props.object.properties) {
+  for (const property of props.object.type.properties) {
     if (
       // FUNCTIONAL TYPE
       property.value.functions.length &&
@@ -82,20 +83,22 @@ export const llm_schema_object = (props: {
     }
   }
 
-  return {
-    type: "object",
-    properties,
-    nullable: props.nullable,
-    required: required.length ? required : undefined,
-    title: (() => {
-      const info: IJsDocTagInfo | undefined = props.object.jsDocTags.find(
-        (tag) => tag.name === "title",
-      );
-      return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
-    })(),
-    description: application_description(props.object),
-    additionalProperties: join(extraMeta),
-  };
+  return application_plugin({
+    schema: {
+      type: "object",
+      properties,
+      nullable: props.nullable,
+      required: required.length ? required : undefined,
+      title: (() => {
+        const info: IJsDocTagInfo | undefined =
+          props.object.type.jsDocTags.find((tag) => tag.name === "title");
+        return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
+      })(),
+      description: application_description(props.object.type),
+      additionalProperties: join(extraMeta),
+    },
+    tags: props.object.tags,
+  });
 };
 
 /**

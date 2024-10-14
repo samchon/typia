@@ -66,8 +66,11 @@ export namespace JsonMetadataFactory {
     if (meta.maps.length) output.push("JSON does not support Map type.");
     if (meta.sets.length) output.push("JSON does not support Set type.");
     for (const native of meta.natives)
-      if (AtomicPredicator.native(native) === false && native !== "Date")
-        output.push(`JSON does not support ${native} type.`);
+      if (
+        AtomicPredicator.native(native.name) === false &&
+        native.name !== "Date"
+      )
+        output.push(`JSON does not support ${native.name} type.`);
     return output;
   };
 }

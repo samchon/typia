@@ -1,5 +1,5 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataAlias } from "../../../schemas/metadata/MetadataAlias";
+import { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -8,7 +8,7 @@ import { explore_metadata } from "./explore_metadata";
 
 export const emplace_metadata_alias = (
   props: IMetadataIteratorProps,
-): MetadataAlias => {
+): MetadataAliasType => {
   // CHECK EXISTENCE
   const [alias, newbie, closure] = props.collection.emplaceAlias(
     props.checker,

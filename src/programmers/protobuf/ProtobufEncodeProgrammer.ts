@@ -11,6 +11,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
@@ -489,7 +490,7 @@ export namespace ProtobufEncodeProgrammer {
     functor: FunctionProgrammer;
     index: number;
     input: ts.Expression;
-    entry: Metadata.Entry;
+    entry: MetadataMap | MetadataProperty;
     explore: FeatureProgrammer.IExplore;
   }): ts.Block => {
     const each: ts.Statement[] = [

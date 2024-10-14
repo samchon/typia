@@ -9,7 +9,9 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
@@ -270,16 +272,18 @@ export namespace MiscCloneProgrammer {
     for (const native of props.metadata.natives)
       unions.push({
         type: "native",
-        is: () => ExpressionFactory.isInstanceOf(native, props.input),
+        is: () => ExpressionFactory.isInstanceOf(native.name, props.input),
         value: () =>
-          native === "Boolean" || native === "Number" || native === "String"
+          native.name === "Boolean" ||
+          native.name === "Number" ||
+          native.name === "String"
             ? ts.factory.createCallExpression(
                 IdentifierFactory.access(props.input, "valueOf"),
                 undefined,
                 undefined,
               )
             : decode_native({
-                type: native,
+                type: native.name,
                 input: props.input,
               }),
       });
@@ -578,7 +582,7 @@ export namespace MiscCloneProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    sets: Metadata[];
+    sets: MetadataSet[];
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
     ts.factory.createCallExpression(
@@ -634,7 +638,7 @@ export namespace MiscCloneProgrammer {
     config: FeatureProgrammer.IConfig;
     functor: FunctionProgrammer;
     input: ts.Expression;
-    maps: Metadata.Entry[];
+    maps: MetadataMap[];
     explore: FeatureProgrammer.IExplore;
   }): ts.Expression =>
     ts.factory.createCallExpression(
@@ -967,9 +971,9 @@ export namespace MiscCloneProgrammer {
         absorb: true,
         validate: (metadata) => {
           const output: string[] = [];
-          if (metadata.natives.some((n) => n === "WeakSet"))
+          if (metadata.natives.some((native) => native.name === "WeakSet"))
             output.push("unable to clone WeakSet");
-          else if (metadata.natives.some((n) => n === "WeakMap"))
+          else if (metadata.natives.some((native) => native.name === "WeakMap"))
             output.push("unable to clone WeakMap");
           return output;
         },

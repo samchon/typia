@@ -11,8 +11,11 @@ import { MetadataAtomic } from "./MetadataAtomic";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataEscaped } from "./MetadataEscaped";
 import { MetadataFunction } from "./MetadataFunction";
+import { MetadataMap } from "./MetadataMap";
+import { MetadataNative } from "./MetadataNative";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataObjectType } from "./MetadataObjectType";
+import { MetadataSet } from "./MetadataSet";
 import { MetadataTemplate } from "./MetadataTemplate";
 import { MetadataTuple } from "./MetadataTuple";
 
@@ -34,9 +37,9 @@ export class Metadata {
   public objects: MetadataObject[];
   public functions: MetadataFunction[];
 
-  public natives: string[];
-  public sets: Metadata[];
-  public maps: Metadata.Entry[];
+  public natives: MetadataNative[];
+  public sets: MetadataSet[];
+  public maps: MetadataMap[];
 
   /** @internal */ private name_?: string;
   /** @internal */ private parent_resolved_: boolean = false;
@@ -126,14 +129,11 @@ export class Metadata {
       arrays: this.arrays.map((array) => array.toJSON()),
       tuples: this.tuples.map((tuple) => tuple.toJSON()),
       objects: this.objects.map((obj) => obj.toJSON()),
-      aliases: this.aliases.map((alias) => alias.name),
+      aliases: this.aliases.map((alias) => alias.toJSON()),
 
-      natives: this.natives.slice(),
-      sets: this.sets.map((meta) => meta.toJSON()),
-      maps: this.maps.map((entry) => ({
-        key: entry.key.toJSON(),
-        value: entry.value.toJSON(),
-      })),
+      natives: this.natives.map((native) => native.toJSON()),
+      sets: this.sets.map((set) => set.toJSON()),
+      maps: this.maps.map((map) => map.toJSON()),
     };
   }
 
@@ -185,19 +185,30 @@ export class Metadata {
         });
       }),
       aliases: meta.aliases.map((alias) => {
-        const found = dict.aliases.get(alias);
-        if (found === undefined)
+        const type = dict.aliases.get(alias.name);
+        if (type === undefined)
           throw new RangeError(
             `Error on Metadata.from(): failed to find alias "${alias}".`,
           );
-        return found;
+        return MetadataAlias.create({
+          type,
+          tags: alias.tags.map((r) => r.slice()),
+        });
       }),
-      natives: meta.natives.slice(),
-      sets: meta.sets.map((meta) => this.from(meta, dict)),
-      maps: meta.maps.map((entry) => ({
-        key: this.from(entry.key, dict),
-        value: this.from(entry.value, dict),
-      })),
+      natives: meta.natives.map((native) => MetadataNative.create(native)),
+      sets: meta.sets.map((set) =>
+        MetadataSet.create({
+          value: Metadata.from(set.value, dict),
+          tags: set.tags.map((r) => r.slice()),
+        }),
+      ),
+      maps: meta.maps.map((map) =>
+        MetadataMap.create({
+          key: this.from(map.key, dict),
+          value: this.from(map.value, dict),
+          tags: map.tags.map((r) => r.slice()),
+        }),
+      ),
     });
   }
 
@@ -423,7 +434,8 @@ export namespace Metadata {
 
     // ALIASES
     for (const yd of y.aliases)
-      if (x.aliases.some((xd) => xd.name === yd.name) === false) return false;
+      if (x.aliases.some((xd) => xd.type.name === yd.type.name) === false)
+        return false;
 
     // NATIVES
     for (const yn of y.natives)
@@ -431,7 +443,8 @@ export namespace Metadata {
 
     // SETS
     for (const ys of y.sets)
-      if (x.sets.some((xs) => covers(xs, ys)) === false) return false;
+      if (x.sets.some((xs) => covers(xs.value, ys.value)) === false)
+        return false;
 
     //----
     // VALUES
@@ -476,7 +489,6 @@ export namespace Metadata {
       required: x.required && y.required,
       optional: x.optional || y.optional,
       functions: x.functions.length ? x.functions : y.functions, // @todo
-
       escaped:
         x.escaped !== null && y.escaped !== null
           ? MetadataEscaped.create({
@@ -491,12 +503,10 @@ export namespace Metadata {
       })(y.atomics),
       constants: [...x.constants],
       templates: x.templates.slice(),
-
       rest:
         x.rest !== null && y.rest !== null
           ? merge(x.rest, y.rest)
           : (x.rest ?? y.rest),
-      // arrays: x.arrays.slice(),
       arrays: mergeTaggedTypes({
         container: x.arrays,
         equals: (x, y) => x.type.name === y.type.name,
@@ -507,12 +517,33 @@ export namespace Metadata {
         equals: (x, y) => x.type.name === y.type.name,
         getter: (x) => x.tags,
       })(y.tuples),
-      objects: x.objects.slice(),
-      aliases: x.aliases.slice(),
-
-      natives: [...new Set([...x.natives, ...y.natives])],
-      sets: x.sets.slice(),
-      maps: x.maps.slice(),
+      objects: mergeTaggedTypes({
+        container: x.objects,
+        equals: (x, y) => x.type.name === y.type.name,
+        getter: (x) => x.tags,
+      })(y.objects),
+      aliases: mergeTaggedTypes({
+        container: x.aliases,
+        equals: (x, y) => x.type.name === y.type.name,
+        getter: (x) => x.tags,
+      })(y.aliases),
+      natives: mergeTaggedTypes({
+        container: x.natives,
+        equals: (x, y) => x.name === y.name,
+        getter: (x) => x.tags,
+      })(y.natives),
+      sets: mergeTaggedTypes({
+        container: x.sets,
+        equals: (x, y) => x.value.getName() === y.value.getName(),
+        getter: (x) => x.tags,
+      })(y.sets),
+      maps: mergeTaggedTypes({
+        container: x.maps,
+        equals: (x, y) =>
+          x.key.getName() === y.key.getName() &&
+          x.value.getName() === y.value.getName(),
+        getter: (x) => x.tags,
+      })(y.maps),
     });
     for (const constant of y.constants) {
       const target: MetadataConstant = ArrayUtil.take(
@@ -527,11 +558,6 @@ export namespace Metadata {
       for (const value of constant.values)
         ArrayUtil.add(target.values, value, (a, b) => a.value === b.value);
     }
-    for (const obj of y.objects)
-      ArrayUtil.set(output.objects, obj, (elem) => elem.type.name);
-    for (const alias of y.aliases)
-      ArrayUtil.set(output.aliases, alias, (elem) => elem.name);
-
     return output;
   };
 }
@@ -554,17 +580,16 @@ const getName = (metadata: Metadata): string => {
   for (const template of metadata.templates) elements.push(template.getName());
 
   // NATIVES
-  for (const native of metadata.natives) elements.push(native);
-  for (const set of metadata.sets) elements.push(`Set<${set.getName()}>`);
-  for (const map of metadata.maps)
-    elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
+  for (const native of metadata.natives) elements.push(native.getName());
+  for (const set of metadata.sets) elements.push(set.getName());
+  for (const map of metadata.maps) elements.push(map.getName());
 
   // INSTANCES
   if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
   for (const tuple of metadata.tuples) elements.push(tuple.type.name);
   for (const array of metadata.arrays) elements.push(array.getName());
   for (const object of metadata.objects) elements.push(object.getName());
-  for (const alias of metadata.aliases) elements.push(alias.name);
+  for (const alias of metadata.aliases) elements.push(alias.getName());
   if (metadata.escaped !== null) elements.push(metadata.escaped.getName());
 
   // RETURNS
@@ -574,12 +599,6 @@ const getName = (metadata: Metadata): string => {
   elements.sort();
   return `(${elements.join(" | ")})`;
 };
-export namespace Metadata {
-  export interface Entry {
-    key: Metadata;
-    value: Metadata;
-  }
-}
 
 const mergeTaggedTypes =
   <T>(props: {
