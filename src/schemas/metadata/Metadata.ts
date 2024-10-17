@@ -46,6 +46,7 @@ export class Metadata {
   /** @internal */ public union_index?: number;
   /** @internal */ public fixed_?: number | null;
   /** @internal */ public boolean_literal_intersected_?: boolean;
+  /** @internal */ private is_sequence_?: boolean;
 
   /* -----------------------------------------------------------
     CONSTRUCTORS
@@ -259,6 +260,39 @@ export class Metadata {
       (this.functions.length ? 1 : 0) +
       (this.aliases.length ? 1 : 0)
     );
+  }
+
+  /**
+   * @internal
+   */
+  public isSequence(): boolean {
+    return (this.is_sequence_ ??= (() => {
+      const exists = (tags: IMetadataTypeTag[][]): boolean =>
+        tags.some((row) => {
+          const sequence = row.find(
+            (t) =>
+              t.kind === "sequence" &&
+              typeof (t.schema as any)?.["x-protobuf-sequence"] === "number",
+          );
+          if (sequence === undefined) return false;
+          const value: number = Number(
+            (sequence.schema as any)["x-protobuf-sequence"],
+          );
+          return !Number.isNaN(value);
+        });
+      return (
+        this.atomics.some((atomic) => exists(atomic.tags)) &&
+        this.constants.some((c) =>
+          c.values.some((v) => exists(v.tags ?? [])),
+        ) &&
+        this.templates.some((tpl) => exists(tpl.tags)) &&
+        this.arrays.some((array) => exists(array.tags)) &&
+        this.objects.some((object) => exists(object.tags)) &&
+        this.natives.some(
+          (native) => native.name === "Uint8Array" && exists(native.tags),
+        )
+      );
+    })());
   }
 
   public isConstant(): boolean {

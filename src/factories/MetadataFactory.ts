@@ -107,7 +107,7 @@ export namespace MetadataFactory {
         values: [
           {
             value,
-            tags: undefined,
+            tags: [],
           },
         ],
         type: "string",
