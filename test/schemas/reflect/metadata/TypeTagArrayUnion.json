@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "items"
+                      "value": "items",
+                      "tags": []
                     }
                   ]
                 }
@@ -124,7 +125,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "minItems"
+                      "value": "minItems",
+                      "tags": []
                     }
                   ]
                 }
@@ -194,7 +196,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "maxItems"
+                      "value": "maxItems",
+                      "tags": []
                     }
                   ]
                 }
@@ -264,7 +267,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "both"
+                      "value": "both",
+                      "tags": []
                     }
                   ]
                 }

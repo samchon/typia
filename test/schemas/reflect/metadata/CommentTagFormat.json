@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "byte"
+                      "value": "byte",
+                      "tags": []
                     }
                   ]
                 }
@@ -123,7 +124,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "password"
+                      "value": "password",
+                      "tags": []
                     }
                   ]
                 }
@@ -203,7 +205,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "regex"
+                      "value": "regex",
+                      "tags": []
                     }
                   ]
                 }
@@ -283,7 +286,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uuid"
+                      "value": "uuid",
+                      "tags": []
                     }
                   ]
                 }
@@ -363,7 +367,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "email"
+                      "value": "email",
+                      "tags": []
                     }
                   ]
                 }
@@ -443,7 +448,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "hostname"
+                      "value": "hostname",
+                      "tags": []
                     }
                   ]
                 }
@@ -523,7 +529,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "idnEmail"
+                      "value": "idnEmail",
+                      "tags": []
                     }
                   ]
                 }
@@ -603,7 +610,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "idnHostname"
+                      "value": "idnHostname",
+                      "tags": []
                     }
                   ]
                 }
@@ -683,7 +691,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "iri"
+                      "value": "iri",
+                      "tags": []
                     }
                   ]
                 }
@@ -763,7 +772,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "iriReference"
+                      "value": "iriReference",
+                      "tags": []
                     }
                   ]
                 }
@@ -843,7 +853,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ipv4"
+                      "value": "ipv4",
+                      "tags": []
                     }
                   ]
                 }
@@ -923,7 +934,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ipv6"
+                      "value": "ipv6",
+                      "tags": []
                     }
                   ]
                 }
@@ -1003,7 +1015,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uri"
+                      "value": "uri",
+                      "tags": []
                     }
                   ]
                 }
@@ -1083,7 +1096,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uriReference"
+                      "value": "uriReference",
+                      "tags": []
                     }
                   ]
                 }
@@ -1163,7 +1177,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uriTemplate"
+                      "value": "uriTemplate",
+                      "tags": []
                     }
                   ]
                 }
@@ -1243,7 +1258,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "url"
+                      "value": "url",
+                      "tags": []
                     }
                   ]
                 }
@@ -1323,7 +1339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "datetime"
+                      "value": "datetime",
+                      "tags": []
                     }
                   ]
                 }
@@ -1403,7 +1420,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -1483,7 +1501,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -1563,7 +1582,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "duration"
+                      "value": "duration",
+                      "tags": []
                     }
                   ]
                 }
@@ -1643,7 +1663,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "jsonPointer"
+                      "value": "jsonPointer",
+                      "tags": []
                     }
                   ]
                 }
@@ -1723,7 +1744,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "relativeJsonPointer"
+                      "value": "relativeJsonPointer",
+                      "tags": []
                     }
                   ]
                 }

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -110,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int"
+                      "value": "int",
+                      "tags": []
                     }
                   ]
                 }
@@ -180,7 +182,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint"
+                      "value": "uint",
+                      "tags": []
                     }
                   ]
                 }
@@ -250,7 +253,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -320,7 +324,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint32"
+                      "value": "uint32",
+                      "tags": []
                     }
                   ]
                 }
@@ -390,7 +395,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64"
+                      "value": "int64",
+                      "tags": []
                     }
                   ]
                 }
@@ -460,7 +466,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -530,7 +537,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float"
+                      "value": "float",
+                      "tags": []
                     }
                   ]
                 }

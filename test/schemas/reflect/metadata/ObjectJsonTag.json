@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "vulnerable"
+                      "value": "vulnerable",
+                      "tags": []
                     }
                   ]
                 }
@@ -103,7 +104,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "description"
+                      "value": "description",
+                      "tags": []
                     }
                   ]
                 }
@@ -159,7 +161,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "title"
+                      "value": "title",
+                      "tags": []
                     }
                   ]
                 }
@@ -225,7 +228,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "complicate_title"
+                      "value": "complicate_title",
+                      "tags": []
                     }
                   ]
                 }

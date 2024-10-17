@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "professor"
+                      "value": "professor",
+                      "tags": []
                     }
                   ]
                 }
@@ -159,7 +161,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "classroom"
+                      "value": "classroom",
+                      "tags": []
                     }
                   ]
                 }
@@ -215,7 +218,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "grade"
+                      "value": "grade",
+                      "tags": []
                     }
                   ]
                 }
@@ -271,7 +275,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "nothing"
+                      "value": "nothing",
+                      "tags": []
                     }
                   ]
                 }
@@ -322,7 +327,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "unknown"
+                      "value": "unknown",
+                      "tags": []
                     }
                   ]
                 }
@@ -373,7 +379,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "never"
+                      "value": "never",
+                      "tags": []
                     }
                   ]
                 }
@@ -435,7 +442,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -491,7 +499,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -143,7 +144,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint8Array"
+                      "value": "uint8Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -199,7 +201,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint8ClampedArray"
+                      "value": "uint8ClampedArray",
+                      "tags": []
                     }
                   ]
                 }
@@ -255,7 +258,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint16Array"
+                      "value": "uint16Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -311,7 +315,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint32Array"
+                      "value": "uint32Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -367,7 +372,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigUint64Array"
+                      "value": "bigUint64Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -423,7 +429,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int8Array"
+                      "value": "int8Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -479,7 +486,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int16Array"
+                      "value": "int16Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -535,7 +543,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32Array"
+                      "value": "int32Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -591,7 +600,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigInt64Array"
+                      "value": "bigInt64Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -647,7 +657,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float32Array"
+                      "value": "float32Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -703,7 +714,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float64Array"
+                      "value": "float64Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -759,7 +771,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "arrayBuffer"
+                      "value": "arrayBuffer",
+                      "tags": []
                     }
                   ]
                 }
@@ -815,7 +828,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "sharedArrayBuffer"
+                      "value": "sharedArrayBuffer",
+                      "tags": []
                     }
                   ]
                 }
@@ -871,7 +885,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "dataView"
+                      "value": "dataView",
+                      "tags": []
                     }
                   ]
                 }

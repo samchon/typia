@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_uint32"
+                      "value": "int32_or_uint32",
+                      "tags": []
                     }
                   ]
                 }
@@ -126,7 +127,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_int64"
+                      "value": "int32_or_int64",
+                      "tags": []
                     }
                   ]
                 }
@@ -209,7 +211,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_uint64"
+                      "value": "int32_or_uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -292,7 +295,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_float"
+                      "value": "int32_or_float",
+                      "tags": []
                     }
                   ]
                 }
@@ -375,7 +379,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_double"
+                      "value": "int32_or_double",
+                      "tags": []
                     }
                   ]
                 }
@@ -458,7 +463,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64_or_uint64"
+                      "value": "int64_or_uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -541,7 +547,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64_or_float"
+                      "value": "int64_or_float",
+                      "tags": []
                     }
                   ]
                 }
@@ -624,7 +631,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64_or_double"
+                      "value": "int64_or_double",
+                      "tags": []
                     }
                   ]
                 }
@@ -707,7 +715,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float_or_double"
+                      "value": "float_or_double",
+                      "tags": []
                     }
                   ]
                 }
@@ -790,7 +799,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "everything"
+                      "value": "everything",
+                      "tags": []
                     }
                   ]
                 }

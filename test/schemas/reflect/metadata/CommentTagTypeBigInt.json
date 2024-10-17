@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "in64"
+                      "value": "in64",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }

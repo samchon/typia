@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "closure"
+                      "value": "closure",
+                      "tags": []
                     }
                   ]
                 }

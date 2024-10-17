@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -146,7 +147,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -263,7 +265,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigint"
+                      "value": "bigint",
+                      "tags": []
                     }
                   ]
                 }
@@ -366,7 +369,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "double"
+                      "value": "double",
+                      "tags": []
                     }
                   ]
                 }
@@ -469,7 +473,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -586,7 +591,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bytes"
+                      "value": "bytes",
+                      "tags": []
                     }
                   ]
                 }
@@ -689,7 +695,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "objects"
+                      "value": "objects",
+                      "tags": []
                     }
                   ]
                 }

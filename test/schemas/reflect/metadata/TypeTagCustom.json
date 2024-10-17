@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -116,7 +117,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "dollar"
+                      "value": "dollar",
+                      "tags": []
                     }
                   ]
                 }
@@ -186,7 +188,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "postfix",
+                      "tags": []
                     }
                   ]
                 }
@@ -256,7 +259,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "powerOf"
+                      "value": "powerOf",
+                      "tags": []
                     }
                   ]
                 }

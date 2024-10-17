@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "scale"
+                      "value": "scale",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "position"
+                      "value": "position",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "rotate"
+                      "value": "rotate",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "pivot"
+                      "value": "pivot",
+                      "tags": []
                     }
                   ]
                 }
@@ -278,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -334,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -390,7 +396,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "z"
+                      "value": "z",
+                      "tags": []
                     }
                   ]
                 }

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -114,7 +115,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "writer"
+                      "value": "writer",
+                      "tags": []
                     }
                   ]
                 }
@@ -170,7 +172,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "answer"
+                      "value": "answer",
+                      "tags": []
                     }
                   ]
                 }
@@ -226,7 +229,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -282,7 +286,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "hit"
+                      "value": "hit",
+                      "tags": []
                     }
                   ]
                 }
@@ -338,7 +343,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "contents"
+                      "value": "contents",
+                      "tags": []
                     }
                   ]
                 }
@@ -394,7 +400,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -461,7 +468,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -517,7 +525,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "hit"
+                      "value": "hit",
+                      "tags": []
                     }
                   ]
                 }
@@ -573,7 +582,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "contents"
+                      "value": "contents",
+                      "tags": []
                     }
                   ]
                 }
@@ -629,7 +639,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -696,7 +707,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -752,7 +764,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -808,7 +821,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "title"
+                      "value": "title",
+                      "tags": []
                     }
                   ]
                 }
@@ -864,7 +878,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "body"
+                      "value": "body",
+                      "tags": []
                     }
                   ]
                 }
@@ -920,7 +935,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "files"
+                      "value": "files",
+                      "tags": []
                     }
                   ]
                 }
@@ -987,7 +1003,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1043,7 +1060,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "extension"
+                      "value": "extension",
+                      "tags": []
                     }
                   ]
                 }
@@ -1099,7 +1117,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "url"
+                      "value": "url",
+                      "tags": []
                     }
                   ]
                 }
@@ -1166,7 +1185,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "writer"
+                      "value": "writer",
+                      "tags": []
                     }
                   ]
                 }
@@ -1222,7 +1242,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "answer"
+                      "value": "answer",
+                      "tags": []
                     }
                   ]
                 }
@@ -1278,7 +1299,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1334,7 +1356,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "hit"
+                      "value": "hit",
+                      "tags": []
                     }
                   ]
                 }
@@ -1390,7 +1413,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "contents"
+                      "value": "contents",
+                      "tags": []
                     }
                   ]
                 }
@@ -1446,7 +1470,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1513,7 +1538,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "score"
+                      "value": "score",
+                      "tags": []
                     }
                   ]
                 }
@@ -1569,7 +1595,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1625,7 +1652,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1681,7 +1709,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "title"
+                      "value": "title",
+                      "tags": []
                     }
                   ]
                 }
@@ -1737,7 +1766,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "body"
+                      "value": "body",
+                      "tags": []
                     }
                   ]
                 }
@@ -1793,7 +1823,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "files"
+                      "value": "files",
+                      "tags": []
                     }
                   ]
                 }
