@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -116,7 +117,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -172,7 +174,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "integers"
+                      "value": "integers",
+                      "tags": []
                     }
                   ]
                 }
@@ -228,7 +231,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "blob"
+                      "value": "blob",
+                      "tags": []
                     }
                   ]
                 }
@@ -284,7 +288,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "blobs"
+                      "value": "blobs",
+                      "tags": []
                     }
                   ]
                 }
@@ -340,7 +345,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "file"
+                      "value": "file",
+                      "tags": []
                     }
                   ]
                 }
@@ -396,7 +402,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "files"
+                      "value": "files",
+                      "tags": []
                     }
                   ]
                 }

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -143,7 +144,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "unsigned"
+                      "value": "unsigned",
+                      "tags": []
                     }
                   ]
                 }
@@ -215,7 +217,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "signed"
+                      "value": "signed",
+                      "tags": []
                     }
                   ]
                 }
@@ -283,7 +286,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float"
+                      "value": "float",
+                      "tags": []
                     }
                   ]
                 }
@@ -343,7 +347,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "buffer"
+                      "value": "buffer",
+                      "tags": []
                     }
                   ]
                 }

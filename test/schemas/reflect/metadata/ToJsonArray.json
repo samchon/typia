@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -134,7 +135,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -225,7 +227,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -316,7 +319,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -407,7 +411,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }

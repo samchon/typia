@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "booleans"
+                      "value": "booleans",
+                      "tags": []
                     }
                   ]
                 }
@@ -122,7 +123,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "numbers"
+                      "value": "numbers",
+                      "tags": []
                     }
                   ]
                 }
@@ -201,7 +203,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "strings"
+                      "value": "strings",
+                      "tags": []
                     }
                   ]
                 }
@@ -280,7 +283,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "arrays"
+                      "value": "arrays",
+                      "tags": []
                     }
                   ]
                 }
@@ -359,7 +363,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "objects"
+                      "value": "objects",
+                      "tags": []
                     }
                   ]
                 }
@@ -449,7 +454,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -505,7 +511,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -561,7 +568,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }

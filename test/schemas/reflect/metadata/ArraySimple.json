@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "email"
+                      "value": "email",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "hobbies"
+                      "value": "hobbies",
+                      "tags": []
                     }
                   ]
                 }
@@ -222,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -278,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "body"
+                      "value": "body",
+                      "tags": []
                     }
                   ]
                 }
@@ -334,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "rank"
+                      "value": "rank",
+                      "tags": []
                     }
                   ]
                 }

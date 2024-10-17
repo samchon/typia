@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "classDate"
+                      "value": "classDate",
+                      "tags": []
                     }
                   ]
                 }
@@ -143,7 +144,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -216,7 +218,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "datetime"
+                      "value": "datetime",
+                      "tags": []
                     }
                   ]
                 }
@@ -289,7 +292,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -362,7 +366,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "duration"
+                      "value": "duration",
+                      "tags": []
                     }
                   ]
                 }

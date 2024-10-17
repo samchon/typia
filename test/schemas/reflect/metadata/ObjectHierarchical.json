@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "channel"
+                      "value": "channel",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "member"
+                      "value": "member",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "account"
+                      "value": "account",
+                      "tags": []
                     }
                   ]
                 }
@@ -267,7 +271,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "href"
+                      "value": "href",
+                      "tags": []
                     }
                   ]
                 }
@@ -323,7 +328,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "referrer"
+                      "value": "referrer",
+                      "tags": []
                     }
                   ]
                 }
@@ -379,7 +385,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ip"
+                      "value": "ip",
+                      "tags": []
                     }
                   ]
                 }
@@ -435,7 +442,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -502,7 +510,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -558,7 +567,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -614,7 +624,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -670,7 +681,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "sequence"
+                      "value": "sequence",
+                      "tags": []
                     }
                   ]
                 }
@@ -726,7 +738,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "exclusive"
+                      "value": "exclusive",
+                      "tags": []
                     }
                   ]
                 }
@@ -782,7 +795,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "priority"
+                      "value": "priority",
+                      "tags": []
                     }
                   ]
                 }
@@ -838,7 +852,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -905,7 +920,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -961,7 +977,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "zone"
+                      "value": "zone",
+                      "tags": []
                     }
                   ]
                 }
@@ -1028,7 +1045,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1084,7 +1102,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "account"
+                      "value": "account",
+                      "tags": []
                     }
                   ]
                 }
@@ -1140,7 +1159,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "enterprise"
+                      "value": "enterprise",
+                      "tags": []
                     }
                   ]
                 }
@@ -1196,7 +1216,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "emails"
+                      "value": "emails",
+                      "tags": []
                     }
                   ]
                 }
@@ -1252,7 +1273,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1308,7 +1330,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "authorized"
+                      "value": "authorized",
+                      "tags": []
                     }
                   ]
                 }
@@ -1375,7 +1398,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1431,7 +1455,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -1487,7 +1512,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1555,7 +1581,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1611,7 +1638,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "account"
+                      "value": "account",
+                      "tags": []
                     }
                   ]
                 }
@@ -1667,7 +1695,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1723,7 +1752,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "grade"
+                      "value": "grade",
+                      "tags": []
                     }
                   ]
                 }
@@ -1779,7 +1809,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "email"
+                      "value": "email",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "vulnerable"
+                      "value": "vulnerable",
+                      "tags": []
                     }
                   ]
                 }

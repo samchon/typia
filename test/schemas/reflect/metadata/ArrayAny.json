@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "anys"
+                      "value": "anys",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,63 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "undefindable1"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": false,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [
-                {
-                  "name": "Array<any>",
-                  "tags": []
-                }
-              ],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "undefindable2"
+                      "value": "undefindable1",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +157,65 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "nullables1"
+                      "value": "undefindable2",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": false,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [
+                {
+                  "name": "Array<any>",
+                  "tags": []
+                }
+              ],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "nullables1",
+                      "tags": []
                     }
                   ]
                 }
@@ -267,7 +271,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "nullables2"
+                      "value": "nullables2",
+                      "tags": []
                     }
                   ]
                 }
@@ -323,7 +328,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "both1"
+                      "value": "both1",
+                      "tags": []
                     }
                   ]
                 }
@@ -379,7 +385,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "both2"
+                      "value": "both2",
+                      "tags": []
                     }
                   ]
                 }
@@ -435,7 +442,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "both3"
+                      "value": "both3",
+                      "tags": []
                     }
                   ]
                 }
@@ -491,7 +499,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "union"
+                      "value": "union",
+                      "tags": []
                     }
                   ]
                 }

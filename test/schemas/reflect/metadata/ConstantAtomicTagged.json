@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -126,7 +127,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }

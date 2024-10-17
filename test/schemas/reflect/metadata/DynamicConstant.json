@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -110,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "a"
+                      "value": "a",
+                      "tags": []
                     }
                   ]
                 }
@@ -166,7 +168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "b"
+                      "value": "b",
+                      "tags": []
                     }
                   ]
                 }
@@ -222,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "c"
+                      "value": "c",
+                      "tags": []
                     }
                   ]
                 }
@@ -278,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "d"
+                      "value": "d",
+                      "tags": []
                     }
                   ]
                 }

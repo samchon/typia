@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -110,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "prefix"
+                      "value": "prefix",
+                      "tags": []
                     }
                   ]
                 }
@@ -179,7 +181,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "postfix",
+                      "tags": []
                     }
                   ]
                 }
@@ -248,7 +251,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "combined"
+                      "value": "combined",
+                      "tags": []
                     }
                   ]
                 }

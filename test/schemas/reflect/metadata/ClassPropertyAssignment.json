@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "note"
+                      "value": "note",
+                      "tags": []
                     }
                   ]
                 }
@@ -216,7 +219,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "editable"
+                      "value": "editable",
+                      "tags": []
                     }
                   ]
                 }
@@ -277,7 +281,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "incremental"
+                      "value": "incremental",
+                      "tags": []
                     }
                   ]
                 }

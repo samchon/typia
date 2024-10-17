@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "parent"
+                      "value": "parent",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -267,7 +271,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "sequence"
+                      "value": "sequence",
+                      "tags": []
                     }
                   ]
                 }
@@ -323,7 +328,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -391,7 +397,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -447,7 +454,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "zone"
+                      "value": "zone",
+                      "tags": []
                     }
                   ]
                 }

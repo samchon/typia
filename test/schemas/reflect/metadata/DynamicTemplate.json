@@ -54,7 +54,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -183,7 +184,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -264,7 +266,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "value_"
+                              "value": "value_",
+                              "tags": []
                             }
                           ]
                         }
@@ -369,7 +372,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "between_"
+                              "value": "between_",
+                              "tags": []
                             }
                           ]
                         }
@@ -421,7 +425,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_and_"
+                              "value": "_and_",
+                              "tags": []
                             }
                           ]
                         }

@@ -82,7 +82,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }

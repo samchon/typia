@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "matrix"
+                      "value": "matrix",
+                      "tags": []
                     }
                   ]
                 }

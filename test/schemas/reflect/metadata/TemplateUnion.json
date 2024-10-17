@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -110,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "prefix"
+                      "value": "prefix",
+                      "tags": []
                     }
                   ]
                 }
@@ -149,7 +151,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -206,7 +209,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -276,7 +280,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "postfix",
+                      "tags": []
                     }
                   ]
                 }
@@ -339,7 +344,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -396,7 +402,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -442,7 +449,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "middle"
+                      "value": "middle",
+                      "tags": []
                     }
                   ]
                 }
@@ -495,7 +503,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "the_",
+                              "tags": []
                             }
                           ]
                         }
@@ -547,7 +556,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "_value",
+                              "tags": []
                             }
                           ]
                         }
@@ -593,7 +603,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "mixed"
+                      "value": "mixed",
+                      "tags": []
                     }
                   ]
                 }
@@ -655,7 +666,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "the_",
+                              "tags": []
                             }
                           ]
                         }
@@ -707,7 +719,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "_value",
+                              "tags": []
                             }
                           ]
                         }
@@ -769,7 +782,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }

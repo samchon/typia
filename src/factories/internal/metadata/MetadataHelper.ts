@@ -11,7 +11,7 @@ export namespace MetadataHelper {
         values: [
           MetadataConstantValue.create({
             value: key,
-            tags: undefined,
+            tags: [],
           }),
         ],
       }),

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -110,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -177,7 +179,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -244,7 +247,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -311,7 +315,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -367,7 +372,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -423,7 +429,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "grade"
+                      "value": "grade",
+                      "tags": []
                     }
                   ]
                 }
@@ -479,7 +486,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "serial"
+                      "value": "serial",
+                      "tags": []
                     }
                   ]
                 }
@@ -535,7 +543,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "activated"
+                      "value": "activated",
+                      "tags": []
                     }
                   ]
                 }
