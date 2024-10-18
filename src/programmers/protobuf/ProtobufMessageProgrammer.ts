@@ -13,7 +13,7 @@ import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { MapUtil } from "../../utils/MapUtil";
-import { NameEncoder } from "../../utils/NameEncoder";
+import { ProtobufNameEncoder } from "../../utils/ProtobufNameEncoder";
 
 export namespace ProtobufMessageProgrammer {
   export interface IProps {
@@ -83,7 +83,7 @@ export namespace ProtobufMessageProgrammer {
 
   const write_hierarchy = (hierarchy: Hierarchy): string => {
     const elements: string[] = [
-      `message ${NameEncoder.encode(hierarchy.key)} {`,
+      `message ${ProtobufNameEncoder.encode(hierarchy.key)} {`,
     ];
     if (hierarchy.object !== null) {
       const text: string = write_object(hierarchy.object);
@@ -131,7 +131,7 @@ export namespace ProtobufMessageProgrammer {
     if (props.union.length === 1) {
       const top = props.union[0]!;
       return [
-        ...(top.type === "array" || top.type === "object"
+        ...(top.type === "array" || top.type === "map"
           ? []
           : [
               props.value.isRequired() && props.value.nullable === false
@@ -165,7 +165,8 @@ export namespace ProtobufMessageProgrammer {
       return schema.name;
     else if (schema.type === "array")
       return `repeat ${decodeSchema(schema.value)}`;
-    else if (schema.type === "object") return schema.object.name;
+    else if (schema.type === "object")
+      return ProtobufNameEncoder.encode(schema.object.name);
     // else if (schema.type === "map")
     return `map<${decodeSchema(schema.key)}, ${decodeSchema(schema.value)}>`;
   };

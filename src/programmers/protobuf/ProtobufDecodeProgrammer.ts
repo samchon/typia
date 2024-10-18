@@ -454,17 +454,7 @@ export namespace ProtobufDecodeProgrammer {
         ),
       );
     const decoder: ts.Expression = decode_array_value(props.schema.value);
-    if (
-      [
-        "bool",
-        "int32",
-        "uint32",
-        "int64",
-        "uint64",
-        "float",
-        "double",
-      ].includes(props.schema.type)
-    ) {
+    if (["bool", "bigint", "number"].includes(props.schema.value.type)) {
       statements.push(
         ts.factory.createIfStatement(
           ts.factory.createStrictEquality(
