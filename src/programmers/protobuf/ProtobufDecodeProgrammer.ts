@@ -181,6 +181,8 @@ export namespace ProtobufDecodeProgrammer {
     output: string;
     object: MetadataObjectType;
   }): ts.Statement[] => {
+    if (props.object.properties.some((p) => p.of_protobuf_ === undefined))
+      ProtobufFactory.emplaceObject(props.object);
     const clauses: ts.CaseClause[] = props.object.properties
       .map((p) =>
         decode_property({
@@ -378,6 +380,7 @@ export namespace ProtobufDecodeProgrammer {
             context: props.context,
             accessor: props.accessor,
             schema: props.schema,
+            required: props.required,
             key,
             value,
             initializer: ts.factory.createObjectLiteralExpression([]),
@@ -401,6 +404,7 @@ export namespace ProtobufDecodeProgrammer {
             context: props.context,
             accessor: props.accessor,
             schema: props.schema,
+            required: props.required,
             key,
             value,
             initializer: ts.factory.createNewExpression(
@@ -531,10 +535,11 @@ export namespace ProtobufDecodeProgrammer {
     value: Metadata;
     schema: IProtobufSchema.IMap;
     initializer: ts.Expression;
+    required: boolean;
     setter: () => ts.Expression;
   }): ts.Statement[] => {
     const statements: Array<ts.Expression | ts.Statement> = [
-      ...(props.value.isRequired() === false || props.value.nullable === true
+      ...(props.required === true
         ? [
             ts.factory.createBinaryExpression(
               props.accessor,
@@ -566,6 +571,15 @@ export namespace ProtobufDecodeProgrammer {
           },
         ]),
       }),
+      ...(props.required === false
+        ? [
+            ts.factory.createBinaryExpression(
+              props.accessor,
+              ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
+              props.initializer,
+            ),
+          ]
+        : []),
       props.setter(),
     ];
     return [

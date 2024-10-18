@@ -369,7 +369,9 @@ export namespace ProtobufFactory {
           object: explore.object,
           errors,
         });
-        emplaceObject(explore.object);
+        try {
+          emplaceObject(explore.object);
+        } catch {}
       }
 
       //----

@@ -164,7 +164,7 @@ export namespace ProtobufMessageProgrammer {
     else if (schema.type === "bigint" || schema.type === "number")
       return schema.name;
     else if (schema.type === "array")
-      return `repeat ${decodeSchema(schema.value)}`;
+      return `repeated ${decodeSchema(schema.value)}`;
     else if (schema.type === "object")
       return ProtobufNameEncoder.encode(schema.object.name);
     // else if (schema.type === "map")
