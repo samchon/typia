@@ -66,7 +66,7 @@ export namespace ProtobufFactory {
         .map((p) => p.union.map((u) => u.index))
         .flat(),
     );
-    let index: number = 0;
+    let index: number = 1;
     properties.forEach((schema) => {
       if (schema.fixed === true)
         index = Math.max(
@@ -97,9 +97,9 @@ export namespace ProtobufFactory {
       union.push({
         type: "array",
         array: array.type,
-        element: emplaceSchema(
+        value: emplaceSchema(
           array.type.value,
-        ) as IProtobufSchema.IArray["element"],
+        ) as IProtobufSchema.IArray["value"],
         index: ProtobufUtil.getSequence(array.tags[0] ?? [])!,
       });
     for (const obj of prop.value.objects)
@@ -107,8 +107,12 @@ export namespace ProtobufFactory {
         union.push({
           type: "map",
           map: obj.type,
-          key: emplaceSchema(obj.type.properties[0]!.key),
-          value: emplaceSchema(obj.type.properties[0]!.value),
+          key: emplaceSchema(
+            obj.type.properties[0]!.key,
+          ) as IProtobufSchema.IMap["key"],
+          value: emplaceSchema(
+            obj.type.properties[0]!.value,
+          ) as IProtobufSchema.IMap["value"],
           index: ProtobufUtil.getSequence(obj.tags[0] ?? [])!,
         });
       else
@@ -121,8 +125,8 @@ export namespace ProtobufFactory {
       union.push({
         type: "map",
         map,
-        key: emplaceSchema(map.key),
-        value: emplaceSchema(map.value),
+        key: emplaceSchema(map.key) as IProtobufSchema.IMap["key"],
+        value: emplaceSchema(map.value) as IProtobufSchema.IMap["value"],
         index: ProtobufUtil.getSequence(map.tags[0] ?? [])!,
       });
     prop.of_protobuf_ = {
@@ -143,17 +147,21 @@ export namespace ProtobufFactory {
       return {
         type: "array",
         array: array.type,
-        element: emplaceSchema(
+        value: emplaceSchema(
           array.type.value,
-        ) as IProtobufSchema.IArray["element"],
+        ) as IProtobufSchema.IArray["value"],
       };
     for (const obj of metadata.objects)
       if (isDynamicObject(obj.type))
         return {
           type: "map",
           map: obj.type,
-          key: emplaceSchema(obj.type.properties[0]!.key),
-          value: emplaceSchema(obj.type.properties[0]!.value),
+          key: emplaceSchema(
+            obj.type.properties[0]!.key,
+          ) as IProtobufSchema.IMap["key"],
+          value: emplaceSchema(
+            obj.type.properties[0]!.value,
+          ) as IProtobufSchema.IMap["value"],
         };
       else
         return {
@@ -164,8 +172,8 @@ export namespace ProtobufFactory {
       return {
         type: "map",
         map,
-        key: emplaceSchema(map.key),
-        value: emplaceSchema(map.value),
+        key: emplaceSchema(map.key) as IProtobufSchema.IMap["key"],
+        value: emplaceSchema(map.value) as IProtobufSchema.IMap["value"],
       };
     throw new Error(
       "Error on ProtobufFactory.emplaceSchema(): any type detected.",
