@@ -9,16 +9,14 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
+import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
+import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
 
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
-
-import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
@@ -149,18 +147,10 @@ export namespace ProtobufDecodeProgrammer {
                   ExpressionFactory.number(0),
                 ),
                 undefined,
-                ts.factory.createCallExpression(
-                  IdentifierFactory.access(READER(), "size"),
-                  undefined,
-                  undefined,
-                ),
+                read("size"),
                 undefined,
                 ts.factory.createAdd(
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER(), "index"),
-                    undefined,
-                    undefined,
-                  ),
+                  read("index"),
                   ts.factory.createIdentifier("length"),
                 ),
               ),
@@ -168,18 +158,13 @@ export namespace ProtobufDecodeProgrammer {
           ),
           ...write_object_function_body({
             context: props.context,
-            functor: props.functor,
             condition: ts.factory.createLessThan(
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(READER(), "index"),
-                undefined,
-                undefined,
-              ),
+              read("index"),
               ts.factory.createIdentifier("length"),
             ),
             tag: "tag",
             output: "output",
-            properties: props.object.properties,
+            object: props.object,
           }),
           ts.factory.createReturnStatement(
             ts.factory.createIdentifier("output"),
@@ -191,35 +176,30 @@ export namespace ProtobufDecodeProgrammer {
 
   const write_object_function_body = (props: {
     context: ITypiaContext;
-    functor: FunctionProgrammer;
     condition: ts.Expression;
     tag: string;
     output: string;
-    properties: MetadataProperty[];
+    object: MetadataObjectType;
   }): ts.Statement[] => {
-    let index: number = 1;
-    const clauses: ts.CaseClause[] = props.properties
-      .map((p) => {
-        const clause = decode_property({
+    const clauses: ts.CaseClause[] = props.object.properties
+      .map((p) =>
+        decode_property({
           context: props.context,
-          functor: props.functor,
-          index,
           accessor: IdentifierFactory.access(
             ts.factory.createIdentifier(props.output),
             p.key.getSoleLiteral()!,
           ),
+          protobuf: p.of_protobuf_!,
           metadata: p.value,
-        });
-        index += ProtobufUtil.size(p.value);
-        return clause;
-      })
+        }),
+      )
       .flat();
     return [
       StatementFactory.constant({
         name: props.output,
         value: ts.factory.createAsExpression(
           ts.factory.createObjectLiteralExpression(
-            props.properties
+            props.object.properties
               .filter(
                 (p) =>
                   !(
@@ -243,11 +223,7 @@ export namespace ProtobufDecodeProgrammer {
         ts.factory.createBlock([
           StatementFactory.constant({
             name: props.tag,
-            value: ts.factory.createCallExpression(
-              IdentifierFactory.access(READER(), "uint32"),
-              undefined,
-              undefined,
-            ),
+            value: read("uint32"),
           }),
           ts.factory.createSwitchStatement(
             ts.factory.createUnsignedRightShift(
@@ -258,16 +234,12 @@ export namespace ProtobufDecodeProgrammer {
               ...clauses,
               ts.factory.createDefaultClause([
                 ts.factory.createExpressionStatement(
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER(), "skipType"),
-                    undefined,
-                    [
-                      ts.factory.createBitwiseAnd(
-                        ts.factory.createIdentifier(props.tag),
-                        ExpressionFactory.number(7),
-                      ),
-                    ],
-                  ),
+                  read("skipType", [
+                    ts.factory.createBitwiseAnd(
+                      ts.factory.createIdentifier(props.tag),
+                      ExpressionFactory.number(7),
+                    ),
+                  ]),
                 ),
                 ts.factory.createBreakStatement(),
               ]),
@@ -320,32 +292,43 @@ export namespace ProtobufDecodeProgrammer {
     );
 
   /* -----------------------------------------------------------
-        DECODERS
-    ----------------------------------------------------------- */
+    DECODERS
+  ----------------------------------------------------------- */
   const decode_property = (props: {
     context: ITypiaContext;
-    functor: FunctionProgrammer;
-    index: number;
-    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
     metadata: Metadata;
-  }): ts.CaseClause[] => {
-    const clauses: ts.CaseClause[] = [];
-    const emplace = (name: string, value: ts.Expression | ts.Statement[]) =>
-      clauses.push(
-        ts.factory.createCaseClause(
-          ExpressionFactory.number(props.index++),
-          Array.isArray(value)
-            ? [
-                ts.factory.createExpressionStatement(
-                  ts.factory.createIdentifier(`// type: ${name}`),
-                ),
-                ...value,
-                ts.factory.createBreakStatement(),
-              ]
+    protobuf: IProtobufProperty;
+    accessor: ts.Expression;
+  }): ts.CaseClause[] =>
+    props.protobuf.union.map((schema) =>
+      decode_property_type({
+        context: props.context,
+        accessor: props.accessor,
+        schema,
+        required:
+          props.metadata.isRequired() && props.metadata.nullable === false,
+      }),
+    );
+
+  const decode_property_type = (props: {
+    context: ITypiaContext;
+    accessor: ts.Expression;
+    schema: IProtobufPropertyType;
+    required: boolean;
+  }): ts.CaseClause => {
+    const out = (
+      title: string,
+      value: ts.Expression | ts.Statement[],
+    ): ts.CaseClause =>
+      ts.factory.createCaseClause(
+        ExpressionFactory.number(props.schema.index),
+        [
+          ts.factory.createExpressionStatement(
+            ts.factory.createIdentifier(`// ${title}`),
+          ),
+          ...(Array.isArray(value)
+            ? value
             : [
-                ts.factory.createExpressionStatement(
-                  ts.factory.createIdentifier(`// ${name}`),
-                ),
                 ts.factory.createExpressionStatement(
                   ts.factory.createBinaryExpression(
                     props.accessor,
@@ -353,96 +336,108 @@ export namespace ProtobufDecodeProgrammer {
                     value,
                   ),
                 ),
-                ts.factory.createBreakStatement(),
-              ],
-        ),
+              ]),
+          ts.factory.createBreakStatement(),
+        ],
       );
-
-    const required: boolean =
-      props.metadata.isRequired() && !props.metadata.nullable;
-    for (const atomic of ProtobufUtil.getAtomics(props.metadata))
-      emplace(
-        atomic,
-        decode_atomic({
-          metadata: props.metadata,
-          type: atomic,
-        }),
-      );
-    if (props.metadata.natives.length) emplace("bytes", decode_bytes("bytes"));
-    for (const array of props.metadata.arrays)
-      emplace(
-        `Array<${array.type.value.getName()}>`,
+    // ATOMICS
+    if (props.schema.type === "bytes") return out("bytes", read("bytes"));
+    else if (props.schema.type === "bool") return out("bool", read("bool"));
+    else if (props.schema.type === "bigint")
+      return out(props.schema.name, read(props.schema.name));
+    else if (props.schema.type === "number")
+      return out(props.schema.name, decode_number(props.schema));
+    else if (props.schema.type === "string")
+      return out("string", read("string"));
+    // INSTANCES
+    else if (props.schema.type === "array")
+      return out(
+        `Array<${props.schema.array.value.getName()}>`,
         decode_array({
           accessor: props.accessor,
-          array,
-          required,
+          schema: props.schema,
+          required: props.required,
         }),
       );
-    for (const entry of props.metadata.maps)
-      emplace(
-        `Map<string, ${entry.value.getName()}>`,
-        decode_map({
-          context: props.context,
-          functor: props.functor,
-          accessor: props.accessor,
-          entry,
-          required,
+    else if (props.schema.type === "object")
+      return out(
+        props.schema.object.name,
+        decode_regular_object({
+          top: false,
+          object: props.schema.object,
         }),
       );
-    for (const object of props.metadata.objects)
-      emplace(
-        object.type.name,
-        ProtobufUtil.isStaticObject(object.type)
-          ? decode_regular_object({
-              top: false,
-              object: object.type,
-            })
-          : decode_dynamic_object({
-              context: props.context,
-              functor: props.functor,
-              accessor: props.accessor,
-              object: object.type,
-              required,
-            }),
-      );
-    return clauses;
+    else if (props.schema.type === "map")
+      if (props.schema.map instanceof MetadataObjectType) {
+        const key: Metadata = props.schema.map.properties[0]!.key;
+        const value: Metadata = props.schema.map.properties[0]!.value;
+        return out(
+          `Record<${key.getName()}, ${value.getName()}>`,
+          decode_map({
+            context: props.context,
+            accessor: props.accessor,
+            schema: props.schema,
+            key,
+            value,
+            initializer: ts.factory.createObjectLiteralExpression([]),
+            setter: () =>
+              ts.factory.createBinaryExpression(
+                ts.factory.createElementAccessExpression(
+                  props.accessor,
+                  ts.factory.createIdentifier("entry.key"),
+                ),
+                ts.factory.createToken(ts.SyntaxKind.EqualsToken),
+                ts.factory.createIdentifier("entry.value"),
+              ),
+          }),
+        );
+      } else {
+        const key: Metadata = props.schema.map.key;
+        const value: Metadata = props.schema.map.value;
+        return out(
+          `Map<${key.getName()}, ${value.getName()}>`,
+          decode_map({
+            context: props.context,
+            accessor: props.accessor,
+            schema: props.schema,
+            key,
+            value,
+            initializer: ts.factory.createNewExpression(
+              ts.factory.createIdentifier("Map"),
+              [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
+              [],
+            ),
+            setter: () =>
+              ts.factory.createCallExpression(
+                IdentifierFactory.access(props.accessor, "set"),
+                undefined,
+                [
+                  ts.factory.createIdentifier("entry.key"),
+                  ts.factory.createIdentifier("entry.value"),
+                ],
+              ),
+          }),
+        );
+      }
+    throw new Error(
+      "Error on ProtobufDecodeProgrammer.write(): unknown property type",
+    );
   };
 
-  const decode_atomic = (props: {
-    metadata: Metadata;
-    type: ProtobufAtomic;
-  }): ts.Expression => {
-    if (props.type === "string") return decode_bytes("string");
-
-    const call: ts.CallExpression = ts.factory.createCallExpression(
-      IdentifierFactory.access(READER(), props.type),
-      undefined,
-      undefined,
-    );
-    if (props.type !== "int64" && props.type !== "uint64") return call;
-
-    const isNumber: boolean = ProtobufUtil.getNumbers(props.metadata).some(
-      (n) => n === props.type,
-    );
-    return isNumber
+  const decode_number = (schema: IProtobufSchema.INumber): ts.Expression => {
+    const value = read(schema.name);
+    return schema.name === "int64" || schema.name === "uint64"
       ? ts.factory.createCallExpression(
           ts.factory.createIdentifier("Number"),
           undefined,
-          [call],
+          [value],
         )
-      : call;
+      : value;
   };
 
-  const decode_bytes = (method: "bytes" | "string"): ts.Expression =>
-    ts.factory.createCallExpression(
-      IdentifierFactory.access(READER(), method),
-      undefined,
-      undefined,
-    );
-
   const decode_array = (props: {
-    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
-    array: MetadataArray;
+    accessor: ts.Expression;
+    schema: IProtobufSchema.IArray;
     required: boolean;
   }): ts.Statement[] => {
     const statements: Array<ts.Expression | ts.Statement> = [];
@@ -457,24 +452,18 @@ export namespace ProtobufDecodeProgrammer {
           ),
         ),
       );
-    const atomics = ProtobufUtil.getAtomics(props.array.type.value);
-    const decoder = atomics.length
-      ? () =>
-          decode_atomic({
-            metadata: props.array.type.value,
-            type: atomics[0]!,
-          })
-      : props.array.type.value.natives.length
-        ? () => decode_bytes("bytes")
-        : props.array.type.value.objects.length
-          ? () =>
-              decode_regular_object({
-                top: false,
-                object: props.array.type.value.objects[0]!.type,
-              })
-          : null;
-    if (decoder === null) throw new Error("Never reach here.");
-    else if (atomics.length && atomics[0] !== "string") {
+    const decoder: ts.Expression = decode_schema(props.schema.element);
+    if (
+      [
+        "bool",
+        "int32",
+        "uint32",
+        "int64",
+        "uint64",
+        "float",
+        "double",
+      ].includes(props.schema.type)
+    ) {
       statements.push(
         ts.factory.createIfStatement(
           ts.factory.createStrictEquality(
@@ -488,33 +477,18 @@ export namespace ProtobufDecodeProgrammer {
             [
               StatementFactory.constant({
                 name: "piece",
-                value: ts.factory.createAdd(
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER(), "uint32"),
-                    undefined,
-                    undefined,
-                  ),
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER(), "index"),
-                    undefined,
-                    undefined,
-                  ),
-                ),
+                value: ts.factory.createAdd(read("uint32"), read("index")),
               }),
               ts.factory.createWhileStatement(
                 ts.factory.createLessThan(
-                  ts.factory.createCallExpression(
-                    IdentifierFactory.access(READER(), "index"),
-                    undefined,
-                    undefined,
-                  ),
+                  read("index"),
                   ts.factory.createIdentifier("piece"),
                 ),
                 ts.factory.createExpressionStatement(
                   ts.factory.createCallExpression(
                     IdentifierFactory.access(props.accessor, "push"),
                     undefined,
-                    [decoder()],
+                    [decoder],
                   ),
                 ),
               ),
@@ -525,7 +499,7 @@ export namespace ProtobufDecodeProgrammer {
             ts.factory.createCallExpression(
               IdentifierFactory.access(props.accessor, "push"),
               undefined,
-              [decoder()],
+              [decoder],
             ),
           ),
         ),
@@ -535,7 +509,7 @@ export namespace ProtobufDecodeProgrammer {
         ts.factory.createCallExpression(
           IdentifierFactory.access(props.accessor, "push"),
           undefined,
-          [decoder()],
+          [decoder],
         ),
       );
     return statements.map((stmt) =>
@@ -552,158 +526,116 @@ export namespace ProtobufDecodeProgrammer {
       undefined,
       [
         ts.factory.createIdentifier("reader"),
-        ...(props.top
-          ? []
-          : [
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(READER(), "uint32"),
-                undefined,
-                undefined,
-              ),
-            ]),
+        ...(props.top ? [] : [read("uint32")]),
       ],
     );
 
-  const decode_dynamic_object = (props: {
-    context: ITypiaContext;
-    functor: FunctionProgrammer;
-    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
-    object: MetadataObjectType;
-    required: boolean;
-  }): ts.Statement[] => {
-    const top: MetadataProperty = props.object.properties[0]!;
-    return decode_entry({
-      context: props.context,
-      functor: props.functor,
-      initializer: () =>
-        ts.factory.createBinaryExpression(
-          props.accessor,
-          ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
-          ts.factory.createObjectLiteralExpression(),
-        ),
-      setter: () =>
-        ts.factory.createBinaryExpression(
-          ts.factory.createElementAccessExpression(
-            props.accessor,
-            ts.factory.createIdentifier("entry.key"),
-          ),
-          ts.factory.createToken(ts.SyntaxKind.EqualsToken),
-          ts.factory.createIdentifier("entry.value"),
-        ),
-      entry: MetadataProperty.create({
-        ...top,
-        key: (() => {
-          const key: Metadata = Metadata.initialize();
-          key.atomics.push(
-            MetadataAtomic.create({
-              type: "string",
-              tags: [],
-            }),
-          );
-          return key;
-        })(),
-      }),
-      required: props.required,
-    });
-  };
-
   const decode_map = (props: {
     context: ITypiaContext;
-    functor: FunctionProgrammer;
-    accessor: ts.ElementAccessExpression | ts.PropertyAccessExpression;
-    entry: MetadataMap | MetadataProperty;
-    required: boolean;
-  }): ts.Statement[] =>
-    decode_entry({
-      context: props.context,
-      functor: props.functor,
-      initializer: () =>
-        ts.factory.createBinaryExpression(
-          props.accessor,
-          ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
-          ts.factory.createNewExpression(
-            ts.factory.createIdentifier("Map"),
-            [TypeFactory.keyword("any"), TypeFactory.keyword("any")],
-            [],
-          ),
-        ),
-      setter: () =>
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(props.accessor, "set"),
-          undefined,
-          [
-            ts.factory.createIdentifier("entry.key"),
-            ts.factory.createIdentifier("entry.value"),
-          ],
-        ),
-      entry: props.entry,
-      required: props.required,
-    });
-
-  const decode_entry = (props: {
-    context: ITypiaContext;
-    functor: FunctionProgrammer;
-    initializer: () => ts.Expression;
+    accessor: ts.Expression;
+    key: Metadata;
+    value: Metadata;
+    schema: IProtobufSchema.IMap;
+    initializer: ts.Expression;
     setter: () => ts.Expression;
-    entry: MetadataMap | MetadataProperty;
-    required: boolean;
   }): ts.Statement[] => {
-    const statements: ts.Statement[] = [
-      ...(props.required
-        ? []
-        : [ts.factory.createExpressionStatement(props.initializer())]),
+    const statements: Array<ts.Expression | ts.Statement> = [
+      ...(props.value.isRequired() === false || props.value.nullable === true
+        ? [
+            ts.factory.createBinaryExpression(
+              props.accessor,
+              ts.factory.createToken(ts.SyntaxKind.QuestionQuestionEqualsToken),
+              props.initializer,
+            ),
+          ]
+        : []),
       StatementFactory.constant({
         name: "piece",
-        value: ts.factory.createAdd(
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(READER(), "uint32"),
-            undefined,
-            undefined,
-          ),
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(READER(), "index"),
-            undefined,
-            undefined,
-          ),
-        ),
+        value: ts.factory.createAdd(read("uint32"), read("index")),
       }),
       ...write_object_function_body({
         context: props.context,
-        functor: props.functor,
         condition: ts.factory.createLessThan(
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(READER(), "index"),
-            undefined,
-            undefined,
-          ),
+          read("index"),
           ts.factory.createIdentifier("piece"),
         ),
         tag: "kind",
         output: "entry",
-        properties: [
-          MetadataProperty.create({
-            key: MetadataFactory.soleLiteral("key"),
-            value: props.entry.key,
-            description: null,
-            jsDocTags: [],
-          }),
-          MetadataProperty.create({
-            key: MetadataFactory.soleLiteral("value"),
-            value: props.entry.value,
-            description: null,
-            jsDocTags: [],
-          }),
-        ],
+        object: createObjectType([
+          {
+            key: "key",
+            value: props.key,
+          },
+          {
+            key: "value",
+            value: props.value,
+          },
+        ]),
       }),
-      ts.factory.createExpressionStatement(props.setter()),
+      props.setter(),
     ];
     return [
       ts.factory.createExpressionStatement(
-        ExpressionFactory.selfCall(ts.factory.createBlock(statements, true)),
+        ExpressionFactory.selfCall(
+          ts.factory.createBlock(
+            statements.map((stmt) =>
+              ts.isExpression(stmt)
+                ? ts.factory.createExpressionStatement(stmt)
+                : stmt,
+            ),
+            true,
+          ),
+        ),
       ),
     ];
+  };
+
+  const decode_schema = (schema: IProtobufSchema): ts.Expression => {
+    if (schema.type === "bytes") return read("bytes");
+    else if (schema.type === "bool") return read("bool");
+    else if (schema.type === "bigint") return read(schema.name);
+    else if (schema.type === "number") return decode_number(schema);
+    else if (schema.type === "string") return read("string");
+    else if (schema.type === "object")
+      return decode_regular_object({
+        top: false,
+        object: schema.object,
+      });
+    throw new Error("unreachable condition");
   };
 }
 
 const PREFIX = "$pd";
-const READER = () => ts.factory.createIdentifier("reader");
+const read = (name: string, args?: Array<ts.Expression>) =>
+  ts.factory.createCallExpression(
+    IdentifierFactory.access(ts.factory.createIdentifier("reader"), name),
+    undefined,
+    args,
+  );
+const createObjectType = (
+  definitions: Array<{
+    key: string;
+    value: Metadata;
+  }>,
+): MetadataObjectType => {
+  const properties: MetadataProperty[] = definitions.map((def) =>
+    MetadataProperty.create({
+      key: MetadataFactory.soleLiteral(def.key),
+      value: def.value,
+      description: null,
+      jsDocTags: [],
+    }),
+  );
+  const obj: MetadataObjectType = MetadataObjectType.create({
+    name: "object.o" + Math.random().toString().slice(2),
+    properties,
+    description: undefined,
+    jsDocTags: [],
+    index: -1,
+    validated: true,
+    recursive: false,
+    nullables: [false],
+  });
+  ProtobufFactory.emplaceObject(obj);
+  return obj;
+};
