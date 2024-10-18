@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message CommentTagRange {
-  repeat CommentTagRange.Type value = 1;
+  repeated CommentTagRange.Type value = 1;
   message Type {
     required int32 greater = 1;
     required int32 greater_equal = 2;

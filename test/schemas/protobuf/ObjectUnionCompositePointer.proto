@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ObjectUnionCompositePointer {
-  repeat IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_ value = 1;
+  repeated IPointer_lt_IPoint_space__or__space_ILine_space__or__space_ITriangle_space__or__space_IRectangle_space__or__space_IPolyline_space__or__space_IPolygon_space__or__space_IPointedShape_space__or__space_ICircle_gt_ value = 1;
   message IPoint {
     required double x = 1;
     required double y = 2;
@@ -26,16 +26,16 @@ message ObjectUnionCompositePointer {
   }
 
   message IPolyline {
-    repeat ObjectUnionCompositePointer.IPoint points = 1;
+    repeated ObjectUnionCompositePointer.IPoint points = 1;
   }
 
   message IPolygon {
     required ObjectUnionCompositePointer.IPolyline outer = 1;
-    repeat ObjectUnionCompositePointer.IPolyline inner = 2;
+    repeated ObjectUnionCompositePointer.IPolyline inner = 2;
   }
 
   message IPointedShape {
-    repeat ObjectUnionCompositePointer.IPoint outer = 1;
+    repeated ObjectUnionCompositePointer.IPoint outer = 1;
     required ObjectUnionCompositePointer.IPoint inner = 2;
   }
 

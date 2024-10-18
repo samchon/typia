@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ObjectUnionNonPredictable {
-  repeat ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;
+  repeated ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;
   message IWrapper_lt_ObjectUnionNonPredictable {
     message IUnion_gt_ {
       required IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_ value = 1;

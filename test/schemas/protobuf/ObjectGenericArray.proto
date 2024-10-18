@@ -2,7 +2,7 @@ syntax = "proto3";
 
 message ObjectGenericArray {
   required ObjectGenericArray.IPagination pagination = 1;
-  repeat ObjectGenericArray.IPerson data = 2;
+  repeated ObjectGenericArray.IPerson data = 2;
   message IPagination {
     required double page = 1;
     required double limit = 2;

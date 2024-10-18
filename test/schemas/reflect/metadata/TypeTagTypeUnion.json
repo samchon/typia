@@ -577,19 +577,6 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int64\">",
-                        "kind": "type",
-                        "value": "int64",
-                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "target": "number",
                         "name": "Type<\"float\">",
                         "kind": "type",
                         "value": "float",
@@ -597,6 +584,19 @@
                         "exclusive": true,
                         "schema": {
                           "type": "number"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"int64\">",
+                        "kind": "type",
+                        "value": "int64",
+                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
                         }
                       }
                     ]
@@ -661,19 +661,6 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int64\">",
-                        "kind": "type",
-                        "value": "int64",
-                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "target": "number",
                         "name": "Type<\"double\">",
                         "kind": "type",
                         "value": "double",
@@ -681,6 +668,19 @@
                         "exclusive": true,
                         "schema": {
                           "type": "number"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"int64\">",
+                        "kind": "type",
+                        "value": "int64",
+                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
                         }
                       }
                     ]
@@ -855,32 +855,6 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int64\">",
-                        "kind": "type",
-                        "value": "int64",
-                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "target": "number",
-                        "name": "Type<\"uint64\">",
-                        "kind": "type",
-                        "value": "uint64",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "target": "number",
                         "name": "Type<\"float\">",
                         "kind": "type",
                         "value": "float",
@@ -901,6 +875,32 @@
                         "exclusive": true,
                         "schema": {
                           "type": "number"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"int64\">",
+                        "kind": "type",
+                        "value": "int64",
+                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"uint64\">",
+                        "kind": "type",
+                        "value": "uint64",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
                         }
                       }
                     ]

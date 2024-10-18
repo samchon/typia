@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message TemplateUnion {
-  repeat TemplateUnion.Type value = 1;
+  repeated TemplateUnion.Type value = 1;
   message Type {
     required string prefix = 1;
     required string postfix = 2;
