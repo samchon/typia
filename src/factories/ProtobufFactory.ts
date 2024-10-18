@@ -3,11 +3,16 @@ import ts from "typescript";
 import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
+import { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
+import { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
+import { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
 
 import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
 
 import { TransformerError } from "../transformers/TransformerError";
 
+import { ProtobufAtomic } from "../typings/ProtobufAtomic";
 import { ValidationPipe } from "../typings/ValidationPipe";
 
 import { MetadataCollection } from "./MetadataCollection";
@@ -46,7 +51,277 @@ export namespace ProtobufFactory {
     return result.data;
   };
 
-  export const getSequence = (tags: IMetadataTypeTag[]): number | null => {
+  /**
+   * @internal
+   */
+  export const emplaceObject = (object: MetadataObjectType): void => {
+    for (const p of object.properties) emplaceProperty(p);
+    const properties: IProtobufProperty[] = object.properties
+      .map((p) => p.of_protobuf_)
+      .filter((p) => p !== undefined);
+    const unique: Set<number> = new Set(
+      properties
+        .filter((p) => p !== undefined)
+        .filter((p) => p.fixed === true)
+        .map((p) => p.union.map((u) => u.index))
+        .flat(),
+    );
+    let index: number = 0;
+    properties.forEach((schema) => {
+      if (schema.fixed === true)
+        index = Math.max(
+          index,
+          Math.max(...schema.union.map((u) => u.index)) + 1,
+        );
+      else {
+        for (const u of schema.union) {
+          while (unique.has(index) === true) ++index;
+          u.index = index;
+          unique.add(index);
+        }
+        ++index;
+      }
+    });
+  };
+
+  const emplaceProperty = (prop: MetadataProperty): void => {
+    const union: IProtobufPropertyType[] = [];
+    for (const native of prop.value.natives)
+      if (native.name === "Uint8Array")
+        union.push({
+          type: "bytes",
+          index: ProtobufUtil.getSequence(native.tags[0] ?? [])!,
+        });
+    union.push(...emplaceAtomic(prop.value).values());
+    for (const array of prop.value.arrays)
+      union.push({
+        type: "array",
+        array: array.type,
+        element: emplaceSchema(
+          array.type.value,
+        ) as IProtobufSchema.IArray["element"],
+        index: ProtobufUtil.getSequence(array.tags[0] ?? [])!,
+      });
+    for (const obj of prop.value.objects)
+      if (isDynamicObject(obj.type))
+        union.push({
+          type: "map",
+          map: obj.type,
+          key: emplaceSchema(obj.type.properties[0]!.key),
+          value: emplaceSchema(obj.type.properties[0]!.value),
+          index: ProtobufUtil.getSequence(obj.tags[0] ?? [])!,
+        });
+      else
+        union.push({
+          type: "object",
+          object: obj.type,
+          index: ProtobufUtil.getSequence(obj.tags[0] ?? [])!,
+        });
+    for (const map of prop.value.maps)
+      union.push({
+        type: "map",
+        map,
+        key: emplaceSchema(map.key),
+        value: emplaceSchema(map.value),
+        index: ProtobufUtil.getSequence(map.tags[0] ?? [])!,
+      });
+    prop.of_protobuf_ = {
+      union,
+      fixed: union.every((p) => p.index !== null),
+    };
+  };
+
+  const emplaceSchema = (metadata: Metadata): IProtobufSchema => {
+    for (const native of metadata.natives)
+      if (native.name === "Uint8Array")
+        return {
+          type: "bytes",
+        };
+    const atomic = emplaceAtomic(metadata);
+    if (atomic.size) return atomic.values().next().value!;
+    for (const array of metadata.arrays)
+      return {
+        type: "array",
+        array: array.type,
+        element: emplaceSchema(
+          array.type.value,
+        ) as IProtobufSchema.IArray["element"],
+      };
+    for (const obj of metadata.objects)
+      if (isDynamicObject(obj.type))
+        return {
+          type: "map",
+          map: obj.type,
+          key: emplaceSchema(obj.type.properties[0]!.key),
+          value: emplaceSchema(obj.type.properties[0]!.value),
+        };
+      else
+        return {
+          type: "object",
+          object: obj.type,
+        };
+    for (const map of metadata.maps)
+      return {
+        type: "map",
+        map,
+        key: emplaceSchema(map.key),
+        value: emplaceSchema(map.value),
+      };
+    throw new Error(
+      "Error on ProtobufFactory.emplaceSchema(): any type detected.",
+    );
+  };
+
+  const emplaceAtomic = (
+    meta: Metadata,
+  ): Map<ProtobufAtomic, IProtobufPropertyType> => {
+    const map: Map<ProtobufAtomic, IProtobufPropertyType> = new Map();
+
+    // CONSTANTS
+    for (const c of meta.constants)
+      if (c.type === "boolean")
+        map.set("bool", {
+          type: "bool",
+          index: getSequence(c.values[0]?.tags[0] ?? [])!,
+        });
+      else if (c.type === "bigint") {
+        const init: ProtobufAtomic.BigNumeric = getBigintType(
+          c.values.map((v) => BigInt(v.value)),
+        );
+        for (const value of c.values)
+          emplaceBigint({
+            map,
+            tags: value.tags,
+            init,
+          });
+      } else if (c.type === "number") {
+        const init: ProtobufAtomic.Numeric = getNumberType(
+          c.values.map((v) => v.value) as number[],
+        );
+        for (const value of c.values)
+          emplaceNumber({
+            map,
+            tags: value.tags,
+            init,
+          });
+      } else if (c.type === "string")
+        map.set("string", {
+          type: "string",
+          index: getSequence(c.values[0]?.tags[0] ?? [])!,
+        });
+
+    // TEMPLATE
+    if (meta.templates.length)
+      map.set("string", {
+        type: "string",
+        index: getSequence(meta.templates[0]?.tags[0] ?? [])!,
+      });
+
+    // ATOMICS
+    for (const atomic of meta.atomics)
+      if (atomic.type === "boolean")
+        map.set("bool", {
+          type: "bool",
+          index: getSequence(atomic.tags[0] ?? [])!,
+        });
+      else if (atomic.type === "bigint")
+        emplaceBigint({
+          map,
+          tags: atomic.tags,
+          init: "int64",
+        });
+      else if (atomic.type === "number")
+        emplaceNumber({
+          map,
+          tags: atomic.tags,
+          init: "double",
+        });
+      else if (atomic.type === "string")
+        map.set("string", {
+          type: "string",
+          index: getSequence(atomic.tags[0] ?? [])!,
+        });
+
+    // SORTING IF REQUIRED
+    if (map.size && map.values().next().value!.index === null)
+      return new Map(
+        Array.from(map).sort((x, y) => ProtobufUtil.compare(x[0], y[0])),
+      );
+    return map;
+  };
+
+  const emplaceBigint = (next: {
+    map: Map<ProtobufAtomic, IProtobufPropertyType>;
+    tags: IMetadataTypeTag[][];
+    init: ProtobufAtomic.BigNumeric;
+  }): void => {
+    if (next.tags.length === 0) {
+      next.map.set(next.init, {
+        type: "bigint",
+        name: next.init,
+        index: null!,
+      });
+      return;
+    }
+    for (const row of next.tags) {
+      const value: ProtobufAtomic.BigNumeric =
+        row.find(
+          (tag) =>
+            tag.kind === "type" &&
+            (tag.value === "int64" || tag.value === "uint64"),
+        )?.value ?? next.init;
+      next.map.set(next.init, {
+        type: "bigint",
+        name: value,
+        index: ProtobufUtil.getSequence(row)!,
+      });
+    }
+  };
+
+  const emplaceNumber = (next: {
+    map: Map<ProtobufAtomic, IProtobufPropertyType>;
+    tags: IMetadataTypeTag[][];
+    init: ProtobufAtomic.Numeric;
+  }): void => {
+    if (next.tags.length === 0) {
+      next.map.set(next.init, {
+        type: "number",
+        name: next.init,
+        index: null!,
+      });
+      return;
+    }
+    for (const row of next.tags) {
+      const value: ProtobufAtomic.Numeric =
+        row.find(
+          (tag) =>
+            tag.kind === "type" &&
+            (tag.value === "int32" ||
+              tag.value === "uint32" ||
+              tag.value === "int64" ||
+              tag.value === "uint64" ||
+              tag.value === "float" ||
+              tag.value === "double"),
+        )?.value ?? next.init;
+      next.map.set(value, {
+        type: "number",
+        name: value,
+        index: ProtobufUtil.getSequence(row)!,
+      });
+    }
+  };
+
+  const getBigintType = (values: bigint[]): ProtobufAtomic.BigNumeric =>
+    values.some((v) => v < 0) ? "int64" : "uint64";
+
+  const getNumberType = (values: number[]): ProtobufAtomic.Numeric =>
+    values.every((v) => Math.floor(v) === v)
+      ? values.every((v) => -2147483648 <= v && v <= 2147483647)
+        ? "int32"
+        : "int64"
+      : "double";
+
+  const getSequence = (tags: IMetadataTypeTag[]): number | null => {
     const sequence = tags.find(
       (t) =>
         t.kind === "sequence" &&
@@ -86,12 +361,7 @@ export namespace ProtobufFactory {
           object: explore.object,
           errors,
         });
-        for (const p of explore.object.properties)
-          validateProperty({
-            object: explore.object,
-            value: p.value,
-            errors,
-          });
+        emplaceObject(explore.object);
       }
 
       //----
@@ -124,10 +394,7 @@ export namespace ProtobufFactory {
         const bigints = ProtobufUtil.getBigints(meta);
 
         for (const type of ["int64", "uint64"])
-          if (
-            numbers.some((n) => n === type) &&
-            bigints.some((b) => b === type)
-          )
+          if (numbers.has(type) && bigints.has(type))
             insert(
               `tags.Type<"${type}"> cannot be used in both number and bigint types. Recommend to remove from number type`,
             );
@@ -247,7 +514,7 @@ export namespace ProtobufFactory {
       // KEY TYPE IS NOT ATOMIC
       if (
         meta.maps.length &&
-        meta.maps.some((m) => ProtobufUtil.getAtomics(m.key).length !== 1)
+        meta.maps.some((m) => ProtobufUtil.getAtomics(m.key).size !== 1)
       )
         noSupport("non-atomic key typed map");
       // MAP TYPE, BUT PROPERTY KEY TYPE IS OPTIONAL
@@ -272,27 +539,47 @@ export namespace ProtobufFactory {
     };
   };
 
+  /* -----------------------------------------------------------
+    SEQUENE VALIDATOR
+  ----------------------------------------------------------- */
   const validateObject = (next: {
     object: MetadataObjectType;
     errors: string[];
   }): void => {
-    const yes: string[] = [];
-    const no: string[] = [];
-    for (const p of next.object.properties) {
-      const key: string | null = p.key.getSoleLiteral();
-      if (key === null) continue;
-      else if (p.value.isSequence()) yes.push(key);
-      else no.push(key);
-    }
-    if (yes.length !== 0 && no.length !== 0)
-      next.errors.push(
-        `object type with mixed sequence and non-sequence properties. Keep sequence or non-sequence only (sequences: ${JSON.stringify(yes)}, non-sequences: ${JSON.stringify(no)})`,
-      );
+    for (const property of next.object.properties)
+      validateProperty({
+        metadata: property.value,
+        errors: next.errors,
+      });
+
+    const entire: Map<number, string> = new Map();
+    const visitProperty = (p: MetadataProperty) => {
+      const local: Set<number> = new Set();
+      const tagger = (matrix: IMetadataTypeTag[][]): void => {
+        matrix.forEach((tags) => {
+          const value: number | null = ProtobufUtil.getSequence(tags);
+          if (value !== null) local.add(value);
+        });
+      };
+      for (const c of p.value.constants)
+        for (const v of c.values) tagger(v.tags);
+      for (const a of p.value.atomics) tagger(a.tags);
+      for (const t of p.value.templates) tagger(t.tags);
+      for (const o of p.value.objects) tagger(o.tags);
+      for (const a of p.value.arrays) tagger(a.tags);
+
+      for (const s of local)
+        if (entire.has(s))
+          next.errors.push(
+            `The Sequence<${s}> tag is duplicated in two properties (${JSON.stringify(entire.get(s))} and ${JSON.stringify(p.key.getSoleLiteral())})`,
+          );
+        else entire.set(s, p.key.getSoleLiteral()!);
+    };
+    for (const p of next.object.properties) visitProperty(p);
   };
 
   const validateProperty = (next: {
-    object: MetadataObjectType;
-    value: Metadata;
+    metadata: Metadata;
     errors: string[];
   }): void => {
     let expected: number = 0;
@@ -318,29 +605,29 @@ export namespace ProtobufFactory {
       }),
       validateStringSequence,
     ])
-      validator({ metadata: next.value, errors: next.errors, add });
-    for (const array of next.value.arrays)
+      validator({ metadata: next.metadata, errors: next.errors, add });
+    for (const array of next.metadata.arrays)
       validateInstanceSequence({
         type: "array",
         tags: array.tags,
         errors: next.errors,
         add,
       });
-    for (const object of next.value.objects)
+    for (const object of next.metadata.objects)
       validateInstanceSequence({
         type: "object",
         tags: object.tags,
         errors: next.errors,
         add,
       });
-    for (const map of next.value.maps)
+    for (const map of next.metadata.maps)
       validateInstanceSequence({
         type: "map",
         tags: map.tags,
         errors: next.errors,
         add,
       });
-    for (const native of next.value.natives)
+    for (const native of next.metadata.natives)
       if (native.name === "Uint8Array")
         validateInstanceSequence({
           type: "Uint8Array",
@@ -350,9 +637,6 @@ export namespace ProtobufFactory {
         });
   };
 
-  /* -----------------------------------------------------------
-    SPECIFIC PREDICATORS
-  ----------------------------------------------------------- */
   const validateBooleanSequence = (next: {
     metadata: Metadata;
     errors: string[];
@@ -365,7 +649,7 @@ export namespace ProtobufFactory {
     const emplace = (matrix: IMetadataTypeTag[][]): void => {
       for (const tags of matrix)
         for (const tag of tags) {
-          const sequence = getSequence([tag]);
+          const sequence = ProtobufUtil.getSequence([tag]);
           if (sequence !== null) {
             unique.add(sequence);
             ++actual;
@@ -433,14 +717,12 @@ export namespace ProtobufFactory {
         let expected: number = 0;
         let actual: number = 0;
         const emplace = (tags: IMetadataTypeTag[]): void => {
-          for (const t of tags) {
-            const sequence = getSequence([t]);
-            if (sequence !== null) {
-              unique.add(sequence);
-              ++actual;
-            }
-            ++expected;
+          const sequence: number | null = ProtobufUtil.getSequence(tags);
+          if (sequence !== null) {
+            unique.add(sequence);
+            ++actual;
           }
+          ++expected;
         };
 
         for (const atomic of next.metadata.atomics)
@@ -453,11 +735,12 @@ export namespace ProtobufFactory {
               for (const tags of value.tags)
                 if (getType(tags) === category) emplace(tags);
 
-        if (unique.size && actual !== expected)
+        if (unique.size && actual !== expected) {
+          console.log(category, actual, expected, unique);
           next.errors.push(
             `The sequence tag must be declared in every union type members`,
           );
-        else if (unique.size > 1)
+        } else if (unique.size > 1)
           next.errors.push(
             `The sequence tag value must be the same in ${config.type} type (including literal types)`,
           );
@@ -482,7 +765,7 @@ export namespace ProtobufFactory {
     const emplace = (matrix: IMetadataTypeTag[][]): void => {
       for (const tags of matrix)
         for (const tag of tags) {
-          const sequence = getSequence([tag]);
+          const sequence = ProtobufUtil.getSequence([tag]);
           if (sequence !== null) {
             unique.add(sequence);
             ++actual;
@@ -523,7 +806,7 @@ export namespace ProtobufFactory {
     const unique: Set<number> = new Set();
     let count: number = 0;
     for (const tags of next.tags) {
-      const value: number | null = getSequence(tags);
+      const value: number | null = ProtobufUtil.getSequence(tags);
       if (value === null) continue;
       unique.add(value);
       ++count;

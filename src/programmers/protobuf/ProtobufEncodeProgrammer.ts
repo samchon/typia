@@ -307,11 +307,12 @@ export namespace ProtobufEncodeProgrammer {
                 );
 
     // STARTS FROM ATOMIC TYPES
+    // @todo
     const unions: IUnion[] = [];
-    const numbers = ProtobufUtil.getNumbers(props.metadata);
-    const bigints = ProtobufUtil.getBigints(props.metadata);
+    const numbers = Array.from(ProtobufUtil.getNumbers(props.metadata).keys());
+    const bigints = Array.from(ProtobufUtil.getBigints(props.metadata).keys());
 
-    for (const atom of ProtobufUtil.getAtomics(props.metadata))
+    for (const [atom] of ProtobufUtil.getAtomics(props.metadata))
       if (atom === "bool")
         unions.push({
           type: "bool",
@@ -334,7 +335,7 @@ export namespace ProtobufEncodeProgrammer {
       )
         unions.push(
           decode_number({
-            candidates: numbers,
+            candidates: numbers as ProtobufAtomic.Numeric[],
             type: atom,
             input: props.input,
           }),
@@ -343,7 +344,7 @@ export namespace ProtobufEncodeProgrammer {
         if (numbers.some((n) => n === atom))
           unions.push(
             decode_number({
-              candidates: numbers,
+              candidates: numbers as ProtobufAtomic.Numeric[],
               type: atom,
               input: props.input,
             }),
@@ -351,7 +352,7 @@ export namespace ProtobufEncodeProgrammer {
         else
           unions.push(
             decode_bigint({
-              candidates: bigints,
+              candidates: bigints as ProtobufAtomic.BigNumeric[],
               type: atom,
               input: props.input,
             }),
@@ -823,7 +824,8 @@ export namespace ProtobufEncodeProgrammer {
     )
       return ProtobufWire.LEN;
 
-    const v = ProtobufUtil.getAtomics(metadata)[0]!;
+    // @todo
+    const v = ProtobufUtil.getAtomics(metadata).keys().next().value!;
     if (v === "string") return ProtobufWire.LEN;
     else if (
       v === "bool" ||
