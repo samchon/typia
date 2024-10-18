@@ -11,13 +11,13 @@
       {
         "type": "array",
         "items": {
-          "type": "boolean"
+          "type": "number"
         }
       },
       {
         "type": "array",
         "items": {
-          "type": "number"
+          "type": "boolean"
         }
       }
     ]

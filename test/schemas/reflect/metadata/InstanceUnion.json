@@ -2087,11 +2087,11 @@
           "rest": null,
           "arrays": [
             {
-              "name": "Array<boolean>",
+              "name": "Array<number>",
               "tags": []
             },
             {
-              "name": "Array<number>",
+              "name": "Array<boolean>",
               "tags": []
             },
             {
@@ -2206,7 +2206,7 @@
         "index": null
       },
       {
-        "name": "Array<boolean>",
+        "name": "Array<number>",
         "value": {
           "any": false,
           "required": true,
@@ -2215,7 +2215,7 @@
           "functions": [],
           "atomics": [
             {
-              "type": "boolean",
+              "type": "number",
               "tags": []
             }
           ],
@@ -2238,7 +2238,7 @@
         "index": null
       },
       {
-        "name": "Array<number>",
+        "name": "Array<boolean>",
         "value": {
           "any": false,
           "required": true,
@@ -2247,7 +2247,7 @@
           "functions": [],
           "atomics": [
             {
-              "type": "number",
+              "type": "boolean",
               "tags": []
             }
           ],

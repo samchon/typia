@@ -1,4 +1,4 @@
-export namespace NameEncoder {
+export namespace ProtobufNameEncoder {
   export const encode = (str: string): string => {
     for (const [before, after] of REPLACERS)
       str = str.split(before).join(after);

@@ -73,10 +73,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"uint32\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "value": "uint32",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -86,10 +86,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"int32\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "value": "int32",
+                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -829,10 +829,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"uint32\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "value": "uint32",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -842,10 +842,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"int32\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "value": "int32",
+                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
