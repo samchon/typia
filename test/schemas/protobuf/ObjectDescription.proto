@@ -4,6 +4,6 @@ message ObjectDescription {
   required string id = 1;
   required bool deprecated = 2;
   required string title = 3;
-  repeated string descriptions = 4;
+  repeat string descriptions = 4;
   required double newLine = 5;
 }

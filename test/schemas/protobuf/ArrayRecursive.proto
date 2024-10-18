@@ -2,7 +2,7 @@ syntax = "proto3";
 
 message ArrayRecursive {
   message ICategory {
-    repeated ArrayRecursive.ICategory children = 1;
+    repeat ArrayRecursive.ICategory children = 1;
     required double id = 2;
     required string code = 3;
     required double sequence = 4;

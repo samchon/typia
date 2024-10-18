@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ObjectUnionExplicitPointer {
-  repeated IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_ value = 1;
+  repeat IPointer_lt_ObjectUnionExplicitPointer.Shape_gt_ value = 1;
   message Discriminator_lt__doublequote_point_doublequote__comma__space_ObjectUnionExplicitPointer {
     message IPoint_gt_ {
       required double x = 1;
@@ -44,7 +44,7 @@ message ObjectUnionExplicitPointer {
 
   message Discriminator_lt__doublequote_polyline_doublequote__comma__space_ObjectUnionExplicitPointer {
     message IPolyline_gt_ {
-      repeated ObjectUnionExplicitPointer.IPoint points = 1;
+      repeat ObjectUnionExplicitPointer.IPoint points = 1;
       required string type = 2;
     }
   }
@@ -52,13 +52,13 @@ message ObjectUnionExplicitPointer {
   message Discriminator_lt__doublequote_polygon_doublequote__comma__space_ObjectUnionExplicitPointer {
     message IPolygon_gt_ {
       required ObjectUnionExplicitPointer.IPolyline outer = 1;
-      repeated ObjectUnionExplicitPointer.IPolyline inner = 2;
+      repeat ObjectUnionExplicitPointer.IPolyline inner = 2;
       required string type = 3;
     }
   }
 
   message IPolyline {
-    repeated ObjectUnionExplicitPointer.IPoint points = 1;
+    repeat ObjectUnionExplicitPointer.IPoint points = 1;
   }
 
   message Discriminator_lt__doublequote_circle_doublequote__comma__space_ObjectUnionExplicitPointer {

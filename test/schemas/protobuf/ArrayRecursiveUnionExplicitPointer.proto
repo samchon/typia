@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ArrayRecursiveUnionExplicitPointer {
-  repeated ArrayRecursiveUnionExplicitPointer.IBucket value = 1;
+  repeat ArrayRecursiveUnionExplicitPointer.IBucket value = 1;
   message IBucket {
     oneof value {
       ArrayRecursiveUnionExplicitPointer.IDirectory v1 = 1;
@@ -16,7 +16,7 @@ message ArrayRecursiveUnionExplicitPointer {
     required double id = 1;
     required string name = 2;
     required string path = 3;
-    repeated ArrayRecursiveUnionExplicitPointer.IBucket children = 4;
+    repeat ArrayRecursiveUnionExplicitPointer.IBucket children = 4;
     required string type = 5;
   }
 

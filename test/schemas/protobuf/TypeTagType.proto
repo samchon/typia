@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message TypeTagType {
-  repeated TypeTagType.Type value = 1;
+  repeat TypeTagType.Type value = 1;
   message Type {
     required int32 int = 1;
     required uint32 uint = 2;

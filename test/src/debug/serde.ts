@@ -1,3 +1,10 @@
-import { test_protobuf_encode_ObjectSimple } from "../features/protobuf.encode/test_protobuf_encode_ObjectSimple";
+import typia from "typia";
 
-test_protobuf_encode_ObjectSimple();
+import { ObjectPartial } from "../structures/ObjectPartial";
+
+const input: ObjectPartial = typia.random<ObjectPartial>();
+const encoded = typia.protobuf.encode<ObjectPartial>(input);
+console.log(input, encoded);
+
+const decoded = typia.protobuf.decode<ObjectPartial>(encoded);
+console.log(decoded);

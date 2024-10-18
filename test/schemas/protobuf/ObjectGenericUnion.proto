@@ -10,14 +10,14 @@ message ObjectGenericUnion {
     optional ObjectGenericUnion.ISaleAnswer answer = 2;
     required string id = 3;
     required double hit = 4;
-    repeated ObjectGenericUnion.ISaleArticle.IContent contents = 5;
+    repeat ObjectGenericUnion.ISaleArticle.IContent contents = 5;
     required string created_at = 6;
   }
 
   message ISaleAnswer {
     required string id = 1;
     required double hit = 2;
-    repeated ObjectGenericUnion.ISaleArticle.IContent contents = 3;
+    repeat ObjectGenericUnion.ISaleArticle.IContent contents = 3;
     required string created_at = 4;
   }
 
@@ -27,7 +27,7 @@ message ObjectGenericUnion {
       required string created_at = 2;
       required string title = 3;
       required string body = 4;
-      repeated ObjectGenericUnion.IAttachmentFile files = 5;
+      repeat ObjectGenericUnion.IAttachmentFile files = 5;
     }
   }
 
@@ -42,7 +42,7 @@ message ObjectGenericUnion {
     optional ObjectGenericUnion.ISaleAnswer answer = 2;
     required string id = 3;
     required double hit = 4;
-    repeated ObjectGenericUnion.ISaleReview.IContent contents = 5;
+    repeat ObjectGenericUnion.ISaleReview.IContent contents = 5;
     required string created_at = 6;
     message IContent {
       required double score = 1;
@@ -50,7 +50,7 @@ message ObjectGenericUnion {
       required string created_at = 3;
       required string title = 4;
       required string body = 5;
-      repeated ObjectGenericUnion.IAttachmentFile files = 6;
+      repeat ObjectGenericUnion.IAttachmentFile files = 6;
     }
   }
 }

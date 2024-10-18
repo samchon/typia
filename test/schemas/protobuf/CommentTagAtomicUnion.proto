@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message CommentTagAtomicUnion {
-  repeated CommentTagAtomicUnion.Type value = 1;
+  repeat CommentTagAtomicUnion.Type value = 1;
   message Type {
     oneof value {
       double v1 = 1;

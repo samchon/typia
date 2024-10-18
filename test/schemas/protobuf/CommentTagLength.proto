@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message CommentTagLength {
-  repeated CommentTagLength.Type value = 1;
+  repeat CommentTagLength.Type value = 1;
   message Type {
     required string fixed = 1;
     required string minimum = 2;

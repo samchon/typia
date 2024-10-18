@@ -6,7 +6,7 @@ message ObjectPrimitive {
     required string extension = 2;
     required string title = 3;
     required string body = 4;
-    repeated ObjectPrimitive.IFile files = 5;
+    repeat ObjectPrimitive.IFile files = 5;
     required bool secret = 6;
     required string created_at = 7;
   }

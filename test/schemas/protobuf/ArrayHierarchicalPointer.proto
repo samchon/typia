@@ -1,13 +1,13 @@
 syntax = "proto3";
 
 message ArrayHierarchicalPointer {
-  repeated ArrayHierarchicalPointer.ICompany value = 1;
+  repeat ArrayHierarchicalPointer.ICompany value = 1;
   message ICompany {
     required double id = 1;
     required double serial = 2;
     required string name = 3;
     required ArrayHierarchicalPointer.ITimestamp established_at = 4;
-    repeated ArrayHierarchicalPointer.IDepartment departments = 5;
+    repeat ArrayHierarchicalPointer.IDepartment departments = 5;
   }
 
   message ITimestamp {
@@ -20,7 +20,7 @@ message ArrayHierarchicalPointer {
     required string code = 2;
     required double sales = 3;
     required ArrayHierarchicalPointer.ITimestamp created_at = 4;
-    repeated ArrayHierarchicalPointer.IEmployee employees = 5;
+    repeat ArrayHierarchicalPointer.IEmployee employees = 5;
   }
 
   message IEmployee {

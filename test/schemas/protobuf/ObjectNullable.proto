@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message ObjectNullable {
-  repeated ObjectNullable.IProduct value = 1;
+  repeat ObjectNullable.IProduct value = 1;
   message IProduct {
     required string name = 1;
     required ObjectNullable.IManufacturer manufacturer = 2;

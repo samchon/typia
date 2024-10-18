@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 message TemplateConstant {
-  repeated TemplateConstant.Type value = 1;
+  repeat TemplateConstant.Type value = 1;
   message Type {
     required string prefix = 1;
     required string postfix = 2;
