@@ -1,9 +1,3 @@
-import typia from "typia";
+import { test_protobuf_encode_ObjectSimple } from "../features/protobuf.encode/test_protobuf_encode_ObjectSimple";
 
-interface Something {
-  id: string;
-}
-const something: Something = { id: "1234" };
-const encoded = typia.protobuf.encode<Something>(something);
-const decoded = typia.protobuf.decode<Something>(encoded);
-console.log(decoded);
+test_protobuf_encode_ObjectSimple();
