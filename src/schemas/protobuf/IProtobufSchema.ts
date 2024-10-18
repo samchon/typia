@@ -32,7 +32,7 @@ export namespace IProtobufSchema {
   export interface IArray {
     type: "array";
     array: MetadataArrayType;
-    element: Exclude<IProtobufSchema, IArray>;
+    value: Exclude<IProtobufSchema, IArray | IMap>;
   }
   export interface IObject {
     type: "object";
@@ -41,7 +41,10 @@ export namespace IProtobufSchema {
   export interface IMap {
     type: "map";
     map: MetadataMap | MetadataObjectType;
-    key: IProtobufSchema;
-    value: IProtobufSchema;
+    key:
+      | IProtobufSchema.IBoolean
+      | IProtobufSchema.INumber
+      | IProtobufSchema.IString;
+    value: Exclude<IProtobufSchema, IArray | IMap>;
   }
 }

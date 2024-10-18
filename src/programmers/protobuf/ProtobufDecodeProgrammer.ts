@@ -147,10 +147,10 @@ export namespace ProtobufDecodeProgrammer {
                   ExpressionFactory.number(0),
                 ),
                 undefined,
-                read("size"),
+                callReader("size"),
                 undefined,
                 ts.factory.createAdd(
-                  read("index"),
+                  callReader("index"),
                   ts.factory.createIdentifier("length"),
                 ),
               ),
@@ -159,7 +159,7 @@ export namespace ProtobufDecodeProgrammer {
           ...write_object_function_body({
             context: props.context,
             condition: ts.factory.createLessThan(
-              read("index"),
+              callReader("index"),
               ts.factory.createIdentifier("length"),
             ),
             tag: "tag",
@@ -223,7 +223,7 @@ export namespace ProtobufDecodeProgrammer {
         ts.factory.createBlock([
           StatementFactory.constant({
             name: props.tag,
-            value: read("uint32"),
+            value: callReader("uint32"),
           }),
           ts.factory.createSwitchStatement(
             ts.factory.createUnsignedRightShift(
@@ -234,7 +234,7 @@ export namespace ProtobufDecodeProgrammer {
               ...clauses,
               ts.factory.createDefaultClause([
                 ts.factory.createExpressionStatement(
-                  read("skipType", [
+                  callReader("skipType", [
                     ts.factory.createBitwiseAnd(
                       ts.factory.createIdentifier(props.tag),
                       ExpressionFactory.number(7),
@@ -341,14 +341,15 @@ export namespace ProtobufDecodeProgrammer {
         ],
       );
     // ATOMICS
-    if (props.schema.type === "bytes") return out("bytes", read("bytes"));
-    else if (props.schema.type === "bool") return out("bool", read("bool"));
+    if (props.schema.type === "bytes") return out("bytes", callReader("bytes"));
+    else if (props.schema.type === "bool")
+      return out("bool", callReader("bool"));
     else if (props.schema.type === "bigint")
-      return out(props.schema.name, read(props.schema.name));
+      return out(props.schema.name, callReader(props.schema.name));
     else if (props.schema.type === "number")
       return out(props.schema.name, decode_number(props.schema));
     else if (props.schema.type === "string")
-      return out("string", read("string"));
+      return out("string", callReader("string"));
     // INSTANCES
     else if (props.schema.type === "array")
       return out(
@@ -425,7 +426,7 @@ export namespace ProtobufDecodeProgrammer {
   };
 
   const decode_number = (schema: IProtobufSchema.INumber): ts.Expression => {
-    const value = read(schema.name);
+    const value = callReader(schema.name);
     return schema.name === "int64" || schema.name === "uint64"
       ? ts.factory.createCallExpression(
           ts.factory.createIdentifier("Number"),
@@ -452,7 +453,7 @@ export namespace ProtobufDecodeProgrammer {
           ),
         ),
       );
-    const decoder: ts.Expression = decode_schema(props.schema.element);
+    const decoder: ts.Expression = decode_array_value(props.schema.value);
     if (
       [
         "bool",
@@ -477,11 +478,14 @@ export namespace ProtobufDecodeProgrammer {
             [
               StatementFactory.constant({
                 name: "piece",
-                value: ts.factory.createAdd(read("uint32"), read("index")),
+                value: ts.factory.createAdd(
+                  callReader("uint32"),
+                  callReader("index"),
+                ),
               }),
               ts.factory.createWhileStatement(
                 ts.factory.createLessThan(
-                  read("index"),
+                  callReader("index"),
                   ts.factory.createIdentifier("piece"),
                 ),
                 ts.factory.createExpressionStatement(
@@ -526,7 +530,7 @@ export namespace ProtobufDecodeProgrammer {
       undefined,
       [
         ts.factory.createIdentifier("reader"),
-        ...(props.top ? [] : [read("uint32")]),
+        ...(props.top ? [] : [callReader("uint32")]),
       ],
     );
 
@@ -551,12 +555,12 @@ export namespace ProtobufDecodeProgrammer {
         : []),
       StatementFactory.constant({
         name: "piece",
-        value: ts.factory.createAdd(read("uint32"), read("index")),
+        value: ts.factory.createAdd(callReader("uint32"), callReader("index")),
       }),
       ...write_object_function_body({
         context: props.context,
         condition: ts.factory.createLessThan(
-          read("index"),
+          callReader("index"),
           ts.factory.createIdentifier("piece"),
         ),
         tag: "kind",
@@ -590,12 +594,14 @@ export namespace ProtobufDecodeProgrammer {
     ];
   };
 
-  const decode_schema = (schema: IProtobufSchema): ts.Expression => {
-    if (schema.type === "bytes") return read("bytes");
-    else if (schema.type === "bool") return read("bool");
-    else if (schema.type === "bigint") return read(schema.name);
+  const decode_array_value = (
+    schema: IProtobufSchema.IArray["value"],
+  ): ts.Expression => {
+    if (schema.type === "bytes") return callReader("bytes");
+    else if (schema.type === "bool") return callReader("bool");
+    else if (schema.type === "bigint") return callReader(schema.name);
     else if (schema.type === "number") return decode_number(schema);
-    else if (schema.type === "string") return read("string");
+    else if (schema.type === "string") return callReader("string");
     else if (schema.type === "object")
       return decode_regular_object({
         top: false,
@@ -606,9 +612,12 @@ export namespace ProtobufDecodeProgrammer {
 }
 
 const PREFIX = "$pd";
-const read = (name: string, args?: Array<ts.Expression>) =>
+const callReader = (
+  method: string,
+  args?: ts.Expression[],
+): ts.CallExpression =>
   ts.factory.createCallExpression(
-    IdentifierFactory.access(ts.factory.createIdentifier("reader"), name),
+    IdentifierFactory.access(ts.factory.createIdentifier("reader"), method),
     undefined,
     args,
   );
