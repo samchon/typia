@@ -36,7 +36,7 @@ export namespace RandomJoiner {
                   .filter(([key]) => key !== "items")
                   .map(([key, value]) =>
                     ts.factory.createPropertyAssignment(
-                      key,
+                      IdentifierFactory.identifier(key),
                       LiteralFactory.write(value),
                     ),
                   )
