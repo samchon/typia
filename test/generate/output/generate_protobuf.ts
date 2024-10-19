@@ -20,22 +20,21 @@ export const createEncode = (() => {
     input: any,
   ): Writer => {
     const $peo0 = (input: any): any => {
-      // property "name";
+      // property "name": (string & MaxLength<8>);
       writer.uint32(10);
       writer.string(input.name);
-      // property "extension";
+      // property "extension": ((string & MinLength<1> & MaxLength<3>) | null);
       if (null !== input.extension) {
         writer.uint32(18);
         writer.string(input.extension);
       }
-      // property "size";
+      // property "size": (number & Type<"uint32">);
       writer.uint32(24);
       writer.uint32(input.size);
-      // property "data";
+      // property "data": Uint8Array;
       writer.uint32(34);
       writer.bytes(input.data);
     };
-    //IFile;
     $peo0(input);
     return writer;
   };
@@ -162,18 +161,18 @@ export const createAssertEncode = (() => {
     input: any,
   ): Writer => {
     const $peo0 = (input: any): any => {
-      // property "name";
+      // property "name": (string & MaxLength<8>);
       writer.uint32(10);
       writer.string(input.name);
-      // property "extension";
+      // property "extension": ((string & MinLength<1> & MaxLength<3>) | null);
       if (null !== input.extension) {
         writer.uint32(18);
         writer.string(input.extension);
       }
-      // property "size";
+      // property "size": (number & Type<"uint32">);
       writer.uint32(24);
       writer.uint32(input.size);
-      // property "data";
+      // property "data": Uint8Array;
       writer.uint32(34);
       writer.bytes(input.data);
     };
@@ -189,7 +188,6 @@ export const createAssertEncode = (() => {
       0 <= input.size &&
       input.size <= 4294967295 &&
       input.data instanceof Uint8Array;
-    //IFile;
     $peo0(input);
     return writer;
   };
@@ -259,18 +257,18 @@ export const createIsEncode = (() => {
     input: any,
   ): Writer => {
     const $peo0 = (input: any): any => {
-      // property "name";
+      // property "name": (string & MaxLength<8>);
       writer.uint32(10);
       writer.string(input.name);
-      // property "extension";
+      // property "extension": ((string & MinLength<1> & MaxLength<3>) | null);
       if (null !== input.extension) {
         writer.uint32(18);
         writer.string(input.extension);
       }
-      // property "size";
+      // property "size": (number & Type<"uint32">);
       writer.uint32(24);
       writer.uint32(input.size);
-      // property "data";
+      // property "data": Uint8Array;
       writer.uint32(34);
       writer.bytes(input.data);
     };
@@ -286,7 +284,6 @@ export const createIsEncode = (() => {
       0 <= input.size &&
       input.size <= 4294967295 &&
       input.data instanceof Uint8Array;
-    //IFile;
     $peo0(input);
     return writer;
   };
@@ -379,18 +376,18 @@ export const createValidateEncode = (() => {
     input: any,
   ): Writer => {
     const $peo0 = (input: any): any => {
-      // property "name";
+      // property "name": (string & MaxLength<8>);
       writer.uint32(10);
       writer.string(input.name);
-      // property "extension";
+      // property "extension": ((string & MinLength<1> & MaxLength<3>) | null);
       if (null !== input.extension) {
         writer.uint32(18);
         writer.string(input.extension);
       }
-      // property "size";
+      // property "size": (number & Type<"uint32">);
       writer.uint32(24);
       writer.uint32(input.size);
-      // property "data";
+      // property "data": Uint8Array;
       writer.uint32(34);
       writer.bytes(input.data);
     };
@@ -406,7 +403,6 @@ export const createValidateEncode = (() => {
       0 <= input.size &&
       input.size <= 4294967295 &&
       input.data instanceof Uint8Array;
-    //IFile;
     $peo0(input);
     return writer;
   };

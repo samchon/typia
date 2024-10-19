@@ -9,11 +9,11 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
+import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
+import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
 
 import { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { ITypiaContext } from "../../transformers/ITypiaContext";
@@ -102,13 +102,7 @@ export namespace ProtobufEncodeProgrammer {
                 [ts.factory.createIdentifier("sizer")],
               ),
             ),
-            ts.factory.createReturnStatement(
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(WRITER(), "buffer"),
-                undefined,
-                undefined,
-              ),
-            ),
+            ts.factory.createReturnStatement(callWriter("buffer")),
           ],
           true,
         ),
@@ -157,19 +151,6 @@ export namespace ProtobufEncodeProgrammer {
           }),
         }),
       );
-    const main: ts.Block = decode({
-      context: props.context,
-      functor: props.functor,
-      index: null,
-      input: ts.factory.createIdentifier("input"),
-      metadata: props.metadata,
-      explore: {
-        source: "top",
-        from: "top",
-        tracable: false,
-        postfix: "",
-      },
-    });
     return ts.factory.createArrowFunction(
       undefined,
       [
@@ -196,7 +177,17 @@ export namespace ProtobufEncodeProgrammer {
           ...props.functor.declareUnions(),
           ...functors,
           ...IsProgrammer.write_function_statements(props),
-          ...main.statements,
+          ts.factory.createExpressionStatement(
+            ts.factory.createCallExpression(
+              ts.factory.createIdentifier(
+                props.functor.useLocal(
+                  `${PREFIX}o${props.metadata.objects[0]?.type.index ?? 0}`,
+                ),
+              ),
+              [],
+              [ts.factory.createIdentifier("input")],
+            ),
+          ),
           ts.factory.createReturnStatement(
             ts.factory.createIdentifier("writer"),
           ),
@@ -213,20 +204,20 @@ export namespace ProtobufEncodeProgrammer {
     object: MetadataObjectType;
     explore: FeatureProgrammer.IExplore;
   }): ts.ArrowFunction => {
-    let index: number = 1;
     const body: ts.Statement[] = props.object.properties
       .map((p) => {
-        const block = decode({
-          ...props,
-          index,
-          input: IdentifierFactory.access(props.input, p.key.getSoleLiteral()!),
+        const block = decode_property({
+          context: props.context,
+          functor: props.functor,
+          explore: props.explore,
           metadata: p.value,
+          protobuf: p.of_protobuf_!,
+          input: IdentifierFactory.access(props.input, p.key.getSoleLiteral()!),
         });
-        index += ProtobufUtil.size(p.value);
         return [
           ts.factory.createExpressionStatement(
             ts.factory.createIdentifier(
-              `// property "${p.key.getSoleLiteral()!}"`,
+              `// property ${JSON.stringify(p.key.getSoleLiteral())}: ${p.value.getName()}`,
             ),
           ),
           ...block.statements,
@@ -244,16 +235,139 @@ export namespace ProtobufEncodeProgrammer {
   };
 
   /* -----------------------------------------------------------
-        DECODERS
-    ----------------------------------------------------------- */
-  const decode = (props: {
+    DECODER STATION
+  ----------------------------------------------------------- */
+  const decode_property = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    index: number | null;
-    input: ts.Expression;
     metadata: Metadata;
+    protobuf: IProtobufProperty;
+    input: ts.Expression;
     explore: FeatureProgrammer.IExplore;
   }): ts.Block => {
+    const union: IUnion[] = [];
+    for (const schema of props.protobuf.union) {
+      //----
+      // ATOMICS
+      //----
+      if (schema.type === "bool")
+        union.push({
+          is: () =>
+            ts.factory.createStrictEquality(
+              ts.factory.createStringLiteral("boolean"),
+              ts.factory.createTypeOfExpression(props.input),
+            ),
+          value: () =>
+            decode_bool({
+              input: props.input,
+              index: schema.index,
+            }),
+        });
+      else if (schema.type === "bigint")
+        union.push(
+          decode_bigint({
+            input: props.input,
+            type: schema.name,
+            candidates: props.protobuf.union
+              .filter((s) => s.type === "bigint")
+              .map((s) => s.name),
+            index: schema.index,
+          }),
+        );
+      else if (schema.type === "number")
+        union.push(
+          decode_number({
+            input: props.input,
+            type: schema.name,
+            candidates: props.protobuf.union
+              .filter((s) => s.type === "number")
+              .map((s) => s.name),
+            index: schema.index,
+          }),
+        );
+      else if (schema.type === "string")
+        union.push({
+          is: () =>
+            ts.factory.createStrictEquality(
+              ts.factory.createStringLiteral("string"),
+              ts.factory.createTypeOfExpression(props.input),
+            ),
+          value: () =>
+            decode_bytes({
+              method: "string",
+              index: schema.index,
+              input: props.input,
+            }),
+        });
+      //----
+      // INSTANCES
+      //----
+      else if (schema.type === "bytes")
+        union.push({
+          is: () => ExpressionFactory.isInstanceOf("Uint8Array", props.input),
+          value: () =>
+            decode_bytes({
+              method: "bytes",
+              index: schema.index,
+              input: props.input,
+            }),
+        });
+      else if (schema.type === "array")
+        union.push({
+          is: () => ExpressionFactory.isArray(props.input),
+          value: () =>
+            decode_array({
+              context: props.context,
+              functor: props.functor,
+              input: props.input,
+              schema,
+            }),
+        });
+      else if (schema.type === "map" && schema.map instanceof MetadataMap) {
+        union.push({
+          is: () => ExpressionFactory.isInstanceOf("Map", props.input),
+          value: () =>
+            decode_map({
+              context: props.context,
+              functor: props.functor,
+              schema,
+              input: props.input,
+            }),
+        });
+      }
+      const objectSchemas: Array<
+        IProtobufPropertyType.IObject | IProtobufPropertyType.IMap
+      > = props.protobuf.union
+        .filter((schema) => schema.type === "object" || schema.type === "map")
+        .filter(
+          (schema) =>
+            schema.type === "object" ||
+            (schema.type === "map" && schema.map instanceof MetadataObjectType),
+        );
+      if (objectSchemas.length !== 0)
+        union.push({
+          is: () =>
+            ExpressionFactory.isObject({
+              checkNull: true,
+              checkArray: false,
+              input: props.input,
+            }),
+          value: () =>
+            explore_objects({
+              context: props.context,
+              functor: props.functor,
+              level: 0,
+              schemas: objectSchemas,
+              explore: {
+                ...props.explore,
+                from: "object",
+              },
+              input: props.input,
+            }),
+        });
+    }
+
+    // RETURNS
     const wrapper: (block: ts.Block) => ts.Block =
       props.metadata.isRequired() && props.metadata.nullable === false
         ? (block) => block
@@ -305,228 +419,315 @@ export namespace ProtobufEncodeProgrammer {
                   ],
                   true,
                 );
-
-    // STARTS FROM ATOMIC TYPES
-    // @todo
-    const unions: IUnion[] = [];
-    const numbers = Array.from(ProtobufUtil.getNumbers(props.metadata).keys());
-    const bigints = Array.from(ProtobufUtil.getBigints(props.metadata).keys());
-
-    for (const [atom] of ProtobufUtil.getAtomics(props.metadata))
-      if (atom === "bool")
-        unions.push({
-          type: "bool",
-          is: () =>
-            ts.factory.createStrictEquality(
-              ts.factory.createStringLiteral("boolean"),
-              ts.factory.createTypeOfExpression(props.input),
+    if (union.length === 1) return wrapper(union[0]!.value());
+    return wrapper(
+      ts.factory.createBlock(
+        [
+          union
+            .map((u, i) =>
+              ts.factory.createIfStatement(
+                u.is(),
+                u.value(),
+                i === union.length - 1
+                  ? create_throw_error({
+                      context: props.context,
+                      functor: props.functor,
+                      input: props.input,
+                      expected: props.metadata.getName(),
+                    })
+                  : undefined,
+              ),
+            )
+            .reverse()
+            .reduce((a, b) =>
+              ts.factory.createIfStatement(b.expression, b.thenStatement, a),
             ),
-          value: (index) =>
-            decode_bool({
-              index,
-              input: props.input,
-            }),
-        });
-      else if (
-        atom === "int32" ||
-        atom === "uint32" ||
-        atom === "float" ||
-        atom === "double"
-      )
-        unions.push(
-          decode_number({
-            candidates: numbers as ProtobufAtomic.Numeric[],
-            type: atom,
-            input: props.input,
-          }),
-        );
-      else if (atom === "int64" || atom === "uint64")
-        if (numbers.some((n) => n === atom))
-          unions.push(
-            decode_number({
-              candidates: numbers as ProtobufAtomic.Numeric[],
-              type: atom,
-              input: props.input,
-            }),
-          );
-        else
-          unions.push(
-            decode_bigint({
-              candidates: bigints as ProtobufAtomic.BigNumeric[],
-              type: atom,
-              input: props.input,
-            }),
-          );
-      else if (atom === "string")
-        unions.push({
-          type: "string",
-          is: () =>
-            ts.factory.createStrictEquality(
-              ts.factory.createStringLiteral("string"),
-              ts.factory.createTypeOfExpression(props.input),
-            ),
-          value: (index) =>
-            decode_bytes({
-              method: "string",
-              index: index!,
-              input: props.input,
-            }),
-        });
-
-    // CONSIDER BYTES
-    if (props.metadata.natives.length)
-      unions.push({
-        type: "bytes",
-        is: () => ExpressionFactory.isInstanceOf("Uint8Array", props.input),
-        value: (index) =>
-          decode_bytes({
-            method: "bytes",
-            index: index!,
-            input: props.input,
-          }),
-      });
-
-    // CONSIDER ARRAYS
-    if (props.metadata.arrays.length)
-      unions.push({
-        type: "array",
-        is: () => ExpressionFactory.isArray(props.input),
-        value: (index) =>
-          decode_array({
-            ...props,
-            array: props.metadata.arrays[0]!,
-            explore: {
-              ...props.explore,
-              from: "array",
-            },
-            index: index!,
-          }),
-      });
-
-    // CONSIDER MAPS
-    if (props.metadata.maps.length)
-      unions.push({
-        type: "map",
-        is: () => ExpressionFactory.isInstanceOf("Map", props.input),
-        value: (index) =>
-          decode_map({
-            ...props,
-            index: index!,
-            entry: props.metadata.maps[0]!,
-            explore: {
-              ...props.explore,
-              from: "array",
-            },
-          }),
-      });
-
-    // CONSIDER OBJECTS
-    if (props.metadata.objects.length)
-      unions.push({
-        type: "object",
-        is: () =>
-          ExpressionFactory.isObject({
-            checkNull: true,
-            checkArray: false,
-            input: props.input,
-          }),
-        value: (index) =>
-          explore_objects({
-            ...props,
-            level: 0,
-            index,
-            objects: props.metadata.objects.map((o) => o.type),
-            explore: {
-              ...props.explore,
-              from: "object",
-            },
-          }),
-      });
-
-    // RETURNS
-    if (unions.length === 1) return wrapper(unions[0]!.value(props.index));
-    else
-      return wrapper(
-        iterate({
-          context: props.context,
-          functor: props.functor,
-          index: props.index,
-          unions,
-          expected: props.metadata.getName(),
-          input: props.input,
-        }),
-      );
+        ],
+        true,
+      ),
+    );
   };
 
-  const iterate = (props: {
-    context: ITypiaContext;
-    functor: FunctionProgrammer;
-    index: number | null;
-    unions: IUnion[];
-    expected: string;
+  /* -----------------------------------------------------------
+    ATOMIC DECODERS
+  ----------------------------------------------------------- */
+  const decode_bool = (props: {
     input: ts.Expression;
-  }) =>
+    index: number | null;
+  }): ts.Block =>
     ts.factory.createBlock(
       [
-        props.unions
-          .map((u, i) =>
-            ts.factory.createIfStatement(
-              u.is(),
-              u.value(props.index ? props.index + i : null),
-              i === props.unions.length - 1
-                ? create_throw_error(props)
-                : undefined,
-            ),
+        ...(props.index !== null
+          ? [
+              decode_tag({
+                wire: ProtobufWire.VARIANT,
+                index: props.index,
+              }),
+            ]
+          : []),
+        callWriter("bool", [props.input]),
+      ].map((exp) => ts.factory.createExpressionStatement(exp)),
+      true,
+    );
+
+  const decode_bigint = (props: {
+    candidates: ProtobufAtomic.BigNumeric[];
+    type: ProtobufAtomic.BigNumeric;
+    input: ts.Expression;
+    index: number | null;
+  }): IUnion => ({
+    is: () =>
+      props.candidates.length === 1
+        ? ts.factory.createStrictEquality(
+            ts.factory.createStringLiteral("bigint"),
+            ts.factory.createTypeOfExpression(props.input),
           )
-          .reverse()
-          .reduce((a, b) =>
-            ts.factory.createIfStatement(b.expression, b.thenStatement, a),
+        : ts.factory.createLogicalAnd(
+            ts.factory.createStrictEquality(
+              ts.factory.createStringLiteral("bigint"),
+              ts.factory.createTypeOfExpression(props.input),
+            ),
+            NumericRangeFactory.bigint(props.type, props.input),
           ),
-      ],
+    value: () =>
+      ts.factory.createBlock(
+        [
+          ...(props.index !== null
+            ? [
+                decode_tag({
+                  wire: ProtobufWire.VARIANT,
+                  index: props.index,
+                }),
+              ]
+            : []),
+          callWriter(props.type, [props.input]),
+        ].map((exp) => ts.factory.createExpressionStatement(exp)),
+        true,
+      ),
+  });
+
+  const decode_number = (props: {
+    candidates: ProtobufAtomic.Numeric[];
+    type: ProtobufAtomic.Numeric;
+    input: ts.Expression;
+    index: number | null;
+  }): IUnion => ({
+    is: () =>
+      props.candidates.length === 1
+        ? ts.factory.createStrictEquality(
+            ts.factory.createStringLiteral("number"),
+            ts.factory.createTypeOfExpression(props.input),
+          )
+        : ts.factory.createLogicalAnd(
+            ts.factory.createStrictEquality(
+              ts.factory.createStringLiteral("number"),
+              ts.factory.createTypeOfExpression(props.input),
+            ),
+            NumericRangeFactory.number(props.type, props.input),
+          ),
+    value: () =>
+      ts.factory.createBlock(
+        [
+          ...(props.index !== null
+            ? [
+                decode_tag({
+                  wire: get_numeric_wire(props.type),
+                  index: props.index,
+                }),
+              ]
+            : []),
+          callWriter(props.type, [props.input]),
+        ].map((exp) => ts.factory.createExpressionStatement(exp)),
+        true,
+      ),
+  });
+
+  const decode_container_value = (props: {
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    schema: IProtobufPropertyType.IArray["value"];
+    index: number;
+    kind: "array" | "map";
+    input: ts.Expression;
+  }): ts.Block => {
+    if (props.schema.type === "bool")
+      return decode_bool({
+        input: props.input,
+        index: props.kind === "array" ? null : props.index,
+      });
+    else if (props.schema.type === "bigint")
+      return decode_bigint({
+        input: props.input,
+        type: props.schema.name,
+        candidates: [props.schema.name],
+        index: props.kind === "array" ? null : props.index,
+      }).value();
+    else if (props.schema.type === "number")
+      return decode_number({
+        input: props.input,
+        type: props.schema.name,
+        candidates: [props.schema.name],
+        index: props.kind === "array" ? null : props.index,
+      }).value();
+    else if (props.schema.type === "string" || props.schema.type === "bytes")
+      return decode_bytes({
+        method: props.schema.type,
+        input: props.input,
+        index: props.index,
+      });
+    return decode_object({
+      context: props.context,
+      functor: props.functor,
+      schema: props.schema,
+      input: props.input,
+      index: props.index,
+    });
+  };
+
+  /* -----------------------------------------------------------
+    INSTANCE DECODERS
+  ----------------------------------------------------------- */
+  const decode_bytes = (props: {
+    method: "bytes" | "string";
+    index: number;
+    input: ts.Expression;
+  }): ts.Block =>
+    ts.factory.createBlock(
+      [
+        decode_tag({
+          wire: ProtobufWire.LEN,
+          index: props.index,
+        }),
+        callWriter(props.method, [props.input]),
+      ].map((expr) => ts.factory.createExpressionStatement(expr)),
+      true,
+    );
+
+  const decode_array = (props: {
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    schema: IProtobufPropertyType.IArray;
+    input: ts.Expression;
+  }): ts.Block => {
+    const value: IProtobufPropertyType.IArray["value"] = props.schema.value;
+    const wire: ProtobufWire = (() => {
+      if (
+        value.type === "object" ||
+        value.type === "bytes" ||
+        value.type === "string"
+      )
+        return ProtobufWire.LEN;
+      else if (value.type === "number" && value.name === "float")
+        return ProtobufWire.I32;
+      return ProtobufWire.VARIANT;
+    })();
+    const forLoop = () =>
+      ts.factory.createForOfStatement(
+        undefined,
+        ts.factory.createVariableDeclarationList(
+          [ts.factory.createVariableDeclaration("elem")],
+          ts.NodeFlags.Const,
+        ),
+        props.input,
+        decode_container_value({
+          kind: "array",
+          context: props.context,
+          functor: props.functor,
+          input: ts.factory.createIdentifier("elem"),
+          index: props.schema.index,
+          schema: props.schema.value,
+        }),
+      );
+    const length = (block: ts.Block) =>
+      ts.factory.createBlock(
+        [
+          ts.factory.createIfStatement(
+            ts.factory.createStrictInequality(
+              ExpressionFactory.number(0),
+              IdentifierFactory.access(props.input, "length"),
+            ),
+            block,
+          ),
+        ],
+        true,
+      );
+    if (wire === ProtobufWire.LEN)
+      return length(ts.factory.createBlock([forLoop()], true));
+    return length(
+      ts.factory.createBlock(
+        [
+          ts.factory.createExpressionStatement(
+            decode_tag({
+              wire: ProtobufWire.LEN,
+              index: props.schema.index,
+            }),
+          ),
+          ts.factory.createExpressionStatement(callWriter("fork")),
+          forLoop(),
+          ts.factory.createExpressionStatement(callWriter("ldelim")),
+        ],
+        true,
+      ),
+    );
+  };
+
+  const decode_object = (props: {
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    schema: IProtobufSchema.IObject;
+    index: number;
+    input: ts.Expression;
+  }): ts.Block =>
+    ts.factory.createBlock(
+      [
+        decode_tag({
+          wire: ProtobufWire.LEN,
+          index: props.index,
+        }),
+        callWriter("fork"),
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier(
+            props.functor.useLocal(`${PREFIX}o${props.schema.object.index}`),
+          ),
+          [],
+          [props.input],
+        ),
+        callWriter("ldelim"),
+      ].map(ts.factory.createExpressionStatement),
       true,
     );
 
   const decode_map = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
-    index: number;
+    schema: IProtobufPropertyType.IMap;
     input: ts.Expression;
-    entry: MetadataMap | MetadataProperty;
-    explore: FeatureProgrammer.IExplore;
   }): ts.Block => {
     const each: ts.Statement[] = [
       ts.factory.createExpressionStatement(
         decode_tag({
           wire: ProtobufWire.LEN,
-          index: props.index,
+          index: props.schema.index,
         }),
       ),
-      ts.factory.createExpressionStatement(
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER(), "fork"),
-          undefined,
-          undefined,
-        ),
-      ),
-      ...decode({
-        ...props,
+      ts.factory.createExpressionStatement(callWriter("fork")),
+      ...decode_container_value({
+        kind: "map",
+        context: props.context,
+        functor: props.functor,
         index: 1,
         input: ts.factory.createIdentifier("key"),
-        metadata: props.entry.key,
+        schema: props.schema.key,
       }).statements,
-      ...decode({
-        ...props,
+      ...decode_container_value({
+        kind: "map",
+        context: props.context,
+        functor: props.functor,
         index: 2,
         input: ts.factory.createIdentifier("value"),
-        metadata: props.entry.value,
+        schema: props.schema.value,
       }).statements,
-      ts.factory.createExpressionStatement(
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER(), "ldelim"),
-          undefined,
-          undefined,
-        ),
-      ),
+      ts.factory.createExpressionStatement(callWriter("ldelim")),
     ];
     return ts.factory.createBlock(
       [
@@ -544,344 +745,52 @@ export namespace ProtobufEncodeProgrammer {
     );
   };
 
-  const decode_object = (props: {
-    context: ITypiaContext;
-    functor: FunctionProgrammer;
-    index: number | null;
-    input: ts.Expression;
-    object: MetadataObjectType;
-    explore: FeatureProgrammer.IExplore;
-  }): ts.Block => {
-    const top: MetadataProperty = props.object.properties[0]!;
-    if (top.key.isSoleLiteral() === false)
-      return decode_map({
-        ...props,
-        index: props.index!,
-        input: ts.factory.createCallExpression(
-          ts.factory.createIdentifier("Object.entries"),
-          [],
-          [props.input],
-        ),
-        entry: MetadataProperty.create({
-          ...top,
-          key: (() => {
-            const key: Metadata = Metadata.initialize();
-            key.atomics.push(
-              MetadataAtomic.create({
-                type: "string",
-                tags: [],
-              }),
-            );
-            return key;
-          })(),
-        }),
-      });
-    return ts.factory.createBlock(
-      [
-        ts.factory.createIdentifier(
-          `//${props.index !== null ? ` ${props.index} -> ` : ""}${props.object.name}`,
-        ),
-        ...(props.index !== null
-          ? [
-              decode_tag({
-                wire: ProtobufWire.LEN,
-                index: props.index,
-              }),
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(WRITER(), "fork"),
-                undefined,
-                undefined,
-              ),
-            ]
-          : []),
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier(
-            props.functor.useLocal(`${PREFIX}o${props.object.index}`),
-          ),
-          [],
-          [props.input],
-        ),
-        ...(props.index !== null
-          ? [
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(WRITER(), "ldelim"),
-                undefined,
-                undefined,
-              ),
-            ]
-          : []),
-      ].map((expr) => ts.factory.createExpressionStatement(expr)),
-      true,
-    );
-  };
-
-  const decode_array = (props: {
-    context: ITypiaContext;
-    functor: FunctionProgrammer;
-    index: number;
-    input: ts.Expression;
-    array: MetadataArray;
-    explore: FeatureProgrammer.IExplore;
-  }): ts.Block => {
-    const wire = get_standalone_wire(props.array.type.value);
-    const forLoop = (index: number | null) =>
-      ts.factory.createForOfStatement(
-        undefined,
-        ts.factory.createVariableDeclarationList(
-          [ts.factory.createVariableDeclaration("elem")],
-          ts.NodeFlags.Const,
-        ),
-        props.input,
-        decode({
-          ...props,
-          input: ts.factory.createIdentifier("elem"),
-          index,
-          metadata: props.array.type.value,
-        }),
-      );
-    const length = (block: ts.Block) =>
-      ts.factory.createBlock(
-        [
-          ts.factory.createIfStatement(
-            ts.factory.createStrictInequality(
-              ExpressionFactory.number(0),
-              IdentifierFactory.access(props.input, "length"),
-            ),
-            block,
-          ),
-        ],
-        true,
-      );
-
-    if (wire === ProtobufWire.LEN)
-      return length(ts.factory.createBlock([forLoop(props.index)], true));
-    return length(
-      ts.factory.createBlock(
-        [
-          ts.factory.createExpressionStatement(
-            decode_tag({
-              wire: ProtobufWire.LEN,
-              index: props.index,
-            }),
-          ),
-          ts.factory.createExpressionStatement(
-            ts.factory.createCallExpression(
-              IdentifierFactory.access(WRITER(), "fork"),
-              undefined,
-              undefined,
-            ),
-          ),
-          forLoop(null),
-          ts.factory.createExpressionStatement(
-            ts.factory.createCallExpression(
-              IdentifierFactory.access(WRITER(), "ldelim"),
-              undefined,
-              undefined,
-            ),
-          ),
-        ],
-        true,
-      ),
-    );
-  };
-
-  const decode_bool = (props: { index: number | null; input: ts.Expression }) =>
-    ts.factory.createBlock(
-      [
-        ...(props.index !== null
-          ? [
-              decode_tag({
-                wire: ProtobufWire.VARIANT,
-                index: props.index,
-              }),
-            ]
-          : []),
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER(), "bool"),
-          undefined,
-          [props.input],
-        ),
-      ].map((exp) => ts.factory.createExpressionStatement(exp)),
-      true,
-    );
-
-  const decode_number = (props: {
-    candidates: ProtobufAtomic.Numeric[];
-    type: ProtobufAtomic.Numeric;
-    input: ts.Expression;
-  }): IUnion => ({
-    type: props.type,
-    is: () =>
-      props.candidates.length === 1
-        ? ts.factory.createStrictEquality(
-            ts.factory.createStringLiteral("number"),
-            ts.factory.createTypeOfExpression(props.input),
-          )
-        : ts.factory.createLogicalAnd(
-            ts.factory.createStrictEquality(
-              ts.factory.createStringLiteral("number"),
-              ts.factory.createTypeOfExpression(props.input),
-            ),
-            NumericRangeFactory.number(props.type, props.input),
-          ),
-    value: (index) =>
-      ts.factory.createBlock(
-        [
-          ...(index !== null
-            ? [
-                decode_tag({
-                  wire: get_numeric_wire(props.type),
-                  index,
-                }),
-              ]
-            : []),
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(WRITER(), props.type),
-            undefined,
-            [props.input],
-          ),
-        ].map((exp) => ts.factory.createExpressionStatement(exp)),
-        true,
-      ),
-  });
-
-  const decode_bigint = (props: {
-    candidates: ProtobufAtomic.BigNumeric[];
-    type: ProtobufAtomic.BigNumeric;
-    input: ts.Expression;
-  }): IUnion => ({
-    type: props.type,
-    is: () =>
-      props.candidates.length === 1
-        ? ts.factory.createStrictEquality(
-            ts.factory.createStringLiteral("bigint"),
-            ts.factory.createTypeOfExpression(props.input),
-          )
-        : ts.factory.createLogicalAnd(
-            ts.factory.createStrictEquality(
-              ts.factory.createStringLiteral("bigint"),
-              ts.factory.createTypeOfExpression(props.input),
-            ),
-            NumericRangeFactory.bigint(props.type, props.input),
-          ),
-    value: (index) =>
-      ts.factory.createBlock(
-        [
-          ...(index !== null
-            ? [
-                decode_tag({
-                  wire: ProtobufWire.VARIANT,
-                  index,
-                }),
-              ]
-            : []),
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(WRITER(), props.type),
-            undefined,
-            [props.input],
-          ),
-        ].map((exp) => ts.factory.createExpressionStatement(exp)),
-        true,
-      ),
-  });
-
-  const decode_bytes = (props: {
-    method: "bytes" | "string";
-    index: number;
-    input: ts.Expression;
-  }): ts.Block =>
-    ts.factory.createBlock(
-      [
-        decode_tag({
-          wire: ProtobufWire.LEN,
-          index: props.index,
-        }),
-        ts.factory.createCallExpression(
-          IdentifierFactory.access(WRITER(), props.method),
-          undefined,
-          [props.input],
-        ),
-      ].map((expr) => ts.factory.createExpressionStatement(expr)),
-      true,
-    );
-
-  const decode_tag = (props: {
-    wire: ProtobufWire;
-    index: number;
-  }): ts.CallExpression =>
-    ts.factory.createCallExpression(
-      IdentifierFactory.access(WRITER(), "uint32"),
-      undefined,
-      [ExpressionFactory.number((props.index << 3) | props.wire)],
-    );
-
-  const get_standalone_wire = (metadata: Metadata): ProtobufWire => {
-    if (
-      metadata.arrays.length ||
-      metadata.objects.length ||
-      metadata.maps.length ||
-      metadata.natives.length
-    )
-      return ProtobufWire.LEN;
-
-    // @todo
-    const v = ProtobufUtil.getAtomics(metadata).keys().next().value!;
-    if (v === "string") return ProtobufWire.LEN;
-    else if (
-      v === "bool" ||
-      v === "int32" ||
-      v === "uint32" ||
-      v === "int64" ||
-      v === "uint64"
-    )
-      return ProtobufWire.VARIANT;
-    else if (v === "float") return ProtobufWire.I32;
-    return ProtobufWire.I64;
-  };
-
-  const get_numeric_wire = (type: ProtobufAtomic.Numeric) =>
-    type === "double"
-      ? ProtobufWire.I64
-      : type === "float"
-        ? ProtobufWire.I32
-        : ProtobufWire.VARIANT;
-
-  /* -----------------------------------------------------------
-        EXPLORERS
-    ----------------------------------------------------------- */
   const explore_objects = (props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     level: number;
-    index: number | null;
     input: ts.Expression;
-    objects: MetadataObjectType[];
+    schemas: Array<IProtobufPropertyType.IObject | IProtobufPropertyType.IMap>;
     explore: FeatureProgrammer.IExplore;
-    indexes?: Map<MetadataObjectType, number>;
   }): ts.Block => {
-    if (props.objects.length === 1)
-      return decode_object({
-        context: props.context,
-        functor: props.functor,
-        index: props.indexes
-          ? props.indexes.get(props.objects[0]!)!
-          : props.index,
-        input: props.input,
-        object: props.objects[0]!,
-        explore: props.explore,
-      });
+    const out = (
+      schema: IProtobufPropertyType.IObject | IProtobufPropertyType.IMap,
+    ) =>
+      schema.type === "object"
+        ? decode_object({
+            context: props.context,
+            functor: props.functor,
+            schema,
+            index: schema.index,
+            input: props.input,
+          })
+        : decode_map({
+            context: props.context,
+            functor: props.functor,
+            schema,
+            input: ts.factory.createCallExpression(
+              IdentifierFactory.access(
+                ts.factory.createIdentifier("Object"),
+                "entries",
+              ),
+              undefined,
+              [props.input],
+            ),
+          });
+    if (props.schemas.length === 1) return out(props.schemas[0]!);
 
-    const expected: string = `(${props.objects.map((t) => t.name).join(" | ")})`;
-
-    // POSSIBLE TO SPECIALIZE?
-    const specList: UnionPredicator.ISpecialized[] = UnionPredicator.object(
-      props.objects,
+    const objects: MetadataObjectType[] = props.schemas.map((s) =>
+      s.type === "map" ? (s.map as MetadataObjectType) : s.object,
     );
-    const indexes: Map<MetadataObjectType, number> =
-      props.indexes ??
-      new Map(props.objects.map((t, i) => [t, props.index! + i]));
+    const expected: string = `(${objects.map((t) => t.name).join(" | ")})`;
+    const indexes: WeakMap<
+      MetadataObjectType,
+      IProtobufPropertyType.IObject | IProtobufPropertyType.IMap
+    > = new WeakMap(objects.map((o, i) => [o, props.schemas[i]!]));
+    const specifications: UnionPredicator.ISpecialized[] =
+      UnionPredicator.object(objects);
 
-    if (specList.length === 0) {
+    if (specifications.length === 0) {
       const condition: ts.Expression = decode_union_object({
         checker: (v) =>
           IsProgrammer.decode_object({
@@ -891,17 +800,7 @@ export namespace ProtobufEncodeProgrammer {
             input: v.input,
             explore: v.explore,
           }),
-        decoder: (v) =>
-          ExpressionFactory.selfCall(
-            decode_object({
-              context: props.context,
-              functor: props.functor,
-              index: indexes.get(v.object)!,
-              input: v.input,
-              object: v.object,
-              explore: v.explore,
-            }),
-          ),
+        decoder: (v) => ExpressionFactory.selfCall(out(indexes.get(v.object)!)),
         success: (expr) => expr,
         escaper: (v) =>
           create_throw_error({
@@ -911,17 +810,17 @@ export namespace ProtobufEncodeProgrammer {
             input: v.input,
           }),
         input: props.input,
-        objects: props.objects,
         explore: props.explore,
+        objects,
       });
       return StatementFactory.block(condition);
     }
-    const remained: MetadataObjectType[] = props.objects.filter(
-      (t) => specList.find((s) => s.object === t) === undefined,
+    const remained: MetadataObjectType[] = objects.filter(
+      (o) => specifications.find((s) => s.object === o) === undefined,
     );
 
     // DO SPECIALIZE
-    const condition: ts.IfStatement = specList
+    const condition: ts.IfStatement = specifications
       .filter((spec) => spec.property.key.getSoleLiteral() !== null)
       .map((spec, i, array) => {
         const key: string = spec.property.key.getSoleLiteral()!;
@@ -942,19 +841,11 @@ export namespace ProtobufEncodeProgrammer {
               },
             })
           : ExpressionFactory.isRequired(accessor);
+        const schema = indexes.get(spec.object)!;
         return ts.factory.createIfStatement(
           pred,
           ts.factory.createExpressionStatement(
-            ExpressionFactory.selfCall(
-              decode_object({
-                context: props.context,
-                functor: props.functor,
-                index: indexes.get(spec.object)!,
-                input: props.input,
-                object: spec.object,
-                explore: props.explore,
-              }),
-            ),
+            ExpressionFactory.selfCall(out(schema)),
           ),
           i === array.length - 1
             ? remained.length
@@ -964,11 +855,9 @@ export namespace ProtobufEncodeProgrammer {
                       context: props.context,
                       functor: props.functor,
                       level: props.level + 1,
-                      index: props.index,
                       input: props.input,
-                      objects: remained,
+                      schemas: remained.map((r) => indexes.get(r)!),
                       explore: props.explore,
-                      indexes,
                     }),
                   ),
                 )
@@ -991,9 +880,24 @@ export namespace ProtobufEncodeProgrammer {
   };
 
   /* -----------------------------------------------------------
-        CONFIGURATIONS
-    ----------------------------------------------------------- */
+    BACKGROUND FUNCTIONS
+  ----------------------------------------------------------- */
   const PREFIX = "$pe";
+
+  const decode_tag = (props: {
+    wire: ProtobufWire;
+    index: number;
+  }): ts.CallExpression =>
+    callWriter("uint32", [
+      ExpressionFactory.number((props.index << 3) | props.wire),
+    ]);
+
+  const get_numeric_wire = (type: ProtobufAtomic.Numeric) =>
+    type === "double"
+      ? ProtobufWire.I64
+      : type === "float"
+        ? ProtobufWire.I32
+        : ProtobufWire.VARIANT;
 
   const create_throw_error = (props: {
     context: ITypiaContext;
@@ -1025,10 +929,17 @@ export namespace ProtobufEncodeProgrammer {
     );
 }
 
-const WRITER = () => ts.factory.createIdentifier("writer");
+const callWriter = (
+  method: string,
+  args?: ts.Expression[],
+): ts.CallExpression =>
+  ts.factory.createCallExpression(
+    IdentifierFactory.access(ts.factory.createIdentifier("writer"), method),
+    undefined,
+    args,
+  );
 
 interface IUnion {
-  type: string;
   is: () => ts.Expression;
-  value: (index: number | null) => ts.Block;
+  value: () => ts.Block;
 }
