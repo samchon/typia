@@ -250,12 +250,10 @@ export namespace ProtobufFactory {
           index: getSequence(atomic.tags[0] ?? [])!,
         });
 
-    // SORTING IF REQUIRED
-    if (map.size && map.values().next().value!.index === null)
-      return new Map(
-        Array.from(map).sort((x, y) => ProtobufUtil.compare(x[0], y[0])),
-      );
-    return map;
+    // SORTING FOR VALIDATION REASON
+    return new Map(
+      Array.from(map).sort((x, y) => ProtobufUtil.compare(x[0], y[0])),
+    );
   };
 
   const emplaceBigint = (next: {

@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "7.0.0-dev.20241019",
+  "version": "7.0.0-dev.20241020",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -20,6 +20,7 @@
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "tsc --project tsconfig.test.json --watch",
+    "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
