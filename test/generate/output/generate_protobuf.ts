@@ -1,9 +1,9 @@
 import typia, { tags } from "typia";
-import * as __$ProtobufReader from "typia/lib/internal/$ProtobufReader.js";
-import * as __$ProtobufSizer from "typia/lib/internal/$ProtobufSizer.js";
-import * as __$ProtobufWriter from "typia/lib/internal/$ProtobufWriter.js";
-import * as __$assertGuard from "typia/lib/internal/$assertGuard.js";
-import * as __$validateReport from "typia/lib/internal/$validateReport.js";
+import * as __typia_transform_$ProtobufReader from "typia/lib/internal/$ProtobufReader.js";
+import * as __typia_transform_$ProtobufSizer from "typia/lib/internal/$ProtobufSizer.js";
+import * as __typia_transform_$ProtobufWriter from "typia/lib/internal/$ProtobufWriter.js";
+import * as __typia_transform_$assertGuard from "typia/lib/internal/$assertGuard.js";
+import * as __typia_transform_$validateReport from "typia/lib/internal/$validateReport.js";
 
 interface IFile {
   name: string & tags.MaxLength<8>;
@@ -39,8 +39,14 @@ export const createEncode = (() => {
     return writer;
   };
   return (input: IFile): Uint8Array => {
-    const sizer = encoder(new __$ProtobufSizer.$ProtobufSizer(), input);
-    const writer = encoder(new __$ProtobufWriter.$ProtobufWriter(sizer), input);
+    const sizer = encoder(
+      new __typia_transform_$ProtobufSizer.$ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform_$ProtobufWriter.$ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
 })();
@@ -64,7 +70,7 @@ export const createAssertEncode = (() => {
   ): boolean =>
     (("string" === typeof input.name &&
       (input.name.length <= 8 ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.protobuf.createAssertEncode",
@@ -74,7 +80,7 @@ export const createAssertEncode = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertEncode",
@@ -87,7 +93,7 @@ export const createAssertEncode = (() => {
     (null === input.extension ||
       ("string" === typeof input.extension &&
         (1 <= input.extension.length ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             _exceptionable,
             {
               method: "typia.protobuf.createAssertEncode",
@@ -98,7 +104,7 @@ export const createAssertEncode = (() => {
             _errorFactory,
           )) &&
         (input.extension.length <= 3 ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             _exceptionable,
             {
               method: "typia.protobuf.createAssertEncode",
@@ -108,7 +114,7 @@ export const createAssertEncode = (() => {
             },
             _errorFactory,
           ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertEncode",
@@ -122,7 +128,7 @@ export const createAssertEncode = (() => {
       ((Math.floor(input.size) === input.size &&
         0 <= input.size &&
         input.size <= 4294967295) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.protobuf.createAssertEncode",
@@ -132,7 +138,7 @@ export const createAssertEncode = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertEncode",
@@ -143,7 +149,7 @@ export const createAssertEncode = (() => {
         _errorFactory,
       )) &&
     (input.data instanceof Uint8Array ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertEncode",
@@ -202,7 +208,7 @@ export const createAssertEncode = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             true,
             {
               method: "typia.protobuf.createAssertEncode",
@@ -213,7 +219,7 @@ export const createAssertEncode = (() => {
             _errorFactory,
           )) &&
           $ao0(input, _path + "", true)) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           true,
           {
             method: "typia.protobuf.createAssertEncode",
@@ -227,8 +233,14 @@ export const createAssertEncode = (() => {
     return input;
   };
   const __encode = (input: IFile): Uint8Array => {
-    const sizer = encoder(new __$ProtobufSizer.$ProtobufSizer(), input);
-    const writer = encoder(new __$ProtobufWriter.$ProtobufWriter(sizer), input);
+    const sizer = encoder(
+      new __typia_transform_$ProtobufSizer.$ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform_$ProtobufWriter.$ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
   return (
@@ -290,8 +302,14 @@ export const createIsEncode = (() => {
   const __is = (input: any): input is IFile =>
     "object" === typeof input && null !== input && $io0(input);
   const __encode = (input: IFile): Uint8Array => {
-    const sizer = encoder(new __$ProtobufSizer.$ProtobufSizer(), input);
-    const writer = encoder(new __$ProtobufWriter.$ProtobufWriter(sizer), input);
+    const sizer = encoder(
+      new __typia_transform_$ProtobufSizer.$ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform_$ProtobufWriter.$ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
   return (input: any): Uint8Array | null =>
@@ -413,7 +431,9 @@ export const createValidateEncode = (() => {
   const __validate = (input: any): import("typia").IValidation<IFile> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__$validateReport.$validateReport as any)(errors);
+      $report = (__typia_transform_$validateReport.$validateReport as any)(
+        errors,
+      );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
@@ -441,8 +461,14 @@ export const createValidateEncode = (() => {
     } as any;
   };
   const __encode = (input: IFile): Uint8Array => {
-    const sizer = encoder(new __$ProtobufSizer.$ProtobufSizer(), input);
-    const writer = encoder(new __$ProtobufWriter.$ProtobufWriter(sizer), input);
+    const sizer = encoder(
+      new __typia_transform_$ProtobufSizer.$ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform_$ProtobufWriter.$ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
   return (input: any): import("typia").IValidation<Uint8Array> => {
@@ -487,7 +513,7 @@ export const createDecode = (() => {
     return output;
   };
   return (input: Uint8Array): import("typia").Resolved<IFile> => {
-    const reader = new __$ProtobufReader.$ProtobufReader(input);
+    const reader = new __typia_transform_$ProtobufReader.$ProtobufReader(input);
     return $pdo0(reader);
   };
 })();
@@ -511,7 +537,7 @@ export const createAssertDecode = (() => {
   ): boolean =>
     (("string" === typeof input.name &&
       (input.name.length <= 8 ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.protobuf.createAssertDecode",
@@ -521,7 +547,7 @@ export const createAssertDecode = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertDecode",
@@ -534,7 +560,7 @@ export const createAssertDecode = (() => {
     (null === input.extension ||
       ("string" === typeof input.extension &&
         (1 <= input.extension.length ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             _exceptionable,
             {
               method: "typia.protobuf.createAssertDecode",
@@ -545,7 +571,7 @@ export const createAssertDecode = (() => {
             _errorFactory,
           )) &&
         (input.extension.length <= 3 ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             _exceptionable,
             {
               method: "typia.protobuf.createAssertDecode",
@@ -555,7 +581,7 @@ export const createAssertDecode = (() => {
             },
             _errorFactory,
           ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertDecode",
@@ -569,7 +595,7 @@ export const createAssertDecode = (() => {
       ((Math.floor(input.size) === input.size &&
         0 <= input.size &&
         input.size <= 4294967295) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.protobuf.createAssertDecode",
@@ -579,7 +605,7 @@ export const createAssertDecode = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertDecode",
@@ -590,7 +616,7 @@ export const createAssertDecode = (() => {
         _errorFactory,
       )) &&
     (input.data instanceof Uint8Array ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.protobuf.createAssertDecode",
@@ -645,7 +671,7 @@ export const createAssertDecode = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             true,
             {
               method: "typia.protobuf.createAssertDecode",
@@ -656,7 +682,7 @@ export const createAssertDecode = (() => {
             _errorFactory,
           )) &&
           $ao0(input, _path + "", true)) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           true,
           {
             method: "typia.protobuf.createAssertDecode",
@@ -670,7 +696,7 @@ export const createAssertDecode = (() => {
     return input;
   };
   const __decode = (input: Uint8Array): import("typia").Resolved<IFile> => {
-    const reader = new __$ProtobufReader.$ProtobufReader(input);
+    const reader = new __typia_transform_$ProtobufReader.$ProtobufReader(input);
     return $pdo0(reader);
   };
   return (
@@ -728,7 +754,7 @@ export const createIsDecode = (() => {
   const __is = (input: any): input is IFile =>
     "object" === typeof input && null !== input && $io0(input);
   const __decode = (input: Uint8Array): import("typia").Resolved<IFile> => {
-    const reader = new __$ProtobufReader.$ProtobufReader(input);
+    const reader = new __typia_transform_$ProtobufReader.$ProtobufReader(input);
     return $pdo0(reader);
   };
   return (input: Uint8Array): import("typia").Resolved<IFile> | null => {
@@ -849,7 +875,9 @@ export const createValidateDecode = (() => {
   const __validate = (input: any): import("typia").IValidation<IFile> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__$validateReport.$validateReport as any)(errors);
+      $report = (__typia_transform_$validateReport.$validateReport as any)(
+        errors,
+      );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
@@ -877,7 +905,7 @@ export const createValidateDecode = (() => {
     } as any;
   };
   const __decode = (input: Uint8Array): import("typia").Resolved<IFile> => {
-    const reader = new __$ProtobufReader.$ProtobufReader(input);
+    const reader = new __typia_transform_$ProtobufReader.$ProtobufReader(input);
     return $pdo0(reader);
   };
   return (
