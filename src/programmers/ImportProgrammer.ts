@@ -4,6 +4,13 @@ import { MapUtil } from "../utils/MapUtil";
 
 export class ImportProgrammer {
   private readonly assets_: Map<string, IAsset> = new Map();
+  private readonly options_: Readonly<ImportProgrammer.IOptions>;
+
+  public constructor(options?: Partial<ImportProgrammer.IOptions>) {
+    this.options_ = {
+      internalPrefix: options?.internalPrefix ?? "",
+    };
+  }
 
   /* -----------------------------------------------------------
     ENROLLMENTS
@@ -56,15 +63,10 @@ export class ImportProgrammer {
    */
   public internal(name: string): ts.PropertyAccessExpression {
     if (name.startsWith("$") === false) name = `$${name}`;
-    this.namespace({
-      file: `typia/lib/internal/${name}.js`,
-      name: alias(name),
-      type: false,
-    });
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
         file: `typia/lib/internal/${name}.js`,
-        name: alias(name),
+        name: this.alias(name),
         type: false,
       }),
       name,
@@ -93,6 +95,10 @@ export class ImportProgrammer {
       namespace: null,
       instances: new Map(),
     }));
+  }
+
+  private alias(name: string): string {
+    return `__${this.options_.internalPrefix}${name}`;
   }
 
   /* -----------------------------------------------------------
@@ -156,6 +162,10 @@ export class ImportProgrammer {
 }
 
 export namespace ImportProgrammer {
+  export interface IOptions {
+    internalPrefix: string;
+  }
+
   export interface IDefault {
     file: string;
     name: string;
@@ -180,5 +190,3 @@ interface IAsset {
   namespace: ImportProgrammer.INamespace | null;
   instances: Map<string, ImportProgrammer.IInstance>;
 }
-
-const alias = (str: string) => `__${str}`;
