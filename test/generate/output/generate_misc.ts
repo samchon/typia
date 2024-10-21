@@ -1,6 +1,6 @@
 import typia, { tags } from "typia";
-import * as __$assertGuard from "typia/lib/internal/$assertGuard.js";
-import * as __$validateReport from "typia/lib/internal/$validateReport.js";
+import * as __typia_transform_$assertGuard from "typia/lib/internal/$assertGuard.js";
+import * as __typia_transform_$validateReport from "typia/lib/internal/$validateReport.js";
 
 interface ICitizen {
   id: string & tags.Format<"uuid">;
@@ -94,7 +94,7 @@ export const createAssertClone = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -104,7 +104,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -116,7 +116,7 @@ export const createAssertClone = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -126,7 +126,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -140,7 +140,7 @@ export const createAssertClone = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -150,7 +150,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -164,7 +164,7 @@ export const createAssertClone = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -175,7 +175,7 @@ export const createAssertClone = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -185,7 +185,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -196,7 +196,7 @@ export const createAssertClone = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -207,7 +207,7 @@ export const createAssertClone = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -219,7 +219,7 @@ export const createAssertClone = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -231,7 +231,7 @@ export const createAssertClone = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -242,7 +242,7 @@ export const createAssertClone = (() => {
           _errorFactory,
         )) &&
         $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -253,7 +253,7 @@ export const createAssertClone = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -266,7 +266,7 @@ export const createAssertClone = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __$assertGuard.$assertGuard(
+            __typia_transform_$assertGuard.$assertGuard(
               _exceptionable,
               {
                 method: "typia.misc.createAssertClone",
@@ -281,7 +281,7 @@ export const createAssertClone = (() => {
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             _exceptionable,
             {
               method: "typia.misc.createAssertClone",
@@ -292,7 +292,7 @@ export const createAssertClone = (() => {
             _errorFactory,
           ),
       )) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -324,7 +324,7 @@ export const createAssertClone = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             true,
             {
               method: "typia.misc.createAssertClone",
@@ -335,7 +335,7 @@ export const createAssertClone = (() => {
             _errorFactory,
           )) &&
           $ao0(input, _path + "", true)) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           true,
           {
             method: "typia.misc.createAssertClone",
@@ -583,7 +583,9 @@ export const createValidateClone = (() => {
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__$validateReport.$validateReport as any)(errors);
+      $report = (__typia_transform_$validateReport.$validateReport as any)(
+        errors,
+      );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
@@ -717,7 +719,7 @@ export const createAssertPrune = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -727,7 +729,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -739,7 +741,7 @@ export const createAssertPrune = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -749,7 +751,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -763,7 +765,7 @@ export const createAssertPrune = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -773,7 +775,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -787,7 +789,7 @@ export const createAssertPrune = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -798,7 +800,7 @@ export const createAssertPrune = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -808,7 +810,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -819,7 +821,7 @@ export const createAssertPrune = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -830,7 +832,7 @@ export const createAssertPrune = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -842,7 +844,7 @@ export const createAssertPrune = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -854,7 +856,7 @@ export const createAssertPrune = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -865,7 +867,7 @@ export const createAssertPrune = (() => {
           _errorFactory,
         )) &&
         $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -876,7 +878,7 @@ export const createAssertPrune = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -889,7 +891,7 @@ export const createAssertPrune = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __$assertGuard.$assertGuard(
+            __typia_transform_$assertGuard.$assertGuard(
               _exceptionable,
               {
                 method: "typia.misc.createAssertPrune",
@@ -904,7 +906,7 @@ export const createAssertPrune = (() => {
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             _exceptionable,
             {
               method: "typia.misc.createAssertPrune",
@@ -915,7 +917,7 @@ export const createAssertPrune = (() => {
             _errorFactory,
           ),
       )) ||
-      __$assertGuard.$assertGuard(
+      __typia_transform_$assertGuard.$assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -956,7 +958,7 @@ export const createAssertPrune = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __$assertGuard.$assertGuard(
+          __typia_transform_$assertGuard.$assertGuard(
             true,
             {
               method: "typia.misc.createAssertPrune",
@@ -967,7 +969,7 @@ export const createAssertPrune = (() => {
             _errorFactory,
           )) &&
           $ao0(input, _path + "", true)) ||
-        __$assertGuard.$assertGuard(
+        __typia_transform_$assertGuard.$assertGuard(
           true,
           {
             method: "typia.misc.createAssertPrune",
@@ -1245,7 +1247,9 @@ export const createValidatePrune = (() => {
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__$validateReport.$validateReport as any)(errors);
+      $report = (__typia_transform_$validateReport.$validateReport as any)(
+        errors,
+      );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
