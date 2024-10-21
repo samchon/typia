@@ -15,7 +15,9 @@ export namespace FileTransformer {
     (file: ts.SourceFile): ts.SourceFile => {
       if (file.isDeclarationFile) return file;
 
-      const importer: ImportProgrammer = new ImportProgrammer();
+      const importer: ImportProgrammer = new ImportProgrammer({
+        internalPrefix: "typia_transform_",
+      });
       const context: ITypiaContext = {
         ...environments,
         transformer,
