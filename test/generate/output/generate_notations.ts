@@ -1,6 +1,6 @@
 import typia, { tags } from "typia";
-import * as __typia_transform_$assertGuard from "typia/lib/internal/$assertGuard.js";
-import * as __typia_transform_$validateReport from "typia/lib/internal/$validateReport.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 
 interface ICitizen {
   id: string & tags.Format<"uuid">;
@@ -14,8 +14,8 @@ interface ICitizen {
   children: ICitizen[];
 }
 export const createCamel = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $co0 = (input: any): any => ({
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -23,15 +23,15 @@ export const createCamel = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     diedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   return (input: ICitizen): import("typia").CamelCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
 })();
 export const createAssertCamel = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -53,12 +53,12 @@ export const createAssertCamel = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -67,7 +67,7 @@ export const createAssertCamel = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertCamel",
@@ -77,7 +77,7 @@ export const createAssertCamel = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -89,7 +89,7 @@ export const createAssertCamel = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertCamel",
@@ -99,7 +99,7 @@ export const createAssertCamel = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -113,7 +113,7 @@ export const createAssertCamel = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertCamel",
@@ -123,7 +123,7 @@ export const createAssertCamel = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -137,7 +137,7 @@ export const createAssertCamel = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertCamel",
@@ -148,7 +148,7 @@ export const createAssertCamel = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertCamel",
@@ -158,7 +158,7 @@ export const createAssertCamel = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -169,7 +169,7 @@ export const createAssertCamel = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -180,7 +180,7 @@ export const createAssertCamel = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -192,7 +192,7 @@ export const createAssertCamel = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -204,7 +204,7 @@ export const createAssertCamel = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertCamel",
@@ -214,8 +214,8 @@ export const createAssertCamel = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -226,7 +226,7 @@ export const createAssertCamel = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -239,7 +239,7 @@ export const createAssertCamel = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.notations.createAssertCamel",
@@ -249,12 +249,12 @@ export const createAssertCamel = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.notations.createAssertCamel",
@@ -265,7 +265,7 @@ export const createAssertCamel = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertCamel",
@@ -275,7 +275,7 @@ export const createAssertCamel = (() => {
         },
         _errorFactory,
       ));
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -283,11 +283,11 @@ export const createAssertCamel = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     diedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -297,7 +297,7 @@ export const createAssertCamel = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.notations.createAssertCamel",
@@ -307,8 +307,8 @@ export const createAssertCamel = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.notations.createAssertCamel",
@@ -322,7 +322,7 @@ export const createAssertCamel = (() => {
     return input;
   };
   const __notation = (input: ICitizen): import("typia").CamelCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -330,8 +330,8 @@ export const createAssertCamel = (() => {
     __notation(__assert(input, errorFactory));
 })();
 export const createIsCamel = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -353,12 +353,12 @@ export const createIsCamel = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -366,21 +366,21 @@ export const createIsCamel = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     diedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   const __notation = (input: ICitizen): import("typia").CamelCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (input: any): import("typia").CamelCase<ICitizen> | null => {
     if (!__is(input)) return null;
     return __notation(input);
   };
 })();
 export const createValidateCamel = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -402,12 +402,12 @@ export const createValidateCamel = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -499,7 +499,7 @@ export const createValidateCamel = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -520,7 +520,7 @@ export const createValidateCamel = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -538,7 +538,7 @@ export const createValidateCamel = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -546,17 +546,17 @@ export const createValidateCamel = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     diedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -566,7 +566,7 @@ export const createValidateCamel = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
@@ -586,7 +586,7 @@ export const createValidateCamel = (() => {
     } as any;
   };
   const __notation = (input: ICitizen): import("typia").CamelCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
   ): import("typia").IValidation<import("typia").CamelCase<ICitizen>> => {
@@ -596,8 +596,8 @@ export const createValidateCamel = (() => {
   };
 })();
 export const createPascal = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $co0 = (input: any): any => ({
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _co0 = (input: any): any => ({
     Id: input.id,
     Name: input.name,
     Email: input.email,
@@ -605,15 +605,15 @@ export const createPascal = (() => {
     Motto: input.motto,
     Birthdate: new Date(input.birthdate) as any,
     DiedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    Parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    Children: $cp0(input.children) as any,
+    Parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    Children: _cp0(input.children) as any,
   });
   return (input: ICitizen): import("typia").PascalCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
 })();
 export const createAssertPascal = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -635,12 +635,12 @@ export const createAssertPascal = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -649,7 +649,7 @@ export const createAssertPascal = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertPascal",
@@ -659,7 +659,7 @@ export const createAssertPascal = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -671,7 +671,7 @@ export const createAssertPascal = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertPascal",
@@ -681,7 +681,7 @@ export const createAssertPascal = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -695,7 +695,7 @@ export const createAssertPascal = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertPascal",
@@ -705,7 +705,7 @@ export const createAssertPascal = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -719,7 +719,7 @@ export const createAssertPascal = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertPascal",
@@ -730,7 +730,7 @@ export const createAssertPascal = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertPascal",
@@ -740,7 +740,7 @@ export const createAssertPascal = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -751,7 +751,7 @@ export const createAssertPascal = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -762,7 +762,7 @@ export const createAssertPascal = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -774,7 +774,7 @@ export const createAssertPascal = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -786,7 +786,7 @@ export const createAssertPascal = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertPascal",
@@ -796,8 +796,8 @@ export const createAssertPascal = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -808,7 +808,7 @@ export const createAssertPascal = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -821,7 +821,7 @@ export const createAssertPascal = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.notations.createAssertPascal",
@@ -831,12 +831,12 @@ export const createAssertPascal = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.notations.createAssertPascal",
@@ -847,7 +847,7 @@ export const createAssertPascal = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertPascal",
@@ -857,7 +857,7 @@ export const createAssertPascal = (() => {
         },
         _errorFactory,
       ));
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     Id: input.id,
     Name: input.name,
     Email: input.email,
@@ -865,11 +865,11 @@ export const createAssertPascal = (() => {
     Motto: input.motto,
     Birthdate: new Date(input.birthdate) as any,
     DiedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    Parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    Children: $cp0(input.children) as any,
+    Parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    Children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -879,7 +879,7 @@ export const createAssertPascal = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.notations.createAssertPascal",
@@ -889,8 +889,8 @@ export const createAssertPascal = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.notations.createAssertPascal",
@@ -904,7 +904,7 @@ export const createAssertPascal = (() => {
     return input;
   };
   const __notation = (input: ICitizen): import("typia").PascalCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -912,8 +912,8 @@ export const createAssertPascal = (() => {
     __notation(__assert(input, errorFactory));
 })();
 export const createIsPascal = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -935,12 +935,12 @@ export const createIsPascal = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     Id: input.id,
     Name: input.name,
     Email: input.email,
@@ -948,21 +948,21 @@ export const createIsPascal = (() => {
     Motto: input.motto,
     Birthdate: new Date(input.birthdate) as any,
     DiedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    Parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    Children: $cp0(input.children) as any,
+    Parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    Children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   const __notation = (input: ICitizen): import("typia").PascalCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (input: any): import("typia").PascalCase<ICitizen> | null => {
     if (!__is(input)) return null;
     return __notation(input);
   };
 })();
 export const createValidatePascal = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -984,12 +984,12 @@ export const createValidatePascal = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -1081,7 +1081,7 @@ export const createValidatePascal = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -1102,7 +1102,7 @@ export const createValidatePascal = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -1120,7 +1120,7 @@ export const createValidatePascal = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     Id: input.id,
     Name: input.name,
     Email: input.email,
@@ -1128,17 +1128,17 @@ export const createValidatePascal = (() => {
     Motto: input.motto,
     Birthdate: new Date(input.birthdate) as any,
     DiedAt: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    Parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    Children: $cp0(input.children) as any,
+    Parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    Children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -1148,7 +1148,7 @@ export const createValidatePascal = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
@@ -1168,7 +1168,7 @@ export const createValidatePascal = (() => {
     } as any;
   };
   const __notation = (input: ICitizen): import("typia").PascalCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
   ): import("typia").IValidation<import("typia").PascalCase<ICitizen>> => {
@@ -1178,8 +1178,8 @@ export const createValidatePascal = (() => {
   };
 })();
 export const createSnake = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $co0 = (input: any): any => ({
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -1187,15 +1187,15 @@ export const createSnake = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   return (input: ICitizen): import("typia").SnakeCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
 })();
 export const createAssertSnake = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -1217,12 +1217,12 @@ export const createAssertSnake = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -1231,7 +1231,7 @@ export const createAssertSnake = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertSnake",
@@ -1241,7 +1241,7 @@ export const createAssertSnake = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1253,7 +1253,7 @@ export const createAssertSnake = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertSnake",
@@ -1263,7 +1263,7 @@ export const createAssertSnake = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1277,7 +1277,7 @@ export const createAssertSnake = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertSnake",
@@ -1287,7 +1287,7 @@ export const createAssertSnake = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1301,7 +1301,7 @@ export const createAssertSnake = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertSnake",
@@ -1312,7 +1312,7 @@ export const createAssertSnake = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertSnake",
@@ -1322,7 +1322,7 @@ export const createAssertSnake = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1333,7 +1333,7 @@ export const createAssertSnake = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1344,7 +1344,7 @@ export const createAssertSnake = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1356,7 +1356,7 @@ export const createAssertSnake = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1368,7 +1368,7 @@ export const createAssertSnake = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.notations.createAssertSnake",
@@ -1378,8 +1378,8 @@ export const createAssertSnake = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1390,7 +1390,7 @@ export const createAssertSnake = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1403,7 +1403,7 @@ export const createAssertSnake = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.notations.createAssertSnake",
@@ -1413,12 +1413,12 @@ export const createAssertSnake = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.notations.createAssertSnake",
@@ -1429,7 +1429,7 @@ export const createAssertSnake = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.notations.createAssertSnake",
@@ -1439,7 +1439,7 @@ export const createAssertSnake = (() => {
         },
         _errorFactory,
       ));
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -1447,11 +1447,11 @@ export const createAssertSnake = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -1461,7 +1461,7 @@ export const createAssertSnake = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.notations.createAssertSnake",
@@ -1471,8 +1471,8 @@ export const createAssertSnake = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.notations.createAssertSnake",
@@ -1486,7 +1486,7 @@ export const createAssertSnake = (() => {
     return input;
   };
   const __notation = (input: ICitizen): import("typia").SnakeCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -1494,8 +1494,8 @@ export const createAssertSnake = (() => {
     __notation(__assert(input, errorFactory));
 })();
 export const createIsSnake = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -1517,12 +1517,12 @@ export const createIsSnake = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -1530,21 +1530,21 @@ export const createIsSnake = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   const __notation = (input: ICitizen): import("typia").SnakeCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (input: any): import("typia").SnakeCase<ICitizen> | null => {
     if (!__is(input)) return null;
     return __notation(input);
   };
 })();
 export const createValidateSnake = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -1566,12 +1566,12 @@ export const createValidateSnake = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -1663,7 +1663,7 @@ export const createValidateSnake = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -1684,7 +1684,7 @@ export const createValidateSnake = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -1702,7 +1702,7 @@ export const createValidateSnake = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -1710,17 +1710,17 @@ export const createValidateSnake = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -1730,7 +1730,7 @@ export const createValidateSnake = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
@@ -1750,7 +1750,7 @@ export const createValidateSnake = (() => {
     } as any;
   };
   const __notation = (input: ICitizen): import("typia").SnakeCase<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
   ): import("typia").IValidation<import("typia").SnakeCase<ICitizen>> => {

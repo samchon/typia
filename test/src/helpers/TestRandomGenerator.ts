@@ -1,6 +1,6 @@
 import RandExp from "randexp";
 import { back_inserter, ranges } from "tstl";
-import { $randomFormatDuration } from "typia/lib/internal/$randomFormatDuration";
+import { _randomFormatDuration } from "typia/lib/internal/_randomFormatDuration";
 
 export namespace TestRandomGenerator {
   const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
@@ -88,7 +88,7 @@ export namespace TestRandomGenerator {
     return new Date(number(min, max)).toISOString();
   };
 
-  export const duration = () => $randomFormatDuration();
+  export const duration = () => _randomFormatDuration();
 }
 
 const DAY = 1000 * 60 * 60 * 24;

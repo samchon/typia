@@ -1,6 +1,6 @@
 import typia, { tags } from "typia";
-import * as __typia_transform_$assertGuard from "typia/lib/internal/$assertGuard.js";
-import * as __typia_transform_$validateReport from "typia/lib/internal/$validateReport.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 
 interface ICitizen {
   id: string & tags.Format<"uuid">;
@@ -14,8 +14,8 @@ interface ICitizen {
   children: ICitizen[];
 }
 export const createClone = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $co0 = (input: any): any => ({
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -23,10 +23,10 @@ export const createClone = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -48,17 +48,17 @@ export const createClone = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
   return (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
 })();
 export const createAssertClone = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -80,12 +80,12 @@ export const createAssertClone = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -94,7 +94,7 @@ export const createAssertClone = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -104,7 +104,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -116,7 +116,7 @@ export const createAssertClone = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -126,7 +126,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -140,7 +140,7 @@ export const createAssertClone = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -150,7 +150,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -164,7 +164,7 @@ export const createAssertClone = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -175,7 +175,7 @@ export const createAssertClone = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -185,7 +185,7 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -196,7 +196,7 @@ export const createAssertClone = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -207,7 +207,7 @@ export const createAssertClone = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -219,7 +219,7 @@ export const createAssertClone = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -231,7 +231,7 @@ export const createAssertClone = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertClone",
@@ -241,8 +241,8 @@ export const createAssertClone = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -253,7 +253,7 @@ export const createAssertClone = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -266,7 +266,7 @@ export const createAssertClone = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.misc.createAssertClone",
@@ -276,12 +276,12 @@ export const createAssertClone = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.misc.createAssertClone",
@@ -292,7 +292,7 @@ export const createAssertClone = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertClone",
@@ -302,7 +302,7 @@ export const createAssertClone = (() => {
         },
         _errorFactory,
       ));
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -310,11 +310,11 @@ export const createAssertClone = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -324,7 +324,7 @@ export const createAssertClone = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.misc.createAssertClone",
@@ -334,8 +334,8 @@ export const createAssertClone = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.misc.createAssertClone",
@@ -349,7 +349,7 @@ export const createAssertClone = (() => {
     return input;
   };
   const __clone = (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -357,8 +357,8 @@ export const createAssertClone = (() => {
     __clone(__assert(input, errorFactory));
 })();
 export const createIsClone = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -380,12 +380,12 @@ export const createIsClone = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -393,21 +393,21 @@ export const createIsClone = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   const __clone = (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (input: any): import("typia").Resolved<ICitizen> | null => {
     if (!__is(input)) return null;
     return __clone(input);
   };
 })();
 export const createValidateClone = (() => {
-  const $cp0 = (input: any) => input.map((elem: any) => $co0(elem) as any);
-  const $io0 = (input: any): boolean =>
+  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -429,12 +429,12 @@ export const createValidateClone = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -526,7 +526,7 @@ export const createValidateClone = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -547,7 +547,7 @@ export const createValidateClone = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -565,7 +565,7 @@ export const createValidateClone = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const $co0 = (input: any): any => ({
+  const _co0 = (input: any): any => ({
     id: input.id,
     name: input.name,
     email: input.email,
@@ -573,17 +573,17 @@ export const createValidateClone = (() => {
     motto: input.motto,
     birthdate: new Date(input.birthdate) as any,
     died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? $co0(input.parent) : (input.parent as any),
-    children: $cp0(input.children) as any,
+    parent: input.parent ? _co0(input.parent) : (input.parent as any),
+    children: _cp0(input.children) as any,
   });
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -593,7 +593,7 @@ export const createValidateClone = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
@@ -613,7 +613,7 @@ export const createValidateClone = (() => {
     } as any;
   };
   const __clone = (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    $co0(input) as any;
+    _co0(input) as any;
   return (
     input: any,
   ): import("typia").IValidation<import("typia").Resolved<ICitizen>> => {
@@ -623,14 +623,14 @@ export const createValidateClone = (() => {
   };
 })();
 export const createPrune = (() => {
-  const $pp0 = (input: any) =>
+  const _pp0 = (input: any) =>
     input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) $po0(elem);
+      if ("object" === typeof elem && null !== elem) _po0(elem);
     });
-  const $po0 = (input: any): any => {
+  const _po0 = (input: any): any => {
     if ("object" === typeof input.parent && null !== input.parent)
-      $po0(input.parent);
-    if (Array.isArray(input.children)) $pp0(input.children);
+      _po0(input.parent);
+    if (Array.isArray(input.children)) _pp0(input.children);
     for (const key of Object.keys(input)) {
       if (
         "id" === key ||
@@ -647,7 +647,7 @@ export const createPrune = (() => {
       delete input[key];
     }
   };
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -669,21 +669,21 @@ export const createPrune = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
   return (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) $po0(input);
+    if ("object" === typeof input && null !== input) _po0(input);
   };
 })();
 export const createAssertPrune = (() => {
-  const $pp0 = (input: any) =>
+  const _pp0 = (input: any) =>
     input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) $po0(elem);
+      if ("object" === typeof elem && null !== elem) _po0(elem);
     });
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -705,12 +705,12 @@ export const createAssertPrune = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -719,7 +719,7 @@ export const createAssertPrune = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -729,7 +729,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -741,7 +741,7 @@ export const createAssertPrune = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -751,7 +751,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -765,7 +765,7 @@ export const createAssertPrune = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -775,7 +775,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -789,7 +789,7 @@ export const createAssertPrune = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -800,7 +800,7 @@ export const createAssertPrune = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -810,7 +810,7 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -821,7 +821,7 @@ export const createAssertPrune = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -832,7 +832,7 @@ export const createAssertPrune = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -844,7 +844,7 @@ export const createAssertPrune = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -856,7 +856,7 @@ export const createAssertPrune = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.misc.createAssertPrune",
@@ -866,8 +866,8 @@ export const createAssertPrune = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -878,7 +878,7 @@ export const createAssertPrune = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -891,7 +891,7 @@ export const createAssertPrune = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.misc.createAssertPrune",
@@ -901,12 +901,12 @@ export const createAssertPrune = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.misc.createAssertPrune",
@@ -917,7 +917,7 @@ export const createAssertPrune = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.misc.createAssertPrune",
@@ -927,10 +927,10 @@ export const createAssertPrune = (() => {
         },
         _errorFactory,
       ));
-  const $po0 = (input: any): any => {
+  const _po0 = (input: any): any => {
     if ("object" === typeof input.parent && null !== input.parent)
-      $po0(input.parent);
-    if (Array.isArray(input.children)) $pp0(input.children);
+      _po0(input.parent);
+    if (Array.isArray(input.children)) _pp0(input.children);
     for (const key of Object.keys(input)) {
       if (
         "id" === key ||
@@ -948,7 +948,7 @@ export const createAssertPrune = (() => {
     }
   };
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -958,7 +958,7 @@ export const createAssertPrune = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.misc.createAssertPrune",
@@ -968,8 +968,8 @@ export const createAssertPrune = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.misc.createAssertPrune",
@@ -983,7 +983,7 @@ export const createAssertPrune = (() => {
     return input;
   };
   const __prune = (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) $po0(input);
+    if ("object" === typeof input && null !== input) _po0(input);
   };
   return (
     input: any,
@@ -995,11 +995,11 @@ export const createAssertPrune = (() => {
   };
 })();
 export const createIsPrune = (() => {
-  const $pp0 = (input: any) =>
+  const _pp0 = (input: any) =>
     input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) $po0(elem);
+      if ("object" === typeof elem && null !== elem) _po0(elem);
     });
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -1021,15 +1021,15 @@ export const createIsPrune = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $po0 = (input: any): any => {
+  const _po0 = (input: any): any => {
     if ("object" === typeof input.parent && null !== input.parent)
-      $po0(input.parent);
-    if (Array.isArray(input.children)) $pp0(input.children);
+      _po0(input.parent);
+    if (Array.isArray(input.children)) _pp0(input.children);
     for (const key of Object.keys(input)) {
       if (
         "id" === key ||
@@ -1047,9 +1047,9 @@ export const createIsPrune = (() => {
     }
   };
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   const __prune = (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) $po0(input);
+    if ("object" === typeof input && null !== input) _po0(input);
   };
   return (input: any): input is ICitizen => {
     if (false == __is(input)) return false;
@@ -1058,11 +1058,11 @@ export const createIsPrune = (() => {
   };
 })();
 export const createValidatePrune = (() => {
-  const $pp0 = (input: any) =>
+  const _pp0 = (input: any) =>
     input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) $po0(elem);
+      if ("object" === typeof elem && null !== elem) _po0(elem);
     });
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -1084,12 +1084,12 @@ export const createValidatePrune = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -1181,7 +1181,7 @@ export const createValidatePrune = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -1202,7 +1202,7 @@ export const createValidatePrune = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -1220,10 +1220,10 @@ export const createValidatePrune = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const $po0 = (input: any): any => {
+  const _po0 = (input: any): any => {
     if ("object" === typeof input.parent && null !== input.parent)
-      $po0(input.parent);
-    if (Array.isArray(input.children)) $pp0(input.children);
+      _po0(input.parent);
+    if (Array.isArray(input.children)) _pp0(input.children);
     for (const key of Object.keys(input)) {
       if (
         "id" === key ||
@@ -1241,13 +1241,13 @@ export const createValidatePrune = (() => {
     }
   };
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -1257,7 +1257,7 @@ export const createValidatePrune = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
@@ -1277,7 +1277,7 @@ export const createValidatePrune = (() => {
     } as any;
   };
   const __prune = (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) $po0(input);
+    if ("object" === typeof input && null !== input) _po0(input);
   };
   return (input: any): import("typia").IValidation<ICitizen> => {
     const result = __validate(input);

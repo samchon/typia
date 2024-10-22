@@ -1,6 +1,6 @@
 import typia, { IRandomGenerator } from "typia";
-import { $randomNumber } from "typia/lib/internal/$randomNumber";
-import { $randomString } from "typia/lib/internal/$randomString";
+import { _randomNumber } from "typia/lib/internal/_randomNumber";
+import { _randomString } from "typia/lib/internal/_randomString";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../helpers/Spoiler";
@@ -49,14 +49,14 @@ export namespace TypeTagCustom {
         return (
           TestRandomGenerator.string() + (schema as any)["x-typia-postfix"]
         );
-      return $randomString(schema);
+      return _randomString(schema);
     },
     number: (schema) => {
       if ((schema as any)["x-typia-powerOf"] !== undefined) {
         const powerOf = (schema as any)["x-typia-powerOf"];
         return Math.pow(powerOf, TestRandomGenerator.integer(1, 10));
       }
-      return $randomNumber(schema);
+      return _randomNumber(schema);
     },
   };
 }

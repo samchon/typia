@@ -974,7 +974,7 @@ export namespace JsonStringifyProgrammer {
   /* -----------------------------------------------------------
     CONFIGURATIONS
   ----------------------------------------------------------- */
-  const PREFIX = "$s";
+  const PREFIX = "_s";
 
   const configure = (props: {
     context: ITypiaContext;

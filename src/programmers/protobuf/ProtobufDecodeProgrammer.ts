@@ -615,7 +615,7 @@ export namespace ProtobufDecodeProgrammer {
   };
 }
 
-const PREFIX = "$pd";
+const PREFIX = "_pd";
 const callReader = (
   method: string,
   args?: ts.Expression[],

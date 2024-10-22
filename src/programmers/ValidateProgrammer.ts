@@ -37,7 +37,7 @@ export namespace ValidateProgrammer {
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
       ...props,
       config: {
-        prefix: "$v",
+        prefix: "_v",
         path: true,
         trace: true,
         numeric: OptionPredicator.numeric(props.context.options),
@@ -143,7 +143,7 @@ export namespace ValidateProgrammer {
                   ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                   ts.factory.createCallExpression(
                     ts.factory.createAsExpression(
-                      props.context.importer.internal("$validateReport"),
+                      props.context.importer.internal("validateReport"),
                       TypeFactory.keyword("any"),
                     ),
                     [],

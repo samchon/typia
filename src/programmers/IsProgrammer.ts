@@ -24,7 +24,7 @@ export namespace IsProgrammer {
     context: ITypiaContext;
     functor: FunctionProgrammer;
   }): CheckerProgrammer.IConfig => ({
-    prefix: "$i",
+    prefix: "_i",
     equals: !!props.options?.object,
     trace: false,
     path: false,
