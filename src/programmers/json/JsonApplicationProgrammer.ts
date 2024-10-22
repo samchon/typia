@@ -1,11 +1,11 @@
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
 import { IJsonApplication } from "../../schemas/json/IJsonApplication";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { IJsDocTagInfo } from "../../module";
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
 export namespace JsonApplicationProgrammer {
@@ -107,9 +107,10 @@ export namespace JsonApplicationProgrammer {
           collect,
         }),
       );
-    const { components, schemas } = JsonSchemasProgrammer.write(props.version)(
-      definitions,
-    );
+    const { components, schemas } = JsonSchemasProgrammer.write({
+      version: props.version,
+      metadatas: definitions,
+    });
     schemas.forEach((s, i) =>
       setters[i]?.(s as IJsonApplication.Schema<Version>),
     );

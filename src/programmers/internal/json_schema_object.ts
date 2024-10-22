@@ -1,4 +1,4 @@
-import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import { OpenApi } from "@samchon/openapi";
 
 import { CommentFactory } from "../../factories/CommentFactory";
 
@@ -8,20 +8,20 @@ import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
-import { application_description } from "./application_description";
-import { application_plugin } from "./application_plugin";
-import { application_title } from "./application_title";
-import { application_v31_schema } from "./application_v31_schema";
+import { json_schema_description } from "./json_schema_description";
+import { json_schema_plugin } from "./json_schema_plugin";
+import { json_schema_station } from "./json_schema_station";
+import { json_schema_title } from "./json_schema_title";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /**
  * @internal
  */
-export const application_v31_object = (props: {
+export const json_schema_object = (props: {
   components: OpenApi.IComponents;
   object: MetadataObject;
 }): Array<OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject> =>
-  application_plugin({
+  json_schema_plugin({
     schema: emplace_object(props),
     tags: props.object.tags,
   });
@@ -37,7 +37,7 @@ const emplace_object = (props: {
   const $ref: string = `#/components/schemas/${key}`;
   if (props.components.schemas?.[key] !== undefined) return { $ref };
 
-  const lazy: OpenApiV3.IJsonSchema = {};
+  const lazy: OpenApi.IJsonSchema = {};
   props.components.schemas ??= {};
   props.components.schemas[key] = lazy;
   Object.assign(lazy, create_object_schema(props));
@@ -71,15 +71,15 @@ const create_object_schema = (props: {
     else if (property.jsDocTags.find((tag) => tag.name === "hidden")) continue; // THE HIDDEN TAG
 
     const key: string | null = property.key.getSoleLiteral();
-    const schema: OpenApi.IJsonSchema | null = application_v31_schema({
+    const schema: OpenApi.IJsonSchema | null = json_schema_station({
       blockNever: true,
       components: props.components,
       attribute: {
         deprecated:
           property.jsDocTags.some((tag) => tag.name === "deprecated") ||
           undefined,
-        title: application_title(property),
-        description: application_description(property),
+        title: json_schema_title(property),
+        description: json_schema_description(property),
       },
       metadata: property.value,
     });
@@ -109,7 +109,7 @@ const create_object_schema = (props: {
       );
       return info?.text?.length ? CommentFactory.merge(info.text) : undefined;
     })(),
-    description: application_description(props.object.type),
+    description: json_schema_description(props.object.type),
     additionalProperties: join({
       components: props.components,
       extra: extraMeta,
@@ -140,7 +140,7 @@ const join = (props: {
     .map((tuple) => tuple[0])
     .reduce((x, y) => Metadata.merge(x, y));
   return (
-    application_v31_schema({
+    json_schema_station({
       blockNever: true,
       components: props.components,
       attribute: {},

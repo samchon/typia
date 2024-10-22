@@ -1,8 +1,8 @@
 import { CommentFactory } from "../../factories/CommentFactory";
 
-import { IJsDocTagInfo } from "../../module";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 
-export const application_title = (schema: {
+export const json_schema_title = (schema: {
   description?: string | null | undefined;
   jsDocTags?: IJsDocTagInfo[] | undefined;
 }): string | undefined => {

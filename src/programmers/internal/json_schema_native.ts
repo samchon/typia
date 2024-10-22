@@ -2,17 +2,14 @@ import { OpenApi } from "@samchon/openapi";
 
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";
 
-import { application_plugin } from "./application_plugin";
+import { json_schema_plugin } from "./json_schema_plugin";
 
-/**
- * @internal
- */
-export const application_v31_native = (props: {
+export const json_schema_native = (props: {
   components: OpenApi.IComponents;
   native: MetadataNative;
 }): OpenApi.IJsonSchema[] => {
   if (props.native.name === "Blob" || props.native.name === "File")
-    return application_plugin({
+    return json_schema_plugin({
       schema: {
         type: "string",
         format: "binary",
@@ -26,7 +23,7 @@ export const application_v31_native = (props: {
       properties: {},
     };
   }
-  return application_plugin({
+  return json_schema_plugin({
     schema: {
       $ref: `#/components/schemas/${props.native.name}`,
     },

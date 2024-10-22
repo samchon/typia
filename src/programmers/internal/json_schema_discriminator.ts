@@ -4,7 +4,7 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { UnionPredicator } from "../helpers/UnionPredicator";
 
-export const application_union_discriminator = (
+export const json_schema_discriminator = (
   metadata: Metadata,
 ): OpenApi.IJsonSchema.IOneOf.IDiscriminator | undefined => {
   if (

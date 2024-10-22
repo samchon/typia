@@ -30,12 +30,11 @@ import { StringUtil } from "../utils/StringUtil";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { RandomJoiner } from "./helpers/RandomJoiner";
-import { application_array } from "./internal/application_array";
-import { application_bigint } from "./internal/application_bigint";
-import { application_boolean } from "./internal/application_boolean";
-import { application_number } from "./internal/application_number";
-import { application_string } from "./internal/application_string";
-import { application_v31_schema } from "./internal/application_v31_schema";
+import { json_schema_array } from "./internal/json_schema_array";
+import { json_schema_bigint } from "./internal/json_schema_bigint";
+import { json_schema_boolean } from "./internal/json_schema_boolean";
+import { json_schema_number } from "./internal/json_schema_number";
+import { json_schema_string } from "./internal/json_schema_string";
 
 export namespace RandomProgrammer {
   export interface IProps {
@@ -470,12 +469,12 @@ export namespace RandomProgrammer {
   }) => {
     const schemaList: OpenApi.IJsonSchema[] =
       props.atomic.type === "boolean"
-        ? application_boolean<"3.1">(props.atomic)
+        ? json_schema_boolean(props.atomic)
         : props.atomic.type === "string"
-          ? application_string<"3.1">(props.atomic)
+          ? json_schema_string(props.atomic)
           : props.atomic.type === "bigint"
-            ? application_bigint<"3.1">(props.atomic)
-            : application_number<"3.1">(props.atomic);
+            ? json_schema_bigint(props.atomic)
+            : json_schema_number(props.atomic);
     return schemaList.map((schema) => {
       interface IComposed {
         method: string;
@@ -577,14 +576,7 @@ export namespace RandomProgrammer {
     array: MetadataArray;
   }): ts.Expression[] => {
     const components: OpenApi.IComponents = {};
-    const schemaList: OpenApi.IJsonSchema.IArray[] = application_array<"3.1">({
-      generator: (value) =>
-        application_v31_schema({
-          blockNever: true,
-          components,
-          attribute: {},
-          metadata: value,
-        })!,
+    const schemaList: OpenApi.IJsonSchema.IArray[] = json_schema_array({
       components,
       array: props.array,
     }) as OpenApi.IJsonSchema.IArray[];

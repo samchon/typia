@@ -2,26 +2,23 @@ import { OpenApi } from "@samchon/openapi";
 
 import { MetadataConstant } from "../../schemas/metadata/MetadataConstant";
 
-import { application_description } from "./application_description";
-import { application_plugin } from "./application_plugin";
-import { application_title } from "./application_title";
+import { json_schema_description } from "./json_schema_description";
+import { json_schema_plugin } from "./json_schema_plugin";
+import { json_schema_title } from "./json_schema_title";
 
-/**
- * @internal
- */
-export const application_v31_constant = (
+export const json_schema_constant = (
   constant: MetadataConstant,
 ): OpenApi.IJsonSchema.IConstant[] =>
   constant.values
     .map((value) =>
-      application_plugin({
+      json_schema_plugin({
         schema: {
           const:
             typeof value.value === "bigint"
               ? Number(value.value)
               : (value.value as boolean | number | string),
-          title: application_title(value),
-          description: application_description(value),
+          title: json_schema_title(value),
+          description: json_schema_description(value),
         } satisfies OpenApi.IJsonSchema.IConstant,
         tags: value.tags ?? [],
       }),
