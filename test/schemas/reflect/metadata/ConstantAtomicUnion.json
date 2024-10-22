@@ -139,11 +139,11 @@
               "type": "string",
               "values": [
                 {
-                  "value": "three",
+                  "value": "four",
                   "tags": []
                 },
                 {
-                  "value": "four",
+                  "value": "three",
                   "tags": []
                 }
               ]

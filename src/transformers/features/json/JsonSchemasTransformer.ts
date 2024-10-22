@@ -89,8 +89,10 @@ export namespace JsonSchemasTransformer {
       });
 
     // APPLICATION
-    const app: IJsonSchemaCollection<any> =
-      JsonSchemasProgrammer.write(version)(metadatas);
+    const app: IJsonSchemaCollection<any> = JsonSchemasProgrammer.write({
+      version,
+      metadatas,
+    });
     return LiteralFactory.write(app);
   };
 

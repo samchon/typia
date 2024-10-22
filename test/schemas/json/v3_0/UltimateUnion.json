@@ -31,7 +31,6 @@
             "items": {}
           }
         },
-        "nullable": false,
         "required": [
           "version",
           "components",
@@ -52,13 +51,11 @@
             "description": "An object to hold reusable security schemes.\n\nIn other words, a collection of named security schemes."
           }
         },
-        "nullable": false,
         "description": "Reusable components in OpenAPI.\n\nA storage of reusable components in OpenAPI document.\n\nIn other words, it is a storage of named DTO schemas and security schemes."
       },
       "RecordstringOpenApi.IJsonSchema": {
         "type": "object",
         "properties": {},
-        "nullable": false,
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "$ref": "#/components/schemas/OpenApi.IJsonSchema"
@@ -103,6 +100,7 @@
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
           }
         ],
+        "title": "Type schema info",
         "description": "Type schema info.\n\n`OpenApi.IJsonSchema` is a type schema info of the OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but a little bit shrinked to remove ambiguous and duplicated\nexpressions of OpenAPI v3.1 for the convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property: {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to {@link OpenApi.IJsonSchema.IReference}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to {@link OpenApi.IJsonSchema.IObject}"
       },
       "OpenApi.IJsonSchema.IString": {
@@ -171,7 +169,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -180,7 +177,6 @@
       "Recordstringany": {
         "type": "object",
         "properties": {},
-        "nullable": false,
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {}
       },
@@ -252,7 +248,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -301,7 +296,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "const"
         ],
@@ -348,7 +342,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -422,7 +415,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -484,7 +476,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "items",
           "type"
@@ -595,7 +586,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "prefixItems",
           "type"
@@ -696,7 +686,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -735,7 +724,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "$ref"
         ],
@@ -816,7 +804,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "oneOf"
         ],
@@ -863,7 +850,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -897,7 +883,6 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "nullable": false,
         "description": "Unknown, `any` type."
       },
       "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
@@ -914,7 +899,6 @@
             "description": "Mapping of the discriminator value to the schema name.\n\nThis property is valid only for {@link IReference} typed\n{@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is\nthe discriminator value, and `value` of `mapping` is the\nschema name like `#/components/schemas/SomeObject`."
           }
         },
-        "nullable": false,
         "required": [
           "propertyName"
         ],
@@ -923,7 +907,6 @@
       "Recordstringstring": {
         "type": "object",
         "properties": {},
-        "nullable": false,
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "type": "string"
@@ -932,7 +915,6 @@
       "RecordstringOpenApi.ISecurityScheme": {
         "type": "object",
         "properties": {},
-        "nullable": false,
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "$ref": "#/components/schemas/OpenApi.ISecurityScheme"
@@ -956,6 +938,7 @@
             "$ref": "#/components/schemas/OpenApi.ISecurityScheme.IOpenId"
           }
         ],
+        "title": "Security scheme of Swagger Documents",
         "description": "Security scheme of Swagger Documents.\n\n`OpenApi.ISecurityScheme` is a data structure representing content of\n`securitySchemes` in `swagger.json` file. It is composed with 5 types of\nsecurity schemes as an union type like below."
       },
       "OpenApi.ISecurityScheme.IApiKey": {
@@ -982,7 +965,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "type"
         ],
@@ -1007,7 +989,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "type",
           "scheme"
@@ -1036,7 +1017,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "type",
           "scheme"
@@ -1059,7 +1039,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "type",
           "flows"
@@ -1081,8 +1060,7 @@
           "clientCredentials": {
             "$ref": "#/components/schemas/OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl"
           }
-        },
-        "nullable": false
+        }
       },
       "OpenApi.ISecurityScheme.IOAuth2.IFlow": {
         "type": "object",
@@ -1099,8 +1077,7 @@
           "scopes": {
             "$ref": "#/components/schemas/Recordstringstring"
           }
-        },
-        "nullable": false
+        }
       },
       "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowtokenUrl": {
         "type": "object",
@@ -1115,7 +1092,6 @@
             "$ref": "#/components/schemas/Recordstringstring"
           }
         },
-        "nullable": false,
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl": {
@@ -1131,7 +1107,6 @@
             "$ref": "#/components/schemas/Recordstringstring"
           }
         },
-        "nullable": false,
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OpenApi.ISecurityScheme.IOpenId": {
@@ -1150,7 +1125,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "type",
           "openIdConnectUrl"

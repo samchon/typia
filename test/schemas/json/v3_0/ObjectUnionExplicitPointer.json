@@ -12,7 +12,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -24,7 +23,6 @@
             "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Shape"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -70,7 +68,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y",
@@ -93,7 +90,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -110,7 +106,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y"
@@ -135,7 +130,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -165,7 +159,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -190,7 +183,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "points",
           "type"
@@ -215,7 +207,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner",
@@ -232,7 +223,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "points"
         ]
@@ -253,7 +243,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "centroid",
           "radius",

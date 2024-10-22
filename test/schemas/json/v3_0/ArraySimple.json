@@ -24,7 +24,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "email",
@@ -44,7 +43,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "body",

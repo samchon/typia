@@ -15,7 +15,6 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "email",
           "name",

@@ -43,7 +43,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y"
@@ -59,7 +58,6 @@
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint"
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2"
@@ -78,7 +76,6 @@
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint"
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -101,7 +98,6 @@
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint"
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -119,7 +115,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "points"
         ]
@@ -137,7 +132,6 @@
             "$ref": "#/components/schemas/ObjectUnionComposite.IPoint"
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner"
@@ -156,7 +150,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner"
@@ -172,7 +165,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "centroid",
           "radius"

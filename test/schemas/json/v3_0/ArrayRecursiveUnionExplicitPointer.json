@@ -12,7 +12,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -40,7 +39,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -70,7 +68,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -116,7 +113,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -160,7 +156,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -202,7 +197,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -241,7 +235,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",

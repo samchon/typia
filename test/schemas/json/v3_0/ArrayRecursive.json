@@ -24,7 +24,6 @@
             "$ref": "#/components/schemas/ArrayRecursive.ITimestamp"
           }
         },
-        "nullable": false,
         "required": [
           "children",
           "id",
@@ -43,7 +42,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "time",
           "zone"

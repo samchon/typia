@@ -5,24 +5,21 @@ import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { application_array } from "./application_array";
-import { application_bigint } from "./application_bigint";
-import { application_boolean } from "./application_boolean";
-import { application_escaped } from "./application_escaped";
-import { application_number } from "./application_number";
-import { application_string } from "./application_string";
-import { application_templates } from "./application_templates";
-import { application_union_discriminator } from "./application_union_discriminator";
-import { application_v31_alias } from "./application_v31_alias";
-import { application_v31_constant } from "./application_v31_constant";
-import { application_v31_native } from "./application_v31_native";
-import { application_v31_object } from "./application_v31_object";
-import { application_v31_tuple } from "./application_v31_tuple";
+import { json_schema_alias } from "./json_schema_alias";
+import { json_schema_array } from "./json_schema_array";
+import { json_schema_bigint } from "./json_schema_bigint";
+import { json_schema_boolean } from "./json_schema_boolean";
+import { json_schema_constant } from "./json_schema_constant";
+import { json_schema_discriminator } from "./json_schema_discriminator";
+import { json_schema_escaped } from "./json_schema_escaped";
+import { json_schema_native } from "./json_schema_native";
+import { json_schema_number } from "./json_schema_number";
+import { json_schema_object } from "./json_schema_object";
+import { json_schema_string } from "./json_schema_string";
+import { json_schema_templates } from "./json_schema_template";
+import { json_schema_tuple } from "./json_schema_tuple";
 
-/**
- * @internal
- */
-export const application_v31_schema = <BlockNever extends boolean>(props: {
+export const json_schema_station = <BlockNever extends boolean>(props: {
   blockNever: BlockNever;
   components: OpenApi.IComponents;
   attribute: OpenApi.IJsonSchema.__IAttribute;
@@ -50,23 +47,17 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
 
   // toJSON() METHOD
   if (props.metadata.escaped !== null)
-    application_escaped({
-      generator: (metadata) =>
-        application_v31_schema({
-          blockNever: false as const,
-          components: props.components,
-          attribute: {},
-          metadata,
-        }),
+    json_schema_escaped({
+      components: props.components,
       escaped: props.metadata.escaped,
-    }).forEach(insert as any);
+    }).forEach(insert);
 
   // ATOMIC TYPES
   if (
     props.metadata.templates.length &&
     AtomicPredicator.template(props.metadata)
   )
-    application_templates(props.metadata).map(insert as any);
+    json_schema_templates(props.metadata).forEach(insert);
   for (const constant of props.metadata.constants)
     if (
       AtomicPredicator.constant({
@@ -75,38 +66,25 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
       }) === false
     )
       continue;
-    else application_v31_constant(constant).map(insert);
+    else json_schema_constant(constant).forEach(insert);
   for (const a of props.metadata.atomics)
-    if (a.type === "boolean") application_boolean(a).forEach(insert as any);
-    else if (a.type === "bigint") application_bigint(a).forEach(insert as any);
-    else if (a.type === "number") application_number(a).forEach(insert as any);
-    else if (a.type === "string") application_string(a).forEach(insert as any);
+    if (a.type === "boolean") json_schema_boolean(a).forEach(insert);
+    else if (a.type === "bigint") json_schema_bigint(a).forEach(insert);
+    else if (a.type === "number") json_schema_number(a).forEach(insert);
+    else if (a.type === "string") json_schema_string(a).forEach(insert);
 
   // ARRAY
   for (const array of props.metadata.arrays)
-    application_array({
-      generator: (metadata) =>
-        application_v31_schema({
-          blockNever: false as const,
-          components: props.components,
-          attribute: {},
-          metadata,
-        }),
+    json_schema_array({
       components: props.components,
       array,
-    }).forEach(insert as any);
+    }).forEach(insert);
 
   // TUPLE
   for (const tuple of props.metadata.tuples)
     insert(
-      application_v31_tuple({
-        generator: (metadata) =>
-          application_v31_schema({
-            blockNever: false as const,
-            components: props.components,
-            attribute: {},
-            metadata,
-          }),
+      json_schema_tuple({
+        components: props.components,
         tuple,
       }),
     );
@@ -117,48 +95,40 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
       const type: string = native.name.toLowerCase();
       if (props.metadata.atomics.some((a) => a.type === type)) continue;
       else if (type === "boolean")
-        insert(
-          application_boolean(
-            MetadataAtomic.create({
-              type: "boolean",
-              tags: [],
-            }),
-          )[0]! as any,
-        );
+        json_schema_boolean(
+          MetadataAtomic.create({
+            type: "boolean",
+            tags: [],
+          }),
+        ).map(insert);
       else if (type === "bigint")
-        insert(
-          application_bigint(
-            MetadataAtomic.create({
-              type: "bigint",
-              tags: [],
-            }),
-          )[0]! as any,
-        );
+        json_schema_bigint(
+          MetadataAtomic.create({
+            type: "bigint",
+            tags: [],
+          }),
+        ).map(insert);
       else if (type === "number")
-        insert(
-          application_number(
-            MetadataAtomic.create({
-              type: "number",
-              tags: [],
-            }),
-          )[0]! as any,
-        );
+        json_schema_number(
+          MetadataAtomic.create({
+            type: "number",
+            tags: [],
+          }),
+        ).map(insert);
       else if (type === "string")
-        insert(
-          application_string(
-            MetadataAtomic.create({
-              type: "string",
-              tags: [],
-            }),
-          )[0]! as any,
-        );
+        json_schema_string(
+          MetadataAtomic.create({
+            type: "string",
+            tags: [],
+          }),
+        ).map(insert);
     } else
-      application_v31_native({
+      json_schema_native({
         components: props.components,
         native,
       }).forEach(insert);
   if (props.metadata.sets.length)
-    application_v31_native({
+    json_schema_native({
       native: MetadataNative.create({
         name: "Set",
         tags: [],
@@ -166,7 +136,7 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
       components: props.components,
     }).forEach(insert);
   if (props.metadata.maps.length)
-    application_v31_native({
+    json_schema_native({
       native: MetadataNative.create({
         name: "Map",
         tags: [],
@@ -176,14 +146,14 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
 
   // OBJECT
   for (const object of props.metadata.objects)
-    application_v31_object({
+    json_schema_object({
       components: props.components,
       object,
     }).forEach(insert);
 
   // ALIASES
   for (const alias of props.metadata.aliases)
-    application_v31_alias({
+    json_schema_alias({
       alias,
       blockNever: props.blockNever,
       components: props.components,
@@ -200,7 +170,7 @@ export const application_v31_schema = <BlockNever extends boolean>(props: {
         ? union[0]!
         : {
             oneOf: union,
-            discriminator: application_union_discriminator(props.metadata),
+            discriminator: json_schema_discriminator(props.metadata),
           };
   return {
     ...schema,

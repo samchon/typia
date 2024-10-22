@@ -1,9 +1,8 @@
+import { OpenApi } from "@samchon/openapi";
+
 import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
 
-/**
- * @internal
- */
-export const application_plugin = <Schema extends object>(props: {
+export const json_schema_plugin = <Schema extends OpenApi.IJsonSchema>(props: {
   schema: Schema;
   tags: IMetadataTypeTag[][];
 }): Schema[] => {

@@ -5,7 +5,6 @@
       "ObjectDynamic": {
         "type": "object",
         "properties": {},
-        "nullable": false,
         "additionalProperties": {
           "oneOf": [
             {

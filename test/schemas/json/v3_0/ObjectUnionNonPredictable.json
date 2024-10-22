@@ -12,7 +12,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -24,7 +23,6 @@
             "$ref": "#/components/schemas/IPointerObjectUnionNonPredictable.IUnion"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -36,7 +34,6 @@
             "$ref": "#/components/schemas/ObjectUnionNonPredictable.IUnion"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -61,7 +58,6 @@
             "$ref": "#/components/schemas/IPointerboolean"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -73,7 +69,6 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -85,7 +80,6 @@
             "$ref": "#/components/schemas/IPointernumber"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -97,7 +91,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -109,7 +102,6 @@
             "$ref": "#/components/schemas/IPointerstring"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -121,7 +113,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

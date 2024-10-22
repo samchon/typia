@@ -47,7 +47,6 @@
             "items": {}
           }
         },
-        "nullable": false,
         "required": [
           "anys",
           "nullables1",

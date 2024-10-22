@@ -94,7 +94,6 @@
             "format": "relative-json-pointer"
           }
         },
-        "nullable": false,
         "required": [
           "byte",
           "password",

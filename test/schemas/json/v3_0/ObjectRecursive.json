@@ -2,38 +2,6 @@
   "version": "3.0",
   "components": {
     "schemas": {
-      "ObjectRecursive.IDepartment": {
-        "type": "object",
-        "properties": {
-          "parent": {
-            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
-          },
-          "id": {
-            "type": "number"
-          },
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          },
-          "created_at": {
-            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "parent",
-          "id",
-          "code",
-          "name",
-          "sequence",
-          "created_at"
-        ]
-      },
       "ObjectRecursive.IDepartment.Nullable": {
         "type": "object",
         "properties": {
@@ -56,7 +24,37 @@
             "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
           }
         },
-        "nullable": true,
+        "required": [
+          "parent",
+          "id",
+          "code",
+          "name",
+          "sequence",
+          "created_at"
+        ]
+      },
+      "ObjectRecursive.IDepartment": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+          }
+        },
         "required": [
           "parent",
           "id",
@@ -76,7 +74,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "time",
           "zone"

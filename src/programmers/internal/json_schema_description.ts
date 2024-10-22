@@ -1,6 +1,6 @@
-import { IJsDocTagInfo } from "../../module";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 
-export const application_description = (props: {
+export const json_schema_description = (props: {
   description?: string | null | undefined;
   jsDocTags?: IJsDocTagInfo[];
 }): string | undefined =>

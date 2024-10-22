@@ -14,9 +14,10 @@ export const test_pr_1217_bigint_json_schema = (): void => {
       ]
     >();
   const app: MetadataApplication = MetadataApplication.from(raw);
-  const json: IJsonSchemaCollection = JsonSchemasProgrammer.write("3.1")(
-    app.metadatas,
-  ) as IJsonSchemaCollection;
+  const json: IJsonSchemaCollection = JsonSchemasProgrammer.write({
+    version: "3.1",
+    metadatas: app.metadatas,
+  });
   TestValidator.equals("bigint")(json.schemas)([
     {
       type: "integer",

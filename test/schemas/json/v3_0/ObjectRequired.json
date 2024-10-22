@@ -2,6 +2,29 @@
   "version": "3.0",
   "components": {
     "schemas": {
+      "ObjectRequired.IBase.Nullable": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
+          }
+        }
+      },
       "RequiredObjectRequired.IBase": {
         "type": "object",
         "properties": {
@@ -24,7 +47,6 @@
             "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
           }
         },
-        "nullable": false,
         "required": [
           "boolean",
           "number",
@@ -34,7 +56,7 @@
         ],
         "description": "Make all properties in T required"
       },
-      "ObjectRequired.IBase.Nullable": {
+      "ObjectRequired.IBase": {
         "type": "object",
         "properties": {
           "boolean": {
@@ -55,8 +77,7 @@
           "object": {
             "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
           }
-        },
-        "nullable": true
+        }
       }
     }
   },

@@ -31,7 +31,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "date",
           "datetime",

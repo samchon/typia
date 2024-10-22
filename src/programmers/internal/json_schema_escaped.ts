@@ -1,31 +1,39 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
 
-import { llm_schema_station } from "./llm_schema_station";
+import { json_schema_station } from "./json_schema_station";
 
 /**
  * @internal
  */
-export const llm_schema_escaped = (escaped: MetadataEscaped): ILlmSchema[] => {
-  const output: ILlmSchema | null = llm_schema_station({
-    metadata: escaped.returns,
+export const json_schema_escaped = (props: {
+  components: OpenApi.IComponents;
+  escaped: MetadataEscaped;
+}): OpenApi.IJsonSchema[] => {
+  const output: OpenApi.IJsonSchema | null = json_schema_station({
     blockNever: false,
+    components: props.components,
+    metadata: props.escaped.returns,
     attribute: {},
   });
   if (output === null) return [];
-  else if (
+
+  if (
     is_date({
       visited: new Set(),
-      metadata: escaped.original,
+      metadata: props.escaped.original,
     })
   ) {
-    const string: ILlmSchema.IString | undefined = is_string(output)
-      ? output
-      : is_one_of(output)
-        ? (output.oneOf.find(is_string) as ILlmSchema.IString)
-        : undefined;
+    const string: OpenApi.IJsonSchema.IString | undefined =
+      OpenApiTypeChecker.isString(output)
+        ? output
+        : OpenApiTypeChecker.isOneOf(output)
+          ? (output.oneOf.find(
+              OpenApiTypeChecker.isString,
+            ) as OpenApi.IJsonSchema.IString)
+          : undefined;
     if (
       string !== undefined &&
       string.format !== "date" &&
@@ -33,20 +41,10 @@ export const llm_schema_escaped = (escaped: MetadataEscaped): ILlmSchema[] => {
     )
       string.format = "date-time";
   }
-  return is_one_of(output) ? (output.oneOf as ILlmSchema[]) : [output];
+  return OpenApiTypeChecker.isOneOf(output)
+    ? (output.oneOf as OpenApi.IJsonSchema[])
+    : [output];
 };
-
-/**
- * @internal
- */
-const is_string = (elem: ILlmSchema): elem is ILlmSchema.IString =>
-  (elem as ILlmSchema.IString).type === "string";
-
-/**
- * @internal
- */
-const is_one_of = (elem: ILlmSchema): elem is ILlmSchema.IOneOf =>
-  Array.isArray((elem as ILlmSchema.IOneOf).oneOf);
 
 /**
  * @internal
@@ -67,10 +65,10 @@ const is_date = (props: {
       }),
     ) ||
     props.metadata.tuples.some((tuple) =>
-      tuple.type.elements.some((elem) =>
+      tuple.type.elements.some((e) =>
         is_date({
           visited: props.visited,
-          metadata: elem,
+          metadata: e,
         }),
       ),
     ) ||

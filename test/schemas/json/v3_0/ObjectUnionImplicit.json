@@ -44,7 +44,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y"
@@ -68,7 +67,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2"
@@ -99,7 +97,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -134,7 +131,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -156,7 +152,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "points"
         ]
@@ -178,7 +173,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "outer"
         ]
@@ -197,7 +191,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "radius"
         ]
