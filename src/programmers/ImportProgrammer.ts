@@ -62,7 +62,7 @@ export class ImportProgrammer {
    * @internal
    */
   public internal(name: string): ts.PropertyAccessExpression {
-    if (name.startsWith("$") === false) name = `$${name}`;
+    if (name.startsWith("_") === false) name = `_${name}`;
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
         file: `typia/lib/internal/${name}.js`,
@@ -77,7 +77,7 @@ export class ImportProgrammer {
    * @internal
    */
   public getInternalText(name: string): string {
-    if (name.startsWith("$") === false) name = `$${name}`;
+    if (name.startsWith("_") === false) name = `_${name}`;
     const asset: IAsset | undefined = this.take(
       `typia/lib/internal/${name}.js`,
     );
