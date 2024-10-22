@@ -38,11 +38,9 @@
               "ru": {
                 "type": "string"
               }
-            },
-            "nullable": false
+            }
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

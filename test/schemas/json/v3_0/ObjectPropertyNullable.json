@@ -43,7 +43,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -56,7 +55,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -69,19 +67,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
-        "required": [
-          "value"
-        ]
-      },
-      "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "$ref": "#/components/schemas/ObjectPropertyNullable.IMember.Nullable"
-          }
-        },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -108,7 +93,45 @@
             "nullable": true
           }
         },
-        "nullable": true,
+        "required": [
+          "id",
+          "name",
+          "activated"
+        ]
+      },
+      "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectPropertyNullable.IMember.Nullable"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectPropertyNullable.IMember": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "grade": {
+            "type": "number"
+          },
+          "serial": {
+            "type": "number",
+            "nullable": true
+          },
+          "activated": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
         "required": [
           "id",
           "name",

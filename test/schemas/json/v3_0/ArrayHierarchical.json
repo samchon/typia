@@ -30,7 +30,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "serial",
@@ -49,7 +48,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "time",
           "zone"
@@ -77,7 +75,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
@@ -105,7 +102,6 @@
             "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",

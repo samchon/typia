@@ -22,7 +22,6 @@
             "x-typia-powerOf": 2
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "dollar",

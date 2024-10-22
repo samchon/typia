@@ -12,7 +12,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "age"

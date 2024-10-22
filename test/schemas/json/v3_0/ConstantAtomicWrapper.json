@@ -27,7 +27,6 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -39,7 +38,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -51,7 +49,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

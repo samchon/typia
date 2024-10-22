@@ -109,7 +109,6 @@
             "description": "Default value on union typed property."
           }
         },
-        "nullable": false,
         "required": [
           "boolean",
           "number",

@@ -18,8 +18,8 @@
       {
         "type": "string",
         "enum": [
-          "three",
-          "four"
+          "four",
+          "three"
         ]
       },
       {

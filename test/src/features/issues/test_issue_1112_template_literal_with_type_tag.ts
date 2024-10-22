@@ -17,30 +17,24 @@ const validate = (collection: IJsonSchemaCollection<"3.0" | "3.1">) => {
         "^(([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)|((.*)\\x2d(.*)))",
     },
     sole: {
-      "0": {
-        type: "string",
-        pattern:
-          "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-        "x-typia-sole": true,
-      },
+      type: "string",
+      pattern:
+        "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+      "x-typia-sole": true,
     },
     union: {
       oneOf: [
-        [
-          {
-            type: "string",
-            pattern:
-              "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-typia-something": true,
-          },
-        ],
-        [
-          {
-            type: "string",
-            pattern: "((.*)\\x2d(.*))",
-            "x-typia-nothing": false,
-          },
-        ],
+        {
+          type: "string",
+          pattern:
+            "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+          "x-typia-something": true,
+        },
+        {
+          type: "string",
+          pattern: "((.*)\\x2d(.*))",
+          "x-typia-nothing": false,
+        },
       ],
     },
     mixed: {
@@ -50,13 +44,11 @@ const validate = (collection: IJsonSchemaCollection<"3.0" | "3.1">) => {
           pattern:
             "^(([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)|((.*)\\x2d(.*)))",
         },
-        [
-          {
-            type: "string",
-            pattern: "((.*)\\|\\|[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-typia-something": true,
-          },
-        ],
+        {
+          type: "string",
+          pattern: "((.*)\\|\\|[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+          "x-typia-something": true,
+        },
       ],
     },
   })(properties);

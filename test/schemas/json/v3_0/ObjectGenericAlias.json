@@ -9,7 +9,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

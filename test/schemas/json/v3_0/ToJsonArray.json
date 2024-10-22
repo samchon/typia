@@ -42,7 +42,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id"
         ]

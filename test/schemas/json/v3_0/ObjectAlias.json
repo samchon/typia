@@ -50,7 +50,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "email",

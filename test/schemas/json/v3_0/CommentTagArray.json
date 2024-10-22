@@ -12,7 +12,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -59,7 +58,6 @@
             "uniqueItems": true
           }
         },
-        "nullable": false,
         "required": [
           "items",
           "minItems",

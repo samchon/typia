@@ -12,7 +12,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "something-interesting-do-you-want?",
           "or-something-crazy-do-you-want?"

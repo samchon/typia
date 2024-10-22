@@ -28,7 +28,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x"
             ]
@@ -44,7 +43,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child"
@@ -60,13 +58,11 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "y"
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -81,13 +77,11 @@
                 "type": "boolean"
               }
             },
-            "nullable": false,
             "required": [
               "y"
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -102,7 +96,6 @@
                 "type": "string"
               }
             },
-            "nullable": false,
             "required": [
               "x"
             ]
@@ -118,7 +111,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child"
@@ -137,13 +129,11 @@
                 }
               }
             },
-            "nullable": false,
             "required": [
               "y"
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -158,13 +148,11 @@
                 "type": "string"
               }
             },
-            "nullable": false,
             "required": [
               "y"
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

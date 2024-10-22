@@ -41,7 +41,6 @@
             "pattern": "((.*)@(.*)\\.(.*))"
           }
         },
-        "nullable": false,
         "required": [
           "prefix",
           "postfix",
