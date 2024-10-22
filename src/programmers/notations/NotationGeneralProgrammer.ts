@@ -801,7 +801,7 @@ export namespace NotationGeneralProgrammer {
   /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-  const PREFIX = "$c";
+  const PREFIX = "_c";
 
   const configure = (props: {
     rename: (str: string) => string;

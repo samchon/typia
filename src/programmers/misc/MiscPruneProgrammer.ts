@@ -572,7 +572,7 @@ export namespace MiscPruneProgrammer {
   /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-  const PREFIX = "$p";
+  const PREFIX = "_p";
 
   const configure = (props: {
     context: ITypiaContext;

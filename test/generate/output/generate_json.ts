@@ -1,8 +1,8 @@
 import typia, { tags } from "typia";
-import * as __typia_transform_$assertGuard from "typia/lib/internal/$assertGuard.js";
-import * as __typia_transform_$jsonStringifyNumber from "typia/lib/internal/$jsonStringifyNumber.js";
-import * as __typia_transform_$jsonStringifyString from "typia/lib/internal/$jsonStringifyString.js";
-import * as __typia_transform_$validateReport from "typia/lib/internal/$validateReport.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
+import * as __typia_transform__jsonStringifyNumber from "typia/lib/internal/_jsonStringifyNumber.js";
+import * as __typia_transform__jsonStringifyString from "typia/lib/internal/_jsonStringifyString.js";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 
 interface ICitizen {
   id: string & tags.Format<"uuid">;
@@ -16,9 +16,9 @@ interface ICitizen {
   children: ICitizen[];
 }
 export const createStringify = (() => {
-  const $so0 = (input: any): any =>
-    `{"id":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.id)},"name":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.name)},"email":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.email)},"age":${__typia_transform_$jsonStringifyNumber.$jsonStringifyNumber(input.age)},"motto":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.motto)},"birthdate":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform_$jsonStringifyString.$jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? $so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => $so0(elem)).join(",")}]`}}`;
-  const $io0 = (input: any): boolean =>
+  const _so0 = (input: any): any =>
+    `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"email":${__typia_transform__jsonStringifyString._jsonStringifyString(input.email)},"age":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.age)},"motto":${__typia_transform__jsonStringifyString._jsonStringifyString(input.motto)},"birthdate":${__typia_transform__jsonStringifyString._jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform__jsonStringifyString._jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? _so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => _so0(elem)).join(",")}]`}}`;
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -40,15 +40,15 @@ export const createStringify = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  return (input: ICitizen): string => $so0(input);
+  return (input: ICitizen): string => _so0(input);
 })();
 export const createIsStringify = (() => {
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -70,21 +70,21 @@ export const createIsStringify = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $so0 = (input: any): any =>
-    `{"id":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.id)},"name":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.name)},"email":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.email)},"age":${__typia_transform_$jsonStringifyNumber.$jsonStringifyNumber(input.age)},"motto":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.motto)},"birthdate":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform_$jsonStringifyString.$jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? $so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => $so0(elem)).join(",")}]`}}`;
+  const _so0 = (input: any): any =>
+    `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"email":${__typia_transform__jsonStringifyString._jsonStringifyString(input.email)},"age":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.age)},"motto":${__typia_transform__jsonStringifyString._jsonStringifyString(input.motto)},"birthdate":${__typia_transform__jsonStringifyString._jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform__jsonStringifyString._jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? _so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => _so0(elem)).join(",")}]`}}`;
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
-  const __stringify = (input: ICitizen): string => $so0(input);
+    "object" === typeof input && null !== input && _io0(input);
+  const __stringify = (input: ICitizen): string => _so0(input);
   return (input: any): string | null =>
     __is(input) ? __stringify(input) : null;
 })();
 export const createAssertStringify = (() => {
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -106,12 +106,12 @@ export const createAssertStringify = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -120,7 +120,7 @@ export const createAssertStringify = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertStringify",
@@ -130,7 +130,7 @@ export const createAssertStringify = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -142,7 +142,7 @@ export const createAssertStringify = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertStringify",
@@ -152,7 +152,7 @@ export const createAssertStringify = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -166,7 +166,7 @@ export const createAssertStringify = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertStringify",
@@ -176,7 +176,7 @@ export const createAssertStringify = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -190,7 +190,7 @@ export const createAssertStringify = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertStringify",
@@ -201,7 +201,7 @@ export const createAssertStringify = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertStringify",
@@ -211,7 +211,7 @@ export const createAssertStringify = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -222,7 +222,7 @@ export const createAssertStringify = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -233,7 +233,7 @@ export const createAssertStringify = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -245,7 +245,7 @@ export const createAssertStringify = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -257,7 +257,7 @@ export const createAssertStringify = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertStringify",
@@ -267,8 +267,8 @@ export const createAssertStringify = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -279,7 +279,7 @@ export const createAssertStringify = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -292,7 +292,7 @@ export const createAssertStringify = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.json.createAssertStringify",
@@ -302,12 +302,12 @@ export const createAssertStringify = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.json.createAssertStringify",
@@ -318,7 +318,7 @@ export const createAssertStringify = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertStringify",
@@ -328,10 +328,10 @@ export const createAssertStringify = (() => {
         },
         _errorFactory,
       ));
-  const $so0 = (input: any): any =>
-    `{"id":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.id)},"name":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.name)},"email":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.email)},"age":${__typia_transform_$jsonStringifyNumber.$jsonStringifyNumber(input.age)},"motto":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.motto)},"birthdate":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform_$jsonStringifyString.$jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? $so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => $so0(elem)).join(",")}]`}}`;
+  const _so0 = (input: any): any =>
+    `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"email":${__typia_transform__jsonStringifyString._jsonStringifyString(input.email)},"age":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.age)},"motto":${__typia_transform__jsonStringifyString._jsonStringifyString(input.motto)},"birthdate":${__typia_transform__jsonStringifyString._jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform__jsonStringifyString._jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? _so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => _so0(elem)).join(",")}]`}}`;
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -341,7 +341,7 @@ export const createAssertStringify = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.json.createAssertStringify",
@@ -351,8 +351,8 @@ export const createAssertStringify = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.json.createAssertStringify",
@@ -365,7 +365,7 @@ export const createAssertStringify = (() => {
     }
     return input;
   };
-  const __stringify = (input: ICitizen): string => $so0(input);
+  const __stringify = (input: ICitizen): string => _so0(input);
   return (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
@@ -375,7 +375,7 @@ export const createAssertStringify = (() => {
   };
 })();
 export const createValidateStringify = (() => {
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -397,12 +397,12 @@ export const createValidateStringify = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -494,7 +494,7 @@ export const createValidateStringify = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -515,7 +515,7 @@ export const createValidateStringify = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -533,16 +533,16 @@ export const createValidateStringify = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const $so0 = (input: any): any =>
-    `{"id":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.id)},"name":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.name)},"email":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.email)},"age":${__typia_transform_$jsonStringifyNumber.$jsonStringifyNumber(input.age)},"motto":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.motto)},"birthdate":${__typia_transform_$jsonStringifyString.$jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform_$jsonStringifyString.$jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? $so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => $so0(elem)).join(",")}]`}}`;
+  const _so0 = (input: any): any =>
+    `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"email":${__typia_transform__jsonStringifyString._jsonStringifyString(input.email)},"age":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.age)},"motto":${__typia_transform__jsonStringifyString._jsonStringifyString(input.motto)},"birthdate":${__typia_transform__jsonStringifyString._jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform__jsonStringifyString._jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? _so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => _so0(elem)).join(",")}]`}}`;
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -552,7 +552,7 @@ export const createValidateStringify = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
@@ -571,7 +571,7 @@ export const createValidateStringify = (() => {
       data: input,
     } as any;
   };
-  const __stringify = (input: ICitizen): string => $so0(input);
+  const __stringify = (input: ICitizen): string => _so0(input);
   return (input: any): import("typia").IValidation<string> => {
     const result = __validate(input) as any;
     if (result.success) result.data = __stringify(input);
@@ -579,7 +579,7 @@ export const createValidateStringify = (() => {
   };
 })();
 export const createIsParse = (() => {
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -601,20 +601,20 @@ export const createIsParse = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   return (input: string): import("typia").Primitive<ICitizen> | null => {
     input = JSON.parse(input);
     return __is(input) ? (input as any) : null;
   };
 })();
 export const createAssertParse = (() => {
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -636,12 +636,12 @@ export const createAssertParse = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $ao0 = (
+  const _ao0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -650,7 +650,7 @@ export const createAssertParse = (() => {
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertParse",
@@ -660,7 +660,7 @@ export const createAssertParse = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -672,7 +672,7 @@ export const createAssertParse = (() => {
       )) &&
     (("string" === typeof input.name &&
       (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertParse",
@@ -682,7 +682,7 @@ export const createAssertParse = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -696,7 +696,7 @@ export const createAssertParse = (() => {
       (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
         input.email,
       ) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertParse",
@@ -706,7 +706,7 @@ export const createAssertParse = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -720,7 +720,7 @@ export const createAssertParse = (() => {
       ((Math.floor(input.age) === input.age &&
         0 <= input.age &&
         input.age <= 4294967295) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertParse",
@@ -731,7 +731,7 @@ export const createAssertParse = (() => {
           _errorFactory,
         )) &&
       (input.age < 100 ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertParse",
@@ -741,7 +741,7 @@ export const createAssertParse = (() => {
           },
           _errorFactory,
         ))) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -752,7 +752,7 @@ export const createAssertParse = (() => {
         _errorFactory,
       )) &&
     ("string" === typeof input.motto ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -763,7 +763,7 @@ export const createAssertParse = (() => {
         _errorFactory,
       )) &&
     (input.birthdate instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -775,7 +775,7 @@ export const createAssertParse = (() => {
       )) &&
     (null === input.died_at ||
       input.died_at instanceof Date ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -787,7 +787,7 @@ export const createAssertParse = (() => {
       )) &&
     (null === input.parent ||
       ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform_$assertGuard.$assertGuard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
             method: "typia.json.createAssertParse",
@@ -797,8 +797,8 @@ export const createAssertParse = (() => {
           },
           _errorFactory,
         )) &&
-        $ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform_$assertGuard.$assertGuard(
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -809,7 +809,7 @@ export const createAssertParse = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.children) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -822,7 +822,7 @@ export const createAssertParse = (() => {
       input.children.every(
         (elem: any, _index2: number) =>
           ((("object" === typeof elem && null !== elem) ||
-            __typia_transform_$assertGuard.$assertGuard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
                 method: "typia.json.createAssertParse",
@@ -832,12 +832,12 @@ export const createAssertParse = (() => {
               },
               _errorFactory,
             )) &&
-            $ao0(
+            _ao0(
               elem,
               _path + ".children[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
               method: "typia.json.createAssertParse",
@@ -848,7 +848,7 @@ export const createAssertParse = (() => {
             _errorFactory,
           ),
       )) ||
-      __typia_transform_$assertGuard.$assertGuard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
           method: "typia.json.createAssertParse",
@@ -859,7 +859,7 @@ export const createAssertParse = (() => {
         _errorFactory,
       ));
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
   const __assert = (
     input: any,
@@ -869,7 +869,7 @@ export const createAssertParse = (() => {
       _errorFactory = errorFactory;
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          __typia_transform_$assertGuard.$assertGuard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
               method: "typia.json.createAssertParse",
@@ -879,8 +879,8 @@ export const createAssertParse = (() => {
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        __typia_transform_$assertGuard.$assertGuard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
             method: "typia.json.createAssertParse",
@@ -900,7 +900,7 @@ export const createAssertParse = (() => {
     __assert(JSON.parse(input), errorFactory) as any;
 })();
 export const createValidateParse = (() => {
-  const $io0 = (input: any): boolean =>
+  const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -922,12 +922,12 @@ export const createValidateParse = (() => {
     (null === input.parent ||
       ("object" === typeof input.parent &&
         null !== input.parent &&
-        $io0(input.parent))) &&
+        _io0(input.parent))) &&
     Array.isArray(input.children) &&
     input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && $io0(elem),
+      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const $vo0 = (
+  const _vo0 = (
     input: any,
     _path: string,
     _exceptionable: boolean = true,
@@ -1019,7 +1019,7 @@ export const createValidateParse = (() => {
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
-          $vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
         $report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
@@ -1040,7 +1040,7 @@ export const createValidateParse = (() => {
                   expected: "ICitizen",
                   value: elem,
                 })) &&
-                $vo0(
+                _vo0(
                   elem,
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
@@ -1059,13 +1059,13 @@ export const createValidateParse = (() => {
         }),
     ].every((flag: boolean) => flag);
   const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let $report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform_$validateReport.$validateReport as any)(
+      $report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
@@ -1075,7 +1075,7 @@ export const createValidateParse = (() => {
             expected: "ICitizen",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "ICitizen",
