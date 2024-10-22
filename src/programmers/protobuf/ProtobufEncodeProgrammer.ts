@@ -158,8 +158,8 @@ export namespace ProtobufEncodeProgrammer {
           undefined,
           "Writer",
           props.context.importer.type({
-            file: "typia/lib/internal/$IProtobufWriter.js",
-            name: "$IProtobufWriter",
+            file: "typia/lib/internal/_IProtobufWriter.js",
+            name: "_IProtobufWriter",
           }),
         ),
       ],
@@ -882,7 +882,7 @@ export namespace ProtobufEncodeProgrammer {
   /* -----------------------------------------------------------
     BACKGROUND FUNCTIONS
   ----------------------------------------------------------- */
-  const PREFIX = "$pe";
+  const PREFIX = "_pe";
 
   const decode_tag = (props: {
     wire: ProtobufWire;

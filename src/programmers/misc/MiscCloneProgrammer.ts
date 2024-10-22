@@ -846,7 +846,7 @@ export namespace MiscCloneProgrammer {
   /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-  const PREFIX = "$c";
+  const PREFIX = "_c";
 
   const configure = (props: {
     context: ITypiaContext;

@@ -1184,7 +1184,7 @@ interface IExplore {
 }
 
 const Prefix = {
-  object: (i: number) => `$ro${i}`,
-  array: (i: number) => `$ra${i}`,
-  tuple: (i: number) => `$rt${i}`,
+  object: (i: number) => `_ro${i}`,
+  array: (i: number) => `_ra${i}`,
+  tuple: (i: number) => `_rt${i}`,
 };

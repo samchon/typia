@@ -41,7 +41,7 @@ export namespace AssertProgrammer {
     const composed: FeatureProgrammer.IComposed = CheckerProgrammer.compose({
       ...props,
       config: {
-        prefix: "$a",
+        prefix: "_a",
         path: true,
         trace: true,
         numeric: OptionPredicator.numeric(props.context.options),

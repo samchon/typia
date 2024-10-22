@@ -67,7 +67,7 @@ export namespace LlmApplicationTransformer {
           }),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(
-              props.context.importer.internal("$llmApplicationFinalize"),
+              props.context.importer.internal("llmApplicationFinalize"),
               undefined,
               [
                 ts.factory.createIdentifier("app"),
