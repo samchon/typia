@@ -56,10 +56,10 @@ export const application_v31_schema =
 
     // ATOMIC TYPES
     if (meta.templates.length && AtomicPredicator.template(meta))
-      application_templates(meta).map(insert as any);
+      application_templates(meta).forEach(insert as any);
     for (const constant of meta.constants)
       if (AtomicPredicator.constant(meta)(constant.type) === false) continue;
-      else application_v31_constant(constant).map(insert);
+      else application_v31_constant(constant).forEach(insert);
     for (const a of meta.atomics)
       if (a.type === "boolean") application_boolean(a).forEach(insert as any);
       else if (a.type === "bigint")

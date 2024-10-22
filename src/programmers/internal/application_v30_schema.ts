@@ -61,7 +61,7 @@ export const application_v30_schema =
 
     // ATOMIC TYPES
     if (meta.templates.length && AtomicPredicator.template(meta))
-      application_templates(meta).map(insert);
+      application_templates(meta).forEach(insert);
     for (const constant of meta.constants)
       if (AtomicPredicator.constant(meta)(constant.type) === false) continue;
       else insert(application_v30_constant(constant));
