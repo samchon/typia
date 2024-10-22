@@ -3,11 +3,11 @@ import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { IJsDocTagInfo } from "../../module";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {

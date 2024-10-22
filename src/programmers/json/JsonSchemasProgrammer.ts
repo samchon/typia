@@ -1,4 +1,5 @@
-import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import { OpenApi } from "@samchon/openapi";
+import { OpenApiV3Downgrader } from "@samchon/openapi/lib/converters/OpenApiV3Downgrader";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
@@ -6,8 +7,7 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { application_v30_schema } from "../internal/application_v30_schema";
-import { application_v31_schema } from "../internal/application_v31_schema";
+import { json_schema_station } from "../internal/json_schema_station";
 
 export namespace JsonSchemasProgrammer {
   export const validate = (metadata: Metadata): string[] => {
@@ -39,39 +39,36 @@ export namespace JsonSchemasProgrammer {
     return output;
   };
 
-  export const write = <Version extends "3.0" | "3.1">(version: Version) =>
-    version === "3.0" ? v30 : v31;
+  export const write = <Version extends "3.0" | "3.1">(props: {
+    version: Version;
+    metadatas: Array<Metadata>;
+  }): IJsonSchemaCollection<Version> =>
+    props.version === "3.0"
+      ? (writeV3_0(props.metadatas) as IJsonSchemaCollection<Version>)
+      : (writeV3_1(props.metadatas) as IJsonSchemaCollection<Version>);
 
-  const v30 = (medadataList: Array<Metadata>): IJsonSchemaCollection<"3.0"> => {
-    const components: OpenApiV3.IComponents = {};
-    const generator = (metadata: Metadata): OpenApiV3.IJsonSchema | null =>
-      application_v30_schema({
-        blockNever: true,
-        components,
-        attribute: {},
-        metadata,
-      });
+  const writeV3_0 = (
+    medadataList: Array<Metadata>,
+  ): IJsonSchemaCollection<"3.0"> => {
+    const collection: IJsonSchemaCollection<"3.1"> = writeV3_1(medadataList);
+    const asset: OpenApiV3Downgrader.IComponentsCollection =
+      OpenApiV3Downgrader.downgradeComponents(collection.components);
+    const caster = OpenApiV3Downgrader.downgradeSchema(asset);
     return {
       version: "3.0",
-      components,
-      schemas: medadataList.map((meta, i) => {
-        const schema: OpenApiV3.IJsonSchema | null = generator(meta);
-        if (schema === null)
-          throw new TransformerError({
-            code: "typia.json.application",
-            message: `invalid type on argument - (${meta.getName()}, ${i})`,
-          });
-        return schema;
-      }),
+      components: asset.downgraded,
+      schemas: collection.schemas.map(caster),
     };
   };
 
-  const v31 = (metadataList: Array<Metadata>): IJsonSchemaCollection<"3.1"> => {
+  const writeV3_1 = (
+    metadataList: Array<Metadata>,
+  ): IJsonSchemaCollection<"3.1"> => {
     const components: OpenApi.IComponents = {
       schemas: {},
     };
     const generator = (metadata: Metadata): OpenApi.IJsonSchema | null =>
-      application_v31_schema({
+      json_schema_station({
         blockNever: true,
         components,
         attribute: {},

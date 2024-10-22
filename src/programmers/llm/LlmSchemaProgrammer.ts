@@ -1,9 +1,11 @@
 import { ILlmSchema } from "@samchon/openapi";
+import { HttpLlmConverter } from "@samchon/openapi/lib/converters/HttpLlmConverter";
 
+import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { llm_schema_station } from "../internal/llm_schema_station";
+import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 
 export namespace LlmSchemaProgrammer {
   export const validate = (metadata: Metadata): string[] => {
@@ -42,10 +44,18 @@ export namespace LlmSchemaProgrammer {
     return output;
   };
 
-  export const write = (metadata: Metadata): ILlmSchema =>
-    llm_schema_station({
-      metadata,
-      blockNever: true,
-      attribute: {},
+  export const write = (metadata: Metadata): ILlmSchema => {
+    const collection: IJsonSchemaCollection<"3.1"> =
+      JsonSchemasProgrammer.write({
+        version: "3.1",
+        metadatas: [metadata],
+      });
+    const schema: ILlmSchema | null = HttpLlmConverter.schema({
+      components: collection.components,
+      schema: collection.schemas[0]!,
     });
+    if (schema === null)
+      throw new Error("Failed to convert JSON schema to LLM schema.");
+    return schema;
+  };
 }
