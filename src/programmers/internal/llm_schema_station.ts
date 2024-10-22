@@ -59,7 +59,7 @@ export const llm_schema_station = (props: {
     props.metadata.templates.length &&
     AtomicPredicator.template(props.metadata)
   )
-    application_templates<"3.0">(props.metadata).map(insert);
+    application_templates<"3.0">(props.metadata).forEach(insert);
   for (const constant of props.metadata.constants)
     if (AtomicPredicator.constant(props.metadata)(constant.type) === false)
       continue;

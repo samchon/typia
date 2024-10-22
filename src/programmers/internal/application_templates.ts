@@ -33,7 +33,7 @@ export const application_templates = <Version extends "3.0" | "3.1">(
     });
   for (const tpl of taggedTemplates)
     output.push(
-      application_plugin(
+      ...(application_plugin(
         {
           type: "string",
           pattern: metadata_to_pattern(false)(
@@ -44,7 +44,7 @@ export const application_templates = <Version extends "3.0" | "3.1">(
           ),
         },
         tpl.tags ?? [],
-      ) as any,
+      ) as Schema<Version>[]),
     );
   return output;
 };
