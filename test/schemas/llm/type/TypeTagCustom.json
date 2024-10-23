@@ -18,12 +18,10 @@
       "x-typia-powerOf": 2
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "dollar",
     "postfix",
     "powerOf"
-  ],
-  "additionalProperties": false
+  ]
 }

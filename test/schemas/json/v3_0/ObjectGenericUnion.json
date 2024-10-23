@@ -47,7 +47,8 @@
           "hit",
           "contents",
           "created_at"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectGenericUnion.ISaleQuestion": {
         "type": "object",

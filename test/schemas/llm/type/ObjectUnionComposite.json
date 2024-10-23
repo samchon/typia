@@ -12,12 +12,10 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -32,12 +30,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p2": {
             "type": "object",
@@ -49,20 +45,16 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -77,12 +69,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p2": {
             "type": "object",
@@ -94,12 +84,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p3": {
             "type": "object",
@@ -111,21 +99,17 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
           "p3"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -140,12 +124,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p2": {
             "type": "object",
@@ -157,12 +139,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p3": {
             "type": "object",
@@ -174,12 +154,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p4": {
             "type": "object",
@@ -191,22 +169,18 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
           "p3",
           "p4"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -223,20 +197,16 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "x",
                 "y"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
-        "nullable": false,
         "required": [
           "points"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -253,12 +223,10 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "x",
                 "y"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "inner": {
@@ -271,20 +239,16 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -304,20 +268,16 @@
                       "type": "number"
                     }
                   },
-                  "nullable": false,
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
-            "nullable": false,
             "required": [
               "points"
-            ],
-            "additionalProperties": false
+            ]
           },
           "inner": {
             "type": "array",
@@ -336,29 +296,23 @@
                         "type": "number"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 }
               },
-              "nullable": false,
               "required": [
                 "points"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -373,23 +327,19 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
-            ],
-            "additionalProperties": false
+            ]
           },
           "radius": {
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "centroid",
           "radius"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

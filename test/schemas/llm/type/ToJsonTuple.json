@@ -21,12 +21,10 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "code",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   },

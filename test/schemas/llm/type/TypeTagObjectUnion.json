@@ -10,11 +10,9 @@
             "minimum": 3
           }
         },
-        "nullable": false,
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -25,11 +23,9 @@
             "maxLength": 7
           }
         },
-        "nullable": false,
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

@@ -21,12 +21,10 @@
       "description": "Complicate title."
     }
   },
-  "nullable": false,
   "required": [
     "vulnerable",
     "description",
     "title",
     "complicate_title"
-  ],
-  "additionalProperties": false
+  ]
 }

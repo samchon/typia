@@ -18,12 +18,10 @@
                 "type": "boolean"
               }
             },
-            "nullable": false,
             "required": [
               "child_value",
               "child_next"
-            ],
-            "additionalProperties": false
+            ]
           },
           "elements": {
             "type": "array",
@@ -37,22 +35,18 @@
                   "type": "boolean"
                 }
               },
-              "nullable": false,
               "required": [
                 "child_value",
                 "child_next"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child",
           "elements"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -70,12 +64,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "child_value",
               "child_next"
-            ],
-            "additionalProperties": false
+            ]
           },
           "elements": {
             "type": "array",
@@ -89,22 +81,18 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "child_value",
                 "child_next"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child",
           "elements"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -122,12 +110,10 @@
                 "type": "string"
               }
             },
-            "nullable": false,
             "required": [
               "child_value",
               "child_next"
-            ],
-            "additionalProperties": false
+            ]
           },
           "elements": {
             "type": "array",
@@ -141,22 +127,18 @@
                   "type": "string"
                 }
               },
-              "nullable": false,
               "required": [
                 "child_value",
                 "child_next"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child",
           "elements"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   },

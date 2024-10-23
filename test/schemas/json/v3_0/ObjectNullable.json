@@ -32,7 +32,8 @@
         "required": [
           "type",
           "name"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectNullable.IManufacturer.Nullable": {
         "type": "object",
@@ -50,7 +51,8 @@
         "required": [
           "type",
           "name"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectNullable.IProduct": {
         "type": "object",

@@ -17,14 +17,12 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "page",
         "limit",
         "total_count",
         "total_pages"
-      ],
-      "additionalProperties": false
+      ]
     },
     "data": {
       "type": "array",
@@ -38,19 +36,15 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "age"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
-  "nullable": false,
   "required": [
     "pagination",
     "data"
-  ],
-  "additionalProperties": false
+  ]
 }

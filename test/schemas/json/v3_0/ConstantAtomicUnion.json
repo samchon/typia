@@ -40,8 +40,8 @@
           {
             "type": "string",
             "enum": [
-              "four",
-              "three"
+              "three",
+              "four"
             ]
           }
         ]

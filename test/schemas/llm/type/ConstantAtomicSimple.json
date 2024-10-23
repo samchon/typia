@@ -5,7 +5,12 @@
       {
         "type": "boolean",
         "enum": [
-          false,
+          false
+        ]
+      },
+      {
+        "type": "boolean",
+        "enum": [
           true
         ]
       },

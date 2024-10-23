@@ -16,9 +16,7 @@
       "maxItems": 3
     }
   },
-  "nullable": false,
   "required": [
     "matrix"
-  ],
-  "additionalProperties": false
+  ]
 }

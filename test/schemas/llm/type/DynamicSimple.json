@@ -4,15 +4,12 @@
     "value": {
       "type": "object",
       "properties": {},
-      "nullable": false,
       "additionalProperties": {
         "type": "number"
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

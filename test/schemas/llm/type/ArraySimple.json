@@ -24,22 +24,18 @@
               "type": "number"
             }
           },
-          "nullable": false,
           "required": [
             "name",
             "body",
             "rank"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     },
-    "nullable": false,
     "required": [
       "name",
       "email",
       "hobbies"
-    ],
-    "additionalProperties": false
+    ]
   }
 }

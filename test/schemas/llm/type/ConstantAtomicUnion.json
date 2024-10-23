@@ -3,6 +3,20 @@
   "items": {
     "oneOf": [
       {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "key"
+            ]
+          }
+        },
+        "required": [
+          "key"
+        ]
+      },
+      {
         "type": "boolean",
         "enum": [
           false
@@ -18,25 +32,9 @@
       {
         "type": "string",
         "enum": [
-          "four",
-          "three"
+          "three",
+          "four"
         ]
-      },
-      {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "enum": [
-              "key"
-            ]
-          }
-        },
-        "nullable": false,
-        "required": [
-          "key"
-        ],
-        "additionalProperties": false
       }
     ]
   }

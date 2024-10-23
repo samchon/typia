@@ -2,26 +2,10 @@
   "version": "3.0",
   "components": {
     "schemas": {
-      "AtomicUnion.Union.Nullable": {
-        "oneOf": [
-          {
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "type": "number",
-            "nullable": true
-          },
-          {
-            "type": "boolean",
-            "nullable": true
-          }
-        ]
-      },
       "AtomicUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/AtomicUnion.Union.Nullable"
+          "$ref": "#/components/schemas/AtomicUnion.Union"
         }
       },
       "AtomicUnion.Union": {

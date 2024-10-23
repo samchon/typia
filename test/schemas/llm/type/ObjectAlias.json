@@ -42,7 +42,6 @@
         "nullable": true
       }
     },
-    "nullable": false,
     "required": [
       "id",
       "email",
@@ -50,7 +49,6 @@
       "sex",
       "age",
       "dead"
-    ],
-    "additionalProperties": false
+    ]
   }
 }

@@ -9,7 +9,6 @@
     },
     "deprecated": {
       "type": "boolean",
-      "deprecated": true,
       "title": "Deprecated property",
       "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
     },
@@ -31,7 +30,6 @@
       "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "deprecated",
@@ -40,6 +38,5 @@
     "newLine"
   ],
   "title": "This is the title of object type",
-  "description": "An interface designed to test JSON schema's object description.",
-  "additionalProperties": false
+  "description": "An interface designed to test JSON schema's object description."
 }

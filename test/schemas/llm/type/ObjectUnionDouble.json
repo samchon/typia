@@ -12,11 +12,9 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x"
-            ],
-            "additionalProperties": false
+            ]
           },
           "child": {
             "oneOf": [
@@ -30,18 +28,14 @@
                         "type": "number"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -53,28 +47,22 @@
                         "type": "boolean"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -86,11 +74,9 @@
                 "type": "string"
               }
             },
-            "nullable": false,
             "required": [
               "x"
-            ],
-            "additionalProperties": false
+            ]
           },
           "child": {
             "oneOf": [
@@ -107,18 +93,14 @@
                         }
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -130,28 +112,22 @@
                         "type": "string"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

@@ -9,11 +9,9 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -22,11 +20,9 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -35,11 +31,9 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   },

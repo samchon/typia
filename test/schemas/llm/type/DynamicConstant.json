@@ -17,19 +17,15 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "a",
         "b",
         "c",
         "d"
-      ],
-      "additionalProperties": false
+      ]
     }
   },
-  "nullable": false,
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

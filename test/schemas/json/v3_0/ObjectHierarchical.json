@@ -34,7 +34,8 @@
           "emails",
           "created_at",
           "authorized"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectHierarchical.IEnterprise.Nullable": {
         "type": "object",
@@ -61,7 +62,8 @@
           "name",
           "grade",
           "created_at"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectHierarchical.IAccount.Nullable": {
         "type": "object",
@@ -80,7 +82,8 @@
           "id",
           "code",
           "created_at"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectHierarchical.ICustomer": {
         "type": "object",

@@ -18,13 +18,11 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -39,13 +37,11 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "manufacturer",
           "brand",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "string"
@@ -66,13 +62,11 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

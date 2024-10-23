@@ -90,7 +90,6 @@
       "format": "relative-json-pointer"
     }
   },
-  "nullable": false,
   "required": [
     "byte",
     "password",
@@ -114,6 +113,5 @@
     "duration",
     "jsonPointer",
     "relativeJsonPointer"
-  ],
-  "additionalProperties": false
+  ]
 }

@@ -10,10 +10,8 @@
       "default": 20
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "age"
-  ],
-  "additionalProperties": false
+  ]
 }

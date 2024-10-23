@@ -15,13 +15,11 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -36,13 +34,11 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   },

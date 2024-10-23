@@ -23,13 +23,11 @@
       "type": "boolean"
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "name",
     "note",
     "editable",
     "incremental"
-  ],
-  "additionalProperties": false
+  ]
 }

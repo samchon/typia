@@ -46,13 +46,11 @@
         "maxItems": 7
       }
     },
-    "nullable": false,
     "required": [
       "items",
       "minItems",
       "maxItems",
       "both"
-    ],
-    "additionalProperties": false
+    ]
   }
 }

@@ -22,12 +22,10 @@
                 "type": "string"
               }
             },
-            "nullable": false,
             "required": [
               "type",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           "brand": {
             "type": "object",
@@ -42,12 +40,11 @@
                 "type": "string"
               }
             },
-            "nullable": true,
             "required": [
               "type",
               "name"
             ],
-            "additionalProperties": false
+            "nullable": true
           },
           "similar": {
             "oneOf": [
@@ -64,12 +61,11 @@
                     "type": "string"
                   }
                 },
-                "nullable": true,
                 "required": [
                   "type",
                   "name"
                 ],
-                "additionalProperties": false
+                "nullable": true
               },
               {
                 "type": "object",
@@ -84,30 +80,25 @@
                     "type": "string"
                   }
                 },
-                "nullable": true,
                 "required": [
                   "type",
                   "name"
                 ],
-                "additionalProperties": false
+                "nullable": true
               }
             ]
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "manufacturer",
           "brand",
           "similar"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

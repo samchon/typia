@@ -30,7 +30,8 @@
           "string",
           "array",
           "object"
-        ]
+        ],
+        "nullable": true
       },
       "PartialObjectPartial.IBase": {
         "type": "object",

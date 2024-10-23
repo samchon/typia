@@ -26,23 +26,19 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       "grade": {
         "type": "number"
       },
       "unknown": {}
     },
-    "nullable": false,
     "required": [
       "name",
       "unknown"
-    ],
-    "additionalProperties": false
+    ]
   }
 }

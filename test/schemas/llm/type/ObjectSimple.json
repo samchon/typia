@@ -14,13 +14,11 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "x",
         "y",
         "z"
-      ],
-      "additionalProperties": false
+      ]
     },
     "position": {
       "type": "object",
@@ -35,13 +33,11 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "x",
         "y",
         "z"
-      ],
-      "additionalProperties": false
+      ]
     },
     "rotate": {
       "type": "object",
@@ -56,13 +52,11 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "x",
         "y",
         "z"
-      ],
-      "additionalProperties": false
+      ]
     },
     "pivot": {
       "type": "object",
@@ -77,21 +71,17 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "x",
         "y",
         "z"
-      ],
-      "additionalProperties": false
+      ]
     }
   },
-  "nullable": false,
   "required": [
     "scale",
     "position",
     "rotate",
     "pivot"
-  ],
-  "additionalProperties": false
+  ]
 }

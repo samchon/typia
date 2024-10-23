@@ -25,12 +25,10 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "time",
               "zone"
-            ],
-            "additionalProperties": false
+            ]
           },
           "departments": {
             "type": "array",
@@ -56,12 +54,10 @@
                       "type": "number"
                     }
                   },
-                  "nullable": false,
                   "required": [
                     "time",
                     "zone"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "employees": {
                   "type": "array",
@@ -90,53 +86,43 @@
                             "type": "number"
                           }
                         },
-                        "nullable": false,
                         "required": [
                           "time",
                           "zone"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "id",
                       "name",
                       "age",
                       "grade",
                       "employeed_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 }
               },
-              "nullable": false,
               "required": [
                 "id",
                 "code",
                 "sales",
                 "created_at",
                 "employees"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "serial",
           "name",
           "established_at",
           "departments"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

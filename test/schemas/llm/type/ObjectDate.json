@@ -27,12 +27,10 @@
       "nullable": true
     }
   },
-  "nullable": false,
   "required": [
     "date",
     "datetime",
     "time",
     "duration"
-  ],
-  "additionalProperties": false
+  ]
 }

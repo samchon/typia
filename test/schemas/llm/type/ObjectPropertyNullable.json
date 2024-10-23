@@ -12,11 +12,9 @@
               "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       {
@@ -29,11 +27,9 @@
               "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       {
@@ -46,11 +42,9 @@
               "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       {
@@ -80,20 +74,17 @@
                   "nullable": true
                 }
               },
-              "nullable": true,
               "required": [
                 "id",
                 "name",
                 "activated"
               ],
-              "additionalProperties": false
+              "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     ]

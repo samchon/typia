@@ -8,10 +8,8 @@
       "type": "string"
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "name"
-  ],
-  "additionalProperties": false
+  ]
 }

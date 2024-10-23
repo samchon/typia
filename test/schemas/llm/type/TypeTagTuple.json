@@ -41,9 +41,7 @@
       "maxItems": 4
     }
   },
-  "nullable": false,
   "required": [
     "tuple"
-  ],
-  "additionalProperties": false
+  ]
 }

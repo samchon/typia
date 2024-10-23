@@ -51,39 +51,34 @@
                               "type": "string"
                             }
                           },
-                          "nullable": false,
                           "required": [
                             "name",
                             "extension",
                             "url"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "id",
                       "created_at",
                       "title",
                       "body",
                       "files"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "created_at": {
                   "type": "string"
                 }
               },
-              "nullable": true,
               "required": [
                 "id",
                 "hit",
                 "contents",
                 "created_at"
               ],
-              "additionalProperties": false
+              "nullable": true
             },
             "id": {
               "type": "string"
@@ -124,32 +119,27 @@
                           "type": "string"
                         }
                       },
-                      "nullable": false,
                       "required": [
                         "name",
                         "extension",
                         "url"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
-                "nullable": false,
                 "required": [
                   "id",
                   "created_at",
                   "title",
                   "body",
                   "files"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "created_at": {
               "type": "string"
             }
           },
-          "nullable": false,
           "required": [
             "writer",
             "answer",
@@ -157,8 +147,7 @@
             "hit",
             "contents",
             "created_at"
-          ],
-          "additionalProperties": false
+          ]
         },
         {
           "type": "object",
@@ -208,39 +197,34 @@
                               "type": "string"
                             }
                           },
-                          "nullable": false,
                           "required": [
                             "name",
                             "extension",
                             "url"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "id",
                       "created_at",
                       "title",
                       "body",
                       "files"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "created_at": {
                   "type": "string"
                 }
               },
-              "nullable": true,
               "required": [
                 "id",
                 "hit",
                 "contents",
                 "created_at"
               ],
-              "additionalProperties": false
+              "nullable": true
             },
             "id": {
               "type": "string"
@@ -284,17 +268,14 @@
                           "type": "string"
                         }
                       },
-                      "nullable": false,
                       "required": [
                         "name",
                         "extension",
                         "url"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
-                "nullable": false,
                 "required": [
                   "score",
                   "id",
@@ -302,15 +283,13 @@
                   "title",
                   "body",
                   "files"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "created_at": {
               "type": "string"
             }
           },
-          "nullable": false,
           "required": [
             "writer",
             "answer",
@@ -318,15 +297,12 @@
             "hit",
             "contents",
             "created_at"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     }
   },
-  "nullable": false,
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

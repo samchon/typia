@@ -11,11 +11,9 @@
       "type": "boolean"
     }
   },
-  "nullable": false,
   "required": [
     "email",
     "name",
     "vulnerable"
-  ],
-  "additionalProperties": false
+  ]
 }

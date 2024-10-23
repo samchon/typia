@@ -8,10 +8,8 @@
       "type": "boolean"
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "flag"
-  ],
-  "additionalProperties": false
+  ]
 }

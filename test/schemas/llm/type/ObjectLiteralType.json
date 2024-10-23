@@ -11,11 +11,9 @@
       "type": "number"
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "name",
     "age"
-  ],
-  "additionalProperties": false
+  ]
 }
