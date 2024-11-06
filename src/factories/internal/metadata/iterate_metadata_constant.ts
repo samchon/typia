@@ -21,7 +21,7 @@ export const iterate_metadata_constant =
       return {
         jsDocTags: type.symbol?.getJsDocTags(),
         description: type.symbol
-          ? CommentFactory.description(type.symbol) ?? null
+          ? (CommentFactory.description(type.symbol) ?? null)
           : undefined,
       };
     };
