@@ -54,7 +54,22 @@ export namespace LlmApplicationTransformer {
       });
 
     // GENERATE LLM APPLICATION
-    const schema: ILlmApplication = LlmApplicationProgrammer.write(result.data);
+    const model: ILlmApplication.Model = get_parameter<ILlmApplication.Model>({
+      checker: props.context.checker,
+      name: "Model",
+      is: (value) =>
+        value === "3.1" ||
+        value === "3.0" ||
+        value === "chatgpt" ||
+        value === "gemini",
+      cast: (value) => value as ILlmApplication.Model,
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
+    const schema: ILlmApplication<ILlmApplication.Model> =
+      LlmApplicationProgrammer.write({
+        model,
+        metadata: result.data,
+      });
     const literal: ts.Expression = LiteralFactory.write(schema);
     if (!props.expression.arguments?.[0]) return literal;
 
@@ -83,4 +98,38 @@ export namespace LlmApplicationTransformer {
       ),
     );
   };
+
+  const get_parameter =
+    <Value>(props: {
+      checker: ts.TypeChecker;
+      name: string;
+      is: (value: string) => boolean;
+      cast: (value: string) => Value;
+      default: () => Value;
+    }) =>
+    (node: ts.TypeNode | undefined): Value => {
+      if (!node) return props.default();
+
+      // CHECK LITERAL TYPE
+      const type: ts.Type = props.checker.getTypeFromTypeNode(node);
+      if (
+        !type.isLiteral() &&
+        (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
+      )
+        throw new TransformerError({
+          code: "typia.llm.application",
+          message: `generic argument "${props.name}" must be constant.`,
+        });
+
+      // GET VALUE AND VALIDATE IT
+      const value = type.isLiteral()
+        ? type.value
+        : props.checker.typeToString(type);
+      if (typeof value !== "string" || props.is(value) === false)
+        throw new TransformerError({
+          code: "typia.llm.application",
+          message: `invalid value on generic argument "${props.name}".`,
+        });
+      return props.cast(value);
+    };
 }
