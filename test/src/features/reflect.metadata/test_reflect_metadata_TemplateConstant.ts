@@ -1,8 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { TemplateConstant } from "../../structures/TemplateConstant";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_TemplateConstant = _test_reflect_metadata(
-  "TemplateConstant",
-)(typia.reflect.metadata<[TemplateConstant]>());
+export const test_reflect_metadata_TemplateConstant = 
+  _test_reflect_metadata("TemplateConstant")(
+    typia.reflect.metadata<[TemplateConstant]>()
+  );

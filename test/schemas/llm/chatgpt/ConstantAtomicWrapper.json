@@ -1,0 +1,56 @@
+{
+  "$ref": "#/$defs/ConstantAtomicWrapper",
+  "$defs": {
+    "ConstantAtomicWrapper": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/ConstantAtomicWrapper.IPointerboolean"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicWrapper.IPointernumber"
+        },
+        {
+          "$ref": "#/$defs/ConstantAtomicWrapper.IPointerstring"
+        }
+      ],
+      "additionalItems": false
+    },
+    "ConstantAtomicWrapper.IPointerboolean": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ConstantAtomicWrapper.IPointernumber": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ConstantAtomicWrapper.IPointerstring": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

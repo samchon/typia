@@ -1,0 +1,10 @@
+{
+  "$ref": "#/$defs/DynamicNever",
+  "$defs": {
+    "DynamicNever": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  }
+}

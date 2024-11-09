@@ -1,0 +1,18 @@
+{
+  "type": "array",
+  "prefixItems": [
+    {
+      "const": false
+    },
+    {
+      "const": true
+    },
+    {
+      "const": 2
+    },
+    {
+      "const": "three"
+    }
+  ],
+  "additionalItems": false
+}

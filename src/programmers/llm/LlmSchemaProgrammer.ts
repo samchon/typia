@@ -1,4 +1,4 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 import { HttpLlmConverter } from "@samchon/openapi/lib/converters/HttpLlmConverter";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
@@ -34,26 +34,32 @@ export namespace LlmSchemaProgrammer {
         native.name !== "File"
       )
         output.push(`LLM schema does not support ${native.name} type.`);
-    if (
-      metadata.aliases.some((a) => a.type.recursive) ||
-      metadata.arrays.some((a) => a.type.recursive) ||
-      metadata.objects.some((o) => o.type.recursive) ||
-      metadata.tuples.some((t) => t.type.recursive)
-    )
-      output.push("LLM schema does not support recursive type.");
+    // if (
+    //   metadata.aliases.some((a) => a.type.recursive) ||
+    //   metadata.arrays.some((a) => a.type.recursive) ||
+    //   metadata.objects.some((o) => o.type.recursive) ||
+    //   metadata.tuples.some((t) => t.type.recursive)
+    // )
+    //   output.push("LLM schema does not support recursive type.");
     return output;
   };
 
-  export const write = (metadata: Metadata): ILlmSchema => {
+  export const write = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
+    metadata: Metadata;
+  }): ILlmApplication.ModelSchema[Model] => {
     const collection: IJsonSchemaCollection<"3.1"> =
       JsonSchemasProgrammer.write({
         version: "3.1",
-        metadatas: [metadata],
+        metadatas: [props.metadata],
       });
-    const schema: ILlmSchema | null = HttpLlmConverter.schema({
-      components: collection.components,
-      schema: collection.schemas[0]!,
-    });
+    const schema: ILlmApplication.ModelSchema[Model] | null =
+      HttpLlmConverter.schema({
+        model: props.model,
+        components: collection.components,
+        schema: collection.schemas[0]!,
+        recursive: 3,
+      });
     if (schema === null)
       throw new Error("Failed to convert JSON schema to LLM schema.");
     return schema;

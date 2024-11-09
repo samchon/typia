@@ -20,10 +20,10 @@
             "const": 2
           },
           {
-            "const": "four"
+            "const": "three"
           },
           {
-            "const": "three"
+            "const": "four"
           },
           {
             "type": "object",

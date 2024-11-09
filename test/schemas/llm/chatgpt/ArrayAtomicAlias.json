@@ -1,0 +1,38 @@
+{
+  "$ref": "#/$defs/ArrayAtomicAlias",
+  "$defs": {
+    "ArrayAtomicAlias": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/ArrayAtomicAlias.Aliasboolean"
+        },
+        {
+          "$ref": "#/$defs/ArrayAtomicAlias.Aliasnumber"
+        },
+        {
+          "$ref": "#/$defs/ArrayAtomicAlias.Aliasstring"
+        }
+      ],
+      "additionalItems": false
+    },
+    "ArrayAtomicAlias.Aliasboolean": {
+      "type": "array",
+      "items": {
+        "type": "boolean"
+      }
+    },
+    "ArrayAtomicAlias.Aliasnumber": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "ArrayAtomicAlias.Aliasstring": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

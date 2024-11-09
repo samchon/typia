@@ -27,7 +27,8 @@
         "required": [
           "object",
           "array"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectPartialAndRequired": {
         "type": "object",

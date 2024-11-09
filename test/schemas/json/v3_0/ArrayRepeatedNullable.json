@@ -17,32 +17,17 @@
           }
         ]
       },
-      "ArrayRepeatedNullable.Nullable": {
-        "oneOf": [
-          {
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "type": "number",
-            "nullable": true
-          },
-          {
-            "$ref": "#/components/schemas/ArrayArrayRepeatedNullable"
-          }
-        ]
-      },
       "#/components/schemas/ArrayArrayRepeatedNullable": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ArrayRepeatedNullable.Nullable"
+          "$ref": "#/components/schemas/ArrayRepeatedNullable"
         }
       }
     }
   },
   "schemas": [
     {
-      "$ref": "#/components/schemas/ArrayRepeatedNullable.Nullable"
+      "$ref": "#/components/schemas/ArrayRepeatedNullable"
     }
   ]
 }

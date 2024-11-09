@@ -1,0 +1,27 @@
+{
+  "$ref": "#/$defs/AtomicUnion",
+  "$defs": {
+    "AtomicUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AtomicUnion.Union"
+      }
+    },
+    "AtomicUnion.Union": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    }
+  }
+}

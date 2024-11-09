@@ -1,0 +1,33 @@
+{
+  "type": "array",
+  "prefixItems": [
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "number"
+    },
+    {
+      "type": "number"
+    },
+    {
+      "type": "number"
+    },
+    {
+      "type": "string"
+    },
+    {
+      "type": "string"
+    },
+    {
+      "type": "string"
+    }
+  ],
+  "additionalItems": false
+}
