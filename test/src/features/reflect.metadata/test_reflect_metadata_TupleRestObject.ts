@@ -1,8 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { TupleRestObject } from "../../structures/TupleRestObject";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_TupleRestObject = _test_reflect_metadata(
-  "TupleRestObject",
-)(typia.reflect.metadata<[TupleRestObject]>());
+export const test_reflect_metadata_TupleRestObject = 
+  _test_reflect_metadata("TupleRestObject")(
+    typia.reflect.metadata<[TupleRestObject]>()
+  );

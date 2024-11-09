@@ -883,7 +883,7 @@
             "description": "List of example values as key-value pairs."
           }
         },
-        "description": "Unknown, `any` type."
+        "description": "Unknown, the `any` type."
       },
       "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
         "type": "object",

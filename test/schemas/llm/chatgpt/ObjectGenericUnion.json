@@ -1,0 +1,231 @@
+{
+  "$ref": "#/$defs/ObjectGenericUnion",
+  "$defs": {
+    "ObjectGenericUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectGenericUnion.ISaleEntireArticle": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
+        },
+        {
+          "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
+        }
+      ]
+    },
+    "ObjectGenericUnion.ISaleQuestion": {
+      "type": "object",
+      "properties": {
+        "writer": {
+          "type": "string"
+        },
+        "answer": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "hit": {
+          "type": "number"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+          }
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "writer",
+        "answer",
+        "id",
+        "hit",
+        "contents",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectGenericUnion.ISaleAnswer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "hit": {
+          "type": "number"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+          }
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "hit",
+        "contents",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectGenericUnion.ISaleArticle.IContent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "created_at",
+        "title",
+        "body",
+        "files"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectGenericUnion.IAttachmentFile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "extension": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "extension",
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectGenericUnion.ISaleReview": {
+      "type": "object",
+      "properties": {
+        "writer": {
+          "type": "string"
+        },
+        "answer": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "hit": {
+          "type": "number"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+          }
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "writer",
+        "answer",
+        "id",
+        "hit",
+        "contents",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectGenericUnion.ISaleReview.IContent": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+          }
+        }
+      },
+      "required": [
+        "score",
+        "id",
+        "created_at",
+        "title",
+        "body",
+        "files"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

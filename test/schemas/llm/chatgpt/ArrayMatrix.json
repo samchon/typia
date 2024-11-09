@@ -1,0 +1,17 @@
+{
+  "$ref": "#/$defs/ArrayMatrix",
+  "$defs": {
+    "ArrayMatrix": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$ref": "#/$defs/ObjectDynamic",
+  "$defs": {
+    "ObjectDynamic": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  }
+}

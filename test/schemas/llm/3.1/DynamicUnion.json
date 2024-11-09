@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {},
+  "additionalProperties": {
+    "components": {
+      "schemas": {
+        "DynamicUnion": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "schema": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "recursive": 3,
+    "visited": {},
+    "oneOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      }
+    ]
+  }
+}

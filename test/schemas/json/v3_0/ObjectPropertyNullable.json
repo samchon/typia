@@ -97,7 +97,8 @@
           "id",
           "name",
           "activated"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
         "type": "object",

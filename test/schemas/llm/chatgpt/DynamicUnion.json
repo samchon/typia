@@ -1,0 +1,19 @@
+{
+  "$ref": "#/$defs/DynamicUnion",
+  "$defs": {
+    "DynamicUnion": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  }
+}

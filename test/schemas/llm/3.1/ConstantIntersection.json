@@ -1,0 +1,15 @@
+{
+  "type": "array",
+  "prefixItems": [
+    {
+      "const": false
+    },
+    {
+      "const": 1
+    },
+    {
+      "const": "two"
+    }
+  ],
+  "additionalItems": false
+}

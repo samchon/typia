@@ -1,0 +1,99 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "nullable": true
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "serial": {
+                  "type": "number",
+                  "nullable": true
+                },
+                "activated": {
+                  "type": "boolean",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "activated"
+              ],
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "minItems": 4,
+  "maxItems": 4
+}

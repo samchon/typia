@@ -1,0 +1,17 @@
+{
+  "$ref": "#/$defs/ObjectGenericAlias.Alias",
+  "$defs": {
+    "ObjectGenericAlias.Alias": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

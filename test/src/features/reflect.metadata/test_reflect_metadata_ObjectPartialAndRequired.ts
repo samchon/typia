@@ -1,9 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_ObjectPartialAndRequired =
+export const test_reflect_metadata_ObjectPartialAndRequired = 
   _test_reflect_metadata("ObjectPartialAndRequired")(
-    typia.reflect.metadata<[ObjectPartialAndRequired]>(),
+    typia.reflect.metadata<[ObjectPartialAndRequired]>()
   );

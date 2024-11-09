@@ -31,7 +31,8 @@
           "name",
           "sequence",
           "created_at"
-        ]
+        ],
+        "nullable": true
       },
       "ObjectRecursive.IDepartment": {
         "type": "object",

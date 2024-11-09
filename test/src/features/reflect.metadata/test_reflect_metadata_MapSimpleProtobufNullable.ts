@@ -1,9 +1,8 @@
 import typia from "typia";
-
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_MapSimpleProtobufNullable =
+export const test_reflect_metadata_MapSimpleProtobufNullable = 
   _test_reflect_metadata("MapSimpleProtobufNullable")(
-    typia.reflect.metadata<[MapSimpleProtobufNullable]>(),
+    typia.reflect.metadata<[MapSimpleProtobufNullable]>()
   );

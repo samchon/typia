@@ -1,0 +1,20 @@
+{
+  "$ref": "#/$defs/AtomicAlias",
+  "$defs": {
+    "AtomicAlias": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "additionalItems": false
+    }
+  }
+}

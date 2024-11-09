@@ -1,0 +1,10 @@
+{
+  "$ref": "#/$defs/DynamicUndefined",
+  "$defs": {
+    "DynamicUndefined": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  }
+}

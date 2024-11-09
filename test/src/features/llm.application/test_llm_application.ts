@@ -4,8 +4,9 @@ import typia from "typia";
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_llm_application = (): void => {
-  const app: ILlmApplication = typia.llm.application<SomeClass>();
+  const app: ILlmApplication<"3.0"> = typia.llm.application<SomeClass, "3.0">();
   TestValidator.equals("application")(app)({
+    model: "3.0",
     functions: [
       {
         name: "getId",
@@ -75,6 +76,7 @@ export const test_llm_application = (): void => {
     ],
     options: {
       separate: null,
+      recursive: 3,
     },
   });
 };
