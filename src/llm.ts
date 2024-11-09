@@ -1,4 +1,4 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 
 /**
  * > You must configure the generic argument `App`.
@@ -33,12 +33,15 @@ import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
  * before the actual LLM function call execution.
  *
  * @template App Target class or interface type collecting the functions to call
+ * @template Model LLM schema model
  * @param options Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application(options?: ILlmApplication.IOptions): never;
+export function application(
+  options?: Partial<Omit<ILlmApplication.IOptions<any>, "recursive">>,
+): never;
 
 /**
  * TypeScript functions to LLM function calling application.
@@ -71,14 +74,18 @@ export function application(options?: ILlmApplication.IOptions): never;
  * before the actual LLM function call execution.
  *
  * @template App Target class or interface type collecting the functions to call
+ * @template Model LLM schema model
  * @param options Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application<App extends object>(
-  options?: ILlmApplication.IOptions,
-): ILlmApplication;
+export function application<
+  App extends object,
+  Model extends ILlmApplication.Model = "3.1",
+>(
+  options?: Partial<Omit<ILlmApplication.IOptions<Model>, "recursive">>,
+): ILlmApplication<Model>;
 
 /**
  * @internal
@@ -119,6 +126,7 @@ export function application(): never {
  * > LLM will continue the next conversation based on the return value.
  *
  * @template T Target type
+ * @template Model LLM schema model
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
@@ -155,11 +163,15 @@ export function schema(): never;
  * > LLM will continue the next conversation based on the return value.
  *
  * @template T Target type
+ * @template Model LLM schema model
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function schema<T>(): ILlmSchema;
+export function schema<
+  T,
+  Model extends ILlmApplication.Model = "3.1",
+>(): ILlmApplication.ModelSchema[Model];
 
 /**
  * @internal

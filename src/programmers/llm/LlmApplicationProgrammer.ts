@@ -1,4 +1,4 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -84,8 +84,11 @@ export namespace LlmApplicationProgrammer {
     return output;
   };
 
-  export const write = (metadata: Metadata): ILlmApplication => {
-    const errors: string[] = validate()(metadata, {
+  export const write = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
+    metadata: Metadata;
+  }): ILlmApplication<Model> => {
+    const errors: string[] = validate()(props.metadata, {
       top: true,
       object: null,
       property: null,
@@ -98,8 +101,9 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const object: MetadataObjectType = metadata.objects[0]!.type;
+    const object: MetadataObjectType = props.metadata.objects[0]!.type;
     return {
+      model: props.model,
       functions: object.properties
         .filter(
           (p) =>
@@ -112,6 +116,7 @@ export namespace LlmApplicationProgrammer {
         )
         .map((p) =>
           writeFunction({
+            model: props.model,
             name: p.key.getSoleLiteral()!,
             function: p.value.functions[0]!,
             description: p.description,
@@ -120,16 +125,18 @@ export namespace LlmApplicationProgrammer {
         ),
       options: {
         separate: null,
+        recursive: props.model === "chatgpt" ? undefined : (3 as any),
       },
     };
   };
 
-  const writeFunction = (props: {
+  const writeFunction = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
     name: string;
     function: MetadataFunction;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): ILlmFunction => {
+  }): ILlmFunction<ILlmApplication.ModelSchema[Model]> => {
     const deprecated: boolean = props.jsDocTags.some(
       (tag) => tag.name === "deprecated",
     );
@@ -154,6 +161,7 @@ export namespace LlmApplicationProgrammer {
           },
         );
         return writeSchema({
+          model: props.model,
           metadata: p.type,
           description: jsDocTagDescription ?? p.description,
           jsDocTags: jsDocTagDescription ? [] : p.jsDocTags,
@@ -162,6 +170,7 @@ export namespace LlmApplicationProgrammer {
       output:
         props.function.output.size() || props.function.output.nullable
           ? writeSchema({
+              model: props.model,
               metadata: props.function.output,
               description:
                 writeDescriptionFromJsDocTag({
@@ -181,17 +190,22 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeSchema = (props: {
+  const writeSchema = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
     metadata: Metadata;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): ILlmSchema => {
-    const schema: ILlmSchema = LlmSchemaProgrammer.write(props.metadata);
-    const explicit: Pick<ILlmSchema, "title" | "description"> =
-      writeDescription({
-        description: props.description,
-        jsDocTags: props.jsDocTags,
-      });
+  }): ILlmApplication.ModelSchema[Model] => {
+    const schema: ILlmApplication.ModelSchema[Model] =
+      LlmSchemaProgrammer.write(props);
+    const explicit: Pick<
+      ILlmApplication.ModelSchema[Model],
+      "title" | "description"
+    > = writeDescription({
+      model: props.model,
+      description: props.description,
+      jsDocTags: props.jsDocTags,
+    });
     return {
       ...schema,
       ...(!!explicit.title?.length || !!explicit.description?.length
@@ -200,10 +214,11 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeDescription = (props: {
+  const writeDescription = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): Pick<ILlmSchema, "title" | "description"> => {
+  }): Pick<ILlmApplication.ModelSchema[Model], "title" | "description"> => {
     const title: string | undefined = (() => {
       const [explicit] = getJsDocTexts({
         jsDocTags: props.jsDocTags,
