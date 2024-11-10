@@ -60,7 +60,7 @@
           }
         ]
       },
-      "#/components/schemas/ArrayArrayRepeatedUnionWithTuple": {
+      "ArrayArrayRepeatedUnionWithTuple": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"

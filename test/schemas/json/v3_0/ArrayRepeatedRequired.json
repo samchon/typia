@@ -15,7 +15,7 @@
           }
         ]
       },
-      "#/components/schemas/ArrayArrayRepeatedRequired": {
+      "ArrayArrayRepeatedRequired": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ArrayRepeatedRequired"

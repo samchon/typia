@@ -29,16 +29,19 @@ export const application_array =
         array.tags,
       );
     if (array.type.recursive === true) {
-      const out = () => [{ $ref }];
-      const $ref: string = `#/components/schemas/${array.type.name}`;
-      if (components.schemas?.[$ref] !== undefined) return out();
+      const out = () => [
+        {
+          $ref: `#/components/schemas/${array.type.name}`,
+        },
+      ];
+      if (components.schemas?.[array.type.name] !== undefined) return out();
 
       components.schemas ??= {};
-      components.schemas[$ref] ??= {};
+      components.schemas[array.type.name] ??= {};
 
       const oneOf: ArraySchema<Version>[] = factory();
       Object.assign(
-        components.schemas[$ref]!,
+        components.schemas[array.type.name]!,
         oneOf.length === 1 ? oneOf[0] : { oneOf },
       );
       return out();
