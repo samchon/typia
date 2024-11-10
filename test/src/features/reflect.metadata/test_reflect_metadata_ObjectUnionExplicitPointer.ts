@@ -1,8 +1,9 @@
 import typia from "typia";
-import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_ObjectUnionExplicitPointer = 
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
+import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
+
+export const test_reflect_metadata_ObjectUnionExplicitPointer =
   _test_reflect_metadata("ObjectUnionExplicitPointer")(
-    typia.reflect.metadata<[ObjectUnionExplicitPointer]>()
+    typia.reflect.metadata<[ObjectUnionExplicitPointer]>(),
   );

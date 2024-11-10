@@ -1,8 +1,8 @@
 import typia from "typia";
-import { AtomicAlias } from "../../structures/AtomicAlias";
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_AtomicAlias = 
-  _test_reflect_metadata("AtomicAlias")(
-    typia.reflect.metadata<[AtomicAlias]>()
-  );
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
+import { AtomicAlias } from "../../structures/AtomicAlias";
+
+export const test_reflect_metadata_AtomicAlias = _test_reflect_metadata(
+  "AtomicAlias",
+)(typia.reflect.metadata<[AtomicAlias]>());

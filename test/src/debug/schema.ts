@@ -1,19 +1,6 @@
-import typia, { tags } from "typia";
+import typia from "typia";
 
-interface Something {
-  pure: `${number}/${number}` | `${string}-${string}`;
-  sole: `${number}/${number}` & tags.JsonSchemaPlugin<{ "x-typia-sole": true }>;
-  union:
-    | (`${number}/${number}` &
-        tags.JsonSchemaPlugin<{ "x-typia-something": true }>)
-    | (`${string}-${string}` &
-        tags.JsonSchemaPlugin<{ "x-typia-nothing": false }>);
-  mixed:
-    | `${number}/${number}`
-    | `${string}-${string}`
-    | (`${string}||${number}` &
-        tags.JsonSchemaPlugin<{ "x-typia-something": true }>);
-}
+import { UltimateUnion } from "../structures/UltimateUnion";
 
-const collection = typia.json.schemas<[Something]>();
-console.log(JSON.stringify(collection, null, 2));
+const schema = typia.llm.schema<UltimateUnion, "chatgpt">();
+console.log(JSON.stringify(schema, null, 2));

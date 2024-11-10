@@ -1,5 +1,6 @@
 import { ILlmApplication } from "@samchon/openapi";
 import { HttpLlmConverter } from "@samchon/openapi/lib/converters/HttpLlmConverter";
+import { OpenApiV3Converter } from "@samchon/openapi/lib/converters/OpenApiV3Converter";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
@@ -8,41 +9,55 @@ import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 
 export namespace LlmSchemaProgrammer {
-  export const validate = (metadata: Metadata): string[] => {
-    const output: string[] = [];
-    if (
-      metadata.atomics.some((a) => a.type === "bigint") ||
-      metadata.constants.some((c) => c.type === "bigint")
-    )
-      output.push("LLM schema does not support bigint type.");
-    if (
-      metadata.tuples.some((t) =>
-        t.type.elements.some((e) => e.isRequired() === false),
-      ) ||
-      metadata.arrays.some((a) => a.type.value.isRequired() === false)
-    )
-      output.push("LLM schema does not support undefined type in array.");
-    if (metadata.maps.length)
-      output.push("LLM schema does not support Map type.");
-    if (metadata.sets.length)
-      output.push("LLM schema does not support Set type.");
-    for (const native of metadata.natives)
+  export const validate =
+    (model: ILlmApplication.Model) =>
+    (metadata: Metadata): string[] => {
+      const output: string[] = [];
       if (
-        AtomicPredicator.native(native.name) === false &&
-        native.name !== "Date" &&
-        native.name !== "Blob" &&
-        native.name !== "File"
+        metadata.atomics.some((a) => a.type === "bigint") ||
+        metadata.constants.some((c) => c.type === "bigint")
       )
-        output.push(`LLM schema does not support ${native.name} type.`);
-    // if (
-    //   metadata.aliases.some((a) => a.type.recursive) ||
-    //   metadata.arrays.some((a) => a.type.recursive) ||
-    //   metadata.objects.some((o) => o.type.recursive) ||
-    //   metadata.tuples.some((t) => t.type.recursive)
-    // )
-    //   output.push("LLM schema does not support recursive type.");
-    return output;
-  };
+        output.push("LLM schema does not support bigint type.");
+      if (
+        metadata.tuples.some((t) =>
+          t.type.elements.some((e) => e.isRequired() === false),
+        ) ||
+        metadata.arrays.some((a) => a.type.value.isRequired() === false)
+      )
+        output.push("LLM schema does not support undefined type in array.");
+      if (metadata.maps.length)
+        output.push("LLM schema does not support Map type.");
+      if (metadata.sets.length)
+        output.push("LLM schema does not support Set type.");
+      for (const native of metadata.natives)
+        if (
+          AtomicPredicator.native(native.name) === false &&
+          native.name !== "Date" &&
+          native.name !== "Blob" &&
+          native.name !== "File"
+        )
+          output.push(`LLM schema does not support ${native.name} type.`);
+      if (model === "gemini") {
+        try {
+          const {
+            schemas: [schema],
+          } = JsonSchemasProgrammer.write({
+            version: "3.0",
+            metadatas: [metadata],
+          });
+          if (OpenApiV3Converter.TypeChecker.isOneOf(schema!))
+            output.push("Gemini model does not support the union type.");
+        } catch {}
+      }
+      // if (
+      //   metadata.aliases.some((a) => a.type.recursive) ||
+      //   metadata.arrays.some((a) => a.type.recursive) ||
+      //   metadata.objects.some((o) => o.type.recursive) ||
+      //   metadata.tuples.some((t) => t.type.recursive)
+      // )
+      //   output.push("LLM schema does not support recursive type.");
+      return output;
+    };
 
   export const write = <Model extends ILlmApplication.Model>(props: {
     model: Model;

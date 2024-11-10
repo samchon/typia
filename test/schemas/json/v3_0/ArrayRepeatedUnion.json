@@ -27,7 +27,7 @@
           }
         ]
       },
-      "#/components/schemas/ArrayArrayRepeatedUnion": {
+      "ArrayArrayRepeatedUnion": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ArrayRepeatedUnion"
