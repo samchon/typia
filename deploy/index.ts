@@ -39,7 +39,7 @@ const main = async (): Promise<void> => {
         commands: ["npm run build", "npm start"],
       },
       {
-        name: "errors",
+        name: "test-error",
         commands: ["npm start"],
       },
       {
