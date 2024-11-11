@@ -15,7 +15,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -23,5 +22,6 @@
       }
     ]
   },
-  "minItems": 2
+  "minItems": 2,
+  "maxItems": 2
 }

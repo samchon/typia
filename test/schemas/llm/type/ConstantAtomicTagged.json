@@ -2,35 +2,27 @@
   "type": "object",
   "properties": {
     "id": {
-      "oneOf": [
-        {
-          "type": "string",
-          "enum": [
-            "latest"
-          ]
-        },
-        {
-          "type": "string",
-          "format": "uuid"
-        }
+      "type": "string",
+      "format": "uuid",
+      "enum": [
+        "latest"
       ]
     },
     "age": {
       "oneOf": [
         {
+          "type": "integer",
+          "maximum": 100
+        },
+        {
           "type": "number",
           "enum": [
             -1
           ]
-        },
-        {
-          "type": "integer",
-          "maximum": 100
         }
       ]
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "age"

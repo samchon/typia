@@ -12,7 +12,6 @@
               "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
           ],
@@ -29,7 +28,6 @@
               "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
           ],
@@ -46,7 +44,6 @@
               "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
           ],
@@ -80,16 +77,15 @@
                   "nullable": true
                 }
               },
-              "nullable": true,
               "required": [
                 "id",
                 "name",
                 "activated"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "nullable": true
             }
           },
-          "nullable": false,
           "required": [
             "value"
           ],

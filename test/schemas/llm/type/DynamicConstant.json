@@ -17,7 +17,6 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "a",
         "b",
@@ -27,7 +26,6 @@
       "additionalProperties": false
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

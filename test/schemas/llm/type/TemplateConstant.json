@@ -37,7 +37,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "prefix",
           "postfix",
@@ -47,7 +46,6 @@
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

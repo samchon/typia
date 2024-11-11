@@ -35,11 +35,9 @@
           "type": "string"
         }
       },
-      "nullable": false,
       "additionalProperties": false
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

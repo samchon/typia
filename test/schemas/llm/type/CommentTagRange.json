@@ -54,7 +54,6 @@
             "maximum": 10
           }
         },
-        "nullable": false,
         "required": [
           "greater",
           "greater_equal",
@@ -70,7 +69,6 @@
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

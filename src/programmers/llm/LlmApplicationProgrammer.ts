@@ -95,6 +95,7 @@ export namespace LlmApplicationProgrammer {
         ),
       options: {
         separate: null,
+        recursive: 3,
       },
     };
   };

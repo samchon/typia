@@ -12,7 +12,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x"
             ],
@@ -30,14 +29,12 @@
                         "type": "number"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
                     ],
                     "additionalProperties": false
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
                 ],
@@ -53,14 +50,12 @@
                         "type": "boolean"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
                     ],
                     "additionalProperties": false
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
                 ],
@@ -69,7 +64,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child"
@@ -86,7 +80,6 @@
                 "type": "string"
               }
             },
-            "nullable": false,
             "required": [
               "x"
             ],
@@ -107,14 +100,12 @@
                         }
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
                     ],
                     "additionalProperties": false
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
                 ],
@@ -130,14 +121,12 @@
                         "type": "string"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "y"
                     ],
                     "additionalProperties": false
                   }
                 },
-                "nullable": false,
                 "required": [
                   "value"
                 ],
@@ -146,7 +135,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child"

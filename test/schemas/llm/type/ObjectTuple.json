@@ -15,7 +15,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
@@ -36,7 +35,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",

@@ -8,7 +8,6 @@
       "type": "boolean"
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "flag"
