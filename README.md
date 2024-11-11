@@ -6,6 +6,7 @@
 [![Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://typia.io/docs/)
+[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Typia%20Guru-006BFF)](https://gurubase.io/g/typia)
 
 ```typescript
 // RUNTIME VALIDATORS
