@@ -3,23 +3,20 @@
   "items": {
     "oneOf": [
       {
-        "type": "boolean"
+        "type": "boolean",
+        "nullable": true
       },
       {
-        "type": "null"
-      },
-      {
-        "type": "number"
+        "type": "number",
+        "nullable": true
       },
       {
         "type": "array",
         "items": {
           "oneOf": [
             {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
+              "type": "boolean",
+              "nullable": true
             },
             {
               "type": "array",
@@ -46,12 +43,14 @@
                 ]
               },
               "minItems": 2,
-              "maxItems": 2
+              "maxItems": 2,
+              "nullable": true
             }
           ]
         },
         "minItems": 3,
-        "maxItems": 3
+        "maxItems": 3,
+        "nullable": true
       },
       {
         "type": "array",
@@ -114,7 +113,8 @@
           ]
         },
         "minItems": 2,
-        "maxItems": 2
+        "maxItems": 2,
+        "nullable": true
       }
     ]
   },

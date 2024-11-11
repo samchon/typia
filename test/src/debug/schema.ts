@@ -1,6 +1,9 @@
-import typia from "typia";
+import typia, { tags } from "typia";
 
-import { UltimateUnion } from "../structures/UltimateUnion";
+typia.llm.schema<IDepartment>();
 
-const schema = typia.llm.schema<UltimateUnion, "chatgpt">();
-console.log(JSON.stringify(schema, null, 2));
+interface IDepartment {
+  id: string & tags.Format<"uuid">;
+  name: string;
+  department: IDepartment[];
+}
