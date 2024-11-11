@@ -2,6 +2,13 @@
   "version": "3.0",
   "components": {
     "schemas": {
+      "ArrayArrayRepeatedNullable.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedNullable"
+        },
+        "nullable": true
+      },
       "ArrayRepeatedNullable": {
         "oneOf": [
           {
@@ -13,11 +20,11 @@
             "nullable": true
           },
           {
-            "$ref": "#/components/schemas/ArrayArrayRepeatedNullable"
+            "$ref": "#/components/schemas/ArrayArrayRepeatedNullable.Nullable"
           }
         ]
       },
-      "#/components/schemas/ArrayArrayRepeatedNullable": {
+      "ArrayArrayRepeatedNullable": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ArrayRepeatedNullable"

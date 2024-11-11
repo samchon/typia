@@ -37,7 +37,7 @@
           "discriminator": {
             "propertyName": "type",
             "mapping": {
-              "brand": "#/components/schemas/ObjectNullable.IBrand"
+              "brand": "#/$defs/ObjectNullable.IBrand"
             }
           }
         },
@@ -56,8 +56,8 @@
           "discriminator": {
             "propertyName": "type",
             "mapping": {
-              "brand": "#/components/schemas/ObjectNullable.IBrand",
-              "manufacturer": "#/components/schemas/ObjectNullable.IManufacturer"
+              "brand": "#/$defs/ObjectNullable.IBrand",
+              "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
             }
           }
         }

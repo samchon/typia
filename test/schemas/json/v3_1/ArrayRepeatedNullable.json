@@ -18,7 +18,7 @@
           }
         ]
       },
-      "#/components/schemas/ArrayArrayRepeatedNullable": {
+      "ArrayArrayRepeatedNullable": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ArrayRepeatedNullable"

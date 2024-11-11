@@ -1,8 +1,8 @@
 import typia from "typia";
-import { ObjectDate } from "../../structures/ObjectDate";
-import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 
-export const test_reflect_metadata_ObjectDate = 
-  _test_reflect_metadata("ObjectDate")(
-    typia.reflect.metadata<[ObjectDate]>()
-  );
+import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
+import { ObjectDate } from "../../structures/ObjectDate";
+
+export const test_reflect_metadata_ObjectDate = _test_reflect_metadata(
+  "ObjectDate",
+)(typia.reflect.metadata<[ObjectDate]>());

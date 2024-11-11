@@ -123,9 +123,9 @@ export class MetadataCollection {
     const oldbie = this.objects_.get(type);
     if (oldbie !== undefined) return [oldbie, false];
 
-    const $id: string = this.getName(checker, type);
+    const id: string = this.getName(checker, type);
     const obj: MetadataObjectType = MetadataObjectType.create({
-      name: $id,
+      name: id,
       properties: [],
       description:
         (type.aliasSymbol && CommentFactory.description(type.aliasSymbol)) ??
@@ -150,9 +150,9 @@ export class MetadataCollection {
     const oldbie = this.aliases_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
-    const $id: string = this.getName(checker, type);
+    const id: string = this.getName(checker, type);
     const alias: MetadataAliasType = MetadataAliasType.create({
-      name: $id,
+      name: id,
       value: null!,
       description: CommentFactory.description(symbol) ?? null,
       recursive: null!,
@@ -170,9 +170,9 @@ export class MetadataCollection {
     const oldbie = this.arrays_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
-    const $id = this.getName(checker, type);
+    const id = this.getName(checker, type);
     const array: MetadataArrayType = MetadataArrayType.create({
-      name: $id,
+      name: id,
       value: null!,
       index: null,
       recursive: null!,
@@ -189,9 +189,9 @@ export class MetadataCollection {
     const oldbie = this.tuples_.get(type);
     if (oldbie !== undefined) return [oldbie, false, () => {}];
 
-    const $id = this.getName(checker, type);
+    const id = this.getName(checker, type);
     const tuple: MetadataTupleType = MetadataTupleType.create({
-      name: $id,
+      name: id,
       elements: null!,
       index: null,
       recursive: null!,

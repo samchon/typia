@@ -1,0 +1,52 @@
+{
+  "$ref": "#/$defs/ArrayRecursive.ICategory",
+  "$defs": {
+    "ArrayRecursive.ICategory": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArrayRecursive.ICategory"
+          }
+        },
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        },
+        "created_at": {
+          "$ref": "#/$defs/ArrayRecursive.ITimestamp"
+        }
+      },
+      "required": [
+        "children",
+        "id",
+        "code",
+        "sequence",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "ArrayRecursive.ITimestamp": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number"
+        },
+        "zone": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "time",
+        "zone"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

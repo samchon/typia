@@ -22,8 +22,14 @@ export namespace TestLlmSchemaGenerator {
   ): Promise<void> {
     for (const s of structures) {
       if (s.JSONABLE === false) continue;
-      else if (s.RECURSIVE === true) continue;
-
+      else if (model !== "chatgpt" && s.RECURSIVE === true) continue;
+      else if (model === "gemini") {
+        const json: string = await fs.promises.readFile(
+          `${__dirname}/../../schemas/json/v3_0/${s.name}.json`,
+          "utf8",
+        );
+        if (json.includes(`"oneOf":`) === true) continue;
+      }
       const content: string[] = [
         `import typia from "typia";`,
         `import { ${s.name} } from "../../../structures/${s.name}";`,
@@ -69,7 +75,6 @@ export namespace TestLlmSchemaGenerator {
         `test_llm_schema_${model.replace(".", "_")}_`.length,
         file.length - 3,
       );
-      console.log(name);
       const location: string =
         __dirname +
         `/../../bin/features/llm.schema/${model}/${file.slice(0, -3)}.js`;
@@ -90,4 +95,4 @@ export namespace TestLlmSchemaGenerator {
   }
 }
 
-const MODELS = ["3.0", "3.1", "chatgpt"];
+const MODELS = ["3.0", "3.1", "chatgpt", "gemini"];
