@@ -1,9 +1,11 @@
 import { ILlmSchema } from "@samchon/openapi";
+import { HttpLlmConverter } from "@samchon/openapi/lib/converters/HttpLlmConverter";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 
+import { IJsonApplication } from "../../module";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { llm_schema_station } from "../internal/llm_schema_station";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 
 export namespace LlmSchemaProgrammer {
   export const validate = (meta: Metadata): string[] => {
@@ -30,20 +32,27 @@ export namespace LlmSchemaProgrammer {
         native !== "File"
       )
         output.push(`LLM schema does not support ${native} type.`);
-    if (
-      meta.aliases.some((a) => a.recursive) ||
-      meta.arrays.some((a) => a.type.recursive) ||
-      meta.objects.some((o) => o.recursive) ||
-      meta.tuples.some((t) => t.type.recursive)
-    )
-      output.push("LLM schema does not support recursive type.");
+    // if (
+    //   meta.aliases.some((a) => a.recursive) ||
+    //   meta.arrays.some((a) => a.type.recursive) ||
+    //   meta.objects.some((o) => o.recursive) ||
+    //   meta.tuples.some((t) => t.type.recursive)
+    // )
+    //   output.push("LLM schema does not support recursive type.");
     return output;
   };
 
-  export const write = (metadata: Metadata): ILlmSchema =>
-    llm_schema_station({
-      metadata,
-      blockNever: true,
-      attribute: {},
+  export const write = (metadata: Metadata): ILlmSchema => {
+    const app: IJsonApplication<"3.1"> = JsonApplicationProgrammer.write<"3.1">(
+      "3.1",
+    )([metadata]) as IJsonApplication<"3.1">;
+    const schema: ILlmSchema | null | null = HttpLlmConverter.schema({
+      components: app.components,
+      schema: app.schemas[0]!,
+      recursive: 3,
     });
+    if (schema === null)
+      throw new Error("Failed to convert JSON schema to LLM schema.");
+    return schema;
+  };
 }

@@ -674,7 +674,7 @@ import typia from "typia";
 
 
 ## Restrictions
-LLM schema does not support `bigint` type, and recursive type either.
+LLM schema does not support `bigint` type.
 
 LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specification. Therefore, limitations of the JSON schema is also applied to the LLM schema, and the `bigint` type is not supported in the LLM function calling schema composition.
 
@@ -701,45 +701,112 @@ Found 1 error in src/llm.schema.bigint.ts:3
   </Tab>
 </Tabs>
 
-Also, LLM schema does not support reference type that is embodied by the `OpenApi.IJsonSchema.IReference` type with `$ref` property. Therefore, if recursive type comes, no way to express it in the LLM schema, and it would be compilation error in the `typia.llm.application<App>()` function.
+Also, LLM schema does not support reference type that is embodied by the `OpenApi.IJsonSchema.IReference` type with `$ref` property. Therefore, if recursive type comes, 
+no way to express it perfectly in the LLM schema. LLM schema just repeat the recursive structure 3 times, and remove the recursive type after the 4 depths.
 
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+For reference, if the recursive type comes from the array type, it would be zero length array type at the fourth step. Otherwise the recursive type comes from a property and the property is optional, the 4th property would be removed from the object type. At last, if the recursive type is combined as an `oneOf` type, the type would be removed from there.
+
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tab>
 ```typescript filename="example/src/llm.schema.recursive.ts" showLineNumbers
-import typia from "typia";
+import typia, { tags } from "typia";
 
-typia.llm.schema<Recursive>();
+typia.llm.schema<IDepartment>();
 
-interface Recursive {
-  id: number;
-  children: Recursive[];
+interface IDepartment {
+  id: string & tags.Format<"uuid">;
+  name: string;
+  department: IDepartment[];
 }
 ```
   </Tab>
   <Tab>
-```bash
-src/llm.schema.recursive.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
-
-- Recursive
-  - LLM schema does not support recursive type.
-
-- Recursive: Recursive
-  - LLM schema does not support recursive type.
-
-- Recursive.children: Recursive
-  - LLM schema does not support recursive type.
-
-3 typia.llm.schema<Recursive>();
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Found 1 error in src/llm.schema.recursive.ts:3
+```javascript filename="example/bin/llm.schema.recursive.js" showLineNumbers
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+({
+  type: "object",
+  properties: {
+    id: {
+      type: "string",
+      format: "uuid",
+    },
+    name: {
+      type: "string",
+    },
+    department: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+          },
+          name: {
+            type: "string",
+          },
+          department: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: {
+                  type: "string",
+                  format: "uuid",
+                },
+                name: {
+                  type: "string",
+                },
+                department: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: {
+                        type: "string",
+                        format: "uuid",
+                      },
+                      name: {
+                        type: "string",
+                      },
+                      department: {
+                        type: "array",
+                        items: {},
+                        maxItems: 0,
+                      },
+                    },
+                    required: ["id", "name", "department"],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              required: ["id", "name", "department"],
+              additionalProperties: false,
+            },
+          },
+        },
+        required: ["id", "name", "department"],
+        additionalProperties: false,
+      },
+    },
+  },
+  required: ["id", "name", "department"],
+  additionalProperties: false,
+});
 ```
   </Tab>
 </Tabs>
 
 And if you put any type of native classes like `Map` or `Uint8Array`, it would also be error, either. By the way, only `Date` class type is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
 
-<Tabs items={["TypeScript Source Code", "Console Output"]}>
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tab>
 ```typescript filename="example/src/llm.llm.date.ts" showLineNumbers
 import typia from "typia";
