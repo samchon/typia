@@ -11,7 +11,7 @@ import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = () => {
+  export const validate = (model: ILlmApplication.Model) => {
     let top: Metadata | undefined;
     return (
       metadata: Metadata,
@@ -28,7 +28,7 @@ export namespace LlmApplicationProgrammer {
           metadata.functions.length === 1
         )
           return validateFunction(metadata.functions[0]!);
-        else return LlmSchemaProgrammer.validate(metadata);
+        else return LlmSchemaProgrammer.validate(model)(metadata);
 
       const output: string[] = [];
       const valid: boolean =
@@ -88,7 +88,7 @@ export namespace LlmApplicationProgrammer {
     model: Model;
     metadata: Metadata;
   }): ILlmApplication<Model> => {
-    const errors: string[] = validate()(props.metadata, {
+    const errors: string[] = validate(props.model)(props.metadata, {
       top: true,
       object: null,
       property: null,

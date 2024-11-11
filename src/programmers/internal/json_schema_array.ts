@@ -23,16 +23,20 @@ export const json_schema_array = (props: {
       tags: props.array.tags,
     });
   if (props.array.type.recursive === true) {
-    const out = () => [{ $ref }];
-    const $ref: string = `#/components/schemas/${props.array.type.name}`;
-    if (props.components.schemas?.[$ref] !== undefined) return out();
+    const out = () => [
+      {
+        $ref: `#/components/schemas/${props.array.type.name}`,
+      },
+    ];
+    if (props.components.schemas?.[props.array.type.name] !== undefined)
+      return out();
 
     props.components.schemas ??= {};
-    props.components.schemas[$ref] ??= {};
+    props.components.schemas[props.array.type.name] ??= {};
 
     const oneOf: OpenApi.IJsonSchema.IArray[] = factory();
     Object.assign(
-      props.components.schemas[$ref]!,
+      props.components.schemas[props.array.type.name]!,
       oneOf.length === 1 ? oneOf[0] : { oneOf },
     );
     return out();

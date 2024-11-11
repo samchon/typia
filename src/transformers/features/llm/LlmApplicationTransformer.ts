@@ -28,6 +28,19 @@ export namespace LlmApplicationTransformer {
     const top: ts.Node = props.expression.typeArguments[0]!;
     if (ts.isTypeNode(top) === false) return props.expression;
 
+    // GET MODEL
+    const model: ILlmApplication.Model = get_parameter<ILlmApplication.Model>({
+      checker: props.context.checker,
+      name: "Model",
+      is: (value) =>
+        value === "3.1" ||
+        value === "3.0" ||
+        value === "chatgpt" ||
+        value === "gemini",
+      cast: (value) => value as ILlmApplication.Model,
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
+
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
     const collection: MetadataCollection = new MetadataCollection({
@@ -42,7 +55,7 @@ export namespace LlmApplicationTransformer {
           constant: true,
           absorb: false,
           functional: true,
-          validate: LlmApplicationProgrammer.validate(),
+          validate: LlmApplicationProgrammer.validate(model),
         },
         collection,
         type,
@@ -54,17 +67,6 @@ export namespace LlmApplicationTransformer {
       });
 
     // GENERATE LLM APPLICATION
-    const model: ILlmApplication.Model = get_parameter<ILlmApplication.Model>({
-      checker: props.context.checker,
-      name: "Model",
-      is: (value) =>
-        value === "3.1" ||
-        value === "3.0" ||
-        value === "chatgpt" ||
-        value === "gemini",
-      cast: (value) => value as ILlmApplication.Model,
-      default: () => "3.1",
-    })(props.expression.typeArguments[1]);
     const schema: ILlmApplication<ILlmApplication.Model> =
       LlmApplicationProgrammer.write({
         model,
