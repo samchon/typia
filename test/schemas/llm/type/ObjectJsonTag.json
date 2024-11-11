@@ -21,7 +21,6 @@
       "description": "Complicate title."
     }
   },
-  "nullable": false,
   "required": [
     "vulnerable",
     "description",

@@ -32,7 +32,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "int",
           "uint",
@@ -46,7 +45,6 @@
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

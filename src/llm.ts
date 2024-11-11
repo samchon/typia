@@ -40,7 +40,9 @@ import * as Namespace from "./functional/Namespace";
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-function application(options?: ILlmApplication.IOptions): never;
+function application(
+  options?: Omit<ILlmApplication.IOptions, "recursive">,
+): never;
 
 /**
  * TypeScript functions to LLM function calling application.
@@ -79,7 +81,7 @@ function application(options?: ILlmApplication.IOptions): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 function application<App extends object>(
-  options?: ILlmApplication.IOptions,
+  options?: Omit<ILlmApplication.IOptions, "recursive">,
 ): ILlmApplication;
 
 /**

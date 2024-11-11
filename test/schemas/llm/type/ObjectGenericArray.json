@@ -17,7 +17,6 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "page",
         "limit",
@@ -38,7 +37,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "age"
@@ -47,7 +45,6 @@
       }
     }
   },
-  "nullable": false,
   "required": [
     "pagination",
     "data"

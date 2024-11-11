@@ -51,7 +51,6 @@
                               "type": "string"
                             }
                           },
-                          "nullable": false,
                           "required": [
                             "name",
                             "extension",
@@ -61,7 +60,6 @@
                         }
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "id",
                       "created_at",
@@ -76,14 +74,14 @@
                   "type": "string"
                 }
               },
-              "nullable": true,
               "required": [
                 "id",
                 "hit",
                 "contents",
                 "created_at"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "nullable": true
             },
             "id": {
               "type": "string"
@@ -124,7 +122,6 @@
                           "type": "string"
                         }
                       },
-                      "nullable": false,
                       "required": [
                         "name",
                         "extension",
@@ -134,7 +131,6 @@
                     }
                   }
                 },
-                "nullable": false,
                 "required": [
                   "id",
                   "created_at",
@@ -149,7 +145,6 @@
               "type": "string"
             }
           },
-          "nullable": false,
           "required": [
             "writer",
             "answer",
@@ -208,7 +203,6 @@
                               "type": "string"
                             }
                           },
-                          "nullable": false,
                           "required": [
                             "name",
                             "extension",
@@ -218,7 +212,6 @@
                         }
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "id",
                       "created_at",
@@ -233,14 +226,14 @@
                   "type": "string"
                 }
               },
-              "nullable": true,
               "required": [
                 "id",
                 "hit",
                 "contents",
                 "created_at"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "nullable": true
             },
             "id": {
               "type": "string"
@@ -284,7 +277,6 @@
                           "type": "string"
                         }
                       },
-                      "nullable": false,
                       "required": [
                         "name",
                         "extension",
@@ -294,7 +286,6 @@
                     }
                   }
                 },
-                "nullable": false,
                 "required": [
                   "score",
                   "id",
@@ -310,7 +301,6 @@
               "type": "string"
             }
           },
-          "nullable": false,
           "required": [
             "writer",
             "answer",
@@ -324,7 +314,6 @@
       ]
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

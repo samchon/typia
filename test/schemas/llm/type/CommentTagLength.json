@@ -30,7 +30,6 @@
             "maxLength": 19
           }
         },
-        "nullable": false,
         "required": [
           "fixed",
           "minimum",
@@ -42,7 +41,6 @@
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

@@ -75,6 +75,7 @@ export const test_llm_application = (): void => {
     ],
     options: {
       separate: null,
+      recursive: 3,
     },
   });
 };

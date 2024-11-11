@@ -10,7 +10,6 @@
             "minimum": 3
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -25,7 +24,6 @@
             "maxLength": 7
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],

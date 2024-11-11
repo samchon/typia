@@ -22,7 +22,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "time",
           "zone"
@@ -53,7 +52,6 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "time",
                 "zone"
@@ -87,7 +85,6 @@
                         "type": "number"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "time",
                       "zone"
@@ -95,7 +92,6 @@
                     "additionalProperties": false
                   }
                 },
-                "nullable": false,
                 "required": [
                   "id",
                   "name",
@@ -107,7 +103,6 @@
               }
             }
           },
-          "nullable": false,
           "required": [
             "id",
             "code",
@@ -119,7 +114,6 @@
         }
       }
     },
-    "nullable": false,
     "required": [
       "id",
       "serial",

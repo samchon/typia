@@ -20,7 +20,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -28,7 +27,6 @@
       }
     }
   },
-  "nullable": false,
   "required": [
     "value"
   ],

@@ -39,7 +39,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -57,7 +56,6 @@
       "type": "string"
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "extension",

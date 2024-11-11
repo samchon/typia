@@ -16,7 +16,7 @@ export namespace TestLlmSchemaGenerator {
   async function application(structures: TestStructure<any>[]): Promise<void> {
     for (const s of structures) {
       if (s.JSONABLE === false) continue;
-      else if (s.RECURSIVE === true) continue;
+      else if (s.name === "UltimateUnion") continue;
 
       const content: string[] = [
         `import typia from "typia";`,

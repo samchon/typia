@@ -35,7 +35,6 @@
               "type": "number"
             }
           },
-          "nullable": false,
           "required": [
             "time",
             "zone"
@@ -43,7 +42,6 @@
           "additionalProperties": false
         }
       },
-      "nullable": false,
       "required": [
         "id",
         "code",
@@ -80,7 +78,6 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "time",
                 "zone"
@@ -88,7 +85,6 @@
               "additionalProperties": false
             }
           },
-          "nullable": false,
           "required": [
             "id",
             "code",
@@ -121,7 +117,6 @@
                       "type": "number"
                     }
                   },
-                  "nullable": false,
                   "required": [
                     "time",
                     "zone"
@@ -129,7 +124,6 @@
                   "additionalProperties": false
                 }
               },
-              "nullable": false,
               "required": [
                 "id",
                 "code",
@@ -153,7 +147,6 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "time",
                 "zone"
@@ -161,7 +154,6 @@
               "additionalProperties": false
             }
           },
-          "nullable": true,
           "required": [
             "id",
             "account",
@@ -169,7 +161,8 @@
             "grade",
             "created_at"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "nullable": true
         },
         "emails": {
           "type": "array",
@@ -187,7 +180,6 @@
               "type": "number"
             }
           },
-          "nullable": false,
           "required": [
             "time",
             "zone"
@@ -198,7 +190,6 @@
           "type": "boolean"
         }
       },
-      "nullable": true,
       "required": [
         "id",
         "account",
@@ -207,7 +198,8 @@
         "created_at",
         "authorized"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "nullable": true
     },
     "account": {
       "type": "object",
@@ -228,7 +220,6 @@
               "type": "number"
             }
           },
-          "nullable": false,
           "required": [
             "time",
             "zone"
@@ -236,13 +227,13 @@
           "additionalProperties": false
         }
       },
-      "nullable": true,
       "required": [
         "id",
         "code",
         "created_at"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "nullable": true
     },
     "href": {
       "type": "string"
@@ -253,7 +244,20 @@
     "ip": {
       "type": "array",
       "items": {
-        "type": "number"
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ]
       },
       "minItems": 4,
       "maxItems": 4
@@ -268,7 +272,6 @@
           "type": "number"
         }
       },
-      "nullable": false,
       "required": [
         "time",
         "zone"
@@ -276,7 +279,6 @@
       "additionalProperties": false
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "channel",

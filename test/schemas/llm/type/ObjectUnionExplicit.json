@@ -18,7 +18,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y",
@@ -39,7 +38,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -56,7 +54,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -70,7 +67,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -91,7 +87,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -108,7 +103,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -125,7 +119,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -139,7 +132,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -161,7 +153,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -178,7 +169,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -195,7 +185,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -212,7 +201,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -226,7 +214,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -251,7 +238,6 @@
                   "type": "number"
                 }
               },
-              "nullable": false,
               "required": [
                 "x",
                 "y"
@@ -266,7 +252,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "points",
           "type"
@@ -291,7 +276,6 @@
                       "type": "number"
                     }
                   },
-                  "nullable": false,
                   "required": [
                     "x",
                     "y"
@@ -300,7 +284,6 @@
                 }
               }
             },
-            "nullable": false,
             "required": [
               "points"
             ],
@@ -323,7 +306,6 @@
                         "type": "number"
                       }
                     },
-                    "nullable": false,
                     "required": [
                       "x",
                       "y"
@@ -332,7 +314,6 @@
                   }
                 }
               },
-              "nullable": false,
               "required": [
                 "points"
               ],
@@ -346,7 +327,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner",
@@ -367,7 +347,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "x",
               "y"
@@ -384,7 +363,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "centroid",
           "radius",

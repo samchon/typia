@@ -3,20 +3,23 @@
   "items": {
     "oneOf": [
       {
-        "type": "boolean",
-        "nullable": true
+        "type": "boolean"
       },
       {
-        "type": "number",
-        "nullable": true
+        "type": "null"
+      },
+      {
+        "type": "number"
       },
       {
         "type": "array",
         "items": {
           "oneOf": [
             {
-              "type": "boolean",
-              "nullable": true
+              "type": "boolean"
+            },
+            {
+              "type": "null"
             },
             {
               "type": "array",
@@ -43,14 +46,12 @@
                 ]
               },
               "minItems": 2,
-              "maxItems": 2,
-              "nullable": true
+              "maxItems": 2
             }
           ]
         },
         "minItems": 3,
-        "maxItems": 3,
-        "nullable": true
+        "maxItems": 3
       },
       {
         "type": "array",
@@ -77,6 +78,9 @@
                         "type": "array",
                         "items": {
                           "oneOf": [
+                            {
+                              "type": "number"
+                            },
                             {
                               "type": "number"
                             },
@@ -110,8 +114,7 @@
           ]
         },
         "minItems": 2,
-        "maxItems": 2,
-        "nullable": true
+        "maxItems": 2
       }
     ]
   },

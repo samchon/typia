@@ -10,7 +10,6 @@
       "default": 20
     }
   },
-  "nullable": false,
   "required": [
     "id",
     "age"
