@@ -1,4 +1,4 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
@@ -11,43 +11,100 @@ import { LlmSchemaProgrammer } from "../../../programmers/llm/LlmSchemaProgramme
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
-import { IProject } from "../../IProject";
+import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace LlmSchemaTransformer {
-  export const transform =
-    (project: IProject) =>
-    (expression: ts.CallExpression): ts.Expression => {
-      // GET GENERIC ARGUMENT
-      if (!expression.typeArguments?.length)
-        throw new TransformerError({
-          code: "typia.llm.schema",
-          message: "no generic argument.",
-        });
-
-      const top: ts.Node = expression.typeArguments[0]!;
-      if (ts.isTypeNode(top) === false) return expression;
-
-      // GET TYPE
-      const type: ts.Type = project.checker.getTypeFromTypeNode(top);
-      const collection: MetadataCollection = new MetadataCollection({
-        replace: MetadataCollection.replace,
+  export const transform = (
+    props: Omit<ITransformProps, "modulo">,
+  ): ts.Expression => {
+    // GET GENERIC ARGUMENT
+    if (!props.expression.typeArguments?.length)
+      throw new TransformerError({
+        code: "typia.llm.schema",
+        message: "no generic argument.",
       });
-      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-        MetadataFactory.analyze(
-          project.checker,
-          project.context,
-        )({
+
+    const top: ts.Node = props.expression.typeArguments[0]!;
+    if (ts.isTypeNode(top) === false) return props.expression;
+
+    // GET MODEL
+    const model: ILlmApplication.Model = get_parameter<ILlmApplication.Model>({
+      checker: props.context.checker,
+      name: "Model",
+      is: (value) =>
+        value === "3.1" ||
+        value === "3.0" ||
+        value === "chatgpt" ||
+        value === "gemini",
+      cast: (value) => value as ILlmApplication.Model,
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
+
+    // GET TYPE
+    const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
+    const collection: MetadataCollection = new MetadataCollection({
+      replace: MetadataCollection.replace,
+    });
+    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+      MetadataFactory.analyze({
+        checker: props.context.checker,
+        transformer: props.context.transformer,
+        options: {
           escape: true,
           constant: true,
           absorb: false,
-          validate: LlmSchemaProgrammer.validate,
-        })(collection)(type);
-      if (result.success === false)
-        throw TransformerError.from("typia.llm.schema")(result.errors);
+          validate: LlmSchemaProgrammer.validate(model),
+        },
+        collection,
+        type,
+      });
+    if (result.success === false)
+      throw TransformerError.from({
+        code: "typia.llm.schema",
+        errors: result.errors,
+      });
 
-      // GENERATE LLM SCHEMA
-      const schema: ILlmSchema = LlmSchemaProgrammer.write(result.data);
-      return LiteralFactory.generate(schema);
+    // GENERATE LLM SCHEMA
+    const schema: ILlmApplication.ModelSchema[ILlmApplication.Model] =
+      LlmSchemaProgrammer.write({
+        model,
+        metadata: result.data,
+      });
+    return LiteralFactory.write(schema);
+  };
+
+  const get_parameter =
+    <Value>(props: {
+      checker: ts.TypeChecker;
+      name: string;
+      is: (value: string) => boolean;
+      cast: (value: string) => Value;
+      default: () => Value;
+    }) =>
+    (node: ts.TypeNode | undefined): Value => {
+      if (!node) return props.default();
+
+      // CHECK LITERAL TYPE
+      const type: ts.Type = props.checker.getTypeFromTypeNode(node);
+      if (
+        !type.isLiteral() &&
+        (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
+      )
+        throw new TransformerError({
+          code: "typia.llm.schema",
+          message: `generic argument "${props.name}" must be constant.`,
+        });
+
+      // GET VALUE AND VALIDATE IT
+      const value = type.isLiteral()
+        ? type.value
+        : props.checker.typeToString(type);
+      if (typeof value !== "string" || props.is(value) === false)
+        throw new TransformerError({
+          code: "typia.llm.schema",
+          message: `invalid value on generic argument "${props.name}".`,
+        });
+      return props.cast(value);
     };
 }

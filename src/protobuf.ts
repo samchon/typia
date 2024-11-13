@@ -1,5 +1,3 @@
-import * as Namespace from "./functional/Namespace";
-
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
@@ -95,7 +93,7 @@ export function message(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function decode(input: Uint8Array): never;
+export function decode(input: Uint8Array): never;
 
 /**
  * Protocol Buffer Decoder.
@@ -125,19 +123,14 @@ function decode(input: Uint8Array): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function decode<T>(input: Uint8Array): Resolved<T>;
+export function decode<T>(input: Uint8Array): Resolved<T>;
 
 /**
  * @internal
  */
-function decode(): never {
+export function decode(): never {
   halt("decode");
 }
-const decodePure = /** @__PURE__ */ Object.assign<typeof decode, {}>(
-  decode,
-  /** @__PURE__ */ Namespace.protobuf.decode("decode"),
-);
-export { decodePure as decode };
 
 /**
  * > You must configure the generic argument `T`.
@@ -169,7 +162,7 @@ export { decodePure as decode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertDecode(
+export function assertDecode(
   input: Uint8Array,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
@@ -202,7 +195,7 @@ function assertDecode(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertDecode<T>(
+export function assertDecode<T>(
   input: Uint8Array,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
@@ -210,21 +203,10 @@ function assertDecode<T>(
 /**
  * @internal
  */
-function assertDecode(): never {
+export function assertDecode(): never {
   halt("assertDecode");
 }
 
-const assertDecodePure = /** @__PURE__ */ Object.assign<
-  typeof assertDecode,
-  {},
-  {}
->(
-  assertDecode,
-  /** @__PURE__ */ Namespace.assert("protobuf.assertDecode"),
-  /** @__PURE__ */ Namespace.protobuf.decode("assertDecode"),
-);
-export { assertDecodePure as assertDecode };
-
 /**
  * > You must configure the generic argument `T`.
  *
@@ -254,7 +236,7 @@ export { assertDecodePure as assertDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isDecode(input: Uint8Array): never;
+export function isDecode(input: Uint8Array): never;
 
 /**
  * Protocol Buffer Decoder wity type checking, but not safe.
@@ -283,20 +265,14 @@ function isDecode(input: Uint8Array): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isDecode<T>(input: Uint8Array): Resolved<T> | null;
+export function isDecode<T>(input: Uint8Array): Resolved<T> | null;
 
 /**
  * @internal
  */
-function isDecode(): never {
+export function isDecode(): never {
   halt("isDecode");
 }
-const isDecodePure = /** @__PURE__ */ Object.assign<typeof isDecode, {}, {}>(
-  isDecode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.decode("isDecode"),
-);
-export { isDecodePure as isDecode };
 
 /**
  * > You must configure the generic argument `T`.
@@ -328,7 +304,7 @@ export { isDecodePure as isDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateDecode(input: Uint8Array): never;
+export function validateDecode(input: Uint8Array): never;
 
 /**
  * Protocol Buffer Decoder wity type validation, but not safe.
@@ -358,24 +334,14 @@ function validateDecode(input: Uint8Array): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
+export function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-function validateDecode(): never {
+export function validateDecode(): never {
   halt("validateDecode");
 }
-const validateDecodePure = /** @__PURE__ */ Object.assign<
-  typeof validateDecode,
-  {},
-  {}
->(
-  validateDecode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.decode("validateDecode"),
-);
-export { validateDecodePure as validateDecode };
 
 /* -----------------------------------------------------------
     ENCODE
@@ -407,19 +373,14 @@ export { validateDecodePure as validateDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function encode<T>(input: T): Uint8Array;
+export function encode<T>(input: T): Uint8Array;
 
 /**
  * @internal
  */
-function encode(): never {
+export function encode(): never {
   halt("encode");
 }
-const encodePure = /** @__PURE__ */ Object.assign<typeof encode, {}>(
-  encode,
-  /** @__PURE__ */ Namespace.protobuf.encode("encode"),
-);
-export { encodePure as encode };
 
 /**
  * Protocol Buffer Encoder with type assertion.
@@ -453,7 +414,7 @@ export { encodePure as encode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEncode<T>(
+export function assertEncode<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
@@ -490,7 +451,7 @@ function assertEncode<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEncode<T>(
+export function assertEncode<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
@@ -498,19 +459,9 @@ function assertEncode<T>(
 /**
  * @internal
  */
-function assertEncode(): never {
+export function assertEncode(): never {
   halt("assertEncode");
 }
-const assertEncodePure = /** @__PURE__ */ Object.assign<
-  typeof assertEncode,
-  {},
-  {}
->(
-  assertEncode,
-  /** @__PURE__ */ Namespace.assert("protobuf.assertEncode"),
-  /** @__PURE__ */ Namespace.protobuf.encode("assertEncode"),
-);
-export { assertEncodePure as assertEncode };
 
 /**
  * Protocol Buffer Encoder with type checking.
@@ -543,7 +494,7 @@ export { assertEncodePure as assertEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isEncode<T>(input: T): Uint8Array | null;
+export function isEncode<T>(input: T): Uint8Array | null;
 
 /**
  * Protocol Buffer Encoder with type checking.
@@ -576,20 +527,14 @@ function isEncode<T>(input: T): Uint8Array | null;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isEncode<T>(input: unknown): Uint8Array | null;
+export function isEncode<T>(input: unknown): Uint8Array | null;
 
 /**
  * @internal
  */
-function isEncode(): never {
+export function isEncode(): never {
   halt("isEncode");
 }
-const isEncodePure = /** @__PURE__ */ Object.assign<typeof isEncode, {}, {}>(
-  isEncode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.encode("isEncode"),
-);
-export { isEncodePure as isEncode };
 
 /**
  * Protocol Buffer Encoder with type validation.
@@ -623,7 +568,7 @@ export { isEncodePure as isEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEncode<T>(input: T): IValidation<Uint8Array>;
+export function validateEncode<T>(input: T): IValidation<Uint8Array>;
 
 /**
  * Protocol Buffer Encoder with type validation.
@@ -657,24 +602,14 @@ function validateEncode<T>(input: T): IValidation<Uint8Array>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
+export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
 
 /**
  * @internal
  */
-function validateEncode(): never {
+export function validateEncode(): never {
   halt("validateEncode");
 }
-const validateEncodePure = /** @__PURE__ */ Object.assign<
-  typeof validateEncode,
-  {},
-  {}
->(
-  validateEncode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.encode("validateEncode"),
-);
-export { validateEncodePure as validateEncode };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -688,7 +623,7 @@ export { validateEncodePure as validateEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createDecode(): never;
+export function createDecode(): never;
 
 /**
  * Creates a reusable {@link decode} function.
@@ -698,19 +633,14 @@ function createDecode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
+export function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
 
 /**
  * @internal
  */
-function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
+export function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
   halt("createDecode");
 }
-const createDecodePure = /** @__PURE__ */ Object.assign<
-  typeof createDecode,
-  {}
->(createDecode, /** @__PURE__ */ Namespace.protobuf.decode("createDecode"));
-export { createDecodePure as createDecode };
 
 /**
  * Creates a reusable {@link isDecode} function.
@@ -721,7 +651,7 @@ export { createDecodePure as createDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsDecode(): never;
+export function createIsDecode(): never;
 
 /**
  * Creates a reusable {@link isDecode} function.
@@ -731,24 +661,14 @@ function createIsDecode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
+export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
 
 /**
  * @internal
  */
-function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
+export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
   halt("createIsDecode");
 }
-const createIsDecodePure = /** @__PURE__ */ Object.assign<
-  typeof createIsDecode,
-  {},
-  {}
->(
-  createIsDecode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.decode("createIsDecode"),
-);
-export { createIsDecodePure as createIsDecode };
 
 /**
  * Creates a reusable {@link assertDecode} function.
@@ -760,7 +680,7 @@ export { createIsDecodePure as createIsDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertDecode(
+export function createAssertDecode(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -773,26 +693,16 @@ function createAssertDecode(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertDecode<T>(
+export function createAssertDecode<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: Uint8Array) => Resolved<T>;
 
 /**
  * @internal
  */
-function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
+export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
   halt("createAssertDecode");
 }
-const createAssertDecodePure = /** @__PURE__ */ Object.assign<
-  typeof createAssertDecode,
-  {},
-  {}
->(
-  createAssertDecode,
-  /** @__PURE__ */ Namespace.assert("protobuf.createAssertDecode"),
-  /** @__PURE__ */ Namespace.protobuf.decode("createAssertDecode"),
-);
-export { createAssertDecodePure as createAssertDecode };
 
 /**
  * Creates a reusable {@link validateDecode} function.
@@ -803,7 +713,7 @@ export { createAssertDecodePure as createAssertDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateDecode(): never;
+export function createValidateDecode(): never;
 
 /**
  * Creates a reusable {@link validateDecode} function.
@@ -813,28 +723,18 @@ function createValidateDecode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateDecode<T>(): (
+export function createValidateDecode<T>(): (
   input: Uint8Array,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-function createValidateDecode<T>(): (
+export function createValidateDecode<T>(): (
   input: Uint8Array,
 ) => IValidation<Resolved<T>> {
   halt("createValidateDecode");
 }
-const createValidateDecodePure = /** @__PURE__ */ Object.assign<
-  typeof createValidateDecode,
-  {},
-  {}
->(
-  createValidateDecode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.decode("createValidateDecode"),
-);
-export { createValidateDecodePure as createValidateDecode };
 
 /**
  * Creates a reusable {@link encode} function.
@@ -845,7 +745,7 @@ export { createValidateDecodePure as createValidateDecode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createEncode(): never;
+export function createEncode(): never;
 
 /**
  * Creates a reusable {@link encode} function.
@@ -855,19 +755,14 @@ function createEncode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createEncode<T>(): (input: T) => Uint8Array;
+export function createEncode<T>(): (input: T) => Uint8Array;
 
 /**
  * @internal
  */
-function createEncode<T>(): (input: T) => Uint8Array {
+export function createEncode<T>(): (input: T) => Uint8Array {
   halt("createEncode");
 }
-const createEncodePure = /** @__PURE__ */ Object.assign<
-  typeof createEncode,
-  {}
->(createEncode, /** @__PURE__ */ Namespace.protobuf.encode("createEncode"));
-export { createEncodePure as createEncode };
 
 /**
  * Creates a reusable {@link isEncode} function.
@@ -878,7 +773,7 @@ export { createEncodePure as createEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsEncode(): never;
+export function createIsEncode(): never;
 
 /**
  * Creates a reusable {@link isEncode} function.
@@ -888,24 +783,14 @@ function createIsEncode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsEncode<T>(): (input: T) => Uint8Array | null;
+export function createIsEncode<T>(): (input: T) => Uint8Array | null;
 
 /**
  * @internal
  */
-function createIsEncode<T>(): (input: T) => Uint8Array | null {
+export function createIsEncode<T>(): (input: T) => Uint8Array | null {
   halt("createIsEncode");
 }
-const createIsEncodePure = /** @__PURE__ */ Object.assign<
-  typeof createIsEncode,
-  {},
-  {}
->(
-  createIsEncode,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.protobuf.encode("createIsEncode"),
-);
-export { createIsEncodePure as createIsEncode };
 
 /**
  * Creates a reusable {@link assertEncode} function.
@@ -917,7 +802,7 @@ export { createIsEncodePure as createIsEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEncode(
+export function createAssertEncode(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -930,26 +815,16 @@ function createAssertEncode(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEncode<T>(
+export function createAssertEncode<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => Uint8Array;
 
 /**
  * @internal
  */
-function createAssertEncode<T>(): (input: T) => Uint8Array {
+export function createAssertEncode<T>(): (input: T) => Uint8Array {
   halt("createAssertEncode");
 }
-const createAssertEncodePure = /** @__PURE__ */ Object.assign<
-  typeof createAssertEncode,
-  {},
-  {}
->(
-  createAssertEncode,
-  /** @__PURE__ */ Namespace.assert("protobuf.createAssertEncode"),
-  /** @__PURE__ */ Namespace.protobuf.encode("createAssertEncode"),
-);
-export { createAssertEncodePure as createAssertEncode };
 
 /**
  * Creates a reusable {@link validateEncode} function.
@@ -960,7 +835,7 @@ export { createAssertEncodePure as createAssertEncode };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateEncode(): never;
+export function createValidateEncode(): never;
 
 /**
  * Creates a reusable {@link validateEncode} function.
@@ -970,24 +845,18 @@ function createValidateEncode(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateEncode<T>(): (input: T) => IValidation<Uint8Array>;
+export function createValidateEncode<T>(): (
+  input: T,
+) => IValidation<Uint8Array>;
 
 /**
  * @internal
  */
-function createValidateEncode<T>(): (input: T) => IValidation<Uint8Array> {
+export function createValidateEncode<T>(): (
+  input: T,
+) => IValidation<Uint8Array> {
   halt("createValidateEncode");
 }
-const createValidateEncodePure = /** @__PURE__ */ Object.assign<
-  typeof createValidateEncode,
-  {},
-  {}
->(
-  createValidateEncode,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.protobuf.encode("createValidateEncode"),
-);
-export { createValidateEncodePure as createValidateEncode };
 
 /**
  * @internal

@@ -5,7 +5,7 @@ import typia from "typia";
 import { IServerAssertProgram } from "./IServerAssertProgram";
 
 export const createFastifyPureServerAssertBenchmarkProgram = async <T>(
-  app: typia.IJsonApplication<"3.0">,
+  app: typia.IJsonSchemaCollection<"3.0">,
 ) => {
   // OPEN SERVER
   const server = fastify({

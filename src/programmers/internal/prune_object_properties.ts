@@ -1,19 +1,17 @@
 import ts from "typescript";
 
-import { StatementFactory } from "../../factories/StatementFactory";
-
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
 /**
  * @internal
  */
-export const prune_object_properties = (obj: MetadataObject) => {
+export const prune_object_properties = (object: MetadataObjectType) => {
   const input: ts.Expression = ts.factory.createIdentifier("input");
   const key: ts.Expression = ts.factory.createIdentifier("key");
 
-  const condition: ts.Expression[] = obj.properties.map((prop) => {
+  const condition: ts.Expression[] = object.properties.map((prop) => {
     const name: string | null = prop.key.getSoleLiteral();
     if (name !== null)
       return ts.factory.createStrictEquality(
@@ -22,7 +20,10 @@ export const prune_object_properties = (obj: MetadataObject) => {
       );
     return ts.factory.createCallExpression(
       ts.factory.createIdentifier(
-        `RegExp(/${metadata_to_pattern(true)(prop.key)}/).test`,
+        `RegExp(/${metadata_to_pattern({
+          top: true,
+          metadata: prop.key,
+        })}/).test`,
       ),
       undefined,
       [key],
@@ -47,7 +48,17 @@ export const prune_object_properties = (obj: MetadataObject) => {
 
   return ts.factory.createForOfStatement(
     undefined,
-    StatementFactory.constant("key").declarationList,
+    ts.factory.createVariableDeclarationList(
+      [
+        ts.factory.createVariableDeclaration(
+          ts.factory.createIdentifier("key"),
+          undefined,
+          undefined,
+          undefined,
+        ),
+      ],
+      ts.NodeFlags.Const,
+    ),
     ts.factory.createCallExpression(
       ts.factory.createIdentifier("Object.keys"),
       undefined,

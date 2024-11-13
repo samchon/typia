@@ -5,5 +5,5 @@ import { ObjectSimple } from "../../../../structures/pure/ObjectSimple";
 import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";
 
 createFastifyPureServerPerformanceBenchmarkProgram(
-  typia.json.application<[ICollection<ObjectSimple>], "3.0">(),
+  typia.json.schemas<[ICollection<ObjectSimple>], "3.0">(),
 );

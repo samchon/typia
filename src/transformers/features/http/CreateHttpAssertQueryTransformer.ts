@@ -1,9 +1,13 @@
 import { HttpAssertQueryProgrammer } from "../../../programmers/http/HttpAssertQueryProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateHttpAssertQueryTransformer {
-  export const transform = GenericTransformer.factory("http.createAssertQuery")(
-    (project) => (modulo) => HttpAssertQueryProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.factory({
+      ...props,
+      method: "http.createAssertQuery",
+      write: HttpAssertQueryProgrammer.write,
+    });
 }

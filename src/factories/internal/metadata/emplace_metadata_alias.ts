@@ -1,41 +1,32 @@
-import ts from "typescript";
-
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataAlias } from "../../../schemas/metadata/MetadataAlias";
+import { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
+import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
-export const emplace_metadata_alias =
-  (checker: ts.TypeChecker) =>
-  (options: MetadataFactory.IOptions) =>
-  (collection: MetadataCollection) =>
-  (errors: MetadataFactory.IError[]) =>
-  (
-    type: ts.Type,
-    nullable: boolean,
-    explore: MetadataFactory.IExplore,
-  ): MetadataAlias => {
-    // CHECK EXISTENCE
-    const [alias, newbie, closure] = collection.emplaceAlias(
-      checker,
-      type,
-      type.aliasSymbol!,
-    );
-    ArrayUtil.add(alias.nullables, nullable);
-    if (newbie === false) return alias;
+export const emplace_metadata_alias = (
+  props: IMetadataIteratorProps,
+): MetadataAliasType => {
+  // CHECK EXISTENCE
+  const [alias, newbie, closure] = props.collection.emplaceAlias(
+    props.checker,
+    props.type,
+    props.type.aliasSymbol!,
+  );
+  ArrayUtil.add(alias.nullables, props.metadata.nullable);
+  if (newbie === false) return alias;
 
-    // CONSTRUCT VALUE TYPE
-    const value: Metadata = explore_metadata(checker)(options)(collection)(
-      errors,
-    )(type, {
-      ...explore,
+  // CONSTRUCT VALUE TYPE
+  const value: Metadata = explore_metadata({
+    ...props,
+    explore: {
+      ...props.explore,
       escaped: false,
       aliased: true,
-    });
-    closure(value);
-    return alias;
-  };
+    },
+  });
+  closure(value);
+  return alias;
+};

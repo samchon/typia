@@ -4,56 +4,61 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 
 export namespace JsonIsParseProgrammer {
   export const decompose = (props: {
-    project: IProject;
-    importer: FunctionImporter;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      project: {
-        ...props.project,
+      context: {
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: false,
         },
       },
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     return {
       functions: is.functions,
       statements: [
         ...is.statements,
-        StatementFactory.constant("__is", is.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("string"))],
         ts.factory.createUnionTypeNode([
-          ts.factory.createImportTypeNode(
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("typia"),
-            ),
-            undefined,
-            ts.factory.createIdentifier("Primitive"),
-            [
+          props.context.importer.type({
+            file: "typia",
+            name: "Primitive",
+            arguments: [
               ts.factory.createTypeReferenceNode(
                 props.name ??
-                  TypeFactory.getFullName(props.project.checker)(props.type),
+                  TypeFactory.getFullName({
+                    checker: props.context.checker,
+                    type: props.type,
+                  }),
               ),
             ],
-            false,
-          ),
+          }),
           ts.factory.createTypeReferenceNode("null"),
         ]),
         undefined,
@@ -90,21 +95,20 @@ export namespace JsonIsParseProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const functor: FunctionProgrammer = new FunctionProgrammer(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      context: props.context,
+      functor,
+      type: props.type,
+      name: props.name,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      functor,
+      result,
+    });
+  };
 }

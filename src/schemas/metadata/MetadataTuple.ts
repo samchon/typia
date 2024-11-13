@@ -25,7 +25,7 @@ export class MetadataTuple {
 
   public toJSON(): IMetadataTuple {
     return {
-      type: this.type.toJSON(),
+      name: this.type.name,
       tags: this.tags.map((row) => row.slice()),
     };
   }

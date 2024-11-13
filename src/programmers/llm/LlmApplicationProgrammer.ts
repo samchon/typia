@@ -1,66 +1,94 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { IJsDocTagInfo } from "../../module";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = (
-    meta: Metadata,
-    explore: MetadataFactory.IExplore,
-  ): string[] => {
-    if (explore.top === false) return LlmSchemaProgrammer.validate(meta);
+  export const validate = (model: ILlmApplication.Model) => {
+    let top: Metadata | undefined;
+    return (
+      metadata: Metadata,
+      explore: MetadataFactory.IExplore,
+    ): string[] => {
+      top ??= metadata;
+      if (explore.top === false)
+        if (
+          explore.object === top?.objects[0]?.type &&
+          typeof explore.property === "string" &&
+          metadata.size() === 1 &&
+          metadata.nullable === false &&
+          metadata.isRequired() === true &&
+          metadata.functions.length === 1
+        )
+          return validateFunction(metadata.functions[0]!);
+        else return LlmSchemaProgrammer.validate(model)(metadata);
 
-    const output: string[] = [];
-    const valid: boolean =
-      meta.size() === 1 &&
-      meta.objects.length === 1 &&
-      meta.isRequired() === true &&
-      meta.nullable === false;
-    if (valid === false)
-      output.push(
-        "LLM application's generic arugment must be a class/interface type.",
-      );
+      const output: string[] = [];
+      const valid: boolean =
+        metadata.size() === 1 &&
+        metadata.objects.length === 1 &&
+        metadata.isRequired() === true &&
+        metadata.nullable === false;
+      if (valid === false)
+        output.push(
+          "LLM application's generic arugment must be a class/interface type.",
+        );
 
-    const object: MetadataObject | undefined = meta.objects[0];
-    if (object !== undefined) {
-      if (object.properties.some((p) => p.key.isSoleLiteral() === false))
-        output.push("LLM application does not allow dynamic keys.");
-      let least: boolean = false;
-      for (const p of object.properties) {
-        const value: Metadata = p.value;
-        if (value.functions.length) {
-          least ||= true;
-          if (valid === false) {
-            if (value.functions.length !== 1 || value.size() !== 1)
-              output.push(
-                "LLM application's function type does not allow union type.",
-              );
-            if (value.isRequired() === false)
-              output.push("LLM application's function type must be required.");
-            if (value.nullable === true)
-              output.push(
-                "LLM application's function type must not be nullable.",
-              );
+      const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
+      if (object !== undefined) {
+        if (object.properties.some((p) => p.key.isSoleLiteral() === false))
+          output.push("LLM application does not allow dynamic keys.");
+        let least: boolean = false;
+        for (const p of object.properties) {
+          const value: Metadata = p.value;
+          if (value.functions.length) {
+            least ||= true;
+            if (valid === false) {
+              if (value.functions.length !== 1 || value.size() !== 1)
+                output.push(
+                  "LLM application's function type does not allow union type.",
+                );
+              if (value.isRequired() === false)
+                output.push(
+                  "LLM application's function type must be required.",
+                );
+              if (value.nullable === true)
+                output.push(
+                  "LLM application's function type must not be nullable.",
+                );
+            }
           }
         }
+        if (least === false)
+          output.push(
+            "LLM application's target type must have at least a function type.",
+          );
       }
-      if (least === false)
-        output.push(
-          "LLM application's target type must have at least a function type.",
-        );
-    }
+      return output;
+    };
+  };
+
+  const validateFunction = (func: MetadataFunction): string[] => {
+    const output: string[] = [];
+    if (func.output.size() && func.output.isRequired() === false)
+      output.push(
+        "LLM application's function return type must not be union type with undefined.",
+      );
     return output;
   };
 
-  export const write = (metadata: Metadata): ILlmApplication => {
-    const errors: string[] = validate(metadata, {
+  export const write = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
+    metadata: Metadata;
+  }): ILlmApplication<Model> => {
+    const errors: string[] = validate(props.model)(props.metadata, {
       top: true,
       object: null,
       property: null,
@@ -73,8 +101,9 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const object: MetadataObject = metadata.objects[0]!;
+    const object: MetadataObjectType = props.metadata.objects[0]!.type;
     return {
+      model: props.model,
       functions: object.properties
         .filter(
           (p) =>
@@ -87,6 +116,7 @@ export namespace LlmApplicationProgrammer {
         )
         .map((p) =>
           writeFunction({
+            model: props.model,
             name: p.key.getSoleLiteral()!,
             function: p.value.functions[0]!,
             description: p.description,
@@ -95,16 +125,18 @@ export namespace LlmApplicationProgrammer {
         ),
       options: {
         separate: null,
+        recursive: props.model === "chatgpt" ? undefined : (3 as any),
       },
     };
   };
 
-  const writeFunction = (props: {
+  const writeFunction = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
     name: string;
     function: MetadataFunction;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): ILlmFunction => {
+  }): ILlmFunction<ILlmApplication.ModelSchema[Model]> => {
     const deprecated: boolean = props.jsDocTags.some(
       (tag) => tag.name === "deprecated",
     );
@@ -124,11 +156,12 @@ export namespace LlmApplicationProgrammer {
         const jsDocTagDescription: string | null = writeDescriptionFromJsDocTag(
           {
             jsDocTags: p.jsDocTags,
-            tag: "param",
+            name: "param",
             parameter: p.name,
           },
         );
         return writeSchema({
+          model: props.model,
           metadata: p.type,
           description: jsDocTagDescription ?? p.description,
           jsDocTags: jsDocTagDescription ? [] : p.jsDocTags,
@@ -137,15 +170,16 @@ export namespace LlmApplicationProgrammer {
       output:
         props.function.output.size() || props.function.output.nullable
           ? writeSchema({
+              model: props.model,
               metadata: props.function.output,
               description:
                 writeDescriptionFromJsDocTag({
                   jsDocTags: props.jsDocTags,
-                  tag: "return",
+                  name: "return",
                 }) ??
                 writeDescriptionFromJsDocTag({
                   jsDocTags: props.jsDocTags,
-                  tag: "returns",
+                  name: "returns",
                 }),
               jsDocTags: [],
             })
@@ -156,17 +190,22 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeSchema = (props: {
+  const writeSchema = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
     metadata: Metadata;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): ILlmSchema => {
-    const schema: ILlmSchema = LlmSchemaProgrammer.write(props.metadata);
-    const explicit: Pick<ILlmSchema, "title" | "description"> =
-      writeDescription({
-        description: props.description,
-        jsDocTags: props.jsDocTags,
-      });
+  }): ILlmApplication.ModelSchema[Model] => {
+    const schema: ILlmApplication.ModelSchema[Model] =
+      LlmSchemaProgrammer.write(props);
+    const explicit: Pick<
+      ILlmApplication.ModelSchema[Model],
+      "title" | "description"
+    > = writeDescription({
+      model: props.model,
+      description: props.description,
+      jsDocTags: props.jsDocTags,
+    });
     return {
       ...schema,
       ...(!!explicit.title?.length || !!explicit.description?.length
@@ -175,10 +214,11 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeDescription = (props: {
+  const writeDescription = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
-  }): Pick<ILlmSchema, "title" | "description"> => {
+  }): Pick<ILlmApplication.ModelSchema[Model], "title" | "description"> => {
     const title: string | undefined = (() => {
       const [explicit] = getJsDocTexts({
         jsDocTags: props.jsDocTags,
@@ -201,7 +241,7 @@ export namespace LlmApplicationProgrammer {
 
   const writeDescriptionFromJsDocTag = (props: {
     jsDocTags: IJsDocTagInfo[];
-    tag: string;
+    name: string;
     parameter?: string;
   }): string | null => {
     const parametric: (elem: IJsDocTagInfo) => boolean = props.parameter
@@ -212,7 +252,7 @@ export namespace LlmApplicationProgrammer {
           ) !== undefined
       : () => true;
     const tag: IJsDocTagInfo | undefined = props.jsDocTags.find(
-      (tag) => tag.name === props.tag && tag.text && parametric(tag),
+      (tag) => tag.name === props.name && tag.text && parametric(tag),
     );
     return tag && tag.text
       ? (tag.text.find((elem) => elem.kind === "text")?.text ?? null)

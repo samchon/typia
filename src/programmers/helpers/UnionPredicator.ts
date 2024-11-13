@@ -1,5 +1,5 @@
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
@@ -8,23 +8,25 @@ import { MapUtil } from "../../utils/MapUtil";
 export namespace UnionPredicator {
   export interface ISpecialized {
     index: number;
-    object: MetadataObject;
+    object: MetadataObjectType;
     property: MetadataProperty;
     neighbour: boolean;
   }
 
-  export const object = (targets: MetadataObject[]): Array<ISpecialized> => {
+  export const object = (
+    objects: MetadataObjectType[],
+  ): Array<ISpecialized> => {
     // PROPERTY MATRIX
     const matrix: Map<string, Array<MetadataProperty | null>> = new Map();
-    for (const obj of targets)
+    for (const obj of objects)
       for (const prop of obj.properties) {
         const key: string | null = prop.key.getSoleLiteral();
         if (key !== null)
-          MapUtil.take(matrix)(key, () =>
-            ArrayUtil.repeat(targets.length, () => null),
+          MapUtil.take(matrix, key, () =>
+            ArrayUtil.repeat(objects.length, () => null),
           );
       }
-    targets.forEach((obj, i) => {
+    objects.forEach((obj, i) => {
       for (const prop of obj.properties) {
         const key: string | null = prop.key.getSoleLiteral();
         if (key !== null) matrix.get(key)![i] = prop;
@@ -33,7 +35,7 @@ export namespace UnionPredicator {
 
     // EXPLORE SPECIALIZERS
     const output: ISpecialized[] = [];
-    targets.forEach((obj, i) => {
+    objects.forEach((obj, i) => {
       const children: ISpecializedProperty[] = [];
       obj.properties.forEach((prop) => {
         // MUST BE REQUIRED

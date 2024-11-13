@@ -42,7 +42,7 @@ export class MetadataArray {
 
   public toJSON(): IMetadataArray {
     return {
-      type: this.type.toJSON(),
+      name: this.type.name,
       tags: this.tags.map((row) => row.slice()),
     };
   }
