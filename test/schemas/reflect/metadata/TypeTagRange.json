@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagRange"
+        {
+          "name": "TypeTagRange",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater"
+                      "value": "greater",
+                      "tags": []
                     }
                   ]
                 }
@@ -192,7 +197,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal"
+                      "value": "greater_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -276,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "less"
+                      "value": "less",
+                      "tags": []
                     }
                   ]
                 }
@@ -361,7 +368,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "less_equal"
+                      "value": "less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -445,7 +453,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_less"
+                      "value": "greater_less",
+                      "tags": []
                     }
                   ]
                 }
@@ -545,7 +554,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal_less"
+                      "value": "greater_equal_less",
+                      "tags": []
                     }
                   ]
                 }
@@ -644,7 +654,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_less_equal"
+                      "value": "greater_less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -743,7 +754,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal_less_equal"
+                      "value": "greater_equal_less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -841,7 +853,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "equal"
+                      "value": "equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -953,7 +966,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagRange.Type"
+            {
+              "name": "TypeTagRange.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

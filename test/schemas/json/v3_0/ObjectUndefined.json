@@ -32,7 +32,6 @@
           },
           "unknown": {}
         },
-        "nullable": false,
         "required": [
           "name",
           "unknown"
@@ -48,7 +47,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name"

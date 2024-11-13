@@ -8,7 +8,6 @@ export interface ObjectHttpTypeTag {
   int32: number & tags.Type<"int32">;
   uint64: bigint & tags.Type<"uint64">;
   uuid: string & tags.Format<"uuid">;
-
   range: Array<number & tags.Minimum<3> & tags.Maximum<7>> &
     tags.MinItems<10> &
     tags.MaxItems<100>;

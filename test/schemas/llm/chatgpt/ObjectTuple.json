@@ -1,0 +1,57 @@
+{
+  "$ref": "#/$defs/ObjectTuple",
+  "$defs": {
+    "ObjectTuple": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/ObjectTuple.ISection"
+        },
+        {
+          "$ref": "#/$defs/ObjectTuple.ICitizen"
+        }
+      ],
+      "additionalItems": false
+    },
+    "ObjectTuple.ISection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectTuple.ICitizen": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "mobile",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

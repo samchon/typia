@@ -4,7 +4,7 @@ import typia from "typia";
 import { createStringifyBenchmarkProgram } from "../createStringifyBenchmarkProgram";
 
 export const createStringifyFastBenchmarkProgram = (
-  app: typia.IJsonApplication<"3.0">,
+  app: typia.IJsonSchemaCollection<"3.0">,
 ) => {
   const stringify = (() => {
     try {

@@ -1,61 +1,46 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataAlias } from "./IMetadataAlias";
-import { Metadata } from "./Metadata";
+import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { MetadataAliasType } from "./MetadataAliasType";
 
 export class MetadataAlias {
-  public readonly name: string;
-  public readonly value: Metadata;
-  public readonly description: string | null;
-  public readonly jsDocTags: IJsDocTagInfo[];
-  public readonly recursive: boolean;
-  public readonly nullables: boolean[];
+  public readonly type: MetadataAliasType;
+  public readonly tags: IMetadataTypeTag[][];
+  private name_?: string;
 
-  /* -----------------------------------------------------------
-        CONSTRUCTORS
-    ----------------------------------------------------------- */
-  /**
-   * @hidden
-   */
   private constructor(props: ClassProperties<MetadataAlias>) {
-    this.name = props.name;
-    this.value = props.value;
-    this.description = props.description;
-    this.jsDocTags = props.jsDocTags;
-    this.recursive = props.recursive;
-    this.nullables = props.nullables;
+    this.type = props.type;
+    this.tags = props.tags;
+    this.type = props.type;
   }
 
-  /**
-   * @internal
-   */
   public static create(props: ClassProperties<MetadataAlias>): MetadataAlias {
     return new MetadataAlias(props);
   }
 
-  /**
-   * @internal
-   */
-  public static _From_without_value(props: Omit<IMetadataAlias, "value">) {
-    return MetadataAlias.create({
-      name: props.name,
-      value: null!,
-      description: props.description,
-      recursive: props.recursive,
-      jsDocTags: props.jsDocTags.slice(),
-      nullables: props.nullables.slice(),
-    });
+  public getName(): string {
+    return (this.name_ ??= (() => {
+      if (this.tags.length === 0) return this.type.name;
+      else if (this.tags.length === 1) {
+        const str: string = [
+          this.type.name,
+          ...this.tags[0]!.map((t) => t.name),
+        ].join(" & ");
+        return `(${str})`;
+      }
+      const rows: string[] = this.tags.map((row) => {
+        const str: string = row.map((t) => t.name).join(" & ");
+        return row.length === 1 ? str : `(${str})`;
+      });
+      return `(${this.type.name} & (${rows.join(" | ")}))`;
+    })());
   }
 
   public toJSON(): IMetadataAlias {
     return {
-      name: this.name,
-      value: this.value.toJSON(),
-      description: this.description,
-      recursive: this.recursive,
-      jsDocTags: this.jsDocTags.slice(),
-      nullables: this.nullables.slice(),
+      name: this.type.name,
+      tags: this.tags,
     };
   }
 }

@@ -7,7 +7,7 @@ import { Metadata } from "./Metadata";
 
 export class MetadataTemplate {
   public readonly row: Metadata[];
-  public tags: IMetadataTypeTag[][] | undefined;
+  public readonly tags: IMetadataTypeTag[][];
 
   private name_?: string;
 

@@ -8,7 +8,6 @@
           "value": {
             "type": "object",
             "properties": {},
-            "nullable": false,
             "additionalProperties": {
               "type": "array",
               "items": {
@@ -17,7 +16,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

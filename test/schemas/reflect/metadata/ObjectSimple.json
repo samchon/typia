@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectSimple.IBox3D"
+        {
+          "name": "ObjectSimple.IBox3D",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "scale"
+                      "value": "scale",
+                      "tags": []
                     }
                   ]
                 }
@@ -70,7 +74,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -93,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "position"
+                      "value": "position",
+                      "tags": []
                     }
                   ]
                 }
@@ -123,7 +131,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -146,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "rotate"
+                      "value": "rotate",
+                      "tags": []
                     }
                   ]
                 }
@@ -176,7 +188,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -199,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "pivot"
+                      "value": "pivot",
+                      "tags": []
                     }
                   ]
                 }
@@ -229,7 +245,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectSimple.IPoint3D"
+                {
+                  "name": "ObjectSimple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -263,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -319,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -375,7 +396,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "z"
+                      "value": "z",
+                      "tags": []
                     }
                   ]
                 }

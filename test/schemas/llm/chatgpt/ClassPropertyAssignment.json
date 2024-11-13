@@ -1,0 +1,33 @@
+{
+  "$ref": "#/$defs/ClassPropertyAssignment",
+  "$defs": {
+    "ClassPropertyAssignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "const": "assignment"
+        },
+        "editable": {
+          "const": false
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

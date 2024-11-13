@@ -1,0 +1,48 @@
+{
+  "$ref": "#/$defs/CommentTagObjectUnion",
+  "$defs": {
+    "CommentTagObjectUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagObjectUnion.Type"
+      }
+    },
+    "CommentTagObjectUnion.Type": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CommentTagObjectUnion.Numeric"
+        },
+        {
+          "$ref": "#/$defs/CommentTagObjectUnion.Literal"
+        }
+      ]
+    },
+    "CommentTagObjectUnion.Numeric": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 3
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "CommentTagObjectUnion.Literal": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 7
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

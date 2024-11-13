@@ -1,11 +1,18 @@
 import { NotationGeneralProgrammer } from "../../../programmers/notations/NotationGeneralProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace NotationGeneralTransformer {
-  export const transform = (rename: (str: string) => string) =>
-    GenericTransformer.scalar(`notations.${rename.name}`)(
-      (project) => (modulo) =>
-        NotationGeneralProgrammer.write(rename)(project)(modulo),
-    );
+  export const transform =
+    (rename: (str: string) => string) => (props: ITransformProps) =>
+      GenericTransformer.scalar({
+        ...props,
+        method: `notations.${rename.name}`,
+        write: (x) =>
+          NotationGeneralProgrammer.write({
+            ...x,
+            rename,
+          }),
+      });
 }

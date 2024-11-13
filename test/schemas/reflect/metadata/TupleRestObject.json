@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -174,7 +175,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "TupleRestObject.IObject"
+                {
+                  "name": "TupleRestObject.IObject",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

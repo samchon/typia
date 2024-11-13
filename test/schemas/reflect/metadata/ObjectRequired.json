@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "Required<ObjectRequired.IBase>"
+        {
+          "name": "Required<ObjectRequired.IBase>",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -152,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -208,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "array"
+                      "value": "array",
+                      "tags": []
                     }
                   ]
                 }
@@ -264,7 +271,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "object"
+                      "value": "object",
+                      "tags": []
                     }
                   ]
                 }
@@ -294,7 +302,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectRequired.IBase"
+                {
+                  "name": "ObjectRequired.IBase",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -329,7 +340,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -385,7 +397,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -441,7 +454,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -497,7 +511,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "array"
+                      "value": "array",
+                      "tags": []
                     }
                   ]
                 }
@@ -553,7 +568,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "object"
+                      "value": "object",
+                      "tags": []
                     }
                   ]
                 }
@@ -583,7 +599,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectRequired.IBase"
+                {
+                  "name": "ObjectRequired.IBase",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

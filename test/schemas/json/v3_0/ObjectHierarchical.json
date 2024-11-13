@@ -2,6 +2,89 @@
   "version": "3.0",
   "components": {
     "schemas": {
+      "ObjectHierarchical.IMember.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount"
+          },
+          "enterprise": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IEnterprise.Nullable"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          },
+          "authorized": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "account",
+          "enterprise",
+          "emails",
+          "created_at",
+          "authorized"
+        ],
+        "nullable": true
+      },
+      "ObjectHierarchical.IEnterprise.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount"
+          },
+          "name": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "account",
+          "name",
+          "grade",
+          "created_at"
+        ],
+        "nullable": true
+      },
+      "ObjectHierarchical.IAccount.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "created_at"
+        ],
+        "nullable": true
+      },
       "ObjectHierarchical.ICustomer": {
         "type": "object",
         "properties": {
@@ -26,7 +109,20 @@
           "ip": {
             "type": "array",
             "items": {
-              "type": "number"
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
             },
             "minItems": 4,
             "maxItems": 4
@@ -35,7 +131,6 @@
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "channel",
@@ -72,7 +167,6 @@
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
@@ -93,13 +187,12 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "time",
           "zone"
         ]
       },
-      "ObjectHierarchical.IMember.Nullable": {
+      "ObjectHierarchical.IMember": {
         "type": "object",
         "properties": {
           "id": {
@@ -124,7 +217,6 @@
             "type": "boolean"
           }
         },
-        "nullable": true,
         "required": [
           "id",
           "account",
@@ -147,14 +239,13 @@
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
           "created_at"
         ]
       },
-      "ObjectHierarchical.IEnterprise.Nullable": {
+      "ObjectHierarchical.IEnterprise": {
         "type": "object",
         "properties": {
           "id": {
@@ -173,32 +264,11 @@
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
           }
         },
-        "nullable": true,
         "required": [
           "id",
           "account",
           "name",
           "grade",
-          "created_at"
-        ]
-      },
-      "ObjectHierarchical.IAccount.Nullable": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "code": {
-            "type": "string"
-          },
-          "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
-          }
-        },
-        "nullable": true,
-        "required": [
-          "id",
-          "code",
           "created_at"
         ]
       }

@@ -15,7 +15,6 @@
             "$ref": "#/components/schemas/RecordstringDynamicTree"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "sequence",
@@ -25,7 +24,6 @@
       "RecordstringDynamicTree": {
         "type": "object",
         "properties": {},
-        "nullable": false,
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree"

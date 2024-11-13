@@ -7,9 +7,17 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
 /**
  * @internal
  */
-export const template_to_pattern = (top: boolean) => (template: Metadata[]) => {
-  const pattern: string = template
-    .map((meta) => metadata_to_pattern(false)(meta))
+export const template_to_pattern = (props: {
+  top: boolean;
+  template: Metadata[];
+}) => {
+  const pattern: string = props.template
+    .map((meta) =>
+      metadata_to_pattern({
+        top: false,
+        metadata: meta,
+      }),
+    )
     .join("");
-  return top ? PatternUtil.fix(pattern) : pattern;
+  return props.top ? PatternUtil.fix(pattern) : pattern;
 };

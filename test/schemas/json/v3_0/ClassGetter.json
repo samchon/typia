@@ -16,7 +16,6 @@
             "nullable": true
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",

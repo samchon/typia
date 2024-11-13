@@ -18,7 +18,6 @@
             "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
           }
         },
-        "nullable": false,
         "required": [
           "scale",
           "position",
@@ -39,7 +38,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y",

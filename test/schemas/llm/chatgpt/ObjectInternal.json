@@ -1,0 +1,21 @@
+{
+  "$ref": "#/$defs/ObjectInternal",
+  "$defs": {
+    "ObjectInternal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

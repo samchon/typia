@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectNullable"
+        {
+          "name": "ObjectNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -163,7 +168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "manufacturer"
+                      "value": "manufacturer",
+                      "tags": []
                     }
                   ]
                 }
@@ -193,7 +199,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectNullable.IManufacturer"
+                {
+                  "name": "ObjectNullable.IManufacturer",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -216,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "brand"
+                      "value": "brand",
+                      "tags": []
                     }
                   ]
                 }
@@ -246,7 +256,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectNullable.IBrand"
+                {
+                  "name": "ObjectNullable.IBrand",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -269,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "similar"
+                      "value": "similar",
+                      "tags": []
                     }
                   ]
                 }
@@ -299,8 +313,14 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectNullable.IBrand",
-                "ObjectNullable.IManufacturer"
+                {
+                  "name": "ObjectNullable.IBrand",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectNullable.IManufacturer",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -334,7 +354,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -395,7 +416,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -463,7 +485,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -524,7 +547,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -594,7 +618,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectNullable.IProduct"
+            {
+              "name": "ObjectNullable.IProduct",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

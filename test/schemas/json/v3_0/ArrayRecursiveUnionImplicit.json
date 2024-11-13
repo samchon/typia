@@ -49,7 +49,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -83,7 +82,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "access",
           "id",
@@ -117,7 +115,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -147,7 +144,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -175,7 +171,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -200,7 +195,6 @@
             "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IBucket"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",

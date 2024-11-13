@@ -72,6 +72,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "../typia-6.11.2.tgz"
+    "typia": "../typia-7.0.0-dev.20241112.tgz"
   }
 }

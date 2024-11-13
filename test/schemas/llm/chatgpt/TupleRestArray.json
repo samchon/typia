@@ -1,0 +1,22 @@
+{
+  "$ref": "#/$defs/TupleRestArray",
+  "$defs": {
+    "TupleRestArray": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "additionalItems": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

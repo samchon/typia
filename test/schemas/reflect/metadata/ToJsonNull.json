@@ -24,7 +24,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonNull"
+            {
+              "name": "ToJsonNull",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -79,7 +82,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }

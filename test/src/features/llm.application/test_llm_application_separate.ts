@@ -1,15 +1,23 @@
-import { ILlmApplication, LlmTypeChecker } from "@samchon/openapi";
+import {
+  ILlmApplication,
+  ILlmSchemaV3,
+  LlmTypeCheckerV3,
+} from "@samchon/openapi";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 import typia, { tags } from "typia";
 
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_llm_application_separate = (): void => {
-  const app: ILlmApplication = typia.llm.application<BbsArticleApplication>({
+  const app: ILlmApplication<"3.0"> = typia.llm.application<
+    BbsArticleApplication,
+    "3.0"
+  >({
     separate: (schema) =>
-      LlmTypeChecker.isString(schema) && schema.contentMediaType !== undefined,
+      LlmTypeCheckerV3.isString(schema) &&
+      schema.contentMediaType !== undefined,
   });
-  const func: ILlmFunction = app.functions[0]!;
+  const func: ILlmFunction<ILlmSchemaV3> = app.functions[0]!;
   TestValidator.equals("separated.human")(func.separated?.human)([
     {
       index: 0,

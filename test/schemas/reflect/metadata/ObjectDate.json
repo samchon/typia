@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectDate"
+        {
+          "name": "ObjectDate",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "classDate"
+                      "value": "classDate",
+                      "tags": []
                     }
                   ]
                 }
@@ -82,7 +86,10 @@
                   "objects": [],
                   "aliases": [],
                   "natives": [
-                    "Date"
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
                   ],
                   "sets": [],
                   "maps": []
@@ -137,7 +144,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -210,7 +218,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "datetime"
+                      "value": "datetime",
+                      "tags": []
                     }
                   ]
                 }
@@ -283,7 +292,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -356,7 +366,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "duration"
+                      "value": "duration",
+                      "tags": []
                     }
                   ]
                 }

@@ -13,7 +13,7 @@ export const _test_misc_isClone =
 
     if (resolved_equal_to(name)(data, cloned!) === false) {
       throw new Error(
-        `Bug on typia.isClone(): failed to understand the ${name} type.`,
+        `Bug on typia.misc.isClone(): failed to understand the ${name} type.`,
       );
     }
 
@@ -23,7 +23,7 @@ export const _test_misc_isClone =
 
       if (clone(elem) !== null)
         throw new Error(
-          `Bug on typia.isClone(): failed to detect error on the ${name} type.`,
+          `Bug on typia.misc.isClone(): failed to detect error on the ${name} type.`,
         );
     }
   };

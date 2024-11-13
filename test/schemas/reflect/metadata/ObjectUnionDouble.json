@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -73,7 +74,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "child"
+                      "value": "child",
+                      "tags": []
                     }
                   ]
                 }
@@ -126,8 +131,14 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionDouble.IAB",
-                "ObjectUnionDouble.IAA"
+                {
+                  "name": "ObjectUnionDouble.IAB",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionDouble.IAA",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -161,7 +172,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -228,7 +240,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -258,7 +271,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type.o1"
+                {
+                  "name": "__type.o1",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -292,7 +308,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -359,7 +376,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -389,7 +407,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type.o2"
+                {
+                  "name": "__type.o2",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -423,7 +444,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -490,7 +512,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -520,7 +543,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type.o3"
+                {
+                  "name": "__type.o3",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -543,7 +569,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "child"
+                      "value": "child",
+                      "tags": []
                     }
                   ]
                 }
@@ -573,8 +600,14 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionDouble.IBB",
-                "ObjectUnionDouble.IBA"
+                {
+                  "name": "ObjectUnionDouble.IBB",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionDouble.IBA",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -608,7 +641,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -675,7 +709,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -705,7 +740,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type.o4"
+                {
+                  "name": "__type.o4",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -739,7 +777,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -806,7 +845,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -836,7 +876,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type.o5"
+                {
+                  "name": "__type.o5",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -870,7 +913,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -940,8 +984,14 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionDouble.IB",
-            "ObjectUnionDouble.IA"
+            {
+              "name": "ObjectUnionDouble.IB",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionDouble.IA",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

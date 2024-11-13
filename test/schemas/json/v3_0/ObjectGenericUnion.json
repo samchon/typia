@@ -9,7 +9,6 @@
             "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]
@@ -23,6 +22,33 @@
             "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
           }
         ]
+      },
+      "ObjectGenericUnion.ISaleAnswer.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hit": {
+            "type": "number"
+          },
+          "contents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "nullable": true
       },
       "ObjectGenericUnion.ISaleQuestion": {
         "type": "object",
@@ -49,7 +75,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "writer",
           "answer",
@@ -59,7 +84,7 @@
           "created_at"
         ]
       },
-      "ObjectGenericUnion.ISaleAnswer.Nullable": {
+      "ObjectGenericUnion.ISaleAnswer": {
         "type": "object",
         "properties": {
           "id": {
@@ -78,7 +103,6 @@
             "type": "string"
           }
         },
-        "nullable": true,
         "required": [
           "id",
           "hit",
@@ -108,7 +132,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "created_at",
@@ -131,7 +154,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "extension",
@@ -163,7 +185,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "writer",
           "answer",
@@ -198,7 +219,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "score",
           "id",

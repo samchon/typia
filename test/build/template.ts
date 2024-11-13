@@ -165,15 +165,17 @@ async function main(): Promise<void> {
   await TestJsonSchemaGenerator.generate(structures);
   await TestProtobufMessageGenerator.generate(structures);
   await TestReflectMetadataGenerator.generate(structures);
-  await TestLlmSchemaGenerator.generate(structures);
 
   // FILL SCHEMA CONTENTS
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   cp.execSync("npm run build", { stdio: "inherit" });
 
   await TestJsonSchemaGenerator.schemas();
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
+
+  // LLM SCHEMAS AGAIN
+  await TestLlmSchemaGenerator.generate(structures);
+  cp.execSync("npm run build", { stdio: "inherit" });
   await TestLlmSchemaGenerator.schemas();
 
   cp.execSync("npm run prettier", { stdio: "inherit" });

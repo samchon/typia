@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -137,7 +138,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -251,8 +253,14 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagObjectUnion.Literal",
-            "CommentTagObjectUnion.Numeric"
+            {
+              "name": "CommentTagObjectUnion.Literal",
+              "tags": []
+            },
+            {
+              "name": "CommentTagObjectUnion.Numeric",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "children"
+                      "value": "children",
+                      "tags": []
                     }
                   ]
                 }
@@ -267,7 +271,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -339,7 +344,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -395,7 +401,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -451,7 +458,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -507,63 +515,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "width"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "height"
+                      "value": "width",
+                      "tags": []
                     }
                   ]
                 }
@@ -619,63 +572,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "url"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "string",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "size"
+                      "value": "height",
+                      "tags": []
                     }
                   ]
                 }
@@ -731,7 +629,122 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "url",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "string",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "size",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -792,7 +805,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "extension"
+                      "value": "extension",
+                      "tags": []
                     }
                   ]
                 }
@@ -864,7 +878,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -920,7 +935,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -976,7 +992,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -1032,7 +1049,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "size"
+                      "value": "size",
+                      "tags": []
                     }
                   ]
                 }
@@ -1088,7 +1106,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "content"
+                      "value": "content",
+                      "tags": []
                     }
                   ]
                 }
@@ -1144,7 +1163,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1205,7 +1225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "extension"
+                      "value": "extension",
+                      "tags": []
                     }
                   ]
                 }
@@ -1277,7 +1298,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1333,7 +1355,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1389,7 +1412,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -1445,63 +1469,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "size"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "count"
+                      "value": "size",
+                      "tags": []
                     }
                   ]
                 }
@@ -1557,7 +1526,65 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "count",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1618,7 +1645,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "extension"
+                      "value": "extension",
+                      "tags": []
                     }
                   ]
                 }
@@ -1690,7 +1718,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1746,7 +1775,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1802,7 +1832,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -1858,7 +1889,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "target"
+                      "value": "target",
+                      "tags": []
                     }
                   ]
                 }
@@ -1888,11 +1920,26 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRecursiveUnionExplicit.IDirectory",
-                "ArrayRecursiveUnionExplicit.IImageFile",
-                "ArrayRecursiveUnionExplicit.ITextFile",
-                "ArrayRecursiveUnionExplicit.IZipFile",
-                "ArrayRecursiveUnionExplicit.IShortcut"
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IImageFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.ITextFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IZipFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionExplicit.IShortcut",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1915,7 +1962,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1976,7 +2024,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "extension"
+                      "value": "extension",
+                      "tags": []
                     }
                   ]
                 }
@@ -2051,11 +2100,26 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionExplicit.IDirectory",
-            "ArrayRecursiveUnionExplicit.IImageFile",
-            "ArrayRecursiveUnionExplicit.ITextFile",
-            "ArrayRecursiveUnionExplicit.IZipFile",
-            "ArrayRecursiveUnionExplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionExplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -2084,11 +2148,26 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionExplicit.IDirectory",
-            "ArrayRecursiveUnionExplicit.IImageFile",
-            "ArrayRecursiveUnionExplicit.ITextFile",
-            "ArrayRecursiveUnionExplicit.IZipFile",
-            "ArrayRecursiveUnionExplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionExplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionExplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

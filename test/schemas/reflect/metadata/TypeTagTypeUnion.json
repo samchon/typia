@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagTypeUnion"
+        {
+          "name": "TypeTagTypeUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_uint32"
+                      "value": "int32_or_uint32",
+                      "tags": []
                     }
                   ]
                 }
@@ -69,10 +73,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"uint32\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "value": "uint32",
+                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -82,10 +86,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"int32\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "value": "int32",
+                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -123,7 +127,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_int64"
+                      "value": "int32_or_int64",
+                      "tags": []
                     }
                   ]
                 }
@@ -206,7 +211,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_uint64"
+                      "value": "int32_or_uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -289,7 +295,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_float"
+                      "value": "int32_or_float",
+                      "tags": []
                     }
                   ]
                 }
@@ -372,7 +379,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32_or_double"
+                      "value": "int32_or_double",
+                      "tags": []
                     }
                   ]
                 }
@@ -455,7 +463,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64_or_uint64"
+                      "value": "int64_or_uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -538,7 +547,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64_or_float"
+                      "value": "int64_or_float",
+                      "tags": []
                     }
                   ]
                 }
@@ -621,7 +631,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64_or_double"
+                      "value": "int64_or_double",
+                      "tags": []
                     }
                   ]
                 }
@@ -704,7 +715,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float_or_double"
+                      "value": "float_or_double",
+                      "tags": []
                     }
                   ]
                 }
@@ -787,7 +799,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "everything"
+                      "value": "everything",
+                      "tags": []
                     }
                   ]
                 }
@@ -813,19 +826,6 @@
                 {
                   "type": "number",
                   "tags": [
-                    [
-                      {
-                        "target": "number",
-                        "name": "Type<\"int32\">",
-                        "kind": "type",
-                        "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
                     [
                       {
                         "target": "number",
@@ -833,6 +833,19 @@
                         "kind": "type",
                         "value": "uint32",
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"int32\">",
+                        "kind": "type",
+                        "value": "int32",
+                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"

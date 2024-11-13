@@ -10,14 +10,14 @@ import { metadata_to_pattern } from "../internal/metadata_to_pattern";
 import { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace CloneJoiner {
-  export const object = (
-    input: ts.Expression,
-    entries: IExpressionEntry<ts.Expression>[],
-  ): ts.ConciseBody => {
-    if (entries.length === 0) return ts.factory.createIdentifier("{}");
+  export const object = (props: {
+    input: ts.Expression;
+    entries: IExpressionEntry<ts.Expression>[];
+  }): ts.ConciseBody => {
+    if (props.entries.length === 0) return ts.factory.createIdentifier("{}");
 
-    const regular = entries.filter((e) => e.key.isSoleLiteral());
-    const dynamic = entries.filter((e) => !e.key.isSoleLiteral());
+    const regular = props.entries.filter((e) => e.key.isSoleLiteral());
+    const dynamic = props.entries.filter((e) => !e.key.isSoleLiteral());
     const literal = ts.factory.createObjectLiteralExpression(
       regular.map((entry) => {
         const str: string = entry.key.getSoleLiteral()!;
@@ -44,7 +44,8 @@ export namespace CloneJoiner {
                   ts.factory.createStringLiteral(r.key.getSoleLiteral()!),
                 ),
               ),
-            )("some"),
+              "some",
+            ),
             undefined,
             [
               ts.factory.createArrowFunction(
@@ -68,7 +69,10 @@ export namespace CloneJoiner {
         ts.factory.createIfStatement(
           ts.factory.createCallExpression(
             ts.factory.createIdentifier(
-              `RegExp(/${metadata_to_pattern(true)(entry.key)}/).test`,
+              `RegExp(/${metadata_to_pattern({
+                top: true,
+                metadata: entry.key,
+              })}/).test`,
             ),
             undefined,
             [key],
@@ -88,17 +92,23 @@ export namespace CloneJoiner {
     );
 
     return ts.factory.createBlock([
-      StatementFactory.constant(
-        "output",
-        ts.factory.createAsExpression(literal, TypeFactory.keyword("any")),
-      ),
+      StatementFactory.constant({
+        name: "output",
+        value: ts.factory.createAsExpression(
+          literal,
+          TypeFactory.keyword("any"),
+        ),
+      }),
       ts.factory.createForOfStatement(
         undefined,
-        StatementFactory.entry("key")("value"),
+        StatementFactory.entry({
+          key: "key",
+          value: "value",
+        }),
         ts.factory.createCallExpression(
           ts.factory.createIdentifier("Object.entries"),
           undefined,
-          [input],
+          [props.input],
         ),
         ts.factory.createBlock(statements),
       ),
@@ -106,25 +116,28 @@ export namespace CloneJoiner {
     ]);
   };
 
-  export const tuple = (
-    children: ts.Expression[],
-    rest: ts.Expression | null,
-  ): ts.Expression => {
+  export const tuple = (props: {
+    elements: ts.Expression[];
+    rest: ts.Expression | null;
+  }): ts.Expression => {
     return ts.factory.createAsExpression(
       ts.factory.createArrayLiteralExpression(
-        rest === null
-          ? children
-          : [...children, ts.factory.createSpreadElement(rest)],
+        props.rest === null
+          ? props.elements
+          : [...props.elements, ts.factory.createSpreadElement(props.rest)],
         true,
       ),
       TypeFactory.keyword("any"),
     );
   };
 
-  export const array = (input: ts.Expression, arrow: ts.Expression) =>
+  export const array = (props: {
+    input: ts.Expression;
+    arrow: ts.Expression;
+  }) =>
     ts.factory.createCallExpression(
-      ts.factory.createPropertyAccessExpression(input, "map"),
+      ts.factory.createPropertyAccessExpression(props.input, "map"),
       undefined,
-      [arrow],
+      [props.arrow],
     );
 }

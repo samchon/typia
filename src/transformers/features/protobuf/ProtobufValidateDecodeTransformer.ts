@@ -1,10 +1,13 @@
 import { ProtobufValidateDecodeProgrammer } from "../../../programmers/protobuf/ProtobufValidateDecodeProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace ProtobufValidateDecodeTransformer {
-  export const transform = GenericTransformer.scalar("protobuf.validateDecode")(
-    (project) => (modulo) =>
-      ProtobufValidateDecodeProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.scalar({
+      ...props,
+      method: "protobuf.validateDecode",
+      write: ProtobufValidateDecodeProgrammer.write,
+    });
 }

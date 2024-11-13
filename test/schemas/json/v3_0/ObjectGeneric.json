@@ -36,7 +36,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child",
@@ -53,7 +52,6 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "child_value",
           "child_next"
@@ -75,7 +73,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child",
@@ -92,7 +89,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "child_value",
           "child_next"
@@ -114,7 +110,6 @@
             }
           }
         },
-        "nullable": false,
         "required": [
           "value",
           "child",
@@ -131,7 +126,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "child_value",
           "child_next"

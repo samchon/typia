@@ -21,7 +21,6 @@
                 "type": "number"
               }
             },
-            "nullable": false,
             "required": [
               "a",
               "b",
@@ -30,7 +29,6 @@
             ]
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ]

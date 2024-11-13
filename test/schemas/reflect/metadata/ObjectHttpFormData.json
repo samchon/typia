@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpFormData"
+        {
+          "name": "ObjectHttpFormData",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -113,7 +117,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -169,7 +174,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "integers"
+                      "value": "integers",
+                      "tags": []
                     }
                   ]
                 }
@@ -225,7 +231,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "blob"
+                      "value": "blob",
+                      "tags": []
                     }
                   ]
                 }
@@ -257,7 +264,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Blob"
+                {
+                  "name": "Blob",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -278,7 +288,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "blobs"
+                      "value": "blobs",
+                      "tags": []
                     }
                   ]
                 }
@@ -334,7 +345,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "file"
+                      "value": "file",
+                      "tags": []
                     }
                   ]
                 }
@@ -366,7 +378,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "File"
+                {
+                  "name": "File",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -387,7 +402,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "files"
+                      "value": "files",
+                      "tags": []
                     }
                   ]
                 }
@@ -505,7 +521,10 @@
           "objects": [],
           "aliases": [],
           "natives": [
-            "Blob"
+            {
+              "name": "Blob",
+              "tags": []
+            }
           ],
           "sets": [],
           "maps": []
@@ -534,7 +553,10 @@
           "objects": [],
           "aliases": [],
           "natives": [
-            "File"
+            {
+              "name": "File",
+              "tags": []
+            }
           ],
           "sets": [],
           "maps": []

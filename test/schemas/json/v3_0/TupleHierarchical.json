@@ -85,6 +85,9 @@
                                     "type": "number"
                                   },
                                   {
+                                    "type": "number"
+                                  },
+                                  {
                                     "type": "array",
                                     "items": {
                                       "oneOf": [

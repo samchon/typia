@@ -1,0 +1,24 @@
+{
+  "$ref": "#/$defs/DynamicArray",
+  "$defs": {
+    "DynamicArray": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

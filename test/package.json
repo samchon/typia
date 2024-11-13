@@ -12,11 +12,12 @@
   "scripts": {
     "build": "rimraf bin && tsc",
     "build_run": "npm run build",
-    "generate": "rimraf generated && rimraf bin-generated && typia generate --input src --output generated --project tsconfig.generated.json && rimraf generated/features/functional* && rimraf generated/features/issues && node --max-old-space-size=8000 node_modules/typescript/bin/tsc --project tsconfig.generated.json",
+    "generate": "typia generate --input generate/input --output generate/output --project tsconfig.generate.json && tsc --project tsconfig.generate.json && prettier generate/**/*.ts --write",
     "prepare": "ts-patch install",
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
     "start": "node bin",
+    "debug": "node debug",
     "template": "ts-node --project build/tsconfig.json build/template.ts"
   },
   "repository": {
@@ -46,12 +47,12 @@
   },
   "dependencies": {
     "cli": "^1.0.1",
-    "protobufjs": "^7.2.5",
+    "protobufjs": "7.2.5",
     "randexp": "^0.5.3",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "../typia-6.11.2.tgz"
+    "typia": "../typia-7.0.0-dev.20241112.tgz"
   }
 }

@@ -1,0 +1,158 @@
+{
+  "$ref": "#/$defs/ObjectPropertyNullable",
+  "$defs": {
+    "ObjectPropertyNullable": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectPropertyNullable.IPointerboolean"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectPropertyNullable.IPointernumber"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectPropertyNullable.IPointerstring"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember"
+          }
+        }
+      ],
+      "additionalItems": false
+    },
+    "ObjectPropertyNullable.IPointerboolean": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectPropertyNullable.IPointernumber": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectPropertyNullable.IPointerstring": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectPropertyNullable.IPointerObjectPropertyNullable.IMember": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectPropertyNullable.IMember"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectPropertyNullable.IMember": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "grade": {
+          "type": "number"
+        },
+        "serial": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "activated": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "activated"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

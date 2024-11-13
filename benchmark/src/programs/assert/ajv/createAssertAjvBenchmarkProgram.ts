@@ -1,10 +1,10 @@
-import { IJsonApplication } from "typia";
+import { IJsonSchemaCollection } from "typia";
 
 import { AjvFactory } from "../../../internal/AjvFactory";
 import { createAssertBenchmarkProgram } from "../createAssertBenchmarkProgram";
 
 export const createAssertAjvBenchmarkProgram = (
-  app: IJsonApplication<"3.0">,
+  app: IJsonSchemaCollection<"3.0">,
 ) => {
   try {
     const validate = AjvFactory.create({

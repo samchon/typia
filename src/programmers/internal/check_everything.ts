@@ -8,7 +8,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
  */
 export const check_everything = (array: ts.Expression) =>
   ts.factory.createCallExpression(
-    IdentifierFactory.access(array)("every"),
+    IdentifierFactory.access(array, "every"),
     undefined,
     [
       ts.factory.createArrowFunction(

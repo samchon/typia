@@ -60,7 +60,7 @@
           }
         ]
       },
-      "#/components/schemas/ArrayArrayRepeatedUnionWithTuple": {
+      "ArrayArrayRepeatedUnionWithTuple": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
@@ -82,7 +82,6 @@
             "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
           }
         },
-        "nullable": false,
         "required": [
           "scale",
           "position",
@@ -103,7 +102,6 @@
             "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y",

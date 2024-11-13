@@ -27,7 +27,6 @@
             "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",

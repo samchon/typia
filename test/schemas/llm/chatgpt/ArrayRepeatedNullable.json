@@ -1,0 +1,27 @@
+{
+  "$ref": "#/$defs/ArrayRepeatedNullable",
+  "$defs": {
+    "ArrayRepeatedNullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+        }
+      ]
+    },
+    "ArrayArrayRepeatedNullable": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRepeatedNullable"
+      }
+    }
+  }
+}

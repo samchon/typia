@@ -1,0 +1,23 @@
+{
+  "$ref": "#/$defs/ConstantAtomicAbsorbed",
+  "$defs": {
+    "ConstantAtomicAbsorbed": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

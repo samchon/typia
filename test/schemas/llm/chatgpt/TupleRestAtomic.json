@@ -1,0 +1,19 @@
+{
+  "$ref": "#/$defs/TupleRestAtomic",
+  "$defs": {
+    "TupleRestAtomic": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "additionalItems": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicEnumeration"
+        {
+          "name": "DynamicEnumeration",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -70,7 +74,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -104,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ar"
+                      "value": "ar",
+                      "tags": []
                     }
                   ]
                 }
@@ -160,7 +168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "zh-Hans"
+                      "value": "zh-Hans",
+                      "tags": []
                     }
                   ]
                 }
@@ -216,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "zh-Hant"
+                      "value": "zh-Hant",
+                      "tags": []
                     }
                   ]
                 }
@@ -272,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "en"
+                      "value": "en",
+                      "tags": []
                     }
                   ]
                 }
@@ -328,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "fr"
+                      "value": "fr",
+                      "tags": []
                     }
                   ]
                 }
@@ -384,7 +396,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "de"
+                      "value": "de",
+                      "tags": []
                     }
                   ]
                 }
@@ -440,7 +453,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ja"
+                      "value": "ja",
+                      "tags": []
                     }
                   ]
                 }
@@ -496,7 +510,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ko"
+                      "value": "ko",
+                      "tags": []
                     }
                   ]
                 }
@@ -552,7 +567,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "pt"
+                      "value": "pt",
+                      "tags": []
                     }
                   ]
                 }
@@ -608,7 +624,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ru"
+                      "value": "ru",
+                      "tags": []
                     }
                   ]
                 }

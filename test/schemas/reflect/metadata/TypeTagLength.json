@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagLength"
+        {
+          "name": "TypeTagLength",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "fixed"
+                      "value": "fixed",
+                      "tags": []
                     }
                   ]
                 }
@@ -188,7 +193,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "minimum"
+                      "value": "minimum",
+                      "tags": []
                     }
                   ]
                 }
@@ -258,7 +264,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "maximum"
+                      "value": "maximum",
+                      "tags": []
                     }
                   ]
                 }
@@ -328,7 +335,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "minimum_and_maximum"
+                      "value": "minimum_and_maximum",
+                      "tags": []
                     }
                   ]
                 }
@@ -409,7 +417,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "equal"
+                      "value": "equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -504,7 +513,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagLength.Type"
+            {
+              "name": "TypeTagLength.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

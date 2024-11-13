@@ -1,0 +1,42 @@
+{
+  "$ref": "#/$defs/ToJsonTuple",
+  "$defs": {
+    "ToJsonTuple": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/$defs/ToJsonTuple.IObject"
+        }
+      ],
+      "additionalItems": false
+    },
+    "ToJsonTuple.IObject": {
+      "$ref": "#/$defs/ToJsonTuple.IHobby"
+    },
+    "ToJsonTuple.IHobby": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

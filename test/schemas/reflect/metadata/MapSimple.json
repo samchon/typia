@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapSimple"
+        {
+          "name": "MapSimple",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -122,7 +126,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -142,7 +147,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -224,7 +230,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -244,7 +251,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "strings"
+                      "value": "strings",
+                      "tags": []
                     }
                   ]
                 }
@@ -326,7 +334,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -346,7 +355,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "arrays"
+                      "value": "arrays",
+                      "tags": []
                     }
                   ]
                 }
@@ -428,7 +438,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -448,7 +459,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "objects"
+                      "value": "objects",
+                      "tags": []
                     }
                   ]
                 }
@@ -497,7 +509,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapSimple.Person"
+                      {
+                        "name": "MapSimple.Person",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
@@ -527,7 +542,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -558,7 +574,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -614,7 +631,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -670,7 +688,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }

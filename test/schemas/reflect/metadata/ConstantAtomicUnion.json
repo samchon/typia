@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "key"
+                      "value": "key",
+                      "tags": []
                     }
                   ]
                 }
@@ -154,7 +155,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "__type"
+            {
+              "name": "__type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

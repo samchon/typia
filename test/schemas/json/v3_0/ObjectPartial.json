@@ -2,31 +2,6 @@
   "version": "3.0",
   "components": {
     "schemas": {
-      "PartialObjectPartial.IBase": {
-        "type": "object",
-        "properties": {
-          "boolean": {
-            "type": "boolean"
-          },
-          "number": {
-            "type": "number"
-          },
-          "string": {
-            "type": "string"
-          },
-          "array": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          "object": {
-            "$ref": "#/components/schemas/ObjectPartial.IBase.Nullable"
-          }
-        },
-        "nullable": false,
-        "description": "Make all properties in T optional"
-      },
       "ObjectPartial.IBase.Nullable": {
         "type": "object",
         "properties": {
@@ -49,7 +24,61 @@
             "$ref": "#/components/schemas/ObjectPartial.IBase.Nullable"
           }
         },
-        "nullable": true,
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ],
+        "nullable": true
+      },
+      "PartialObjectPartial.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectPartial.IBase.Nullable"
+          }
+        },
+        "description": "Make all properties in T optional"
+      },
+      "ObjectPartial.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectPartial.IBase.Nullable"
+          }
+        },
         "required": [
           "boolean",
           "number",

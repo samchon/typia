@@ -40,7 +40,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",
@@ -60,7 +59,6 @@
             "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "manufacturer",
           "brand",

@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -134,7 +135,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -225,7 +227,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -332,7 +335,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonAtomicSimple.IToJson<boolean>"
+                  {
+                    "name": "ToJsonAtomicSimple.IToJson<boolean>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -397,7 +403,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonAtomicSimple.IToJson<number>"
+                  {
+                    "name": "ToJsonAtomicSimple.IToJson<number>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -462,7 +471,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonAtomicSimple.IToJson<string>"
+                  {
+                    "name": "ToJsonAtomicSimple.IToJson<string>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],

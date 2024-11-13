@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagTypeBigInt"
+        {
+          "name": "CommentTagTypeBigInt",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "in64"
+                      "value": "in64",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -129,7 +134,10 @@
                         "kind": "type",
                         "value": "uint64",
                         "validate": "BigInt(0) <= $input",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minimum": 0
+                        }
                       }
                     ]
                   ]

@@ -49,7 +49,6 @@
             "maxItems": 7
           }
         },
-        "nullable": false,
         "required": [
           "items",
           "minItems",

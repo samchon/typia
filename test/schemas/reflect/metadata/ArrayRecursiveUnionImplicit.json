@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "children"
+                      "value": "children",
+                      "tags": []
                     }
                   ]
                 }
@@ -278,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "access"
+                      "value": "access",
+                      "tags": []
                     }
                   ]
                 }
@@ -343,7 +348,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -399,7 +405,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -455,7 +462,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -511,7 +519,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "children"
+                      "value": "children",
+                      "tags": []
                     }
                   ]
                 }
@@ -578,7 +587,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -634,7 +644,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -690,7 +701,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -746,63 +758,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "width"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "height"
+                      "value": "width",
+                      "tags": []
                     }
                   ]
                 }
@@ -858,7 +815,65 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "url"
+                      "value": "height",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "url",
+                      "tags": []
                     }
                   ]
                 }
@@ -914,7 +929,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "size"
+                      "value": "size",
+                      "tags": []
                     }
                   ]
                 }
@@ -981,7 +997,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1037,7 +1054,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1093,7 +1111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -1149,7 +1168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "size"
+                      "value": "size",
+                      "tags": []
                     }
                   ]
                 }
@@ -1205,7 +1225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "content"
+                      "value": "content",
+                      "tags": []
                     }
                   ]
                 }
@@ -1272,7 +1293,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1328,7 +1350,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1384,7 +1407,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -1440,7 +1464,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "size"
+                      "value": "size",
+                      "tags": []
                     }
                   ]
                 }
@@ -1496,7 +1521,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "count"
+                      "value": "count",
+                      "tags": []
                     }
                   ]
                 }
@@ -1563,7 +1589,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1619,7 +1646,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1675,7 +1703,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "path"
+                      "value": "path",
+                      "tags": []
                     }
                   ]
                 }
@@ -1731,7 +1760,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "target"
+                      "value": "target",
+                      "tags": []
                     }
                   ]
                 }
@@ -1761,12 +1791,30 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRecursiveUnionImplicit.IDirectory",
-                "ArrayRecursiveUnionImplicit.ISharedDirectory",
-                "ArrayRecursiveUnionImplicit.IImageFile",
-                "ArrayRecursiveUnionImplicit.ITextFile",
-                "ArrayRecursiveUnionImplicit.IZipFile",
-                "ArrayRecursiveUnionImplicit.IShortcut"
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.ISharedDirectory",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IImageFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.ITextFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IZipFile",
+                  "tags": []
+                },
+                {
+                  "name": "ArrayRecursiveUnionImplicit.IShortcut",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1803,12 +1851,30 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionImplicit.IDirectory",
-            "ArrayRecursiveUnionImplicit.ISharedDirectory",
-            "ArrayRecursiveUnionImplicit.IImageFile",
-            "ArrayRecursiveUnionImplicit.ITextFile",
-            "ArrayRecursiveUnionImplicit.IZipFile",
-            "ArrayRecursiveUnionImplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionImplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ISharedDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1837,12 +1903,30 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRecursiveUnionImplicit.IDirectory",
-            "ArrayRecursiveUnionImplicit.ISharedDirectory",
-            "ArrayRecursiveUnionImplicit.IImageFile",
-            "ArrayRecursiveUnionImplicit.ITextFile",
-            "ArrayRecursiveUnionImplicit.IZipFile",
-            "ArrayRecursiveUnionImplicit.IShortcut"
+            {
+              "name": "ArrayRecursiveUnionImplicit.IDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ISharedDirectory",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IImageFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.ITextFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IZipFile",
+              "tags": []
+            },
+            {
+              "name": "ArrayRecursiveUnionImplicit.IShortcut",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

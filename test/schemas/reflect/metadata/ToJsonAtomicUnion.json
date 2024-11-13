@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +156,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ToJsonAtomicUnion.IToJson"
+                {
+                  "name": "ToJsonAtomicUnion.IToJson",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

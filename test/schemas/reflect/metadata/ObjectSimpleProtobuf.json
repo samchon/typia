@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectSimpleProtobuf"
+        {
+          "name": "ObjectSimpleProtobuf",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bool"
+                      "value": "bool",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -166,7 +171,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint32"
+                      "value": "uint32",
+                      "tags": []
                     }
                   ]
                 }
@@ -236,7 +242,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64"
+                      "value": "int64",
+                      "tags": []
                     }
                   ]
                 }
@@ -292,7 +299,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -362,7 +370,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float"
+                      "value": "float",
+                      "tags": []
                     }
                   ]
                 }
@@ -432,7 +441,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "double"
+                      "value": "double",
+                      "tags": []
                     }
                   ]
                 }
@@ -502,7 +512,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -558,7 +569,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bytes"
+                      "value": "bytes",
+                      "tags": []
                     }
                   ]
                 }
@@ -590,7 +602,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8Array"
+                {
+                  "name": "Uint8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []

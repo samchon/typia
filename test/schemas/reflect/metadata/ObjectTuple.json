@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -222,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -278,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "mobile"
+                      "value": "mobile",
+                      "tags": []
                     }
                   ]
                 }
@@ -334,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -407,7 +413,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectTuple.ISection"
+              {
+                "name": "ObjectTuple.ISection",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -428,7 +437,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectTuple.ICitizen"
+              {
+                "name": "ObjectTuple.ICitizen",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

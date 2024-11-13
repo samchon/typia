@@ -1,0 +1,107 @@
+{
+  "$ref": "#/$defs/ArrayRepeatedUnionWithTuple",
+  "$defs": {
+    "ArrayRepeatedUnionWithTuple": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedUnionWithTuple"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IBox3D"
+          }
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "additionalItems": false
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IBox3D"
+            },
+            {
+              "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IPoint3D"
+            }
+          ],
+          "additionalItems": false
+        }
+      ]
+    },
+    "ArrayArrayRepeatedUnionWithTuple": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRepeatedUnionWithTuple"
+      }
+    },
+    "ArrayRepeatedUnionWithTuple.IBox3D": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IPoint3D"
+        },
+        "position": {
+          "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IPoint3D"
+        },
+        "rotate": {
+          "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IPoint3D"
+        },
+        "pivot": {
+          "$ref": "#/$defs/ArrayRepeatedUnionWithTuple.IPoint3D"
+        }
+      },
+      "required": [
+        "scale",
+        "position",
+        "rotate",
+        "pivot"
+      ],
+      "additionalProperties": false
+    },
+    "ArrayRepeatedUnionWithTuple.IPoint3D": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

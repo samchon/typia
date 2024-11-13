@@ -6,41 +6,51 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 
-import { IProject } from "../../transformers/IProject";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { Atomic } from "../../typings/Atomic";
 
 export namespace MiscLiteralsProgrammer {
-  export const write = (project: IProject) => (type: ts.Type) => {
-    const result = MetadataFactory.analyze(
-      project.checker,
-      project.context,
-    )({
-      escape: true,
-      constant: true,
-      absorb: true,
-      validate: (meta) => {
-        const length: number =
-          meta.constants
-            .map((c) => c.values.length)
-            .reduce((a, b) => a + b, 0) +
-          meta.atomics.filter((a) => a.type === "boolean").length;
-        if (0 === length) return [ErrorMessages.NO];
-        else if (meta.size() !== length) return [ErrorMessages.ONLY];
-        return [];
+  export interface IProps {
+    context: ITypiaContext;
+    type: ts.Type;
+  }
+  export const write = (props: IProps) => {
+    const result = MetadataFactory.analyze({
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      options: {
+        escape: true,
+        constant: true,
+        absorb: true,
+        validate: (meta) => {
+          const length: number =
+            meta.constants
+              .map((c) => c.values.length)
+              .reduce((a, b) => a + b, 0) +
+            meta.atomics.filter((a) => a.type === "boolean").length;
+          if (0 === length) return [ErrorMessages.NO];
+          else if (meta.size() !== length) return [ErrorMessages.ONLY];
+          return [];
+        },
       },
-    })(new MetadataCollection())(type);
+      collection: new MetadataCollection(),
+      type: props.type,
+    });
     if (result.success === false)
-      throw TransformerError.from(`typia.misc.literals`)(result.errors);
+      throw TransformerError.from({
+        code: `typia.misc.literals`,
+        errors: result.errors,
+      });
 
-    const meta: Metadata = result.data;
+    const metadata: Metadata = result.data;
     const values: Set<Atomic.Type | null> = new Set([
-      ...meta.constants.map((c) => c.values.map((v) => v.value)).flat(),
-      ...(meta.atomics.filter((a) => a.type === "boolean").length
+      ...metadata.constants.map((c) => c.values.map((v) => v.value)).flat(),
+      ...(metadata.atomics.filter((a) => a.type === "boolean").length
         ? [true, false]
         : []),
-      ...(meta.nullable ? [null] : []),
+      ...(metadata.nullable ? [null] : []),
     ]);
     return ts.factory.createAsExpression(
       ts.factory.createArrayLiteralExpression(

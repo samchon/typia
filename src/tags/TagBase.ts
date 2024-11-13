@@ -10,7 +10,13 @@ export type TagBase<
 };
 export namespace TagBase {
   export interface IProps<
-    Target extends "boolean" | "bigint" | "number" | "string" | "array",
+    Target extends
+      | "boolean"
+      | "bigint"
+      | "number"
+      | "string"
+      | "array"
+      | "object",
     Kind extends string,
     Value extends boolean | bigint | number | string | undefined,
     Validate extends

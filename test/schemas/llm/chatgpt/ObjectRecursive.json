@@ -1,0 +1,60 @@
+{
+  "$ref": "#/$defs/ObjectRecursive.IDepartment",
+  "$defs": {
+    "ObjectRecursive.IDepartment": {
+      "type": "object",
+      "properties": {
+        "parent": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectRecursive.IDepartment"
+            }
+          ]
+        },
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        },
+        "created_at": {
+          "$ref": "#/$defs/ObjectRecursive.ITimestamp"
+        }
+      },
+      "required": [
+        "parent",
+        "id",
+        "code",
+        "name",
+        "sequence",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectRecursive.ITimestamp": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number"
+        },
+        "zone": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "time",
+        "zone"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -14,7 +14,7 @@ export const _test_misc_assertClone =
 
     if (resolved_equal_to(name)(input, cloned) === false) {
       throw new Error(
-        `Bug on TSON.assertClone(): failed to understand the ${name} type.`,
+        `Bug on typia.misc.assertClone(): failed to understand the ${name} type.`,
       );
     }
 
@@ -36,7 +36,7 @@ export const _test_misc_assertClone =
             });
       }
       throw new Error(
-        `Bug on TSON.assertClone(): failed to detect error on the ${name} type.`,
+        `Bug on typia.misc.assertClone(): failed to detect error on the ${name} type.`,
       );
     }
   };

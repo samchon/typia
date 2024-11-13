@@ -33,7 +33,8 @@ export const stringify_dynamic_properties = (
           undefined,
           [ts.factory.createIdentifier("input")],
         ),
-      )("map"),
+        "map",
+      ),
       undefined,
       [
         ts.factory.createArrowFunction(
@@ -55,7 +56,7 @@ export const stringify_dynamic_properties = (
       ],
     );
     const filtered = ts.factory.createCallExpression(
-      IdentifierFactory.access(mapped)("filter"),
+      IdentifierFactory.access(mapped, "filter"),
       undefined,
       [
         ts.factory.createArrowFunction(
@@ -72,7 +73,7 @@ export const stringify_dynamic_properties = (
       ],
     );
     return ts.factory.createCallExpression(
-      IdentifierFactory.access(filtered)("join"),
+      IdentifierFactory.access(filtered, "join"),
       undefined,
       [ts.factory.createStringLiteral(",")],
     );
@@ -87,7 +88,8 @@ export const stringify_dynamic_properties = (
             ts.factory.createArrayLiteralExpression(
               regular.map((key) => ts.factory.createStringLiteral(key)),
             ),
-          )("some"),
+            "some",
+          ),
           undefined,
           [
             ts.factory.createArrowFunction(
@@ -122,7 +124,10 @@ export const stringify_dynamic_properties = (
     const condition: ts.IfStatement = ts.factory.createIfStatement(
       ts.factory.createCallExpression(
         ts.factory.createIdentifier(
-          `RegExp(/${metadata_to_pattern(true)(entry.key)}/).test`,
+          `RegExp(/${metadata_to_pattern({
+            top: true,
+            metadata: entry.key,
+          })}/).test`,
         ),
         undefined,
         [ts.factory.createIdentifier("key")],

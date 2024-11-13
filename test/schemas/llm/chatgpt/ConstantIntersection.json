@@ -1,0 +1,29 @@
+{
+  "$ref": "#/$defs/ConstantIntersection",
+  "$defs": {
+    "ConstantIntersection": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/ConstantIntersection.Wrapperfalse"
+        },
+        {
+          "$ref": "#/$defs/ConstantIntersection.Wrapper1"
+        },
+        {
+          "$ref": "#/$defs/ConstantIntersection.Wrappertwo"
+        }
+      ],
+      "additionalItems": false
+    },
+    "ConstantIntersection.Wrapperfalse": {
+      "const": false
+    },
+    "ConstantIntersection.Wrapper1": {
+      "const": 1
+    },
+    "ConstantIntersection.Wrappertwo": {
+      "const": "two"
+    }
+  }
+}
