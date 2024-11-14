@@ -41,9 +41,10 @@ const check_bigint_type_tags = (props: {
     .map((row) =>
       row.map((tag) => ({
         expected: `bigint & ${tag.name}`,
-        expression: (
-          tag.predicate ??
-          ExpressionFactory.transpile(props.context.transformer, tag.validate!)
-        )(props.input),
+        expression: ExpressionFactory.transpile({
+          transformer: props.context.transformer,
+          importer: props.context.importer,
+          script: tag.validate!,
+        })(props.input),
       })),
     );
