@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { ImportProgrammer } from "../programmers/ImportProgrammer";
+
 import { _randomFormatUuid } from "../internal/_randomFormatUuid";
 
 export namespace ExpressionFactory {
@@ -129,13 +131,14 @@ export namespace ExpressionFactory {
       props.input.getSourceFile(),
     );
 
-  export const transpile = (
-    transformer: ts.TransformationContext,
-    script: string,
-  ) => {
+  export const transpile = (props: {
+    transformer?: ts.TransformationContext;
+    importer?: ImportProgrammer;
+    script: string;
+  }) => {
     const file: ts.SourceFile = ts.createSourceFile(
       `${_randomFormatUuid()}.ts`,
-      script,
+      props.script,
       ts.ScriptTarget.ESNext,
       true,
       ts.ScriptKind.TS,
@@ -152,13 +155,64 @@ export namespace ExpressionFactory {
     return (input: ts.Expression): ts.Expression => {
       const visitor = (node: ts.Node): ts.Node => {
         if (ts.isIdentifier(node) && node.text === "$input") return input;
+        else if (props.importer !== undefined && ts.isCallExpression(node))
+          if (
+            node.expression.getText() === "$importInternal" &&
+            node.arguments.length === 1 &&
+            ts.isStringLiteralLike(node.arguments[0]!)
+          ) {
+            const name: string = node.arguments[0]!.text;
+            return props.importer.internal(name);
+          } else if (
+            node.expression.getText() === "$importInstance" &&
+            node.arguments.length === 2 &&
+            ts.isStringLiteralLike(node.arguments[0]!) &&
+            ts.isStringLiteralLike(node.arguments[1]!)
+          ) {
+            const name: string = node.arguments[0]!.text;
+            const file: string = node.arguments[1]!.text;
+            return props.importer.instance({
+              file,
+              name,
+              alias: null,
+              type: false,
+            });
+          } else if (
+            node.expression.getText() === "$importNamespace" &&
+            node.arguments.length === 2 &&
+            ts.isStringLiteralLike(node.arguments[0]!) &&
+            ts.isStringLiteralLike(node.arguments[1]!)
+          ) {
+            const name: string = node.arguments[0]!.text;
+            const file: string = node.arguments[1]!.text;
+            return props.importer.namespace({
+              file,
+              name,
+              type: false,
+            });
+          } else if (
+            node.expression.getText() === "$importDefault" &&
+            node.arguments.length === 3 &&
+            ts.isStringLiteralLike(node.arguments[0]!) &&
+            ts.isStringLiteralLike(node.arguments[1]!)
+          ) {
+            const name: string = node.arguments[0]!.text;
+            const file: string = node.arguments[1]!.text;
+            return props.importer.default({
+              file,
+              name,
+              type: false,
+            });
+          }
         return ts.visitEachChild(
-          (ts.factory as any).cloneNode(node),
+          ts.factory.cloneNode(node),
           visitor,
-          transformer,
+          props.transformer,
         );
       };
-      return visitor(statement.expression) as ts.Expression;
+      return visitor(
+        ts.factory.cloneNode(statement.expression),
+      ) as ts.Expression;
     };
   };
 }

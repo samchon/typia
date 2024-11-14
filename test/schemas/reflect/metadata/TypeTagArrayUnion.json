@@ -397,7 +397,7 @@
                     "name": "Format<\"uuid\">",
                     "kind": "format",
                     "value": "uuid",
-                    "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
+                    "validate": "$importInternal(\"isFormatUuid\")($input)",
                     "exclusive": [
                       "format",
                       "pattern"

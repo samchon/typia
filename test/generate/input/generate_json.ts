@@ -13,12 +13,12 @@ interface ICitizen {
 }
 
 export const createStringify = typia.json.createStringify<ICitizen>();
-export const createIsStringify = typia.json.createIsStringify<ICitizen>();
-export const createAssertStringify =
-  typia.json.createAssertStringify<ICitizen>();
-export const createValidateStringify =
-  typia.json.createValidateStringify<ICitizen>();
+// export const createIsStringify = typia.json.createIsStringify<ICitizen>();
+// export const createAssertStringify =
+//   typia.json.createAssertStringify<ICitizen>();
+// export const createValidateStringify =
+//   typia.json.createValidateStringify<ICitizen>();
 
-export const createIsParse = typia.json.createIsParse<ICitizen>();
-export const createAssertParse = typia.json.createAssertParse<ICitizen>();
-export const createValidateParse = typia.json.createValidateParse<ICitizen>();
+// export const createIsParse = typia.json.createIsParse<ICitizen>();
+// export const createAssertParse = typia.json.createAssertParse<ICitizen>();
+// export const createValidateParse = typia.json.createValidateParse<ICitizen>();
