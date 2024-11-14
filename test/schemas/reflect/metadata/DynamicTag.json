@@ -145,7 +145,7 @@
                         "name": "Format<\"uuid\">",
                         "kind": "format",
                         "value": "uuid",
-                        "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatUuid\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -186,7 +186,7 @@
                         "name": "Format<\"email\">",
                         "kind": "format",
                         "value": "email",
-                        "validate": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatEmail\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"

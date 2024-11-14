@@ -149,32 +149,29 @@ export namespace MetadataFactory {
   };
 
   const validateMeta = (props: {
-    transformer?: ts.TransformationContext;
     options: IOptions;
     visitor: IValidationVisitor;
     metadata: Metadata;
     explore: IExplore;
   }) => {
     const result: string[] = [];
-    if (props.transformer !== undefined)
-      for (const atomic of props.metadata.atomics)
-        for (const row of atomic.tags)
-          for (const tag of row.filter(
-            (t) => t.validate !== undefined && t.predicate === undefined,
-          ))
-            try {
-              tag.predicate = ExpressionFactory.transpile(
-                props.transformer,
-                tag.validate!,
-              );
-            } catch {
-              result.push(
-                `Unable to transpile type tag script: ${JSON.stringify(
-                  tag.validate,
-                )}`,
-              );
-              tag.predicate = () => ts.factory.createTrue();
-            }
+    for (const atomic of props.metadata.atomics)
+      for (const row of atomic.tags)
+        for (const tag of row.filter(
+          (t) => t.validate !== undefined && t.predicate === undefined,
+        ))
+          try {
+            tag.predicate = ExpressionFactory.transpile({
+              script: tag.validate!,
+            });
+          } catch {
+            result.push(
+              `Unable to transpile type tag script: ${JSON.stringify(
+                tag.validate,
+              )}`,
+            );
+            tag.predicate = () => ts.factory.createTrue();
+          }
     result.push(...props.visitor.functor(props.metadata, props.explore));
     if (result.length)
       props.visitor.errors.push({

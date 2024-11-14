@@ -1,12 +1,11 @@
 import typia from "typia";
 
-import { CommentTagFormat } from "../structures/CommentTagFormat";
+import { TypeTagFormat } from "../structures/TypeTagFormat";
 
-const is = typia.createIs<CommentTagFormat>();
-console.log(is(CommentTagFormat.generate()));
-
-for (const spoiler of CommentTagFormat.SPOILERS) {
-  const value: CommentTagFormat = CommentTagFormat.generate();
-  spoiler(value);
-  console.log(is(value));
-}
+console.log(typia.validate<TypeTagFormat>(TypeTagFormat.generate()));
+for (let i: number = 0; i < 1_000; ++i)
+  for (const spoiler of TypeTagFormat.SPOILERS) {
+    const data = TypeTagFormat.generate();
+    spoiler(data);
+    if (typia.is<TypeTagFormat>(data) === true) console.log(spoiler.toString());
+  }

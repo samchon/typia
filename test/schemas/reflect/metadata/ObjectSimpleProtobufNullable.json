@@ -133,7 +133,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -204,7 +204,7 @@
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -403,7 +403,7 @@
                         "name": "Type<\"float\">",
                         "kind": "type",
                         "value": "float",
-                        "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
+                        "validate": "$importInternal(\"isTypeFloat\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "number"
