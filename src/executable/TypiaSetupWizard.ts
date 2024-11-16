@@ -158,7 +158,7 @@ export namespace TypiaSetupWizard {
     "npm" | "pnpm" | "yarn" | "bun" | null
   > => {
     const result: DetectResult | null = await detect({ cwd: process.cwd() });
-    if (result?.name === "npm") return null; // NPM case is still selectable
+    if (result?.name === "npm" || result?.name === "deno") return null; // NPM case is still selectable
     return result?.name ?? null;
   };
 
