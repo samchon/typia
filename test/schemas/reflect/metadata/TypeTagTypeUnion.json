@@ -73,10 +73,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"int32\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "$importInternal(\"isTypeUint32\")($input)",
+                        "value": "int32",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -86,10 +86,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"uint32\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "$importInternal(\"isTypeInt32\")($input)",
+                        "value": "uint32",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -829,10 +829,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"uint32\">",
+                        "name": "Type<\"int32\">",
                         "kind": "type",
-                        "value": "uint32",
-                        "validate": "$importInternal(\"isTypeUint32\")($input)",
+                        "value": "int32",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -842,10 +842,10 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
+                        "name": "Type<\"uint32\">",
                         "kind": "type",
-                        "value": "int32",
-                        "validate": "$importInternal(\"isTypeInt32\")($input)",
+                        "value": "uint32",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
