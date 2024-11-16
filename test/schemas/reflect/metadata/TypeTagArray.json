@@ -466,7 +466,7 @@
                         "name": "UniqueItems<true>",
                         "kind": "uniqueItems",
                         "value": true,
-                        "validate": "$input.length <= 1 || ($input.length === new Set($input).size)",
+                        "validate": "$importInternal(\"isUniqueItems\")($input)",
                         "exclusive": true,
                         "schema": {
                           "uniqueItems": true

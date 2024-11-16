@@ -266,11 +266,11 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "something",
+                      "value": "three",
                       "tags": []
                     },
                     {
-                      "value": "three",
+                      "value": "something",
                       "tags": []
                     },
                     {

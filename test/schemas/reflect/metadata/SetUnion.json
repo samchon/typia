@@ -240,7 +240,7 @@
                 "functions": [],
                 "atomics": [
                   {
-                    "type": "boolean",
+                    "type": "number",
                     "tags": []
                   }
                 ],
@@ -267,7 +267,7 @@
                 "functions": [],
                 "atomics": [
                   {
-                    "type": "number",
+                    "type": "boolean",
                     "tags": []
                   }
                 ],
