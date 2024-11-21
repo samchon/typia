@@ -53,7 +53,7 @@ const reformUrl = (url: string): string => {
 
   const path: string = [
     `${library}@${version}`,
-    ...elements.slice(library.startsWith("@") ? 2 : 1).join("/"),
+    ...elements.slice(library.startsWith("@") ? 2 : 1),
   ].join("/");
   return `https://esm.sh/${path}`;
 };
