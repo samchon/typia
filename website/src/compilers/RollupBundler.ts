@@ -1,5 +1,6 @@
 import { RollupBuild, rollup } from "@rollup/browser";
 import { VariadicSingleton } from "tstl";
+import lock from "../../package-lock.json";
 
 export namespace RollupBundler {
   export const build = async (script: string): Promise<string> => {
@@ -33,7 +34,26 @@ export namespace RollupBundler {
 }
 
 const esm = new VariadicSingleton(async (url: string) => {
-  const response: Response = await fetch(url);
+  const response: Response = await fetch(reformUrl(url));
   const text: string = await response.text();
   return text;
 });
+
+const reformUrl = (url: string): string => {
+  const elements: string[] = url.split("https://esm.sh/")[1].split("/");
+  if (elements.length === 0) return url;
+  else if (elements[0].indexOf("@") > 0) return url;
+
+  const library: string = elements[0].startsWith("@")
+    ? `${elements[0]}/${elements[1]}`
+    : elements[0];
+  const version: string | undefined =
+    lock.packages[`node_modules/${library}` as "node_modules/typia"]?.version;
+  if (version === undefined) return url;
+
+  const path: string = [
+    `${library}@${version}`,
+    ...elements.slice(library.startsWith("@") ? 2 : 1).join("/"),
+  ].join("/");
+  return `https://esm.sh/${path}`;
+};
