@@ -92,15 +92,19 @@
                       "type": "null"
                     }
                   },
+                  "required": [],
                   "nullable": true
                 }
               },
+              "required": [],
               "nullable": true
             }
           },
+          "required": [],
           "nullable": true
         }
       },
+      "required": [],
       "nullable": true
     }
   },

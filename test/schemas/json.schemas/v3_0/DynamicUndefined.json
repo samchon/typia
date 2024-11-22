@@ -4,7 +4,8 @@
     "schemas": {
       "DynamicUndefined": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "required": []
       }
     }
   },

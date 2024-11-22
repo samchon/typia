@@ -4,11 +4,13 @@
     "schemas": {
       "DynamicNever": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "required": []
       },
       "DynamicNever.Nullable": {
         "type": "object",
         "properties": {},
+        "required": [],
         "nullable": true
       }
     }

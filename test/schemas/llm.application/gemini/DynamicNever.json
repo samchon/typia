@@ -8,7 +8,8 @@
         "properties": {
           "first": {
             "type": "object",
-            "properties": {}
+            "properties": {},
+            "required": []
           }
         },
         "required": [
@@ -24,43 +25,13 @@
         "properties": {
           "first": {
             "type": "object",
-            "properties": {}
+            "properties": {},
+            "required": []
           },
           "second": {
             "type": "object",
             "properties": {},
-            "nullable": true
-          }
-        },
-        "required": [
-          "first",
-          "second"
-        ]
-      },
-      "output": {
-        "type": "object",
-        "properties": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "coalesce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "type": "object",
-            "properties": {},
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {},
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {},
+            "required": [],
             "nullable": true
           }
         },
@@ -72,6 +43,43 @@
       "output": {
         "type": "object",
         "properties": {},
+        "required": []
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {},
+        "required": [],
         "nullable": true
       },
       "strict": true

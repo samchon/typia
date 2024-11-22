@@ -5,6 +5,7 @@
       "DynamicUnion": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": {
           "oneOf": [
             {
@@ -19,6 +20,7 @@
       "DynamicUnion.Nullable": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": {
           "oneOf": [
             {

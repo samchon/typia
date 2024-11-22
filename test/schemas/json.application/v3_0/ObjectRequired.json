@@ -24,6 +24,7 @@
             "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
           }
         },
+        "required": [],
         "nullable": true
       },
       "RequiredObjectRequired.IBase": {
@@ -78,7 +79,8 @@
           "object": {
             "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
           }
-        }
+        },
+        "required": []
       },
       "RequiredObjectRequired.IBase.Nullable": {
         "type": "object",

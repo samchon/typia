@@ -24,6 +24,7 @@
       "RecordstringDynamicTree": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "$ref": "#/components/schemas/DynamicTree"

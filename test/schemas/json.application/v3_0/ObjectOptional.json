@@ -17,7 +17,8 @@
           "sequence": {
             "type": "number"
           }
-        }
+        },
+        "required": []
       },
       "ObjectOptional.Nullable": {
         "type": "object",
@@ -35,6 +36,7 @@
             "type": "number"
           }
         },
+        "required": [],
         "nullable": true
       }
     }

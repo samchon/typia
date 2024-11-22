@@ -76,10 +76,9 @@ const ObjectDef: z.ZodType<OpenApi.IJsonSchema.IObject> = z.lazy(() =>
   z.object({
     $id: z.string(),
     type: z.literal("object"),
-
     properties: z.record(Schema),
     patternProperties: z.union([z.undefined(), z.record(Schema)]),
-    required: z.union([z.undefined(), z.array(z.string())]),
+    required: z.array(z.string()),
     description: z.union([z.string(), z.undefined()]),
   }),
 );

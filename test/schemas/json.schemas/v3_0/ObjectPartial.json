@@ -55,6 +55,7 @@
             "$ref": "#/components/schemas/ObjectPartial.IBase.Nullable"
           }
         },
+        "required": [],
         "description": "Make all properties in T optional"
       },
       "ObjectPartial.IBase": {

@@ -5,6 +5,7 @@
       "ObjectDynamic": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": {
           "oneOf": [
             {
@@ -22,6 +23,7 @@
       "ObjectDynamic.Nullable": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": {
           "oneOf": [
             {

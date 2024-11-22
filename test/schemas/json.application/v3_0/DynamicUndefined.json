@@ -4,11 +4,13 @@
     "schemas": {
       "DynamicUndefined": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "required": []
       },
       "DynamicUndefined.Nullable": {
         "type": "object",
         "properties": {},
+        "required": [],
         "nullable": true
       }
     }
