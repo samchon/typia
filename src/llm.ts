@@ -1,4 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { IChatGptSchema, ILlmApplication } from "@samchon/openapi";
 
 /**
  * > You must configure the generic argument `App`.
@@ -82,7 +82,7 @@ export function application(
  */
 export function application<
   App extends object,
-  Model extends ILlmApplication.Model = "3.1",
+  Model extends ILlmApplication.Model,
 >(
   options?: Partial<Omit<ILlmApplication.IOptions<Model>, "recursive">>,
 ): ILlmApplication<Model>;
@@ -164,14 +164,14 @@ export function schema(): never;
  *
  * @template T Target type
  * @template Model LLM schema model
+ * @param $defs Definitions of named schemas if the model is `chatgpt`
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function schema<
-  T,
-  Model extends ILlmApplication.Model = "3.1",
->(): ILlmApplication.ModelSchema[Model];
+export function schema<T, Model extends ILlmApplication.Model>(
+  ...$defs: Model extends "chatgpt" ? [Record<string, IChatGptSchema>] : []
+): ILlmApplication.ModelSchema[Model];
 
 /**
  * @internal
