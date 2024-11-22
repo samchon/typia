@@ -1,0 +1,112 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectLiteralProperty.ISomething": {
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ]
+      },
+      "ObjectLiteralProperty.ISomething.Nullable": {
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

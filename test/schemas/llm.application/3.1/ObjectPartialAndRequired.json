@@ -1,0 +1,2959 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "string": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "boolean": {
+                "type": "boolean"
+              },
+              "object": {
+                "components": {
+                  "schemas": {
+                    "ObjectPartialAndRequired": {
+                      "type": "object",
+                      "properties": {
+                        "string": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "object": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                            }
+                          ]
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "required": [
+                        "object",
+                        "array"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "string": {
+                        "type": "string"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "object": {
+                        "components": {
+                          "schemas": {
+                            "ObjectPartialAndRequired": {
+                              "type": "object",
+                              "properties": {
+                                "string": {
+                                  "type": "string"
+                                },
+                                "number": {
+                                  "type": "number"
+                                },
+                                "boolean": {
+                                  "type": "boolean"
+                                },
+                                "object": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                    }
+                                  ]
+                                },
+                                "array": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "object",
+                                "array"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "string": {
+                                "type": "string"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "object": {
+                                "components": {
+                                  "schemas": {
+                                    "ObjectPartialAndRequired": {
+                                      "type": "object",
+                                      "properties": {
+                                        "string": {
+                                          "type": "string"
+                                        },
+                                        "number": {
+                                          "type": "number"
+                                        },
+                                        "boolean": {
+                                          "type": "boolean"
+                                        },
+                                        "object": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                            }
+                                          ]
+                                        },
+                                        "array": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "object",
+                                        "array"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "schema": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                    }
+                                  ]
+                                },
+                                "recursive": 3,
+                                "visited": {},
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "string": {
+                                        "type": "string"
+                                      },
+                                      "number": {
+                                        "type": "number"
+                                      },
+                                      "boolean": {
+                                        "type": "boolean"
+                                      },
+                                      "object": {
+                                        "components": {
+                                          "schemas": {
+                                            "ObjectPartialAndRequired": {
+                                              "type": "object",
+                                              "properties": {
+                                                "string": {
+                                                  "type": "string"
+                                                },
+                                                "number": {
+                                                  "type": "number"
+                                                },
+                                                "boolean": {
+                                                  "type": "boolean"
+                                                },
+                                                "object": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "null"
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                    }
+                                                  ]
+                                                },
+                                                "array": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "object",
+                                                "array"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "schema": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                            }
+                                          ]
+                                        },
+                                        "recursive": 3,
+                                        "visited": {},
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "array": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "object",
+                                      "array"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "required": [
+                              "object",
+                              "array"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "required": [
+                      "object",
+                      "array"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "object",
+              "array"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "string": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "boolean": {
+                "type": "boolean"
+              },
+              "object": {
+                "components": {
+                  "schemas": {
+                    "ObjectPartialAndRequired": {
+                      "type": "object",
+                      "properties": {
+                        "string": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "object": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                            }
+                          ]
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "required": [
+                        "object",
+                        "array"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "string": {
+                        "type": "string"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "object": {
+                        "components": {
+                          "schemas": {
+                            "ObjectPartialAndRequired": {
+                              "type": "object",
+                              "properties": {
+                                "string": {
+                                  "type": "string"
+                                },
+                                "number": {
+                                  "type": "number"
+                                },
+                                "boolean": {
+                                  "type": "boolean"
+                                },
+                                "object": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                    }
+                                  ]
+                                },
+                                "array": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "object",
+                                "array"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "string": {
+                                "type": "string"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "object": {
+                                "components": {
+                                  "schemas": {
+                                    "ObjectPartialAndRequired": {
+                                      "type": "object",
+                                      "properties": {
+                                        "string": {
+                                          "type": "string"
+                                        },
+                                        "number": {
+                                          "type": "number"
+                                        },
+                                        "boolean": {
+                                          "type": "boolean"
+                                        },
+                                        "object": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                            }
+                                          ]
+                                        },
+                                        "array": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "object",
+                                        "array"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "schema": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                    }
+                                  ]
+                                },
+                                "recursive": 3,
+                                "visited": {},
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "string": {
+                                        "type": "string"
+                                      },
+                                      "number": {
+                                        "type": "number"
+                                      },
+                                      "boolean": {
+                                        "type": "boolean"
+                                      },
+                                      "object": {
+                                        "components": {
+                                          "schemas": {
+                                            "ObjectPartialAndRequired": {
+                                              "type": "object",
+                                              "properties": {
+                                                "string": {
+                                                  "type": "string"
+                                                },
+                                                "number": {
+                                                  "type": "number"
+                                                },
+                                                "boolean": {
+                                                  "type": "boolean"
+                                                },
+                                                "object": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "null"
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                    }
+                                                  ]
+                                                },
+                                                "array": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "object",
+                                                "array"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "schema": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                            }
+                                          ]
+                                        },
+                                        "recursive": 3,
+                                        "visited": {},
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "array": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "object",
+                                      "array"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "required": [
+                              "object",
+                              "array"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "required": [
+                      "object",
+                      "array"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "object",
+              "array"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectPartialAndRequired": {
+                  "type": "object",
+                  "properties": {
+                    "string": {
+                      "type": "string"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "object": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "string": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "components": {
+                      "schemas": {
+                        "ObjectPartialAndRequired": {
+                          "type": "object",
+                          "properties": {
+                            "string": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "boolean": {
+                              "type": "boolean"
+                            },
+                            "object": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "array": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "required": [
+                            "object",
+                            "array"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "string": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "object": {
+                            "components": {
+                              "schemas": {
+                                "ObjectPartialAndRequired": {
+                                  "type": "object",
+                                  "properties": {
+                                    "string": {
+                                      "type": "string"
+                                    },
+                                    "number": {
+                                      "type": "number"
+                                    },
+                                    "boolean": {
+                                      "type": "boolean"
+                                    },
+                                    "object": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "array": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "object",
+                                    "array"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "object": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectPartialAndRequired": {
+                                          "type": "object",
+                                          "properties": {
+                                            "string": {
+                                              "type": "string"
+                                            },
+                                            "number": {
+                                              "type": "number"
+                                            },
+                                            "boolean": {
+                                              "type": "boolean"
+                                            },
+                                            "object": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "array": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "required": [
+                                            "object",
+                                            "array"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "string": {
+                                            "type": "string"
+                                          },
+                                          "number": {
+                                            "type": "number"
+                                          },
+                                          "boolean": {
+                                            "type": "boolean"
+                                          },
+                                          "object": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectPartialAndRequired": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "string": {
+                                                      "type": "string"
+                                                    },
+                                                    "number": {
+                                                      "type": "number"
+                                                    },
+                                                    "boolean": {
+                                                      "type": "boolean"
+                                                    },
+                                                    "object": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "array": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "number"
+                                                      }
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "object",
+                                                    "array"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "array": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "number"
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "object",
+                                          "array"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "object",
+                                  "array"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "object",
+                          "array"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "object",
+                  "array"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "string": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          },
+          "boolean": {
+            "type": "boolean"
+          },
+          "object": {
+            "components": {
+              "schemas": {
+                "ObjectPartialAndRequired": {
+                  "type": "object",
+                  "properties": {
+                    "string": {
+                      "type": "string"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "object": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "string": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "components": {
+                      "schemas": {
+                        "ObjectPartialAndRequired": {
+                          "type": "object",
+                          "properties": {
+                            "string": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "boolean": {
+                              "type": "boolean"
+                            },
+                            "object": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "array": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "required": [
+                            "object",
+                            "array"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "string": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "object": {
+                            "components": {
+                              "schemas": {
+                                "ObjectPartialAndRequired": {
+                                  "type": "object",
+                                  "properties": {
+                                    "string": {
+                                      "type": "string"
+                                    },
+                                    "number": {
+                                      "type": "number"
+                                    },
+                                    "boolean": {
+                                      "type": "boolean"
+                                    },
+                                    "object": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "array": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "object",
+                                    "array"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "object": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectPartialAndRequired": {
+                                          "type": "object",
+                                          "properties": {
+                                            "string": {
+                                              "type": "string"
+                                            },
+                                            "number": {
+                                              "type": "number"
+                                            },
+                                            "boolean": {
+                                              "type": "boolean"
+                                            },
+                                            "object": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "array": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "required": [
+                                            "object",
+                                            "array"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "object",
+                                  "array"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "object",
+                          "array"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "object",
+                  "array"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "array"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ObjectPartialAndRequired": {
+                  "type": "object",
+                  "properties": {
+                    "string": {
+                      "type": "string"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "object": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "string": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "components": {
+                      "schemas": {
+                        "ObjectPartialAndRequired": {
+                          "type": "object",
+                          "properties": {
+                            "string": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "boolean": {
+                              "type": "boolean"
+                            },
+                            "object": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "array": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "required": [
+                            "object",
+                            "array"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "string": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "object": {
+                            "components": {
+                              "schemas": {
+                                "ObjectPartialAndRequired": {
+                                  "type": "object",
+                                  "properties": {
+                                    "string": {
+                                      "type": "string"
+                                    },
+                                    "number": {
+                                      "type": "number"
+                                    },
+                                    "boolean": {
+                                      "type": "boolean"
+                                    },
+                                    "object": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "array": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "object",
+                                    "array"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "object": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectPartialAndRequired": {
+                                          "type": "object",
+                                          "properties": {
+                                            "string": {
+                                              "type": "string"
+                                            },
+                                            "number": {
+                                              "type": "number"
+                                            },
+                                            "boolean": {
+                                              "type": "boolean"
+                                            },
+                                            "object": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "array": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "required": [
+                                            "object",
+                                            "array"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "string": {
+                                            "type": "string"
+                                          },
+                                          "number": {
+                                            "type": "number"
+                                          },
+                                          "boolean": {
+                                            "type": "boolean"
+                                          },
+                                          "object": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectPartialAndRequired": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "string": {
+                                                      "type": "string"
+                                                    },
+                                                    "number": {
+                                                      "type": "number"
+                                                    },
+                                                    "boolean": {
+                                                      "type": "boolean"
+                                                    },
+                                                    "object": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "array": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "number"
+                                                      }
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "object",
+                                                    "array"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "array": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "number"
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "object",
+                                          "array"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "object",
+                                  "array"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "object",
+                          "array"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "object",
+                  "array"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectPartialAndRequired": {
+                  "type": "object",
+                  "properties": {
+                    "string": {
+                      "type": "string"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "object": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "string": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "components": {
+                      "schemas": {
+                        "ObjectPartialAndRequired": {
+                          "type": "object",
+                          "properties": {
+                            "string": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "boolean": {
+                              "type": "boolean"
+                            },
+                            "object": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "array": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "required": [
+                            "object",
+                            "array"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "string": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "object": {
+                            "components": {
+                              "schemas": {
+                                "ObjectPartialAndRequired": {
+                                  "type": "object",
+                                  "properties": {
+                                    "string": {
+                                      "type": "string"
+                                    },
+                                    "number": {
+                                      "type": "number"
+                                    },
+                                    "boolean": {
+                                      "type": "boolean"
+                                    },
+                                    "object": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "array": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "object",
+                                    "array"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "object": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectPartialAndRequired": {
+                                          "type": "object",
+                                          "properties": {
+                                            "string": {
+                                              "type": "string"
+                                            },
+                                            "number": {
+                                              "type": "number"
+                                            },
+                                            "boolean": {
+                                              "type": "boolean"
+                                            },
+                                            "object": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "array": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "required": [
+                                            "object",
+                                            "array"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "string": {
+                                            "type": "string"
+                                          },
+                                          "number": {
+                                            "type": "number"
+                                          },
+                                          "boolean": {
+                                            "type": "boolean"
+                                          },
+                                          "object": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectPartialAndRequired": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "string": {
+                                                      "type": "string"
+                                                    },
+                                                    "number": {
+                                                      "type": "number"
+                                                    },
+                                                    "boolean": {
+                                                      "type": "boolean"
+                                                    },
+                                                    "object": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "array": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "number"
+                                                      }
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "object",
+                                                    "array"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "array": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "number"
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "object",
+                                          "array"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "object",
+                                  "array"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "object",
+                          "array"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "object",
+                  "array"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ObjectPartialAndRequired": {
+                  "type": "object",
+                  "properties": {
+                    "string": {
+                      "type": "string"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "object": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "required": [
+                    "object",
+                    "array"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "string": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "components": {
+                      "schemas": {
+                        "ObjectPartialAndRequired": {
+                          "type": "object",
+                          "properties": {
+                            "string": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "boolean": {
+                              "type": "boolean"
+                            },
+                            "object": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "array": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "required": [
+                            "object",
+                            "array"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "string": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "object": {
+                            "components": {
+                              "schemas": {
+                                "ObjectPartialAndRequired": {
+                                  "type": "object",
+                                  "properties": {
+                                    "string": {
+                                      "type": "string"
+                                    },
+                                    "number": {
+                                      "type": "number"
+                                    },
+                                    "boolean": {
+                                      "type": "boolean"
+                                    },
+                                    "object": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "array": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "object",
+                                    "array"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "object": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectPartialAndRequired": {
+                                          "type": "object",
+                                          "properties": {
+                                            "string": {
+                                              "type": "string"
+                                            },
+                                            "number": {
+                                              "type": "number"
+                                            },
+                                            "boolean": {
+                                              "type": "boolean"
+                                            },
+                                            "object": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "array": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "number"
+                                              }
+                                            }
+                                          },
+                                          "required": [
+                                            "object",
+                                            "array"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "string": {
+                                            "type": "string"
+                                          },
+                                          "number": {
+                                            "type": "number"
+                                          },
+                                          "boolean": {
+                                            "type": "boolean"
+                                          },
+                                          "object": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectPartialAndRequired": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "string": {
+                                                      "type": "string"
+                                                    },
+                                                    "number": {
+                                                      "type": "number"
+                                                    },
+                                                    "boolean": {
+                                                      "type": "boolean"
+                                                    },
+                                                    "object": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "array": {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "number"
+                                                      }
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "object",
+                                                    "array"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "array": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "number"
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "object",
+                                          "array"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "object",
+                                  "array"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "required": [
+                          "object",
+                          "array"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "object",
+                  "array"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ObjectPartialAndRequired": {
+              "type": "object",
+              "properties": {
+                "string": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "boolean": {
+                  "type": "boolean"
+                },
+                "object": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                    }
+                  ]
+                },
+                "array": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "required": [
+                "object",
+                "array"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "string": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "boolean": {
+                "type": "boolean"
+              },
+              "object": {
+                "components": {
+                  "schemas": {
+                    "ObjectPartialAndRequired": {
+                      "type": "object",
+                      "properties": {
+                        "string": {
+                          "type": "string"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "object": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                            }
+                          ]
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "required": [
+                        "object",
+                        "array"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "string": {
+                        "type": "string"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "object": {
+                        "components": {
+                          "schemas": {
+                            "ObjectPartialAndRequired": {
+                              "type": "object",
+                              "properties": {
+                                "string": {
+                                  "type": "string"
+                                },
+                                "number": {
+                                  "type": "number"
+                                },
+                                "boolean": {
+                                  "type": "boolean"
+                                },
+                                "object": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                    }
+                                  ]
+                                },
+                                "array": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "object",
+                                "array"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "string": {
+                                "type": "string"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "object": {
+                                "components": {
+                                  "schemas": {
+                                    "ObjectPartialAndRequired": {
+                                      "type": "object",
+                                      "properties": {
+                                        "string": {
+                                          "type": "string"
+                                        },
+                                        "number": {
+                                          "type": "number"
+                                        },
+                                        "boolean": {
+                                          "type": "boolean"
+                                        },
+                                        "object": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                            }
+                                          ]
+                                        },
+                                        "array": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "object",
+                                        "array"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "schema": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                    }
+                                  ]
+                                },
+                                "recursive": 3,
+                                "visited": {},
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "string": {
+                                        "type": "string"
+                                      },
+                                      "number": {
+                                        "type": "number"
+                                      },
+                                      "boolean": {
+                                        "type": "boolean"
+                                      },
+                                      "object": {
+                                        "components": {
+                                          "schemas": {
+                                            "ObjectPartialAndRequired": {
+                                              "type": "object",
+                                              "properties": {
+                                                "string": {
+                                                  "type": "string"
+                                                },
+                                                "number": {
+                                                  "type": "number"
+                                                },
+                                                "boolean": {
+                                                  "type": "boolean"
+                                                },
+                                                "object": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "null"
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                                    }
+                                                  ]
+                                                },
+                                                "array": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "number"
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "object",
+                                                "array"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "schema": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectPartialAndRequired"
+                                            }
+                                          ]
+                                        },
+                                        "recursive": 3,
+                                        "visited": {},
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "array": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "object",
+                                      "array"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            },
+                            "required": [
+                              "object",
+                              "array"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "required": [
+                      "object",
+                      "array"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "object",
+              "array"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

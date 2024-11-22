@@ -1,0 +1,351 @@
+{
+  "model": "3.0",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "datetime": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "time": {
+                "type": "string",
+                "format": "time",
+                "nullable": true
+              },
+              "duration": {
+                "type": "string",
+                "format": "duration",
+                "nullable": true
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "datetime": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "time": {
+                "type": "string",
+                "format": "time",
+                "nullable": true
+              },
+              "duration": {
+                "type": "string",
+                "format": "duration",
+                "nullable": true
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "datetime": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "time": {
+                "type": "string",
+                "format": "time",
+                "nullable": true
+              },
+              "duration": {
+                "type": "string",
+                "format": "duration",
+                "nullable": true
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "classDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "time": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "duration": {
+            "type": "string",
+            "format": "duration",
+            "nullable": true
+          }
+        },
+        "required": [
+          "date",
+          "datetime",
+          "time",
+          "duration"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "datetime": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "time": {
+                "type": "string",
+                "format": "time",
+                "nullable": true
+              },
+              "duration": {
+                "type": "string",
+                "format": "duration",
+                "nullable": true
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "datetime": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "time": {
+                "type": "string",
+                "format": "time",
+                "nullable": true
+              },
+              "duration": {
+                "type": "string",
+                "format": "duration",
+                "nullable": true
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "classDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "datetime": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "time": {
+                "type": "string",
+                "format": "time",
+                "nullable": true
+              },
+              "duration": {
+                "type": "string",
+                "format": "duration",
+                "nullable": true
+              }
+            },
+            "required": [
+              "date",
+              "datetime",
+              "time",
+              "duration"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "classDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "datetime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "time": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "duration": {
+            "type": "string",
+            "format": "duration",
+            "nullable": true
+          }
+        },
+        "required": [
+          "date",
+          "datetime",
+          "time",
+          "duration"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

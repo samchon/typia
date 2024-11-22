@@ -1,0 +1,220 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "children": {
+            "type": "object",
+            "properties": {},
+            "description": "Construct a type with a set of properties K of type T"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "children": {
+            "type": "object",
+            "properties": {},
+            "description": "Construct a type with a set of properties K of type T"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

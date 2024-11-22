@@ -1,0 +1,953 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ArrayUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                    }
+                  },
+                  "ArrayUnion.IUnion": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ArrayUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                    }
+                  },
+                  "ArrayUnion.IUnion": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              ]
+            }
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                  }
+                },
+                "ArrayUnion.IUnion": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ArrayUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                        }
+                      },
+                      "ArrayUnion.IUnion": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "boolean"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "components": {
+            "schemas": {
+              "ArrayUnion": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                }
+              },
+              "ArrayUnion.IUnion": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "schema": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              }
+            ]
+          },
+          "recursive": 3,
+          "visited": {},
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            }
+          ]
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                  }
+                },
+                "ArrayUnion.IUnion": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ArrayUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                        }
+                      },
+                      "ArrayUnion.IUnion": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "boolean"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                  }
+                },
+                "ArrayUnion.IUnion": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ArrayUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                        }
+                      },
+                      "ArrayUnion.IUnion": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "boolean"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                  }
+                },
+                "ArrayUnion.IUnion": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ArrayUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                        }
+                      },
+                      "ArrayUnion.IUnion": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "boolean"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ArrayUnion": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ArrayUnion.IUnion"
+              }
+            },
+            "ArrayUnion.IUnion": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ArrayUnion"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ArrayUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ArrayUnion.IUnion"
+                    }
+                  },
+                  "ArrayUnion.IUnion": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "boolean"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

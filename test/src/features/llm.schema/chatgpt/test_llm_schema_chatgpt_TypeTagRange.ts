@@ -6,4 +6,4 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_llm_schema_chatgpt_TypeTagRange = _test_llm_schema({
   model: "chatgpt",
   name: "TypeTagRange",
-})(typia.llm.schema<TypeTagRange, "chatgpt">());
+})(typia.llm.schema<TypeTagRange, "chatgpt">({}));

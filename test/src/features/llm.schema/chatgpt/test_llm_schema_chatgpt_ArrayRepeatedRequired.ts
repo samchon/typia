@@ -6,4 +6,4 @@ import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired
 export const test_llm_schema_chatgpt_ArrayRepeatedRequired = _test_llm_schema({
   model: "chatgpt",
   name: "ArrayRepeatedRequired",
-})(typia.llm.schema<ArrayRepeatedRequired, "chatgpt">());
+})(typia.llm.schema<ArrayRepeatedRequired, "chatgpt">({}));

@@ -1,0 +1,157 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ArrayRecursive.ICategory": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+            }
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ArrayRecursive.ITimestamp"
+          }
+        },
+        "required": [
+          "children",
+          "id",
+          "code",
+          "sequence",
+          "created_at"
+        ]
+      },
+      "ArrayRecursive.ITimestamp": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "zone": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "time",
+          "zone"
+        ]
+      },
+      "ArrayRecursive.ICategory.Nullable": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+            }
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ArrayRecursive.ITimestamp"
+          }
+        },
+        "required": [
+          "children",
+          "id",
+          "code",
+          "sequence",
+          "created_at"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRecursive.ICategory.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRecursive.ICategory.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRecursive.ICategory.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRecursive.ICategory.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayRecursive.ICategory.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

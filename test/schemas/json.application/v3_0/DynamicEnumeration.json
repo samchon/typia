@@ -1,0 +1,168 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "DynamicEnumeration": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "ar": {
+                "type": "string"
+              },
+              "zh-Hans": {
+                "type": "string"
+              },
+              "zh-Hant": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              },
+              "fr": {
+                "type": "string"
+              },
+              "de": {
+                "type": "string"
+              },
+              "ja": {
+                "type": "string"
+              },
+              "ko": {
+                "type": "string"
+              },
+              "pt": {
+                "type": "string"
+              },
+              "ru": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "DynamicEnumeration.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "ar": {
+                "type": "string"
+              },
+              "zh-Hans": {
+                "type": "string"
+              },
+              "zh-Hant": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              },
+              "fr": {
+                "type": "string"
+              },
+              "de": {
+                "type": "string"
+              },
+              "ja": {
+                "type": "string"
+              },
+              "ko": {
+                "type": "string"
+              },
+              "pt": {
+                "type": "string"
+              },
+              "ru": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/DynamicEnumeration"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/DynamicEnumeration.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

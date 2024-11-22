@@ -6,4 +6,4 @@ import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 export const test_llm_schema_chatgpt_CommentTagPattern = _test_llm_schema({
   model: "chatgpt",
   name: "CommentTagPattern",
-})(typia.llm.schema<CommentTagPattern, "chatgpt">());
+})(typia.llm.schema<CommentTagPattern, "chatgpt">({}));

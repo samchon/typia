@@ -6,4 +6,4 @@ import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 export const test_llm_schema_chatgpt_TypeTagMatrix = _test_llm_schema({
   model: "chatgpt",
   name: "TypeTagMatrix",
-})(typia.llm.schema<TypeTagMatrix, "chatgpt">());
+})(typia.llm.schema<TypeTagMatrix, "chatgpt">({}));

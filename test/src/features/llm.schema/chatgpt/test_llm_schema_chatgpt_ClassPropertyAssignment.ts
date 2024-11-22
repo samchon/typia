@@ -8,4 +8,4 @@ export const test_llm_schema_chatgpt_ClassPropertyAssignment = _test_llm_schema(
     model: "chatgpt",
     name: "ClassPropertyAssignment",
   },
-)(typia.llm.schema<ClassPropertyAssignment, "chatgpt">());
+)(typia.llm.schema<ClassPropertyAssignment, "chatgpt">({}));

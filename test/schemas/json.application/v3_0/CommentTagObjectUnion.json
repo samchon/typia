@@ -1,0 +1,129 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "CommentTagObjectUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+        }
+      },
+      "CommentTagObjectUnion.Type": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+          }
+        ]
+      },
+      "CommentTagObjectUnion.Numeric": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "CommentTagObjectUnion.Literal": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "CommentTagObjectUnion.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+        },
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagObjectUnion"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagObjectUnion"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/CommentTagObjectUnion"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/CommentTagObjectUnion.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

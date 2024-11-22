@@ -9,7 +9,7 @@ export const _test_llm_schema =
   (expected: ILlmApplication.ModelSchema[Model]): void => {
     const actual: ILlmApplication.ModelSchema[Model] = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/llm/${props.model}/${props.name}.json`,
+        `${__dirname}/../../schemas/llm.schema/${props.model}/${props.name}.json`,
         "utf8",
       ),
     );

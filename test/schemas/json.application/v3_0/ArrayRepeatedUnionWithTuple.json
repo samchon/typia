@@ -1,0 +1,499 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ArrayRepeatedUnionWithTuple": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+                }
+              ]
+            },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        ]
+      },
+      "ArrayArrayRepeatedUnionWithTuple": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
+        }
+      },
+      "ArrayRepeatedUnionWithTuple.IBox3D": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+          }
+        },
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ]
+      },
+      "ArrayRepeatedUnionWithTuple.IPoint3D": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      "ArrayArrayRepeatedUnionWithTuple.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
+        },
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "boolean",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple.Nullable"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+                    }
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "nullable": true
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "boolean",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple.Nullable"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+                    }
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "nullable": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "boolean",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple.Nullable"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+                    }
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "nullable": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "boolean",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple.Nullable"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+                    }
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "nullable": true
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            {
+              "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple.Nullable"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+              },
+              "nullable": true
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "nullable": true
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
+                  }
+                ]
+              },
+              "minItems": 2,
+              "maxItems": 2,
+              "nullable": true
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

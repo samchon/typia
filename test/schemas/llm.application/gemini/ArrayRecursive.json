@@ -1,0 +1,1316 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "description": "@maxItems 0"
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "description": "@maxItems 0"
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "description": "@maxItems 0"
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "children": {
+                              "type": "array",
+                              "items": {},
+                              "description": "@maxItems 0"
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "type": "object",
+                              "properties": {
+                                "time": {
+                                  "type": "number"
+                                },
+                                "zone": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "time",
+                                "zone"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "children",
+                            "id",
+                            "code",
+                            "sequence",
+                            "created_at"
+                          ]
+                        }
+                      },
+                      "id": {
+                        "type": "number"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "number"
+                          },
+                          "zone": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "zone"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "children",
+                      "id",
+                      "code",
+                      "sequence",
+                      "created_at"
+                    ]
+                  }
+                },
+                "id": {
+                  "type": "number"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "sequence": {
+                  "type": "number"
+                },
+                "created_at": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              },
+              "required": [
+                "children",
+                "id",
+                "code",
+                "sequence",
+                "created_at"
+              ]
+            }
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ]
+          }
+        },
+        "required": [
+          "children",
+          "id",
+          "code",
+          "sequence",
+          "created_at"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "description": "@maxItems 0"
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "description": "@maxItems 0"
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "description": "@maxItems 0"
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "children": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "children": {
+                              "type": "array",
+                              "items": {},
+                              "description": "@maxItems 0"
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "type": "object",
+                              "properties": {
+                                "time": {
+                                  "type": "number"
+                                },
+                                "zone": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "time",
+                                "zone"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "children",
+                            "id",
+                            "code",
+                            "sequence",
+                            "created_at"
+                          ]
+                        }
+                      },
+                      "id": {
+                        "type": "number"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "number"
+                          },
+                          "zone": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "zone"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "children",
+                      "id",
+                      "code",
+                      "sequence",
+                      "created_at"
+                    ]
+                  }
+                },
+                "id": {
+                  "type": "number"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "sequence": {
+                  "type": "number"
+                },
+                "created_at": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              },
+              "required": [
+                "children",
+                "id",
+                "code",
+                "sequence",
+                "created_at"
+              ]
+            }
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ]
+          }
+        },
+        "required": [
+          "children",
+          "id",
+          "code",
+          "sequence",
+          "created_at"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

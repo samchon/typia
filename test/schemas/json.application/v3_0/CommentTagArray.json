@@ -1,0 +1,160 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "CommentTagArray": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommentTagArray.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "CommentTagArray.Type": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "minItems": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3
+          },
+          "both": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 3,
+            "maxItems": 7
+          },
+          "equal": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 10,
+            "maxItems": 10
+          },
+          "unique": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "items",
+          "minItems",
+          "both",
+          "equal",
+          "unique"
+        ]
+      },
+      "CommentTagArray.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommentTagArray.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagArray"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagArray"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagArray.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/CommentTagArray"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagArray.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagArray.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/CommentTagArray.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/CommentTagArray.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

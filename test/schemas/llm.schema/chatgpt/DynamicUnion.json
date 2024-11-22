@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": {
+    "anyOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      }
+    ]
+  }
+}

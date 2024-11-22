@@ -1,0 +1,380 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            }
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "hobbies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "body",
+                  "rank"
+                ]
+              }
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "hobbies"
+          ]
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            },
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "hobbies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "body",
+                  "rank"
+                ]
+              }
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "hobbies"
+          ]
+        },
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

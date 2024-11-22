@@ -1,0 +1,150 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "TemplateConstant": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateConstant.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "TemplateConstant.Type": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "enum": [
+              "prefix_A",
+              "prefix_B",
+              "prefix_C"
+            ]
+          },
+          "postfix": {
+            "type": "string",
+            "enum": [
+              "1_postfix",
+              "2_postfix",
+              "3_postfix"
+            ]
+          },
+          "combined": {
+            "type": "string",
+            "enum": [
+              "the_1_value_with_label_A",
+              "the_1_value_with_label_B",
+              "the_1_value_with_label_C",
+              "the_2_value_with_label_A",
+              "the_2_value_with_label_B",
+              "the_2_value_with_label_C",
+              "the_3_value_with_label_A",
+              "the_3_value_with_label_B",
+              "the_3_value_with_label_C"
+            ]
+          }
+        },
+        "required": [
+          "prefix",
+          "postfix",
+          "combined"
+        ]
+      },
+      "TemplateConstant.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateConstant.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TemplateConstant"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TemplateConstant"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TemplateConstant.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TemplateConstant"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TemplateConstant.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TemplateConstant.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/TemplateConstant.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TemplateConstant.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

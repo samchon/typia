@@ -1,0 +1,874 @@
+{
+  "components": {
+    "schemas": {
+      "ArrayRepeatedUnion": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+            }
+          }
+        ]
+      },
+      "ArrayArrayRepeatedUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnion"
+        }
+      },
+      "ArrayRepeatedUnion.IBox3D": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+          }
+        },
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ]
+      },
+      "ArrayRepeatedUnion.IPoint3D": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "oneOf": [
+      {
+        "type": "number"
+      },
+      {
+        "type": "boolean"
+      },
+      {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      {
+        "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+      },
+      {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+        }
+      }
+    ]
+  },
+  "recursive": 3,
+  "visited": {},
+  "oneOf": [
+    {
+      "type": "number"
+    },
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    {
+      "type": "array",
+      "items": {
+        "components": {
+          "schemas": {
+            "ArrayRepeatedUnion": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+                  }
+                }
+              ]
+            },
+            "ArrayArrayRepeatedUnion": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ArrayRepeatedUnion"
+              }
+            },
+            "ArrayRepeatedUnion.IBox3D": {
+              "type": "object",
+              "properties": {
+                "scale": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                },
+                "position": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                },
+                "rotate": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                },
+                "pivot": {
+                  "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                }
+              },
+              "required": [
+                "scale",
+                "position",
+                "rotate",
+                "pivot"
+              ]
+            },
+            "ArrayRepeatedUnion.IPoint3D": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "z"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+              }
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ArrayRepeatedUnion": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+                        }
+                      }
+                    ]
+                  },
+                  "ArrayArrayRepeatedUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnion"
+                    }
+                  },
+                  "ArrayRepeatedUnion.IBox3D": {
+                    "type": "object",
+                    "properties": {
+                      "scale": {
+                        "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                      },
+                      "position": {
+                        "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                      },
+                      "rotate": {
+                        "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                      },
+                      "pivot": {
+                        "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                      }
+                    },
+                    "required": [
+                      "scale",
+                      "position",
+                      "rotate",
+                      "pivot"
+                    ]
+                  },
+                  "ArrayRepeatedUnion.IPoint3D": {
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      },
+                      "z": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "x",
+                      "y",
+                      "z"
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+                    }
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "components": {
+                      "schemas": {
+                        "ArrayRepeatedUnion": {
+                          "oneOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+                              }
+                            }
+                          ]
+                        },
+                        "ArrayArrayRepeatedUnion": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ArrayRepeatedUnion"
+                          }
+                        },
+                        "ArrayRepeatedUnion.IBox3D": {
+                          "type": "object",
+                          "properties": {
+                            "scale": {
+                              "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                            },
+                            "position": {
+                              "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                            },
+                            "rotate": {
+                              "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                            },
+                            "pivot": {
+                              "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
+                            }
+                          },
+                          "required": [
+                            "scale",
+                            "position",
+                            "rotate",
+                            "pivot"
+                          ]
+                        },
+                        "ArrayRepeatedUnion.IPoint3D": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            },
+                            "z": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y",
+                            "z"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        {
+                          "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
+                          }
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {},
+                        "maxItems": 0
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "scale": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "z": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "z"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "position": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "z": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "z"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "rotate": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "z": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "z"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "pivot": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "z": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "z"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "scale",
+                            "position",
+                            "rotate",
+                            "pivot"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "scale": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "position": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "rotate": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "pivot": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "scale",
+                      "position",
+                      "rotate",
+                      "pivot"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "scale": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ],
+                  "additionalProperties": false
+                },
+                "position": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ],
+                  "additionalProperties": false
+                },
+                "rotate": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ],
+                  "additionalProperties": false
+                },
+                "pivot": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "scale",
+                "position",
+                "rotate",
+                "pivot"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "additionalProperties": false
+          },
+          "position": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "additionalProperties": false
+          },
+          "rotate": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "additionalProperties": false
+          },
+          "pivot": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

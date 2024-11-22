@@ -1,0 +1,4206 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "parent": {
+                "components": {
+                  "schemas": {
+                    "ObjectRecursive.IDepartment": {
+                      "type": "object",
+                      "properties": {
+                        "parent": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                            }
+                          ]
+                        },
+                        "id": {
+                          "type": "number"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "created_at": {
+                          "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                        }
+                      },
+                      "required": [
+                        "parent",
+                        "id",
+                        "code",
+                        "name",
+                        "sequence",
+                        "created_at"
+                      ]
+                    },
+                    "ObjectRecursive.ITimestamp": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "parent": {
+                        "components": {
+                          "schemas": {
+                            "ObjectRecursive.IDepartment": {
+                              "type": "object",
+                              "properties": {
+                                "parent": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                    }
+                                  ]
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                }
+                              },
+                              "required": [
+                                "parent",
+                                "id",
+                                "code",
+                                "name",
+                                "sequence",
+                                "created_at"
+                              ]
+                            },
+                            "ObjectRecursive.ITimestamp": {
+                              "type": "object",
+                              "properties": {
+                                "time": {
+                                  "type": "number"
+                                },
+                                "zone": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "time",
+                                "zone"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "parent": {
+                                "components": {
+                                  "schemas": {
+                                    "ObjectRecursive.IDepartment": {
+                                      "type": "object",
+                                      "properties": {
+                                        "parent": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                            }
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "code": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "sequence": {
+                                          "type": "number"
+                                        },
+                                        "created_at": {
+                                          "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                        }
+                                      },
+                                      "required": [
+                                        "parent",
+                                        "id",
+                                        "code",
+                                        "name",
+                                        "sequence",
+                                        "created_at"
+                                      ]
+                                    },
+                                    "ObjectRecursive.ITimestamp": {
+                                      "type": "object",
+                                      "properties": {
+                                        "time": {
+                                          "type": "number"
+                                        },
+                                        "zone": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "time",
+                                        "zone"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "schema": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                    }
+                                  ]
+                                },
+                                "recursive": 3,
+                                "visited": {},
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "parent": {
+                                        "components": {
+                                          "schemas": {
+                                            "ObjectRecursive.IDepartment": {
+                                              "type": "object",
+                                              "properties": {
+                                                "parent": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "null"
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                    }
+                                                  ]
+                                                },
+                                                "id": {
+                                                  "type": "number"
+                                                },
+                                                "code": {
+                                                  "type": "string"
+                                                },
+                                                "name": {
+                                                  "type": "string"
+                                                },
+                                                "sequence": {
+                                                  "type": "number"
+                                                },
+                                                "created_at": {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                }
+                                              },
+                                              "required": [
+                                                "parent",
+                                                "id",
+                                                "code",
+                                                "name",
+                                                "sequence",
+                                                "created_at"
+                                              ]
+                                            },
+                                            "ObjectRecursive.ITimestamp": {
+                                              "type": "object",
+                                              "properties": {
+                                                "time": {
+                                                  "type": "number"
+                                                },
+                                                "zone": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "required": [
+                                                "time",
+                                                "zone"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "schema": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                            }
+                                          ]
+                                        },
+                                        "recursive": 3,
+                                        "visited": {},
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "sequence": {
+                                        "type": "number"
+                                      },
+                                      "created_at": {
+                                        "type": "object",
+                                        "properties": {
+                                          "time": {
+                                            "type": "number"
+                                          },
+                                          "zone": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "time",
+                                          "zone"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    },
+                                    "required": [
+                                      "parent",
+                                      "id",
+                                      "code",
+                                      "name",
+                                      "sequence",
+                                      "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "created_at": {
+                                "type": "object",
+                                "properties": {
+                                  "time": {
+                                    "type": "number"
+                                  },
+                                  "zone": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "time",
+                                  "zone"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "parent",
+                              "id",
+                              "code",
+                              "name",
+                              "sequence",
+                              "created_at"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "id": {
+                        "type": "number"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "number"
+                          },
+                          "zone": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "zone"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "parent",
+                      "id",
+                      "code",
+                      "name",
+                      "sequence",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "parent",
+              "id",
+              "code",
+              "name",
+              "sequence",
+              "created_at"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "parent": {
+                "components": {
+                  "schemas": {
+                    "ObjectRecursive.IDepartment": {
+                      "type": "object",
+                      "properties": {
+                        "parent": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                            }
+                          ]
+                        },
+                        "id": {
+                          "type": "number"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "created_at": {
+                          "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                        }
+                      },
+                      "required": [
+                        "parent",
+                        "id",
+                        "code",
+                        "name",
+                        "sequence",
+                        "created_at"
+                      ]
+                    },
+                    "ObjectRecursive.ITimestamp": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "parent": {
+                        "components": {
+                          "schemas": {
+                            "ObjectRecursive.IDepartment": {
+                              "type": "object",
+                              "properties": {
+                                "parent": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                    }
+                                  ]
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                }
+                              },
+                              "required": [
+                                "parent",
+                                "id",
+                                "code",
+                                "name",
+                                "sequence",
+                                "created_at"
+                              ]
+                            },
+                            "ObjectRecursive.ITimestamp": {
+                              "type": "object",
+                              "properties": {
+                                "time": {
+                                  "type": "number"
+                                },
+                                "zone": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "time",
+                                "zone"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "parent": {
+                                "components": {
+                                  "schemas": {
+                                    "ObjectRecursive.IDepartment": {
+                                      "type": "object",
+                                      "properties": {
+                                        "parent": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                            }
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "code": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "sequence": {
+                                          "type": "number"
+                                        },
+                                        "created_at": {
+                                          "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                        }
+                                      },
+                                      "required": [
+                                        "parent",
+                                        "id",
+                                        "code",
+                                        "name",
+                                        "sequence",
+                                        "created_at"
+                                      ]
+                                    },
+                                    "ObjectRecursive.ITimestamp": {
+                                      "type": "object",
+                                      "properties": {
+                                        "time": {
+                                          "type": "number"
+                                        },
+                                        "zone": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "time",
+                                        "zone"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "schema": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                    }
+                                  ]
+                                },
+                                "recursive": 3,
+                                "visited": {},
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "parent": {
+                                        "components": {
+                                          "schemas": {
+                                            "ObjectRecursive.IDepartment": {
+                                              "type": "object",
+                                              "properties": {
+                                                "parent": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "null"
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                    }
+                                                  ]
+                                                },
+                                                "id": {
+                                                  "type": "number"
+                                                },
+                                                "code": {
+                                                  "type": "string"
+                                                },
+                                                "name": {
+                                                  "type": "string"
+                                                },
+                                                "sequence": {
+                                                  "type": "number"
+                                                },
+                                                "created_at": {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                }
+                                              },
+                                              "required": [
+                                                "parent",
+                                                "id",
+                                                "code",
+                                                "name",
+                                                "sequence",
+                                                "created_at"
+                                              ]
+                                            },
+                                            "ObjectRecursive.ITimestamp": {
+                                              "type": "object",
+                                              "properties": {
+                                                "time": {
+                                                  "type": "number"
+                                                },
+                                                "zone": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "required": [
+                                                "time",
+                                                "zone"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "schema": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                            }
+                                          ]
+                                        },
+                                        "recursive": 3,
+                                        "visited": {},
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "sequence": {
+                                        "type": "number"
+                                      },
+                                      "created_at": {
+                                        "type": "object",
+                                        "properties": {
+                                          "time": {
+                                            "type": "number"
+                                          },
+                                          "zone": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "time",
+                                          "zone"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    },
+                                    "required": [
+                                      "parent",
+                                      "id",
+                                      "code",
+                                      "name",
+                                      "sequence",
+                                      "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "created_at": {
+                                "type": "object",
+                                "properties": {
+                                  "time": {
+                                    "type": "number"
+                                  },
+                                  "zone": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "time",
+                                  "zone"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "parent",
+                              "id",
+                              "code",
+                              "name",
+                              "sequence",
+                              "created_at"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "id": {
+                        "type": "number"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "number"
+                          },
+                          "zone": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "zone"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "parent",
+                      "id",
+                      "code",
+                      "name",
+                      "sequence",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "parent",
+              "id",
+              "code",
+              "name",
+              "sequence",
+              "created_at"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectRecursive.IDepartment": {
+                  "type": "object",
+                  "properties": {
+                    "parent": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
+                  },
+                  "required": [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                  ]
+                },
+                "ObjectRecursive.ITimestamp": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "parent": {
+                    "components": {
+                      "schemas": {
+                        "ObjectRecursive.IDepartment": {
+                          "type": "object",
+                          "properties": {
+                            "parent": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                            }
+                          },
+                          "required": [
+                            "parent",
+                            "id",
+                            "code",
+                            "name",
+                            "sequence",
+                            "created_at"
+                          ]
+                        },
+                        "ObjectRecursive.ITimestamp": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "number"
+                            },
+                            "zone": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "time",
+                            "zone"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "parent": {
+                            "components": {
+                              "schemas": {
+                                "ObjectRecursive.IDepartment": {
+                                  "type": "object",
+                                  "properties": {
+                                    "parent": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "created_at": {
+                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                    }
+                                  },
+                                  "required": [
+                                    "parent",
+                                    "id",
+                                    "code",
+                                    "name",
+                                    "sequence",
+                                    "created_at"
+                                  ]
+                                },
+                                "ObjectRecursive.ITimestamp": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "parent": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectRecursive.IDepartment": {
+                                          "type": "object",
+                                          "properties": {
+                                            "parent": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "id": {
+                                              "type": "number"
+                                            },
+                                            "code": {
+                                              "type": "string"
+                                            },
+                                            "name": {
+                                              "type": "string"
+                                            },
+                                            "sequence": {
+                                              "type": "number"
+                                            },
+                                            "created_at": {
+                                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                            }
+                                          },
+                                          "required": [
+                                            "parent",
+                                            "id",
+                                            "code",
+                                            "name",
+                                            "sequence",
+                                            "created_at"
+                                          ]
+                                        },
+                                        "ObjectRecursive.ITimestamp": {
+                                          "type": "object",
+                                          "properties": {
+                                            "time": {
+                                              "type": "number"
+                                            },
+                                            "zone": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "time",
+                                            "zone"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "parent": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectRecursive.IDepartment": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "parent": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "id": {
+                                                      "type": "number"
+                                                    },
+                                                    "code": {
+                                                      "type": "string"
+                                                    },
+                                                    "name": {
+                                                      "type": "string"
+                                                    },
+                                                    "sequence": {
+                                                      "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "parent",
+                                                    "id",
+                                                    "code",
+                                                    "name",
+                                                    "sequence",
+                                                    "created_at"
+                                                  ]
+                                                },
+                                                "ObjectRecursive.ITimestamp": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "time": {
+                                                      "type": "number"
+                                                    },
+                                                    "zone": {
+                                                      "type": "number"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "time",
+                                                    "zone"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "id": {
+                                            "type": "number"
+                                          },
+                                          "code": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "sequence": {
+                                            "type": "number"
+                                          },
+                                          "created_at": {
+                                            "type": "object",
+                                            "properties": {
+                                              "time": {
+                                                "type": "number"
+                                              },
+                                              "zone": {
+                                                "type": "number"
+                                              }
+                                            },
+                                            "required": [
+                                              "time",
+                                              "zone"
+                                            ],
+                                            "additionalProperties": false
+                                          }
+                                        },
+                                        "required": [
+                                          "parent",
+                                          "id",
+                                          "code",
+                                          "name",
+                                          "sequence",
+                                          "created_at"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "sequence": {
+                                    "type": "number"
+                                  },
+                                  "created_at": {
+                                    "type": "object",
+                                    "properties": {
+                                      "time": {
+                                        "type": "number"
+                                      },
+                                      "zone": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "time",
+                                      "zone"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "parent",
+                                  "id",
+                                  "code",
+                                  "name",
+                                  "sequence",
+                                  "created_at"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "parent",
+                          "id",
+                          "code",
+                          "name",
+                          "sequence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "created_at": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "zone": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "time",
+                      "zone"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "parent",
+                  "id",
+                  "code",
+                  "name",
+                  "sequence",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "components": {
+              "schemas": {
+                "ObjectRecursive.IDepartment": {
+                  "type": "object",
+                  "properties": {
+                    "parent": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
+                  },
+                  "required": [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                  ]
+                },
+                "ObjectRecursive.ITimestamp": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "parent": {
+                    "components": {
+                      "schemas": {
+                        "ObjectRecursive.IDepartment": {
+                          "type": "object",
+                          "properties": {
+                            "parent": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                            }
+                          },
+                          "required": [
+                            "parent",
+                            "id",
+                            "code",
+                            "name",
+                            "sequence",
+                            "created_at"
+                          ]
+                        },
+                        "ObjectRecursive.ITimestamp": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "number"
+                            },
+                            "zone": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "time",
+                            "zone"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "parent": {
+                            "components": {
+                              "schemas": {
+                                "ObjectRecursive.IDepartment": {
+                                  "type": "object",
+                                  "properties": {
+                                    "parent": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "created_at": {
+                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                    }
+                                  },
+                                  "required": [
+                                    "parent",
+                                    "id",
+                                    "code",
+                                    "name",
+                                    "sequence",
+                                    "created_at"
+                                  ]
+                                },
+                                "ObjectRecursive.ITimestamp": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "parent": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectRecursive.IDepartment": {
+                                          "type": "object",
+                                          "properties": {
+                                            "parent": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "id": {
+                                              "type": "number"
+                                            },
+                                            "code": {
+                                              "type": "string"
+                                            },
+                                            "name": {
+                                              "type": "string"
+                                            },
+                                            "sequence": {
+                                              "type": "number"
+                                            },
+                                            "created_at": {
+                                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                            }
+                                          },
+                                          "required": [
+                                            "parent",
+                                            "id",
+                                            "code",
+                                            "name",
+                                            "sequence",
+                                            "created_at"
+                                          ]
+                                        },
+                                        "ObjectRecursive.ITimestamp": {
+                                          "type": "object",
+                                          "properties": {
+                                            "time": {
+                                              "type": "number"
+                                            },
+                                            "zone": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "time",
+                                            "zone"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "sequence": {
+                                    "type": "number"
+                                  },
+                                  "created_at": {
+                                    "type": "object",
+                                    "properties": {
+                                      "time": {
+                                        "type": "number"
+                                      },
+                                      "zone": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "time",
+                                      "zone"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "parent",
+                                  "id",
+                                  "code",
+                                  "name",
+                                  "sequence",
+                                  "created_at"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "parent",
+                          "id",
+                          "code",
+                          "name",
+                          "sequence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "created_at": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "zone": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "time",
+                      "zone"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "parent",
+                  "id",
+                  "code",
+                  "name",
+                  "sequence",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parent",
+          "id",
+          "code",
+          "name",
+          "sequence",
+          "created_at"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ObjectRecursive.IDepartment": {
+                  "type": "object",
+                  "properties": {
+                    "parent": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
+                  },
+                  "required": [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                  ]
+                },
+                "ObjectRecursive.ITimestamp": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "parent": {
+                    "components": {
+                      "schemas": {
+                        "ObjectRecursive.IDepartment": {
+                          "type": "object",
+                          "properties": {
+                            "parent": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                            }
+                          },
+                          "required": [
+                            "parent",
+                            "id",
+                            "code",
+                            "name",
+                            "sequence",
+                            "created_at"
+                          ]
+                        },
+                        "ObjectRecursive.ITimestamp": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "number"
+                            },
+                            "zone": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "time",
+                            "zone"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "parent": {
+                            "components": {
+                              "schemas": {
+                                "ObjectRecursive.IDepartment": {
+                                  "type": "object",
+                                  "properties": {
+                                    "parent": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "created_at": {
+                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                    }
+                                  },
+                                  "required": [
+                                    "parent",
+                                    "id",
+                                    "code",
+                                    "name",
+                                    "sequence",
+                                    "created_at"
+                                  ]
+                                },
+                                "ObjectRecursive.ITimestamp": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "parent": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectRecursive.IDepartment": {
+                                          "type": "object",
+                                          "properties": {
+                                            "parent": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "id": {
+                                              "type": "number"
+                                            },
+                                            "code": {
+                                              "type": "string"
+                                            },
+                                            "name": {
+                                              "type": "string"
+                                            },
+                                            "sequence": {
+                                              "type": "number"
+                                            },
+                                            "created_at": {
+                                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                            }
+                                          },
+                                          "required": [
+                                            "parent",
+                                            "id",
+                                            "code",
+                                            "name",
+                                            "sequence",
+                                            "created_at"
+                                          ]
+                                        },
+                                        "ObjectRecursive.ITimestamp": {
+                                          "type": "object",
+                                          "properties": {
+                                            "time": {
+                                              "type": "number"
+                                            },
+                                            "zone": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "time",
+                                            "zone"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "parent": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectRecursive.IDepartment": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "parent": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "id": {
+                                                      "type": "number"
+                                                    },
+                                                    "code": {
+                                                      "type": "string"
+                                                    },
+                                                    "name": {
+                                                      "type": "string"
+                                                    },
+                                                    "sequence": {
+                                                      "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "parent",
+                                                    "id",
+                                                    "code",
+                                                    "name",
+                                                    "sequence",
+                                                    "created_at"
+                                                  ]
+                                                },
+                                                "ObjectRecursive.ITimestamp": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "time": {
+                                                      "type": "number"
+                                                    },
+                                                    "zone": {
+                                                      "type": "number"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "time",
+                                                    "zone"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "id": {
+                                            "type": "number"
+                                          },
+                                          "code": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "sequence": {
+                                            "type": "number"
+                                          },
+                                          "created_at": {
+                                            "type": "object",
+                                            "properties": {
+                                              "time": {
+                                                "type": "number"
+                                              },
+                                              "zone": {
+                                                "type": "number"
+                                              }
+                                            },
+                                            "required": [
+                                              "time",
+                                              "zone"
+                                            ],
+                                            "additionalProperties": false
+                                          }
+                                        },
+                                        "required": [
+                                          "parent",
+                                          "id",
+                                          "code",
+                                          "name",
+                                          "sequence",
+                                          "created_at"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "sequence": {
+                                    "type": "number"
+                                  },
+                                  "created_at": {
+                                    "type": "object",
+                                    "properties": {
+                                      "time": {
+                                        "type": "number"
+                                      },
+                                      "zone": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "time",
+                                      "zone"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "parent",
+                                  "id",
+                                  "code",
+                                  "name",
+                                  "sequence",
+                                  "created_at"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "parent",
+                          "id",
+                          "code",
+                          "name",
+                          "sequence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "created_at": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "zone": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "time",
+                      "zone"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "parent",
+                  "id",
+                  "code",
+                  "name",
+                  "sequence",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectRecursive.IDepartment": {
+                  "type": "object",
+                  "properties": {
+                    "parent": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
+                  },
+                  "required": [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                  ]
+                },
+                "ObjectRecursive.ITimestamp": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "parent": {
+                    "components": {
+                      "schemas": {
+                        "ObjectRecursive.IDepartment": {
+                          "type": "object",
+                          "properties": {
+                            "parent": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                            }
+                          },
+                          "required": [
+                            "parent",
+                            "id",
+                            "code",
+                            "name",
+                            "sequence",
+                            "created_at"
+                          ]
+                        },
+                        "ObjectRecursive.ITimestamp": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "number"
+                            },
+                            "zone": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "time",
+                            "zone"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "parent": {
+                            "components": {
+                              "schemas": {
+                                "ObjectRecursive.IDepartment": {
+                                  "type": "object",
+                                  "properties": {
+                                    "parent": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "created_at": {
+                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                    }
+                                  },
+                                  "required": [
+                                    "parent",
+                                    "id",
+                                    "code",
+                                    "name",
+                                    "sequence",
+                                    "created_at"
+                                  ]
+                                },
+                                "ObjectRecursive.ITimestamp": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "parent": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectRecursive.IDepartment": {
+                                          "type": "object",
+                                          "properties": {
+                                            "parent": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "id": {
+                                              "type": "number"
+                                            },
+                                            "code": {
+                                              "type": "string"
+                                            },
+                                            "name": {
+                                              "type": "string"
+                                            },
+                                            "sequence": {
+                                              "type": "number"
+                                            },
+                                            "created_at": {
+                                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                            }
+                                          },
+                                          "required": [
+                                            "parent",
+                                            "id",
+                                            "code",
+                                            "name",
+                                            "sequence",
+                                            "created_at"
+                                          ]
+                                        },
+                                        "ObjectRecursive.ITimestamp": {
+                                          "type": "object",
+                                          "properties": {
+                                            "time": {
+                                              "type": "number"
+                                            },
+                                            "zone": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "time",
+                                            "zone"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "parent": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectRecursive.IDepartment": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "parent": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "id": {
+                                                      "type": "number"
+                                                    },
+                                                    "code": {
+                                                      "type": "string"
+                                                    },
+                                                    "name": {
+                                                      "type": "string"
+                                                    },
+                                                    "sequence": {
+                                                      "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "parent",
+                                                    "id",
+                                                    "code",
+                                                    "name",
+                                                    "sequence",
+                                                    "created_at"
+                                                  ]
+                                                },
+                                                "ObjectRecursive.ITimestamp": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "time": {
+                                                      "type": "number"
+                                                    },
+                                                    "zone": {
+                                                      "type": "number"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "time",
+                                                    "zone"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "id": {
+                                            "type": "number"
+                                          },
+                                          "code": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "sequence": {
+                                            "type": "number"
+                                          },
+                                          "created_at": {
+                                            "type": "object",
+                                            "properties": {
+                                              "time": {
+                                                "type": "number"
+                                              },
+                                              "zone": {
+                                                "type": "number"
+                                              }
+                                            },
+                                            "required": [
+                                              "time",
+                                              "zone"
+                                            ],
+                                            "additionalProperties": false
+                                          }
+                                        },
+                                        "required": [
+                                          "parent",
+                                          "id",
+                                          "code",
+                                          "name",
+                                          "sequence",
+                                          "created_at"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "sequence": {
+                                    "type": "number"
+                                  },
+                                  "created_at": {
+                                    "type": "object",
+                                    "properties": {
+                                      "time": {
+                                        "type": "number"
+                                      },
+                                      "zone": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "time",
+                                      "zone"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "parent",
+                                  "id",
+                                  "code",
+                                  "name",
+                                  "sequence",
+                                  "created_at"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "parent",
+                          "id",
+                          "code",
+                          "name",
+                          "sequence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "created_at": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "zone": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "time",
+                      "zone"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "parent",
+                  "id",
+                  "code",
+                  "name",
+                  "sequence",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ObjectRecursive.IDepartment": {
+                  "type": "object",
+                  "properties": {
+                    "parent": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                    }
+                  },
+                  "required": [
+                    "parent",
+                    "id",
+                    "code",
+                    "name",
+                    "sequence",
+                    "created_at"
+                  ]
+                },
+                "ObjectRecursive.ITimestamp": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "number"
+                    },
+                    "zone": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "zone"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "parent": {
+                    "components": {
+                      "schemas": {
+                        "ObjectRecursive.IDepartment": {
+                          "type": "object",
+                          "properties": {
+                            "parent": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "type": "number"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "created_at": {
+                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                            }
+                          },
+                          "required": [
+                            "parent",
+                            "id",
+                            "code",
+                            "name",
+                            "sequence",
+                            "created_at"
+                          ]
+                        },
+                        "ObjectRecursive.ITimestamp": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "number"
+                            },
+                            "zone": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "time",
+                            "zone"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "parent": {
+                            "components": {
+                              "schemas": {
+                                "ObjectRecursive.IDepartment": {
+                                  "type": "object",
+                                  "properties": {
+                                    "parent": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "created_at": {
+                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                    }
+                                  },
+                                  "required": [
+                                    "parent",
+                                    "id",
+                                    "code",
+                                    "name",
+                                    "sequence",
+                                    "created_at"
+                                  ]
+                                },
+                                "ObjectRecursive.ITimestamp": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              }
+                            },
+                            "schema": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                }
+                              ]
+                            },
+                            "recursive": 3,
+                            "visited": {},
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "parent": {
+                                    "components": {
+                                      "schemas": {
+                                        "ObjectRecursive.IDepartment": {
+                                          "type": "object",
+                                          "properties": {
+                                            "parent": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "id": {
+                                              "type": "number"
+                                            },
+                                            "code": {
+                                              "type": "string"
+                                            },
+                                            "name": {
+                                              "type": "string"
+                                            },
+                                            "sequence": {
+                                              "type": "number"
+                                            },
+                                            "created_at": {
+                                              "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                            }
+                                          },
+                                          "required": [
+                                            "parent",
+                                            "id",
+                                            "code",
+                                            "name",
+                                            "sequence",
+                                            "created_at"
+                                          ]
+                                        },
+                                        "ObjectRecursive.ITimestamp": {
+                                          "type": "object",
+                                          "properties": {
+                                            "time": {
+                                              "type": "number"
+                                            },
+                                            "zone": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "time",
+                                            "zone"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "schema": {
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                        }
+                                      ]
+                                    },
+                                    "recursive": 3,
+                                    "visited": {},
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "parent": {
+                                            "components": {
+                                              "schemas": {
+                                                "ObjectRecursive.IDepartment": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "parent": {
+                                                      "oneOf": [
+                                                        {
+                                                          "type": "null"
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "id": {
+                                                      "type": "number"
+                                                    },
+                                                    "code": {
+                                                      "type": "string"
+                                                    },
+                                                    "name": {
+                                                      "type": "string"
+                                                    },
+                                                    "sequence": {
+                                                      "type": "number"
+                                                    },
+                                                    "created_at": {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "parent",
+                                                    "id",
+                                                    "code",
+                                                    "name",
+                                                    "sequence",
+                                                    "created_at"
+                                                  ]
+                                                },
+                                                "ObjectRecursive.ITimestamp": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "time": {
+                                                      "type": "number"
+                                                    },
+                                                    "zone": {
+                                                      "type": "number"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "time",
+                                                    "zone"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "schema": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "null"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                }
+                                              ]
+                                            },
+                                            "recursive": 3,
+                                            "visited": {},
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          },
+                                          "id": {
+                                            "type": "number"
+                                          },
+                                          "code": {
+                                            "type": "string"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "sequence": {
+                                            "type": "number"
+                                          },
+                                          "created_at": {
+                                            "type": "object",
+                                            "properties": {
+                                              "time": {
+                                                "type": "number"
+                                              },
+                                              "zone": {
+                                                "type": "number"
+                                              }
+                                            },
+                                            "required": [
+                                              "time",
+                                              "zone"
+                                            ],
+                                            "additionalProperties": false
+                                          }
+                                        },
+                                        "required": [
+                                          "parent",
+                                          "id",
+                                          "code",
+                                          "name",
+                                          "sequence",
+                                          "created_at"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "sequence": {
+                                    "type": "number"
+                                  },
+                                  "created_at": {
+                                    "type": "object",
+                                    "properties": {
+                                      "time": {
+                                        "type": "number"
+                                      },
+                                      "zone": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "time",
+                                      "zone"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "parent",
+                                  "id",
+                                  "code",
+                                  "name",
+                                  "sequence",
+                                  "created_at"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "parent",
+                          "id",
+                          "code",
+                          "name",
+                          "sequence",
+                          "created_at"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "created_at": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "number"
+                      },
+                      "zone": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "time",
+                      "zone"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "parent",
+                  "id",
+                  "code",
+                  "name",
+                  "sequence",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ObjectRecursive.IDepartment": {
+              "type": "object",
+              "properties": {
+                "parent": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "number"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sequence": {
+                  "type": "number"
+                },
+                "created_at": {
+                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                }
+              },
+              "required": [
+                "parent",
+                "id",
+                "code",
+                "name",
+                "sequence",
+                "created_at"
+              ]
+            },
+            "ObjectRecursive.ITimestamp": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number"
+                },
+                "zone": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "time",
+                "zone"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "parent": {
+                "components": {
+                  "schemas": {
+                    "ObjectRecursive.IDepartment": {
+                      "type": "object",
+                      "properties": {
+                        "parent": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                            }
+                          ]
+                        },
+                        "id": {
+                          "type": "number"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "created_at": {
+                          "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                        }
+                      },
+                      "required": [
+                        "parent",
+                        "id",
+                        "code",
+                        "name",
+                        "sequence",
+                        "created_at"
+                      ]
+                    },
+                    "ObjectRecursive.ITimestamp": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "parent": {
+                        "components": {
+                          "schemas": {
+                            "ObjectRecursive.IDepartment": {
+                              "type": "object",
+                              "properties": {
+                                "parent": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                    }
+                                  ]
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                }
+                              },
+                              "required": [
+                                "parent",
+                                "id",
+                                "code",
+                                "name",
+                                "sequence",
+                                "created_at"
+                              ]
+                            },
+                            "ObjectRecursive.ITimestamp": {
+                              "type": "object",
+                              "properties": {
+                                "time": {
+                                  "type": "number"
+                                },
+                                "zone": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "time",
+                                "zone"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "parent": {
+                                "components": {
+                                  "schemas": {
+                                    "ObjectRecursive.IDepartment": {
+                                      "type": "object",
+                                      "properties": {
+                                        "parent": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                            }
+                                          ]
+                                        },
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "code": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "sequence": {
+                                          "type": "number"
+                                        },
+                                        "created_at": {
+                                          "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                        }
+                                      },
+                                      "required": [
+                                        "parent",
+                                        "id",
+                                        "code",
+                                        "name",
+                                        "sequence",
+                                        "created_at"
+                                      ]
+                                    },
+                                    "ObjectRecursive.ITimestamp": {
+                                      "type": "object",
+                                      "properties": {
+                                        "time": {
+                                          "type": "number"
+                                        },
+                                        "zone": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "time",
+                                        "zone"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "schema": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                    }
+                                  ]
+                                },
+                                "recursive": 3,
+                                "visited": {},
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "parent": {
+                                        "components": {
+                                          "schemas": {
+                                            "ObjectRecursive.IDepartment": {
+                                              "type": "object",
+                                              "properties": {
+                                                "parent": {
+                                                  "oneOf": [
+                                                    {
+                                                      "type": "null"
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                                    }
+                                                  ]
+                                                },
+                                                "id": {
+                                                  "type": "number"
+                                                },
+                                                "code": {
+                                                  "type": "string"
+                                                },
+                                                "name": {
+                                                  "type": "string"
+                                                },
+                                                "sequence": {
+                                                  "type": "number"
+                                                },
+                                                "created_at": {
+                                                  "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+                                                }
+                                              },
+                                              "required": [
+                                                "parent",
+                                                "id",
+                                                "code",
+                                                "name",
+                                                "sequence",
+                                                "created_at"
+                                              ]
+                                            },
+                                            "ObjectRecursive.ITimestamp": {
+                                              "type": "object",
+                                              "properties": {
+                                                "time": {
+                                                  "type": "number"
+                                                },
+                                                "zone": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "required": [
+                                                "time",
+                                                "zone"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "schema": {
+                                          "oneOf": [
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+                                            }
+                                          ]
+                                        },
+                                        "recursive": 3,
+                                        "visited": {},
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "sequence": {
+                                        "type": "number"
+                                      },
+                                      "created_at": {
+                                        "type": "object",
+                                        "properties": {
+                                          "time": {
+                                            "type": "number"
+                                          },
+                                          "zone": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "time",
+                                          "zone"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    },
+                                    "required": [
+                                      "parent",
+                                      "id",
+                                      "code",
+                                      "name",
+                                      "sequence",
+                                      "created_at"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "created_at": {
+                                "type": "object",
+                                "properties": {
+                                  "time": {
+                                    "type": "number"
+                                  },
+                                  "zone": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "time",
+                                  "zone"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "parent",
+                              "id",
+                              "code",
+                              "name",
+                              "sequence",
+                              "created_at"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "id": {
+                        "type": "number"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "created_at": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "number"
+                          },
+                          "zone": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "zone"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "parent",
+                      "id",
+                      "code",
+                      "name",
+                      "sequence",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "parent",
+              "id",
+              "code",
+              "name",
+              "sequence",
+              "created_at"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

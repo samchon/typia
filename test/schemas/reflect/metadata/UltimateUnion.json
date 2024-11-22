@@ -5062,7 +5062,7 @@
             "value": {
               "any": false,
               "required": true,
-              "optional": true,
+              "optional": false,
               "nullable": false,
               "functions": [],
               "atomics": [],

@@ -1,0 +1,167 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ArrayRepeatedRequired": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayArrayRepeatedRequired"
+          }
+        ]
+      },
+      "ArrayArrayRepeatedRequired": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedRequired"
+        }
+      },
+      "ArrayArrayRepeatedRequired.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedRequired"
+        },
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRepeatedRequired"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayRepeatedRequired"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedRequired.Nullable"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayRepeatedRequired"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedRequired.Nullable"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedRequired.Nullable"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/ArrayArrayRepeatedRequired.Nullable"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "$ref": "#/components/schemas/ArrayArrayRepeatedRequired.Nullable"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

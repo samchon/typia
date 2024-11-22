@@ -1,0 +1,522 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "additionalItems": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "additionalItems": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArrayAtomicAlias": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+                    }
+                  ],
+                  "additionalItems": false
+                },
+                "ArrayAtomicAlias.Aliasboolean": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasnumber": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasstring": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "additionalItems": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "additionalItems": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ArrayAtomicAlias": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+                    }
+                  ],
+                  "additionalItems": false
+                },
+                "ArrayAtomicAlias.Aliasboolean": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasnumber": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasstring": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "additionalItems": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArrayAtomicAlias": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+                    }
+                  ],
+                  "additionalItems": false
+                },
+                "ArrayAtomicAlias.Aliasboolean": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasnumber": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasstring": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "additionalItems": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ArrayAtomicAlias": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+                    }
+                  ],
+                  "additionalItems": false
+                },
+                "ArrayAtomicAlias.Aliasboolean": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasnumber": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "ArrayAtomicAlias.Aliasstring": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "boolean"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "additionalItems": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ArrayAtomicAlias": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+                }
+              ],
+              "additionalItems": false
+            },
+            "ArrayAtomicAlias.Aliasboolean": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            "ArrayAtomicAlias.Aliasnumber": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "ArrayAtomicAlias.Aliasstring": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ArrayAtomicAlias"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "additionalItems": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

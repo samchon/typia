@@ -1,6 +1,7 @@
 import { ILlmApplication } from "@samchon/openapi";
 import ts from "typescript";
 
+import { IdentifierFactory } from "../../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
@@ -66,12 +67,45 @@ export namespace LlmSchemaTransformer {
       });
 
     // GENERATE LLM SCHEMA
-    const schema: ILlmApplication.ModelSchema[ILlmApplication.Model] =
-      LlmSchemaProgrammer.write({
-        model,
-        metadata: result.data,
-      });
-    return LiteralFactory.write(schema);
+    const out: LlmSchemaProgrammer.IOutput<any> = LlmSchemaProgrammer.write({
+      model,
+      metadata: result.data,
+    });
+    if (Object.keys(out.$defs).length === 0)
+      return LiteralFactory.write(out.schema);
+    return ts.factory.createCallExpression(
+      ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [
+          IdentifierFactory.parameter(
+            "$defs",
+            ts.factory.createTypeReferenceNode("Record<string, unknown>"),
+            undefined,
+          ),
+        ],
+        undefined,
+        undefined,
+        ts.factory.createBlock(
+          [
+            ts.factory.createExpressionStatement(
+              ts.factory.createCallExpression(
+                ts.factory.createIdentifier("Object.assign"),
+                undefined,
+                [
+                  ts.factory.createIdentifier("$defs"),
+                  LiteralFactory.write(out.$defs),
+                ],
+              ),
+            ),
+            ts.factory.createReturnStatement(LiteralFactory.write(out.schema)),
+          ],
+          true,
+        ),
+      ),
+      undefined,
+      [props.expression.arguments[0]!],
+    );
   };
 
   const get_parameter =

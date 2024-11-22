@@ -1,0 +1,316 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "enum": [
+                  "assignment"
+                ]
+              },
+              "editable": {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "enum": [
+                  "assignment"
+                ]
+              },
+              "editable": {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "enum": [
+                  "assignment"
+                ]
+              },
+              "editable": {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "enum": [
+                  "assignment"
+                ]
+              },
+              "editable": {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "enum": [
+                  "assignment"
+                ]
+              },
+              "editable": {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "enum": [
+                  "assignment"
+                ]
+              },
+              "editable": {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

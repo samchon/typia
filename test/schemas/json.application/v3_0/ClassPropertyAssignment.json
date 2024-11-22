@@ -1,0 +1,148 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ClassPropertyAssignment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ]
+      },
+      "ClassPropertyAssignment.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ClassPropertyAssignment"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ClassPropertyAssignment.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

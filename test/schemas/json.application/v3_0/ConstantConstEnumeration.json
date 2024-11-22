@@ -1,0 +1,113 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ConstantConstEnumeration": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConstantConstEnumeration.Enumeration"
+        }
+      },
+      "ConstantConstEnumeration.Enumeration": {
+        "oneOf": [
+          {
+            "type": "number",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Three",
+              "Four"
+            ]
+          }
+        ]
+      },
+      "ConstantConstEnumeration.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConstantConstEnumeration.Enumeration"
+        },
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantConstEnumeration"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantConstEnumeration"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantConstEnumeration.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ConstantConstEnumeration"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantConstEnumeration.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantConstEnumeration.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantConstEnumeration.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ConstantConstEnumeration.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

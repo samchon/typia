@@ -1,0 +1,140 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "AtomicIntersection": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/AtomicIntersection.Wrapperboolean"
+          },
+          {
+            "$ref": "#/components/schemas/AtomicIntersection.Wrappernumber"
+          },
+          {
+            "$ref": "#/components/schemas/AtomicIntersection.Wrapperstring"
+          }
+        ],
+        "additionalItems": false
+      },
+      "AtomicIntersection.Wrapperboolean": {
+        "type": "boolean"
+      },
+      "AtomicIntersection.Wrappernumber": {
+        "type": "number"
+      },
+      "AtomicIntersection.Wrapperstring": {
+        "type": "string"
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/AtomicIntersection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/AtomicIntersection"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AtomicIntersection"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/AtomicIntersection"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AtomicIntersection"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AtomicIntersection"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AtomicIntersection"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

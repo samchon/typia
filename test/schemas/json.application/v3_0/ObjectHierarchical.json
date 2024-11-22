@@ -1,0 +1,409 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectHierarchical.IMember.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount"
+          },
+          "enterprise": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IEnterprise.Nullable"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          },
+          "authorized": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "account",
+          "enterprise",
+          "emails",
+          "created_at",
+          "authorized"
+        ],
+        "nullable": true
+      },
+      "ObjectHierarchical.IEnterprise.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount"
+          },
+          "name": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "account",
+          "name",
+          "grade",
+          "created_at"
+        ],
+        "nullable": true
+      },
+      "ObjectHierarchical.IAccount.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "created_at"
+        ],
+        "nullable": true
+      },
+      "ObjectHierarchical.ICustomer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IChannel"
+          },
+          "member": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IMember.Nullable"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount.Nullable"
+          },
+          "href": {
+            "type": "string"
+          },
+          "referrer": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "channel",
+          "member",
+          "account",
+          "href",
+          "referrer",
+          "ip",
+          "created_at"
+        ]
+      },
+      "ObjectHierarchical.IChannel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "exclusive": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name",
+          "sequence",
+          "exclusive",
+          "priority",
+          "created_at"
+        ]
+      },
+      "ObjectHierarchical.ITimestamp": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "zone": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "time",
+          "zone"
+        ]
+      },
+      "ObjectHierarchical.IMember": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount"
+          },
+          "enterprise": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IEnterprise.Nullable"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          },
+          "authorized": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "account",
+          "enterprise",
+          "emails",
+          "created_at",
+          "authorized"
+        ]
+      },
+      "ObjectHierarchical.IAccount": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "created_at"
+        ]
+      },
+      "ObjectHierarchical.IEnterprise": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount"
+          },
+          "name": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "account",
+          "name",
+          "grade",
+          "created_at"
+        ]
+      },
+      "ObjectHierarchical.ICustomer.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IChannel"
+          },
+          "member": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IMember.Nullable"
+          },
+          "account": {
+            "$ref": "#/components/schemas/ObjectHierarchical.IAccount.Nullable"
+          },
+          "href": {
+            "type": "string"
+          },
+          "referrer": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"
+          }
+        },
+        "required": [
+          "id",
+          "channel",
+          "member",
+          "account",
+          "href",
+          "referrer",
+          "ip",
+          "created_at"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ICustomer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ICustomer"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ICustomer.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectHierarchical.ICustomer"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ICustomer.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ICustomer.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectHierarchical.ICustomer.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectHierarchical.ICustomer.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

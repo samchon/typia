@@ -1,0 +1,1311 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "professor": {
+                  "components": {
+                    "schemas": {
+                      "ObjectUndefined": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                        }
+                      },
+                      "ObjectUndefined.ILecture": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "professor": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "classroom": {
+                            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                          },
+                          "grade": {
+                            "type": "number"
+                          },
+                          "unknown": {}
+                        },
+                        "required": [
+                          "name",
+                          "unknown"
+                        ]
+                      },
+                      "ObjectUndefined.IClassroom": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "classroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "unknown": {}
+              },
+              "required": [
+                "name",
+                "unknown"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "professor": {
+                  "components": {
+                    "schemas": {
+                      "ObjectUndefined": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                        }
+                      },
+                      "ObjectUndefined.ILecture": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "professor": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "classroom": {
+                            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                          },
+                          "grade": {
+                            "type": "number"
+                          },
+                          "unknown": {}
+                        },
+                        "required": [
+                          "name",
+                          "unknown"
+                        ]
+                      },
+                      "ObjectUndefined.IClassroom": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "classroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "unknown": {}
+              },
+              "required": [
+                "name",
+                "unknown"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectUndefined": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                  }
+                },
+                "ObjectUndefined.ILecture": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ]
+                },
+                "ObjectUndefined.IClassroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectUndefined"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "components": {
+                        "schemas": {
+                          "ObjectUndefined": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                            }
+                          },
+                          "ObjectUndefined.ILecture": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "professor": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "classroom": {
+                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                              },
+                              "grade": {
+                                "type": "number"
+                              },
+                              "unknown": {}
+                            },
+                            "required": [
+                              "name",
+                              "unknown"
+                            ]
+                          },
+                          "ObjectUndefined.IClassroom": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "professor": {
+              "components": {
+                "schemas": {
+                  "ObjectUndefined": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                    }
+                  },
+                  "ObjectUndefined.ILecture": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "professor": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "classroom": {
+                        "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                      },
+                      "grade": {
+                        "type": "number"
+                      },
+                      "unknown": {}
+                    },
+                    "required": [
+                      "name",
+                      "unknown"
+                    ]
+                  },
+                  "ObjectUndefined.IClassroom": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name"
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "classroom": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "grade": {
+              "type": "number"
+            },
+            "unknown": {}
+          },
+          "required": [
+            "name",
+            "unknown"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ObjectUndefined": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                  }
+                },
+                "ObjectUndefined.ILecture": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ]
+                },
+                "ObjectUndefined.IClassroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectUndefined"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "components": {
+                        "schemas": {
+                          "ObjectUndefined": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                            }
+                          },
+                          "ObjectUndefined.ILecture": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "professor": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "classroom": {
+                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                              },
+                              "grade": {
+                                "type": "number"
+                              },
+                              "unknown": {}
+                            },
+                            "required": [
+                              "name",
+                              "unknown"
+                            ]
+                          },
+                          "ObjectUndefined.IClassroom": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectUndefined": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                  }
+                },
+                "ObjectUndefined.ILecture": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ]
+                },
+                "ObjectUndefined.IClassroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectUndefined"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "components": {
+                        "schemas": {
+                          "ObjectUndefined": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                            }
+                          },
+                          "ObjectUndefined.ILecture": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "professor": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "classroom": {
+                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                              },
+                              "grade": {
+                                "type": "number"
+                              },
+                              "unknown": {}
+                            },
+                            "required": [
+                              "name",
+                              "unknown"
+                            ]
+                          },
+                          "ObjectUndefined.IClassroom": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ObjectUndefined": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                  }
+                },
+                "ObjectUndefined.ILecture": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ]
+                },
+                "ObjectUndefined.IClassroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectUndefined"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "components": {
+                        "schemas": {
+                          "ObjectUndefined": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                            }
+                          },
+                          "ObjectUndefined.ILecture": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "professor": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "classroom": {
+                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                              },
+                              "grade": {
+                                "type": "number"
+                              },
+                              "unknown": {}
+                            },
+                            "required": [
+                              "name",
+                              "unknown"
+                            ]
+                          },
+                          "ObjectUndefined.IClassroom": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ObjectUndefined": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+              }
+            },
+            "ObjectUndefined.ILecture": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "professor": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "classroom": {
+                  "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "unknown": {}
+              },
+              "required": [
+                "name",
+                "unknown"
+              ]
+            },
+            "ObjectUndefined.IClassroom": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUndefined"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "professor": {
+                  "components": {
+                    "schemas": {
+                      "ObjectUndefined": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+                        }
+                      },
+                      "ObjectUndefined.ILecture": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "professor": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "classroom": {
+                            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
+                          },
+                          "grade": {
+                            "type": "number"
+                          },
+                          "unknown": {}
+                        },
+                        "required": [
+                          "name",
+                          "unknown"
+                        ]
+                      },
+                      "ObjectUndefined.IClassroom": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "classroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "unknown": {}
+              },
+              "required": [
+                "name",
+                "unknown"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

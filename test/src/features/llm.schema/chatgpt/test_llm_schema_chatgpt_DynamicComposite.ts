@@ -6,4 +6,4 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_llm_schema_chatgpt_DynamicComposite = _test_llm_schema({
   model: "chatgpt",
   name: "DynamicComposite",
-})(typia.llm.schema<DynamicComposite, "chatgpt">());
+})(typia.llm.schema<DynamicComposite, "chatgpt">({}));

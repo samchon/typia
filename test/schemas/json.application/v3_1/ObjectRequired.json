@@ -1,0 +1,184 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "RequiredObjectRequired.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectRequired.IBase"
+              }
+            ]
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ],
+        "description": "Make all properties in T required"
+      },
+      "ObjectRequired.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectRequired.IBase"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

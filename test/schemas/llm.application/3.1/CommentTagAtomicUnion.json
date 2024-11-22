@@ -1,0 +1,1044 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "components": {
+                        "schemas": {
+                          "CommentTagAtomicUnion": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                }
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ]
+                          },
+                          "CommentTagAtomicUnion.Type": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "oneOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 3,
+                                    "maxLength": 7
+                                  },
+                                  {
+                                    "type": "number",
+                                    "minimum": 3
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          },
+                          {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "components": {
+                        "schemas": {
+                          "CommentTagAtomicUnion": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                }
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ]
+                          },
+                          "CommentTagAtomicUnion.Type": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "oneOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 3,
+                                    "maxLength": 7
+                                  },
+                                  {
+                                    "type": "number",
+                                    "minimum": 3
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          },
+                          {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagAtomicUnion": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagAtomicUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagAtomicUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "components": {
+                            "schemas": {
+                              "CommentTagAtomicUnion": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "type": "array",
+                                    "items": {
+                                      "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              },
+                              "CommentTagAtomicUnion.Type": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "maxLength": 7
+                                      },
+                                      {
+                                        "type": "number",
+                                        "minimum": 3
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            }
+                          },
+                          "schema": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "minLength": 3,
+                                "maxLength": 7
+                              },
+                              {
+                                "type": "number",
+                                "minimum": 3
+                              }
+                            ]
+                          },
+                          "recursive": 3,
+                          "visited": {},
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "minLength": 3,
+                              "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "components": {
+                    "schemas": {
+                      "CommentTagAtomicUnion": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                            }
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      },
+                      "CommentTagAtomicUnion.Type": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "minLength": 3,
+                                "maxLength": 7
+                              },
+                              {
+                                "type": "number",
+                                "minimum": 3
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 7
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 3
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "CommentTagAtomicUnion": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagAtomicUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagAtomicUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "components": {
+                            "schemas": {
+                              "CommentTagAtomicUnion": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "type": "array",
+                                    "items": {
+                                      "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              },
+                              "CommentTagAtomicUnion.Type": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "maxLength": 7
+                                      },
+                                      {
+                                        "type": "number",
+                                        "minimum": 3
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            }
+                          },
+                          "schema": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "minLength": 3,
+                                "maxLength": 7
+                              },
+                              {
+                                "type": "number",
+                                "minimum": 3
+                              }
+                            ]
+                          },
+                          "recursive": 3,
+                          "visited": {},
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "minLength": 3,
+                              "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagAtomicUnion": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagAtomicUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagAtomicUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "components": {
+                            "schemas": {
+                              "CommentTagAtomicUnion": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "type": "array",
+                                    "items": {
+                                      "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              },
+                              "CommentTagAtomicUnion.Type": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "maxLength": 7
+                                      },
+                                      {
+                                        "type": "number",
+                                        "minimum": 3
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            }
+                          },
+                          "schema": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "minLength": 3,
+                                "maxLength": 7
+                              },
+                              {
+                                "type": "number",
+                                "minimum": 3
+                              }
+                            ]
+                          },
+                          "recursive": 3,
+                          "visited": {},
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "minLength": 3,
+                              "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "CommentTagAtomicUnion": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagAtomicUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagAtomicUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "components": {
+                            "schemas": {
+                              "CommentTagAtomicUnion": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "type": "array",
+                                    "items": {
+                                      "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              },
+                              "CommentTagAtomicUnion.Type": {
+                                "type": "object",
+                                "properties": {
+                                  "value": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "maxLength": 7
+                                      },
+                                      {
+                                        "type": "number",
+                                        "minimum": 3
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            }
+                          },
+                          "schema": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "minLength": 3,
+                                "maxLength": 7
+                              },
+                              {
+                                "type": "number",
+                                "minimum": 3
+                              }
+                            ]
+                          },
+                          "recursive": 3,
+                          "visited": {},
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "minLength": 3,
+                              "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "CommentTagAtomicUnion": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                  }
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            "CommentTagAtomicUnion.Type": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/CommentTagAtomicUnion"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "components": {
+                        "schemas": {
+                          "CommentTagAtomicUnion": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/components/schemas/CommentTagAtomicUnion.Type"
+                                }
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ]
+                          },
+                          "CommentTagAtomicUnion.Type": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "oneOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 3,
+                                    "maxLength": 7
+                                  },
+                                  {
+                                    "type": "number",
+                                    "minimum": 3
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          },
+                          {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

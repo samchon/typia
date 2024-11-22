@@ -21,11 +21,25 @@ export namespace TestLlmSchemaGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if (s.JSONABLE === false) continue;
-      else if (model !== "chatgpt" && s.RECURSIVE === true) continue;
-      else if (model === "gemini") {
+      if (s.name === "UltimateUnion")
+        continue; // TOO MUCH LARGE
+      else if (
+        fs.existsSync(
+          `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
+        ) === false
+      )
+        continue;
+      else if (model === "chatgpt") {
+        // CHATGPT DOES NOT SUPPORT TUPLE TYPE
         const json: string = await fs.promises.readFile(
-          `${__dirname}/../../schemas/json/v3_0/${s.name}.json`,
+          `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
+          "utf8",
+        );
+        if (json.includes(`"prefixItems":`) === true) continue;
+      } else if (model === "gemini") {
+        // GEMINI DOES NOT SUPPORT UNION TYPE
+        const json: string = await fs.promises.readFile(
+          `${__dirname}/../../schemas/json.schemas/v3_0/${s.name}.json`,
           "utf8",
         );
         if (json.includes(`"oneOf":`) === true) continue;
@@ -39,7 +53,7 @@ export namespace TestLlmSchemaGenerator {
         `  _test_llm_schema({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,
-        `  })(typia.llm.schema<${s.name}, ${JSON.stringify(model)}>());`,
+        `  })(typia.llm.schema<${s.name}, ${JSON.stringify(model)}>(${model === "chatgpt" ? "{}" : ""}));`,
       ];
       await fs.promises.writeFile(
         `${__dirname}/../../src/features/llm.schema/${model}/test_llm_schema_${model.replace(".", "_")}_${s.name}.ts`,
@@ -50,7 +64,7 @@ export namespace TestLlmSchemaGenerator {
   }
 
   export async function schemas(): Promise<void> {
-    const location: string = `${__dirname}/../../schemas/llm`;
+    const location: string = `${__dirname}/../../schemas/llm.schema`;
     if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
     await mkdir(location);
     for (const model of MODELS) {
@@ -67,7 +81,7 @@ export namespace TestLlmSchemaGenerator {
 
   async function iterate(model: string): Promise<void> {
     const path: string = `${__dirname}/../../src/features/llm.schema/${model}`;
-    const schemaPath: string = `${__dirname}/../../schemas/llm/${model}`;
+    const schemaPath: string = `${__dirname}/../../schemas/llm.schema/${model}`;
     for (const file of await fs.promises.readdir(path)) {
       if (file.substring(file.length - 3) !== ".ts") continue;
 

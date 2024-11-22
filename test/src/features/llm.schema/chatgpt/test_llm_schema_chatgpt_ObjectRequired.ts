@@ -6,4 +6,4 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_llm_schema_chatgpt_ObjectRequired = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectRequired",
-})(typia.llm.schema<ObjectRequired, "chatgpt">());
+})(typia.llm.schema<ObjectRequired, "chatgpt">({}));

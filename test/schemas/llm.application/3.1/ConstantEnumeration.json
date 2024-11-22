@@ -1,0 +1,866 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ConstantEnumeration": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                    }
+                  },
+                  "ConstantEnumeration.Enumeration": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "const": 0
+                  },
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": "Three"
+                  },
+                  {
+                    "const": "Four"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "const": 0
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "Three"
+                },
+                {
+                  "const": "Four"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ConstantEnumeration": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                    }
+                  },
+                  "ConstantEnumeration.Enumeration": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "const": 0
+                  },
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": "Three"
+                  },
+                  {
+                    "const": "Four"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "const": 0
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "Three"
+                },
+                {
+                  "const": "Four"
+                }
+              ]
+            }
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ConstantEnumeration": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                  }
+                },
+                "ConstantEnumeration.Enumeration": {
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ConstantEnumeration": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                        }
+                      },
+                      "ConstantEnumeration.Enumeration": {
+                        "oneOf": [
+                          {
+                            "const": 0
+                          },
+                          {
+                            "const": 1
+                          },
+                          {
+                            "const": 2
+                          },
+                          {
+                            "const": "Three"
+                          },
+                          {
+                            "const": "Four"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "components": {
+            "schemas": {
+              "ConstantEnumeration": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                }
+              },
+              "ConstantEnumeration.Enumeration": {
+                "oneOf": [
+                  {
+                    "const": 0
+                  },
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": "Three"
+                  },
+                  {
+                    "const": "Four"
+                  }
+                ]
+              }
+            }
+          },
+          "schema": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          },
+          "recursive": 3,
+          "visited": {},
+          "oneOf": [
+            {
+              "const": 0
+            },
+            {
+              "const": 1
+            },
+            {
+              "const": 2
+            },
+            {
+              "const": "Three"
+            },
+            {
+              "const": "Four"
+            }
+          ]
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ConstantEnumeration": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                  }
+                },
+                "ConstantEnumeration.Enumeration": {
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ConstantEnumeration": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                        }
+                      },
+                      "ConstantEnumeration.Enumeration": {
+                        "oneOf": [
+                          {
+                            "const": 0
+                          },
+                          {
+                            "const": 1
+                          },
+                          {
+                            "const": 2
+                          },
+                          {
+                            "const": "Three"
+                          },
+                          {
+                            "const": "Four"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ConstantEnumeration": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                  }
+                },
+                "ConstantEnumeration.Enumeration": {
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ConstantEnumeration": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                        }
+                      },
+                      "ConstantEnumeration.Enumeration": {
+                        "oneOf": [
+                          {
+                            "const": 0
+                          },
+                          {
+                            "const": 1
+                          },
+                          {
+                            "const": 2
+                          },
+                          {
+                            "const": "Three"
+                          },
+                          {
+                            "const": "Four"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ConstantEnumeration": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                  }
+                },
+                "ConstantEnumeration.Enumeration": {
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "ConstantEnumeration": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                        }
+                      },
+                      "ConstantEnumeration.Enumeration": {
+                        "oneOf": [
+                          {
+                            "const": 0
+                          },
+                          {
+                            "const": 1
+                          },
+                          {
+                            "const": 2
+                          },
+                          {
+                            "const": "Three"
+                          },
+                          {
+                            "const": "Four"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ConstantEnumeration": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+              }
+            },
+            "ConstantEnumeration.Enumeration": {
+              "oneOf": [
+                {
+                  "const": 0
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "Three"
+                },
+                {
+                  "const": "Four"
+                }
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantEnumeration"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "ConstantEnumeration": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+                    }
+                  },
+                  "ConstantEnumeration.Enumeration": {
+                    "oneOf": [
+                      {
+                        "const": 0
+                      },
+                      {
+                        "const": 1
+                      },
+                      {
+                        "const": 2
+                      },
+                      {
+                        "const": "Three"
+                      },
+                      {
+                        "const": "Four"
+                      }
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "const": 0
+                  },
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": "Three"
+                  },
+                  {
+                    "const": "Four"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "const": 0
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "Three"
+                },
+                {
+                  "const": "Four"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

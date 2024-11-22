@@ -6,4 +6,4 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_llm_schema_chatgpt_ObjectUnionDouble = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectUnionDouble",
-})(typia.llm.schema<ObjectUnionDouble, "chatgpt">());
+})(typia.llm.schema<ObjectUnionDouble, "chatgpt">({}));

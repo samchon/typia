@@ -1,0 +1,231 @@
+{
+  "model": "3.0",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "number",
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "Three",
+                "Four"
+              ]
+            }
+          ]
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "number",
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "Three",
+                "Four"
+              ]
+            }
+          ]
+        },
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

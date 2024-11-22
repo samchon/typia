@@ -6,4 +6,4 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_llm_schema_chatgpt_ObjectAlias = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectAlias",
-})(typia.llm.schema<ObjectAlias, "chatgpt">());
+})(typia.llm.schema<ObjectAlias, "chatgpt">({}));

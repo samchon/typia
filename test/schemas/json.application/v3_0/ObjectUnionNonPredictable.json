@@ -1,0 +1,211 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectUnionNonPredictable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/IPointerObjectUnionNonPredictable.IUnion"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "IPointerObjectUnionNonPredictable.IUnion": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IUnion"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectUnionNonPredictable.IUnion": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperboolean"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrappernumber"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperstring"
+          }
+        ]
+      },
+      "ObjectUnionNonPredictable.IWrapperboolean": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/IPointerboolean"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "IPointerboolean": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectUnionNonPredictable.IWrappernumber": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/IPointernumber"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "IPointernumber": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectUnionNonPredictable.IWrapperstring": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/IPointerstring"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "IPointerstring": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectUnionNonPredictable.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectUnionNonPredictable"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectUnionNonPredictable.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

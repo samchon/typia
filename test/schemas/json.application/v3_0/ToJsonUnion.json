@@ -1,0 +1,170 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ToJsonUnion": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            }
+          ]
+        }
+      },
+      "ToJsonUnion.ICitizen": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mobile",
+          "name"
+        ]
+      },
+      "ToJsonUnion.IProduct": {
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "manufacturer",
+          "brand",
+          "name"
+        ]
+      },
+      "ToJsonUnion.Nullable": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            }
+          ]
+        },
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ToJsonUnion"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ToJsonUnion"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ToJsonUnion.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ToJsonUnion"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ToJsonUnion.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ToJsonUnion.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ToJsonUnion.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ToJsonUnion.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

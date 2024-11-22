@@ -1,0 +1,335 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Primary Key.\n\n\n@format uuid"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+              },
+              "title": {
+                "type": "string",
+                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+              },
+              "descriptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+              },
+              "newLine": {
+                "type": "number",
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ],
+            "description": "This is the title of object type\n\nAn interface designed to test JSON schema's object description."
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Primary Key.\n\n\n@format uuid"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+              },
+              "title": {
+                "type": "string",
+                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+              },
+              "descriptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+              },
+              "newLine": {
+                "type": "number",
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ],
+            "description": "This is the title of object type\n\nAn interface designed to test JSON schema's object description."
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Primary Key.\n\n\n@format uuid"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+              },
+              "title": {
+                "type": "string",
+                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+              },
+              "descriptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+              },
+              "newLine": {
+                "type": "number",
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary Key.\n\n\n@format uuid"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+          },
+          "title": {
+            "type": "string",
+            "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+          },
+          "newLine": {
+            "type": "number",
+            "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+          }
+        },
+        "required": [
+          "id",
+          "deprecated",
+          "title",
+          "descriptions",
+          "newLine"
+        ],
+        "description": "This is the title of object type\n\nAn interface designed to test JSON schema's object description."
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Primary Key.\n\n\n@format uuid"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+              },
+              "title": {
+                "type": "string",
+                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+              },
+              "descriptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+              },
+              "newLine": {
+                "type": "number",
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Primary Key.\n\n\n@format uuid"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+              },
+              "title": {
+                "type": "string",
+                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+              },
+              "descriptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+              },
+              "newLine": {
+                "type": "number",
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Primary Key.\n\n\n@format uuid"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+              },
+              "title": {
+                "type": "string",
+                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+              },
+              "descriptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+              },
+              "newLine": {
+                "type": "number",
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Primary Key.\n\n\n@format uuid"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam."
+          },
+          "title": {
+            "type": "string",
+            "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
+          },
+          "newLine": {
+            "type": "number",
+            "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema."
+          }
+        },
+        "required": [
+          "id",
+          "deprecated",
+          "title",
+          "descriptions",
+          "newLine"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}
