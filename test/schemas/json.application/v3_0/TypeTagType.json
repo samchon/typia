@@ -1,0 +1,145 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "TypeTagType": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeTagType.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "TypeTagType.Type": {
+        "type": "object",
+        "properties": {
+          "int": {
+            "type": "integer"
+          },
+          "uint": {
+            "type": "integer"
+          },
+          "int32": {
+            "type": "integer"
+          },
+          "uint32": {
+            "type": "integer"
+          },
+          "int64": {
+            "type": "integer"
+          },
+          "uint64": {
+            "type": "integer"
+          },
+          "float": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "int",
+          "uint",
+          "int32",
+          "uint32",
+          "int64",
+          "uint64",
+          "float"
+        ]
+      },
+      "TypeTagType.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeTagType.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagType"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagType"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagType.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagType"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagType.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagType.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagType.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagType.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

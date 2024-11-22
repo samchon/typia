@@ -1,0 +1,138 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "TypeTagMatrix": {
+        "type": "object",
+        "properties": {
+          "matrix": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "matrix"
+        ]
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagMatrix"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagMatrix"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TypeTagMatrix"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagMatrix"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TypeTagMatrix"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TypeTagMatrix"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TypeTagMatrix"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/TypeTagMatrix"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

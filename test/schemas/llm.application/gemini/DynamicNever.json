@@ -1,0 +1,84 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {}
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {}
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {},
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

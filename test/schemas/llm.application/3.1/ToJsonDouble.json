@@ -1,0 +1,368 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ToJsonDouble.Child": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "flag": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "flag"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ToJsonDouble.Child"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ToJsonDouble.Child": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "flag": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "flag"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ToJsonDouble.Child"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ToJsonDouble.Child": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "flag": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "flag"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ToJsonDouble.Child"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ToJsonDouble.Child": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "flag": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "flag"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ToJsonDouble.Child"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ToJsonDouble.Child": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "flag": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "flag"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonDouble.Child"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

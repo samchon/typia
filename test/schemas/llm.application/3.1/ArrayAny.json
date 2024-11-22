@@ -1,0 +1,5199 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "anys": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable1": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable2": {
+                "type": "array",
+                "items": {}
+              },
+              "nullables1": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "nullables2": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both1": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both2": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both3": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "union": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "anys",
+              "nullables1",
+              "nullables2",
+              "union"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "anys": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable1": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable2": {
+                "type": "array",
+                "items": {}
+              },
+              "nullables1": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "nullables2": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both1": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both2": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both3": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "union": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "anys",
+              "nullables1",
+              "nullables2",
+              "union"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAny"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "nullables2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both3": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "anys": {
+            "type": "array",
+            "items": {}
+          },
+          "undefindable1": {
+            "type": "array",
+            "items": {}
+          },
+          "undefindable2": {
+            "type": "array",
+            "items": {}
+          },
+          "nullables1": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "items": {}
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {}
+              }
+            ]
+          },
+          "nullables2": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "items": {}
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {}
+              }
+            ]
+          },
+          "both1": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "items": {}
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {}
+              }
+            ]
+          },
+          "both2": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "items": {}
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {}
+              }
+            ]
+          },
+          "both3": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "array",
+                  "items": {}
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {}
+              }
+            ]
+          },
+          "union": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "anys",
+          "nullables1",
+          "nullables2",
+          "union"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAny"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "nullables2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both3": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAny"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "nullables2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both3": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ArrayAny": {
+                  "type": "object",
+                  "properties": {
+                    "anys": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable1": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "undefindable2": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "nullables1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "nullables2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both1": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both2": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "both3": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "union": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "anys",
+                    "nullables1",
+                    "nullables2",
+                    "union"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArrayAny"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "nullables2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both1": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both2": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "both3": {
+                    "components": {
+                      "schemas": {
+                        "ArrayAny": {
+                          "type": "object",
+                          "properties": {
+                            "anys": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable1": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "undefindable2": {
+                              "type": "array",
+                              "items": {}
+                            },
+                            "nullables1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "nullables2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both1": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both2": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "both3": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {}
+                                }
+                              ]
+                            },
+                            "union": {
+                              "type": "array",
+                              "items": {}
+                            }
+                          },
+                          "required": [
+                            "anys",
+                            "nullables1",
+                            "nullables2",
+                            "union"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "array",
+                          "items": {}
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
+                      }
+                    ]
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ArrayAny": {
+              "type": "object",
+              "properties": {
+                "anys": {
+                  "type": "array",
+                  "items": {}
+                },
+                "undefindable1": {
+                  "type": "array",
+                  "items": {}
+                },
+                "undefindable2": {
+                  "type": "array",
+                  "items": {}
+                },
+                "nullables1": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "nullables2": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "both1": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "both2": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "both3": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "union": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "anys",
+                "nullables1",
+                "nullables2",
+                "union"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ArrayAny"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "anys": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable1": {
+                "type": "array",
+                "items": {}
+              },
+              "undefindable2": {
+                "type": "array",
+                "items": {}
+              },
+              "nullables1": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "nullables2": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both1": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both2": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "both3": {
+                "components": {
+                  "schemas": {
+                    "ArrayAny": {
+                      "type": "object",
+                      "properties": {
+                        "anys": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable1": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "undefindable2": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "nullables1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "nullables2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both1": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both2": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "both3": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "array",
+                              "items": {}
+                            }
+                          ]
+                        },
+                        "union": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "anys",
+                        "nullables1",
+                        "nullables2",
+                        "union"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {}
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {}
+                  }
+                ]
+              },
+              "union": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "anys",
+              "nullables1",
+              "nullables2",
+              "union"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

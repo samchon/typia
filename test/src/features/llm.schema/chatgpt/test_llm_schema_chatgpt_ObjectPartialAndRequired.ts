@@ -7,4 +7,4 @@ export const test_llm_schema_chatgpt_ObjectPartialAndRequired =
   _test_llm_schema({
     model: "chatgpt",
     name: "ObjectPartialAndRequired",
-  })(typia.llm.schema<ObjectPartialAndRequired, "chatgpt">());
+  })(typia.llm.schema<ObjectPartialAndRequired, "chatgpt">({}));

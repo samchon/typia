@@ -6,4 +6,4 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 export const test_llm_schema_chatgpt_TypeTagCustom = _test_llm_schema({
   model: "chatgpt",
   name: "TypeTagCustom",
-})(typia.llm.schema<TypeTagCustom, "chatgpt">());
+})(typia.llm.schema<TypeTagCustom, "chatgpt">({}));

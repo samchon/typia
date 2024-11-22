@@ -1,0 +1,1012 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "Construct a type with a set of properties K of type T",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "children": {
+                            "type": "object",
+                            "properties": {},
+                            "description": "Construct a type with a set of properties K of type T",
+                            "additionalProperties": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "children": {
+                                  "type": "object",
+                                  "properties": {},
+                                  "description": "Construct a type with a set of properties K of type T",
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "sequence",
+                                "children"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sequence",
+                          "children"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "Construct a type with a set of properties K of type T",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "children": {
+                            "type": "object",
+                            "properties": {},
+                            "description": "Construct a type with a set of properties K of type T",
+                            "additionalProperties": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "children": {
+                                  "type": "object",
+                                  "properties": {},
+                                  "description": "Construct a type with a set of properties K of type T",
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "sequence",
+                                "children"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sequence",
+                          "children"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "DynamicTree": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "$ref": "#/components/schemas/RecordstringDynamicTree"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ]
+                },
+                "RecordstringDynamicTree": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "Construct a type with a set of properties K of type T",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/DynamicTree"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicTree"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "children": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "Construct a type with a set of properties K of type T",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "children": {
+                          "type": "object",
+                          "properties": {},
+                          "description": "Construct a type with a set of properties K of type T",
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "children": {
+                                "type": "object",
+                                "properties": {},
+                                "description": "Construct a type with a set of properties K of type T",
+                                "additionalProperties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "children": {
+                                      "type": "object",
+                                      "properties": {},
+                                      "description": "Construct a type with a set of properties K of type T",
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "sequence",
+                                    "children"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sequence",
+                              "children"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sequence",
+                        "children"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "sequence",
+                  "children"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "children": {
+            "type": "object",
+            "properties": {},
+            "description": "Construct a type with a set of properties K of type T",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "sequence": {
+                  "type": "number"
+                },
+                "children": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "Construct a type with a set of properties K of type T",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "children": {
+                        "type": "object",
+                        "properties": {},
+                        "description": "Construct a type with a set of properties K of type T",
+                        "additionalProperties": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "sequence": {
+                              "type": "number"
+                            },
+                            "children": {
+                              "type": "object",
+                              "properties": {},
+                              "description": "Construct a type with a set of properties K of type T",
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "sequence",
+                            "children"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "sequence",
+                      "children"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "sequence",
+                "children"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "DynamicTree": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "$ref": "#/components/schemas/RecordstringDynamicTree"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ]
+                },
+                "RecordstringDynamicTree": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "Construct a type with a set of properties K of type T",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/DynamicTree"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicTree"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "children": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "Construct a type with a set of properties K of type T",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "children": {
+                          "type": "object",
+                          "properties": {},
+                          "description": "Construct a type with a set of properties K of type T",
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "children": {
+                                "type": "object",
+                                "properties": {},
+                                "description": "Construct a type with a set of properties K of type T",
+                                "additionalProperties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "children": {
+                                      "type": "object",
+                                      "properties": {},
+                                      "description": "Construct a type with a set of properties K of type T",
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "sequence",
+                                    "children"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sequence",
+                              "children"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sequence",
+                        "children"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "sequence",
+                  "children"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "DynamicTree": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "$ref": "#/components/schemas/RecordstringDynamicTree"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ]
+                },
+                "RecordstringDynamicTree": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "Construct a type with a set of properties K of type T",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/DynamicTree"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicTree"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "children": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "Construct a type with a set of properties K of type T",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "children": {
+                          "type": "object",
+                          "properties": {},
+                          "description": "Construct a type with a set of properties K of type T",
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "children": {
+                                "type": "object",
+                                "properties": {},
+                                "description": "Construct a type with a set of properties K of type T",
+                                "additionalProperties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "children": {
+                                      "type": "object",
+                                      "properties": {},
+                                      "description": "Construct a type with a set of properties K of type T",
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "sequence",
+                                    "children"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sequence",
+                              "children"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sequence",
+                        "children"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "sequence",
+                  "children"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "DynamicTree": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "$ref": "#/components/schemas/RecordstringDynamicTree"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ]
+                },
+                "RecordstringDynamicTree": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "Construct a type with a set of properties K of type T",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/DynamicTree"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicTree"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "sequence": {
+                    "type": "number"
+                  },
+                  "children": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "Construct a type with a set of properties K of type T",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "sequence": {
+                          "type": "number"
+                        },
+                        "children": {
+                          "type": "object",
+                          "properties": {},
+                          "description": "Construct a type with a set of properties K of type T",
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sequence": {
+                                "type": "number"
+                              },
+                              "children": {
+                                "type": "object",
+                                "properties": {},
+                                "description": "Construct a type with a set of properties K of type T",
+                                "additionalProperties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "sequence": {
+                                      "type": "number"
+                                    },
+                                    "children": {
+                                      "type": "object",
+                                      "properties": {},
+                                      "description": "Construct a type with a set of properties K of type T",
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "sequence",
+                                    "children"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sequence",
+                              "children"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sequence",
+                        "children"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "sequence",
+                  "children"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "DynamicTree": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "sequence": {
+                  "type": "number"
+                },
+                "children": {
+                  "$ref": "#/components/schemas/RecordstringDynamicTree"
+                }
+              },
+              "required": [
+                "id",
+                "sequence",
+                "children"
+              ]
+            },
+            "RecordstringDynamicTree": {
+              "type": "object",
+              "properties": {},
+              "description": "Construct a type with a set of properties K of type T",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/DynamicTree"
+              }
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/DynamicTree"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "type": "object",
+                "properties": {},
+                "description": "Construct a type with a set of properties K of type T",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "children": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "Construct a type with a set of properties K of type T",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "children": {
+                            "type": "object",
+                            "properties": {},
+                            "description": "Construct a type with a set of properties K of type T",
+                            "additionalProperties": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "children": {
+                                  "type": "object",
+                                  "properties": {},
+                                  "description": "Construct a type with a set of properties K of type T",
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "sequence",
+                                "children"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sequence",
+                          "children"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sequence",
+                    "children"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

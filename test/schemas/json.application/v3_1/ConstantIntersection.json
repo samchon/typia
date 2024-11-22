@@ -1,0 +1,140 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ConstantIntersection": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapperfalse"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper1"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
+          }
+        ],
+        "additionalItems": false
+      },
+      "ConstantIntersection.Wrapperfalse": {
+        "const": false
+      },
+      "ConstantIntersection.Wrapper1": {
+        "const": 1
+      },
+      "ConstantIntersection.Wrappertwo": {
+        "const": "two"
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantIntersection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantIntersection"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantIntersection"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ConstantIntersection"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantIntersection"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantIntersection"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantIntersection"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

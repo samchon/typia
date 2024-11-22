@@ -1,0 +1,1098 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "CommentTagObjectUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                    }
+                  },
+                  "CommentTagObjectUnion.Type": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "CommentTagObjectUnion.Numeric": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 3
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  },
+                  "CommentTagObjectUnion.Literal": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 7
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "CommentTagObjectUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                    }
+                  },
+                  "CommentTagObjectUnion.Type": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "CommentTagObjectUnion.Numeric": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 3
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  },
+                  "CommentTagObjectUnion.Literal": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 7
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagObjectUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                  }
+                },
+                "CommentTagObjectUnion.Type": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                    }
+                  ]
+                },
+                "CommentTagObjectUnion.Numeric": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagObjectUnion.Literal": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "CommentTagObjectUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                        }
+                      },
+                      "CommentTagObjectUnion.Type": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                          },
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                          }
+                        ]
+                      },
+                      "CommentTagObjectUnion.Numeric": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      },
+                      "CommentTagObjectUnion.Literal": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "components": {
+            "schemas": {
+              "CommentTagObjectUnion": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                }
+              },
+              "CommentTagObjectUnion.Type": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                  }
+                ]
+              },
+              "CommentTagObjectUnion.Numeric": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 3
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              },
+              "CommentTagObjectUnion.Literal": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 7
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            }
+          },
+          "schema": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+              },
+              {
+                "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+              }
+            ]
+          },
+          "recursive": 3,
+          "visited": {},
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 3
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "CommentTagObjectUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                  }
+                },
+                "CommentTagObjectUnion.Type": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                    }
+                  ]
+                },
+                "CommentTagObjectUnion.Numeric": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagObjectUnion.Literal": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "CommentTagObjectUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                        }
+                      },
+                      "CommentTagObjectUnion.Type": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                          },
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                          }
+                        ]
+                      },
+                      "CommentTagObjectUnion.Numeric": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      },
+                      "CommentTagObjectUnion.Literal": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagObjectUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                  }
+                },
+                "CommentTagObjectUnion.Type": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                    }
+                  ]
+                },
+                "CommentTagObjectUnion.Numeric": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagObjectUnion.Literal": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "CommentTagObjectUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                        }
+                      },
+                      "CommentTagObjectUnion.Type": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                          },
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                          }
+                        ]
+                      },
+                      "CommentTagObjectUnion.Numeric": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      },
+                      "CommentTagObjectUnion.Literal": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "CommentTagObjectUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                  }
+                },
+                "CommentTagObjectUnion.Type": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                    }
+                  ]
+                },
+                "CommentTagObjectUnion.Numeric": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagObjectUnion.Literal": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "components": {
+                    "schemas": {
+                      "CommentTagObjectUnion": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                        }
+                      },
+                      "CommentTagObjectUnion.Type": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                          },
+                          {
+                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                          }
+                        ]
+                      },
+                      "CommentTagObjectUnion.Numeric": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "minimum": 3
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      },
+                      "CommentTagObjectUnion.Literal": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 3,
+                            "maxLength": 7
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "recursive": 3,
+                  "visited": {},
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "CommentTagObjectUnion": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+              }
+            },
+            "CommentTagObjectUnion.Type": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                }
+              ]
+            },
+            "CommentTagObjectUnion.Numeric": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 3
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            "CommentTagObjectUnion.Literal": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/CommentTagObjectUnion"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "components": {
+                "schemas": {
+                  "CommentTagObjectUnion": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
+                    }
+                  },
+                  "CommentTagObjectUnion.Type": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                      },
+                      {
+                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                      }
+                    ]
+                  },
+                  "CommentTagObjectUnion.Numeric": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 3
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  },
+                  "CommentTagObjectUnion.Literal": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 7
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

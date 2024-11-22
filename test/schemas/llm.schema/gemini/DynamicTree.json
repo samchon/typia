@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "number"
+    },
+    "children": {
+      "type": "object",
+      "properties": {},
+      "description": "Construct a type with a set of properties K of type T"
+    }
+  },
+  "required": [
+    "id",
+    "sequence",
+    "children"
+  ]
+}

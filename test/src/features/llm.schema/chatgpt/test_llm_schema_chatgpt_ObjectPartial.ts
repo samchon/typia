@@ -6,4 +6,4 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 export const test_llm_schema_chatgpt_ObjectPartial = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectPartial",
-})(typia.llm.schema<ObjectPartial, "chatgpt">());
+})(typia.llm.schema<ObjectPartial, "chatgpt">({}));

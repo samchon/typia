@@ -1,0 +1,173 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ClassPropertyAssignment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "const": "assignment"
+          },
+          "editable": {
+            "const": false
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ]
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassPropertyAssignment"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ClassPropertyAssignment"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/components/schemas/ClassPropertyAssignment"
+              }
+            }
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ClassPropertyAssignment"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ClassPropertyAssignment"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/components/schemas/ClassPropertyAssignment"
+              }
+            }
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ClassPropertyAssignment"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/components/schemas/ClassPropertyAssignment"
+              }
+            }
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ClassPropertyAssignment"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "note",
+              "mapping": {
+                "assignment": "#/components/schemas/ClassPropertyAssignment"
+              }
+            }
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ClassPropertyAssignment"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "note",
+            "mapping": {
+              "assignment": "#/components/schemas/ClassPropertyAssignment"
+            }
+          }
+        },
+        "required": true
+      }
+    }
+  ]
+}

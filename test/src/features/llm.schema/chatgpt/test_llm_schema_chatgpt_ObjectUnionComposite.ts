@@ -6,4 +6,4 @@ import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 export const test_llm_schema_chatgpt_ObjectUnionComposite = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectUnionComposite",
-})(typia.llm.schema<ObjectUnionComposite, "chatgpt">());
+})(typia.llm.schema<ObjectUnionComposite, "chatgpt">({}));

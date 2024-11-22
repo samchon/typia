@@ -1,0 +1,420 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "vulnerable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email",
+              "name",
+              "vulnerable"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "vulnerable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email",
+              "name",
+              "vulnerable"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectIntersection": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "vulnerable": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name",
+                    "vulnerable"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectIntersection"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "vulnerable": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name",
+                  "vulnerable"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "vulnerable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "email",
+          "name",
+          "vulnerable"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ObjectIntersection": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "vulnerable": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name",
+                    "vulnerable"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectIntersection"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "vulnerable": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name",
+                  "vulnerable"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectIntersection": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "vulnerable": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name",
+                    "vulnerable"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectIntersection"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "vulnerable": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name",
+                  "vulnerable"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ObjectIntersection": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "vulnerable": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name",
+                    "vulnerable"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectIntersection"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "vulnerable": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name",
+                  "vulnerable"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ObjectIntersection": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "vulnerable": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "vulnerable"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectIntersection"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "vulnerable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email",
+              "name",
+              "vulnerable"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

@@ -1,0 +1,1411 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3
+                },
+                "maxItems": {
+                  "type": "array",
+                  "items": {
+                    "components": {
+                      "schemas": {
+                        "CommentTagArrayUnion": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                          }
+                        },
+                        "CommentTagArrayUnion.Type": {
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "minItems": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              },
+                              "minItems": 3
+                            },
+                            "maxItems": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "maxItems": 7
+                            },
+                            "both": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 3,
+                              "maxItems": 7
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "minItems",
+                            "maxItems",
+                            "both"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "maxItems": 7
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 7
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "maxItems",
+                "both"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3
+                },
+                "maxItems": {
+                  "type": "array",
+                  "items": {
+                    "components": {
+                      "schemas": {
+                        "CommentTagArrayUnion": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                          }
+                        },
+                        "CommentTagArrayUnion.Type": {
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "minItems": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              },
+                              "minItems": 3
+                            },
+                            "maxItems": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "maxItems": 7
+                            },
+                            "both": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 3,
+                              "maxItems": 7
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "minItems",
+                            "maxItems",
+                            "both"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "maxItems": 7
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 7
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "maxItems",
+                "both"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                  }
+                },
+                "CommentTagArrayUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "components": {
+                          "schemas": {
+                            "CommentTagArrayUnion": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                              }
+                            },
+                            "CommentTagArrayUnion.Type": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 3
+                                },
+                                "minItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  },
+                                  "minItems": 3
+                                },
+                                "maxItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "maxItems": 7
+                                },
+                                "both": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 7
+                                }
+                              },
+                              "required": [
+                                "items",
+                                "minItems",
+                                "maxItems",
+                                "both"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "minItems": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3
+            },
+            "maxItems": {
+              "type": "array",
+              "items": {
+                "components": {
+                  "schemas": {
+                    "CommentTagArrayUnion": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                      }
+                    },
+                    "CommentTagArrayUnion.Type": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 3,
+                          "maxItems": 3
+                        },
+                        "minItems": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 3
+                        },
+                        "maxItems": {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "maxItems": 7
+                        },
+                        "both": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 3,
+                          "maxItems": 7
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "minItems",
+                        "maxItems",
+                        "both"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "maxItems": 7
+            },
+            "both": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 3,
+              "maxItems": 7
+            }
+          },
+          "required": [
+            "items",
+            "minItems",
+            "maxItems",
+            "both"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "CommentTagArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                  }
+                },
+                "CommentTagArrayUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "components": {
+                          "schemas": {
+                            "CommentTagArrayUnion": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                              }
+                            },
+                            "CommentTagArrayUnion.Type": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 3
+                                },
+                                "minItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  },
+                                  "minItems": 3
+                                },
+                                "maxItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "maxItems": 7
+                                },
+                                "both": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 7
+                                }
+                              },
+                              "required": [
+                                "items",
+                                "minItems",
+                                "maxItems",
+                                "both"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                  }
+                },
+                "CommentTagArrayUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "components": {
+                          "schemas": {
+                            "CommentTagArrayUnion": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                              }
+                            },
+                            "CommentTagArrayUnion.Type": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 3
+                                },
+                                "minItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  },
+                                  "minItems": 3
+                                },
+                                "maxItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "maxItems": 7
+                                },
+                                "both": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 7
+                                }
+                              },
+                              "required": [
+                                "items",
+                                "minItems",
+                                "maxItems",
+                                "both"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "CommentTagArrayUnion": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                  }
+                },
+                "CommentTagArrayUnion.Type": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagArrayUnion"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 3
+                    },
+                    "maxItems": {
+                      "type": "array",
+                      "items": {
+                        "components": {
+                          "schemas": {
+                            "CommentTagArrayUnion": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                              }
+                            },
+                            "CommentTagArrayUnion.Type": {
+                              "type": "object",
+                              "properties": {
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 3
+                                },
+                                "minItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  },
+                                  "minItems": 3
+                                },
+                                "maxItems": {
+                                  "type": "array",
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "maxItems": 7
+                                },
+                                "both": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "minItems": 3,
+                                  "maxItems": 7
+                                }
+                              },
+                              "required": [
+                                "items",
+                                "minItems",
+                                "maxItems",
+                                "both"
+                              ]
+                            }
+                          }
+                        },
+                        "schema": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "recursive": 3,
+                        "visited": {},
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "maxItems": 7
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "maxItems",
+                    "both"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "CommentTagArrayUnion": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+              }
+            },
+            "CommentTagArrayUnion.Type": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3
+                },
+                "maxItems": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "maxItems": 7
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 7
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "maxItems",
+                "both"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/CommentTagArrayUnion"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3
+                },
+                "maxItems": {
+                  "type": "array",
+                  "items": {
+                    "components": {
+                      "schemas": {
+                        "CommentTagArrayUnion": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/CommentTagArrayUnion.Type"
+                          }
+                        },
+                        "CommentTagArrayUnion.Type": {
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 3,
+                              "maxItems": 3
+                            },
+                            "minItems": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              },
+                              "minItems": 3
+                            },
+                            "maxItems": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "maxItems": 7
+                            },
+                            "both": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 3,
+                              "maxItems": 7
+                            }
+                          },
+                          "required": [
+                            "items",
+                            "minItems",
+                            "maxItems",
+                            "both"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "maxItems": 7
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 3,
+                  "maxItems": 7
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "maxItems",
+                "both"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "TypeTagArrayUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TypeTagArrayUnion.Type"
+        }
+      },
+      "TypeTagArrayUnion.Type": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "minItems": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 3
+            },
+            "minItems": 3
+          },
+          "maxItems": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "maxLength": 7
+                },
+                {
+                  "type": "number",
+                  "maximum": 7
+                }
+              ]
+            },
+            "maxItems": 7
+          },
+          "both": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 3,
+            "maxItems": 7
+          }
+        },
+        "required": [
+          "items",
+          "minItems",
+          "maxItems",
+          "both"
+        ]
+      },
+      "TypeTagArrayUnion.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TypeTagArrayUnion.Type"
+        },
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArrayUnion"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArrayUnion"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArrayUnion.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagArrayUnion"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArrayUnion.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArrayUnion.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArrayUnion.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagArrayUnion.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

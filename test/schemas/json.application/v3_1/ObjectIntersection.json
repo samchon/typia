@@ -1,0 +1,135 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectIntersection": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "vulnerable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "email",
+          "name",
+          "vulnerable"
+        ]
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectIntersection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectIntersection"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectIntersection"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectIntersection"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectIntersection"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectIntersection"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectIntersection"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectIntersection"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {}
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "type": "null"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "type": "null"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "type": "null"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "type": "null"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "type": "null"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "type": "null"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "type": "null"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "type": "null"
+        },
+        "required": true
+      }
+    }
+  ]
+}

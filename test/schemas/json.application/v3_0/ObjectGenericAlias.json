@@ -1,0 +1,104 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectGenericAlias.Alias": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ObjectGenericAlias.Alias.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectGenericAlias.Alias.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectGenericAlias.Alias.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectGenericAlias.Alias.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ObjectGenericAlias.Alias.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ObjectGenericAlias.Alias.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

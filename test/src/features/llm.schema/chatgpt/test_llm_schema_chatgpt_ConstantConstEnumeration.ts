@@ -7,4 +7,4 @@ export const test_llm_schema_chatgpt_ConstantConstEnumeration =
   _test_llm_schema({
     model: "chatgpt",
     name: "ConstantConstEnumeration",
-  })(typia.llm.schema<ConstantConstEnumeration, "chatgpt">());
+  })(typia.llm.schema<ConstantConstEnumeration, "chatgpt">({}));

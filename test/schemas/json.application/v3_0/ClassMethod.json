@@ -1,0 +1,112 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ClassMethod.Animal": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ]
+      },
+      "ClassMethod.Animal.Nullable": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassMethod.Animal"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassMethod.Animal"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassMethod.Animal.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ClassMethod.Animal"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassMethod.Animal.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ClassMethod.Animal.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ClassMethod.Animal.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ClassMethod.Animal.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

@@ -6,4 +6,4 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_llm_schema_chatgpt_ObjectPrimitive = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectPrimitive",
-})(typia.llm.schema<ObjectPrimitive, "chatgpt">());
+})(typia.llm.schema<ObjectPrimitive, "chatgpt">({}));

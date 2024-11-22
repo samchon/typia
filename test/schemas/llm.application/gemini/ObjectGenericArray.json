@@ -1,0 +1,452 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "limit",
+                  "total_count",
+                  "total_pages"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "limit",
+                  "total_count",
+                  "total_pages"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "limit",
+                  "total_count",
+                  "total_pages"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "total_count": {
+                "type": "number"
+              },
+              "total_pages": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "page",
+              "limit",
+              "total_count",
+              "total_pages"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name",
+                "age"
+              ]
+            }
+          }
+        },
+        "required": [
+          "pagination",
+          "data"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "limit",
+                  "total_count",
+                  "total_pages"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "limit",
+                  "total_count",
+                  "total_pages"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "total_count": {
+                    "type": "number"
+                  },
+                  "total_pages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "limit",
+                  "total_count",
+                  "total_pages"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pagination",
+              "data"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "number"
+              },
+              "limit": {
+                "type": "number"
+              },
+              "total_count": {
+                "type": "number"
+              },
+              "total_pages": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "page",
+              "limit",
+              "total_count",
+              "total_pages"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name",
+                "age"
+              ]
+            }
+          }
+        },
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

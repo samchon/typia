@@ -8,7 +8,7 @@ export const _test_json_schemas =
   <App extends IJsonSchemaCollection<any>>(app: App) => {
     const actual: IJsonSchemaCollection<any> = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/json/v${props.version.replace(".", "_")}/${props.name}.json`,
+        `${__dirname}/../../schemas/json.schemas/v${props.version.replace(".", "_")}/${props.name}.json`,
         "utf8",
       ),
     );

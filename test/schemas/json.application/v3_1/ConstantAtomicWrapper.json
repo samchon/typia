@@ -1,0 +1,164 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ConstantAtomicWrapper": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerboolean"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointernumber"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerstring"
+          }
+        ],
+        "additionalItems": false
+      },
+      "ConstantAtomicWrapper.IPointerboolean": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ConstantAtomicWrapper.IPointernumber": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ConstantAtomicWrapper.IPointerstring": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantAtomicWrapper"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ConstantAtomicWrapper"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantAtomicWrapper"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantAtomicWrapper"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantAtomicWrapper"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

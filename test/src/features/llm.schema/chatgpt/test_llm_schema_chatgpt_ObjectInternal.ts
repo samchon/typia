@@ -6,4 +6,4 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_llm_schema_chatgpt_ObjectInternal = _test_llm_schema({
   model: "chatgpt",
   name: "ObjectInternal",
-})(typia.llm.schema<ObjectInternal, "chatgpt">());
+})(typia.llm.schema<ObjectInternal, "chatgpt">({}));

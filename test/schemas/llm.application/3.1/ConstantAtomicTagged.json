@@ -1,0 +1,1344 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "components": {
+                  "schemas": {
+                    "ConstantAtomicTagged": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "const": "latest"
+                            },
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "const": -1
+                            },
+                            {
+                              "type": "integer",
+                              "maximum": 100
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "age"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "const": "latest"
+                    },
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "const": "latest"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                ]
+              },
+              "age": {
+                "components": {
+                  "schemas": {
+                    "ConstantAtomicTagged": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "const": "latest"
+                            },
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "const": -1
+                            },
+                            {
+                              "type": "integer",
+                              "maximum": 100
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "age"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "const": -1
+                    },
+                    {
+                      "type": "integer",
+                      "maximum": 100
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "const": -1
+                  },
+                  {
+                    "type": "integer",
+                    "maximum": 100
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "components": {
+                  "schemas": {
+                    "ConstantAtomicTagged": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "const": "latest"
+                            },
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "const": -1
+                            },
+                            {
+                              "type": "integer",
+                              "maximum": 100
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "age"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "const": "latest"
+                    },
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "const": "latest"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                ]
+              },
+              "age": {
+                "components": {
+                  "schemas": {
+                    "ConstantAtomicTagged": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "const": "latest"
+                            },
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "const": -1
+                            },
+                            {
+                              "type": "integer",
+                              "maximum": 100
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "age"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "const": -1
+                    },
+                    {
+                      "type": "integer",
+                      "maximum": 100
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "const": -1
+                  },
+                  {
+                    "type": "integer",
+                    "maximum": 100
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ConstantAtomicTagged": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantAtomicTagged"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": "latest"
+                      },
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    ]
+                  },
+                  "age": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "maximum": 100
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "components": {
+              "schemas": {
+                "ConstantAtomicTagged": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "const": "latest"
+                },
+                {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "const": "latest"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ]
+          },
+          "age": {
+            "components": {
+              "schemas": {
+                "ConstantAtomicTagged": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "const": -1
+                },
+                {
+                  "type": "integer",
+                  "maximum": 100
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "const": -1
+              },
+              {
+                "type": "integer",
+                "maximum": 100
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ConstantAtomicTagged": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantAtomicTagged"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": "latest"
+                      },
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    ]
+                  },
+                  "age": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "maximum": 100
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ConstantAtomicTagged": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantAtomicTagged"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": "latest"
+                      },
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    ]
+                  },
+                  "age": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "maximum": 100
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ConstantAtomicTagged": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "age"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ConstantAtomicTagged"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": "latest"
+                        },
+                        {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": "latest"
+                      },
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    ]
+                  },
+                  "age": {
+                    "components": {
+                      "schemas": {
+                        "ConstantAtomicTagged": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "oneOf": [
+                                {
+                                  "const": "latest"
+                                },
+                                {
+                                  "type": "string",
+                                  "format": "uuid"
+                                }
+                              ]
+                            },
+                            "age": {
+                              "oneOf": [
+                                {
+                                  "const": -1
+                                },
+                                {
+                                  "type": "integer",
+                                  "maximum": 100
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "age"
+                          ]
+                        }
+                      }
+                    },
+                    "schema": {
+                      "oneOf": [
+                        {
+                          "const": -1
+                        },
+                        {
+                          "type": "integer",
+                          "maximum": 100
+                        }
+                      ]
+                    },
+                    "recursive": 3,
+                    "visited": {},
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "maximum": 100
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ConstantAtomicTagged": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "oneOf": [
+                    {
+                      "const": "latest"
+                    },
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  ]
+                },
+                "age": {
+                  "oneOf": [
+                    {
+                      "const": -1
+                    },
+                    {
+                      "type": "integer",
+                      "maximum": 100
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "age"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicTagged"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "components": {
+                  "schemas": {
+                    "ConstantAtomicTagged": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "const": "latest"
+                            },
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "const": -1
+                            },
+                            {
+                              "type": "integer",
+                              "maximum": 100
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "age"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "const": "latest"
+                    },
+                    {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "const": "latest"
+                  },
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                ]
+              },
+              "age": {
+                "components": {
+                  "schemas": {
+                    "ConstantAtomicTagged": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "const": "latest"
+                            },
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "const": -1
+                            },
+                            {
+                              "type": "integer",
+                              "maximum": 100
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "age"
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "oneOf": [
+                    {
+                      "const": -1
+                    },
+                    {
+                      "type": "integer",
+                      "maximum": 100
+                    }
+                  ]
+                },
+                "recursive": 3,
+                "visited": {},
+                "oneOf": [
+                  {
+                    "const": -1
+                  },
+                  {
+                    "type": "integer",
+                    "maximum": 100
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

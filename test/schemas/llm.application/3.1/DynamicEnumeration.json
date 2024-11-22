@@ -1,0 +1,740 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "DynamicEnumeration": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "ar": {
+                          "type": "string"
+                        },
+                        "zh-Hans": {
+                          "type": "string"
+                        },
+                        "zh-Hant": {
+                          "type": "string"
+                        },
+                        "en": {
+                          "type": "string"
+                        },
+                        "fr": {
+                          "type": "string"
+                        },
+                        "de": {
+                          "type": "string"
+                        },
+                        "ja": {
+                          "type": "string"
+                        },
+                        "ko": {
+                          "type": "string"
+                        },
+                        "pt": {
+                          "type": "string"
+                        },
+                        "ru": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "ar": {
+                "type": "string"
+              },
+              "zh-Hans": {
+                "type": "string"
+              },
+              "zh-Hant": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              },
+              "fr": {
+                "type": "string"
+              },
+              "de": {
+                "type": "string"
+              },
+              "ja": {
+                "type": "string"
+              },
+              "ko": {
+                "type": "string"
+              },
+              "pt": {
+                "type": "string"
+              },
+              "ru": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "DynamicEnumeration": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "ar": {
+                          "type": "string"
+                        },
+                        "zh-Hans": {
+                          "type": "string"
+                        },
+                        "zh-Hant": {
+                          "type": "string"
+                        },
+                        "en": {
+                          "type": "string"
+                        },
+                        "fr": {
+                          "type": "string"
+                        },
+                        "de": {
+                          "type": "string"
+                        },
+                        "ja": {
+                          "type": "string"
+                        },
+                        "ko": {
+                          "type": "string"
+                        },
+                        "pt": {
+                          "type": "string"
+                        },
+                        "ru": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "DynamicEnumeration": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "ar": {
+                          "type": "string"
+                        },
+                        "zh-Hans": {
+                          "type": "string"
+                        },
+                        "zh-Hant": {
+                          "type": "string"
+                        },
+                        "en": {
+                          "type": "string"
+                        },
+                        "fr": {
+                          "type": "string"
+                        },
+                        "de": {
+                          "type": "string"
+                        },
+                        "ja": {
+                          "type": "string"
+                        },
+                        "ko": {
+                          "type": "string"
+                        },
+                        "pt": {
+                          "type": "string"
+                        },
+                        "ru": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "DynamicEnumeration": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "ar": {
+                          "type": "string"
+                        },
+                        "zh-Hans": {
+                          "type": "string"
+                        },
+                        "zh-Hant": {
+                          "type": "string"
+                        },
+                        "en": {
+                          "type": "string"
+                        },
+                        "fr": {
+                          "type": "string"
+                        },
+                        "de": {
+                          "type": "string"
+                        },
+                        "ja": {
+                          "type": "string"
+                        },
+                        "ko": {
+                          "type": "string"
+                        },
+                        "pt": {
+                          "type": "string"
+                        },
+                        "ru": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/DynamicEnumeration"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "DynamicEnumeration": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "ar": {
+                      "type": "string"
+                    },
+                    "zh-Hans": {
+                      "type": "string"
+                    },
+                    "zh-Hant": {
+                      "type": "string"
+                    },
+                    "en": {
+                      "type": "string"
+                    },
+                    "fr": {
+                      "type": "string"
+                    },
+                    "de": {
+                      "type": "string"
+                    },
+                    "ja": {
+                      "type": "string"
+                    },
+                    "ko": {
+                      "type": "string"
+                    },
+                    "pt": {
+                      "type": "string"
+                    },
+                    "ru": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/DynamicEnumeration"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

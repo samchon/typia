@@ -1,0 +1,846 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagType": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagType.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagType.Type": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagType"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "int": {
+                          "type": "integer",
+                          "title": "Integer value",
+                          "description": "Integer value."
+                        },
+                        "uint": {
+                          "type": "integer",
+                          "title": "Unsigned integer value",
+                          "description": "Unsigned integer value."
+                        },
+                        "int32": {
+                          "type": "integer"
+                        },
+                        "uint32": {
+                          "type": "integer"
+                        },
+                        "int64": {
+                          "type": "integer"
+                        },
+                        "uint64": {
+                          "type": "integer"
+                        },
+                        "float": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "int",
+                        "uint",
+                        "int32",
+                        "uint32",
+                        "int64",
+                        "uint64",
+                        "float"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer",
+                  "title": "Integer value",
+                  "description": "Integer value."
+                },
+                "uint": {
+                  "type": "integer",
+                  "title": "Unsigned integer value",
+                  "description": "Unsigned integer value."
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "CommentTagType": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagType.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagType.Type": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagType"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "int": {
+                          "type": "integer",
+                          "title": "Integer value",
+                          "description": "Integer value."
+                        },
+                        "uint": {
+                          "type": "integer",
+                          "title": "Unsigned integer value",
+                          "description": "Unsigned integer value."
+                        },
+                        "int32": {
+                          "type": "integer"
+                        },
+                        "uint32": {
+                          "type": "integer"
+                        },
+                        "int64": {
+                          "type": "integer"
+                        },
+                        "uint64": {
+                          "type": "integer"
+                        },
+                        "float": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "int",
+                        "uint",
+                        "int32",
+                        "uint32",
+                        "int64",
+                        "uint64",
+                        "float"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "CommentTagType": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagType.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagType.Type": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagType"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "int": {
+                          "type": "integer",
+                          "title": "Integer value",
+                          "description": "Integer value."
+                        },
+                        "uint": {
+                          "type": "integer",
+                          "title": "Unsigned integer value",
+                          "description": "Unsigned integer value."
+                        },
+                        "int32": {
+                          "type": "integer"
+                        },
+                        "uint32": {
+                          "type": "integer"
+                        },
+                        "int64": {
+                          "type": "integer"
+                        },
+                        "uint64": {
+                          "type": "integer"
+                        },
+                        "float": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "int",
+                        "uint",
+                        "int32",
+                        "uint32",
+                        "int64",
+                        "uint64",
+                        "float"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "CommentTagType": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CommentTagType.Type"
+                      }
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                "CommentTagType.Type": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/CommentTagType"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "int": {
+                          "type": "integer",
+                          "title": "Integer value",
+                          "description": "Integer value."
+                        },
+                        "uint": {
+                          "type": "integer",
+                          "title": "Unsigned integer value",
+                          "description": "Unsigned integer value."
+                        },
+                        "int32": {
+                          "type": "integer"
+                        },
+                        "uint32": {
+                          "type": "integer"
+                        },
+                        "int64": {
+                          "type": "integer"
+                        },
+                        "uint64": {
+                          "type": "integer"
+                        },
+                        "float": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "int",
+                        "uint",
+                        "int32",
+                        "uint32",
+                        "int64",
+                        "uint64",
+                        "float"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "CommentTagType": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommentTagType.Type"
+                  }
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            "CommentTagType.Type": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer",
+                  "title": "Integer value",
+                  "description": "Integer value."
+                },
+                "uint": {
+                  "type": "integer",
+                  "title": "Unsigned integer value",
+                  "description": "Unsigned integer value."
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/CommentTagType"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "title": "Integer value",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "title": "Unsigned integer value",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

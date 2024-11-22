@@ -1,0 +1,2623 @@
+{
+  "model": "3.0",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "writer": {
+                    "type": "string"
+                  },
+                  "answer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "hit": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "files": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "extension",
+                              "url"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "created_at",
+                        "title",
+                        "body",
+                        "files"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "writer",
+                  "answer",
+                  "id",
+                  "hit",
+                  "contents",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "writer": {
+                    "type": "string"
+                  },
+                  "answer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "hit": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "score": {
+                          "type": "number"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "files": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "extension",
+                              "url"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "score",
+                        "id",
+                        "created_at",
+                        "title",
+                        "body",
+                        "files"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "writer",
+                  "answer",
+                  "id",
+                  "hit",
+                  "contents",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "writer": {
+                    "type": "string"
+                  },
+                  "answer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "hit": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "files": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "extension",
+                              "url"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "created_at",
+                        "title",
+                        "body",
+                        "files"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "writer",
+                  "answer",
+                  "id",
+                  "hit",
+                  "contents",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "writer": {
+                    "type": "string"
+                  },
+                  "answer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "hit": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "score": {
+                          "type": "number"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "files": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "extension",
+                              "url"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "score",
+                        "id",
+                        "created_at",
+                        "title",
+                        "body",
+                        "files"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "writer",
+                  "answer",
+                  "id",
+                  "hit",
+                  "contents",
+                  "created_at"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

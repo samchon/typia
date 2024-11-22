@@ -1,0 +1,149 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ArrayAtomicAlias": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+          }
+        ],
+        "additionalItems": false
+      },
+      "ArrayAtomicAlias.Aliasboolean": {
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "ArrayAtomicAlias.Aliasnumber": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "ArrayAtomicAlias.Aliasstring": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAtomicAlias"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAtomicAlias"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ArrayAtomicAlias"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayAtomicAlias"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ArrayAtomicAlias"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ArrayAtomicAlias"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ArrayAtomicAlias"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ArrayAtomicAlias"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

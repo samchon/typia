@@ -1,13 +1,18 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { IChatGptSchema, ILlmApplication, OpenApi } from "@samchon/openapi";
+import { ChatGptConverter } from "@samchon/openapi/lib/converters/ChatGptConverter";
+import { GeminiConverter } from "@samchon/openapi/lib/converters/GeminiConverter";
+import { LlmConverterV3 } from "@samchon/openapi/lib/converters/LlmConverterV3";
+import { LlmConverterV3_1 } from "@samchon/openapi/lib/converters/LlmConverterV3_1";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
+import { IJsonApplication } from "../../module";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
@@ -101,175 +106,190 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const object: MetadataObjectType = props.metadata.objects[0]!.type;
+    const application: IJsonApplication<"3.1"> =
+      JsonApplicationProgrammer.write({
+        version: "3.1",
+        metadata: props.metadata,
+      });
     return {
       model: props.model,
-      functions: object.properties
-        .filter(
-          (p) =>
-            p.value.functions.length === 1 &&
-            p.value.size() === 1 &&
-            p.key.isSoleLiteral(),
-        )
-        .filter(
-          (p) => p.jsDocTags.find((tag) => tag.name === "hidden") === undefined,
-        )
-        .map((p) =>
-          writeFunction({
-            model: props.model,
-            name: p.key.getSoleLiteral()!,
-            function: p.value.functions[0]!,
-            description: p.description,
-            jsDocTags: p.jsDocTags,
-          }),
-        ),
-      options: {
-        separate: null,
-        recursive: props.model === "chatgpt" ? undefined : (3 as any),
-      },
+      functions: application.functions.map((func) =>
+        writeFunction({
+          model: props.model,
+          components: application.components,
+          function: func,
+        }),
+      ),
+      options: (props.model === "chatgpt"
+        ? ({
+            separate: null,
+            reference: false,
+            constraint: false,
+          } satisfies ILlmApplication.IOptions<"chatgpt">)
+        : ({
+            separate: null,
+            recursive: props.model === "chatgpt" ? undefined : (3 as any),
+          } satisfies ILlmApplication.ICommonOptions<
+            Exclude<Model, "chatgpt">
+          >)) as ILlmApplication.IOptions<Model>,
     };
   };
 
   const writeFunction = <Model extends ILlmApplication.Model>(props: {
     model: Model;
-    name: string;
-    function: MetadataFunction;
-    description: string | null;
-    jsDocTags: IJsDocTagInfo[];
-  }): ILlmFunction<ILlmApplication.ModelSchema[Model]> => {
-    const deprecated: boolean = props.jsDocTags.some(
-      (tag) => tag.name === "deprecated",
-    );
-    const tags: string[] = props.jsDocTags
-      .map((tag) =>
-        tag.name === "tag"
-          ? (tag.text?.filter((elem) => elem.kind === "text") ?? [])
-          : [],
-      )
-      .flat()
-      .map((elem) => elem.text)
-      .map((str) => str.trim().split(" ")[0] ?? "")
-      .filter((str) => !!str.length);
-    return {
-      name: props.name,
-      parameters: props.function.parameters.map((p) => {
-        const jsDocTagDescription: string | null = writeDescriptionFromJsDocTag(
-          {
-            jsDocTags: p.jsDocTags,
-            name: "param",
-            parameter: p.name,
-          },
-        );
-        return writeSchema({
-          model: props.model,
-          metadata: p.type,
-          description: jsDocTagDescription ?? p.description,
-          jsDocTags: jsDocTagDescription ? [] : p.jsDocTags,
-        });
-      }),
-      output:
-        props.function.output.size() || props.function.output.nullable
-          ? writeSchema({
-              model: props.model,
-              metadata: props.function.output,
-              description:
-                writeDescriptionFromJsDocTag({
-                  jsDocTags: props.jsDocTags,
-                  name: "return",
-                }) ??
-                writeDescriptionFromJsDocTag({
-                  jsDocTags: props.jsDocTags,
-                  name: "returns",
-                }),
-              jsDocTags: [],
-            })
-          : undefined,
-      description: props.description ?? undefined,
-      deprecated: deprecated || undefined,
-      tags: tags.length ? tags : undefined,
-    };
-  };
-
-  const writeSchema = <Model extends ILlmApplication.Model>(props: {
-    model: Model;
-    metadata: Metadata;
-    description: string | null;
-    jsDocTags: IJsDocTagInfo[];
-  }): ILlmApplication.ModelSchema[Model] => {
-    const schema: ILlmApplication.ModelSchema[Model] =
-      LlmSchemaProgrammer.write(props);
-    const explicit: Pick<
-      ILlmApplication.ModelSchema[Model],
-      "title" | "description"
-    > = writeDescription({
+    components: OpenApi.IComponents;
+    function: IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+  }): ILlmFunction<ILlmApplication.ModelParameters[Model]> => {
+    const parameters: ILlmApplication.ModelParameters[Model] =
+      writeParameters(props);
+    const output: ILlmApplication.ModelSchema[Model] | null = writeOutput({
       model: props.model,
-      description: props.description,
-      jsDocTags: props.jsDocTags,
+      parameters,
+      components: props.components,
+      schema: props.function.output?.schema ?? null,
     });
+    if (
+      output &&
+      output.description === undefined &&
+      !!props.function.output?.description?.length
+    )
+      output.description = props.function.output.description;
     return {
-      ...schema,
-      ...(!!explicit.title?.length || !!explicit.description?.length
-        ? explicit
-        : {}),
+      name: props.function.name,
+      parameters,
+      output: (output ?? undefined) as
+        | ILlmApplication.ModelParameters[Model]["properties"][string]
+        | undefined,
+      description: (() => {
+        if (
+          !props.function.summary?.length ||
+          !props.function.description?.length
+        )
+          return props.function.summary || props.function.description;
+        const summary: string = props.function.summary.endsWith(".")
+          ? props.function.summary.slice(0, -1)
+          : props.function.summary;
+        return props.function.description.startsWith(summary)
+          ? props.function.description
+          : summary + ".\n\n" + props.function.description;
+      })(),
+      deprecated: props.function.deprecated,
+      tags: props.function.tags,
+      strict: true,
     };
   };
 
-  const writeDescription = <Model extends ILlmApplication.Model>(props: {
+  const writeParameters = <Model extends ILlmApplication.Model>(props: {
     model: Model;
-    description: string | null;
-    jsDocTags: IJsDocTagInfo[];
-  }): Pick<ILlmApplication.ModelSchema[Model], "title" | "description"> => {
-    const title: string | undefined = (() => {
-      const [explicit] = getJsDocTexts({
-        jsDocTags: props.jsDocTags,
-        name: "title",
-      });
-      if (explicit?.length) return explicit;
-      else if (!props.description?.length) return undefined;
-
-      const index: number = props.description.indexOf("\n");
-      const top: string = (
-        index === -1 ? props.description : props.description.substring(0, index)
-      ).trim();
-      return top.endsWith(".") ? top.substring(0, top.length - 1) : undefined;
+    components: OpenApi.IComponents;
+    function: IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+  }): ILlmApplication.ModelParameters[Model] => {
+    const schema: OpenApi.IJsonSchema.IObject = {
+      type: "object",
+      properties: Object.fromEntries(
+        props.function.parameters.map((p) => [
+          p.name,
+          {
+            ...p.schema,
+            title: p.title ?? p.schema.title,
+            description: p.description ?? p.schema.description,
+          },
+        ]),
+      ),
+      required: props.function.parameters
+        .filter((p) => p.required)
+        .map((p) => p.name),
+      additionalProperties: false,
+    };
+    const parameters: ILlmApplication.ModelParameters[Model] | null = (() => {
+      if (props.model === "chatgpt")
+        return ChatGptConverter.parameters({
+          options: DEFAULT_CHATGPT_OPTION,
+          components: props.components,
+          schema,
+        });
+      else if (props.model === "gemini")
+        return GeminiConverter.parameters({
+          recursive: DEFAULT_V3_OPTIONS.recursive,
+          components: props.components,
+          schema,
+        }) as ILlmApplication.ModelParameters[Model] | null;
+      else if (props.model === "3.0")
+        return LlmConverterV3.parameters({
+          recursive: DEFAULT_V3_OPTIONS.recursive,
+          components: props.components,
+          schema,
+        }) as ILlmApplication.ModelParameters[Model] | null;
+      else if (props.model === "3.1")
+        return LlmConverterV3_1.parameters({
+          recursive: DEFAULT_V3_OPTIONS.recursive,
+          components: props.components,
+          schema,
+        }) as ILlmApplication.ModelParameters[Model] | null;
+      else return null;
     })();
-    return {
-      title: title,
-      description: props.description?.length ? props.description : undefined,
-    } as any;
+    if (parameters === null)
+      throw new Error("Failed to write LLM application parameters.");
+    return parameters;
   };
 
-  const writeDescriptionFromJsDocTag = (props: {
-    jsDocTags: IJsDocTagInfo[];
-    name: string;
-    parameter?: string;
-  }): string | null => {
-    const parametric: (elem: IJsDocTagInfo) => boolean = props.parameter
-      ? (tag) =>
-          tag.text!.find(
-            (elem) =>
-              elem.kind === "parameterName" && elem.text === props.parameter,
-          ) !== undefined
-      : () => true;
-    const tag: IJsDocTagInfo | undefined = props.jsDocTags.find(
-      (tag) => tag.name === props.name && tag.text && parametric(tag),
-    );
-    return tag && tag.text
-      ? (tag.text.find((elem) => elem.kind === "text")?.text ?? null)
-      : null;
+  const writeOutput = <Model extends ILlmApplication.Model>(props: {
+    model: Model;
+    parameters: ILlmApplication.ModelParameters[Model];
+    components: OpenApi.IComponents;
+    schema: OpenApi.IJsonSchema | null;
+  }): ILlmApplication.ModelSchema[Model] | null => {
+    if (props.schema === null) return null;
+    const output: ILlmApplication.ModelSchema[Model] | null = (() => {
+      if (props.model === "chatgpt") {
+        const $defs =
+          (props.parameters as IChatGptSchema.IParameters).$defs ?? {};
+        const output: IChatGptSchema | null = ChatGptConverter.schema({
+          options: DEFAULT_CHATGPT_OPTION,
+          components: props.components,
+          $defs,
+          schema: props.schema,
+        });
+        if (
+          output !== null &&
+          (props.parameters as IChatGptSchema.IParameters).$defs ===
+            undefined &&
+          Object.keys($defs).length !== 0
+        )
+          (props.parameters as IChatGptSchema.IParameters).$defs = $defs;
+        return output;
+      } else if (props.model === "gemini")
+        return GeminiConverter.schema({
+          recursive: DEFAULT_V3_OPTIONS.recursive,
+          components: props.components,
+          schema: props.schema,
+        }) as ILlmApplication.ModelSchema[Model] | null;
+      else if (props.model === "3.0")
+        return LlmConverterV3.schema({
+          recursive: DEFAULT_V3_OPTIONS.recursive,
+          components: props.components,
+          schema: props.schema,
+        }) as ILlmApplication.ModelSchema[Model] | null;
+      else if (props.model === "3.1")
+        return LlmConverterV3_1.schema({
+          recursive: DEFAULT_V3_OPTIONS.recursive,
+          components: props.components,
+          schema: props.schema,
+        }) as ILlmApplication.ModelSchema[Model] | null;
+      else return null;
+    })();
+    if (output === null)
+      throw new Error("Failed to write LLM application output.");
+    return output;
   };
-
-  const getJsDocTexts = (props: {
-    jsDocTags: IJsDocTagInfo[];
-    name: string;
-  }): string[] =>
-    props.jsDocTags
-      .filter(
-        (tag) =>
-          tag.name === props.name &&
-          tag.text &&
-          tag.text.find((elem) => elem.kind === "text" && elem.text.length) !==
-            undefined,
-      )
-      .map((tag) => tag.text!.find((elem) => elem.kind === "text")!.text);
 }
+
+const DEFAULT_CHATGPT_OPTION: ILlmApplication.IChatGptOptions = {
+  separate: null,
+  reference: false,
+  constraint: false,
+};
+const DEFAULT_V3_OPTIONS = {
+  separate: null,
+  recursive: 3,
+} satisfies ILlmApplication.ICommonOptions<"3.0">;

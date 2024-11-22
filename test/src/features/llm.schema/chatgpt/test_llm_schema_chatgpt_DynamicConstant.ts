@@ -6,4 +6,4 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_llm_schema_chatgpt_DynamicConstant = _test_llm_schema({
   model: "chatgpt",
   name: "DynamicConstant",
-})(typia.llm.schema<DynamicConstant, "chatgpt">());
+})(typia.llm.schema<DynamicConstant, "chatgpt">({}));

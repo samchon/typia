@@ -6,4 +6,4 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_llm_schema_chatgpt_DynamicTree = _test_llm_schema({
   model: "chatgpt",
   name: "DynamicTree",
-})(typia.llm.schema<DynamicTree, "chatgpt">());
+})(typia.llm.schema<DynamicTree, "chatgpt">({}));

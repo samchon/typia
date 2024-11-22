@@ -1,0 +1,744 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArraySimple": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArraySimple.IPerson"
+                  }
+                },
+                "ArraySimple.IPerson": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ArraySimple.IHobby"
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "ArraySimple.IHobby": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "rank": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "body",
+                    "rank"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArraySimple"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "hobbies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "body",
+                  "rank"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "hobbies"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ArraySimple": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArraySimple.IPerson"
+                  }
+                },
+                "ArraySimple.IPerson": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ArraySimple.IHobby"
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "ArraySimple.IHobby": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "rank": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "body",
+                    "rank"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArraySimple"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ArraySimple": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArraySimple.IPerson"
+                  }
+                },
+                "ArraySimple.IPerson": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ArraySimple.IHobby"
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "ArraySimple.IHobby": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "rank": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "body",
+                    "rank"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArraySimple"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ArraySimple": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArraySimple.IPerson"
+                  }
+                },
+                "ArraySimple.IPerson": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ArraySimple.IHobby"
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "ArraySimple.IHobby": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "rank": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "body",
+                    "rank"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ArraySimple"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ArraySimple": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ArraySimple.IPerson"
+              }
+            },
+            "ArraySimple.IPerson": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArraySimple.IHobby"
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ]
+            },
+            "ArraySimple.IHobby": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "rank": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "name",
+                "body",
+                "rank"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ArraySimple"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            }
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

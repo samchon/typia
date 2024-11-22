@@ -1,0 +1,568 @@
+{
+  "type": "object",
+  "properties": {
+    "boolean": {
+      "type": "boolean"
+    },
+    "number": {
+      "type": "number"
+    },
+    "string": {
+      "type": "string"
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "object": {
+      "components": {
+        "schemas": {
+          "RequiredObjectRequired.IBase": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "boolean",
+              "number",
+              "string",
+              "array",
+              "object"
+            ],
+            "description": "Make all properties in T required"
+          },
+          "ObjectRequired.IBase": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "schema": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectRequired.IBase"
+          }
+        ]
+      },
+      "recursive": 3,
+      "visited": {},
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "components": {
+                "schemas": {
+                  "RequiredObjectRequired.IBase": {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "string": {
+                        "type": "string"
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "object": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "$ref": "#/components/schemas/ObjectRequired.IBase"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "array",
+                      "object"
+                    ],
+                    "description": "Make all properties in T required"
+                  },
+                  "ObjectRequired.IBase": {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "string": {
+                        "type": "string"
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "object": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "$ref": "#/components/schemas/ObjectRequired.IBase"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                  }
+                ]
+              },
+              "recursive": 3,
+              "visited": {},
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "string": {
+                      "type": "string"
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "object": {
+                      "components": {
+                        "schemas": {
+                          "RequiredObjectRequired.IBase": {
+                            "type": "object",
+                            "properties": {
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "string": {
+                                "type": "string"
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "object": {
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "boolean",
+                              "number",
+                              "string",
+                              "array",
+                              "object"
+                            ],
+                            "description": "Make all properties in T required"
+                          },
+                          "ObjectRequired.IBase": {
+                            "type": "object",
+                            "properties": {
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "string": {
+                                "type": "string"
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "object": {
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "schema": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "$ref": "#/components/schemas/ObjectRequired.IBase"
+                          }
+                        ]
+                      },
+                      "recursive": 3,
+                      "visited": {},
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "boolean": {
+                              "type": "boolean"
+                            },
+                            "number": {
+                              "type": "number"
+                            },
+                            "string": {
+                              "type": "string"
+                            },
+                            "array": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            },
+                            "object": {
+                              "components": {
+                                "schemas": {
+                                  "RequiredObjectRequired.IBase": {
+                                    "type": "object",
+                                    "properties": {
+                                      "boolean": {
+                                        "type": "boolean"
+                                      },
+                                      "number": {
+                                        "type": "number"
+                                      },
+                                      "string": {
+                                        "type": "string"
+                                      },
+                                      "array": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "object": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "boolean",
+                                      "number",
+                                      "string",
+                                      "array",
+                                      "object"
+                                    ],
+                                    "description": "Make all properties in T required"
+                                  },
+                                  "ObjectRequired.IBase": {
+                                    "type": "object",
+                                    "properties": {
+                                      "boolean": {
+                                        "type": "boolean"
+                                      },
+                                      "number": {
+                                        "type": "number"
+                                      },
+                                      "string": {
+                                        "type": "string"
+                                      },
+                                      "array": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "object": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "schema": {
+                                "oneOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                  }
+                                ]
+                              },
+                              "recursive": 3,
+                              "visited": {},
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "boolean": {
+                                      "type": "boolean"
+                                    },
+                                    "number": {
+                                      "type": "number"
+                                    },
+                                    "string": {
+                                      "type": "string"
+                                    },
+                                    "array": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "object": {
+                                      "components": {
+                                        "schemas": {
+                                          "RequiredObjectRequired.IBase": {
+                                            "type": "object",
+                                            "properties": {
+                                              "boolean": {
+                                                "type": "boolean"
+                                              },
+                                              "number": {
+                                                "type": "number"
+                                              },
+                                              "string": {
+                                                "type": "string"
+                                              },
+                                              "array": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "object": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "boolean",
+                                              "number",
+                                              "string",
+                                              "array",
+                                              "object"
+                                            ],
+                                            "description": "Make all properties in T required"
+                                          },
+                                          "ObjectRequired.IBase": {
+                                            "type": "object",
+                                            "properties": {
+                                              "boolean": {
+                                                "type": "boolean"
+                                              },
+                                              "number": {
+                                                "type": "number"
+                                              },
+                                              "string": {
+                                                "type": "string"
+                                              },
+                                              "array": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "object": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "schema": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "$ref": "#/components/schemas/ObjectRequired.IBase"
+                                          }
+                                        ]
+                                      },
+                                      "recursive": 3,
+                                      "visited": {},
+                                      "oneOf": [
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "boolean",
+    "number",
+    "string",
+    "array",
+    "object"
+  ],
+  "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+  "additionalProperties": false
+}

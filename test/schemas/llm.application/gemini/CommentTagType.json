@@ -1,0 +1,436 @@
+{
+  "model": "gemini",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer",
+                  "description": "Integer value."
+                },
+                "uint": {
+                  "type": "integer",
+                  "description": "Unsigned integer value."
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ]
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer",
+                  "description": "Integer value."
+                },
+                "uint": {
+                  "type": "integer",
+                  "description": "Unsigned integer value."
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ]
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

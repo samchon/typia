@@ -6,4 +6,4 @@ import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorb
 export const test_llm_schema_chatgpt_ConstantAtomicAbsorbed = _test_llm_schema({
   model: "chatgpt",
   name: "ConstantAtomicAbsorbed",
-})(typia.llm.schema<ConstantAtomicAbsorbed, "chatgpt">());
+})(typia.llm.schema<ConstantAtomicAbsorbed, "chatgpt">({}));

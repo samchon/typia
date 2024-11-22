@@ -1,0 +1,191 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectRequired.IBase.Nullable": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
+          }
+        },
+        "nullable": true
+      },
+      "RequiredObjectRequired.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ],
+        "description": "Make all properties in T required"
+      },
+      "ObjectRequired.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
+          }
+        }
+      },
+      "RequiredObjectRequired.IBase.Nullable": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "$ref": "#/components/schemas/ObjectRequired.IBase.Nullable"
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ],
+        "description": "Make all properties in T required",
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/RequiredObjectRequired.IBase.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/RequiredObjectRequired.IBase.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

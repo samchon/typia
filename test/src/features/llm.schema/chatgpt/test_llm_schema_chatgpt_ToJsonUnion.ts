@@ -6,4 +6,4 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_llm_schema_chatgpt_ToJsonUnion = _test_llm_schema({
   model: "chatgpt",
   name: "ToJsonUnion",
-})(typia.llm.schema<ToJsonUnion, "chatgpt">());
+})(typia.llm.schema<ToJsonUnion, "chatgpt">({}));

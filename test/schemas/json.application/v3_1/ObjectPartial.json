@@ -1,0 +1,184 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "PartialObjectPartial.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectPartial.IBase"
+              }
+            ]
+          }
+        },
+        "description": "Make all properties in T optional"
+      },
+      "ObjectPartial.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectPartial.IBase"
+              }
+            ]
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ]
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/PartialObjectPartial.IBase"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

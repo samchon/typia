@@ -1,0 +1,165 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "TypeTagArray": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeTagArray.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "TypeTagArray.Type": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "minItems": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 3
+            },
+            "minItems": 3
+          },
+          "both": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 3,
+            "maxItems": 7
+          },
+          "equal": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 10,
+              "maximum": 10
+            },
+            "minItems": 10,
+            "maxItems": 10
+          },
+          "unique": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "items",
+          "minItems",
+          "both",
+          "equal",
+          "unique"
+        ]
+      },
+      "TypeTagArray.Nullable": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TypeTagArray.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArray"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArray"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArray.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagArray"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArray.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArray.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/TypeTagArray.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/TypeTagArray.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

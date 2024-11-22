@@ -7,4 +7,4 @@ export const test_llm_schema_chatgpt_ArrayRecursiveUnionExplicit =
   _test_llm_schema({
     model: "chatgpt",
     name: "ArrayRecursiveUnionExplicit",
-  })(typia.llm.schema<ArrayRecursiveUnionExplicit, "chatgpt">());
+  })(typia.llm.schema<ArrayRecursiveUnionExplicit, "chatgpt">({}));

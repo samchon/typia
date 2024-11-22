@@ -1,0 +1,186 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ArrayAny": {
+        "type": "object",
+        "properties": {
+          "anys": {
+            "type": "array",
+            "items": {}
+          },
+          "undefindable1": {
+            "type": "array",
+            "items": {}
+          },
+          "undefindable2": {
+            "type": "array",
+            "items": {}
+          },
+          "nullables1": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "nullables2": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "both1": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "both2": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "both3": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "union": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "anys",
+          "nullables1",
+          "nullables2",
+          "union"
+        ]
+      },
+      "ArrayAny.Nullable": {
+        "type": "object",
+        "properties": {
+          "anys": {
+            "type": "array",
+            "items": {}
+          },
+          "undefindable1": {
+            "type": "array",
+            "items": {}
+          },
+          "undefindable2": {
+            "type": "array",
+            "items": {}
+          },
+          "nullables1": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "nullables2": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "both1": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "both2": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "both3": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          },
+          "union": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "anys",
+          "nullables1",
+          "nullables2",
+          "union"
+        ],
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAny"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAny"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAny.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayAny"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAny.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAny.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ArrayAny.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ArrayAny.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}

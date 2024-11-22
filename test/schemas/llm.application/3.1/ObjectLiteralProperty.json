@@ -1,0 +1,368 @@
+{
+  "model": "3.1",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectLiteralProperty.ISomething": {
+                  "type": "object",
+                  "properties": {
+                    "something-interesting-do-you-want?": {
+                      "type": "string"
+                    },
+                    "or-something-crazy-do-you-want?": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "something-interesting-do-you-want?",
+                    "or-something-crazy-do-you-want?"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "components": {
+              "schemas": {
+                "ObjectLiteralProperty.ISomething": {
+                  "type": "object",
+                  "properties": {
+                    "something-interesting-do-you-want?": {
+                      "type": "string"
+                    },
+                    "or-something-crazy-do-you-want?": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "something-interesting-do-you-want?",
+                    "or-something-crazy-do-you-want?"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "second": {
+            "components": {
+              "schemas": {
+                "ObjectLiteralProperty.ISomething": {
+                  "type": "object",
+                  "properties": {
+                    "something-interesting-do-you-want?": {
+                      "type": "string"
+                    },
+                    "or-something-crazy-do-you-want?": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "something-interesting-do-you-want?",
+                    "or-something-crazy-do-you-want?"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "components": {
+              "schemas": {
+                "ObjectLiteralProperty.ISomething": {
+                  "type": "object",
+                  "properties": {
+                    "something-interesting-do-you-want?": {
+                      "type": "string"
+                    },
+                    "or-something-crazy-do-you-want?": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "something-interesting-do-you-want?",
+                    "or-something-crazy-do-you-want?"
+                  ]
+                }
+              }
+            },
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+                }
+              ]
+            },
+            "recursive": 3,
+            "visited": {},
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "components": {
+          "schemas": {
+            "ObjectLiteralProperty.ISomething": {
+              "type": "object",
+              "properties": {
+                "something-interesting-do-you-want?": {
+                  "type": "string"
+                },
+                "or-something-crazy-do-you-want?": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "something-interesting-do-you-want?",
+                "or-something-crazy-do-you-want?"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+            }
+          ]
+        },
+        "recursive": 3,
+        "visited": {},
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "separate": null,
+    "recursive": 3
+  }
+}

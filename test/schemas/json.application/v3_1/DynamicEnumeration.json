@@ -1,0 +1,159 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "DynamicEnumeration": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "ar": {
+                "type": "string"
+              },
+              "zh-Hans": {
+                "type": "string"
+              },
+              "zh-Hant": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              },
+              "fr": {
+                "type": "string"
+              },
+              "de": {
+                "type": "string"
+              },
+              "ja": {
+                "type": "string"
+              },
+              "ko": {
+                "type": "string"
+              },
+              "pt": {
+                "type": "string"
+              },
+              "ru": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/DynamicEnumeration"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DynamicEnumeration"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/DynamicEnumeration"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DynamicEnumeration"
+              }
+            ]
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DynamicEnumeration"
+              }
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DynamicEnumeration"
+              }
+            ]
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/components/schemas/DynamicEnumeration"
+            }
+          ]
+        },
+        "required": true
+      }
+    }
+  ]
+}

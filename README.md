@@ -23,9 +23,9 @@ export namespace json {
 
 // LLM FUNCTION CALLING APPLICATION
 export namespace llm {
-  // LLM function calling application from a class or interface type
-  export function application<App>(): ILlmApplication;
-  export function schema<T>(): ILlmSchema; // LLM type schema
+  // application from a class or interface type
+  export function application<App, Model>(): ILlmApplication;
+  export function schema<T, Model>(): ILlmSchema; // LLM type schema
 }
 
 // PROTOCOL BUFFER

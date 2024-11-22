@@ -1,0 +1,148 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ConstantAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ]
+        },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "ConstantAtomicSimple.Nullable": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ]
+        },
+        "minItems": 4,
+        "maxItems": 4,
+        "nullable": true
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicSimple"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reduce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicSimple"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicSimple.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ConstantAtomicSimple"
+        },
+        "required": true
+      }
+    },
+    {
+      "name": "coalesce",
+      "async": true,
+      "parameters": [
+        {
+          "name": "first",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicSimple.Nullable"
+          }
+        },
+        {
+          "name": "second",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicSimple.Nullable"
+          }
+        },
+        {
+          "name": "third",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/ConstantAtomicSimple.Nullable"
+          }
+        }
+      ],
+      "output": {
+        "schema": {
+          "$ref": "#/components/schemas/ConstantAtomicSimple.Nullable"
+        },
+        "required": true
+      }
+    }
+  ]
+}
