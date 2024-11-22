@@ -13,5 +13,6 @@
     "sequence": {
       "type": "number"
     }
-  }
+  },
+  "required": []
 }

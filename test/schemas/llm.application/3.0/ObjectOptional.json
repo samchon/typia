@@ -22,6 +22,7 @@
                 "type": "number"
               }
             },
+            "required": [],
             "additionalProperties": false
           }
         },
@@ -53,6 +54,7 @@
                 "type": "number"
               }
             },
+            "required": [],
             "additionalProperties": false
           },
           "second": {
@@ -71,6 +73,7 @@
                 "type": "number"
               }
             },
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           }
@@ -97,6 +100,7 @@
             "type": "number"
           }
         },
+        "required": [],
         "additionalProperties": false
       },
       "strict": true
@@ -122,6 +126,7 @@
                 "type": "number"
               }
             },
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           },
@@ -141,6 +146,7 @@
                 "type": "number"
               }
             },
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           },
@@ -160,6 +166,7 @@
                 "type": "number"
               }
             },
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           }
@@ -186,6 +193,7 @@
             "type": "number"
           }
         },
+        "required": [],
         "additionalProperties": false,
         "nullable": true
       },

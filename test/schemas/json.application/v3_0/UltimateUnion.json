@@ -51,11 +51,13 @@
             "description": "An object to hold reusable security schemes.\n\nIn other words, a collection of named security schemes."
           }
         },
+        "required": [],
         "description": "Reusable components in OpenAPI.\n\nA storage of reusable components in OpenAPI document.\n\nIn other words, it is a storage of named DTO schemas and security schemes."
       },
       "RecordstringOpenApi.IJsonSchema": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "$ref": "#/components/schemas/OpenApi.IJsonSchema"
@@ -177,6 +179,7 @@
       "Recordstringany": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {}
       },
@@ -688,6 +691,7 @@
         },
         "required": [
           "properties",
+          "required",
           "type"
         ],
         "description": "Object type info."
@@ -884,6 +888,7 @@
             "description": "List of example values as key-value pairs."
           }
         },
+        "required": [],
         "description": "Unknown, the `any` type."
       },
       "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
@@ -908,6 +913,7 @@
       "Recordstringstring": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "type": "string"
@@ -916,6 +922,7 @@
       "RecordstringOpenApi.ISecurityScheme": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "$ref": "#/components/schemas/OpenApi.ISecurityScheme"
@@ -1061,7 +1068,8 @@
           "clientCredentials": {
             "$ref": "#/components/schemas/OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl"
           }
-        }
+        },
+        "required": []
       },
       "OpenApi.ISecurityScheme.IOAuth2.IFlow": {
         "type": "object",
@@ -1078,7 +1086,8 @@
           "scopes": {
             "$ref": "#/components/schemas/Recordstringstring"
           }
-        }
+        },
+        "required": []
       },
       "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowtokenUrl": {
         "type": "object",
@@ -1093,6 +1102,7 @@
             "$ref": "#/components/schemas/Recordstringstring"
           }
         },
+        "required": [],
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OmitOpenApi.ISecurityScheme.IOAuth2.IFlowauthorizationUrl": {
@@ -1108,6 +1118,7 @@
             "$ref": "#/components/schemas/Recordstringstring"
           }
         },
+        "required": [],
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OpenApi.ISecurityScheme.IOpenId": {

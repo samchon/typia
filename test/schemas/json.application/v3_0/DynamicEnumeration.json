@@ -38,7 +38,8 @@
               "ru": {
                 "type": "string"
               }
-            }
+            },
+            "required": []
           }
         },
         "required": [
@@ -81,7 +82,8 @@
               "ru": {
                 "type": "string"
               }
-            }
+            },
+            "required": []
           }
         },
         "required": [

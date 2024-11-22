@@ -21,6 +21,7 @@ export const json_schema_native = (props: {
     props.components.schemas[props.native.name] ??= {
       type: "object",
       properties: {},
+      required: [],
     };
   }
   return json_schema_plugin({

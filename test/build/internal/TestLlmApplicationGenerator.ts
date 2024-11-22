@@ -29,6 +29,16 @@ export namespace TestLlmApplicationGenerator {
         ) === false
       )
         continue;
+
+      const v31: string = await fs.promises.readFile(
+        `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
+        "utf8",
+      );
+      if (
+        v31.includes(`"additionalProperties": {`) === true ||
+        v31.includes(`"additionalProperties": true`)
+      )
+        continue;
       else if (model === "chatgpt") {
         // CHATGPT DOES NOT SUPPORT TUPLE TYPE
         const json: string = await fs.promises.readFile(

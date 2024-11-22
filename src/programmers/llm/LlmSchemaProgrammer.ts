@@ -69,6 +69,14 @@ export namespace LlmSchemaProgrammer {
       )
         output.push("LLM schema does not support bigint type.");
       if (
+        metadata.objects.some((o) =>
+          o.type.properties.some(
+            (p) => p.key.isSoleLiteral() === false && p.value.size() !== 0,
+          ),
+        )
+      )
+        output.push("LLM schema does not support dynamic property in object.");
+      if (
         metadata.tuples.some((t) =>
           t.type.elements.some((e) => e.isRequired() === false),
         ) ||

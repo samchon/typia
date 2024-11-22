@@ -5,6 +5,7 @@
       "DynamicTemplate": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": {
           "oneOf": [
             {
@@ -22,6 +23,7 @@
       "DynamicTemplate.Nullable": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": {
           "oneOf": [
             {

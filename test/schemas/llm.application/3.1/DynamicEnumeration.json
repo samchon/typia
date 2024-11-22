@@ -43,6 +43,7 @@
                     "type": "string"
                   }
                 },
+                "required": [],
                 "additionalProperties": false
               }
             },
@@ -101,6 +102,7 @@
                     "type": "string"
                   }
                 },
+                "required": [],
                 "additionalProperties": false
               }
             },
@@ -148,7 +150,8 @@
                         "ru": {
                           "type": "string"
                         }
-                      }
+                      },
+                      "required": []
                     }
                   },
                   "required": [
@@ -210,6 +213,7 @@
                         "type": "string"
                       }
                     },
+                    "required": [],
                     "additionalProperties": false
                   }
                 },
@@ -264,6 +268,7 @@
                 "type": "string"
               }
             },
+            "required": [],
             "additionalProperties": false
           }
         },
@@ -318,7 +323,8 @@
                         "ru": {
                           "type": "string"
                         }
-                      }
+                      },
+                      "required": []
                     }
                   },
                   "required": [
@@ -380,6 +386,7 @@
                         "type": "string"
                       }
                     },
+                    "required": [],
                     "additionalProperties": false
                   }
                 },
@@ -429,7 +436,8 @@
                         "ru": {
                           "type": "string"
                         }
-                      }
+                      },
+                      "required": []
                     }
                   },
                   "required": [
@@ -491,6 +499,7 @@
                         "type": "string"
                       }
                     },
+                    "required": [],
                     "additionalProperties": false
                   }
                 },
@@ -540,7 +549,8 @@
                         "ru": {
                           "type": "string"
                         }
-                      }
+                      },
+                      "required": []
                     }
                   },
                   "required": [
@@ -602,6 +612,7 @@
                         "type": "string"
                       }
                     },
+                    "required": [],
                     "additionalProperties": false
                   }
                 },
@@ -658,7 +669,8 @@
                     "ru": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "required": []
                 }
               },
               "required": [
@@ -720,6 +732,7 @@
                     "type": "string"
                   }
                 },
+                "required": [],
                 "additionalProperties": false
               }
             },

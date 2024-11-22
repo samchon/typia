@@ -136,6 +136,7 @@
       "nullable": true
     }
   },
+  "required": [],
   "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
   "additionalProperties": false
 }

@@ -9,6 +9,7 @@
           "first": {
             "type": "object",
             "properties": {},
+            "required": [],
             "additionalProperties": false
           }
         },
@@ -27,11 +28,13 @@
           "first": {
             "type": "object",
             "properties": {},
+            "required": [],
             "additionalProperties": false
           },
           "second": {
             "type": "object",
             "properties": {},
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           }
@@ -45,6 +48,7 @@
       "output": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": false
       },
       "strict": true
@@ -57,18 +61,21 @@
           "first": {
             "type": "object",
             "properties": {},
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           },
           "second": {
             "type": "object",
             "properties": {},
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           },
           "third": {
             "type": "object",
             "properties": {},
+            "required": [],
             "additionalProperties": false,
             "nullable": true
           }
@@ -82,6 +89,7 @@
       "output": {
         "type": "object",
         "properties": {},
+        "required": [],
         "additionalProperties": false,
         "nullable": true
       },

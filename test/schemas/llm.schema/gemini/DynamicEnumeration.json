@@ -34,7 +34,8 @@
         "ru": {
           "type": "string"
         }
-      }
+      },
+      "required": []
     }
   },
   "required": [

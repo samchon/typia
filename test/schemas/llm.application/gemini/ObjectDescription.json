@@ -19,7 +19,7 @@
               },
               "title": {
                 "type": "string",
-                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+                "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
               },
               "descriptions": {
                 "type": "array",
@@ -40,7 +40,7 @@
               "descriptions",
               "newLine"
             ],
-            "description": "This is the title of object type\n\nAn interface designed to test JSON schema's object description."
+            "description": "This is the title of object type.\n\nAn interface designed to test JSON schema's object description."
           }
         },
         "required": [
@@ -67,7 +67,7 @@
               },
               "title": {
                 "type": "string",
-                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+                "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
               },
               "descriptions": {
                 "type": "array",
@@ -88,7 +88,7 @@
               "descriptions",
               "newLine"
             ],
-            "description": "This is the title of object type\n\nAn interface designed to test JSON schema's object description."
+            "description": "This is the title of object type.\n\nAn interface designed to test JSON schema's object description."
           },
           "second": {
             "type": "object",
@@ -103,7 +103,7 @@
               },
               "title": {
                 "type": "string",
-                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+                "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
               },
               "descriptions": {
                 "type": "array",
@@ -145,7 +145,7 @@
           },
           "title": {
             "type": "string",
-            "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+            "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
           },
           "descriptions": {
             "type": "array",
@@ -166,7 +166,7 @@
           "descriptions",
           "newLine"
         ],
-        "description": "This is the title of object type\n\nAn interface designed to test JSON schema's object description."
+        "description": "This is the title of object type.\n\nAn interface designed to test JSON schema's object description."
       },
       "strict": true
     },
@@ -188,7 +188,7 @@
               },
               "title": {
                 "type": "string",
-                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+                "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
               },
               "descriptions": {
                 "type": "array",
@@ -224,7 +224,7 @@
               },
               "title": {
                 "type": "string",
-                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+                "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
               },
               "descriptions": {
                 "type": "array",
@@ -260,7 +260,7 @@
               },
               "title": {
                 "type": "string",
-                "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+                "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
               },
               "descriptions": {
                 "type": "array",
@@ -302,7 +302,7 @@
           },
           "title": {
             "type": "string",
-            "description": "This is the title\n\nTitle tag can replace the first line of the comment."
+            "description": "This is the title.\n\nTitle tag can replace the first line of the comment."
           },
           "descriptions": {
             "type": "array",

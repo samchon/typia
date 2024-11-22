@@ -4,7 +4,8 @@
     "schemas": {
       "DynamicNever": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "required": []
       }
     }
   },

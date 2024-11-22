@@ -29,13 +29,19 @@ export namespace TestLlmSchemaGenerator {
         ) === false
       )
         continue;
+
+      const v31: string = await fs.promises.readFile(
+        `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
+        "utf8",
+      );
+      if (
+        v31.includes(`"additionalProperties": {`) === true ||
+        v31.includes(`"additionalProperties": true`)
+      )
+        continue;
       else if (model === "chatgpt") {
         // CHATGPT DOES NOT SUPPORT TUPLE TYPE
-        const json: string = await fs.promises.readFile(
-          `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
-          "utf8",
-        );
-        if (json.includes(`"prefixItems":`) === true) continue;
+        if (v31.includes(`"prefixItems":`) === true) continue;
       } else if (model === "gemini") {
         // GEMINI DOES NOT SUPPORT UNION TYPE
         const json: string = await fs.promises.readFile(
