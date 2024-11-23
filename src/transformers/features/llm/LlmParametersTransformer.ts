@@ -1,13 +1,14 @@
 import { ILlmApplication } from "@samchon/openapi";
+import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 import ts from "typescript";
 
-import { IdentifierFactory } from "../../../factories/IdentifierFactory";
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
+import { LlmParametersProgrammer } from "../../../programmers/llm/LlmParametersProgrammer";
 import { LlmSchemaProgrammer } from "../../../programmers/llm/LlmSchemaProgrammer";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
@@ -15,14 +16,14 @@ import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
-export namespace LlmSchemaTransformer {
+export namespace LlmParametersTransformer {
   export const transform = (
     props: Omit<ITransformProps, "modulo">,
   ): ts.Expression => {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
-        code: "typia.llm.schema",
+        code: "typia.llm.parameters",
         message: "no generic argument.",
       });
 
@@ -63,50 +64,16 @@ export namespace LlmSchemaTransformer {
       });
     if (result.success === false)
       throw TransformerError.from({
-        code: "typia.llm.schema",
+        code: "typia.llm.parameters",
         errors: result.errors,
       });
 
     // GENERATE LLM SCHEMA
-    const out: LlmSchemaProgrammer.IOutput<any> = LlmSchemaProgrammer.write({
+    const out: ILlmFunction<any>["parameters"] = LlmParametersProgrammer.write({
       model,
       metadata: result.data,
     });
-    if (Object.keys(out.$defs).length === 0)
-      return LiteralFactory.write(out.schema);
-    return ts.factory.createCallExpression(
-      ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        [
-          IdentifierFactory.parameter(
-            "$defs",
-            ts.factory.createTypeReferenceNode("Record<string, unknown>"),
-            undefined,
-          ),
-        ],
-        undefined,
-        undefined,
-        ts.factory.createBlock(
-          [
-            ts.factory.createExpressionStatement(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Object.assign"),
-                undefined,
-                [
-                  ts.factory.createIdentifier("$defs"),
-                  LiteralFactory.write(out.$defs),
-                ],
-              ),
-            ),
-            ts.factory.createReturnStatement(LiteralFactory.write(out.schema)),
-          ],
-          true,
-        ),
-      ),
-      undefined,
-      [props.expression.arguments[0]!],
-    );
+    return LiteralFactory.write(out);
   };
 
   const getTemplateArgument =
@@ -127,7 +94,7 @@ export namespace LlmSchemaTransformer {
         (type.getFlags() & ts.TypeFlags.BooleanLiteral) === 0
       )
         throw new TransformerError({
-          code: "typia.llm.schema",
+          code: "typia.llm.parameters",
           message: `generic argument "${props.name}" must be constant.`,
         });
 
@@ -137,7 +104,7 @@ export namespace LlmSchemaTransformer {
         : props.checker.typeToString(type);
       if (typeof value !== "string" || props.is(value) === false)
         throw new TransformerError({
-          code: "typia.llm.schema",
+          code: "typia.llm.parameters",
           message: `invalid value on generic argument "${props.name}".`,
         });
       return props.cast(value);

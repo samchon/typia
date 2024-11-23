@@ -1,13 +1,5 @@
-import {
-  IChatGptSchema,
-  IHttpLlmApplication,
-  ILlmApplication,
-  OpenApi,
-} from "@samchon/openapi";
-import { ChatGptConverter } from "@samchon/openapi/lib/converters/ChatGptConverter";
-import { GeminiConverter } from "@samchon/openapi/lib/converters/GeminiConverter";
-import { LlmConverterV3 } from "@samchon/openapi/lib/converters/LlmConverterV3";
-import { LlmConverterV3_1 } from "@samchon/openapi/lib/converters/LlmConverterV3_1";
+import { ILlmApplication } from "@samchon/openapi";
+import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
@@ -24,8 +16,9 @@ export namespace LlmSchemaProgrammer {
   export interface IOutput<Model extends ILlmApplication.Model> {
     model: Model;
     schema: ILlmApplication.ModelSchema[Model];
-    $defs: Record<string, IChatGptSchema>;
+    $defs: Record<string, ILlmApplication.ModelSchema[Model]>;
   }
+
   export const write = <Model extends ILlmApplication.Model>(props: {
     model: Model;
     metadata: Metadata;
@@ -36,20 +29,18 @@ export namespace LlmSchemaProgrammer {
         metadatas: [props.metadata],
       });
 
-    const $defs: Record<string, IChatGptSchema> = {};
-    const schema: ILlmApplication.ModelSchema[Model] | null = CASTERS[
-      props.model
-    ]({
-      options: {
-        recursive: 3,
-        reference: false,
-        constraint: false,
-      } satisfies Omit<ILlmApplication.IChatGptOptions, "separate"> &
-        Omit<ILlmApplication.ICommonOptions<any>, "separate"> as any,
-      components: collection.components,
-      schema: collection.schemas[0]!,
-      $defs,
-    }) as ILlmApplication.ModelSchema[Model] | null;
+    const $defs: Record<string, ILlmApplication.ModelSchema[Model]> = {};
+    const schema: ILlmApplication.ModelSchema[Model] | null =
+      LlmSchemaConverter.schema(props.model)({
+        config: {
+          recursive: 3,
+          reference: false,
+          constraint: false,
+        },
+        components: collection.components,
+        schema: collection.schemas[0]!,
+        $defs: $defs as any,
+      }) as ILlmApplication.ModelSchema[Model] | null;
     if (schema === null)
       throw new Error("Failed to convert JSON schema to LLM schema.");
     return {
@@ -138,48 +129,3 @@ const size = (metadata: Metadata): number =>
         }).length,
     )
     .reduce((a, b) => a + b, 0);
-
-const CASTERS = {
-  "3.0": (props: {
-    components: OpenApi.IComponents;
-    schema: OpenApi.IJsonSchema;
-    options: IHttpLlmApplication.IOptions<"3.0">;
-  }) =>
-    LlmConverterV3.schema({
-      components: props.components,
-      schema: props.schema,
-      recursive: props.options.recursive,
-    }),
-  "3.1": (props: {
-    components: OpenApi.IComponents;
-    schema: OpenApi.IJsonSchema;
-    options: IHttpLlmApplication.IOptions<"3.1">;
-  }) =>
-    LlmConverterV3_1.schema({
-      components: props.components,
-      schema: props.schema,
-      recursive: props.options.recursive,
-    }),
-  chatgpt: (props: {
-    components: OpenApi.IComponents;
-    schema: OpenApi.IJsonSchema;
-    $defs: Record<string, IChatGptSchema>;
-    options: Omit<IHttpLlmApplication.IChatGptOptions, "separate">;
-  }) =>
-    ChatGptConverter.schema({
-      components: props.components,
-      schema: props.schema,
-      $defs: props.$defs,
-      options: props.options,
-    }),
-  gemini: (props: {
-    components: OpenApi.IComponents;
-    schema: OpenApi.IJsonSchema;
-    options: IHttpLlmApplication.IOptions<"gemini">;
-  }) =>
-    GeminiConverter.schema({
-      components: props.components,
-      schema: props.schema,
-      recursive: props.options.recursive,
-    }),
-};

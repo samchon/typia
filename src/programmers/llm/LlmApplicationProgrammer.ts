@@ -1,8 +1,5 @@
-import { IChatGptSchema, ILlmApplication, OpenApi } from "@samchon/openapi";
-import { ChatGptConverter } from "@samchon/openapi/lib/converters/ChatGptConverter";
-import { GeminiConverter } from "@samchon/openapi/lib/converters/GeminiConverter";
-import { LlmConverterV3 } from "@samchon/openapi/lib/converters/LlmConverterV3";
-import { LlmConverterV3_1 } from "@samchon/openapi/lib/converters/LlmConverterV3_1";
+import { ILlmApplication, OpenApi } from "@samchon/openapi";
+import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -120,18 +117,7 @@ export namespace LlmApplicationProgrammer {
           function: func,
         }),
       ),
-      options: (props.model === "chatgpt"
-        ? ({
-            separate: null,
-            reference: false,
-            constraint: false,
-          } satisfies ILlmApplication.IOptions<"chatgpt">)
-        : ({
-            separate: null,
-            recursive: props.model === "chatgpt" ? undefined : (3 as any),
-          } satisfies ILlmApplication.ICommonOptions<
-            Exclude<Model, "chatgpt">
-          >)) as ILlmApplication.IOptions<Model>,
+      options: DEFAULT_CONFIG,
     };
   };
 
@@ -201,33 +187,12 @@ export namespace LlmApplicationProgrammer {
         .map((p) => p.name),
       additionalProperties: false,
     };
-    const parameters: ILlmApplication.ModelParameters[Model] | null = (() => {
-      if (props.model === "chatgpt")
-        return ChatGptConverter.parameters({
-          options: DEFAULT_CHATGPT_OPTION,
-          components: props.components,
-          schema,
-        });
-      else if (props.model === "gemini")
-        return GeminiConverter.parameters({
-          recursive: DEFAULT_V3_OPTIONS.recursive,
-          components: props.components,
-          schema,
-        }) as ILlmApplication.ModelParameters[Model] | null;
-      else if (props.model === "3.0")
-        return LlmConverterV3.parameters({
-          recursive: DEFAULT_V3_OPTIONS.recursive,
-          components: props.components,
-          schema,
-        }) as ILlmApplication.ModelParameters[Model] | null;
-      else if (props.model === "3.1")
-        return LlmConverterV3_1.parameters({
-          recursive: DEFAULT_V3_OPTIONS.recursive,
-          components: props.components,
-          schema,
-        }) as ILlmApplication.ModelParameters[Model] | null;
-      else return null;
-    })();
+    const parameters: ILlmApplication.ModelParameters[Model] | null =
+      LlmSchemaConverter.parameters(props.model)({
+        config: DEFAULT_CONFIG,
+        components: props.components,
+        schema,
+      }) as ILlmApplication.ModelParameters[Model] | null;
     if (parameters === null)
       throw new Error("Failed to write LLM application parameters.");
     return parameters;
@@ -240,56 +205,22 @@ export namespace LlmApplicationProgrammer {
     schema: OpenApi.IJsonSchema | null;
   }): ILlmApplication.ModelSchema[Model] | null => {
     if (props.schema === null) return null;
-    const output: ILlmApplication.ModelSchema[Model] | null = (() => {
-      if (props.model === "chatgpt") {
-        const $defs =
-          (props.parameters as IChatGptSchema.IParameters).$defs ?? {};
-        const output: IChatGptSchema | null = ChatGptConverter.schema({
-          options: DEFAULT_CHATGPT_OPTION,
-          components: props.components,
-          $defs,
-          schema: props.schema,
-        });
-        if (
-          output !== null &&
-          (props.parameters as IChatGptSchema.IParameters).$defs ===
-            undefined &&
-          Object.keys($defs).length !== 0
-        )
-          (props.parameters as IChatGptSchema.IParameters).$defs = $defs;
-        return output;
-      } else if (props.model === "gemini")
-        return GeminiConverter.schema({
-          recursive: DEFAULT_V3_OPTIONS.recursive,
-          components: props.components,
-          schema: props.schema,
-        }) as ILlmApplication.ModelSchema[Model] | null;
-      else if (props.model === "3.0")
-        return LlmConverterV3.schema({
-          recursive: DEFAULT_V3_OPTIONS.recursive,
-          components: props.components,
-          schema: props.schema,
-        }) as ILlmApplication.ModelSchema[Model] | null;
-      else if (props.model === "3.1")
-        return LlmConverterV3_1.schema({
-          recursive: DEFAULT_V3_OPTIONS.recursive,
-          components: props.components,
-          schema: props.schema,
-        }) as ILlmApplication.ModelSchema[Model] | null;
-      else return null;
-    })();
+    const output: ILlmApplication.ModelSchema[Model] | null =
+      LlmSchemaConverter.schema(props.model)({
+        config: DEFAULT_CONFIG,
+        components: props.components,
+        schema: props.schema,
+        $defs: (props.parameters as any).$defs,
+      }) as ILlmApplication.ModelSchema[Model] | null;
     if (output === null)
       throw new Error("Failed to write LLM application output.");
     return output;
   };
 }
 
-const DEFAULT_CHATGPT_OPTION: ILlmApplication.IChatGptOptions = {
+const DEFAULT_CONFIG = {
   separate: null,
-  reference: false,
   constraint: false,
-};
-const DEFAULT_V3_OPTIONS = {
-  separate: null,
   recursive: 3,
-} satisfies ILlmApplication.ICommonOptions<"3.0">;
+  reference: false,
+};
