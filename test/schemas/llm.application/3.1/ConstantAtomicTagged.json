@@ -10,120 +10,24 @@
             "type": "object",
             "properties": {
               "id": {
-                "components": {
-                  "schemas": {
-                    "ConstantAtomicTagged": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "oneOf": [
-                            {
-                              "const": "latest"
-                            },
-                            {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          ]
-                        },
-                        "age": {
-                          "oneOf": [
-                            {
-                              "const": -1
-                            },
-                            {
-                              "type": "integer",
-                              "maximum": 100
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": "latest"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": "latest"
                   },
                   {
                     "type": "string",
-                    "format": "uuid"
+                    "description": "@format uuid"
                   }
                 ]
               },
               "age": {
-                "components": {
-                  "schemas": {
-                    "ConstantAtomicTagged": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "oneOf": [
-                            {
-                              "const": "latest"
-                            },
-                            {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          ]
-                        },
-                        "age": {
-                          "oneOf": [
-                            {
-                              "const": -1
-                            },
-                            {
-                              "type": "integer",
-                              "maximum": 100
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": -1
-                    },
-                    {
-                      "type": "integer",
-                      "maximum": 100
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": -1
                   },
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   }
                 ]
               }
@@ -138,7 +42,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -151,120 +56,24 @@
             "type": "object",
             "properties": {
               "id": {
-                "components": {
-                  "schemas": {
-                    "ConstantAtomicTagged": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "oneOf": [
-                            {
-                              "const": "latest"
-                            },
-                            {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          ]
-                        },
-                        "age": {
-                          "oneOf": [
-                            {
-                              "const": -1
-                            },
-                            {
-                              "type": "integer",
-                              "maximum": 100
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": "latest"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": "latest"
                   },
                   {
                     "type": "string",
-                    "format": "uuid"
+                    "description": "@format uuid"
                   }
                 ]
               },
               "age": {
-                "components": {
-                  "schemas": {
-                    "ConstantAtomicTagged": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "oneOf": [
-                            {
-                              "const": "latest"
-                            },
-                            {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          ]
-                        },
-                        "age": {
-                          "oneOf": [
-                            {
-                              "const": -1
-                            },
-                            {
-                              "type": "integer",
-                              "maximum": 100
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": -1
-                    },
-                    {
-                      "type": "integer",
-                      "maximum": 100
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": -1
                   },
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   }
                 ]
               }
@@ -276,53 +85,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicTagged": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicTagged"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -331,120 +93,24 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "latest"
                       },
                       {
                         "type": "string",
-                        "format": "uuid"
+                        "description": "@format uuid"
                       }
                     ]
                   },
                   "age": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": -1
                       },
                       {
                         "type": "integer",
-                        "maximum": 100
+                        "description": "@maximum 100"
                       }
                     ]
                   }
@@ -462,126 +128,31 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
         "properties": {
           "id": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicTagged": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "const": "latest"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "const": "latest"
               },
               {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               }
             ]
           },
           "age": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicTagged": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "const": -1
-                },
-                {
-                  "type": "integer",
-                  "maximum": 100
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "const": -1
               },
               {
                 "type": "integer",
-                "maximum": 100
+                "description": "@maximum 100"
               }
             ]
           }
@@ -600,53 +171,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicTagged": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicTagged"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -655,120 +179,24 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "latest"
                       },
                       {
                         "type": "string",
-                        "format": "uuid"
+                        "description": "@format uuid"
                       }
                     ]
                   },
                   "age": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": -1
                       },
                       {
                         "type": "integer",
-                        "maximum": 100
+                        "description": "@maximum 100"
                       }
                     ]
                   }
@@ -782,53 +210,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicTagged": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicTagged"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -837,120 +218,24 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "latest"
                       },
                       {
                         "type": "string",
-                        "format": "uuid"
+                        "description": "@format uuid"
                       }
                     ]
                   },
                   "age": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": -1
                       },
                       {
                         "type": "integer",
-                        "maximum": 100
+                        "description": "@maximum 100"
                       }
                     ]
                   }
@@ -964,53 +249,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicTagged": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicTagged"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -1019,120 +257,24 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "latest"
-                        },
-                        {
-                          "type": "string",
-                          "format": "uuid"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "latest"
                       },
                       {
                         "type": "string",
-                        "format": "uuid"
+                        "description": "@format uuid"
                       }
                     ]
                   },
                   "age": {
-                    "components": {
-                      "schemas": {
-                        "ConstantAtomicTagged": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "oneOf": [
-                                {
-                                  "const": "latest"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "uuid"
-                                }
-                              ]
-                            },
-                            "age": {
-                              "oneOf": [
-                                {
-                                  "const": -1
-                                },
-                                {
-                                  "type": "integer",
-                                  "maximum": 100
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "age"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": -1
-                        },
-                        {
-                          "type": "integer",
-                          "maximum": 100
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": -1
                       },
                       {
                         "type": "integer",
-                        "maximum": 100
+                        "description": "@maximum 100"
                       }
                     ]
                   }
@@ -1148,58 +290,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ConstantAtomicTagged": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "oneOf": [
-                    {
-                      "const": "latest"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  ]
-                },
-                "age": {
-                  "oneOf": [
-                    {
-                      "const": -1
-                    },
-                    {
-                      "type": "integer",
-                      "maximum": 100
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "age"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ConstantAtomicTagged"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -1208,120 +305,24 @@
             "type": "object",
             "properties": {
               "id": {
-                "components": {
-                  "schemas": {
-                    "ConstantAtomicTagged": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "oneOf": [
-                            {
-                              "const": "latest"
-                            },
-                            {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          ]
-                        },
-                        "age": {
-                          "oneOf": [
-                            {
-                              "const": -1
-                            },
-                            {
-                              "type": "integer",
-                              "maximum": 100
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": "latest"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": "latest"
                   },
                   {
                     "type": "string",
-                    "format": "uuid"
+                    "description": "@format uuid"
                   }
                 ]
               },
               "age": {
-                "components": {
-                  "schemas": {
-                    "ConstantAtomicTagged": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "oneOf": [
-                            {
-                              "const": "latest"
-                            },
-                            {
-                              "type": "string",
-                              "format": "uuid"
-                            }
-                          ]
-                        },
-                        "age": {
-                          "oneOf": [
-                            {
-                              "const": -1
-                            },
-                            {
-                              "type": "integer",
-                              "maximum": 100
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "age"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": -1
-                    },
-                    {
-                      "type": "integer",
-                      "maximum": 100
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": -1
                   },
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   }
                 ]
               }
@@ -1339,6 +340,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

@@ -6,4 +6,4 @@ import { CommentTagRange } from "../../../structures/CommentTagRange";
 export const test_llm_schema_3_1_CommentTagRange = _test_llm_schema({
   model: "3.1",
   name: "CommentTagRange",
-})(typia.llm.schema<CommentTagRange, "3.1">());
+})(typia.llm.schema<CommentTagRange, "3.1">({}));

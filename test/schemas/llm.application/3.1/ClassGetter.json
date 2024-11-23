@@ -16,48 +16,6 @@
                 "type": "string"
               },
               "dead": {
-                "components": {
-                  "schemas": {
-                    "ClassGetter.Person": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "dead": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "boolean"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "dead"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
@@ -79,7 +37,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -98,48 +57,6 @@
                 "type": "string"
               },
               "dead": {
-                "components": {
-                  "schemas": {
-                    "ClassGetter.Person": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "dead": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "boolean"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "dead"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
@@ -158,48 +75,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ClassGetter.Person": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "dead"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassGetter.Person"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -214,48 +89,6 @@
                     "type": "string"
                   },
                   "dead": {
-                    "components": {
-                      "schemas": {
-                        "ClassGetter.Person": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "dead": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "boolean"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name",
-                            "dead"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
@@ -280,7 +113,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -292,48 +126,6 @@
             "type": "string"
           },
           "dead": {
-            "components": {
-              "schemas": {
-                "ClassGetter.Person": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "dead"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -359,48 +151,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ClassGetter.Person": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "dead"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassGetter.Person"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -415,48 +165,6 @@
                     "type": "string"
                   },
                   "dead": {
-                    "components": {
-                      "schemas": {
-                        "ClassGetter.Person": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "dead": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "boolean"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name",
-                            "dead"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
@@ -477,48 +185,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ClassGetter.Person": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "dead"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassGetter.Person"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -533,48 +199,6 @@
                     "type": "string"
                   },
                   "dead": {
-                    "components": {
-                      "schemas": {
-                        "ClassGetter.Person": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "dead": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "boolean"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name",
-                            "dead"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
@@ -595,48 +219,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ClassGetter.Person": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "dead"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassGetter.Person"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -651,48 +233,6 @@
                     "type": "string"
                   },
                   "dead": {
-                    "components": {
-                      "schemas": {
-                        "ClassGetter.Person": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "dead": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "boolean"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name",
-                            "dead"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
@@ -715,53 +255,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ClassGetter.Person": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "dead": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "dead"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ClassGetter.Person"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -776,48 +276,6 @@
                 "type": "string"
               },
               "dead": {
-                "components": {
-                  "schemas": {
-                    "ClassGetter.Person": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "dead": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "boolean"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "dead"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
@@ -842,6 +300,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

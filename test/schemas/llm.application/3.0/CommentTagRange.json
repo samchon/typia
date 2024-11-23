@@ -658,6 +658,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

@@ -7,27 +7,24 @@
         "type": "object",
         "properties": {
           "fixed": {
-            "type": "string",
-            "minLength": 5,
-            "maxLength": 5
+            "description": "@minLength 5\n@maxLength 5",
+            "type": "string"
           },
           "minimum": {
-            "type": "string",
-            "minLength": 3
+            "description": "@minLength 3",
+            "type": "string"
           },
           "maximum": {
-            "type": "string",
-            "maxLength": 7
+            "description": "@maxLength 7",
+            "type": "string"
           },
           "minimum_and_maximum": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 7
+            "description": "@minLength 3\n@maxLength 7",
+            "type": "string"
           },
           "equal": {
-            "type": "string",
-            "minLength": 10,
-            "maxLength": 19
+            "description": "@minLength 10\n@maxLength 19",
+            "type": "string"
           }
         },
         "required": [

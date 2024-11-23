@@ -6,4 +6,4 @@ import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExpli
 export const test_llm_schema_3_1_ObjectUnionExplicitPointer = _test_llm_schema({
   model: "3.1",
   name: "ObjectUnionExplicitPointer",
-})(typia.llm.schema<ObjectUnionExplicitPointer, "3.1">());
+})(typia.llm.schema<ObjectUnionExplicitPointer, "3.1">({}));

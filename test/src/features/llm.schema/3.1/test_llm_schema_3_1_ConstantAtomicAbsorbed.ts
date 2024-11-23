@@ -6,4 +6,4 @@ import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorb
 export const test_llm_schema_3_1_ConstantAtomicAbsorbed = _test_llm_schema({
   model: "3.1",
   name: "ConstantAtomicAbsorbed",
-})(typia.llm.schema<ConstantAtomicAbsorbed, "3.1">());
+})(typia.llm.schema<ConstantAtomicAbsorbed, "3.1">({}));

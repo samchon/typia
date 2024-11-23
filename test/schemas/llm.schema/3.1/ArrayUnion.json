@@ -1,62 +1,6 @@
 {
   "type": "array",
   "items": {
-    "components": {
-      "schemas": {
-        "ArrayUnion": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/ArrayUnion.IUnion"
-          }
-        },
-        "ArrayUnion.IUnion": {
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "boolean"
-              }
-            }
-          ]
-        }
-      }
-    },
-    "schema": {
-      "oneOf": [
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "boolean"
-          }
-        }
-      ]
-    },
-    "recursive": 3,
-    "visited": {},
     "oneOf": [
       {
         "type": "array",

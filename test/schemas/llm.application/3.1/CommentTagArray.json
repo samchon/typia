@@ -15,42 +15,39 @@
                   "type": "object",
                   "properties": {
                     "items": {
+                      "description": "@minItems 3\n@maxItems 3",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
+                      }
                     },
                     "minItems": {
+                      "description": "@minItems 3",
                       "type": "array",
                       "items": {
                         "type": "number"
-                      },
-                      "minItems": 3
+                      }
                     },
                     "both": {
+                      "description": "@minItems 3\n@maxItems 7",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
+                      }
                     },
                     "equal": {
+                      "description": "@minItems 10\n@maxItems 10",
                       "type": "array",
                       "items": {
                         "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
+                      }
                     },
                     "unique": {
+                      "description": "@uniqueItems",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "uniqueItems": true
+                      }
                     }
                   },
                   "required": [
@@ -73,7 +70,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -91,42 +89,39 @@
                   "type": "object",
                   "properties": {
                     "items": {
+                      "description": "@minItems 3\n@maxItems 3",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
+                      }
                     },
                     "minItems": {
+                      "description": "@minItems 3",
                       "type": "array",
                       "items": {
                         "type": "number"
-                      },
-                      "minItems": 3
+                      }
                     },
                     "both": {
+                      "description": "@minItems 3\n@maxItems 7",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
+                      }
                     },
                     "equal": {
+                      "description": "@minItems 10\n@maxItems 10",
                       "type": "array",
                       "items": {
                         "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
+                      }
                     },
                     "unique": {
+                      "description": "@uniqueItems",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "uniqueItems": true
+                      }
                     }
                   },
                   "required": [
@@ -146,86 +141,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "CommentTagArray": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/CommentTagArray.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagArray.Type": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
-                    },
-                    "minItems": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 3
-                    },
-                    "both": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
-                    },
-                    "equal": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
-                    },
-                    "unique": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "uniqueItems": true
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -239,42 +154,39 @@
                       "type": "object",
                       "properties": {
                         "items": {
+                          "description": "@minItems 3\n@maxItems 3",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 3
+                          }
                         },
                         "minItems": {
+                          "description": "@minItems 3",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 3
+                          }
                         },
                         "both": {
+                          "description": "@minItems 3\n@maxItems 7",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 7
+                          }
                         },
                         "equal": {
+                          "description": "@minItems 10\n@maxItems 10",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 10,
-                          "maxItems": 10
+                          }
                         },
                         "unique": {
+                          "description": "@uniqueItems",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "uniqueItems": true
+                          }
                         }
                       },
                       "required": [
@@ -300,7 +212,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -311,42 +224,39 @@
               "type": "object",
               "properties": {
                 "items": {
+                  "description": "@minItems 3\n@maxItems 3",
                   "type": "array",
                   "items": {
                     "type": "string"
-                  },
-                  "minItems": 3,
-                  "maxItems": 3
+                  }
                 },
                 "minItems": {
+                  "description": "@minItems 3",
                   "type": "array",
                   "items": {
                     "type": "number"
-                  },
-                  "minItems": 3
+                  }
                 },
                 "both": {
+                  "description": "@minItems 3\n@maxItems 7",
                   "type": "array",
                   "items": {
                     "type": "string"
-                  },
-                  "minItems": 3,
-                  "maxItems": 7
+                  }
                 },
                 "equal": {
+                  "description": "@minItems 10\n@maxItems 10",
                   "type": "array",
                   "items": {
                     "type": "number"
-                  },
-                  "minItems": 10,
-                  "maxItems": 10
+                  }
                 },
                 "unique": {
+                  "description": "@uniqueItems",
                   "type": "array",
                   "items": {
                     "type": "string"
-                  },
-                  "uniqueItems": true
+                  }
                 }
               },
               "required": [
@@ -373,86 +283,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "CommentTagArray": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/CommentTagArray.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagArray.Type": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
-                    },
-                    "minItems": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 3
-                    },
-                    "both": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
-                    },
-                    "equal": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
-                    },
-                    "unique": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "uniqueItems": true
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -466,42 +296,39 @@
                       "type": "object",
                       "properties": {
                         "items": {
+                          "description": "@minItems 3\n@maxItems 3",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 3
+                          }
                         },
                         "minItems": {
+                          "description": "@minItems 3",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 3
+                          }
                         },
                         "both": {
+                          "description": "@minItems 3\n@maxItems 7",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 7
+                          }
                         },
                         "equal": {
+                          "description": "@minItems 10\n@maxItems 10",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 10,
-                          "maxItems": 10
+                          }
                         },
                         "unique": {
+                          "description": "@uniqueItems",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "uniqueItems": true
+                          }
                         }
                       },
                       "required": [
@@ -523,86 +350,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "CommentTagArray": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/CommentTagArray.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagArray.Type": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
-                    },
-                    "minItems": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 3
-                    },
-                    "both": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
-                    },
-                    "equal": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
-                    },
-                    "unique": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "uniqueItems": true
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -616,42 +363,39 @@
                       "type": "object",
                       "properties": {
                         "items": {
+                          "description": "@minItems 3\n@maxItems 3",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 3
+                          }
                         },
                         "minItems": {
+                          "description": "@minItems 3",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 3
+                          }
                         },
                         "both": {
+                          "description": "@minItems 3\n@maxItems 7",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 7
+                          }
                         },
                         "equal": {
+                          "description": "@minItems 10\n@maxItems 10",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 10,
-                          "maxItems": 10
+                          }
                         },
                         "unique": {
+                          "description": "@uniqueItems",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "uniqueItems": true
+                          }
                         }
                       },
                       "required": [
@@ -673,86 +417,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "CommentTagArray": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/CommentTagArray.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagArray.Type": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
-                    },
-                    "minItems": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 3
-                    },
-                    "both": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
-                    },
-                    "equal": {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
-                    },
-                    "unique": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "uniqueItems": true
-                    }
-                  },
-                  "required": [
-                    "items",
-                    "minItems",
-                    "both",
-                    "equal",
-                    "unique"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -766,42 +430,39 @@
                       "type": "object",
                       "properties": {
                         "items": {
+                          "description": "@minItems 3\n@maxItems 3",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 3
+                          }
                         },
                         "minItems": {
+                          "description": "@minItems 3",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 3
+                          }
                         },
                         "both": {
+                          "description": "@minItems 3\n@maxItems 7",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "minItems": 3,
-                          "maxItems": 7
+                          }
                         },
                         "equal": {
+                          "description": "@minItems 10\n@maxItems 10",
                           "type": "array",
                           "items": {
                             "type": "number"
-                          },
-                          "minItems": 10,
-                          "maxItems": 10
+                          }
                         },
                         "unique": {
+                          "description": "@uniqueItems",
                           "type": "array",
                           "items": {
                             "type": "string"
-                          },
-                          "uniqueItems": true
+                          }
                         }
                       },
                       "required": [
@@ -825,91 +486,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "CommentTagArray": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CommentTagArray.Type"
-                  }
-                }
-              },
-              "required": [
-                "value"
-              ]
-            },
-            "CommentTagArray.Type": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "minItems": 3,
-                  "maxItems": 3
-                },
-                "minItems": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  },
-                  "minItems": 3
-                },
-                "both": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "minItems": 3,
-                  "maxItems": 7
-                },
-                "equal": {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  },
-                  "minItems": 10,
-                  "maxItems": 10
-                },
-                "unique": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "uniqueItems": true
-                }
-              },
-              "required": [
-                "items",
-                "minItems",
-                "both",
-                "equal",
-                "unique"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/CommentTagArray"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -923,42 +506,39 @@
                   "type": "object",
                   "properties": {
                     "items": {
+                      "description": "@minItems 3\n@maxItems 3",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 3
+                      }
                     },
                     "minItems": {
+                      "description": "@minItems 3",
                       "type": "array",
                       "items": {
                         "type": "number"
-                      },
-                      "minItems": 3
+                      }
                     },
                     "both": {
+                      "description": "@minItems 3\n@maxItems 7",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "minItems": 3,
-                      "maxItems": 7
+                      }
                     },
                     "equal": {
+                      "description": "@minItems 10\n@maxItems 10",
                       "type": "array",
                       "items": {
                         "type": "number"
-                      },
-                      "minItems": 10,
-                      "maxItems": 10
+                      }
                     },
                     "unique": {
+                      "description": "@uniqueItems",
                       "type": "array",
                       "items": {
                         "type": "string"
-                      },
-                      "uniqueItems": true
+                      }
                     }
                   },
                   "required": [
@@ -984,6 +564,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

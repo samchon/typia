@@ -6,4 +6,4 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_llm_schema_3_1_ObjectOptional = _test_llm_schema({
   model: "3.1",
   name: "ObjectOptional",
-})(typia.llm.schema<ObjectOptional, "3.1">());
+})(typia.llm.schema<ObjectOptional, "3.1">({}));

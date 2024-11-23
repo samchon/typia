@@ -102,7 +102,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -204,64 +205,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectSimple.IBox3D": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "position": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "rotate": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "pivot": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ]
-                },
-                "ObjectSimple.IPoint3D": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectSimple.IBox3D"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -365,7 +308,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -467,64 +411,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ObjectSimple.IBox3D": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "position": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "rotate": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "pivot": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ]
-                },
-                "ObjectSimple.IPoint3D": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectSimple.IBox3D"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -624,64 +510,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectSimple.IBox3D": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "position": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "rotate": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "pivot": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ]
-                },
-                "ObjectSimple.IPoint3D": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectSimple.IBox3D"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -781,64 +609,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ObjectSimple.IBox3D": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "position": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "rotate": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    },
-                    "pivot": {
-                      "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ]
-                },
-                "ObjectSimple.IPoint3D": {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "z": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "z"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectSimple.IBox3D"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -940,69 +710,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ObjectSimple.IBox3D": {
-              "type": "object",
-              "properties": {
-                "scale": {
-                  "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                },
-                "position": {
-                  "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                },
-                "rotate": {
-                  "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                },
-                "pivot": {
-                  "$ref": "#/components/schemas/ObjectSimple.IPoint3D"
-                }
-              },
-              "required": [
-                "scale",
-                "position",
-                "rotate",
-                "pivot"
-              ]
-            },
-            "ObjectSimple.IPoint3D": {
-              "type": "object",
-              "properties": {
-                "x": {
-                  "type": "number"
-                },
-                "y": {
-                  "type": "number"
-                },
-                "z": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "x",
-                "y",
-                "z"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectSimple.IBox3D"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -1106,6 +820,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

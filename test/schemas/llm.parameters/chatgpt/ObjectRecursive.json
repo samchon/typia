@@ -1,0 +1,99 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ObjectRecursive.IDepartment"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectRecursive.IDepartment"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ObjectRecursive.IDepartment"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ObjectRecursive.IDepartment"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectRecursive.IDepartment"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectRecursive.IDepartment": {
+      "type": "object",
+      "properties": {
+        "parent": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectRecursive.IDepartment"
+            }
+          ]
+        },
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        },
+        "created_at": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "number"
+            },
+            "zone": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "time",
+            "zone"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "parent",
+        "id",
+        "code",
+        "name",
+        "sequence",
+        "created_at"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

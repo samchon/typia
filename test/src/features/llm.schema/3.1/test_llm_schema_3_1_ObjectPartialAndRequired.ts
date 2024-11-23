@@ -6,4 +6,4 @@ import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRe
 export const test_llm_schema_3_1_ObjectPartialAndRequired = _test_llm_schema({
   model: "3.1",
   name: "ObjectPartialAndRequired",
-})(typia.llm.schema<ObjectPartialAndRequired, "3.1">());
+})(typia.llm.schema<ObjectPartialAndRequired, "3.1">({}));

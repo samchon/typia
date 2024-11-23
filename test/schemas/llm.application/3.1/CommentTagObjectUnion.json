@@ -9,70 +9,13 @@
           "first": {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "CommentTagObjectUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                    }
-                  },
-                  "CommentTagObjectUnion.Type": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "CommentTagObjectUnion.Numeric": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 3
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  },
-                  "CommentTagObjectUnion.Literal": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "string",
-                        "minLength": 3,
-                        "maxLength": 7
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3",
+                      "type": "number"
                     }
                   },
                   "required": [
@@ -84,9 +27,8 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7",
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -101,7 +43,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -113,70 +56,13 @@
           "first": {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "CommentTagObjectUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                    }
-                  },
-                  "CommentTagObjectUnion.Type": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "CommentTagObjectUnion.Numeric": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 3
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  },
-                  "CommentTagObjectUnion.Literal": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "string",
-                        "minLength": 3,
-                        "maxLength": 7
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3",
+                      "type": "number"
                     }
                   },
                   "required": [
@@ -188,9 +74,8 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7",
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -202,63 +87,6 @@
             }
           },
           "second": {
-            "components": {
-              "schemas": {
-                "CommentTagObjectUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                  }
-                },
-                "CommentTagObjectUnion.Type": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                    },
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                    }
-                  ]
-                },
-                "CommentTagObjectUnion.Numeric": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "number",
-                      "minimum": 3
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagObjectUnion.Literal": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -266,70 +94,13 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "CommentTagObjectUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                        }
-                      },
-                      "CommentTagObjectUnion.Type": {
-                        "oneOf": [
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                          },
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                          }
-                        ]
-                      },
-                      "CommentTagObjectUnion.Numeric": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      },
-                      "CommentTagObjectUnion.Literal": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3",
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -341,9 +112,8 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -361,75 +131,19 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "array",
         "items": {
-          "components": {
-            "schemas": {
-              "CommentTagObjectUnion": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                }
-              },
-              "CommentTagObjectUnion.Type": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                  }
-                ]
-              },
-              "CommentTagObjectUnion.Numeric": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "number",
-                    "minimum": 3
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              },
-              "CommentTagObjectUnion.Literal": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 7
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "schema": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-              },
-              {
-                "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-              }
-            ]
-          },
-          "recursive": 3,
-          "visited": {},
           "oneOf": [
             {
               "type": "object",
               "properties": {
                 "value": {
-                  "type": "number",
-                  "minimum": 3
+                  "description": "@minimum 3",
+                  "type": "number"
                 }
               },
               "required": [
@@ -441,9 +155,8 @@
               "type": "object",
               "properties": {
                 "value": {
-                  "type": "string",
-                  "minLength": 3,
-                  "maxLength": 7
+                  "description": "@minLength 3\n@maxLength 7",
+                  "type": "string"
                 }
               },
               "required": [
@@ -462,63 +175,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "CommentTagObjectUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                  }
-                },
-                "CommentTagObjectUnion.Type": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                    },
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                    }
-                  ]
-                },
-                "CommentTagObjectUnion.Numeric": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "number",
-                      "minimum": 3
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagObjectUnion.Literal": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -526,70 +182,13 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "CommentTagObjectUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                        }
-                      },
-                      "CommentTagObjectUnion.Type": {
-                        "oneOf": [
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                          },
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                          }
-                        ]
-                      },
-                      "CommentTagObjectUnion.Numeric": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      },
-                      "CommentTagObjectUnion.Literal": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3",
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -601,9 +200,8 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -617,63 +215,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "CommentTagObjectUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                  }
-                },
-                "CommentTagObjectUnion.Type": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                    },
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                    }
-                  ]
-                },
-                "CommentTagObjectUnion.Numeric": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "number",
-                      "minimum": 3
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagObjectUnion.Literal": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -681,70 +222,13 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "CommentTagObjectUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                        }
-                      },
-                      "CommentTagObjectUnion.Type": {
-                        "oneOf": [
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                          },
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                          }
-                        ]
-                      },
-                      "CommentTagObjectUnion.Numeric": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      },
-                      "CommentTagObjectUnion.Literal": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3",
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -756,9 +240,8 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -772,63 +255,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "CommentTagObjectUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                  }
-                },
-                "CommentTagObjectUnion.Type": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                    },
-                    {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                    }
-                  ]
-                },
-                "CommentTagObjectUnion.Numeric": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "number",
-                      "minimum": 3
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "CommentTagObjectUnion.Literal": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -836,70 +262,13 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "CommentTagObjectUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                        }
-                      },
-                      "CommentTagObjectUnion.Type": {
-                        "oneOf": [
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                          },
-                          {
-                            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                          }
-                        ]
-                      },
-                      "CommentTagObjectUnion.Numeric": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      },
-                      "CommentTagObjectUnion.Literal": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3",
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -911,9 +280,8 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -929,68 +297,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "CommentTagObjectUnion": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-              }
-            },
-            "CommentTagObjectUnion.Type": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                },
-                {
-                  "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                }
-              ]
-            },
-            "CommentTagObjectUnion.Numeric": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "number",
-                  "minimum": 3
-                }
-              },
-              "required": [
-                "value"
-              ]
-            },
-            "CommentTagObjectUnion.Literal": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "string",
-                  "minLength": 3,
-                  "maxLength": 7
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/CommentTagObjectUnion"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -998,70 +311,13 @@
           {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "CommentTagObjectUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
-                    }
-                  },
-                  "CommentTagObjectUnion.Type": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                      },
-                      {
-                        "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                      }
-                    ]
-                  },
-                  "CommentTagObjectUnion.Numeric": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "number",
-                        "minimum": 3
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  },
-                  "CommentTagObjectUnion.Literal": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "string",
-                        "minLength": 3,
-                        "maxLength": 7
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-                  },
-                  {
-                    "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3",
+                      "type": "number"
                     }
                   },
                   "required": [
@@ -1073,9 +329,8 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7",
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1093,6 +348,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

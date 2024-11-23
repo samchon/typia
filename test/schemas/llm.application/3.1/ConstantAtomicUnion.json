@@ -9,78 +9,6 @@
           "first": {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "ConstantAtomicUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                    }
-                  },
-                  "ConstantAtomicUnion.Union": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "const": false
-                  },
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": "three"
-                  },
-                  {
-                    "const": "four"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "key": {
-                        "const": "key"
-                      }
-                    },
-                    "required": [
-                      "key"
-                    ]
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "const": false
@@ -116,7 +44,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -128,78 +57,6 @@
           "first": {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "ConstantAtomicUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                    }
-                  },
-                  "ConstantAtomicUnion.Union": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "const": false
-                  },
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": "three"
-                  },
-                  {
-                    "const": "four"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "key": {
-                        "const": "key"
-                      }
-                    },
-                    "required": [
-                      "key"
-                    ]
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "const": false
@@ -232,58 +89,6 @@
             }
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                  }
-                },
-                "ConstantAtomicUnion.Union": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -291,78 +96,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ConstantAtomicUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                        }
-                      },
-                      "ConstantAtomicUnion.Union": {
-                        "oneOf": [
-                          {
-                            "const": false
-                          },
-                          {
-                            "const": 1
-                          },
-                          {
-                            "const": 2
-                          },
-                          {
-                            "const": "three"
-                          },
-                          {
-                            "const": "four"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "key": {
-                                "const": "key"
-                              }
-                            },
-                            "required": [
-                              "key"
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "const": false
@@ -401,83 +134,12 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "array",
         "items": {
-          "components": {
-            "schemas": {
-              "ConstantAtomicUnion": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                }
-              },
-              "ConstantAtomicUnion.Union": {
-                "oneOf": [
-                  {
-                    "const": false
-                  },
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": "three"
-                  },
-                  {
-                    "const": "four"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "key": {
-                        "const": "key"
-                      }
-                    },
-                    "required": [
-                      "key"
-                    ]
-                  }
-                ]
-              }
-            }
-          },
-          "schema": {
-            "oneOf": [
-              {
-                "const": false
-              },
-              {
-                "const": 1
-              },
-              {
-                "const": 2
-              },
-              {
-                "const": "three"
-              },
-              {
-                "const": "four"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "key": {
-                    "const": "key"
-                  }
-                },
-                "required": [
-                  "key"
-                ]
-              }
-            ]
-          },
-          "recursive": 3,
-          "visited": {},
           "oneOf": [
             {
               "const": false
@@ -517,58 +179,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                  }
-                },
-                "ConstantAtomicUnion.Union": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -576,78 +186,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ConstantAtomicUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                        }
-                      },
-                      "ConstantAtomicUnion.Union": {
-                        "oneOf": [
-                          {
-                            "const": false
-                          },
-                          {
-                            "const": 1
-                          },
-                          {
-                            "const": 2
-                          },
-                          {
-                            "const": "three"
-                          },
-                          {
-                            "const": "four"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "key": {
-                                "const": "key"
-                              }
-                            },
-                            "required": [
-                              "key"
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "const": false
@@ -682,58 +220,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                  }
-                },
-                "ConstantAtomicUnion.Union": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -741,78 +227,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ConstantAtomicUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                        }
-                      },
-                      "ConstantAtomicUnion.Union": {
-                        "oneOf": [
-                          {
-                            "const": false
-                          },
-                          {
-                            "const": 1
-                          },
-                          {
-                            "const": 2
-                          },
-                          {
-                            "const": "three"
-                          },
-                          {
-                            "const": "four"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "key": {
-                                "const": "key"
-                              }
-                            },
-                            "required": [
-                              "key"
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "const": false
@@ -847,58 +261,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                  }
-                },
-                "ConstantAtomicUnion.Union": {
-                  "oneOf": [
-                    {
-                      "const": false
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "three"
-                    },
-                    {
-                      "const": "four"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "const": "key"
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -906,78 +268,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ConstantAtomicUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                        }
-                      },
-                      "ConstantAtomicUnion.Union": {
-                        "oneOf": [
-                          {
-                            "const": false
-                          },
-                          {
-                            "const": 1
-                          },
-                          {
-                            "const": 2
-                          },
-                          {
-                            "const": "three"
-                          },
-                          {
-                            "const": "four"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "key": {
-                                "const": "key"
-                              }
-                            },
-                            "required": [
-                              "key"
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "const": false
@@ -1014,63 +304,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ConstantAtomicUnion": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-              }
-            },
-            "ConstantAtomicUnion.Union": {
-              "oneOf": [
-                {
-                  "const": false
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "three"
-                },
-                {
-                  "const": "four"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "const": "key"
-                    }
-                  },
-                  "required": [
-                    "key"
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ConstantAtomicUnion"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -1078,78 +318,6 @@
           {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "ConstantAtomicUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-                    }
-                  },
-                  "ConstantAtomicUnion.Union": {
-                    "oneOf": [
-                      {
-                        "const": false
-                      },
-                      {
-                        "const": 1
-                      },
-                      {
-                        "const": 2
-                      },
-                      {
-                        "const": "three"
-                      },
-                      {
-                        "const": "four"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "key": {
-                            "const": "key"
-                          }
-                        },
-                        "required": [
-                          "key"
-                        ]
-                      }
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "const": false
-                  },
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": "three"
-                  },
-                  {
-                    "const": "four"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "key": {
-                        "const": "key"
-                      }
-                    },
-                    "required": [
-                      "key"
-                    ]
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "const": false
@@ -1188,6 +356,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

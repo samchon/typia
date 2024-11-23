@@ -6,19 +6,19 @@
       "deprecated": true
     },
     "description": {
-      "type": "string",
       "title": "Descripted property",
-      "description": "Descripted property."
+      "description": "Descripted property.",
+      "type": "string"
     },
     "title": {
-      "type": "string",
       "title": "something",
-      "description": "Titled property."
+      "description": "Titled property.",
+      "type": "string"
     },
     "complicate_title": {
-      "type": "string",
       "title": "something weirdo with {@link something } tag",
-      "description": "Complicate title."
+      "description": "Complicate title.",
+      "type": "string"
     }
   },
   "required": [

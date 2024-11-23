@@ -1,0 +1,634 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "type": "object",
+              "properties": {
+                "boolean": {
+                  "type": "boolean"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "string": {
+                  "type": "string"
+                },
+                "array": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "object": {
+                  "type": "object",
+                  "properties": {
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "string": {
+                      "type": "string"
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "object": {
+                      "type": "object",
+                      "properties": {
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "string": {
+                          "type": "string"
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "object": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [],
+                      "additionalProperties": false,
+                      "nullable": true
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false,
+                  "nullable": true
+                }
+              },
+              "required": [],
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "nullable": true
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ],
+      "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+      "additionalProperties": false
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "type": "object",
+              "properties": {
+                "boolean": {
+                  "type": "boolean"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "string": {
+                  "type": "string"
+                },
+                "array": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "object": {
+                  "type": "object",
+                  "properties": {
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "string": {
+                      "type": "string"
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "object": {
+                      "type": "object",
+                      "properties": {
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "string": {
+                          "type": "string"
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "object": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [],
+                      "additionalProperties": false,
+                      "nullable": true
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false,
+                  "nullable": true
+                }
+              },
+              "required": [],
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "nullable": true
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "type": "object",
+              "properties": {
+                "boolean": {
+                  "type": "boolean"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "string": {
+                  "type": "string"
+                },
+                "array": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "object": {
+                  "type": "object",
+                  "properties": {
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "string": {
+                      "type": "string"
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "object": {
+                      "type": "object",
+                      "properties": {
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "string": {
+                          "type": "string"
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "object": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [],
+                      "additionalProperties": false,
+                      "nullable": true
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false,
+                  "nullable": true
+                }
+              },
+              "required": [],
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "nullable": true
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ],
+      "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+      "additionalProperties": false
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "type": "object",
+              "properties": {
+                "boolean": {
+                  "type": "boolean"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "string": {
+                  "type": "string"
+                },
+                "array": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "object": {
+                  "type": "object",
+                  "properties": {
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "string": {
+                      "type": "string"
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "object": {
+                      "type": "object",
+                      "properties": {
+                        "boolean": {
+                          "type": "boolean"
+                        },
+                        "number": {
+                          "type": "number"
+                        },
+                        "string": {
+                          "type": "string"
+                        },
+                        "array": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "object": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [],
+                      "additionalProperties": false,
+                      "nullable": true
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false,
+                  "nullable": true
+                }
+              },
+              "required": [],
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "nullable": true
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "string": {
+                    "type": "string"
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "object": {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "string": {
+                        "type": "string"
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "object": {
+                        "type": "object",
+                        "properties": {
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "string": {
+                            "type": "string"
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "object": {
+                            "type": "null"
+                          }
+                        },
+                        "required": [],
+                        "additionalProperties": false,
+                        "nullable": true
+                      }
+                    },
+                    "required": [],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
+                },
+                "required": [],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ],
+        "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

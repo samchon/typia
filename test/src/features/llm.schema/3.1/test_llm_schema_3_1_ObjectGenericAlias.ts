@@ -6,4 +6,4 @@ import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 export const test_llm_schema_3_1_ObjectGenericAlias = _test_llm_schema({
   model: "3.1",
   name: "ObjectGenericAlias",
-})(typia.llm.schema<ObjectGenericAlias, "3.1">());
+})(typia.llm.schema<ObjectGenericAlias, "3.1">({}));

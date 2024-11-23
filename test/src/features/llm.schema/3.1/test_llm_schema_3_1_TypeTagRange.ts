@@ -6,4 +6,4 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_llm_schema_3_1_TypeTagRange = _test_llm_schema({
   model: "3.1",
   name: "TypeTagRange",
-})(typia.llm.schema<TypeTagRange, "3.1">());
+})(typia.llm.schema<TypeTagRange, "3.1">({}));

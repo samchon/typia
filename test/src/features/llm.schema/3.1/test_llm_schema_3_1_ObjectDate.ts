@@ -6,4 +6,4 @@ import { ObjectDate } from "../../../structures/ObjectDate";
 export const test_llm_schema_3_1_ObjectDate = _test_llm_schema({
   model: "3.1",
   name: "ObjectDate",
-})(typia.llm.schema<ObjectDate, "3.1">());
+})(typia.llm.schema<ObjectDate, "3.1">({}));

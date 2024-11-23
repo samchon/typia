@@ -6,4 +6,4 @@ import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 export const test_llm_schema_3_1_TypeTagArrayUnion = _test_llm_schema({
   model: "3.1",
   name: "TypeTagArrayUnion",
-})(typia.llm.schema<TypeTagArrayUnion, "3.1">());
+})(typia.llm.schema<TypeTagArrayUnion, "3.1">({}));

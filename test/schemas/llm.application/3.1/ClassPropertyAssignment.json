@@ -38,7 +38,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -76,55 +77,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ClassPropertyAssignment": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "note": {
-                      "const": "assignment"
-                    },
-                    "editable": {
-                      "const": false
-                    },
-                    "incremental": {
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "note",
-                    "editable",
-                    "incremental"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassPropertyAssignment"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "note",
-                "mapping": {
-                  "assignment": "#/components/schemas/ClassPropertyAssignment"
-                }
-              }
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -164,7 +116,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -202,55 +155,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ClassPropertyAssignment": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "note": {
-                      "const": "assignment"
-                    },
-                    "editable": {
-                      "const": false
-                    },
-                    "incremental": {
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "note",
-                    "editable",
-                    "incremental"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassPropertyAssignment"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "note",
-                "mapping": {
-                  "assignment": "#/components/schemas/ClassPropertyAssignment"
-                }
-              }
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -286,55 +190,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ClassPropertyAssignment": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "note": {
-                      "const": "assignment"
-                    },
-                    "editable": {
-                      "const": false
-                    },
-                    "incremental": {
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "note",
-                    "editable",
-                    "incremental"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassPropertyAssignment"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "note",
-                "mapping": {
-                  "assignment": "#/components/schemas/ClassPropertyAssignment"
-                }
-              }
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -370,55 +225,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ClassPropertyAssignment": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "note": {
-                      "const": "assignment"
-                    },
-                    "editable": {
-                      "const": false
-                    },
-                    "incremental": {
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "note",
-                    "editable",
-                    "incremental"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ClassPropertyAssignment"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "note",
-                "mapping": {
-                  "assignment": "#/components/schemas/ClassPropertyAssignment"
-                }
-              }
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -456,60 +262,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ClassPropertyAssignment": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "note": {
-                  "const": "assignment"
-                },
-                "editable": {
-                  "const": false
-                },
-                "incremental": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "note",
-                "editable",
-                "incremental"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ClassPropertyAssignment"
-            }
-          ],
-          "discriminator": {
-            "propertyName": "note",
-            "mapping": {
-              "assignment": "#/components/schemas/ClassPropertyAssignment"
-            }
-          }
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -549,6 +308,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

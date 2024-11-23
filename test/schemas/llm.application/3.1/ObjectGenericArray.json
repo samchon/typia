@@ -63,7 +63,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -126,78 +127,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectGenericArray": {
-                  "type": "object",
-                  "properties": {
-                    "pagination": {
-                      "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
-                      }
-                    }
-                  },
-                  "required": [
-                    "pagination",
-                    "data"
-                  ]
-                },
-                "ObjectGenericArray.IPagination": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number"
-                    },
-                    "limit": {
-                      "type": "number"
-                    },
-                    "total_count": {
-                      "type": "number"
-                    },
-                    "total_pages": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "page",
-                    "limit",
-                    "total_count",
-                    "total_pages"
-                  ]
-                },
-                "ObjectGenericArray.IPerson": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectGenericArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -262,7 +191,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -325,78 +255,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ObjectGenericArray": {
-                  "type": "object",
-                  "properties": {
-                    "pagination": {
-                      "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
-                      }
-                    }
-                  },
-                  "required": [
-                    "pagination",
-                    "data"
-                  ]
-                },
-                "ObjectGenericArray.IPagination": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number"
-                    },
-                    "limit": {
-                      "type": "number"
-                    },
-                    "total_count": {
-                      "type": "number"
-                    },
-                    "total_pages": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "page",
-                    "limit",
-                    "total_count",
-                    "total_pages"
-                  ]
-                },
-                "ObjectGenericArray.IPerson": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectGenericArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -457,78 +315,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectGenericArray": {
-                  "type": "object",
-                  "properties": {
-                    "pagination": {
-                      "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
-                      }
-                    }
-                  },
-                  "required": [
-                    "pagination",
-                    "data"
-                  ]
-                },
-                "ObjectGenericArray.IPagination": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number"
-                    },
-                    "limit": {
-                      "type": "number"
-                    },
-                    "total_count": {
-                      "type": "number"
-                    },
-                    "total_pages": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "page",
-                    "limit",
-                    "total_count",
-                    "total_pages"
-                  ]
-                },
-                "ObjectGenericArray.IPerson": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectGenericArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -589,78 +375,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ObjectGenericArray": {
-                  "type": "object",
-                  "properties": {
-                    "pagination": {
-                      "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
-                      }
-                    }
-                  },
-                  "required": [
-                    "pagination",
-                    "data"
-                  ]
-                },
-                "ObjectGenericArray.IPagination": {
-                  "type": "object",
-                  "properties": {
-                    "page": {
-                      "type": "number"
-                    },
-                    "limit": {
-                      "type": "number"
-                    },
-                    "total_count": {
-                      "type": "number"
-                    },
-                    "total_pages": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "page",
-                    "limit",
-                    "total_count",
-                    "total_pages"
-                  ]
-                },
-                "ObjectGenericArray.IPerson": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "age": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectGenericArray"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -723,83 +437,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ObjectGenericArray": {
-              "type": "object",
-              "properties": {
-                "pagination": {
-                  "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
-                },
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
-                  }
-                }
-              },
-              "required": [
-                "pagination",
-                "data"
-              ]
-            },
-            "ObjectGenericArray.IPagination": {
-              "type": "object",
-              "properties": {
-                "page": {
-                  "type": "number"
-                },
-                "limit": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "page",
-                "limit",
-                "total_count",
-                "total_pages"
-              ]
-            },
-            "ObjectGenericArray.IPerson": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "age": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "name",
-                "age"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectGenericArray"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -864,6 +508,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

@@ -6,4 +6,4 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_llm_schema_3_1_ObjectPrimitive = _test_llm_schema({
   model: "3.1",
   name: "ObjectPrimitive",
-})(typia.llm.schema<ObjectPrimitive, "3.1">());
+})(typia.llm.schema<ObjectPrimitive, "3.1">({}));

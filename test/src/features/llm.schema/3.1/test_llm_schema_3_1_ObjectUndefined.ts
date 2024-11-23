@@ -6,4 +6,4 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_llm_schema_3_1_ObjectUndefined = _test_llm_schema({
   model: "3.1",
   name: "ObjectUndefined",
-})(typia.llm.schema<ObjectUndefined, "3.1">());
+})(typia.llm.schema<ObjectUndefined, "3.1">({}));

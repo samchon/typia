@@ -6,4 +6,4 @@ import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssign
 export const test_llm_schema_3_1_ClassPropertyAssignment = _test_llm_schema({
   model: "3.1",
   name: "ClassPropertyAssignment",
-})(typia.llm.schema<ClassPropertyAssignment, "3.1">());
+})(typia.llm.schema<ClassPropertyAssignment, "3.1">({}));

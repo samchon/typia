@@ -36,13 +36,11 @@ export namespace TestLlmSchemaGenerator {
       );
       if (
         v31.includes(`"additionalProperties": {`) === true ||
-        v31.includes(`"additionalProperties": true`)
+        v31.includes(`"additionalProperties": true`) === true ||
+        v31.includes(`"prefixItems":`) === true
       )
         continue;
-      else if (model === "chatgpt") {
-        // CHATGPT DOES NOT SUPPORT TUPLE TYPE
-        if (v31.includes(`"prefixItems":`) === true) continue;
-      } else if (model === "gemini") {
+      else if (model === "gemini") {
         // GEMINI DOES NOT SUPPORT UNION TYPE
         const json: string = await fs.promises.readFile(
           `${__dirname}/../../schemas/json.schemas/v3_0/${s.name}.json`,
@@ -59,7 +57,7 @@ export namespace TestLlmSchemaGenerator {
         `  _test_llm_schema({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,
-        `  })(typia.llm.schema<${s.name}, ${JSON.stringify(model)}>(${model === "chatgpt" ? "{}" : ""}));`,
+        `  })(typia.llm.schema<${s.name}, ${JSON.stringify(model)}>(${REFERENCABLE.includes(model) ? "{}" : ""}));`,
       ];
       await fs.promises.writeFile(
         `${__dirname}/../../src/features/llm.schema/${model}/test_llm_schema_${model.replace(".", "_")}_${s.name}.ts`,
@@ -116,3 +114,4 @@ export namespace TestLlmSchemaGenerator {
 }
 
 const MODELS = ["3.0", "3.1", "chatgpt", "gemini"];
+const REFERENCABLE = ["3.1", "chatgpt"];

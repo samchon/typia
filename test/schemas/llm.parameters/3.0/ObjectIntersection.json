@@ -1,0 +1,116 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vulnerable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "vulnerable"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vulnerable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "vulnerable"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vulnerable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "vulnerable"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vulnerable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "vulnerable"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "vulnerable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "email",
+          "name",
+          "vulnerable"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

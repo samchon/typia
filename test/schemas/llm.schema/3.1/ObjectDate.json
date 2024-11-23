@@ -2,477 +2,63 @@
   "type": "object",
   "properties": {
     "classDate": {
-      "components": {
-        "schemas": {
-          "ObjectDate": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "date": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date"
-                  }
-                ]
-              },
-              "datetime": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "time": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "time"
-                  }
-                ]
-              },
-              "duration": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "duration"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ]
-          }
-        }
-      },
-      "schema": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "recursive": 3,
-      "visited": {},
       "oneOf": [
         {
           "type": "null"
         },
         {
           "type": "string",
-          "format": "date-time"
+          "description": "@format date-time"
         }
       ]
     },
     "date": {
-      "components": {
-        "schemas": {
-          "ObjectDate": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "date": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date"
-                  }
-                ]
-              },
-              "datetime": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "time": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "time"
-                  }
-                ]
-              },
-              "duration": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "duration"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ]
-          }
-        }
-      },
-      "schema": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string",
-            "format": "date"
-          }
-        ]
-      },
-      "recursive": 3,
-      "visited": {},
       "oneOf": [
         {
           "type": "null"
         },
         {
           "type": "string",
-          "format": "date"
+          "description": "@format date"
         }
       ]
     },
     "datetime": {
-      "components": {
-        "schemas": {
-          "ObjectDate": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "date": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date"
-                  }
-                ]
-              },
-              "datetime": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "time": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "time"
-                  }
-                ]
-              },
-              "duration": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "duration"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ]
-          }
-        }
-      },
-      "schema": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "recursive": 3,
-      "visited": {},
       "oneOf": [
         {
           "type": "null"
         },
         {
           "type": "string",
-          "format": "date-time"
+          "description": "@format date-time"
         }
       ]
     },
     "time": {
-      "components": {
-        "schemas": {
-          "ObjectDate": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "date": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date"
-                  }
-                ]
-              },
-              "datetime": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "time": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "time"
-                  }
-                ]
-              },
-              "duration": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "duration"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ]
-          }
-        }
-      },
-      "schema": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string",
-            "format": "time"
-          }
-        ]
-      },
-      "recursive": 3,
-      "visited": {},
       "oneOf": [
         {
           "type": "null"
         },
         {
           "type": "string",
-          "format": "time"
+          "description": "@format time"
         }
       ]
     },
     "duration": {
-      "components": {
-        "schemas": {
-          "ObjectDate": {
-            "type": "object",
-            "properties": {
-              "classDate": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "date": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date"
-                  }
-                ]
-              },
-              "datetime": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                ]
-              },
-              "time": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "time"
-                  }
-                ]
-              },
-              "duration": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "duration"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "date",
-              "datetime",
-              "time",
-              "duration"
-            ]
-          }
-        }
-      },
-      "schema": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string",
-            "format": "duration"
-          }
-        ]
-      },
-      "recursive": 3,
-      "visited": {},
       "oneOf": [
         {
           "type": "null"
         },
         {
           "type": "string",
-          "format": "duration"
+          "description": "@format duration"
         }
       ]
     }
   },
   "required": [
+    "classDate",
     "date",
     "datetime",
     "time",

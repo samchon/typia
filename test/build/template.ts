@@ -5,6 +5,7 @@ import { TestFeature } from "./internal/TestFeature";
 import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
+import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
 import { TestLlmSchemaGenerator } from "./internal/TestLlmSchemaGenerator";
 import { TestProtobufMessageGenerator } from "./internal/TestProtobufMessageGenerator";
 import { TestReflectMetadataGenerator } from "./internal/TestReflectMetadataGenerator";
@@ -177,10 +178,12 @@ async function main(): Promise<void> {
 
   // LLM SCHEMAS AGAIN
   await TestLlmApplicationGenerator.generate(structures);
+  await TestLlmParametersGenerator.generate(structures);
   await TestLlmSchemaGenerator.generate(structures);
 
   cp.execSync("npm run build", { stdio: "inherit" });
   await TestLlmApplicationGenerator.schemas();
+  await TestLlmParametersGenerator.schemas();
   await TestLlmSchemaGenerator.schemas();
 
   cp.execSync("npm run prettier", { stdio: "inherit" });

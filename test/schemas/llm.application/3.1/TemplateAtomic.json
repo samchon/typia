@@ -10,95 +10,26 @@
             "type": "object",
             "properties": {
               "prefix": {
-                "type": "string",
-                "pattern": "^(prefix_(.*))"
+                "description": "@pattern ^(prefix_(.*))",
+                "type": "string"
               },
               "postfix": {
-                "type": "string",
-                "pattern": "((.*)_postfix)$"
+                "description": "@pattern ((.*)_postfix)$",
+                "type": "string"
               },
               "middle_string": {
-                "type": "string",
-                "pattern": "^(the_(.*)_value)$"
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
               },
               "middle_string_empty": {
-                "type": "string",
-                "pattern": "^(the_(.*)_value)$"
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
               },
               "middle_numeric": {
-                "type": "string",
-                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                "type": "string"
               },
               "middle_boolean": {
-                "components": {
-                  "schemas": {
-                    "TemplateAtomic": {
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "type": "string",
-                          "pattern": "^(prefix_(.*))"
-                        },
-                        "postfix": {
-                          "type": "string",
-                          "pattern": "((.*)_postfix)$"
-                        },
-                        "middle_string": {
-                          "type": "string",
-                          "pattern": "^(the_(.*)_value)$"
-                        },
-                        "middle_string_empty": {
-                          "type": "string",
-                          "pattern": "^(the_(.*)_value)$"
-                        },
-                        "middle_numeric": {
-                          "type": "string",
-                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                        },
-                        "middle_boolean": {
-                          "oneOf": [
-                            {
-                              "const": "the_false_value"
-                            },
-                            {
-                              "const": "the_true_value"
-                            }
-                          ]
-                        },
-                        "ipv4": {
-                          "type": "string",
-                          "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                        },
-                        "email": {
-                          "type": "string",
-                          "pattern": "((.*)@(.*)\\.(.*))"
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "middle_string",
-                        "middle_string_empty",
-                        "middle_numeric",
-                        "middle_boolean",
-                        "ipv4",
-                        "email"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": "the_false_value"
-                    },
-                    {
-                      "const": "the_true_value"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": "the_false_value"
@@ -109,12 +40,12 @@
                 ]
               },
               "ipv4": {
-                "type": "string",
-                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "type": "string"
               },
               "email": {
-                "type": "string",
-                "pattern": "((.*)@(.*)\\.(.*))"
+                "description": "@pattern ((.*)@(.*)\\.(.*))",
+                "type": "string"
               }
             },
             "required": [
@@ -133,7 +64,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -146,95 +78,26 @@
             "type": "object",
             "properties": {
               "prefix": {
-                "type": "string",
-                "pattern": "^(prefix_(.*))"
+                "description": "@pattern ^(prefix_(.*))",
+                "type": "string"
               },
               "postfix": {
-                "type": "string",
-                "pattern": "((.*)_postfix)$"
+                "description": "@pattern ((.*)_postfix)$",
+                "type": "string"
               },
               "middle_string": {
-                "type": "string",
-                "pattern": "^(the_(.*)_value)$"
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
               },
               "middle_string_empty": {
-                "type": "string",
-                "pattern": "^(the_(.*)_value)$"
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
               },
               "middle_numeric": {
-                "type": "string",
-                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                "type": "string"
               },
               "middle_boolean": {
-                "components": {
-                  "schemas": {
-                    "TemplateAtomic": {
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "type": "string",
-                          "pattern": "^(prefix_(.*))"
-                        },
-                        "postfix": {
-                          "type": "string",
-                          "pattern": "((.*)_postfix)$"
-                        },
-                        "middle_string": {
-                          "type": "string",
-                          "pattern": "^(the_(.*)_value)$"
-                        },
-                        "middle_string_empty": {
-                          "type": "string",
-                          "pattern": "^(the_(.*)_value)$"
-                        },
-                        "middle_numeric": {
-                          "type": "string",
-                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                        },
-                        "middle_boolean": {
-                          "oneOf": [
-                            {
-                              "const": "the_false_value"
-                            },
-                            {
-                              "const": "the_true_value"
-                            }
-                          ]
-                        },
-                        "ipv4": {
-                          "type": "string",
-                          "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                        },
-                        "email": {
-                          "type": "string",
-                          "pattern": "((.*)@(.*)\\.(.*))"
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "middle_string",
-                        "middle_string_empty",
-                        "middle_numeric",
-                        "middle_boolean",
-                        "ipv4",
-                        "email"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": "the_false_value"
-                    },
-                    {
-                      "const": "the_true_value"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": "the_false_value"
@@ -245,12 +108,12 @@
                 ]
               },
               "ipv4": {
-                "type": "string",
-                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "type": "string"
               },
               "email": {
-                "type": "string",
-                "pattern": "((.*)@(.*)\\.(.*))"
+                "description": "@pattern ((.*)@(.*)\\.(.*))",
+                "type": "string"
               }
             },
             "required": [
@@ -266,75 +129,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "TemplateAtomic": {
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "type": "string",
-                      "pattern": "^(prefix_(.*))"
-                    },
-                    "postfix": {
-                      "type": "string",
-                      "pattern": "((.*)_postfix)$"
-                    },
-                    "middle_string": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_string_empty": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_numeric": {
-                      "type": "string",
-                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                    },
-                    "middle_boolean": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "ipv4": {
-                      "type": "string",
-                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                    },
-                    "email": {
-                      "type": "string",
-                      "pattern": "((.*)@(.*)\\.(.*))"
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "middle_string",
-                    "middle_string_empty",
-                    "middle_numeric",
-                    "middle_boolean",
-                    "ipv4",
-                    "email"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TemplateAtomic"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -343,95 +137,26 @@
                 "type": "object",
                 "properties": {
                   "prefix": {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
+                    "description": "@pattern ^(prefix_(.*))",
+                    "type": "string"
                   },
                   "postfix": {
-                    "type": "string",
-                    "pattern": "((.*)_postfix)$"
+                    "description": "@pattern ((.*)_postfix)$",
+                    "type": "string"
                   },
                   "middle_string": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_string_empty": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_numeric": {
-                    "type": "string",
-                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                    "type": "string"
                   },
                   "middle_boolean": {
-                    "components": {
-                      "schemas": {
-                        "TemplateAtomic": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "type": "string",
-                              "pattern": "^(prefix_(.*))"
-                            },
-                            "postfix": {
-                              "type": "string",
-                              "pattern": "((.*)_postfix)$"
-                            },
-                            "middle_string": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_string_empty": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_numeric": {
-                              "type": "string",
-                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                            },
-                            "middle_boolean": {
-                              "oneOf": [
-                                {
-                                  "const": "the_false_value"
-                                },
-                                {
-                                  "const": "the_true_value"
-                                }
-                              ]
-                            },
-                            "ipv4": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                            },
-                            "email": {
-                              "type": "string",
-                              "pattern": "((.*)@(.*)\\.(.*))"
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "middle_string",
-                            "middle_string_empty",
-                            "middle_numeric",
-                            "middle_boolean",
-                            "ipv4",
-                            "email"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "the_false_value"
@@ -442,12 +167,12 @@
                     ]
                   },
                   "ipv4": {
-                    "type": "string",
-                    "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                    "type": "string"
                   },
                   "email": {
-                    "type": "string",
-                    "pattern": "((.*)@(.*)\\.(.*))"
+                    "description": "@pattern ((.*)@(.*)\\.(.*))",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -469,101 +194,33 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
         "properties": {
           "prefix": {
-            "type": "string",
-            "pattern": "^(prefix_(.*))"
+            "description": "@pattern ^(prefix_(.*))",
+            "type": "string"
           },
           "postfix": {
-            "type": "string",
-            "pattern": "((.*)_postfix)$"
+            "description": "@pattern ((.*)_postfix)$",
+            "type": "string"
           },
           "middle_string": {
-            "type": "string",
-            "pattern": "^(the_(.*)_value)$"
+            "description": "@pattern ^(the_(.*)_value)$",
+            "type": "string"
           },
           "middle_string_empty": {
-            "type": "string",
-            "pattern": "^(the_(.*)_value)$"
+            "description": "@pattern ^(the_(.*)_value)$",
+            "type": "string"
           },
           "middle_numeric": {
-            "type": "string",
-            "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+            "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+            "type": "string"
           },
           "middle_boolean": {
-            "components": {
-              "schemas": {
-                "TemplateAtomic": {
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "type": "string",
-                      "pattern": "^(prefix_(.*))"
-                    },
-                    "postfix": {
-                      "type": "string",
-                      "pattern": "((.*)_postfix)$"
-                    },
-                    "middle_string": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_string_empty": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_numeric": {
-                      "type": "string",
-                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                    },
-                    "middle_boolean": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "ipv4": {
-                      "type": "string",
-                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                    },
-                    "email": {
-                      "type": "string",
-                      "pattern": "((.*)@(.*)\\.(.*))"
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "middle_string",
-                    "middle_string_empty",
-                    "middle_numeric",
-                    "middle_boolean",
-                    "ipv4",
-                    "email"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "const": "the_false_value"
-                },
-                {
-                  "const": "the_true_value"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "const": "the_false_value"
@@ -574,12 +231,12 @@
             ]
           },
           "ipv4": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "pattern": "((.*)@(.*)\\.(.*))"
+            "description": "@pattern ((.*)@(.*)\\.(.*))",
+            "type": "string"
           }
         },
         "required": [
@@ -602,75 +259,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "TemplateAtomic": {
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "type": "string",
-                      "pattern": "^(prefix_(.*))"
-                    },
-                    "postfix": {
-                      "type": "string",
-                      "pattern": "((.*)_postfix)$"
-                    },
-                    "middle_string": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_string_empty": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_numeric": {
-                      "type": "string",
-                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                    },
-                    "middle_boolean": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "ipv4": {
-                      "type": "string",
-                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                    },
-                    "email": {
-                      "type": "string",
-                      "pattern": "((.*)@(.*)\\.(.*))"
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "middle_string",
-                    "middle_string_empty",
-                    "middle_numeric",
-                    "middle_boolean",
-                    "ipv4",
-                    "email"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TemplateAtomic"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -679,95 +267,26 @@
                 "type": "object",
                 "properties": {
                   "prefix": {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
+                    "description": "@pattern ^(prefix_(.*))",
+                    "type": "string"
                   },
                   "postfix": {
-                    "type": "string",
-                    "pattern": "((.*)_postfix)$"
+                    "description": "@pattern ((.*)_postfix)$",
+                    "type": "string"
                   },
                   "middle_string": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_string_empty": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_numeric": {
-                    "type": "string",
-                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                    "type": "string"
                   },
                   "middle_boolean": {
-                    "components": {
-                      "schemas": {
-                        "TemplateAtomic": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "type": "string",
-                              "pattern": "^(prefix_(.*))"
-                            },
-                            "postfix": {
-                              "type": "string",
-                              "pattern": "((.*)_postfix)$"
-                            },
-                            "middle_string": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_string_empty": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_numeric": {
-                              "type": "string",
-                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                            },
-                            "middle_boolean": {
-                              "oneOf": [
-                                {
-                                  "const": "the_false_value"
-                                },
-                                {
-                                  "const": "the_true_value"
-                                }
-                              ]
-                            },
-                            "ipv4": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                            },
-                            "email": {
-                              "type": "string",
-                              "pattern": "((.*)@(.*)\\.(.*))"
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "middle_string",
-                            "middle_string_empty",
-                            "middle_numeric",
-                            "middle_boolean",
-                            "ipv4",
-                            "email"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "the_false_value"
@@ -778,12 +297,12 @@
                     ]
                   },
                   "ipv4": {
-                    "type": "string",
-                    "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                    "type": "string"
                   },
                   "email": {
-                    "type": "string",
-                    "pattern": "((.*)@(.*)\\.(.*))"
+                    "description": "@pattern ((.*)@(.*)\\.(.*))",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -801,75 +320,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "TemplateAtomic": {
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "type": "string",
-                      "pattern": "^(prefix_(.*))"
-                    },
-                    "postfix": {
-                      "type": "string",
-                      "pattern": "((.*)_postfix)$"
-                    },
-                    "middle_string": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_string_empty": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_numeric": {
-                      "type": "string",
-                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                    },
-                    "middle_boolean": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "ipv4": {
-                      "type": "string",
-                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                    },
-                    "email": {
-                      "type": "string",
-                      "pattern": "((.*)@(.*)\\.(.*))"
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "middle_string",
-                    "middle_string_empty",
-                    "middle_numeric",
-                    "middle_boolean",
-                    "ipv4",
-                    "email"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TemplateAtomic"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -878,95 +328,26 @@
                 "type": "object",
                 "properties": {
                   "prefix": {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
+                    "description": "@pattern ^(prefix_(.*))",
+                    "type": "string"
                   },
                   "postfix": {
-                    "type": "string",
-                    "pattern": "((.*)_postfix)$"
+                    "description": "@pattern ((.*)_postfix)$",
+                    "type": "string"
                   },
                   "middle_string": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_string_empty": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_numeric": {
-                    "type": "string",
-                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                    "type": "string"
                   },
                   "middle_boolean": {
-                    "components": {
-                      "schemas": {
-                        "TemplateAtomic": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "type": "string",
-                              "pattern": "^(prefix_(.*))"
-                            },
-                            "postfix": {
-                              "type": "string",
-                              "pattern": "((.*)_postfix)$"
-                            },
-                            "middle_string": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_string_empty": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_numeric": {
-                              "type": "string",
-                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                            },
-                            "middle_boolean": {
-                              "oneOf": [
-                                {
-                                  "const": "the_false_value"
-                                },
-                                {
-                                  "const": "the_true_value"
-                                }
-                              ]
-                            },
-                            "ipv4": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                            },
-                            "email": {
-                              "type": "string",
-                              "pattern": "((.*)@(.*)\\.(.*))"
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "middle_string",
-                            "middle_string_empty",
-                            "middle_numeric",
-                            "middle_boolean",
-                            "ipv4",
-                            "email"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "the_false_value"
@@ -977,12 +358,12 @@
                     ]
                   },
                   "ipv4": {
-                    "type": "string",
-                    "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                    "type": "string"
                   },
                   "email": {
-                    "type": "string",
-                    "pattern": "((.*)@(.*)\\.(.*))"
+                    "description": "@pattern ((.*)@(.*)\\.(.*))",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -1000,75 +381,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "TemplateAtomic": {
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "type": "string",
-                      "pattern": "^(prefix_(.*))"
-                    },
-                    "postfix": {
-                      "type": "string",
-                      "pattern": "((.*)_postfix)$"
-                    },
-                    "middle_string": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_string_empty": {
-                      "type": "string",
-                      "pattern": "^(the_(.*)_value)$"
-                    },
-                    "middle_numeric": {
-                      "type": "string",
-                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                    },
-                    "middle_boolean": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "ipv4": {
-                      "type": "string",
-                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                    },
-                    "email": {
-                      "type": "string",
-                      "pattern": "((.*)@(.*)\\.(.*))"
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "middle_string",
-                    "middle_string_empty",
-                    "middle_numeric",
-                    "middle_boolean",
-                    "ipv4",
-                    "email"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TemplateAtomic"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -1077,95 +389,26 @@
                 "type": "object",
                 "properties": {
                   "prefix": {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
+                    "description": "@pattern ^(prefix_(.*))",
+                    "type": "string"
                   },
                   "postfix": {
-                    "type": "string",
-                    "pattern": "((.*)_postfix)$"
+                    "description": "@pattern ((.*)_postfix)$",
+                    "type": "string"
                   },
                   "middle_string": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_string_empty": {
-                    "type": "string",
-                    "pattern": "^(the_(.*)_value)$"
+                    "description": "@pattern ^(the_(.*)_value)$",
+                    "type": "string"
                   },
                   "middle_numeric": {
-                    "type": "string",
-                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                    "type": "string"
                   },
                   "middle_boolean": {
-                    "components": {
-                      "schemas": {
-                        "TemplateAtomic": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "type": "string",
-                              "pattern": "^(prefix_(.*))"
-                            },
-                            "postfix": {
-                              "type": "string",
-                              "pattern": "((.*)_postfix)$"
-                            },
-                            "middle_string": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_string_empty": {
-                              "type": "string",
-                              "pattern": "^(the_(.*)_value)$"
-                            },
-                            "middle_numeric": {
-                              "type": "string",
-                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                            },
-                            "middle_boolean": {
-                              "oneOf": [
-                                {
-                                  "const": "the_false_value"
-                                },
-                                {
-                                  "const": "the_true_value"
-                                }
-                              ]
-                            },
-                            "ipv4": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                            },
-                            "email": {
-                              "type": "string",
-                              "pattern": "((.*)@(.*)\\.(.*))"
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "middle_string",
-                            "middle_string_empty",
-                            "middle_numeric",
-                            "middle_boolean",
-                            "ipv4",
-                            "email"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "const": "the_false_value"
-                        },
-                        {
-                          "const": "the_true_value"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "const": "the_false_value"
@@ -1176,12 +419,12 @@
                     ]
                   },
                   "ipv4": {
-                    "type": "string",
-                    "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                    "type": "string"
                   },
                   "email": {
-                    "type": "string",
-                    "pattern": "((.*)@(.*)\\.(.*))"
+                    "description": "@pattern ((.*)@(.*)\\.(.*))",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -1201,80 +444,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "TemplateAtomic": {
-              "type": "object",
-              "properties": {
-                "prefix": {
-                  "type": "string",
-                  "pattern": "^(prefix_(.*))"
-                },
-                "postfix": {
-                  "type": "string",
-                  "pattern": "((.*)_postfix)$"
-                },
-                "middle_string": {
-                  "type": "string",
-                  "pattern": "^(the_(.*)_value)$"
-                },
-                "middle_string_empty": {
-                  "type": "string",
-                  "pattern": "^(the_(.*)_value)$"
-                },
-                "middle_numeric": {
-                  "type": "string",
-                  "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                },
-                "middle_boolean": {
-                  "oneOf": [
-                    {
-                      "const": "the_false_value"
-                    },
-                    {
-                      "const": "the_true_value"
-                    }
-                  ]
-                },
-                "ipv4": {
-                  "type": "string",
-                  "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                },
-                "email": {
-                  "type": "string",
-                  "pattern": "((.*)@(.*)\\.(.*))"
-                }
-              },
-              "required": [
-                "prefix",
-                "postfix",
-                "middle_string",
-                "middle_string_empty",
-                "middle_numeric",
-                "middle_boolean",
-                "ipv4",
-                "email"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/TemplateAtomic"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -1283,95 +459,26 @@
             "type": "object",
             "properties": {
               "prefix": {
-                "type": "string",
-                "pattern": "^(prefix_(.*))"
+                "description": "@pattern ^(prefix_(.*))",
+                "type": "string"
               },
               "postfix": {
-                "type": "string",
-                "pattern": "((.*)_postfix)$"
+                "description": "@pattern ((.*)_postfix)$",
+                "type": "string"
               },
               "middle_string": {
-                "type": "string",
-                "pattern": "^(the_(.*)_value)$"
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
               },
               "middle_string_empty": {
-                "type": "string",
-                "pattern": "^(the_(.*)_value)$"
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
               },
               "middle_numeric": {
-                "type": "string",
-                "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                "type": "string"
               },
               "middle_boolean": {
-                "components": {
-                  "schemas": {
-                    "TemplateAtomic": {
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "type": "string",
-                          "pattern": "^(prefix_(.*))"
-                        },
-                        "postfix": {
-                          "type": "string",
-                          "pattern": "((.*)_postfix)$"
-                        },
-                        "middle_string": {
-                          "type": "string",
-                          "pattern": "^(the_(.*)_value)$"
-                        },
-                        "middle_string_empty": {
-                          "type": "string",
-                          "pattern": "^(the_(.*)_value)$"
-                        },
-                        "middle_numeric": {
-                          "type": "string",
-                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
-                        },
-                        "middle_boolean": {
-                          "oneOf": [
-                            {
-                              "const": "the_false_value"
-                            },
-                            {
-                              "const": "the_true_value"
-                            }
-                          ]
-                        },
-                        "ipv4": {
-                          "type": "string",
-                          "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
-                        },
-                        "email": {
-                          "type": "string",
-                          "pattern": "((.*)@(.*)\\.(.*))"
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "middle_string",
-                        "middle_string_empty",
-                        "middle_numeric",
-                        "middle_boolean",
-                        "ipv4",
-                        "email"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "const": "the_false_value"
-                    },
-                    {
-                      "const": "the_true_value"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "const": "the_false_value"
@@ -1382,12 +489,12 @@
                 ]
               },
               "ipv4": {
-                "type": "string",
-                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "type": "string"
               },
               "email": {
-                "type": "string",
-                "pattern": "((.*)@(.*)\\.(.*))"
+                "description": "@pattern ((.*)@(.*)\\.(.*))",
+                "type": "string"
               }
             },
             "required": [
@@ -1409,6 +516,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

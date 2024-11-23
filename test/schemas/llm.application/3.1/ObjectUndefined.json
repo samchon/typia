@@ -15,72 +15,6 @@
                   "type": "string"
                 },
                 "professor": {
-                  "components": {
-                    "schemas": {
-                      "ObjectUndefined": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                        }
-                      },
-                      "ObjectUndefined.ILecture": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "professor": {
-                            "oneOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          },
-                          "classroom": {
-                            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                          },
-                          "grade": {
-                            "type": "number"
-                          },
-                          "unknown": {}
-                        },
-                        "required": [
-                          "name",
-                          "unknown"
-                        ]
-                      },
-                      "ObjectUndefined.IClassroom": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "name"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "string"
@@ -113,6 +47,9 @@
               },
               "required": [
                 "name",
+                "professor",
+                "classroom",
+                "grade",
                 "unknown"
               ],
               "additionalProperties": false
@@ -122,7 +59,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -140,72 +78,6 @@
                   "type": "string"
                 },
                 "professor": {
-                  "components": {
-                    "schemas": {
-                      "ObjectUndefined": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                        }
-                      },
-                      "ObjectUndefined.ILecture": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "professor": {
-                            "oneOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          },
-                          "classroom": {
-                            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                          },
-                          "grade": {
-                            "type": "number"
-                          },
-                          "unknown": {}
-                        },
-                        "required": [
-                          "name",
-                          "unknown"
-                        ]
-                      },
-                      "ObjectUndefined.IClassroom": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "name"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "string"
@@ -238,78 +110,15 @@
               },
               "required": [
                 "name",
+                "professor",
+                "classroom",
+                "grade",
                 "unknown"
               ],
               "additionalProperties": false
             }
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectUndefined": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                  }
-                },
-                "ObjectUndefined.ILecture": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "professor": {
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "classroom": {
-                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                    },
-                    "grade": {
-                      "type": "number"
-                    },
-                    "unknown": {}
-                  },
-                  "required": [
-                    "name",
-                    "unknown"
-                  ]
-                },
-                "ObjectUndefined.IClassroom": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectUndefined"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -323,72 +132,6 @@
                       "type": "string"
                     },
                     "professor": {
-                      "components": {
-                        "schemas": {
-                          "ObjectUndefined": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                            }
-                          },
-                          "ObjectUndefined.ILecture": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "professor": {
-                                "oneOf": [
-                                  {
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              },
-                              "classroom": {
-                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                              },
-                              "grade": {
-                                "type": "number"
-                              },
-                              "unknown": {}
-                            },
-                            "required": [
-                              "name",
-                              "unknown"
-                            ]
-                          },
-                          "ObjectUndefined.IClassroom": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "name"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string"
@@ -421,6 +164,9 @@
                   },
                   "required": [
                     "name",
+                    "professor",
+                    "classroom",
+                    "grade",
                     "unknown"
                   ],
                   "additionalProperties": false
@@ -433,7 +179,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "array",
@@ -444,72 +191,6 @@
               "type": "string"
             },
             "professor": {
-              "components": {
-                "schemas": {
-                  "ObjectUndefined": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                    }
-                  },
-                  "ObjectUndefined.ILecture": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "professor": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      },
-                      "classroom": {
-                        "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                      },
-                      "grade": {
-                        "type": "number"
-                      },
-                      "unknown": {}
-                    },
-                    "required": [
-                      "name",
-                      "unknown"
-                    ]
-                  },
-                  "ObjectUndefined.IClassroom": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "name"
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "string"
@@ -542,6 +223,9 @@
           },
           "required": [
             "name",
+            "professor",
+            "classroom",
+            "grade",
             "unknown"
           ],
           "additionalProperties": false
@@ -555,72 +239,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ObjectUndefined": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                  }
-                },
-                "ObjectUndefined.ILecture": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "professor": {
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "classroom": {
-                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                    },
-                    "grade": {
-                      "type": "number"
-                    },
-                    "unknown": {}
-                  },
-                  "required": [
-                    "name",
-                    "unknown"
-                  ]
-                },
-                "ObjectUndefined.IClassroom": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectUndefined"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -634,72 +252,6 @@
                       "type": "string"
                     },
                     "professor": {
-                      "components": {
-                        "schemas": {
-                          "ObjectUndefined": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                            }
-                          },
-                          "ObjectUndefined.ILecture": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "professor": {
-                                "oneOf": [
-                                  {
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              },
-                              "classroom": {
-                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                              },
-                              "grade": {
-                                "type": "number"
-                              },
-                              "unknown": {}
-                            },
-                            "required": [
-                              "name",
-                              "unknown"
-                            ]
-                          },
-                          "ObjectUndefined.IClassroom": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "name"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string"
@@ -732,6 +284,9 @@
                   },
                   "required": [
                     "name",
+                    "professor",
+                    "classroom",
+                    "grade",
                     "unknown"
                   ],
                   "additionalProperties": false
@@ -740,72 +295,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectUndefined": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                  }
-                },
-                "ObjectUndefined.ILecture": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "professor": {
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "classroom": {
-                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                    },
-                    "grade": {
-                      "type": "number"
-                    },
-                    "unknown": {}
-                  },
-                  "required": [
-                    "name",
-                    "unknown"
-                  ]
-                },
-                "ObjectUndefined.IClassroom": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectUndefined"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -819,72 +308,6 @@
                       "type": "string"
                     },
                     "professor": {
-                      "components": {
-                        "schemas": {
-                          "ObjectUndefined": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                            }
-                          },
-                          "ObjectUndefined.ILecture": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "professor": {
-                                "oneOf": [
-                                  {
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              },
-                              "classroom": {
-                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                              },
-                              "grade": {
-                                "type": "number"
-                              },
-                              "unknown": {}
-                            },
-                            "required": [
-                              "name",
-                              "unknown"
-                            ]
-                          },
-                          "ObjectUndefined.IClassroom": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "name"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string"
@@ -917,6 +340,9 @@
                   },
                   "required": [
                     "name",
+                    "professor",
+                    "classroom",
+                    "grade",
                     "unknown"
                   ],
                   "additionalProperties": false
@@ -925,72 +351,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ObjectUndefined": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                  }
-                },
-                "ObjectUndefined.ILecture": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "professor": {
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "classroom": {
-                      "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                    },
-                    "grade": {
-                      "type": "number"
-                    },
-                    "unknown": {}
-                  },
-                  "required": [
-                    "name",
-                    "unknown"
-                  ]
-                },
-                "ObjectUndefined.IClassroom": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectUndefined"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -1004,72 +364,6 @@
                       "type": "string"
                     },
                     "professor": {
-                      "components": {
-                        "schemas": {
-                          "ObjectUndefined": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                            }
-                          },
-                          "ObjectUndefined.ILecture": {
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "professor": {
-                                "oneOf": [
-                                  {
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "number"
-                                  }
-                                ]
-                              },
-                              "classroom": {
-                                "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                              },
-                              "grade": {
-                                "type": "number"
-                              },
-                              "unknown": {}
-                            },
-                            "required": [
-                              "name",
-                              "unknown"
-                            ]
-                          },
-                          "ObjectUndefined.IClassroom": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "name"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string"
@@ -1102,6 +396,9 @@
                   },
                   "required": [
                     "name",
+                    "professor",
+                    "classroom",
+                    "grade",
                     "unknown"
                   ],
                   "additionalProperties": false
@@ -1112,77 +409,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ObjectUndefined": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-              }
-            },
-            "ObjectUndefined.ILecture": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "professor": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "classroom": {
-                  "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                },
-                "grade": {
-                  "type": "number"
-                },
-                "unknown": {}
-              },
-              "required": [
-                "name",
-                "unknown"
-              ]
-            },
-            "ObjectUndefined.IClassroom": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "name"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectUndefined"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -1196,72 +429,6 @@
                   "type": "string"
                 },
                 "professor": {
-                  "components": {
-                    "schemas": {
-                      "ObjectUndefined": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-                        }
-                      },
-                      "ObjectUndefined.ILecture": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "professor": {
-                            "oneOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          },
-                          "classroom": {
-                            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
-                          },
-                          "grade": {
-                            "type": "number"
-                          },
-                          "unknown": {}
-                        },
-                        "required": [
-                          "name",
-                          "unknown"
-                        ]
-                      },
-                      "ObjectUndefined.IClassroom": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "name"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "string"
@@ -1294,6 +461,9 @@
               },
               "required": [
                 "name",
+                "professor",
+                "classroom",
+                "grade",
                 "unknown"
               ],
               "additionalProperties": false
@@ -1306,6 +476,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

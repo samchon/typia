@@ -6,4 +6,4 @@ import { CommentTagType } from "../../../structures/CommentTagType";
 export const test_llm_schema_3_1_CommentTagType = _test_llm_schema({
   model: "3.1",
   name: "CommentTagType",
-})(typia.llm.schema<CommentTagType, "3.1">());
+})(typia.llm.schema<CommentTagType, "3.1">({}));

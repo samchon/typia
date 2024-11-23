@@ -6,4 +6,4 @@ import { CommentTagAtomicUnion } from "../../../structures/CommentTagAtomicUnion
 export const test_llm_schema_3_1_CommentTagAtomicUnion = _test_llm_schema({
   model: "3.1",
   name: "CommentTagAtomicUnion",
-})(typia.llm.schema<CommentTagAtomicUnion, "3.1">());
+})(typia.llm.schema<CommentTagAtomicUnion, "3.1">({}));

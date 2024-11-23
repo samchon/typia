@@ -15,69 +15,14 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "components": {
-                        "schemas": {
-                          "TypeTagAtomicUnion": {
-                            "type": "object",
-                            "properties": {
-                              "value": {
-                                "type": "array",
-                                "items": {
-                                  "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                }
-                              }
-                            },
-                            "required": [
-                              "value"
-                            ]
-                          },
-                          "TypeTagAtomicUnion.Type": {
-                            "type": "object",
-                            "properties": {
-                              "value": {
-                                "oneOf": [
-                                  {
-                                    "type": "string",
-                                    "minLength": 3,
-                                    "maxLength": 7
-                                  },
-                                  {
-                                    "type": "number",
-                                    "minimum": 3
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "value"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          },
-                          {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7"
                         },
                         {
                           "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3"
                         }
                       ]
                     }
@@ -98,7 +43,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -116,69 +62,14 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "components": {
-                        "schemas": {
-                          "TypeTagAtomicUnion": {
-                            "type": "object",
-                            "properties": {
-                              "value": {
-                                "type": "array",
-                                "items": {
-                                  "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                }
-                              }
-                            },
-                            "required": [
-                              "value"
-                            ]
-                          },
-                          "TypeTagAtomicUnion.Type": {
-                            "type": "object",
-                            "properties": {
-                              "value": {
-                                "oneOf": [
-                                  {
-                                    "type": "string",
-                                    "minLength": 3,
-                                    "maxLength": 7
-                                  },
-                                  {
-                                    "type": "number",
-                                    "minimum": 3
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "value"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          },
-                          {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7"
                         },
                         {
                           "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3"
                         }
                       ]
                     }
@@ -196,57 +87,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "TypeTagAtomicUnion": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "TypeTagAtomicUnion.Type": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TypeTagAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -260,69 +100,14 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "components": {
-                            "schemas": {
-                              "TypeTagAtomicUnion": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "type": "array",
-                                    "items": {
-                                      "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                    }
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              },
-                              "TypeTagAtomicUnion.Type": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string",
-                                        "minLength": 3,
-                                        "maxLength": 7
-                                      },
-                                      {
-                                        "type": "number",
-                                        "minimum": 3
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              }
-                            }
-                          },
-                          "schema": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "minLength": 3,
-                                "maxLength": 7
-                              },
-                              {
-                                "type": "number",
-                                "minimum": 3
-                              }
-                            ]
-                          },
-                          "recursive": 3,
-                          "visited": {},
                           "oneOf": [
                             {
                               "type": "string",
-                              "minLength": 3,
-                              "maxLength": 7
+                              "description": "@minLength 3\n@maxLength 7"
                             },
                             {
                               "type": "number",
-                              "minimum": 3
+                              "description": "@minimum 3"
                             }
                           ]
                         }
@@ -346,7 +131,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -357,69 +143,14 @@
               "type": "object",
               "properties": {
                 "value": {
-                  "components": {
-                    "schemas": {
-                      "TypeTagAtomicUnion": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                            }
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      },
-                      "TypeTagAtomicUnion.Type": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "minLength": 3,
-                                "maxLength": 7
-                              },
-                              {
-                                "type": "number",
-                                "minimum": 3
-                              }
-                            ]
-                          }
-                        },
-                        "required": [
-                          "value"
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "minLength": 3,
-                        "maxLength": 7
-                      },
-                      {
-                        "type": "number",
-                        "minimum": 3
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     },
                     {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   ]
                 }
@@ -444,57 +175,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "TypeTagAtomicUnion": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "TypeTagAtomicUnion.Type": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TypeTagAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -508,69 +188,14 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "components": {
-                            "schemas": {
-                              "TypeTagAtomicUnion": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "type": "array",
-                                    "items": {
-                                      "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                    }
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              },
-                              "TypeTagAtomicUnion.Type": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string",
-                                        "minLength": 3,
-                                        "maxLength": 7
-                                      },
-                                      {
-                                        "type": "number",
-                                        "minimum": 3
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              }
-                            }
-                          },
-                          "schema": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "minLength": 3,
-                                "maxLength": 7
-                              },
-                              {
-                                "type": "number",
-                                "minimum": 3
-                              }
-                            ]
-                          },
-                          "recursive": 3,
-                          "visited": {},
                           "oneOf": [
                             {
                               "type": "string",
-                              "minLength": 3,
-                              "maxLength": 7
+                              "description": "@minLength 3\n@maxLength 7"
                             },
                             {
                               "type": "number",
-                              "minimum": 3
+                              "description": "@minimum 3"
                             }
                           ]
                         }
@@ -590,57 +215,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "TypeTagAtomicUnion": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "TypeTagAtomicUnion.Type": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TypeTagAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -654,69 +228,14 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "components": {
-                            "schemas": {
-                              "TypeTagAtomicUnion": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "type": "array",
-                                    "items": {
-                                      "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                    }
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              },
-                              "TypeTagAtomicUnion.Type": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string",
-                                        "minLength": 3,
-                                        "maxLength": 7
-                                      },
-                                      {
-                                        "type": "number",
-                                        "minimum": 3
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              }
-                            }
-                          },
-                          "schema": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "minLength": 3,
-                                "maxLength": 7
-                              },
-                              {
-                                "type": "number",
-                                "minimum": 3
-                              }
-                            ]
-                          },
-                          "recursive": 3,
-                          "visited": {},
                           "oneOf": [
                             {
                               "type": "string",
-                              "minLength": 3,
-                              "maxLength": 7
+                              "description": "@minLength 3\n@maxLength 7"
                             },
                             {
                               "type": "number",
-                              "minimum": 3
+                              "description": "@minimum 3"
                             }
                           ]
                         }
@@ -736,57 +255,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "TypeTagAtomicUnion": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "TypeTagAtomicUnion.Type": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/TypeTagAtomicUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -800,69 +268,14 @@
                       "type": "object",
                       "properties": {
                         "value": {
-                          "components": {
-                            "schemas": {
-                              "TypeTagAtomicUnion": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "type": "array",
-                                    "items": {
-                                      "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                    }
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              },
-                              "TypeTagAtomicUnion.Type": {
-                                "type": "object",
-                                "properties": {
-                                  "value": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string",
-                                        "minLength": 3,
-                                        "maxLength": 7
-                                      },
-                                      {
-                                        "type": "number",
-                                        "minimum": 3
-                                      }
-                                    ]
-                                  }
-                                },
-                                "required": [
-                                  "value"
-                                ]
-                              }
-                            }
-                          },
-                          "schema": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "minLength": 3,
-                                "maxLength": 7
-                              },
-                              {
-                                "type": "number",
-                                "minimum": 3
-                              }
-                            ]
-                          },
-                          "recursive": 3,
-                          "visited": {},
                           "oneOf": [
                             {
                               "type": "string",
-                              "minLength": 3,
-                              "maxLength": 7
+                              "description": "@minLength 3\n@maxLength 7"
                             },
                             {
                               "type": "number",
-                              "minimum": 3
+                              "description": "@minimum 3"
                             }
                           ]
                         }
@@ -884,62 +297,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "TypeTagAtomicUnion": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                  }
-                }
-              },
-              "required": [
-                "value"
-              ]
-            },
-            "TypeTagAtomicUnion.Type": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "oneOf": [
-                    {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    },
-                    {
-                      "type": "number",
-                      "minimum": 3
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/TypeTagAtomicUnion"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -953,69 +317,14 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "components": {
-                        "schemas": {
-                          "TypeTagAtomicUnion": {
-                            "type": "object",
-                            "properties": {
-                              "value": {
-                                "type": "array",
-                                "items": {
-                                  "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                                }
-                              }
-                            },
-                            "required": [
-                              "value"
-                            ]
-                          },
-                          "TypeTagAtomicUnion.Type": {
-                            "type": "object",
-                            "properties": {
-                              "value": {
-                                "oneOf": [
-                                  {
-                                    "type": "string",
-                                    "minLength": 3,
-                                    "maxLength": 7
-                                  },
-                                  {
-                                    "type": "number",
-                                    "minimum": 3
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "value"
-                            ]
-                          }
-                        }
-                      },
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "minLength": 3,
-                            "maxLength": 7
-                          },
-                          {
-                            "type": "number",
-                            "minimum": 3
-                          }
-                        ]
-                      },
-                      "recursive": 3,
-                      "visited": {},
                       "oneOf": [
                         {
                           "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
+                          "description": "@minLength 3\n@maxLength 7"
                         },
                         {
                           "type": "number",
-                          "minimum": 3
+                          "description": "@minimum 3"
                         }
                       ]
                     }
@@ -1039,6 +348,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

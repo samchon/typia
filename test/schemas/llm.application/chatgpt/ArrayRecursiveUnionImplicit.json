@@ -708,7 +708,8 @@
   ],
   "options": {
     "separate": null,
-    "reference": false,
-    "constraint": false
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

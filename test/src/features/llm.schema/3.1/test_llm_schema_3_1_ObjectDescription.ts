@@ -6,4 +6,4 @@ import { ObjectDescription } from "../../../structures/ObjectDescription";
 export const test_llm_schema_3_1_ObjectDescription = _test_llm_schema({
   model: "3.1",
   name: "ObjectDescription",
-})(typia.llm.schema<ObjectDescription, "3.1">());
+})(typia.llm.schema<ObjectDescription, "3.1">({}));

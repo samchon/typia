@@ -1,0 +1,196 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minimum 3",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minLength 3\n@maxLength 7",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minimum 3",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minLength 3\n@maxLength 7",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "description": "@minimum 3",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "description": "@minLength 3\n@maxLength 7",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

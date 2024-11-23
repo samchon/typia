@@ -6,4 +6,4 @@ import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalP
 export const test_llm_schema_3_1_ArrayHierarchicalPointer = _test_llm_schema({
   model: "3.1",
   name: "ArrayHierarchicalPointer",
-})(typia.llm.schema<ArrayHierarchicalPointer, "3.1">());
+})(typia.llm.schema<ArrayHierarchicalPointer, "3.1">({}));

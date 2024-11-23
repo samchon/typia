@@ -8,4 +8,4 @@ export const test_llm_schema_3_1_ArrayRecursiveUnionExplicit = _test_llm_schema(
     model: "3.1",
     name: "ArrayRecursiveUnionExplicit",
   },
-)(typia.llm.schema<ArrayRecursiveUnionExplicit, "3.1">());
+)(typia.llm.schema<ArrayRecursiveUnionExplicit, "3.1">({}));

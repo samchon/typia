@@ -1,70 +1,13 @@
 {
   "type": "array",
   "items": {
-    "components": {
-      "schemas": {
-        "TypeTagObjectUnion": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/TypeTagObjectUnion.Type"
-          }
-        },
-        "TypeTagObjectUnion.Type": {
-          "oneOf": [
-            {
-              "$ref": "#/components/schemas/TypeTagObjectUnion.Numeric"
-            },
-            {
-              "$ref": "#/components/schemas/TypeTagObjectUnion.Literal"
-            }
-          ]
-        },
-        "TypeTagObjectUnion.Numeric": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "number",
-              "minimum": 3
-            }
-          },
-          "required": [
-            "value"
-          ]
-        },
-        "TypeTagObjectUnion.Literal": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string",
-              "minLength": 3,
-              "maxLength": 7
-            }
-          },
-          "required": [
-            "value"
-          ]
-        }
-      }
-    },
-    "schema": {
-      "oneOf": [
-        {
-          "$ref": "#/components/schemas/TypeTagObjectUnion.Numeric"
-        },
-        {
-          "$ref": "#/components/schemas/TypeTagObjectUnion.Literal"
-        }
-      ]
-    },
-    "recursive": 3,
-    "visited": {},
     "oneOf": [
       {
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "minimum": 3
+            "description": "@minimum 3",
+            "type": "number"
           }
         },
         "required": [
@@ -76,9 +19,8 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 7
+            "description": "@minLength 3\n@maxLength 7",
+            "type": "string"
           }
         },
         "required": [

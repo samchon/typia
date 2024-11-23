@@ -1,0 +1,100 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "default": "something"
+          },
+          "age": {
+            "type": "number",
+            "default": 20
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}
