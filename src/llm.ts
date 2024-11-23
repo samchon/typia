@@ -1,4 +1,4 @@
-import { IChatGptSchema, ILlmApplication } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 
 /**
  * > You must configure the generic argument `App`.
@@ -84,7 +84,7 @@ export function application<
   App extends object,
   Model extends ILlmApplication.Model,
 >(
-  options?: Partial<Omit<ILlmApplication.IOptions<Model>, "recursive">>,
+  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
 ): ILlmApplication<Model>;
 
 /**
@@ -92,6 +92,70 @@ export function application<
  */
 export function application(): never {
   halt("application");
+}
+
+/**
+ * > You must configure the generic argument `Parameters`.
+ *
+ * TypeScript parameters to LLM parameters schema.
+ *
+ * Creates an LLM (Large Language Model) parameters schema, a type metadata that is used in the
+ * [LLM function calling](https://platform.openai.com/docs/guides/function-calling)
+ * and [LLM structured outputs](https://platform.openai.com/docs/guides/structured-outputs),
+ * from a TypeScript parameters type.
+ *
+ * For references, LLM identifies only keyworded arguments, not positional arguments.
+ * Therefore, the TypeScript parameters type must be an object type, and its properties
+ * must be static. If dynamic properties are, it would be compilation error.
+ *
+ * Also, such parameters type can be utilized not only for the LLM function calling,
+ * but also for the LLM structured outputs. The LLM structured outputs is a feature
+ * that LLM (Large Language Model) can generate a structured output, not only a plain
+ * text, by filling the parameters from the conversation (maybe chatting text) with user
+ * (human).
+ *
+ * @template Parameters Target parameters type
+ * @template Model LLM schema model
+ * @returns LLM parameters schema
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
+ */
+export function parameters(): never;
+
+/**
+ * TypeScript parameters to LLM parameters schema.
+ *
+ * Creates an LLM (Large Language Model) parameters schema, a type metadata that is used in the
+ * [LLM function calling](https://platform.openai.com/docs/guides/function-calling)
+ * and [LLM structured outputs](https://platform.openai.com/docs/guides/structured-outputs),
+ * from a TypeScript parameters type.
+ *
+ * For references, LLM identifies only keyworded arguments, not positional arguments.
+ * Therefore, the TypeScript parameters type must be an object type, and its properties
+ * must be static. If dynamic properties are, it would be compilation error.
+ *
+ * Also, such parameters type can be utilized not only for the LLM function calling,
+ * but also for the LLM structured outputs. The LLM structured outputs is a feature
+ * that LLM (Large Language Model) can generate a structured output, not only a plain
+ * text, by filling the parameters from the conversation (maybe chatting text) with user
+ * (human).
+ *
+ * @template Parameters Target parameters type
+ * @template Model LLM schema model
+ * @returns LLM parameters schema
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
+ */
+export function parameters<
+  Parameters extends object,
+  Model extends ILlmApplication.Model,
+>(): ILlmApplication.ModelSchema[Model];
+
+/**
+ * @internal
+ */
+export function parameters(): never {
+  halt("parameters");
 }
 
 /**
@@ -129,6 +193,7 @@ export function application(): never {
  * @template Model LLM schema model
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function schema(): never;
@@ -170,7 +235,12 @@ export function schema(): never;
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function schema<T, Model extends ILlmApplication.Model>(
-  ...$defs: Model extends "chatgpt" ? [Record<string, IChatGptSchema>] : []
+  ...$defs: Extract<
+    ILlmApplication.ModelSchema[Model],
+    { $ref: string }
+  > extends never
+    ? []
+    : [Record<string, ILlmApplication.ModelSchema[Model]>]
 ): ILlmApplication.ModelSchema[Model];
 
 /**
