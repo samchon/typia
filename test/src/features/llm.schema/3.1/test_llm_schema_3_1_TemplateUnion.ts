@@ -6,4 +6,4 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_llm_schema_3_1_TemplateUnion = _test_llm_schema({
   model: "3.1",
   name: "TemplateUnion",
-})(typia.llm.schema<TemplateUnion, "3.1">());
+})(typia.llm.schema<TemplateUnion, "3.1">({}));

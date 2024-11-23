@@ -6,4 +6,4 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_llm_schema_3_1_ArrayMatrix = _test_llm_schema({
   model: "3.1",
   name: "ArrayMatrix",
-})(typia.llm.schema<ArrayMatrix, "3.1">());
+})(typia.llm.schema<ArrayMatrix, "3.1">({}));

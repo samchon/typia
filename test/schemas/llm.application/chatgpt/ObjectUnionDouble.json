@@ -156,7 +156,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -469,7 +470,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "array",
@@ -1089,7 +1091,8 @@
           "second",
           "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "anyOf": [
@@ -1249,7 +1252,8 @@
   ],
   "options": {
     "separate": null,
-    "reference": false,
-    "constraint": false
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

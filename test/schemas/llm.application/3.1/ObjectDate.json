@@ -10,477 +10,63 @@
             "type": "object",
             "properties": {
               "classDate": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date-time"
+                    "description": "@format date-time"
                   }
                 ]
               },
               "date": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date"
+                    "description": "@format date"
                   }
                 ]
               },
               "datetime": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date-time"
+                    "description": "@format date-time"
                   }
                 ]
               },
               "time": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "time"
+                    "description": "@format time"
                   }
                 ]
               },
               "duration": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "duration"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "duration"
+                    "description": "@format duration"
                   }
                 ]
               }
             },
             "required": [
+              "classDate",
               "date",
               "datetime",
               "time",
@@ -492,7 +78,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -505,477 +92,63 @@
             "type": "object",
             "properties": {
               "classDate": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date-time"
+                    "description": "@format date-time"
                   }
                 ]
               },
               "date": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date"
+                    "description": "@format date"
                   }
                 ]
               },
               "datetime": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date-time"
+                    "description": "@format date-time"
                   }
                 ]
               },
               "time": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "time"
+                    "description": "@format time"
                   }
                 ]
               },
               "duration": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "duration"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "duration"
+                    "description": "@format duration"
                   }
                 ]
               }
             },
             "required": [
+              "classDate",
               "date",
               "datetime",
               "time",
@@ -984,88 +157,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectDate"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -1074,477 +165,63 @@
                 "type": "object",
                 "properties": {
                   "classDate": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "date": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date"
+                        "description": "@format date"
                       }
                     ]
                   },
                   "datetime": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "time": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "time"
+                        "description": "@format time"
                       }
                     ]
                   },
                   "duration": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "duration"
+                        "description": "@format duration"
                       }
                     ]
                   }
                 },
                 "required": [
+                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -1559,483 +236,70 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
         "properties": {
           "classDate": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
               },
               {
                 "type": "string",
-                "format": "date-time"
+                "description": "@format date-time"
               }
             ]
           },
           "date": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "date"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
               },
               {
                 "type": "string",
-                "format": "date"
+                "description": "@format date"
               }
             ]
           },
           "datetime": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
               },
               {
                 "type": "string",
-                "format": "date-time"
+                "description": "@format date-time"
               }
             ]
           },
           "time": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "time"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
               },
               {
                 "type": "string",
-                "format": "time"
+                "description": "@format time"
               }
             ]
           },
           "duration": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "duration"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
               },
               {
                 "type": "string",
-                "format": "duration"
+                "description": "@format duration"
               }
             ]
           }
         },
         "required": [
+          "classDate",
           "date",
           "datetime",
           "time",
@@ -2051,88 +315,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectDate"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -2141,477 +323,63 @@
                 "type": "object",
                 "properties": {
                   "classDate": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "date": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date"
+                        "description": "@format date"
                       }
                     ]
                   },
                   "datetime": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "time": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "time"
+                        "description": "@format time"
                       }
                     ]
                   },
                   "duration": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "duration"
+                        "description": "@format duration"
                       }
                     ]
                   }
                 },
                 "required": [
+                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -2622,88 +390,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectDate"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -2712,477 +398,63 @@
                 "type": "object",
                 "properties": {
                   "classDate": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "date": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date"
+                        "description": "@format date"
                       }
                     ]
                   },
                   "datetime": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "time": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "time"
+                        "description": "@format time"
                       }
                     ]
                   },
                   "duration": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "duration"
+                        "description": "@format duration"
                       }
                     ]
                   }
                 },
                 "required": [
+                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -3193,88 +465,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ObjectDate": {
-                  "type": "object",
-                  "properties": {
-                    "classDate": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "date": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "datetime": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "time": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "duration": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "date",
-                    "datetime",
-                    "time",
-                    "duration"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectDate"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -3283,477 +473,63 @@
                 "type": "object",
                 "properties": {
                   "classDate": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "date": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date"
+                        "description": "@format date"
                       }
                     ]
                   },
                   "datetime": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "date-time"
+                        "description": "@format date-time"
                       }
                     ]
                   },
                   "time": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "time"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "time"
+                        "description": "@format time"
                       }
                     ]
                   },
                   "duration": {
-                    "components": {
-                      "schemas": {
-                        "ObjectDate": {
-                          "type": "object",
-                          "properties": {
-                            "classDate": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "date": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date"
-                                }
-                              ]
-                            },
-                            "datetime": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "date-time"
-                                }
-                              ]
-                            },
-                            "time": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "time"
-                                }
-                              ]
-                            },
-                            "duration": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "string",
-                                  "format": "duration"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "date",
-                            "datetime",
-                            "time",
-                            "duration"
-                          ]
-                        }
-                      }
-                    },
-                    "schema": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string",
-                          "format": "duration"
-                        }
-                      ]
-                    },
-                    "recursive": 3,
-                    "visited": {},
                     "oneOf": [
                       {
                         "type": "null"
                       },
                       {
                         "type": "string",
-                        "format": "duration"
+                        "description": "@format duration"
                       }
                     ]
                   }
                 },
                 "required": [
+                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -3766,93 +542,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ObjectDate": {
-              "type": "object",
-              "properties": {
-                "classDate": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "date": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date"
-                    }
-                  ]
-                },
-                "datetime": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "time": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "time"
-                    }
-                  ]
-                },
-                "duration": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "duration"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "date",
-                "datetime",
-                "time",
-                "duration"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectDate"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -3861,477 +557,63 @@
             "type": "object",
             "properties": {
               "classDate": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date-time"
+                    "description": "@format date-time"
                   }
                 ]
               },
               "date": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date"
+                    "description": "@format date"
                   }
                 ]
               },
               "datetime": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "date-time"
+                    "description": "@format date-time"
                   }
                 ]
               },
               "time": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "time"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "time"
+                    "description": "@format time"
                   }
                 ]
               },
               "duration": {
-                "components": {
-                  "schemas": {
-                    "ObjectDate": {
-                      "type": "object",
-                      "properties": {
-                        "classDate": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "date": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date"
-                            }
-                          ]
-                        },
-                        "datetime": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            }
-                          ]
-                        },
-                        "time": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "time"
-                            }
-                          ]
-                        },
-                        "duration": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "string",
-                              "format": "duration"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "date",
-                        "datetime",
-                        "time",
-                        "duration"
-                      ]
-                    }
-                  }
-                },
-                "schema": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "duration"
-                    }
-                  ]
-                },
-                "recursive": 3,
-                "visited": {},
                 "oneOf": [
                   {
                     "type": "null"
                   },
                   {
                     "type": "string",
-                    "format": "duration"
+                    "description": "@format duration"
                   }
                 ]
               }
             },
             "required": [
+              "classDate",
               "date",
               "datetime",
               "time",
@@ -4346,6 +628,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

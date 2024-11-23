@@ -2,20 +2,20 @@
   "type": "object",
   "properties": {
     "id": {
-      "type": "string",
-      "format": "uuid"
+      "description": "@format uuid",
+      "type": "string"
     },
     "dollar": {
-      "type": "string",
-      "x-typia-monetary": "dollar"
+      "x-typia-monetary": "dollar",
+      "type": "string"
     },
     "postfix": {
-      "type": "string",
-      "x-typia-postfix": "abcd"
+      "x-typia-postfix": "abcd",
+      "type": "string"
     },
     "powerOf": {
-      "type": "number",
-      "x-typia-powerOf": 2
+      "x-typia-powerOf": 2,
+      "type": "number"
     }
   },
   "required": [

@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "@format uuid"
+            },
+            "description": "@minItems 4\n@maxItems 4"
+          },
+          "description": "@minItems 3\n@maxItems 3"
+        }
+      },
+      "required": [
+        "matrix"
+      ]
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "@format uuid"
+            },
+            "description": "@minItems 4\n@maxItems 4"
+          },
+          "description": "@minItems 3\n@maxItems 3"
+        }
+      },
+      "required": [
+        "matrix"
+      ],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "@format uuid"
+            },
+            "description": "@minItems 4\n@maxItems 4"
+          },
+          "description": "@minItems 3\n@maxItems 3"
+        }
+      },
+      "required": [
+        "matrix"
+      ]
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "@format uuid"
+            },
+            "description": "@minItems 4\n@maxItems 4"
+          },
+          "description": "@minItems 3\n@maxItems 3"
+        }
+      },
+      "required": [
+        "matrix"
+      ],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "matrix": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "@format uuid"
+              },
+              "description": "@minItems 4\n@maxItems 4"
+            },
+            "description": "@minItems 3\n@maxItems 3"
+          }
+        },
+        "required": [
+          "matrix"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}

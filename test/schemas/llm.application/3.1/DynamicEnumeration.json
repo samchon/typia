@@ -43,7 +43,18 @@
                     "type": "string"
                   }
                 },
-                "required": [],
+                "required": [
+                  "ar",
+                  "zh-Hans",
+                  "zh-Hant",
+                  "en",
+                  "fr",
+                  "de",
+                  "ja",
+                  "ko",
+                  "pt",
+                  "ru"
+                ],
                 "additionalProperties": false
               }
             },
@@ -56,7 +67,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -102,7 +114,18 @@
                     "type": "string"
                   }
                 },
-                "required": [],
+                "required": [
+                  "ar",
+                  "zh-Hans",
+                  "zh-Hant",
+                  "en",
+                  "fr",
+                  "de",
+                  "ja",
+                  "ko",
+                  "pt",
+                  "ru"
+                ],
                 "additionalProperties": false
               }
             },
@@ -112,66 +135,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "DynamicEnumeration": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "ar": {
-                          "type": "string"
-                        },
-                        "zh-Hans": {
-                          "type": "string"
-                        },
-                        "zh-Hant": {
-                          "type": "string"
-                        },
-                        "en": {
-                          "type": "string"
-                        },
-                        "fr": {
-                          "type": "string"
-                        },
-                        "de": {
-                          "type": "string"
-                        },
-                        "ja": {
-                          "type": "string"
-                        },
-                        "ko": {
-                          "type": "string"
-                        },
-                        "pt": {
-                          "type": "string"
-                        },
-                        "ru": {
-                          "type": "string"
-                        }
-                      },
-                      "required": []
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/DynamicEnumeration"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -213,7 +176,18 @@
                         "type": "string"
                       }
                     },
-                    "required": [],
+                    "required": [
+                      "ar",
+                      "zh-Hans",
+                      "zh-Hant",
+                      "en",
+                      "fr",
+                      "de",
+                      "ja",
+                      "ko",
+                      "pt",
+                      "ru"
+                    ],
                     "additionalProperties": false
                   }
                 },
@@ -229,7 +203,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -268,7 +243,18 @@
                 "type": "string"
               }
             },
-            "required": [],
+            "required": [
+              "ar",
+              "zh-Hans",
+              "zh-Hant",
+              "en",
+              "fr",
+              "de",
+              "ja",
+              "ko",
+              "pt",
+              "ru"
+            ],
             "additionalProperties": false
           }
         },
@@ -285,66 +271,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "DynamicEnumeration": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "ar": {
-                          "type": "string"
-                        },
-                        "zh-Hans": {
-                          "type": "string"
-                        },
-                        "zh-Hant": {
-                          "type": "string"
-                        },
-                        "en": {
-                          "type": "string"
-                        },
-                        "fr": {
-                          "type": "string"
-                        },
-                        "de": {
-                          "type": "string"
-                        },
-                        "ja": {
-                          "type": "string"
-                        },
-                        "ko": {
-                          "type": "string"
-                        },
-                        "pt": {
-                          "type": "string"
-                        },
-                        "ru": {
-                          "type": "string"
-                        }
-                      },
-                      "required": []
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/DynamicEnumeration"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -386,7 +312,18 @@
                         "type": "string"
                       }
                     },
-                    "required": [],
+                    "required": [
+                      "ar",
+                      "zh-Hans",
+                      "zh-Hant",
+                      "en",
+                      "fr",
+                      "de",
+                      "ja",
+                      "ko",
+                      "pt",
+                      "ru"
+                    ],
                     "additionalProperties": false
                   }
                 },
@@ -398,66 +335,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "DynamicEnumeration": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "ar": {
-                          "type": "string"
-                        },
-                        "zh-Hans": {
-                          "type": "string"
-                        },
-                        "zh-Hant": {
-                          "type": "string"
-                        },
-                        "en": {
-                          "type": "string"
-                        },
-                        "fr": {
-                          "type": "string"
-                        },
-                        "de": {
-                          "type": "string"
-                        },
-                        "ja": {
-                          "type": "string"
-                        },
-                        "ko": {
-                          "type": "string"
-                        },
-                        "pt": {
-                          "type": "string"
-                        },
-                        "ru": {
-                          "type": "string"
-                        }
-                      },
-                      "required": []
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/DynamicEnumeration"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -499,7 +376,18 @@
                         "type": "string"
                       }
                     },
-                    "required": [],
+                    "required": [
+                      "ar",
+                      "zh-Hans",
+                      "zh-Hant",
+                      "en",
+                      "fr",
+                      "de",
+                      "ja",
+                      "ko",
+                      "pt",
+                      "ru"
+                    ],
                     "additionalProperties": false
                   }
                 },
@@ -511,66 +399,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "DynamicEnumeration": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "ar": {
-                          "type": "string"
-                        },
-                        "zh-Hans": {
-                          "type": "string"
-                        },
-                        "zh-Hant": {
-                          "type": "string"
-                        },
-                        "en": {
-                          "type": "string"
-                        },
-                        "fr": {
-                          "type": "string"
-                        },
-                        "de": {
-                          "type": "string"
-                        },
-                        "ja": {
-                          "type": "string"
-                        },
-                        "ko": {
-                          "type": "string"
-                        },
-                        "pt": {
-                          "type": "string"
-                        },
-                        "ru": {
-                          "type": "string"
-                        }
-                      },
-                      "required": []
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/DynamicEnumeration"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -612,7 +440,18 @@
                         "type": "string"
                       }
                     },
-                    "required": [],
+                    "required": [
+                      "ar",
+                      "zh-Hans",
+                      "zh-Hant",
+                      "en",
+                      "fr",
+                      "de",
+                      "ja",
+                      "ko",
+                      "pt",
+                      "ru"
+                    ],
                     "additionalProperties": false
                   }
                 },
@@ -626,71 +465,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "DynamicEnumeration": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "object",
-                  "properties": {
-                    "ar": {
-                      "type": "string"
-                    },
-                    "zh-Hans": {
-                      "type": "string"
-                    },
-                    "zh-Hant": {
-                      "type": "string"
-                    },
-                    "en": {
-                      "type": "string"
-                    },
-                    "fr": {
-                      "type": "string"
-                    },
-                    "de": {
-                      "type": "string"
-                    },
-                    "ja": {
-                      "type": "string"
-                    },
-                    "ko": {
-                      "type": "string"
-                    },
-                    "pt": {
-                      "type": "string"
-                    },
-                    "ru": {
-                      "type": "string"
-                    }
-                  },
-                  "required": []
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/DynamicEnumeration"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -732,7 +513,18 @@
                     "type": "string"
                   }
                 },
-                "required": [],
+                "required": [
+                  "ar",
+                  "zh-Hans",
+                  "zh-Hant",
+                  "en",
+                  "fr",
+                  "de",
+                  "ja",
+                  "ko",
+                  "pt",
+                  "ru"
+                ],
                 "additionalProperties": false
               }
             },
@@ -748,6 +540,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

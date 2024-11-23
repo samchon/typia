@@ -6,4 +6,4 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 export const test_llm_schema_3_1_TypeTagCustom = _test_llm_schema({
   model: "3.1",
   name: "TypeTagCustom",
-})(typia.llm.schema<TypeTagCustom, "3.1">());
+})(typia.llm.schema<TypeTagCustom, "3.1">({}));

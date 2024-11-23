@@ -6,4 +6,4 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_llm_schema_3_1_ArrayAny = _test_llm_schema({
   model: "3.1",
   name: "ArrayAny",
-})(typia.llm.schema<ArrayAny, "3.1">());
+})(typia.llm.schema<ArrayAny, "3.1">({}));

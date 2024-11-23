@@ -7,14 +7,14 @@
         "type": "object",
         "properties": {
           "int": {
-            "type": "integer",
             "title": "Integer value",
-            "description": "Integer value."
+            "description": "Integer value.",
+            "type": "integer"
           },
           "uint": {
-            "type": "integer",
             "title": "Unsigned integer value",
-            "description": "Unsigned integer value."
+            "description": "Unsigned integer value.",
+            "type": "integer"
           },
           "int32": {
             "type": "integer"

@@ -1,0 +1,371 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "classDate": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date-time"
+            }
+          ]
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date"
+            }
+          ]
+        },
+        "datetime": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date-time"
+            }
+          ]
+        },
+        "time": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format time"
+            }
+          ]
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format duration"
+            }
+          ]
+        }
+      },
+      "required": [
+        "classDate",
+        "date",
+        "datetime",
+        "time",
+        "duration"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "classDate": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format date-time"
+                }
+              ]
+            },
+            "date": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format date"
+                }
+              ]
+            },
+            "datetime": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format date-time"
+                }
+              ]
+            },
+            "time": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format time"
+                }
+              ]
+            },
+            "duration": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format duration"
+                }
+              ]
+            }
+          },
+          "required": [
+            "classDate",
+            "date",
+            "datetime",
+            "time",
+            "duration"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "classDate": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date-time"
+            }
+          ]
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date"
+            }
+          ]
+        },
+        "datetime": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date-time"
+            }
+          ]
+        },
+        "time": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format time"
+            }
+          ]
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format duration"
+            }
+          ]
+        }
+      },
+      "required": [
+        "classDate",
+        "date",
+        "datetime",
+        "time",
+        "duration"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "classDate": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format date-time"
+                }
+              ]
+            },
+            "date": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format date"
+                }
+              ]
+            },
+            "datetime": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format date-time"
+                }
+              ]
+            },
+            "time": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format time"
+                }
+              ]
+            },
+            "duration": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "description": "@format duration"
+                }
+              ]
+            }
+          },
+          "required": [
+            "classDate",
+            "date",
+            "datetime",
+            "time",
+            "duration"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "classDate": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "@format date-time"
+              }
+            ]
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "@format date"
+              }
+            ]
+          },
+          "datetime": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "@format date-time"
+              }
+            ]
+          },
+          "time": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "@format time"
+              }
+            ]
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "@format duration"
+              }
+            ]
+          }
+        },
+        "required": [
+          "classDate",
+          "date",
+          "datetime",
+          "time",
+          "duration"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

@@ -6,4 +6,4 @@ import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty
 export const test_llm_schema_3_1_ObjectLiteralProperty = _test_llm_schema({
   model: "3.1",
   name: "ObjectLiteralProperty",
-})(typia.llm.schema<ObjectLiteralProperty, "3.1">());
+})(typia.llm.schema<ObjectLiteralProperty, "3.1">({}));

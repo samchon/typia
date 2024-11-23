@@ -6,4 +6,4 @@ import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 export const test_llm_schema_3_1_ObjectGenericArray = _test_llm_schema({
   model: "3.1",
   name: "ObjectGenericArray",
-})(typia.llm.schema<ObjectGenericArray, "3.1">());
+})(typia.llm.schema<ObjectGenericArray, "3.1">({}));

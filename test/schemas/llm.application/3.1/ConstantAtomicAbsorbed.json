@@ -28,7 +28,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -56,39 +57,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicAbsorbed": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "default": "something"
-                    },
-                    "age": {
-                      "type": "number",
-                      "default": 20
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -118,7 +86,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -146,39 +115,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicAbsorbed": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "default": "something"
-                    },
-                    "age": {
-                      "type": "number",
-                      "default": 20
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -204,39 +140,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicAbsorbed": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "default": "something"
-                    },
-                    "age": {
-                      "type": "number",
-                      "default": 20
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -262,39 +165,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ConstantAtomicAbsorbed": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "default": "something"
-                    },
-                    "age": {
-                      "type": "number",
-                      "default": 20
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "age"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -322,44 +192,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ConstantAtomicAbsorbed": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "default": "something"
-                },
-                "age": {
-                  "type": "number",
-                  "default": 20
-                }
-              },
-              "required": [
-                "id",
-                "age"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -389,6 +228,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

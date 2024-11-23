@@ -30,17 +30,18 @@ export namespace LlmSchemaTransformer {
     if (ts.isTypeNode(top) === false) return props.expression;
 
     // GET MODEL
-    const model: ILlmApplication.Model = get_parameter<ILlmApplication.Model>({
-      checker: props.context.checker,
-      name: "Model",
-      is: (value) =>
-        value === "3.1" ||
-        value === "3.0" ||
-        value === "chatgpt" ||
-        value === "gemini",
-      cast: (value) => value as ILlmApplication.Model,
-      default: () => "3.1",
-    })(props.expression.typeArguments[1]);
+    const model: ILlmApplication.Model =
+      getTemplateArgument<ILlmApplication.Model>({
+        checker: props.context.checker,
+        name: "Model",
+        is: (value) =>
+          value === "3.1" ||
+          value === "3.0" ||
+          value === "chatgpt" ||
+          value === "gemini",
+        cast: (value) => value as ILlmApplication.Model,
+        default: () => "3.1",
+      })(props.expression.typeArguments[1]);
 
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -108,7 +109,7 @@ export namespace LlmSchemaTransformer {
     );
   };
 
-  const get_parameter =
+  const getTemplateArgument =
     <Value>(props: {
       checker: ts.TypeChecker;
       name: string;

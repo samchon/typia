@@ -6,4 +6,4 @@ import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPre
 export const test_llm_schema_3_1_ObjectUnionNonPredictable = _test_llm_schema({
   model: "3.1",
   name: "ObjectUnionNonPredictable",
-})(typia.llm.schema<ObjectUnionNonPredictable, "3.1">());
+})(typia.llm.schema<ObjectUnionNonPredictable, "3.1">({}));

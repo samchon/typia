@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "something-interesting-do-you-want?": {
+              "type": "string"
+            },
+            "or-something-crazy-do-you-want?": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "something-interesting-do-you-want?",
+            "or-something-crazy-do-you-want?"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "something-interesting-do-you-want?": {
+              "type": "string"
+            },
+            "or-something-crazy-do-you-want?": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "something-interesting-do-you-want?",
+            "or-something-crazy-do-you-want?"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

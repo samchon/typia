@@ -22,14 +22,20 @@
                 "type": "number"
               }
             },
-            "required": [],
+            "required": [
+              "id",
+              "name",
+              "email",
+              "sequence"
+            ],
             "additionalProperties": false
           }
         },
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -54,44 +60,15 @@
                 "type": "number"
               }
             },
-            "required": [],
+            "required": [
+              "id",
+              "name",
+              "email",
+              "sequence"
+            ],
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectOptional": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    }
-                  },
-                  "required": []
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectOptional"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -112,7 +89,12 @@
                     "type": "number"
                   }
                 },
-                "required": [],
+                "required": [
+                  "id",
+                  "name",
+                  "email",
+                  "sequence"
+                ],
                 "additionalProperties": false
               }
             ]
@@ -122,7 +104,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -140,7 +123,12 @@
             "type": "number"
           }
         },
-        "required": [],
+        "required": [
+          "id",
+          "name",
+          "email",
+          "sequence"
+        ],
         "additionalProperties": false
       },
       "strict": true
@@ -151,40 +139,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ObjectOptional": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    }
-                  },
-                  "required": []
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectOptional"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -205,46 +159,17 @@
                     "type": "number"
                   }
                 },
-                "required": [],
+                "required": [
+                  "id",
+                  "name",
+                  "email",
+                  "sequence"
+                ],
                 "additionalProperties": false
               }
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectOptional": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    }
-                  },
-                  "required": []
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectOptional"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -265,46 +190,17 @@
                     "type": "number"
                   }
                 },
-                "required": [],
+                "required": [
+                  "id",
+                  "name",
+                  "email",
+                  "sequence"
+                ],
                 "additionalProperties": false
               }
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ObjectOptional": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "sequence": {
-                      "type": "number"
-                    }
-                  },
-                  "required": []
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectOptional"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -325,7 +221,12 @@
                     "type": "number"
                   }
                 },
-                "required": [],
+                "required": [
+                  "id",
+                  "name",
+                  "email",
+                  "sequence"
+                ],
                 "additionalProperties": false
               }
             ]
@@ -333,45 +234,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ObjectOptional": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "sequence": {
-                  "type": "number"
-                }
-              },
-              "required": []
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectOptional"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -392,7 +261,12 @@
                 "type": "number"
               }
             },
-            "required": [],
+            "required": [
+              "id",
+              "name",
+              "email",
+              "sequence"
+            ],
             "additionalProperties": false
           }
         ]
@@ -402,6 +276,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

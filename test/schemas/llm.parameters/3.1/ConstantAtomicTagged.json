@@ -1,0 +1,191 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "const": "latest"
+            },
+            {
+              "type": "string",
+              "description": "@format uuid"
+            }
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "const": -1
+            },
+            {
+              "type": "integer",
+              "description": "@maximum 100"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "const": "latest"
+                },
+                {
+                  "type": "string",
+                  "description": "@format uuid"
+                }
+              ]
+            },
+            "age": {
+              "oneOf": [
+                {
+                  "const": -1
+                },
+                {
+                  "type": "integer",
+                  "description": "@maximum 100"
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "age"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "const": "latest"
+            },
+            {
+              "type": "string",
+              "description": "@format uuid"
+            }
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "const": -1
+            },
+            {
+              "type": "integer",
+              "description": "@maximum 100"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "const": "latest"
+                },
+                {
+                  "type": "string",
+                  "description": "@format uuid"
+                }
+              ]
+            },
+            "age": {
+              "oneOf": [
+                {
+                  "const": -1
+                },
+                {
+                  "type": "integer",
+                  "description": "@maximum 100"
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "age"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "const": "latest"
+              },
+              {
+                "type": "string",
+                "description": "@format uuid"
+              }
+            ]
+          },
+          "age": {
+            "oneOf": [
+              {
+                "const": -1
+              },
+              {
+                "type": "integer",
+                "description": "@maximum 100"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

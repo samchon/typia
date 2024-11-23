@@ -9,62 +9,6 @@
           "first": {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "ArrayUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                    }
-                  },
-                  "ArrayUnion.IUnion": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "boolean"
-                    }
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "array",
@@ -91,7 +35,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -103,62 +48,6 @@
           "first": {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "ArrayUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                    }
-                  },
-                  "ArrayUnion.IUnion": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "boolean"
-                    }
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "array",
@@ -182,50 +71,6 @@
             }
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ArrayUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                  }
-                },
-                "ArrayUnion.IUnion": {
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -233,62 +78,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ArrayUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                        }
-                      },
-                      "ArrayUnion.IUnion": {
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "boolean"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "array",
@@ -318,67 +107,12 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "array",
         "items": {
-          "components": {
-            "schemas": {
-              "ArrayUnion": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                }
-              },
-              "ArrayUnion.IUnion": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "boolean"
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "schema": {
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "boolean"
-                }
-              }
-            ]
-          },
-          "recursive": 3,
-          "visited": {},
           "oneOf": [
             {
               "type": "array",
@@ -409,50 +143,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ArrayUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                  }
-                },
-                "ArrayUnion.IUnion": {
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -460,62 +150,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ArrayUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                        }
-                      },
-                      "ArrayUnion.IUnion": {
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "boolean"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "array",
@@ -541,50 +175,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ArrayUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                  }
-                },
-                "ArrayUnion.IUnion": {
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -592,62 +182,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ArrayUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                        }
-                      },
-                      "ArrayUnion.IUnion": {
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "boolean"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "array",
@@ -673,50 +207,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ArrayUnion": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                  }
-                },
-                "ArrayUnion.IUnion": {
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayUnion"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -724,62 +214,6 @@
               {
                 "type": "array",
                 "items": {
-                  "components": {
-                    "schemas": {
-                      "ArrayUnion": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                        }
-                      },
-                      "ArrayUnion.IUnion": {
-                        "oneOf": [
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "boolean"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "schema": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  },
-                  "recursive": 3,
-                  "visited": {},
                   "oneOf": [
                     {
                       "type": "array",
@@ -807,55 +241,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ArrayUnion": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ArrayUnion.IUnion"
-              }
-            },
-            "ArrayUnion.IUnion": {
-              "oneOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "boolean"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ArrayUnion"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -863,62 +255,6 @@
           {
             "type": "array",
             "items": {
-              "components": {
-                "schemas": {
-                  "ArrayUnion": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ArrayUnion.IUnion"
-                    }
-                  },
-                  "ArrayUnion.IUnion": {
-                    "oneOf": [
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "boolean"
-                        }
-                      }
-                    ]
-                  }
-                }
-              },
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "boolean"
-                    }
-                  }
-                ]
-              },
-              "recursive": 3,
-              "visited": {},
               "oneOf": [
                 {
                   "type": "array",
@@ -948,6 +284,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

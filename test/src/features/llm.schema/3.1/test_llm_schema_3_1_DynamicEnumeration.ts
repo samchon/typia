@@ -6,4 +6,4 @@ import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 export const test_llm_schema_3_1_DynamicEnumeration = _test_llm_schema({
   model: "3.1",
   name: "DynamicEnumeration",
-})(typia.llm.schema<DynamicEnumeration, "3.1">());
+})(typia.llm.schema<DynamicEnumeration, "3.1">({}));

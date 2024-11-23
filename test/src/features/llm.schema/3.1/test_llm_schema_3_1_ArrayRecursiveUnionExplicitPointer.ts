@@ -7,4 +7,4 @@ export const test_llm_schema_3_1_ArrayRecursiveUnionExplicitPointer =
   _test_llm_schema({
     model: "3.1",
     name: "ArrayRecursiveUnionExplicitPointer",
-  })(typia.llm.schema<ArrayRecursiveUnionExplicitPointer, "3.1">());
+  })(typia.llm.schema<ArrayRecursiveUnionExplicitPointer, "3.1">({}));

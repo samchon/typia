@@ -6,4 +6,4 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 export const test_llm_schema_3_1_ObjectPartial = _test_llm_schema({
   model: "3.1",
   name: "ObjectPartial",
-})(typia.llm.schema<ObjectPartial, "3.1">());
+})(typia.llm.schema<ObjectPartial, "3.1">({}));

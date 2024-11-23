@@ -6,4 +6,4 @@ import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 export const test_llm_schema_3_1_ObjectUnionDouble = _test_llm_schema({
   model: "3.1",
   name: "ObjectUnionDouble",
-})(typia.llm.schema<ObjectUnionDouble, "3.1">());
+})(typia.llm.schema<ObjectUnionDouble, "3.1">({}));

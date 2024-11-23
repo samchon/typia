@@ -6,4 +6,4 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_llm_schema_3_1_ObjectRequired = _test_llm_schema({
   model: "3.1",
   name: "ObjectRequired",
-})(typia.llm.schema<ObjectRequired, "3.1">());
+})(typia.llm.schema<ObjectRequired, "3.1">({}));

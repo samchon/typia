@@ -6,4 +6,4 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_llm_schema_3_1_ObjectSimple = _test_llm_schema({
   model: "3.1",
   name: "ObjectSimple",
-})(typia.llm.schema<ObjectSimple, "3.1">());
+})(typia.llm.schema<ObjectSimple, "3.1">({}));

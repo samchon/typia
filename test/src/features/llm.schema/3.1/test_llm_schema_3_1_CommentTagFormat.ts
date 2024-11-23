@@ -6,4 +6,4 @@ import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 export const test_llm_schema_3_1_CommentTagFormat = _test_llm_schema({
   model: "3.1",
   name: "CommentTagFormat",
-})(typia.llm.schema<CommentTagFormat, "3.1">());
+})(typia.llm.schema<CommentTagFormat, "3.1">({}));

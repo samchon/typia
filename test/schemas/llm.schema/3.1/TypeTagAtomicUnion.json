@@ -7,69 +7,14 @@
         "type": "object",
         "properties": {
           "value": {
-            "components": {
-              "schemas": {
-                "TypeTagAtomicUnion": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/TypeTagAtomicUnion.Type"
-                      }
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                },
-                "TypeTagAtomicUnion.Type": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "minLength": 3,
-                  "maxLength": 7
-                },
-                {
-                  "type": "number",
-                  "minimum": 3
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "string",
-                "minLength": 3,
-                "maxLength": 7
+                "description": "@minLength 3\n@maxLength 7"
               },
               {
                 "type": "number",
-                "minimum": 3
+                "description": "@minimum 3"
               }
             ]
           }

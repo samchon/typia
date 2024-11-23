@@ -14,19 +14,19 @@
                 "deprecated": true
               },
               "description": {
-                "type": "string",
                 "title": "Descripted property",
-                "description": "Descripted property."
+                "description": "Descripted property.",
+                "type": "string"
               },
               "title": {
-                "type": "string",
                 "title": "something",
-                "description": "Titled property."
+                "description": "Titled property.",
+                "type": "string"
               },
               "complicate_title": {
-                "type": "string",
                 "title": "something weirdo with {@link something } tag",
-                "description": "Complicate title."
+                "description": "Complicate title.",
+                "type": "string"
               }
             },
             "required": [
@@ -41,7 +41,8 @@
         "required": [
           "first"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "strict": true
     },
@@ -58,19 +59,19 @@
                 "deprecated": true
               },
               "description": {
-                "type": "string",
                 "title": "Descripted property",
-                "description": "Descripted property."
+                "description": "Descripted property.",
+                "type": "string"
               },
               "title": {
-                "type": "string",
                 "title": "something",
-                "description": "Titled property."
+                "description": "Titled property.",
+                "type": "string"
               },
               "complicate_title": {
-                "type": "string",
                 "title": "something weirdo with {@link something } tag",
-                "description": "Complicate title."
+                "description": "Complicate title.",
+                "type": "string"
               }
             },
             "required": [
@@ -82,52 +83,6 @@
             "additionalProperties": false
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectJsonTag": {
-                  "type": "object",
-                  "properties": {
-                    "vulnerable": {
-                      "type": "string",
-                      "deprecated": true
-                    },
-                    "description": {
-                      "type": "string",
-                      "title": "Descripted property",
-                      "description": "Descripted property."
-                    },
-                    "title": {
-                      "type": "string",
-                      "title": "something",
-                      "description": "Titled property."
-                    },
-                    "complicate_title": {
-                      "type": "string",
-                      "title": "something weirdo with {@link something } tag",
-                      "description": "Complicate title."
-                    }
-                  },
-                  "required": [
-                    "vulnerable",
-                    "description",
-                    "title",
-                    "complicate_title"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectJsonTag"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -140,19 +95,19 @@
                     "deprecated": true
                   },
                   "description": {
-                    "type": "string",
                     "title": "Descripted property",
-                    "description": "Descripted property."
+                    "description": "Descripted property.",
+                    "type": "string"
                   },
                   "title": {
-                    "type": "string",
                     "title": "something",
-                    "description": "Titled property."
+                    "description": "Titled property.",
+                    "type": "string"
                   },
                   "complicate_title": {
-                    "type": "string",
                     "title": "something weirdo with {@link something } tag",
-                    "description": "Complicate title."
+                    "description": "Complicate title.",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -170,7 +125,8 @@
           "first",
           "second"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
         "type": "object",
@@ -180,19 +136,19 @@
             "deprecated": true
           },
           "description": {
-            "type": "string",
             "title": "Descripted property",
-            "description": "Descripted property."
+            "description": "Descripted property.",
+            "type": "string"
           },
           "title": {
-            "type": "string",
             "title": "something",
-            "description": "Titled property."
+            "description": "Titled property.",
+            "type": "string"
           },
           "complicate_title": {
-            "type": "string",
             "title": "something weirdo with {@link something } tag",
-            "description": "Complicate title."
+            "description": "Complicate title.",
+            "type": "string"
           }
         },
         "required": [
@@ -211,52 +167,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "components": {
-              "schemas": {
-                "ObjectJsonTag": {
-                  "type": "object",
-                  "properties": {
-                    "vulnerable": {
-                      "type": "string",
-                      "deprecated": true
-                    },
-                    "description": {
-                      "type": "string",
-                      "title": "Descripted property",
-                      "description": "Descripted property."
-                    },
-                    "title": {
-                      "type": "string",
-                      "title": "something",
-                      "description": "Titled property."
-                    },
-                    "complicate_title": {
-                      "type": "string",
-                      "title": "something weirdo with {@link something } tag",
-                      "description": "Complicate title."
-                    }
-                  },
-                  "required": [
-                    "vulnerable",
-                    "description",
-                    "title",
-                    "complicate_title"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectJsonTag"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -269,19 +179,19 @@
                     "deprecated": true
                   },
                   "description": {
-                    "type": "string",
                     "title": "Descripted property",
-                    "description": "Descripted property."
+                    "description": "Descripted property.",
+                    "type": "string"
                   },
                   "title": {
-                    "type": "string",
                     "title": "something",
-                    "description": "Titled property."
+                    "description": "Titled property.",
+                    "type": "string"
                   },
                   "complicate_title": {
-                    "type": "string",
                     "title": "something weirdo with {@link something } tag",
-                    "description": "Complicate title."
+                    "description": "Complicate title.",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -295,52 +205,6 @@
             ]
           },
           "second": {
-            "components": {
-              "schemas": {
-                "ObjectJsonTag": {
-                  "type": "object",
-                  "properties": {
-                    "vulnerable": {
-                      "type": "string",
-                      "deprecated": true
-                    },
-                    "description": {
-                      "type": "string",
-                      "title": "Descripted property",
-                      "description": "Descripted property."
-                    },
-                    "title": {
-                      "type": "string",
-                      "title": "something",
-                      "description": "Titled property."
-                    },
-                    "complicate_title": {
-                      "type": "string",
-                      "title": "something weirdo with {@link something } tag",
-                      "description": "Complicate title."
-                    }
-                  },
-                  "required": [
-                    "vulnerable",
-                    "description",
-                    "title",
-                    "complicate_title"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectJsonTag"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -353,19 +217,19 @@
                     "deprecated": true
                   },
                   "description": {
-                    "type": "string",
                     "title": "Descripted property",
-                    "description": "Descripted property."
+                    "description": "Descripted property.",
+                    "type": "string"
                   },
                   "title": {
-                    "type": "string",
                     "title": "something",
-                    "description": "Titled property."
+                    "description": "Titled property.",
+                    "type": "string"
                   },
                   "complicate_title": {
-                    "type": "string",
                     "title": "something weirdo with {@link something } tag",
-                    "description": "Complicate title."
+                    "description": "Complicate title.",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -379,52 +243,6 @@
             ]
           },
           "third": {
-            "components": {
-              "schemas": {
-                "ObjectJsonTag": {
-                  "type": "object",
-                  "properties": {
-                    "vulnerable": {
-                      "type": "string",
-                      "deprecated": true
-                    },
-                    "description": {
-                      "type": "string",
-                      "title": "Descripted property",
-                      "description": "Descripted property."
-                    },
-                    "title": {
-                      "type": "string",
-                      "title": "something",
-                      "description": "Titled property."
-                    },
-                    "complicate_title": {
-                      "type": "string",
-                      "title": "something weirdo with {@link something } tag",
-                      "description": "Complicate title."
-                    }
-                  },
-                  "required": [
-                    "vulnerable",
-                    "description",
-                    "title",
-                    "complicate_title"
-                  ]
-                }
-              }
-            },
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "$ref": "#/components/schemas/ObjectJsonTag"
-                }
-              ]
-            },
-            "recursive": 3,
-            "visited": {},
             "oneOf": [
               {
                 "type": "null"
@@ -437,19 +255,19 @@
                     "deprecated": true
                   },
                   "description": {
-                    "type": "string",
                     "title": "Descripted property",
-                    "description": "Descripted property."
+                    "description": "Descripted property.",
+                    "type": "string"
                   },
                   "title": {
-                    "type": "string",
                     "title": "something",
-                    "description": "Titled property."
+                    "description": "Titled property.",
+                    "type": "string"
                   },
                   "complicate_title": {
-                    "type": "string",
                     "title": "something weirdo with {@link something } tag",
-                    "description": "Complicate title."
+                    "description": "Complicate title.",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -465,57 +283,13 @@
         },
         "required": [
           "first",
-          "second"
+          "second",
+          "third"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "$defs": {}
       },
       "output": {
-        "components": {
-          "schemas": {
-            "ObjectJsonTag": {
-              "type": "object",
-              "properties": {
-                "vulnerable": {
-                  "type": "string",
-                  "deprecated": true
-                },
-                "description": {
-                  "type": "string",
-                  "title": "Descripted property",
-                  "description": "Descripted property."
-                },
-                "title": {
-                  "type": "string",
-                  "title": "something",
-                  "description": "Titled property."
-                },
-                "complicate_title": {
-                  "type": "string",
-                  "title": "something weirdo with {@link something } tag",
-                  "description": "Complicate title."
-                }
-              },
-              "required": [
-                "vulnerable",
-                "description",
-                "title",
-                "complicate_title"
-              ]
-            }
-          }
-        },
-        "schema": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectJsonTag"
-            }
-          ]
-        },
-        "recursive": 3,
-        "visited": {},
         "oneOf": [
           {
             "type": "null"
@@ -528,19 +302,19 @@
                 "deprecated": true
               },
               "description": {
-                "type": "string",
                 "title": "Descripted property",
-                "description": "Descripted property."
+                "description": "Descripted property.",
+                "type": "string"
               },
               "title": {
-                "type": "string",
                 "title": "something",
-                "description": "Titled property."
+                "description": "Titled property.",
+                "type": "string"
               },
               "complicate_title": {
-                "type": "string",
                 "title": "something weirdo with {@link something } tag",
-                "description": "Complicate title."
+                "description": "Complicate title.",
+                "type": "string"
               }
             },
             "required": [
@@ -558,6 +332,8 @@
   ],
   "options": {
     "separate": null,
-    "recursive": 3
+    "constraint": false,
+    "recursive": 3,
+    "reference": false
   }
 }

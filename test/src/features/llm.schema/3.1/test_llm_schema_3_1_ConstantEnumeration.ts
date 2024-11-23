@@ -6,4 +6,4 @@ import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 export const test_llm_schema_3_1_ConstantEnumeration = _test_llm_schema({
   model: "3.1",
   name: "ConstantEnumeration",
-})(typia.llm.schema<ConstantEnumeration, "3.1">());
+})(typia.llm.schema<ConstantEnumeration, "3.1">({}));
