@@ -86,9 +86,7 @@
     }
   ],
   "options": {
-    "separate": null,
-    "constraint": false,
     "recursive": 3,
-    "reference": false
+    "separate": null
   }
 }

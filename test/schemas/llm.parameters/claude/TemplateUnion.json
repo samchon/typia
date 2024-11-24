@@ -1,0 +1,421 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "type": "string",
+                "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+              },
+              "postfix": {
+                "type": "string",
+                "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+              },
+              "middle": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                  },
+                  {
+                    "const": "the_false_value"
+                  },
+                  {
+                    "const": "the_true_value"
+                  }
+                ]
+              },
+              "mixed": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                  },
+                  {
+                    "const": "the_A_value"
+                  },
+                  {
+                    "const": "the_B_value"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "prefix",
+              "postfix",
+              "middle",
+              "mixed"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "prefix": {
+                    "type": "string",
+                    "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                  },
+                  "postfix": {
+                    "type": "string",
+                    "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                  },
+                  "middle": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      },
+                      {
+                        "const": "the_false_value"
+                      },
+                      {
+                        "const": "the_true_value"
+                      }
+                    ]
+                  },
+                  "mixed": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      },
+                      {
+                        "const": "the_A_value"
+                      },
+                      {
+                        "const": "the_B_value"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "prefix",
+                  "postfix",
+                  "middle",
+                  "mixed"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "type": "string",
+                "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+              },
+              "postfix": {
+                "type": "string",
+                "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+              },
+              "middle": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                  },
+                  {
+                    "const": "the_false_value"
+                  },
+                  {
+                    "const": "the_true_value"
+                  }
+                ]
+              },
+              "mixed": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                  },
+                  {
+                    "const": "the_A_value"
+                  },
+                  {
+                    "const": "the_B_value"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "prefix",
+              "postfix",
+              "middle",
+              "mixed"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "prefix": {
+                    "type": "string",
+                    "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                  },
+                  "postfix": {
+                    "type": "string",
+                    "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                  },
+                  "middle": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      },
+                      {
+                        "const": "the_false_value"
+                      },
+                      {
+                        "const": "the_true_value"
+                      }
+                    ]
+                  },
+                  "mixed": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      },
+                      {
+                        "const": "the_A_value"
+                      },
+                      {
+                        "const": "the_B_value"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "prefix",
+                  "postfix",
+                  "middle",
+                  "mixed"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "prefix": {
+                  "type": "string",
+                  "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                },
+                "postfix": {
+                  "type": "string",
+                  "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                },
+                "middle": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    },
+                    {
+                      "const": "the_false_value"
+                    },
+                    {
+                      "const": "the_true_value"
+                    }
+                  ]
+                },
+                "mixed": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    },
+                    {
+                      "const": "the_A_value"
+                    },
+                    {
+                      "const": "the_B_value"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "prefix",
+                "postfix",
+                "middle",
+                "mixed"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

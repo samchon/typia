@@ -666,8 +666,6 @@
           }
         },
         "required": [
-          "properties",
-          "required",
           "type"
         ],
         "description": "Object type info."

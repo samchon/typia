@@ -123,4 +123,4 @@ export namespace TestLlmParametersGenerator {
   }
 }
 
-const MODELS = ["3.0", "3.1", "chatgpt", "gemini"];
+const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini"];

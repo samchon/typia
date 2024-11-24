@@ -34,10 +34,11 @@ export namespace LlmApplicationTransformer {
         checker: props.context.checker,
         name: "Model",
         is: (value) =>
-          value === "3.1" ||
-          value === "3.0" ||
           value === "chatgpt" ||
-          value === "gemini",
+          value === "gemini" ||
+          value === "claude" ||
+          value === "3.1" ||
+          value === "3.0",
         cast: (value) => value as ILlmApplication.Model,
         default: () => "3.1",
       })(props.expression.typeArguments[1]);

@@ -32,11 +32,7 @@ export namespace LlmSchemaProgrammer {
     const $defs: Record<string, ILlmApplication.ModelSchema[Model]> = {};
     const schema: ILlmApplication.ModelSchema[Model] | null =
       LlmSchemaConverter.schema(props.model)({
-        config: {
-          recursive: 3,
-          reference: false,
-          constraint: false,
-        },
+        config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: collection.components,
         schema: collection.schemas[0]!,
         $defs: $defs as any,

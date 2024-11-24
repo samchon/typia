@@ -12,9 +12,11 @@
               "type": "string",
               "description": "@format uuid"
             },
-            "description": "@minItems 4\n@maxItems 4"
+            "minItems": 4,
+            "maxItems": 4
           },
-          "description": "@minItems 3\n@maxItems 3"
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [
@@ -32,9 +34,11 @@
               "type": "string",
               "description": "@format uuid"
             },
-            "description": "@minItems 4\n@maxItems 4"
+            "minItems": 4,
+            "maxItems": 4
           },
-          "description": "@minItems 3\n@maxItems 3"
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [
@@ -53,9 +57,11 @@
               "type": "string",
               "description": "@format uuid"
             },
-            "description": "@minItems 4\n@maxItems 4"
+            "minItems": 4,
+            "maxItems": 4
           },
-          "description": "@minItems 3\n@maxItems 3"
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [
@@ -73,9 +79,11 @@
               "type": "string",
               "description": "@format uuid"
             },
-            "description": "@minItems 4\n@maxItems 4"
+            "minItems": 4,
+            "maxItems": 4
           },
-          "description": "@minItems 3\n@maxItems 3"
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [
@@ -96,9 +104,11 @@
                 "type": "string",
                 "description": "@format uuid"
               },
-              "description": "@minItems 4\n@maxItems 4"
+              "minItems": 4,
+              "maxItems": 4
             },
-            "description": "@minItems 3\n@maxItems 3"
+            "minItems": 3,
+            "maxItems": 3
           }
         },
         "required": [

@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "int": {
+            "title": "Integer value",
+            "description": "Integer value.",
+            "type": "integer"
+          },
+          "uint": {
+            "title": "Unsigned integer value",
+            "description": "Unsigned integer value.",
+            "type": "integer"
+          },
+          "int32": {
+            "type": "integer"
+          },
+          "uint32": {
+            "type": "integer"
+          },
+          "int64": {
+            "type": "integer"
+          },
+          "uint64": {
+            "type": "integer"
+          },
+          "float": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "int",
+          "uint",
+          "int32",
+          "uint32",
+          "int64",
+          "uint64",
+          "float"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}

@@ -10,12 +10,11 @@
             "oneOf": [
               {
                 "type": "string",
-                "minLength": 3,
-                "maxLength": 7
+                "description": "@minLength 3\n@maxLength 7"
               },
               {
                 "type": "number",
-                "minimum": 3
+                "description": "@minimum 3"
               }
             ]
           }
