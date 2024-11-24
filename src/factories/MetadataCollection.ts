@@ -83,7 +83,7 @@ export class MetadataCollection {
       const str: string = TypeFactory.getFullName(checker)(type);
       return this.options?.replace ? this.options.replace(str) : str;
     })();
-
+    if (name !== "__type") return name;
     const duplicates: Map<ts.Type, string> = MapUtil.take(this.names_)(
       name,
       () => new Map(),

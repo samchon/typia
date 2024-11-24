@@ -372,7 +372,7 @@
               "rest": null,
               "arrays": [
                 {
-                  "name": "Array<ArrayRecursiveUnionExplicitPointer.IBucket>.o1",
+                  "name": "Array<ArrayRecursiveUnionExplicitPointer.IBucket>",
                   "tags": []
                 }
               ],
@@ -2191,9 +2191,8 @@
         ],
         "recursive": false,
         "index": null
-      },
-      {
-        "name": "Array<ArrayRecursiveUnionExplicitPointer.IBucket>.o1",
+      },  {
+        "name": "Array<ArrayRecursiveUnionExplicitPointer.IBucket>",
         "value": {
           "any": false,
           "required": true,
