@@ -117,7 +117,10 @@ export namespace LlmApplicationProgrammer {
           function: func,
         }),
       ),
-      options: DEFAULT_CONFIG,
+      options: {
+        ...LlmSchemaConverter.defaultConfig(props.model),
+        separate: null,
+      },
     };
   };
 
@@ -189,7 +192,7 @@ export namespace LlmApplicationProgrammer {
     };
     const parameters: ILlmApplication.ModelParameters[Model] | null =
       LlmSchemaConverter.parameters(props.model)({
-        config: DEFAULT_CONFIG,
+        config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: props.components,
         schema,
       }) as ILlmApplication.ModelParameters[Model] | null;
@@ -207,7 +210,7 @@ export namespace LlmApplicationProgrammer {
     if (props.schema === null) return null;
     const output: ILlmApplication.ModelSchema[Model] | null =
       LlmSchemaConverter.schema(props.model)({
-        config: DEFAULT_CONFIG,
+        config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: props.components,
         schema: props.schema,
         $defs: (props.parameters as any).$defs,
@@ -217,10 +220,3 @@ export namespace LlmApplicationProgrammer {
     return output;
   };
 }
-
-const DEFAULT_CONFIG = {
-  separate: null,
-  constraint: false,
-  recursive: 3,
-  reference: false,
-};
