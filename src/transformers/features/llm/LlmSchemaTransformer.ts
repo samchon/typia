@@ -1,4 +1,5 @@
 import { ILlmApplication } from "@samchon/openapi";
+import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../../factories/IdentifierFactory";
@@ -35,11 +36,8 @@ export namespace LlmSchemaTransformer {
         checker: props.context.checker,
         name: "Model",
         is: (value) =>
-          value === "chatgpt" ||
-          value === "gemini" ||
-          value === "claude" ||
-          value === "3.1" ||
-          value === "3.0",
+          LlmSchemaConverter.defaultConfig(value as ILlmApplication.Model) !==
+          undefined,
         cast: (value) => value as ILlmApplication.Model,
         default: () => "3.1",
       })(props.expression.typeArguments[1]);
