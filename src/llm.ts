@@ -40,7 +40,7 @@ import { ILlmApplication } from "@samchon/openapi";
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application(
-  options?: Partial<Omit<ILlmApplication.IOptions<any>, "recursive">>,
+  options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
 ): never;
 
 /**
