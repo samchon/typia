@@ -10,12 +10,12 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string",
-                "default": "something"
+                "description": "@default something",
+                "type": "string"
               },
               "age": {
-                "type": "number",
-                "default": 20
+                "description": "@default 20",
+                "type": "number"
               }
             },
             "required": [
@@ -42,12 +42,12 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string",
-                "default": "something"
+                "description": "@default something",
+                "type": "string"
               },
               "age": {
-                "type": "number",
-                "default": 20
+                "description": "@default 20",
+                "type": "number"
               }
             },
             "required": [
@@ -65,12 +65,12 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
-                    "default": "something"
+                    "description": "@default something",
+                    "type": "string"
                   },
                   "age": {
-                    "type": "number",
-                    "default": 20
+                    "description": "@default 20",
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -93,12 +93,12 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "default": "something"
+            "description": "@default something",
+            "type": "string"
           },
           "age": {
-            "type": "number",
-            "default": 20
+            "description": "@default 20",
+            "type": "number"
           }
         },
         "required": [
@@ -123,12 +123,12 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
-                    "default": "something"
+                    "description": "@default something",
+                    "type": "string"
                   },
                   "age": {
-                    "type": "number",
-                    "default": 20
+                    "description": "@default 20",
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -148,12 +148,12 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
-                    "default": "something"
+                    "description": "@default something",
+                    "type": "string"
                   },
                   "age": {
-                    "type": "number",
-                    "default": 20
+                    "description": "@default 20",
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -173,12 +173,12 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
-                    "default": "something"
+                    "description": "@default something",
+                    "type": "string"
                   },
                   "age": {
-                    "type": "number",
-                    "default": 20
+                    "description": "@default 20",
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -207,12 +207,12 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string",
-                "default": "something"
+                "description": "@default something",
+                "type": "string"
               },
               "age": {
-                "type": "number",
-                "default": 20
+                "description": "@default 20",
+                "type": "number"
               }
             },
             "required": [
@@ -227,9 +227,8 @@
     }
   ],
   "options": {
-    "separate": null,
     "constraint": false,
-    "recursive": 3,
-    "reference": false
+    "reference": false,
+    "separate": null
   }
 }

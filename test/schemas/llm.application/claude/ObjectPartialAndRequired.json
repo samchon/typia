@@ -1,0 +1,230 @@
+{
+  "model": "claude",
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectPartialAndRequired"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPartialAndRequired": {
+            "type": "object",
+            "properties": {
+              "string": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "boolean": {
+                "type": "boolean"
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectPartialAndRequired"
+                  }
+                ]
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "array"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectPartialAndRequired"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPartialAndRequired": {
+            "type": "object",
+            "properties": {
+              "string": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "boolean": {
+                "type": "boolean"
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectPartialAndRequired"
+                  }
+                ]
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "array"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectPartialAndRequired"
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectPartialAndRequired"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second",
+          "third"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectPartialAndRequired": {
+            "type": "object",
+            "properties": {
+              "string": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "boolean": {
+                "type": "boolean"
+              },
+              "object": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectPartialAndRequired"
+                  }
+                ]
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "array"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectPartialAndRequired"
+          }
+        ]
+      },
+      "strict": true
+    }
+  ],
+  "options": {
+    "reference": false,
+    "separate": null
+  }
+}

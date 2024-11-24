@@ -11,7 +11,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               },
               "dollar": {
                 "type": "string",
@@ -52,7 +52,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               },
               "dollar": {
                 "type": "string",
@@ -80,7 +80,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               },
               "dollar": {
                 "type": "string",
@@ -116,7 +116,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "description": "@format uuid"
           },
           "dollar": {
             "type": "string",
@@ -151,7 +151,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               },
               "dollar": {
                 "type": "string",
@@ -180,7 +180,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               },
               "dollar": {
                 "type": "string",
@@ -209,7 +209,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid"
+                "description": "@format uuid"
               },
               "dollar": {
                 "type": "string",
@@ -245,7 +245,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "description": "@format uuid"
           },
           "dollar": {
             "type": "string",
@@ -273,9 +273,8 @@
     }
   ],
   "options": {
-    "separate": null,
     "constraint": false,
     "recursive": 3,
-    "reference": false
+    "separate": null
   }
 }

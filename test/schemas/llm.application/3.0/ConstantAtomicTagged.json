@@ -11,16 +11,16 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
                 "enum": [
                   "latest"
-                ]
+                ],
+                "description": "@format uuid"
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   },
                   {
                     "type": "number",
@@ -55,16 +55,16 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
                 "enum": [
                   "latest"
-                ]
+                ],
+                "description": "@format uuid"
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   },
                   {
                     "type": "number",
@@ -86,16 +86,16 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
                 "enum": [
                   "latest"
-                ]
+                ],
+                "description": "@format uuid"
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   },
                   {
                     "type": "number",
@@ -125,16 +125,16 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
             "enum": [
               "latest"
-            ]
+            ],
+            "description": "@format uuid"
           },
           "age": {
             "oneOf": [
               {
                 "type": "integer",
-                "maximum": 100
+                "description": "@maximum 100"
               },
               {
                 "type": "number",
@@ -163,16 +163,16 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
                 "enum": [
                   "latest"
-                ]
+                ],
+                "description": "@format uuid"
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   },
                   {
                     "type": "number",
@@ -195,16 +195,16 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
                 "enum": [
                   "latest"
-                ]
+                ],
+                "description": "@format uuid"
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   },
                   {
                     "type": "number",
@@ -227,16 +227,16 @@
             "properties": {
               "id": {
                 "type": "string",
-                "format": "uuid",
                 "enum": [
                   "latest"
-                ]
+                ],
+                "description": "@format uuid"
               },
               "age": {
                 "oneOf": [
                   {
                     "type": "integer",
-                    "maximum": 100
+                    "description": "@maximum 100"
                   },
                   {
                     "type": "number",
@@ -266,16 +266,16 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
             "enum": [
               "latest"
-            ]
+            ],
+            "description": "@format uuid"
           },
           "age": {
             "oneOf": [
               {
                 "type": "integer",
-                "maximum": 100
+                "description": "@maximum 100"
               },
               {
                 "type": "number",
@@ -297,9 +297,8 @@
     }
   ],
   "options": {
-    "separate": null,
     "constraint": false,
     "recursive": 3,
-    "reference": false
+    "separate": null
   }
 }

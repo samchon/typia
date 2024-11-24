@@ -7,7 +7,7 @@
         "type": "array",
         "items": {
           "type": "string",
-          "format": "uuid"
+          "description": "@format uuid"
         },
         "minItems": 3,
         "maxItems": 3
@@ -16,7 +16,7 @@
         "type": "array",
         "items": {
           "type": "number",
-          "minimum": 3
+          "description": "@minimum 3"
         },
         "minItems": 3
       },
@@ -26,11 +26,11 @@
           "oneOf": [
             {
               "type": "string",
-              "maxLength": 7
+              "description": "@maxLength 7"
             },
             {
               "type": "number",
-              "maximum": 7
+              "description": "@maximum 7"
             }
           ]
         },
@@ -40,7 +40,7 @@
         "type": "array",
         "items": {
           "type": "string",
-          "format": "uuid"
+          "description": "@format uuid"
         },
         "minItems": 3,
         "maxItems": 7

@@ -32,11 +32,7 @@ export namespace LlmParametersProgrammer {
 
     const parameters: ILlmApplication.ModelParameters[Model] | null =
       LlmSchemaConverter.parameters(props.model)({
-        config: {
-          recursive: 3,
-          reference: false,
-          constraint: false,
-        },
+        config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: collection.components,
         schema,
       }) as ILlmApplication.ModelParameters[Model] | null;

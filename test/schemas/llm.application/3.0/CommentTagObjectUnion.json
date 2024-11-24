@@ -15,7 +15,7 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   },
                   "required": [
@@ -28,8 +28,7 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     }
                   },
                   "required": [
@@ -62,7 +61,7 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   },
                   "required": [
@@ -75,8 +74,7 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     }
                   },
                   "required": [
@@ -96,7 +94,7 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   },
                   "required": [
@@ -109,8 +107,7 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     }
                   },
                   "required": [
@@ -138,7 +135,7 @@
               "properties": {
                 "value": {
                   "type": "number",
-                  "minimum": 3
+                  "description": "@minimum 3"
                 }
               },
               "required": [
@@ -151,8 +148,7 @@
               "properties": {
                 "value": {
                   "type": "string",
-                  "minLength": 3,
-                  "maxLength": 7
+                  "description": "@minLength 3\n@maxLength 7"
                 }
               },
               "required": [
@@ -179,7 +175,7 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   },
                   "required": [
@@ -192,8 +188,7 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     }
                   },
                   "required": [
@@ -214,7 +209,7 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   },
                   "required": [
@@ -227,8 +222,7 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     }
                   },
                   "required": [
@@ -249,7 +243,7 @@
                   "properties": {
                     "value": {
                       "type": "number",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     }
                   },
                   "required": [
@@ -262,8 +256,7 @@
                   "properties": {
                     "value": {
                       "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
+                      "description": "@minLength 3\n@maxLength 7"
                     }
                   },
                   "required": [
@@ -291,7 +284,7 @@
               "properties": {
                 "value": {
                   "type": "number",
-                  "minimum": 3
+                  "description": "@minimum 3"
                 }
               },
               "required": [
@@ -304,8 +297,7 @@
               "properties": {
                 "value": {
                   "type": "string",
-                  "minLength": 3,
-                  "maxLength": 7
+                  "description": "@minLength 3\n@maxLength 7"
                 }
               },
               "required": [
@@ -321,9 +313,8 @@
     }
   ],
   "options": {
-    "separate": null,
     "constraint": false,
     "recursive": 3,
-    "reference": false
+    "separate": null
   }
 }

@@ -14,35 +14,38 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 3"
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 3"
+                "minItems": 3
               },
               "both": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 7"
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 10\n@maxItems 10"
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@uniqueItems"
+                "uniqueItems": true
               }
             },
             "required": [
@@ -72,35 +75,38 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 3"
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 3"
+                "minItems": 3
               },
               "both": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 7"
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 10\n@maxItems 10"
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@uniqueItems"
+                "uniqueItems": true
               }
             },
             "required": [
@@ -131,35 +137,38 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 3"
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 3"
+                "minItems": 3
               },
               "both": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 7"
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 10\n@maxItems 10"
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@uniqueItems"
+                "uniqueItems": true
               }
             },
             "required": [
@@ -189,35 +198,38 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 3"
+                "minItems": 3,
+                "maxItems": 3
               },
               "minItems": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 3"
+                "minItems": 3
               },
               "both": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@minItems 3\n@maxItems 7"
+                "minItems": 3,
+                "maxItems": 7
               },
               "equal": {
                 "type": "array",
                 "items": {
                   "type": "number"
                 },
-                "description": "@minItems 10\n@maxItems 10"
+                "minItems": 10,
+                "maxItems": 10
               },
               "unique": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "@uniqueItems"
+                "uniqueItems": true
               }
             },
             "required": [
@@ -250,35 +262,38 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "@minItems 3\n@maxItems 3"
+                  "minItems": 3,
+                  "maxItems": 3
                 },
                 "minItems": {
                   "type": "array",
                   "items": {
                     "type": "number"
                   },
-                  "description": "@minItems 3"
+                  "minItems": 3
                 },
                 "both": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   },
-                  "description": "@minItems 3\n@maxItems 7"
+                  "minItems": 3,
+                  "maxItems": 7
                 },
                 "equal": {
                   "type": "array",
                   "items": {
                     "type": "number"
                   },
-                  "description": "@minItems 10\n@maxItems 10"
+                  "minItems": 10,
+                  "maxItems": 10
                 },
                 "unique": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   },
-                  "description": "@uniqueItems"
+                  "uniqueItems": true
                 }
               },
               "required": [

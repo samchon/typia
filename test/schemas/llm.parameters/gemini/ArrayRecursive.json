@@ -22,7 +22,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "description": "@maxItems 0"
+                            "maxItems": 0
                           },
                           "id": {
                             "type": "number"
@@ -180,7 +180,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "description": "@maxItems 0"
+                            "maxItems": 0
                           },
                           "id": {
                             "type": "number"
@@ -339,7 +339,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "description": "@maxItems 0"
+                            "maxItems": 0
                           },
                           "id": {
                             "type": "number"
@@ -497,7 +497,7 @@
                           "children": {
                             "type": "array",
                             "items": {},
-                            "description": "@maxItems 0"
+                            "maxItems": 0
                           },
                           "id": {
                             "type": "number"
@@ -658,7 +658,7 @@
                             "children": {
                               "type": "array",
                               "items": {},
-                              "description": "@maxItems 0"
+                              "maxItems": 0
                             },
                             "id": {
                               "type": "number"

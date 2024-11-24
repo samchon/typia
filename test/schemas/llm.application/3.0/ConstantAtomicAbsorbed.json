@@ -11,11 +11,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "default": "something"
+                "description": "@default something"
               },
               "age": {
                 "type": "number",
-                "default": 20
+                "description": "@default 20"
               }
             },
             "required": [
@@ -42,11 +42,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "default": "something"
+                "description": "@default something"
               },
               "age": {
                 "type": "number",
-                "default": 20
+                "description": "@default 20"
               }
             },
             "required": [
@@ -60,11 +60,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "default": "something"
+                "description": "@default something"
               },
               "age": {
                 "type": "number",
-                "default": 20
+                "description": "@default 20"
               }
             },
             "required": [
@@ -86,11 +86,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "default": "something"
+            "description": "@default something"
           },
           "age": {
             "type": "number",
-            "default": 20
+            "description": "@default 20"
           }
         },
         "required": [
@@ -111,11 +111,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "default": "something"
+                "description": "@default something"
               },
               "age": {
                 "type": "number",
-                "default": 20
+                "description": "@default 20"
               }
             },
             "required": [
@@ -130,11 +130,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "default": "something"
+                "description": "@default something"
               },
               "age": {
                 "type": "number",
-                "default": 20
+                "description": "@default 20"
               }
             },
             "required": [
@@ -149,11 +149,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "default": "something"
+                "description": "@default something"
               },
               "age": {
                 "type": "number",
-                "default": 20
+                "description": "@default 20"
               }
             },
             "required": [
@@ -175,11 +175,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "default": "something"
+            "description": "@default something"
           },
           "age": {
             "type": "number",
-            "default": 20
+            "description": "@default 20"
           }
         },
         "required": [
@@ -193,9 +193,8 @@
     }
   ],
   "options": {
-    "separate": null,
     "constraint": false,
     "recursive": 3,
-    "reference": false
+    "separate": null
   }
 }

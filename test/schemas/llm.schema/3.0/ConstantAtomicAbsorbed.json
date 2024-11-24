@@ -3,11 +3,11 @@
   "properties": {
     "id": {
       "type": "string",
-      "default": "something"
+      "description": "@default something"
     },
     "age": {
       "type": "number",
-      "default": 20
+      "description": "@default 20"
     }
   },
   "required": [
