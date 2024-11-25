@@ -19,13 +19,13 @@ const main = async (): Promise<void> => {
   }
   await DeployRunner.main({
     tag,
-    publish: tag !== "tgz",
+    publish: tag !== "test",
     setup: true,
     testExecutors: [
       {
         name: "test",
         commands:
-          tag === "tgz" && template === true
+          tag === "test" && template === true
             ? [
                 "npm run template",
                 "npm run build",
