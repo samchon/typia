@@ -62,7 +62,7 @@
     "ts-node": "^10.9.1",
     "ts-patch": "^3.2.0",
     "tstl": "^3.0.0",
-    "typescript": "^5.3.2",
+    "typescript": "5.6.3",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
   },
@@ -72,6 +72,6 @@
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
     "uuid": "^9.0.1",
-    "typia": "../typia-7.0.0-dev.20241125-2.tgz"
+    "typia": "../"
   }
 }

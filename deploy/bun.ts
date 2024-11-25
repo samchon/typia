@@ -26,7 +26,7 @@ const main = async (): Promise<void> => {
   });
   if (skipSetup === undefined) throw new Error("skipSetup is undefined");
   await DeployRunner.main({
-    tag: "tgz",
+    tag: "test",
     publish: false,
     setup: !skipSetup,
     testExecutors: [
