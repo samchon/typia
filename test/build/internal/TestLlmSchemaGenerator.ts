@@ -113,5 +113,5 @@ export namespace TestLlmSchemaGenerator {
   }
 }
 
-const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini"];
-const REFERENCABLE = ["3.1", "claude", "chatgpt"];
+const MODELS = ["3.0", "3.1", "chatgpt", "claude", "llama", "gemini"];
+const REFERENCABLE = ["3.1", "chatgpt", "claude", "llama"];

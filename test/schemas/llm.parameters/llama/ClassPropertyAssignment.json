@@ -1,0 +1,171 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "const": "assignment"
+        },
+        "editable": {
+          "const": false
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "note": {
+              "const": "assignment"
+            },
+            "editable": {
+              "const": false
+            },
+            "incremental": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "note",
+            "editable",
+            "incremental"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "const": "assignment"
+        },
+        "editable": {
+          "const": false
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "note": {
+              "const": "assignment"
+            },
+            "editable": {
+              "const": false
+            },
+            "incremental": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "note",
+            "editable",
+            "incremental"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "const": "assignment"
+          },
+          "editable": {
+            "const": false
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

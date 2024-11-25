@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "flag": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "flag"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "flag": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "flag"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "flag": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "flag"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "flag": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "flag"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}
