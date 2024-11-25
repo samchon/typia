@@ -29,9 +29,9 @@
   "devDependencies": {
     "rimraf": "^5.0.5",
     "ts-patch": "^3.2.0",
-    "typescript": "^5.3.2"
+    "typescript": "5.6.3"
   },
   "dependencies": {
-    "typia": "../typia-7.0.0-dev.20241125-2.tgz"
+    "typia": "../"
   }
 }

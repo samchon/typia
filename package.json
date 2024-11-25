@@ -14,12 +14,12 @@
     }
   },
   "scripts": {
-    "test": "npm run package:tgz",
+    "test": "ts-node deploy --tag test",
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
-    "dev": "tsc --project tsconfig.test.json --watch",
+    "dev": "rimraf lib && tsc --watch",
     "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
@@ -28,7 +28,6 @@
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
     "package:patch": "ts-node deploy --tag patch",
-    "package:tgz": "ts-node deploy --tag tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
