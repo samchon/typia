@@ -1,0 +1,271 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer"
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer"
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer"
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "int": {
+                    "type": "integer"
+                  },
+                  "uint": {
+                    "type": "integer"
+                  },
+                  "int32": {
+                    "type": "integer"
+                  },
+                  "uint32": {
+                    "type": "integer"
+                  },
+                  "int64": {
+                    "type": "integer"
+                  },
+                  "uint64": {
+                    "type": "integer"
+                  },
+                  "float": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "int",
+                  "uint",
+                  "int32",
+                  "uint32",
+                  "int64",
+                  "uint64",
+                  "float"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "type": "integer"
+              },
+              "uint": {
+                "type": "integer"
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "type": "integer"
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "type": "integer"
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "int": {
+                    "type": "integer"
+                  },
+                  "uint": {
+                    "type": "integer"
+                  },
+                  "int32": {
+                    "type": "integer"
+                  },
+                  "uint32": {
+                    "type": "integer"
+                  },
+                  "int64": {
+                    "type": "integer"
+                  },
+                  "uint64": {
+                    "type": "integer"
+                  },
+                  "float": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "int",
+                  "uint",
+                  "int32",
+                  "uint32",
+                  "int64",
+                  "uint64",
+                  "float"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer"
+                },
+                "uint": {
+                  "type": "integer"
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

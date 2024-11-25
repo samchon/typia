@@ -1,0 +1,201 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "const": false
+          },
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "three"
+          },
+          {
+            "const": "four"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "const": "key"
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "const": false
+          },
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "three"
+          },
+          {
+            "const": "four"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "const": "key"
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "const": 1
+            },
+            {
+              "const": 2
+            },
+            {
+              "const": "three"
+            },
+            {
+              "const": "four"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "const": "key"
+                }
+              },
+              "required": [
+                "key"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

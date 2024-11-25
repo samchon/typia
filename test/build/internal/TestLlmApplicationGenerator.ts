@@ -125,4 +125,4 @@ export namespace TestLlmApplicationGenerator {
   }
 }
 
-const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini"];
+const MODELS = ["3.0", "3.1", "chatgpt", "claude", "gemini", "llama"];

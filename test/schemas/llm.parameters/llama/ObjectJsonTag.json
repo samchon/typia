@@ -1,0 +1,186 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "vulnerable": {
+          "type": "string",
+          "deprecated": true
+        },
+        "description": {
+          "title": "Descripted property",
+          "description": "Descripted property.",
+          "type": "string"
+        },
+        "title": {
+          "title": "something",
+          "description": "Titled property.",
+          "type": "string"
+        },
+        "complicate_title": {
+          "title": "something weirdo with {@link something } tag",
+          "description": "Complicate title.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vulnerable",
+        "description",
+        "title",
+        "complicate_title"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "vulnerable": {
+              "type": "string",
+              "deprecated": true
+            },
+            "description": {
+              "title": "Descripted property",
+              "description": "Descripted property.",
+              "type": "string"
+            },
+            "title": {
+              "title": "something",
+              "description": "Titled property.",
+              "type": "string"
+            },
+            "complicate_title": {
+              "title": "something weirdo with {@link something } tag",
+              "description": "Complicate title.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "vulnerable",
+            "description",
+            "title",
+            "complicate_title"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "vulnerable": {
+          "type": "string",
+          "deprecated": true
+        },
+        "description": {
+          "title": "Descripted property",
+          "description": "Descripted property.",
+          "type": "string"
+        },
+        "title": {
+          "title": "something",
+          "description": "Titled property.",
+          "type": "string"
+        },
+        "complicate_title": {
+          "title": "something weirdo with {@link something } tag",
+          "description": "Complicate title.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vulnerable",
+        "description",
+        "title",
+        "complicate_title"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "vulnerable": {
+              "type": "string",
+              "deprecated": true
+            },
+            "description": {
+              "title": "Descripted property",
+              "description": "Descripted property.",
+              "type": "string"
+            },
+            "title": {
+              "title": "something",
+              "description": "Titled property.",
+              "type": "string"
+            },
+            "complicate_title": {
+              "title": "something weirdo with {@link something } tag",
+              "description": "Complicate title.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "vulnerable",
+            "description",
+            "title",
+            "complicate_title"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vulnerable": {
+            "type": "string",
+            "deprecated": true
+          },
+          "description": {
+            "title": "Descripted property",
+            "description": "Descripted property.",
+            "type": "string"
+          },
+          "title": {
+            "title": "something",
+            "description": "Titled property.",
+            "type": "string"
+          },
+          "complicate_title": {
+            "title": "something weirdo with {@link something } tag",
+            "description": "Complicate title.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "vulnerable",
+          "description",
+          "title",
+          "complicate_title"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}
