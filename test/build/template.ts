@@ -2,7 +2,7 @@ import cp from "child_process";
 import fs from "fs";
 
 import { TestFeature } from "./internal/TestFeature";
-import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
+// import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
 import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
@@ -163,7 +163,7 @@ async function main(): Promise<void> {
   if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
   await fs.promises.mkdir(schemas, { recursive: true });
 
-  await TestJsonApplicationGenerator.generate(structures);
+  // await TestJsonApplicationGenerator.generate(structures);
   await TestJsonSchemasGenerator.generate(structures);
   await TestProtobufMessageGenerator.generate(structures);
   await TestReflectMetadataGenerator.generate(structures);
@@ -171,7 +171,7 @@ async function main(): Promise<void> {
   // FILL SCHEMA CONTENTS
   cp.execSync("npm run build", { stdio: "inherit" });
 
-  await TestJsonApplicationGenerator.schemas();
+  // await TestJsonApplicationGenerator.schemas();
   await TestJsonSchemasGenerator.schemas();
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
