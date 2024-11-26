@@ -50,7 +50,7 @@ import { HttpQueryTransformer } from "./features/http/HttpQueryTransformer";
 import { HttpValidateFormDataTransformer } from "./features/http/HttpValidateFormDataTransformer";
 import { HttpValidateHeadersTransformer } from "./features/http/HttpValidateHeadersTransformer";
 import { HttpValidateQueryTransformer } from "./features/http/HttpValidateQueryTransformer";
-import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
+// import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
 import { JsonAssertParseTransformer } from "./features/json/JsonAssertParseTransformer";
 import { JsonAssertStringifyTransformer } from "./features/json/JsonAssertStringifyTransformer";
 import { JsonCreateAssertParseTransformer } from "./features/json/JsonCreateAssertParseTransformer";
@@ -400,7 +400,8 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
   },
   json: {
     // METADATA
-    application: () => JsonApplicationTransformer.transform,
+    // application: () => JsonApplicationTransformer.transform,
+    application: () => JsonSchemasTransformer.transform,
     schemas: () => JsonSchemasTransformer.transform,
 
     // PARSER

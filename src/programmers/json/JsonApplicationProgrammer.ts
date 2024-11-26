@@ -1,6 +1,6 @@
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { IJsonApplication } from "../../schemas/json/IJsonApplication";
+import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
 import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
@@ -60,7 +60,7 @@ export namespace JsonApplicationProgrammer {
   export const write = <Version extends "3.0" | "3.1">(props: {
     version: Version;
     metadata: Metadata;
-  }): IJsonApplication<Version> => {
+  }): __IJsonApplication<Version> => {
     const errors: string[] = validate(props.metadata, {
       top: true,
       object: null,
@@ -76,18 +76,18 @@ export namespace JsonApplicationProgrammer {
 
     const object: MetadataObjectType = props.metadata.objects[0]!.type;
     const definitions: Metadata[] = [];
-    const setters: Array<(schema: IJsonApplication.Schema<Version>) => void> =
+    const setters: Array<(schema: __IJsonApplication.Schema<Version>) => void> =
       [];
     const collect = (
       metadata: Metadata,
-      setter: (schema: IJsonApplication.Schema<Version>) => void,
+      setter: (schema: __IJsonApplication.Schema<Version>) => void,
     ): void => {
       definitions.push(metadata);
       setters.push(setter);
     };
 
-    const functions: IJsonApplication.IFunction<
-      IJsonApplication.Schema<Version>
+    const functions: __IJsonApplication.IFunction<
+      __IJsonApplication.Schema<Version>
     >[] = object.properties
       .filter(
         (p) =>
@@ -112,7 +112,7 @@ export namespace JsonApplicationProgrammer {
       metadatas: definitions,
     });
     schemas.forEach((s, i) =>
-      setters[i]?.(s as IJsonApplication.Schema<Version>),
+      setters[i]?.(s as __IJsonApplication.Schema<Version>),
     );
     return {
       version: props.version,
@@ -129,9 +129,9 @@ export namespace JsonApplicationProgrammer {
     jsDocTags: IJsDocTagInfo[];
     collect: (
       metadata: Metadata,
-      setter: (schema: IJsonApplication.Schema<Version>) => void,
+      setter: (schema: __IJsonApplication.Schema<Version>) => void,
     ) => void;
-  }): IJsonApplication.IFunction<IJsonApplication.Schema<Version>> => {
+  }): __IJsonApplication.IFunction<__IJsonApplication.Schema<Version>> => {
     const deprecated: boolean = props.jsDocTags.some(
       (tag) => tag.name === "deprecated",
     );
@@ -149,8 +149,8 @@ export namespace JsonApplicationProgrammer {
       name: props.name,
       async: props.function.async,
       parameters: props.function.parameters.map((param) => {
-        const appParam: IJsonApplication.IParameter<
-          IJsonApplication.Schema<Version>
+        const appParam: __IJsonApplication.IParameter<
+          __IJsonApplication.Schema<Version>
         > = {
           name: param.name,
           ...writeDescription({
@@ -178,8 +178,8 @@ export namespace JsonApplicationProgrammer {
       }),
       output: props.function.output.size()
         ? (() => {
-            const appOutput: IJsonApplication.IOutput<
-              IJsonApplication.Schema<Version>
+            const appOutput: __IJsonApplication.IOutput<
+              __IJsonApplication.Schema<Version>
             > = {
               schema: null!,
               required: props.function.output.isRequired(),
