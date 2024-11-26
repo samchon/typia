@@ -15,7 +15,7 @@
             "const": "3.1"
           },
           "components": {
-            "$ref": "#/components/schemas/OpenApi.IComponentsOpenApi.IJsonSchema"
+            "$ref": "#/components/schemas/OpenApi.IComponents"
           },
           "schemas": {
             "type": "array",
@@ -34,7 +34,7 @@
           "schemas"
         ]
       },
-      "OpenApi.IComponentsOpenApi.IJsonSchema": {
+      "OpenApi.IComponents": {
         "type": "object",
         "properties": {
           "schemas": {
@@ -78,19 +78,19 @@
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
           },
           {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArrayOpenApi.IJsonSchema"
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
           },
           {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITupleOpenApi.IJsonSchema"
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
           },
           {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObjectOpenApi.IJsonSchema"
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
           },
           {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
           },
           {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOfOpenApi.IJsonSchema"
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
           },
           {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
@@ -408,7 +408,7 @@
         ],
         "description": "Integer type info."
       },
-      "OpenApi.IJsonSchema.IArrayOpenApi.IJsonSchema": {
+      "OpenApi.IJsonSchema.IArray": {
         "type": "object",
         "properties": {
           "items": {
@@ -467,7 +467,7 @@
         ],
         "description": "Array type info."
       },
-      "OpenApi.IJsonSchema.ITupleOpenApi.IJsonSchema": {
+      "OpenApi.IJsonSchema.ITuple": {
         "type": "object",
         "properties": {
           "prefixItems": {
@@ -499,19 +499,19 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArrayOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITupleOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObjectOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOfOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
@@ -574,7 +574,7 @@
         ],
         "description": "Tuple type info."
       },
-      "OpenApi.IJsonSchema.IObjectOpenApi.IJsonSchema": {
+      "OpenApi.IJsonSchema.IObject": {
         "type": "object",
         "properties": {
           "properties": {
@@ -603,19 +603,19 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArrayOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITupleOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObjectOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOfOpenApi.IJsonSchema"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
@@ -708,7 +708,7 @@
         ],
         "description": "Reference type directing named schema."
       },
-      "OpenApi.IJsonSchema.IOneOfOpenApi.IJsonSchema": {
+      "OpenApi.IJsonSchema.IOneOf": {
         "type": "object",
         "properties": {
           "oneOf": {
@@ -731,13 +731,13 @@
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArrayOpenApi.IJsonSchema"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITupleOpenApi.IJsonSchema"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.ITuple"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObjectOpenApi.IJsonSchema"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IObject"
                 },
                 {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"

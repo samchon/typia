@@ -1,4 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 import ts from "typescript";
 
@@ -30,16 +30,15 @@ export namespace LlmApplicationTransformer {
     if (ts.isTypeNode(top) === false) return props.expression;
 
     // GET MODEL
-    const model: ILlmApplication.Model =
-      getTemplateArgument<ILlmApplication.Model>({
-        checker: props.context.checker,
-        name: "Model",
-        is: (value) =>
-          LlmSchemaConverter.defaultConfig(value as ILlmApplication.Model) !==
-          undefined,
-        cast: (value) => value as ILlmApplication.Model,
-        default: () => "3.1",
-      })(props.expression.typeArguments[1]);
+    const model: ILlmSchema.Model = getTemplateArgument<ILlmSchema.Model>({
+      checker: props.context.checker,
+      name: "Model",
+      is: (value) =>
+        LlmSchemaConverter.defaultConfig(value as ILlmSchema.Model) !==
+        undefined,
+      cast: (value) => value as ILlmSchema.Model,
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
 
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -67,12 +66,27 @@ export namespace LlmApplicationTransformer {
       });
 
     // GENERATE LLM APPLICATION
-    const schema: ILlmApplication<ILlmApplication.Model> =
+    const schema: ILlmApplication<ILlmSchema.Model> =
       LlmApplicationProgrammer.write({
         model,
         metadata: result.data,
       });
-    const literal: ts.Expression = LiteralFactory.write(schema);
+    const literal: ts.Expression = ts.factory.createAsExpression(
+      LiteralFactory.write(schema),
+      ts.factory.createTypeReferenceNode(
+        props.context.importer.instance({
+          name: "ILlmApplication",
+          file: "@samchon/openapi",
+          type: true,
+          alias: "__ILlmApplication",
+        }).text,
+        [
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral(model),
+          ),
+        ],
+      ),
+    );
     if (!props.expression.arguments?.[0]) return literal;
 
     return ExpressionFactory.selfCall(
@@ -80,7 +94,7 @@ export namespace LlmApplicationTransformer {
         [
           StatementFactory.constant({
             name: "app",
-            value: LiteralFactory.write(schema),
+            value: literal,
           }),
           ts.factory.createExpressionStatement(
             ts.factory.createCallExpression(

@@ -1,18 +1,10 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import fs from "fs";
 
 export const _test_llm_parameters =
-  <Model extends ILlmApplication.Model>(props: {
-    model: Model;
-    name: string;
-  }) =>
-  (
-    expected: ILlmApplication<Model, any>["functions"][number]["parameters"],
-  ): void => {
-    const actual: ILlmApplication<
-      Model,
-      any
-    >["functions"][number]["parameters"] = JSON.parse(
+  <Model extends ILlmSchema.Model>(props: { model: Model; name: string }) =>
+  (expected: ILlmSchema.ModelParameters[Model]): void => {
+    const actual: ILlmSchema.ModelParameters[Model] = JSON.parse(
       fs.readFileSync(
         `${__dirname}/../../schemas/llm.parameters/${props.model}/${props.name}.json`,
         "utf8",
@@ -22,8 +14,8 @@ export const _test_llm_parameters =
     sort(actual);
   };
 
-function sort<Model extends ILlmApplication.Model>(
-  params: ILlmApplication<Model, any>["functions"][number]["parameters"],
+function sort<Model extends ILlmSchema.Model>(
+  params: ILlmSchema.ModelParameters[Model],
 ): void {
   function object(elem: object) {
     for (const value of Object.values(elem)) iterate(value);
