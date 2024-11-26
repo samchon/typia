@@ -1,4 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 
 /**
  * > You must configure the generic argument `App`.
@@ -80,10 +80,7 @@ export function application(
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application<
-  App extends object,
-  Model extends ILlmApplication.Model,
->(
+export function application<App extends object, Model extends ILlmSchema.Model>(
   options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
 ): ILlmApplication<Model>;
 
@@ -148,8 +145,8 @@ export function parameters(): never;
  */
 export function parameters<
   Parameters extends object,
-  Model extends ILlmApplication.Model,
->(): ILlmApplication.ModelSchema[Model];
+  Model extends ILlmSchema.Model,
+>(): ILlmSchema.ModelParameters[Model];
 
 /**
  * @internal
@@ -234,14 +231,14 @@ export function schema(): never;
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function schema<T, Model extends ILlmApplication.Model>(
+export function schema<T, Model extends ILlmSchema.Model>(
   ...$defs: Extract<
-    ILlmApplication.ModelSchema[Model],
+    ILlmSchema.ModelSchema[Model],
     { $ref: string }
   > extends never
     ? []
-    : [Record<string, ILlmApplication.ModelSchema[Model]>]
-): ILlmApplication.ModelSchema[Model];
+    : [Record<string, ILlmSchema.ModelSchema[Model]>]
+): ILlmSchema.ModelSchema[Model];
 
 /**
  * @internal

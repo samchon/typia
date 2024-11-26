@@ -1,4 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
@@ -13,13 +13,13 @@ import { json_schema_string } from "../internal/json_schema_string";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 
 export namespace LlmSchemaProgrammer {
-  export interface IOutput<Model extends ILlmApplication.Model> {
+  export interface IOutput<Model extends ILlmSchema.Model> {
     model: Model;
-    schema: ILlmApplication.ModelSchema[Model];
-    $defs: Record<string, ILlmApplication.ModelSchema[Model]>;
+    schema: ILlmSchema.ModelSchema[Model];
+    $defs: Record<string, ILlmSchema.ModelSchema[Model]>;
   }
 
-  export const write = <Model extends ILlmApplication.Model>(props: {
+  export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     metadata: Metadata;
   }): IOutput<Model> => {
@@ -29,14 +29,14 @@ export namespace LlmSchemaProgrammer {
         metadatas: [props.metadata],
       });
 
-    const $defs: Record<string, ILlmApplication.ModelSchema[Model]> = {};
-    const schema: ILlmApplication.ModelSchema[Model] | null =
+    const $defs: Record<string, ILlmSchema.ModelSchema[Model]> = {};
+    const schema: ILlmSchema.ModelSchema[Model] | null =
       LlmSchemaConverter.schema(props.model)({
         config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: collection.components,
         schema: collection.schemas[0]!,
         $defs: $defs as any,
-      }) as ILlmApplication.ModelSchema[Model] | null;
+      }) as ILlmSchema.ModelSchema[Model] | null;
     if (schema === null)
       throw new Error("Failed to convert JSON schema to LLM schema.");
     return {
@@ -47,7 +47,7 @@ export namespace LlmSchemaProgrammer {
   };
 
   export const validate =
-    (model: ILlmApplication.Model) =>
+    (model: ILlmSchema.Model) =>
     (metadata: Metadata): string[] => {
       const output: string[] = [];
       if (

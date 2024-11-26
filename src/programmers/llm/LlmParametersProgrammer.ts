@@ -1,4 +1,4 @@
-import { ILlmApplication, OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
+import { ILlmSchema, OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -10,10 +10,10 @@ import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmParametersProgrammer {
-  export const write = <Model extends ILlmApplication.Model>(props: {
+  export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     metadata: Metadata;
-  }): ILlmApplication.ModelParameters[Model] => {
+  }): ILlmSchema.ModelParameters[Model] => {
     const collection: IJsonSchemaCollection<"3.1"> =
       JsonSchemasProgrammer.write({
         version: "3.1",
@@ -30,19 +30,19 @@ export namespace LlmParametersProgrammer {
       throw new Error("Unreachable code. Failed to find the object schema.");
     })();
 
-    const parameters: ILlmApplication.ModelParameters[Model] | null =
+    const parameters: ILlmSchema.ModelParameters[Model] | null =
       LlmSchemaConverter.parameters(props.model)({
         config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: collection.components,
         schema,
-      }) as ILlmApplication.ModelParameters[Model] | null;
+      }) as ILlmSchema.ModelParameters[Model] | null;
     if (parameters === null)
       throw new Error("Failed to convert JSON schema to LLM schema.");
     return parameters;
   };
 
   export const validate =
-    (model: ILlmApplication.Model) =>
+    (model: ILlmSchema.Model) =>
     (metadata: Metadata, explore: MetadataFactory.IExplore): string[] => {
       const output: string[] = [];
       if (explore.top === true) {

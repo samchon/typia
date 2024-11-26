@@ -145,7 +145,9 @@ export class ImportProgrammer {
                     [...asset.instances.values()].map((ins) =>
                       ts.factory.createImportSpecifier(
                         ins.type,
-                        undefined,
+                        ins.alias || ins.alias === ins.name
+                          ? ts.factory.createIdentifier(ins.name)
+                          : undefined,
                         ts.factory.createIdentifier(ins.alias ?? ins.name),
                       ),
                     ),

@@ -1,4 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 import ts from "typescript";
 
@@ -31,16 +31,15 @@ export namespace LlmSchemaTransformer {
     if (ts.isTypeNode(top) === false) return props.expression;
 
     // GET MODEL
-    const model: ILlmApplication.Model =
-      getTemplateArgument<ILlmApplication.Model>({
-        checker: props.context.checker,
-        name: "Model",
-        is: (value) =>
-          LlmSchemaConverter.defaultConfig(value as ILlmApplication.Model) !==
-          undefined,
-        cast: (value) => value as ILlmApplication.Model,
-        default: () => "3.1",
-      })(props.expression.typeArguments[1]);
+    const model: ILlmSchema.Model = getTemplateArgument<ILlmSchema.Model>({
+      checker: props.context.checker,
+      name: "Model",
+      is: (value) =>
+        LlmSchemaConverter.defaultConfig(value as ILlmSchema.Model) !==
+        undefined,
+      cast: (value) => value as ILlmSchema.Model,
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
 
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -71,8 +70,20 @@ export namespace LlmSchemaTransformer {
       model,
       metadata: result.data,
     });
-    if (Object.keys(out.$defs).length === 0)
-      return LiteralFactory.write(out.schema);
+    const schemaTypeNode = ts.factory.createTypeReferenceNode(
+      props.context.importer.instance({
+        name: "ILlmSchema",
+        file: "@samchon/openapi",
+        type: true,
+        alias: "__ILlmSchema",
+      }).text,
+      [ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(model))],
+    );
+    const literal = ts.factory.createAsExpression(
+      LiteralFactory.write(out.schema),
+      schemaTypeNode,
+    );
+    if (Object.keys(out.$defs).length === 0) return literal;
     return ts.factory.createCallExpression(
       ts.factory.createArrowFunction(
         undefined,
@@ -80,7 +91,10 @@ export namespace LlmSchemaTransformer {
         [
           IdentifierFactory.parameter(
             "$defs",
-            ts.factory.createTypeReferenceNode("Record<string, unknown>"),
+            ts.factory.createTypeReferenceNode("Record", [
+              ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+              schemaTypeNode,
+            ]),
             undefined,
           ),
         ],
@@ -94,11 +108,19 @@ export namespace LlmSchemaTransformer {
                 undefined,
                 [
                   ts.factory.createIdentifier("$defs"),
-                  LiteralFactory.write(out.$defs),
+                  ts.factory.createAsExpression(
+                    LiteralFactory.write(out.$defs),
+                    ts.factory.createTypeReferenceNode("Record", [
+                      ts.factory.createKeywordTypeNode(
+                        ts.SyntaxKind.StringKeyword,
+                      ),
+                      schemaTypeNode,
+                    ]),
+                  ),
                 ],
               ),
             ),
-            ts.factory.createReturnStatement(LiteralFactory.write(out.schema)),
+            ts.factory.createReturnStatement(literal),
           ],
           true,
         ),

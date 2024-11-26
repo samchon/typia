@@ -93,7 +93,22 @@ export namespace JsonSchemasTransformer {
       version,
       metadatas,
     });
-    return LiteralFactory.write(app);
+    return ts.factory.createAsExpression(
+      LiteralFactory.write(app),
+      ts.factory.createTypeReferenceNode(
+        props.context.importer.instance({
+          name: "IJsonSchemaCollection",
+          file: "typia",
+          type: true,
+          alias: "__IJsonSchemaCollection",
+        }).text,
+        [
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral(version),
+          ),
+        ],
+      ),
+    );
   };
 
   const get_parameter =
