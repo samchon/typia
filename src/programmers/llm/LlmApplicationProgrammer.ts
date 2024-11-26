@@ -1,4 +1,4 @@
-import { ILlmApplication, OpenApi } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema, OpenApi } from "@samchon/openapi";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
@@ -13,7 +13,7 @@ import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = (model: ILlmApplication.Model) => {
+  export const validate = (model: ILlmSchema.Model) => {
     let top: Metadata | undefined;
     return (
       metadata: Metadata,
@@ -86,7 +86,7 @@ export namespace LlmApplicationProgrammer {
     return output;
   };
 
-  export const write = <Model extends ILlmApplication.Model>(props: {
+  export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     metadata: Metadata;
   }): ILlmApplication<Model> => {
@@ -124,14 +124,14 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeFunction = <Model extends ILlmApplication.Model>(props: {
+  const writeFunction = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     components: OpenApi.IComponents;
     function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
-  }): ILlmFunction<ILlmApplication.ModelParameters[Model]> => {
-    const parameters: ILlmApplication.ModelParameters[Model] =
+  }): ILlmFunction<Model> => {
+    const parameters: ILlmSchema.ModelParameters[Model] =
       writeParameters(props);
-    const output: ILlmApplication.ModelSchema[Model] | null = writeOutput({
+    const output: ILlmSchema.ModelSchema[Model] | null = writeOutput({
       model: props.model,
       parameters,
       components: props.components,
@@ -147,7 +147,7 @@ export namespace LlmApplicationProgrammer {
       name: props.function.name,
       parameters,
       output: (output ?? undefined) as
-        | ILlmApplication.ModelParameters[Model]["properties"][string]
+        | ILlmSchema.ModelSchema[Model]
         | undefined,
       description: (() => {
         if (
@@ -168,11 +168,11 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const writeParameters = <Model extends ILlmApplication.Model>(props: {
+  const writeParameters = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     components: OpenApi.IComponents;
     function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
-  }): ILlmApplication.ModelParameters[Model] => {
+  }): ILlmSchema.ModelParameters[Model] => {
     const schema: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: Object.fromEntries(
@@ -190,31 +190,31 @@ export namespace LlmApplicationProgrammer {
         .map((p) => p.name),
       additionalProperties: false,
     };
-    const parameters: ILlmApplication.ModelParameters[Model] | null =
+    const parameters: ILlmSchema.ModelParameters[Model] | null =
       LlmSchemaConverter.parameters(props.model)({
         config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: props.components,
         schema,
-      }) as ILlmApplication.ModelParameters[Model] | null;
+      }) as ILlmSchema.ModelParameters[Model] | null;
     if (parameters === null)
       throw new Error("Failed to write LLM application parameters.");
     return parameters;
   };
 
-  const writeOutput = <Model extends ILlmApplication.Model>(props: {
+  const writeOutput = <Model extends ILlmSchema.Model>(props: {
     model: Model;
-    parameters: ILlmApplication.ModelParameters[Model];
+    parameters: ILlmSchema.ModelParameters[Model];
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema | null;
-  }): ILlmApplication.ModelSchema[Model] | null => {
+  }): ILlmSchema.ModelSchema[Model] | null => {
     if (props.schema === null) return null;
-    const output: ILlmApplication.ModelSchema[Model] | null =
+    const output: ILlmSchema.ModelSchema[Model] | null =
       LlmSchemaConverter.schema(props.model)({
         config: LlmSchemaConverter.defaultConfig(props.model) as any,
         components: props.components,
         schema: props.schema,
         $defs: (props.parameters as any).$defs,
-      }) as ILlmApplication.ModelSchema[Model] | null;
+      }) as ILlmSchema.ModelSchema[Model] | null;
     if (output === null)
       throw new Error("Failed to write LLM application output.");
     return output;
