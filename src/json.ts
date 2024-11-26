@@ -1,4 +1,3 @@
-import { IJsonApplication } from "./schemas/json/IJsonApplication";
 import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
 
 import { IValidation } from "./IValidation";
@@ -15,55 +14,9 @@ import { TypeGuardError } from "./TypeGuardError";
     METADATA
 ----------------------------------------------------------- */
 /**
- * > You must configure the generic argument `App`.
- *
- * TypeScript functions to JSON schema based application schema.
- *
- * Creates an application schema collecting the functions' schema based on the
- * JSON schema specification.
- *
- * The default version of the OpenAPI specification is `"3.1"`, but you can
- * specify the version by configuring the second generic argument `Version`.
- *
- * @template App Target class or interface type collecting the functions
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns Application schema of JSON schema based
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function application(): never;
-
-/**
- * TypeScript functions to JSON schema based application schema.
- *
- * Creates an application schema collecting the functions' schema based on the
- * JSON schema specification.
- *
- * The default version of the OpenAPI specification is `"3.1"`, but you can
- * specify the version by configuring the second generic argument `Version`.
- *
- * @template App Target class or interface type collecting the functions
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @returns Application schema of JSON schema based
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function application<
-  App extends object,
-  Version extends "3.0" | "3.1" = "3.1",
->(): IJsonApplication<Version, App>;
-
-/**
- * @internal
- */
-export function application(): never {
-  halt("application");
-}
-
-/**
  * > You must configure the generic argument `Types`.
  *
- * JSON Schema List.
+ * JSON Schemas generator.
  *
  * Creates a JSON schema list which contains both main JSON schemas
  * and components. Note that, all of the named types are stored in the
@@ -82,7 +35,7 @@ export function application(): never {
 export function schemas(): never;
 
 /**
- * JSON Schema Application.
+ * JSON Schemas generator.
  *
  * Creates a JSON schema list which contains both main JSON schemas
  * and components. Note that, all of the named types are stored in the
@@ -107,8 +60,110 @@ export function schemas<
  * @internal
  */
 export function schemas(): never {
+  halt("schemas");
+}
+
+/**
+ * > You must configure the generic argument `Types`.
+ *
+ * JSON Schemas generator.
+ *
+ * Creates a JSON schema list which contains both main JSON schemas
+ * and components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
+ *
+ * @template Types Tuple of target types
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema list
+ *
+ * @deprcated Use {@link schemas} function instead please.
+ *            This function would be changed to return {@linkk ILlmApplication} like
+ *            structure in the future version (maybe next v8 major update).
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function application(): never;
+
+/**
+ * JSON Schemas generator.
+ *
+ * Creates a JSON schema list which contains both main JSON schemas
+ * and components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
+ *
+ * @template Types Tuple of target types
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema list
+ *
+ * @deprcated Use {@link schemas} function instead please.
+ *            This function would be changed to return {@linkk ILlmApplication} like
+ *            structure in the future version (maybe next v8 major update).
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function application<
+  Types extends unknown[],
+  Version extends "3.0" | "3.1" = "3.1",
+>(): IJsonSchemaCollection<Version, Types>;
+
+/**
+ * @internal
+ */
+export function application(): never {
   halt("application");
 }
+
+// /**
+//  * > You must configure the generic argument `App`.
+//  *
+//  * TypeScript functions to JSON schema based application schema.
+//  *
+//  * Creates an application schema collecting the functions' schema based on the
+//  * JSON schema specification.
+//  *
+//  * The default version of the OpenAPI specification is `"3.1"`, but you can
+//  * specify the version by configuring the second generic argument `Version`.
+//  *
+//  * @template App Target class or interface type collecting the functions
+//  * @template Version Version of OpenAPI specification. Default is 3.1
+//  * @returns Application schema of JSON schema based
+//  *
+//  * @author Jeongho Nam - https://github.com/samchon
+//  */
+// export function application(): never;
+
+// /**
+//  * TypeScript functions to JSON schema based application schema.
+//  *
+//  * Creates an application schema collecting the functions' schema based on the
+//  * JSON schema specification.
+//  *
+//  * The default version of the OpenAPI specification is `"3.1"`, but you can
+//  * specify the version by configuring the second generic argument `Version`.
+//  *
+//  * @template App Target class or interface type collecting the functions
+//  * @template Version Version of OpenAPI specification. Default is 3.1
+//  * @returns Application schema of JSON schema based
+//  *
+//  * @author Jeongho Nam - https://github.com/samchon
+//  */
+// export function application<
+//   App extends object,
+//   Version extends "3.0" | "3.1" = "3.1",
+// >(): IJsonApplication<Version, App>;
+
+// /**
+//  * @internal
+//  */
+// export function application(): never {
+//   halt("application");
+// }
 
 /* -----------------------------------------------------------
     PARSE
