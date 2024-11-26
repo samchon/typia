@@ -1,8 +1,8 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 import { HttpLlmConverter } from "@samchon/openapi/lib/converters/HttpLlmConverter";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 
-export const _llmApplicationFinalize = <Model extends ILlmApplication.Model>(
+export const _llmApplicationFinalize = <Model extends ILlmSchema.Model>(
   app: ILlmApplication<Model>,
   options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
 ): void => {

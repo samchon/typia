@@ -1,4 +1,4 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmSchema } from "@samchon/openapi";
 import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 import ts from "typescript";
@@ -32,16 +32,15 @@ export namespace LlmParametersTransformer {
     if (ts.isTypeNode(top) === false) return props.expression;
 
     // GET MODEL
-    const model: ILlmApplication.Model =
-      getTemplateArgument<ILlmApplication.Model>({
-        checker: props.context.checker,
-        name: "Model",
-        is: (value) =>
-          LlmSchemaConverter.defaultConfig(value as ILlmApplication.Model) !==
-          undefined,
-        cast: (value) => value as ILlmApplication.Model,
-        default: () => "3.1",
-      })(props.expression.typeArguments[1]);
+    const model: ILlmSchema.Model = getTemplateArgument<ILlmSchema.Model>({
+      checker: props.context.checker,
+      name: "Model",
+      is: (value) =>
+        LlmSchemaConverter.defaultConfig(value as ILlmSchema.Model) !==
+        undefined,
+      cast: (value) => value as ILlmSchema.Model,
+      default: () => "3.1",
+    })(props.expression.typeArguments[1]);
 
     // GET TYPE
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -72,7 +71,22 @@ export namespace LlmParametersTransformer {
       model,
       metadata: result.data,
     });
-    return LiteralFactory.write(out);
+    return ts.factory.createAsExpression(
+      LiteralFactory.write(out),
+      ts.factory.createTypeReferenceNode(
+        props.context.importer.instance({
+          name: "ILlmSchema",
+          file: "@samchon/openapi",
+          type: true,
+          alias: "__ILlmSchema",
+        }).text + ".IParameters",
+        [
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral(model),
+          ),
+        ],
+      ),
+    );
   };
 
   const getTemplateArgument =
