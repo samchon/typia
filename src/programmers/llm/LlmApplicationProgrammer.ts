@@ -4,11 +4,11 @@ import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
+import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { IJsonApplication } from "../../module";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
@@ -103,7 +103,7 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const application: IJsonApplication<"3.1"> =
+    const application: __IJsonApplication<"3.1"> =
       JsonApplicationProgrammer.write({
         version: "3.1",
         metadata: props.metadata,
@@ -127,7 +127,7 @@ export namespace LlmApplicationProgrammer {
   const writeFunction = <Model extends ILlmApplication.Model>(props: {
     model: Model;
     components: OpenApi.IComponents;
-    function: IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
   }): ILlmFunction<ILlmApplication.ModelParameters[Model]> => {
     const parameters: ILlmApplication.ModelParameters[Model] =
       writeParameters(props);
@@ -171,7 +171,7 @@ export namespace LlmApplicationProgrammer {
   const writeParameters = <Model extends ILlmApplication.Model>(props: {
     model: Model;
     components: OpenApi.IComponents;
-    function: IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
   }): ILlmApplication.ModelParameters[Model] => {
     const schema: OpenApi.IJsonSchema.IObject = {
       type: "object",
