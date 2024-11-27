@@ -37,11 +37,18 @@ export const iterate_metadata_intersection = (
       intersected: false,
     }),
   );
+
+  // ERROR OR ANY TYPE CASE
+  const escape = () => {
+    Object.assign(props.collection, commit);
+    return false;
+  };
   if (fakeErrors.length) {
     props.errors.push(...fakeErrors);
     return true;
-  } else if (children.length === 0) return false;
-  else if (children.some((m) => m.size() === 0)) return false;
+  } else if (children.length === 0) return escape();
+  else if (children.some((m) => m.any === true || m.size() === 0))
+    return escape();
 
   // PREPARE MEATDATAS AND TAGS
   const indexes: number[] = [];
@@ -78,15 +85,14 @@ export const iterate_metadata_intersection = (
         messages: ["type tag cannot be standalone"],
       });
       return true;
-    } else return false;
+    } else return escape();
   // ONLY OBJECTS CASE
   else if (
     metadatas.every((m) => m.objects.length === 1) &&
     tagObjects.length === 0
-  ) {
-    Object.assign(props.collection, commit);
-    return false;
-  } else if (metadatas.length !== 1) {
+  )
+    return escape();
+  else if (metadatas.length !== 1) {
     const indexes: number[] = metadatas
       .map((m, i) =>
         m.size() === 1 &&
