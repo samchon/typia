@@ -83,7 +83,7 @@ export function application(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
-  App extends object,
+  App extends Record<string, any>,
   Model extends ILlmSchema.Model,
   Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
 >(
@@ -152,7 +152,7 @@ export function parameters(): never;
  * @reference https://platform.openai.com/docs/guides/structured-outputs
  */
 export function parameters<
-  Parameters extends object,
+  Parameters extends Record<string, any>,
   Model extends ILlmSchema.Model,
   Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
 >(): ILlmSchema.ModelParameters[Model];
@@ -173,14 +173,22 @@ export function parameters(): never {
  * [LLM function calling](@reference https://platform.openai.com/docs/guides/function-calling),
  * from a TypeScript type.
  *
- * The returned {@link ILlmSchema} type is similar to the OpenAPI v3.0 based JSON schema
- * definition, but it is more simplified for the LLM function calling by remmoving the
- * {@link OpenApiV3.IJson.IReference reference} type embodied by the
- * {@link OpenApiV3.IJson.IReference.$ref `$ref`} proeprty.
+ * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
+ * and here is the list of available `Model` types with their corresponding LLM schema:
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
  * If you actually want to perform the LLM function calling with TypeScript functions,
- * you can do it with the {@link application} function. Let's enjoy the
- * LLM function calling with native TypeScript functions and types.
+ * you can do it with the {@link application} function. Otherwise you hope to perform the
+ * structured output, {@link parameters} function is better. Let's enjoy the LLM function calling
+ * and structured output with the native TypeScript functions and types.
  *
  * > **What LLM function calling is?
  * >
@@ -212,14 +220,22 @@ export function schema(): never;
  * [LLM function calling](@reference https://platform.openai.com/docs/guides/function-calling),
  * from a TypeScript type.
  *
- * The returned {@link ILlmSchema} type is similar to the OpenAPI v3.0 based JSON schema
- * definition, but it is more simplified for the LLM function calling by remmoving the
- * {@link OpenApiV3.IJson.IReference reference} type embodied by the
- * {@link OpenApiV3.IJson.IReference.$ref `$ref`} proeprty.
+ * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
+ * and here is the list of available `Model` types with their corresponding LLM schema:
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
  * If you actually want to perform the LLM function calling with TypeScript functions,
- * you can do it with the {@link application} function. Let's enjoy the
- * LLM function calling with native TypeScript functions and types.
+ * you can do it with the {@link application} function. Otherwise you hope to perform the
+ * structured output, {@link parameters} function is better. Let's enjoy the LLM function calling
+ * and structured output with the native TypeScript functions and types.
  *
  * > **What LLM function calling is?
  * >
@@ -237,9 +253,9 @@ export function schema(): never;
  * @template T Target type
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
- * @param $defs Definitions of named schemas if the model is `chatgpt`
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function schema<
