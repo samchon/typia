@@ -7,7 +7,7 @@ const schema = typia.llm.schema<
   ArrayRecursive,
   "3.1",
   {
-    reference: true;
+    reference: false;
   }
 >($defs);
 console.log($defs, schema);
