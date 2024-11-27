@@ -6,7 +6,7 @@ import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { emend_metadata_atomics } from "./emend_metadata_atomics";
 import { iterate_metadata } from "./iterate_metadata";
 
-export const explore_metadata = (props: IProps): Metadata => {
+export const explore_metadata = (props: Required<IProps>): Metadata => {
   // CONSTRUCT METADATA
   const metadata: Metadata = Metadata.initialize(props.explore.escaped);
   if (props.type === null) return metadata;

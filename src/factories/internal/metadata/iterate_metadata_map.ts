@@ -37,6 +37,7 @@ export const iterate_metadata_map = (
           escaped: false,
           aliased: false,
         },
+        intersected: false,
       }),
       value: explore_metadata({
         ...props,
@@ -46,6 +47,7 @@ export const iterate_metadata_map = (
           escaped: false,
           aliased: false,
         },
+        intersected: false,
       }),
       tags: [],
     }),

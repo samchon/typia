@@ -33,6 +33,7 @@ export const iterate_metadata_set = (
       escaped: false,
       aliased: false,
     },
+    intersected: false,
   });
   ArrayUtil.take(
     props.metadata.sets,
@@ -47,6 +48,7 @@ export const iterate_metadata_set = (
             escaped: false,
             aliased: false,
           },
+          intersected: false,
         }),
         tags: [],
       }),

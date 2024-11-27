@@ -67,6 +67,7 @@ export namespace MetadataFactory {
         escaped: false,
         output: false,
       },
+      intersected: false,
     });
     iterate_metadata_collection({
       errors,

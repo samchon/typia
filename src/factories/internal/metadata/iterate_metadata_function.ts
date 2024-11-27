@@ -56,6 +56,7 @@ export const iterate_metadata_function = (
                   top: false,
                   parameter: p.name,
                 },
+                intersected: false,
               }),
               description: CommentFactory.description(p) ?? null,
               jsDocTags: p?.getJsDocTags() ?? [],
@@ -79,6 +80,7 @@ export const iterate_metadata_function = (
               top: false,
               output: true,
             },
+            intersected: false,
           }),
         }),
       );

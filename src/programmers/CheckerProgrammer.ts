@@ -279,7 +279,7 @@ export namespace CheckerProgrammer {
       });
       if (result.success === false)
         throw TransformerError.from({
-          code: `typia.${next.functor.method}`,
+          code: next.functor.method,
           errors: result.errors,
         });
       return {

@@ -361,14 +361,15 @@ export namespace ProtobufFactory {
         if (onlyObject === false)
           insert("target type must be a sole and static object type");
       }
-      if (explore.object !== null && visited.has(explore.object) === false) {
-        visited.add(explore.object);
+      for (const obj of meta.objects) {
+        if (visited.has(obj.type)) continue;
+        visited.add(obj.type);
         validateObject({
-          object: explore.object,
+          object: obj.type,
           errors,
         });
         try {
-          emplaceObject(explore.object);
+          emplaceObject(obj.type);
         } catch {}
       }
 
@@ -575,7 +576,6 @@ export namespace ProtobufFactory {
       for (const t of p.value.templates) tagger(t.tags);
       for (const o of p.value.objects) tagger(o.tags);
       for (const a of p.value.arrays) tagger(a.tags);
-
       for (const s of local)
         if (entire.has(s))
           next.errors.push(
@@ -744,7 +744,6 @@ export namespace ProtobufFactory {
                 if (getType(tags) === category) emplace(tags);
 
         if (unique.size && actual !== expected) {
-          console.log(category, actual, expected, unique);
           next.errors.push(
             `The sequence tag must be declared in every union type members`,
           );
