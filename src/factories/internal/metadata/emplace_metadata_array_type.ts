@@ -32,8 +32,8 @@ export const emplace_metadata_array_type = (
       escaped: false,
       aliased: false,
     },
+    intersected: false,
   });
   setValue(value);
-
   return array;
 };

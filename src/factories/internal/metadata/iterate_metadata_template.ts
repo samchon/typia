@@ -32,6 +32,7 @@ export const iterate_metadata_template = (
             escaped: false,
             aliased: false,
           },
+          intersected: false,
         }),
       );
   });
