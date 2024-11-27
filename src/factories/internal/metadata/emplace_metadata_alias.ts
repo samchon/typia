@@ -26,6 +26,7 @@ export const emplace_metadata_alias = (
       escaped: false,
       aliased: true,
     },
+    intersected: false,
   });
   closure(value);
   return alias;

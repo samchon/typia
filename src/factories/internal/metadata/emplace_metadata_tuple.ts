@@ -38,6 +38,7 @@ export const emplace_metadata_tuple = (
           aliased: false,
           escaped: false,
         },
+        intersected: false,
       });
 
       // CHECK OPTIONAL

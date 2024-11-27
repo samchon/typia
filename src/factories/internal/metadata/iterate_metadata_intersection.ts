@@ -1,3 +1,4 @@
+// import ts from "typescript";
 import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
@@ -16,7 +17,7 @@ export const iterate_metadata_intersection = (
   else if (props.type.isIntersection() === false) return false;
 
   // COSTRUCT FAKE METADATA LIST
-  const fakeCollection: MetadataCollection = new MetadataCollection();
+  const commit: MetadataCollection = props.collection.clone();
   const fakeErrors: MetadataFactory.IError[] = [];
   const children: Metadata[] = props.type.types.map((t) =>
     explore_metadata({
@@ -26,21 +27,28 @@ export const iterate_metadata_intersection = (
         absorb: true,
         functional: false,
       },
-      collection: fakeCollection,
+      collection: props.collection,
       errors: fakeErrors,
       type: t,
       explore: {
         ...props.explore,
         aliased: false,
       },
-      intersected: true,
+      intersected: false,
     }),
   );
+
+  // ERROR OR ANY TYPE CASE
+  const escape = () => {
+    Object.assign(props.collection, commit);
+    return false;
+  };
   if (fakeErrors.length) {
     props.errors.push(...fakeErrors);
     return true;
-  } else if (children.length === 0) return false;
-  else if (children.some((m) => m.any || m.size() === 0)) return false;
+  } else if (children.length === 0) return escape();
+  else if (children.some((m) => m.any === true || m.size() === 0))
+    return escape();
 
   // PREPARE MEATDATAS AND TAGS
   const indexes: number[] = [];
@@ -77,13 +85,13 @@ export const iterate_metadata_intersection = (
         messages: ["type tag cannot be standalone"],
       });
       return true;
-    } else return false;
+    } else return escape();
   // ONLY OBJECTS CASE
   else if (
     metadatas.every((m) => m.objects.length === 1) &&
     tagObjects.length === 0
   )
-    return false;
+    return escape();
   else if (metadatas.length !== 1) {
     const indexes: number[] = metadatas
       .map((m, i) =>
@@ -183,6 +191,7 @@ export const iterate_metadata_intersection = (
     explore: props.explore,
   });
 
+  Object.assign(props.collection, commit);
   iterate_metadata({
     ...props,
     type: props.type.types[indexes[0]!]!,
@@ -195,6 +204,7 @@ export const iterate_metadata_intersection = (
       aliased: false,
       escaped: false,
     },
+    intersected: true,
   });
   if (tags.length) assigners.forEach((fn) => fn(tags));
   return true;

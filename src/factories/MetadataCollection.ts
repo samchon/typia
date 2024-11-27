@@ -42,7 +42,7 @@ export class MetadataCollection {
   }
 
   public clone(): MetadataCollection {
-    const output: MetadataCollection = new MetadataCollection();
+    const output: MetadataCollection = new MetadataCollection(this.options);
     output.objects_ = new Map(this.objects_);
     output.object_unions_ = new Map(this.object_unions_);
     output.aliases_ = new Map(this.aliases_);
