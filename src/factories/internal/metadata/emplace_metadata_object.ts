@@ -107,6 +107,7 @@ export const emplace_metadata_object = (
         escaped: false,
         output: false,
       },
+      intersected: false,
     });
     Writable(value).optional = (symbol.flags & ts.SymbolFlags.Optional) !== 0;
     insert({
@@ -135,6 +136,7 @@ export const emplace_metadata_object = (
           escaped: false,
           output: false,
         },
+        intersected: false,
       });
     const key: Metadata = analyzer(index.keyType)(null);
     const value: Metadata = analyzer(index.type)({});
