@@ -1,17 +1,31 @@
 {
   "model": "3.1",
+  "options": {
+    "constraint": false,
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -23,23 +37,32 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "null"
-          },
-          "second": {
-            "oneOf": [
-              {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "null"
               },
-              {
-                "type": "null"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -54,41 +77,50 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               },
-              {
-                "type": "null"
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -105,10 +137,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

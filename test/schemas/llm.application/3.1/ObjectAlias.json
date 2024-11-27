@@ -1,175 +1,20 @@
 {
   "model": "3.1",
+  "options": {
+    "constraint": false,
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "male"
-                    },
-                    {
-                      "const": "female"
-                    }
-                  ]
-                },
-                "age": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "dead": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "male"
-                    },
-                    {
-                      "const": "female"
-                    }
-                  ]
-                },
-                "age": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "dead": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "array",
                 "items": {
                   "type": "object",
@@ -241,12 +86,190 @@
                   "additionalProperties": false
                 }
               }
-            ]
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "const": 1
+                        },
+                        {
+                          "const": 2
+                        },
+                        {
+                          "const": "male"
+                        },
+                        {
+                          "const": "female"
+                        }
+                      ]
+                    },
+                    "age": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "dead": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sex": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "const": 1
+                            },
+                            {
+                              "const": 2
+                            },
+                            {
+                              "const": "male"
+                            },
+                            {
+                              "const": "female"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "dead": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "name",
+                        "sex",
+                        "age",
+                        "dead"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -330,248 +353,257 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "string"
-                        }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "const": 1
-                        },
-                        {
-                          "const": 2
-                        },
-                        {
-                          "const": "male"
-                        },
-                        {
-                          "const": "female"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "type": "null"
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
                         },
-                        {
+                        "email": {
                           "type": "string"
-                        }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "oneOf": [
-                        {
-                          "type": "null"
                         },
-                        {
-                          "const": 1
-                        },
-                        {
-                          "const": 2
-                        },
-                        {
-                          "const": "male"
-                        },
-                        {
-                          "const": "female"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
+                        "name": {
                           "type": "string"
+                        },
+                        "sex": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "const": 1
+                            },
+                            {
+                              "const": 2
+                            },
+                            {
+                              "const": "male"
+                            },
+                            {
+                              "const": "female"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "dead": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
                         }
-                      ]
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "sex": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "const": 1
-                        },
-                        {
-                          "const": 2
-                        },
-                        {
-                          "const": "male"
-                        },
-                        {
-                          "const": "female"
-                        }
-                      ]
-                    },
-                    "age": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "dead": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "boolean"
-                        }
-                      ]
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "name",
+                        "sex",
+                        "age",
+                        "dead"
+                      ],
+                      "additionalProperties": false
                     }
+                  }
+                ]
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "required": [
-                    "id",
-                    "email",
-                    "name",
-                    "sex",
-                    "age",
-                    "dead"
-                  ],
-                  "additionalProperties": false
-                }
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sex": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "const": 1
+                            },
+                            {
+                              "const": 2
+                            },
+                            {
+                              "const": "male"
+                            },
+                            {
+                              "const": "female"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "dead": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "name",
+                        "sex",
+                        "age",
+                        "dead"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                ]
+              },
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "sex": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "const": 1
+                            },
+                            {
+                              "const": 2
+                            },
+                            {
+                              "const": "male"
+                            },
+                            {
+                              "const": "female"
+                            }
+                          ]
+                        },
+                        "age": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ]
+                        },
+                        "dead": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "name",
+                        "sex",
+                        "age",
+                        "dead"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -657,10 +689,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

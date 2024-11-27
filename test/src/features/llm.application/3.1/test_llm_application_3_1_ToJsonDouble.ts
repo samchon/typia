@@ -9,14 +9,14 @@ export const test_llm_application_3_1_ToJsonDouble = _test_llm_application({
 })(typia.llm.application<ToJsonDoubleApplication, "3.1">());
 
 interface ToJsonDoubleApplication {
-  insert(first: ToJsonDouble): Promise<void>;
-  reduce(
-    first: ToJsonDouble,
-    second: ToJsonDouble | null,
-  ): Promise<ToJsonDouble>;
-  coalesce(
-    first: ToJsonDouble | null,
-    second: ToJsonDouble | null,
-    third?: ToJsonDouble | null,
-  ): Promise<ToJsonDouble | null>;
+  insert(p: { first: ToJsonDouble }): Promise<void>;
+  reduce(p: {
+    first: ToJsonDouble;
+    second: ToJsonDouble | null;
+  }): Promise<ToJsonDouble>;
+  coalesce(p: {
+    first: ToJsonDouble | null;
+    second: ToJsonDouble | null;
+    third?: ToJsonDouble | null;
+  }): Promise<ToJsonDouble | null>;
 }

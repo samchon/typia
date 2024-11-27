@@ -1,68 +1,82 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {},
-                                  "maxItems": 0
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {},
+                                      "maxItems": 0
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
-                  ]
-                }
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -73,129 +87,138 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {},
-                                  "maxItems": 0
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {},
+                                      "maxItems": 0
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
-                  ]
-                }
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "string",
-                "nullable": true
+                  }
+                ]
               },
-              {
-                "type": "number",
-                "nullable": true
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string"
-                                      },
-                                      {
-                                        "type": "number"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
                                       }
-                                    ]
-                                  }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "nullable": true
+                        }
+                      ]
+                    },
+                    "nullable": true
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -260,205 +283,214 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "string",
-                "nullable": true
-              },
-              {
-                "type": "number",
-                "nullable": true
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string"
-                                      },
-                                      {
-                                        "type": "number"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
                                       }
-                                    ]
-                                  }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "nullable": true
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "string",
-                "nullable": true
-              },
-              {
-                "type": "number",
-                "nullable": true
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string"
-                                      },
-                                      {
-                                        "type": "number"
+                    "nullable": true
+                  }
+                ]
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
                                       }
-                                    ]
-                                  }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "nullable": true
-              }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "string",
-                "nullable": true
-              },
-              {
-                "type": "number",
-                "nullable": true
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "oneOf": [
-                                      {
-                                        "type": "string"
-                                      },
-                                      {
-                                        "type": "number"
+                    "nullable": true
+                  }
+                ]
+              },
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
                                       }
-                                    ]
-                                  }
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "nullable": true
+                        }
+                      ]
+                    },
+                    "nullable": true
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -529,10 +561,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

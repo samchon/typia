@@ -10,14 +10,14 @@ export const test_llm_application_claude_ArrayRepeatedUnion =
   })(typia.llm.application<ArrayRepeatedUnionApplication, "claude">());
 
 interface ArrayRepeatedUnionApplication {
-  insert(first: ArrayRepeatedUnion): Promise<void>;
-  reduce(
-    first: ArrayRepeatedUnion,
-    second: ArrayRepeatedUnion | null,
-  ): Promise<ArrayRepeatedUnion>;
-  coalesce(
-    first: ArrayRepeatedUnion | null,
-    second: ArrayRepeatedUnion | null,
-    third?: ArrayRepeatedUnion | null,
-  ): Promise<ArrayRepeatedUnion | null>;
+  insert(p: { first: ArrayRepeatedUnion }): Promise<void>;
+  reduce(p: {
+    first: ArrayRepeatedUnion;
+    second: ArrayRepeatedUnion | null;
+  }): Promise<ArrayRepeatedUnion>;
+  coalesce(p: {
+    first: ArrayRepeatedUnion | null;
+    second: ArrayRepeatedUnion | null;
+    third?: ArrayRepeatedUnion | null;
+  }): Promise<ArrayRepeatedUnion | null>;
 }

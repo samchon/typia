@@ -1,45 +1,57 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
+              "first": {
                 "type": "object",
                 "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "a": {
+                        "type": "number"
+                      },
+                      "b": {
+                        "type": "number"
+                      },
+                      "c": {
+                        "type": "number"
+                      },
+                      "d": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "a",
+                      "b",
+                      "c",
+                      "d"
+                    ]
                   }
                 },
                 "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
+                  "value"
                 ]
               }
             },
             "required": [
-              "value"
+              "first"
             ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -49,73 +61,81 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
+              "first": {
                 "type": "object",
                 "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "a": {
+                        "type": "number"
+                      },
+                      "b": {
+                        "type": "number"
+                      },
+                      "c": {
+                        "type": "number"
+                      },
+                      "d": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "a",
+                      "b",
+                      "c",
+                      "d"
+                    ]
                   }
                 },
                 "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
+                  "value"
                 ]
+              },
+              "second": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "a": {
+                        "type": "number"
+                      },
+                      "b": {
+                        "type": "number"
+                      },
+                      "c": {
+                        "type": "number"
+                      },
+                      "d": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "a",
+                      "b",
+                      "c",
+                      "d"
+                    ]
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "nullable": true
               }
             },
             "required": [
-              "value"
+              "first",
+              "second"
             ]
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -156,106 +176,114 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
+              "first": {
                 "type": "object",
                 "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "a": {
+                        "type": "number"
+                      },
+                      "b": {
+                        "type": "number"
+                      },
+                      "c": {
+                        "type": "number"
+                      },
+                      "d": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "a",
+                      "b",
+                      "c",
+                      "d"
+                    ]
                   }
                 },
                 "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "value": {
+                  "value"
+                ],
+                "nullable": true
+              },
+              "second": {
                 "type": "object",
                 "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "a": {
+                        "type": "number"
+                      },
+                      "b": {
+                        "type": "number"
+                      },
+                      "c": {
+                        "type": "number"
+                      },
+                      "d": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "a",
+                      "b",
+                      "c",
+                      "d"
+                    ]
                   }
                 },
                 "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "value": {
+                  "value"
+                ],
+                "nullable": true
+              },
+              "third": {
                 "type": "object",
                 "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "a": {
+                        "type": "number"
+                      },
+                      "b": {
+                        "type": "number"
+                      },
+                      "c": {
+                        "type": "number"
+                      },
+                      "d": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "a",
+                      "b",
+                      "c",
+                      "d"
+                    ]
                   }
                 },
                 "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
-                ]
+                  "value"
+                ],
+                "nullable": true
               }
             },
             "required": [
-              "value"
-            ],
-            "nullable": true
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -292,9 +320,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

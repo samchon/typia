@@ -1,45 +1,59 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "enum": [
-                  "latest"
-                ],
-                "description": "@format uuid"
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
                     "enum": [
-                      -1
+                      "latest"
+                    ],
+                    "description": "@format uuid"
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          -1
+                        ]
+                      }
                     ]
                   }
-                ]
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [
-              "id",
-              "age"
+              "first"
             ],
             "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -50,73 +64,82 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "enum": [
-                  "latest"
-                ],
-                "description": "@format uuid"
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
                     "enum": [
-                      -1
+                      "latest"
+                    ],
+                    "description": "@format uuid"
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          -1
+                        ]
+                      }
                     ]
                   }
-                ]
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false
+              },
+              "second": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "enum": [
+                      "latest"
+                    ],
+                    "description": "@format uuid"
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          -1
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false,
+                "nullable": true
               }
             },
             "required": [
-              "id",
-              "age"
+              "first",
+              "second"
             ],
             "additionalProperties": false
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "enum": [
-                  "latest"
-                ],
-                "description": "@format uuid"
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
-                    "enum": [
-                      -1
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "age"
-            ],
-            "additionalProperties": false,
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -158,106 +181,115 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "enum": [
-                  "latest"
-                ],
-                "description": "@format uuid"
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
                     "enum": [
-                      -1
+                      "latest"
+                    ],
+                    "description": "@format uuid"
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          -1
+                        ]
+                      }
                     ]
                   }
-                ]
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "second": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "enum": [
+                      "latest"
+                    ],
+                    "description": "@format uuid"
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          -1
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "third": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "enum": [
+                      "latest"
+                    ],
+                    "description": "@format uuid"
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          -1
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ],
+                "additionalProperties": false,
+                "nullable": true
               }
             },
             "required": [
-              "id",
-              "age"
+              "first",
+              "second"
             ],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "enum": [
-                  "latest"
-                ],
-                "description": "@format uuid"
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
-                    "enum": [
-                      -1
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "age"
-            ],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "enum": [
-                  "latest"
-                ],
-                "description": "@format uuid"
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "description": "@maximum 100"
-                  },
-                  {
-                    "type": "number",
-                    "enum": [
-                      -1
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "age"
-            ],
-            "additionalProperties": false,
-            "nullable": true
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -295,10 +327,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

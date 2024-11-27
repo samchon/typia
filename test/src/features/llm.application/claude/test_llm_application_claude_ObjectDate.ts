@@ -9,11 +9,14 @@ export const test_llm_application_claude_ObjectDate = _test_llm_application({
 })(typia.llm.application<ObjectDateApplication, "claude">());
 
 interface ObjectDateApplication {
-  insert(first: ObjectDate): Promise<void>;
-  reduce(first: ObjectDate, second: ObjectDate | null): Promise<ObjectDate>;
-  coalesce(
-    first: ObjectDate | null,
-    second: ObjectDate | null,
-    third?: ObjectDate | null,
-  ): Promise<ObjectDate | null>;
+  insert(p: { first: ObjectDate }): Promise<void>;
+  reduce(p: {
+    first: ObjectDate;
+    second: ObjectDate | null;
+  }): Promise<ObjectDate>;
+  coalesce(p: {
+    first: ObjectDate | null;
+    second: ObjectDate | null;
+    third?: ObjectDate | null;
+  }): Promise<ObjectDate | null>;
 }

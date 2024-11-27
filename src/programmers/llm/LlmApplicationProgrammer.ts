@@ -29,7 +29,7 @@ export namespace LlmApplicationProgrammer {
           metadata.isRequired() === true &&
           metadata.functions.length === 1
         )
-          return validateFunction(metadata.functions[0]!);
+          return validateFunction(explore.property, metadata.functions[0]!);
         else return LlmSchemaProgrammer.validate(model)(metadata);
 
       const output: string[] = [];
@@ -77,12 +77,34 @@ export namespace LlmApplicationProgrammer {
     };
   };
 
-  const validateFunction = (func: MetadataFunction): string[] => {
+  const validateFunction = (name: string, func: MetadataFunction): string[] => {
     const output: string[] = [];
+    const prefix: string = `LLM application's function (${JSON.stringify(name)})`;
     if (func.output.size() && func.output.isRequired() === false)
       output.push(
-        "LLM application's function return type must not be union type with undefined.",
+        `${prefix}'s return type must not be union type with undefined.`,
       );
+    if (func.parameters.length !== 1)
+      output.push(`${prefix} must have a single parameter.`);
+    if (func.parameters.length !== 0) {
+      const type: Metadata = func.parameters[0]!.type;
+      if (type.size() !== 1 || type.objects.length !== 1)
+        output.push(`${prefix}'s parameter must be an object type.`);
+      else {
+        if (
+          type.objects[0]!.type.properties.some(
+            (p) => p.key.isSoleLiteral() === false,
+          )
+        )
+          output.push(`${prefix}'s parameter must not have dynamic keys.`);
+        if (type.isRequired() === false)
+          output.push(
+            `${prefix}'s parameter must not be union type with undefined.`,
+          );
+        if (type.nullable === true)
+          output.push(`${prefix}'s parameter must not be nullable.`);
+      }
+    }
     return output;
   };
 

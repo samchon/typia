@@ -1,81 +1,93 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string",
+                    "enum": [
+                      "txt",
+                      "md",
+                      "html"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "extension": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "extension",
+                        "url",
+                        "created_at"
+                      ]
                     }
                   },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
-              },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
+                  "secret": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "extension",
+                  "title",
+                  "body",
+                  "files",
+                  "secret",
+                  "created_at"
+                ]
               }
             },
             "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
+              "first"
             ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -85,145 +97,153 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string",
+                    "enum": [
+                      "txt",
+                      "md",
+                      "html"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "extension": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "extension",
+                        "url",
+                        "created_at"
+                      ]
                     }
                   },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
+                  "secret": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "extension",
+                  "title",
+                  "body",
+                  "files",
+                  "secret",
+                  "created_at"
+                ]
               },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
+              "second": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string",
+                    "enum": [
+                      "txt",
+                      "md",
+                      "html"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "extension": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "extension",
+                        "url",
+                        "created_at"
+                      ]
+                    }
+                  },
+                  "secret": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "extension",
+                  "title",
+                  "body",
+                  "files",
+                  "secret",
+                  "created_at"
+                ],
+                "nullable": true
               }
             },
             "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
+              "first",
+              "second"
             ]
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
-              },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
-            ],
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -300,214 +320,222 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string",
+                    "enum": [
+                      "txt",
+                      "md",
+                      "html"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "extension": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "extension",
+                        "url",
+                        "created_at"
+                      ]
                     }
                   },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
+                  "secret": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "extension",
+                  "title",
+                  "body",
+                  "files",
+                  "secret",
+                  "created_at"
+                ],
+                "nullable": true
               },
-              "secret": {
-                "type": "boolean"
+              "second": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string",
+                    "enum": [
+                      "txt",
+                      "md",
+                      "html"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "extension": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "extension",
+                        "url",
+                        "created_at"
+                      ]
+                    }
+                  },
+                  "secret": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "extension",
+                  "title",
+                  "body",
+                  "files",
+                  "secret",
+                  "created_at"
+                ],
+                "nullable": true
               },
-              "created_at": {
-                "type": "string"
+              "third": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string",
+                    "enum": [
+                      "txt",
+                      "md",
+                      "html"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "extension": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "extension",
+                        "url",
+                        "created_at"
+                      ]
+                    }
+                  },
+                  "secret": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "extension",
+                  "title",
+                  "body",
+                  "files",
+                  "secret",
+                  "created_at"
+                ],
+                "nullable": true
               }
             },
             "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
-            ],
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
-              },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
-            ],
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
-              },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
-            ],
-            "nullable": true
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -580,9 +608,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

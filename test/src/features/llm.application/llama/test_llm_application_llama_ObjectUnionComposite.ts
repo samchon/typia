@@ -10,14 +10,14 @@ export const test_llm_application_llama_ObjectUnionComposite =
   })(typia.llm.application<ObjectUnionCompositeApplication, "llama">());
 
 interface ObjectUnionCompositeApplication {
-  insert(first: ObjectUnionComposite): Promise<void>;
-  reduce(
-    first: ObjectUnionComposite,
-    second: ObjectUnionComposite | null,
-  ): Promise<ObjectUnionComposite>;
-  coalesce(
-    first: ObjectUnionComposite | null,
-    second: ObjectUnionComposite | null,
-    third?: ObjectUnionComposite | null,
-  ): Promise<ObjectUnionComposite | null>;
+  insert(p: { first: ObjectUnionComposite }): Promise<void>;
+  reduce(p: {
+    first: ObjectUnionComposite;
+    second: ObjectUnionComposite | null;
+  }): Promise<ObjectUnionComposite>;
+  coalesce(p: {
+    first: ObjectUnionComposite | null;
+    second: ObjectUnionComposite | null;
+    third?: ObjectUnionComposite | null;
+  }): Promise<ObjectUnionComposite | null>;
 }

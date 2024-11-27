@@ -15,14 +15,14 @@ export const test_llm_application_llama_ArrayRecursiveUnionExplicitPointer =
   );
 
 interface ArrayRecursiveUnionExplicitPointerApplication {
-  insert(first: ArrayRecursiveUnionExplicitPointer): Promise<void>;
-  reduce(
-    first: ArrayRecursiveUnionExplicitPointer,
-    second: ArrayRecursiveUnionExplicitPointer | null,
-  ): Promise<ArrayRecursiveUnionExplicitPointer>;
-  coalesce(
-    first: ArrayRecursiveUnionExplicitPointer | null,
-    second: ArrayRecursiveUnionExplicitPointer | null,
-    third?: ArrayRecursiveUnionExplicitPointer | null,
-  ): Promise<ArrayRecursiveUnionExplicitPointer | null>;
+  insert(p: { first: ArrayRecursiveUnionExplicitPointer }): Promise<void>;
+  reduce(p: {
+    first: ArrayRecursiveUnionExplicitPointer;
+    second: ArrayRecursiveUnionExplicitPointer | null;
+  }): Promise<ArrayRecursiveUnionExplicitPointer>;
+  coalesce(p: {
+    first: ArrayRecursiveUnionExplicitPointer | null;
+    second: ArrayRecursiveUnionExplicitPointer | null;
+    third?: ArrayRecursiveUnionExplicitPointer | null;
+  }): Promise<ArrayRecursiveUnionExplicitPointer | null>;
 }

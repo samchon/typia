@@ -10,14 +10,14 @@ export const test_llm_application_3_1_ObjectLiteralProperty =
   })(typia.llm.application<ObjectLiteralPropertyApplication, "3.1">());
 
 interface ObjectLiteralPropertyApplication {
-  insert(first: ObjectLiteralProperty): Promise<void>;
-  reduce(
-    first: ObjectLiteralProperty,
-    second: ObjectLiteralProperty | null,
-  ): Promise<ObjectLiteralProperty>;
-  coalesce(
-    first: ObjectLiteralProperty | null,
-    second: ObjectLiteralProperty | null,
-    third?: ObjectLiteralProperty | null,
-  ): Promise<ObjectLiteralProperty | null>;
+  insert(p: { first: ObjectLiteralProperty }): Promise<void>;
+  reduce(p: {
+    first: ObjectLiteralProperty;
+    second: ObjectLiteralProperty | null;
+  }): Promise<ObjectLiteralProperty>;
+  coalesce(p: {
+    first: ObjectLiteralProperty | null;
+    second: ObjectLiteralProperty | null;
+    third?: ObjectLiteralProperty | null;
+  }): Promise<ObjectLiteralProperty | null>;
 }

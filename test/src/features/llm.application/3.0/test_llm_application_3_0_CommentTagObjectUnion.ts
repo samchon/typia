@@ -10,14 +10,14 @@ export const test_llm_application_3_0_CommentTagObjectUnion =
   })(typia.llm.application<CommentTagObjectUnionApplication, "3.0">());
 
 interface CommentTagObjectUnionApplication {
-  insert(first: CommentTagObjectUnion): Promise<void>;
-  reduce(
-    first: CommentTagObjectUnion,
-    second: CommentTagObjectUnion | null,
-  ): Promise<CommentTagObjectUnion>;
-  coalesce(
-    first: CommentTagObjectUnion | null,
-    second: CommentTagObjectUnion | null,
-    third?: CommentTagObjectUnion | null,
-  ): Promise<CommentTagObjectUnion | null>;
+  insert(p: { first: CommentTagObjectUnion }): Promise<void>;
+  reduce(p: {
+    first: CommentTagObjectUnion;
+    second: CommentTagObjectUnion | null;
+  }): Promise<CommentTagObjectUnion>;
+  coalesce(p: {
+    first: CommentTagObjectUnion | null;
+    second: CommentTagObjectUnion | null;
+    third?: CommentTagObjectUnion | null;
+  }): Promise<CommentTagObjectUnion | null>;
 }

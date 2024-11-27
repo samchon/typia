@@ -1,7 +1,7 @@
 import typia from "typia";
 
-typia.llm.application<Controller>();
+typia.llm.application<Controller, "chatgpt">();
 
 interface Controller {
-  plus(X: bigint, y: bigint): bigint;
+  plus(props: { x: bigint; y: bigint }): bigint;
 }

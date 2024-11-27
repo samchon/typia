@@ -9,14 +9,14 @@ export const test_llm_application_llama_TypeTagDefault = _test_llm_application({
 })(typia.llm.application<TypeTagDefaultApplication, "llama">());
 
 interface TypeTagDefaultApplication {
-  insert(first: TypeTagDefault): Promise<void>;
-  reduce(
-    first: TypeTagDefault,
-    second: TypeTagDefault | null,
-  ): Promise<TypeTagDefault>;
-  coalesce(
-    first: TypeTagDefault | null,
-    second: TypeTagDefault | null,
-    third?: TypeTagDefault | null,
-  ): Promise<TypeTagDefault | null>;
+  insert(p: { first: TypeTagDefault }): Promise<void>;
+  reduce(p: {
+    first: TypeTagDefault;
+    second: TypeTagDefault | null;
+  }): Promise<TypeTagDefault>;
+  coalesce(p: {
+    first: TypeTagDefault | null;
+    second: TypeTagDefault | null;
+    third?: TypeTagDefault | null;
+  }): Promise<TypeTagDefault | null>;
 }

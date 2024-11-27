@@ -9,11 +9,14 @@ export const test_llm_application_llama_ArrayUnion = _test_llm_application({
 })(typia.llm.application<ArrayUnionApplication, "llama">());
 
 interface ArrayUnionApplication {
-  insert(first: ArrayUnion): Promise<void>;
-  reduce(first: ArrayUnion, second: ArrayUnion | null): Promise<ArrayUnion>;
-  coalesce(
-    first: ArrayUnion | null,
-    second: ArrayUnion | null,
-    third?: ArrayUnion | null,
-  ): Promise<ArrayUnion | null>;
+  insert(p: { first: ArrayUnion }): Promise<void>;
+  reduce(p: {
+    first: ArrayUnion;
+    second: ArrayUnion | null;
+  }): Promise<ArrayUnion>;
+  coalesce(p: {
+    first: ArrayUnion | null;
+    second: ArrayUnion | null;
+    third?: ArrayUnion | null;
+  }): Promise<ArrayUnion | null>;
 }

@@ -1,20 +1,34 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
-            "properties": {},
-            "required": [],
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "first"
+            ],
             "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -25,23 +39,32 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
-            "properties": {},
-            "required": [],
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              },
+              "second": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
             "additionalProperties": false
-          },
-          "second": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false,
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -58,31 +81,40 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": false,
-            "nullable": true
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "second": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false,
+                "nullable": true
+              },
+              "third": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -95,10 +127,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

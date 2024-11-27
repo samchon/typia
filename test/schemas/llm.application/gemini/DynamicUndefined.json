@@ -1,19 +1,31 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
-            "properties": {},
-            "required": []
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            },
+            "required": [
+              "first"
+            ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -23,21 +35,29 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
-            "properties": {},
-            "required": []
-          },
-          "second": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              },
+              "second": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "nullable": true
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -52,28 +72,36 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "nullable": true
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "nullable": true
+              },
+              "second": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "nullable": true
+              },
+              "third": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "nullable": true
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -84,9 +112,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

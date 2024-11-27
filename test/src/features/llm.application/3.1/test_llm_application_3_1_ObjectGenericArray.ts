@@ -10,14 +10,14 @@ export const test_llm_application_3_1_ObjectGenericArray =
   })(typia.llm.application<ObjectGenericArrayApplication, "3.1">());
 
 interface ObjectGenericArrayApplication {
-  insert(first: ObjectGenericArray): Promise<void>;
-  reduce(
-    first: ObjectGenericArray,
-    second: ObjectGenericArray | null,
-  ): Promise<ObjectGenericArray>;
-  coalesce(
-    first: ObjectGenericArray | null,
-    second: ObjectGenericArray | null,
-    third?: ObjectGenericArray | null,
-  ): Promise<ObjectGenericArray | null>;
+  insert(p: { first: ObjectGenericArray }): Promise<void>;
+  reduce(p: {
+    first: ObjectGenericArray;
+    second: ObjectGenericArray | null;
+  }): Promise<ObjectGenericArray>;
+  coalesce(p: {
+    first: ObjectGenericArray | null;
+    second: ObjectGenericArray | null;
+    third?: ObjectGenericArray | null;
+  }): Promise<ObjectGenericArray | null>;
 }

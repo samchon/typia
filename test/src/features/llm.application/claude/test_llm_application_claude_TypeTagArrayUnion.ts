@@ -10,14 +10,14 @@ export const test_llm_application_claude_TypeTagArrayUnion =
   })(typia.llm.application<TypeTagArrayUnionApplication, "claude">());
 
 interface TypeTagArrayUnionApplication {
-  insert(first: TypeTagArrayUnion): Promise<void>;
-  reduce(
-    first: TypeTagArrayUnion,
-    second: TypeTagArrayUnion | null,
-  ): Promise<TypeTagArrayUnion>;
-  coalesce(
-    first: TypeTagArrayUnion | null,
-    second: TypeTagArrayUnion | null,
-    third?: TypeTagArrayUnion | null,
-  ): Promise<TypeTagArrayUnion | null>;
+  insert(p: { first: TypeTagArrayUnion }): Promise<void>;
+  reduce(p: {
+    first: TypeTagArrayUnion;
+    second: TypeTagArrayUnion | null;
+  }): Promise<TypeTagArrayUnion>;
+  coalesce(p: {
+    first: TypeTagArrayUnion | null;
+    second: TypeTagArrayUnion | null;
+    third?: TypeTagArrayUnion | null;
+  }): Promise<TypeTagArrayUnion | null>;
 }

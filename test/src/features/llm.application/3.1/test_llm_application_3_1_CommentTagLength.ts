@@ -9,14 +9,14 @@ export const test_llm_application_3_1_CommentTagLength = _test_llm_application({
 })(typia.llm.application<CommentTagLengthApplication, "3.1">());
 
 interface CommentTagLengthApplication {
-  insert(first: CommentTagLength): Promise<void>;
-  reduce(
-    first: CommentTagLength,
-    second: CommentTagLength | null,
-  ): Promise<CommentTagLength>;
-  coalesce(
-    first: CommentTagLength | null,
-    second: CommentTagLength | null,
-    third?: CommentTagLength | null,
-  ): Promise<CommentTagLength | null>;
+  insert(p: { first: CommentTagLength }): Promise<void>;
+  reduce(p: {
+    first: CommentTagLength;
+    second: CommentTagLength | null;
+  }): Promise<CommentTagLength>;
+  coalesce(p: {
+    first: CommentTagLength | null;
+    second: CommentTagLength | null;
+    third?: CommentTagLength | null;
+  }): Promise<CommentTagLength | null>;
 }

@@ -10,14 +10,14 @@ export const test_llm_application_claude_ObjectUnionNonPredictable =
   })(typia.llm.application<ObjectUnionNonPredictableApplication, "claude">());
 
 interface ObjectUnionNonPredictableApplication {
-  insert(first: ObjectUnionNonPredictable): Promise<void>;
-  reduce(
-    first: ObjectUnionNonPredictable,
-    second: ObjectUnionNonPredictable | null,
-  ): Promise<ObjectUnionNonPredictable>;
-  coalesce(
-    first: ObjectUnionNonPredictable | null,
-    second: ObjectUnionNonPredictable | null,
-    third?: ObjectUnionNonPredictable | null,
-  ): Promise<ObjectUnionNonPredictable | null>;
+  insert(p: { first: ObjectUnionNonPredictable }): Promise<void>;
+  reduce(p: {
+    first: ObjectUnionNonPredictable;
+    second: ObjectUnionNonPredictable | null;
+  }): Promise<ObjectUnionNonPredictable>;
+  coalesce(p: {
+    first: ObjectUnionNonPredictable | null;
+    second: ObjectUnionNonPredictable | null;
+    third?: ObjectUnionNonPredictable | null;
+  }): Promise<ObjectUnionNonPredictable | null>;
 }

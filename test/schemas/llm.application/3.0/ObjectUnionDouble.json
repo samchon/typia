@@ -1,160 +1,174 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "boolean"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
+                          ]
                         }
                       },
                       "required": [
-                        "x"
+                        "value",
+                        "child"
                       ],
                       "additionalProperties": false
                     },
-                    "child": {
-                      "oneOf": [
-                        {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "string"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "string"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
-                      ]
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
-              ]
-            }
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -165,303 +179,312 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "boolean"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
+                          ]
                         }
                       },
                       "required": [
-                        "x"
+                        "value",
+                        "child"
                       ],
                       "additionalProperties": false
                     },
-                    "child": {
-                      "oneOf": [
-                        {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "string"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "string"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
-                      ]
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
-              ]
-            }
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
+              },
+              "second": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "boolean"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "string"
+                            }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
+                        },
+                        "child": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
                         }
-                      ]
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -618,451 +641,460 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "boolean"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "string"
+                            }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
+                        },
+                        "child": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
                         }
-                      ]
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
+                "nullable": true
+              },
+              "second": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "string"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "nullable": true
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
+                          ]
                         }
                       },
                       "required": [
-                        "x"
+                        "value",
+                        "child"
                       ],
                       "additionalProperties": false
                     },
-                    "child": {
-                      "oneOf": [
-                        {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "string"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "boolean"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
-                      ]
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
+                "nullable": true
+              },
+              "third": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "string"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "nullable": true
-          },
-          "third": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
+                          ]
                         }
                       },
                       "required": [
-                        "x"
+                        "value",
+                        "child"
                       ],
                       "additionalProperties": false
                     },
-                    "child": {
-                      "oneOf": [
-                        {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
+                            "x": {
+                              "type": "string"
                             }
                           },
                           "required": [
-                            "value"
+                            "x"
                           ],
                           "additionalProperties": false
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "y": {
-                                  "type": "boolean"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
                                 }
                               },
                               "required": [
-                                "y"
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "value"
                               ],
                               "additionalProperties": false
                             }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
-                      ]
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "x"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "child": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "number"
-                                  }
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "y": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "additionalProperties": false
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value",
-                    "child"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -1215,10 +1247,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

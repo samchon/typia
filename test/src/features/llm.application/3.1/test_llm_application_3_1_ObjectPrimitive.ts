@@ -9,14 +9,14 @@ export const test_llm_application_3_1_ObjectPrimitive = _test_llm_application({
 })(typia.llm.application<ObjectPrimitiveApplication, "3.1">());
 
 interface ObjectPrimitiveApplication {
-  insert(first: ObjectPrimitive): Promise<void>;
-  reduce(
-    first: ObjectPrimitive,
-    second: ObjectPrimitive | null,
-  ): Promise<ObjectPrimitive>;
-  coalesce(
-    first: ObjectPrimitive | null,
-    second: ObjectPrimitive | null,
-    third?: ObjectPrimitive | null,
-  ): Promise<ObjectPrimitive | null>;
+  insert(p: { first: ObjectPrimitive }): Promise<void>;
+  reduce(p: {
+    first: ObjectPrimitive;
+    second: ObjectPrimitive | null;
+  }): Promise<ObjectPrimitive>;
+  coalesce(p: {
+    first: ObjectPrimitive | null;
+    second: ObjectPrimitive | null;
+    third?: ObjectPrimitive | null;
+  }): Promise<ObjectPrimitive | null>;
 }

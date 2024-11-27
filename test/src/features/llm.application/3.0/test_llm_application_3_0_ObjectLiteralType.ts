@@ -11,14 +11,14 @@ export const test_llm_application_3_0_ObjectLiteralType = _test_llm_application(
 )(typia.llm.application<ObjectLiteralTypeApplication, "3.0">());
 
 interface ObjectLiteralTypeApplication {
-  insert(first: ObjectLiteralType): Promise<void>;
-  reduce(
-    first: ObjectLiteralType,
-    second: ObjectLiteralType | null,
-  ): Promise<ObjectLiteralType>;
-  coalesce(
-    first: ObjectLiteralType | null,
-    second: ObjectLiteralType | null,
-    third?: ObjectLiteralType | null,
-  ): Promise<ObjectLiteralType | null>;
+  insert(p: { first: ObjectLiteralType }): Promise<void>;
+  reduce(p: {
+    first: ObjectLiteralType;
+    second: ObjectLiteralType | null;
+  }): Promise<ObjectLiteralType>;
+  coalesce(p: {
+    first: ObjectLiteralType | null;
+    second: ObjectLiteralType | null;
+    third?: ObjectLiteralType | null;
+  }): Promise<ObjectLiteralType | null>;
 }

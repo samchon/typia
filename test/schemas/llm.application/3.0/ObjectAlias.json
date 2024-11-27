@@ -1,69 +1,83 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ],
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
                       "nullable": true
                     },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ],
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ],
+                          "nullable": true
+                        }
+                      ]
+                    },
+                    "age": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "dead": {
+                      "type": "boolean",
                       "nullable": true
                     }
-                  ]
-                },
-                "age": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "dead": {
-                  "type": "boolean",
-                  "nullable": true
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
                 }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -74,121 +88,130 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ],
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
                       "nullable": true
                     },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ],
-                      "nullable": true
-                    }
-                  ]
-                },
-                "age": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "dead": {
-                  "type": "boolean",
-                  "nullable": true
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ],
+                          "nullable": true
+                        }
+                      ]
+                    },
+                    "age": {
                       "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ],
                       "nullable": true
                     },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ],
+                    "dead": {
+                      "type": "boolean",
                       "nullable": true
                     }
-                  ]
-                },
-                "age": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "dead": {
-                  "type": "boolean",
-                  "nullable": true
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
                 }
               },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
+              "second": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ],
+                          "nullable": true
+                        }
+                      ]
+                    },
+                    "age": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "dead": {
+                      "type": "boolean",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
+                },
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -254,178 +277,187 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ],
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
                       "nullable": true
                     },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ],
-                      "nullable": true
-                    }
-                  ]
-                },
-                "age": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "dead": {
-                  "type": "boolean",
-                  "nullable": true
-                }
-              },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            },
-            "nullable": true
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ],
+                          "nullable": true
+                        }
+                      ]
+                    },
+                    "age": {
                       "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ],
                       "nullable": true
                     },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ],
+                    "dead": {
+                      "type": "boolean",
                       "nullable": true
                     }
-                  ]
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
                 },
-                "age": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "dead": {
-                  "type": "boolean",
-                  "nullable": true
-                }
+                "nullable": true
               },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
-            },
-            "nullable": true
-          },
-          "third": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "email": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "sex": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ],
+              "second": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
                       "nullable": true
                     },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "male",
-                        "female"
-                      ],
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ],
+                          "nullable": true
+                        }
+                      ]
+                    },
+                    "age": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "dead": {
+                      "type": "boolean",
                       "nullable": true
                     }
-                  ]
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
                 },
-                "age": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "dead": {
-                  "type": "boolean",
-                  "nullable": true
-                }
+                "nullable": true
               },
-              "required": [
-                "id",
-                "email",
-                "name",
-                "sex",
-                "age",
-                "dead"
-              ],
-              "additionalProperties": false
+              "third": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "oneOf": [
+                        {
+                          "type": "number",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "nullable": true
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ],
+                          "nullable": true
+                        }
+                      ]
+                    },
+                    "age": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "dead": {
+                      "type": "boolean",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "email",
+                    "name",
+                    "sex",
+                    "age",
+                    "dead"
+                  ],
+                  "additionalProperties": false
+                },
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -487,10 +519,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

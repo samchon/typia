@@ -1,26 +1,38 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "array",
                 "items": {
-                  "type": "number"
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
                 }
               }
-            }
+            },
+            "required": [
+              "first"
+            ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -30,35 +42,43 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "array",
                 "items": {
-                  "type": "number"
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
                 }
-              }
-            }
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
+              },
+              "second": {
                 "type": "array",
                 "items": {
-                  "type": "number"
-                }
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "nullable": true
               }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -80,49 +100,57 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "array",
                 "items": {
-                  "type": "number"
-                }
-              }
-            },
-            "nullable": true
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "second": {
                 "type": "array",
                 "items": {
-                  "type": "number"
-                }
-              }
-            },
-            "nullable": true
-          },
-          "third": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "nullable": true
+              },
+              "third": {
                 "type": "array",
                 "items": {
-                  "type": "number"
-                }
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "nullable": true
               }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -140,9 +168,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

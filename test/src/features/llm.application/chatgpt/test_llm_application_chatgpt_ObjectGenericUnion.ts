@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ObjectGenericUnion =
   })(typia.llm.application<ObjectGenericUnionApplication, "chatgpt">());
 
 interface ObjectGenericUnionApplication {
-  insert(first: ObjectGenericUnion): Promise<void>;
-  reduce(
-    first: ObjectGenericUnion,
-    second: ObjectGenericUnion | null,
-  ): Promise<ObjectGenericUnion>;
-  coalesce(
-    first: ObjectGenericUnion | null,
-    second: ObjectGenericUnion | null,
-    third?: ObjectGenericUnion | null,
-  ): Promise<ObjectGenericUnion | null>;
+  insert(p: { first: ObjectGenericUnion }): Promise<void>;
+  reduce(p: {
+    first: ObjectGenericUnion;
+    second: ObjectGenericUnion | null;
+  }): Promise<ObjectGenericUnion>;
+  coalesce(p: {
+    first: ObjectGenericUnion | null;
+    second: ObjectGenericUnion | null;
+    third?: ObjectGenericUnion | null;
+  }): Promise<ObjectGenericUnion | null>;
 }

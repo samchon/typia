@@ -1,225 +1,20 @@
 {
   "model": "3.1",
+  "options": {
+    "constraint": false,
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "additionalProperties": false
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "additionalProperties": false
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+              "first": {
                 "type": "object",
                 "properties": {
                   "value": {
@@ -316,12 +111,240 @@
                 ],
                 "additionalProperties": false
               }
-            ]
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "boolean"
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "value"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "value"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "value"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "oneOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "boolean"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -430,32 +453,83 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "array",
+                        "items": {
                           "type": "object",
                           "properties": {
                             "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "oneOf": [
+                                    {
                                       "type": "object",
                                       "properties": {
                                         "value": {
-                                          "type": "boolean"
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "boolean"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
                                         }
                                       },
                                       "required": [
@@ -463,55 +537,13 @@
                                       ],
                                       "additionalProperties": false
                                     }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
-                              ]
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
                             }
                           },
                           "required": [
@@ -519,47 +551,89 @@
                           ],
                           "additionalProperties": false
                         }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "array",
+                        "items": {
                           "type": "object",
                           "properties": {
                             "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "oneOf": [
+                                    {
                                       "type": "object",
                                       "properties": {
                                         "value": {
-                                          "type": "boolean"
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "boolean"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
                                         }
                                       },
                                       "required": [
@@ -567,55 +641,13 @@
                                       ],
                                       "additionalProperties": false
                                     }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
-                              ]
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
                             }
                           },
                           "required": [
@@ -623,47 +655,89 @@
                           ],
                           "additionalProperties": false
                         }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "array",
+                        "items": {
                           "type": "object",
                           "properties": {
                             "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "oneOf": [
+                                    {
                                       "type": "object",
                                       "properties": {
                                         "value": {
-                                          "type": "boolean"
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "boolean"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "required": [
+                                        "value"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "object",
+                                          "properties": {
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "value"
+                                          ],
+                                          "additionalProperties": false
                                         }
                                       },
                                       "required": [
@@ -671,55 +745,13 @@
                                       ],
                                       "additionalProperties": false
                                     }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ],
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
-                              ]
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "additionalProperties": false
                             }
                           },
                           "required": [
@@ -727,26 +759,26 @@
                           ],
                           "additionalProperties": false
                         }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -857,10 +889,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

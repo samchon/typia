@@ -10,14 +10,14 @@ export const test_llm_application_3_1_ArrayHierarchicalPointer =
   })(typia.llm.application<ArrayHierarchicalPointerApplication, "3.1">());
 
 interface ArrayHierarchicalPointerApplication {
-  insert(first: ArrayHierarchicalPointer): Promise<void>;
-  reduce(
-    first: ArrayHierarchicalPointer,
-    second: ArrayHierarchicalPointer | null,
-  ): Promise<ArrayHierarchicalPointer>;
-  coalesce(
-    first: ArrayHierarchicalPointer | null,
-    second: ArrayHierarchicalPointer | null,
-    third?: ArrayHierarchicalPointer | null,
-  ): Promise<ArrayHierarchicalPointer | null>;
+  insert(p: { first: ArrayHierarchicalPointer }): Promise<void>;
+  reduce(p: {
+    first: ArrayHierarchicalPointer;
+    second: ArrayHierarchicalPointer | null;
+  }): Promise<ArrayHierarchicalPointer>;
+  coalesce(p: {
+    first: ArrayHierarchicalPointer | null;
+    second: ArrayHierarchicalPointer | null;
+    third?: ArrayHierarchicalPointer | null;
+  }): Promise<ArrayHierarchicalPointer | null>;
 }

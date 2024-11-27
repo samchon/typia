@@ -1,20 +1,34 @@
 {
   "model": "3.1",
+  "options": {
+    "constraint": false,
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-            }
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+                }
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -216,29 +230,38 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-            }
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
                 }
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+                    }
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -446,50 +469,59 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+                    }
+                  }
+                ]
               },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+                    }
+                  }
+                ]
               },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
+                    }
+                  }
+                ]
               }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
-              }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -699,10 +731,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

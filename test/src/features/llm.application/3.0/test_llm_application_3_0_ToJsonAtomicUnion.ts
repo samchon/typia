@@ -11,14 +11,14 @@ export const test_llm_application_3_0_ToJsonAtomicUnion = _test_llm_application(
 )(typia.llm.application<ToJsonAtomicUnionApplication, "3.0">());
 
 interface ToJsonAtomicUnionApplication {
-  insert(first: ToJsonAtomicUnion): Promise<void>;
-  reduce(
-    first: ToJsonAtomicUnion,
-    second: ToJsonAtomicUnion | null,
-  ): Promise<ToJsonAtomicUnion>;
-  coalesce(
-    first: ToJsonAtomicUnion | null,
-    second: ToJsonAtomicUnion | null,
-    third?: ToJsonAtomicUnion | null,
-  ): Promise<ToJsonAtomicUnion | null>;
+  insert(p: { first: ToJsonAtomicUnion }): Promise<void>;
+  reduce(p: {
+    first: ToJsonAtomicUnion;
+    second: ToJsonAtomicUnion | null;
+  }): Promise<ToJsonAtomicUnion>;
+  coalesce(p: {
+    first: ToJsonAtomicUnion | null;
+    second: ToJsonAtomicUnion | null;
+    third?: ToJsonAtomicUnion | null;
+  }): Promise<ToJsonAtomicUnion | null>;
 }

@@ -1,35 +1,49 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "dead": {
-                "type": "boolean",
-                "nullable": true
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dead": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "dead"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [
-              "id",
-              "name",
-              "dead"
+              "first"
             ],
             "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -40,53 +54,62 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dead": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "dead"
+                ],
+                "additionalProperties": false
               },
-              "name": {
-                "type": "string"
-              },
-              "dead": {
-                "type": "boolean",
+              "second": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dead": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "dead"
+                ],
+                "additionalProperties": false,
                 "nullable": true
               }
             },
             "required": [
-              "id",
-              "name",
-              "dead"
+              "first",
+              "second"
             ],
             "additionalProperties": false
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "dead": {
-                "type": "boolean",
-                "nullable": true
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "dead"
-            ],
-            "additionalProperties": false,
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -118,76 +141,85 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string"
+              "first": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dead": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "dead"
+                ],
+                "additionalProperties": false,
+                "nullable": true
               },
-              "name": {
-                "type": "string"
+              "second": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dead": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "dead"
+                ],
+                "additionalProperties": false,
+                "nullable": true
               },
-              "dead": {
-                "type": "boolean",
+              "third": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "dead": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "dead"
+                ],
+                "additionalProperties": false,
                 "nullable": true
               }
             },
             "required": [
-              "id",
-              "name",
-              "dead"
+              "first",
+              "second"
             ],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "dead": {
-                "type": "boolean",
-                "nullable": true
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "dead"
-            ],
-            "additionalProperties": false,
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "dead": {
-                "type": "boolean",
-                "nullable": true
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "dead"
-            ],
-            "additionalProperties": false,
-            "nullable": true
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -215,10 +247,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

@@ -9,11 +9,14 @@ export const test_llm_application_llama_ArrayMatrix = _test_llm_application({
 })(typia.llm.application<ArrayMatrixApplication, "llama">());
 
 interface ArrayMatrixApplication {
-  insert(first: ArrayMatrix): Promise<void>;
-  reduce(first: ArrayMatrix, second: ArrayMatrix | null): Promise<ArrayMatrix>;
-  coalesce(
-    first: ArrayMatrix | null,
-    second: ArrayMatrix | null,
-    third?: ArrayMatrix | null,
-  ): Promise<ArrayMatrix | null>;
+  insert(p: { first: ArrayMatrix }): Promise<void>;
+  reduce(p: {
+    first: ArrayMatrix;
+    second: ArrayMatrix | null;
+  }): Promise<ArrayMatrix>;
+  coalesce(p: {
+    first: ArrayMatrix | null;
+    second: ArrayMatrix | null;
+    third?: ArrayMatrix | null;
+  }): Promise<ArrayMatrix | null>;
 }

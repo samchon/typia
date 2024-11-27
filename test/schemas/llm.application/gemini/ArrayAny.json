@@ -1,66 +1,78 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "nullables2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both3": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "union": {
-                "type": "array",
-                "items": {}
+              "first": {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "nullables2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both3": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ]
               }
             },
             "required": [
-              "anys",
-              "nullables1",
-              "nullables2",
-              "union"
+              "first"
             ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -70,115 +82,123 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
+              "first": {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "nullables2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both3": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ]
               },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "type": "array",
-                "items": {},
+              "second": {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "nullables2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both3": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
                 "nullable": true
-              },
-              "nullables2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both3": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "union": {
-                "type": "array",
-                "items": {}
               }
             },
             "required": [
-              "anys",
-              "nullables1",
-              "nullables2",
-              "union"
+              "first",
+              "second"
             ]
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "nullables2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both3": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "union": {
-                "type": "array",
-                "items": {}
-              }
-            },
-            "required": [
-              "anys",
-              "nullables1",
-              "nullables2",
-              "union"
-            ],
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -240,169 +260,177 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "type": "array",
-                "items": {},
+              "first": {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "nullables2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both3": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
                 "nullable": true
               },
-              "nullables2": {
-                "type": "array",
-                "items": {},
+              "second": {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "nullables2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both3": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
                 "nullable": true
               },
-              "both1": {
-                "type": "array",
-                "items": {},
+              "third": {
+                "type": "object",
+                "properties": {
+                  "anys": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable1": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "undefindable2": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "nullables1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "nullables2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both1": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both2": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "both3": {
+                    "type": "array",
+                    "items": {},
+                    "nullable": true
+                  },
+                  "union": {
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "anys",
+                  "nullables1",
+                  "nullables2",
+                  "union"
+                ],
                 "nullable": true
-              },
-              "both2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both3": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "union": {
-                "type": "array",
-                "items": {}
               }
             },
             "required": [
-              "anys",
-              "nullables1",
-              "nullables2",
-              "union"
-            ],
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "nullables2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both3": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "union": {
-                "type": "array",
-                "items": {}
-              }
-            },
-            "required": [
-              "anys",
-              "nullables1",
-              "nullables2",
-              "union"
-            ],
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "anys": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable1": {
-                "type": "array",
-                "items": {}
-              },
-              "undefindable2": {
-                "type": "array",
-                "items": {}
-              },
-              "nullables1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "nullables2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both1": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both2": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "both3": {
-                "type": "array",
-                "items": {},
-                "nullable": true
-              },
-              "union": {
-                "type": "array",
-                "items": {}
-              }
-            },
-            "required": [
-              "anys",
-              "nullables1",
-              "nullables2",
-              "union"
-            ],
-            "nullable": true
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -460,9 +488,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

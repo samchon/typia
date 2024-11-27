@@ -10,14 +10,14 @@ export const test_llm_application_gemini_ArrayHierarchical =
   })(typia.llm.application<ArrayHierarchicalApplication, "gemini">());
 
 interface ArrayHierarchicalApplication {
-  insert(first: ArrayHierarchical): Promise<void>;
-  reduce(
-    first: ArrayHierarchical,
-    second: ArrayHierarchical | null,
-  ): Promise<ArrayHierarchical>;
-  coalesce(
-    first: ArrayHierarchical | null,
-    second: ArrayHierarchical | null,
-    third?: ArrayHierarchical | null,
-  ): Promise<ArrayHierarchical | null>;
+  insert(p: { first: ArrayHierarchical }): Promise<void>;
+  reduce(p: {
+    first: ArrayHierarchical;
+    second: ArrayHierarchical | null;
+  }): Promise<ArrayHierarchical>;
+  coalesce(p: {
+    first: ArrayHierarchical | null;
+    second: ArrayHierarchical | null;
+    third?: ArrayHierarchical | null;
+  }): Promise<ArrayHierarchical | null>;
 }

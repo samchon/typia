@@ -1,17 +1,30 @@
 {
   "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "$ref": "#/$defs/ObjectRecursive.IDepartment"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "$ref": "#/$defs/ObjectRecursive.IDepartment"
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -76,23 +89,32 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "$ref": "#/$defs/ObjectRecursive.IDepartment"
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "$ref": "#/$defs/ObjectRecursive.IDepartment"
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -160,41 +182,50 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
+                  }
+                ]
               },
-              {
-                "$ref": "#/$defs/ObjectRecursive.IDepartment"
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
+                  }
+                ]
               },
-              {
-                "$ref": "#/$defs/ObjectRecursive.IDepartment"
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
+                  }
+                ]
               }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/$defs/ObjectRecursive.IDepartment"
-              }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -264,9 +295,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

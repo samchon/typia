@@ -11,14 +11,14 @@ export const test_llm_application_3_0_ObjectUnionDouble = _test_llm_application(
 )(typia.llm.application<ObjectUnionDoubleApplication, "3.0">());
 
 interface ObjectUnionDoubleApplication {
-  insert(first: ObjectUnionDouble): Promise<void>;
-  reduce(
-    first: ObjectUnionDouble,
-    second: ObjectUnionDouble | null,
-  ): Promise<ObjectUnionDouble>;
-  coalesce(
-    first: ObjectUnionDouble | null,
-    second: ObjectUnionDouble | null,
-    third?: ObjectUnionDouble | null,
-  ): Promise<ObjectUnionDouble | null>;
+  insert(p: { first: ObjectUnionDouble }): Promise<void>;
+  reduce(p: {
+    first: ObjectUnionDouble;
+    second: ObjectUnionDouble | null;
+  }): Promise<ObjectUnionDouble>;
+  coalesce(p: {
+    first: ObjectUnionDouble | null;
+    second: ObjectUnionDouble | null;
+    third?: ObjectUnionDouble | null;
+  }): Promise<ObjectUnionDouble | null>;
 }

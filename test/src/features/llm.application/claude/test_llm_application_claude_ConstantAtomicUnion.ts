@@ -10,14 +10,14 @@ export const test_llm_application_claude_ConstantAtomicUnion =
   })(typia.llm.application<ConstantAtomicUnionApplication, "claude">());
 
 interface ConstantAtomicUnionApplication {
-  insert(first: ConstantAtomicUnion): Promise<void>;
-  reduce(
-    first: ConstantAtomicUnion,
-    second: ConstantAtomicUnion | null,
-  ): Promise<ConstantAtomicUnion>;
-  coalesce(
-    first: ConstantAtomicUnion | null,
-    second: ConstantAtomicUnion | null,
-    third?: ConstantAtomicUnion | null,
-  ): Promise<ConstantAtomicUnion | null>;
+  insert(p: { first: ConstantAtomicUnion }): Promise<void>;
+  reduce(p: {
+    first: ConstantAtomicUnion;
+    second: ConstantAtomicUnion | null;
+  }): Promise<ConstantAtomicUnion>;
+  coalesce(p: {
+    first: ConstantAtomicUnion | null;
+    second: ConstantAtomicUnion | null;
+    third?: ConstantAtomicUnion | null;
+  }): Promise<ConstantAtomicUnion | null>;
 }

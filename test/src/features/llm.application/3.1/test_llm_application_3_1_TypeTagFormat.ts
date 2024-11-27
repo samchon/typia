@@ -9,14 +9,14 @@ export const test_llm_application_3_1_TypeTagFormat = _test_llm_application({
 })(typia.llm.application<TypeTagFormatApplication, "3.1">());
 
 interface TypeTagFormatApplication {
-  insert(first: TypeTagFormat): Promise<void>;
-  reduce(
-    first: TypeTagFormat,
-    second: TypeTagFormat | null,
-  ): Promise<TypeTagFormat>;
-  coalesce(
-    first: TypeTagFormat | null,
-    second: TypeTagFormat | null,
-    third?: TypeTagFormat | null,
-  ): Promise<TypeTagFormat | null>;
+  insert(p: { first: TypeTagFormat }): Promise<void>;
+  reduce(p: {
+    first: TypeTagFormat;
+    second: TypeTagFormat | null;
+  }): Promise<TypeTagFormat>;
+  coalesce(p: {
+    first: TypeTagFormat | null;
+    second: TypeTagFormat | null;
+    third?: TypeTagFormat | null;
+  }): Promise<TypeTagFormat | null>;
 }

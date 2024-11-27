@@ -10,14 +10,14 @@ export const test_llm_application_3_0_TypeTagAtomicUnion =
   })(typia.llm.application<TypeTagAtomicUnionApplication, "3.0">());
 
 interface TypeTagAtomicUnionApplication {
-  insert(first: TypeTagAtomicUnion): Promise<void>;
-  reduce(
-    first: TypeTagAtomicUnion,
-    second: TypeTagAtomicUnion | null,
-  ): Promise<TypeTagAtomicUnion>;
-  coalesce(
-    first: TypeTagAtomicUnion | null,
-    second: TypeTagAtomicUnion | null,
-    third?: TypeTagAtomicUnion | null,
-  ): Promise<TypeTagAtomicUnion | null>;
+  insert(p: { first: TypeTagAtomicUnion }): Promise<void>;
+  reduce(p: {
+    first: TypeTagAtomicUnion;
+    second: TypeTagAtomicUnion | null;
+  }): Promise<TypeTagAtomicUnion>;
+  coalesce(p: {
+    first: TypeTagAtomicUnion | null;
+    second: TypeTagAtomicUnion | null;
+    third?: TypeTagAtomicUnion | null;
+  }): Promise<TypeTagAtomicUnion | null>;
 }

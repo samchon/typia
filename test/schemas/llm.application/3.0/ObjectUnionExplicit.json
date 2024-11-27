@@ -1,42 +1,24 @@
 {
   "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "point"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
                         "x": {
@@ -44,232 +26,220 @@
                         },
                         "y": {
                           "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "point"
+                          ]
                         }
                       },
                       "required": [
                         "x",
-                        "y"
+                        "y",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "p2": {
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "line"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "triangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "rectangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
                           },
-                          "y": {
-                            "type": "number"
-                          }
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
                         },
-                        "required": [
-                          "x",
-                          "y"
-                        ],
-                        "additionalProperties": false
-                      }
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polyline"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "triangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p4": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "rectangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
                       "type": "object",
                       "properties": {
                         "points": {
@@ -290,100 +260,144 @@
                             ],
                             "additionalProperties": false
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polyline"
+                          ]
                         }
                       },
                       "required": [
-                        "points"
+                        "points",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polygon"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "centroid": {
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
+                        "outer": {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "points"
+                          ],
+                          "additionalProperties": false
                         },
-                        "y": {
-                          "type": "number"
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polygon"
+                          ]
                         }
                       },
                       "required": [
-                        "x",
-                        "y"
+                        "outer",
+                        "inner",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "radius": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "circle"
-                      ]
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "circle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "centroid",
-                    "radius",
-                    "type"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
-              ]
-            }
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -394,37 +408,14 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "point"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
                         "x": {
@@ -432,232 +423,220 @@
                         },
                         "y": {
                           "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "point"
+                          ]
                         }
                       },
                       "required": [
                         "x",
-                        "y"
+                        "y",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "p2": {
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "line"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "triangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "rectangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
                           },
-                          "y": {
-                            "type": "number"
-                          }
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
                         },
-                        "required": [
-                          "x",
-                          "y"
-                        ],
-                        "additionalProperties": false
-                      }
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polyline"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "triangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p4": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "rectangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
                       "type": "object",
                       "properties": {
                         "points": {
@@ -678,361 +657,361 @@
                             ],
                             "additionalProperties": false
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polyline"
+                          ]
                         }
                       },
                       "required": [
-                        "points"
+                        "points",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
+                    {
+                      "type": "object",
+                      "properties": {
+                        "outer": {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
                                 },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ],
-                              "additionalProperties": false
+                                "required": [
+                                  "x",
+                                  "y"
+                                ],
+                                "additionalProperties": false
+                              }
                             }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polygon"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "centroid": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "radius": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "circle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "centroid",
-                    "radius",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            }
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "point"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "line"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "triangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "rectangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
                           },
-                          "y": {
-                            "type": "number"
+                          "required": [
+                            "points"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ],
+                            "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "x",
-                          "y"
-                        ],
-                        "additionalProperties": false
-                      }
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polygon"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "outer",
+                        "inner",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polyline"
-                      ]
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "circle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "points",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
+                  ]
+                }
+              },
+              "second": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "point"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "triangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p4": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "rectangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
                       "type": "object",
                       "properties": {
                         "points": {
@@ -1053,102 +1032,146 @@
                             ],
                             "additionalProperties": false
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polyline"
+                          ]
                         }
                       },
                       "required": [
-                        "points"
+                        "points",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polygon"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "centroid": {
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
+                        "outer": {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "points"
+                          ],
+                          "additionalProperties": false
                         },
-                        "y": {
-                          "type": "number"
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polygon"
+                          ]
                         }
                       },
                       "required": [
-                        "x",
-                        "y"
+                        "outer",
+                        "inner",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "radius": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "circle"
-                      ]
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "circle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "centroid",
-                    "radius",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
+                  ]
+                },
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -1534,37 +1557,14 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "point"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
                       "type": "object",
                       "properties": {
                         "x": {
@@ -1572,232 +1572,220 @@
                         },
                         "y": {
                           "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "point"
+                          ]
                         }
                       },
                       "required": [
                         "x",
-                        "y"
+                        "y",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "p2": {
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "line"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "triangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "rectangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
                           },
-                          "y": {
-                            "type": "number"
-                          }
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
                         },
-                        "required": [
-                          "x",
-                          "y"
-                        ],
-                        "additionalProperties": false
-                      }
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polyline"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "points",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "triangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p4": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "rectangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
                       "type": "object",
                       "properties": {
                         "points": {
@@ -1818,362 +1806,362 @@
                             ],
                             "additionalProperties": false
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polyline"
+                          ]
                         }
                       },
                       "required": [
-                        "points"
+                        "points",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
+                    {
+                      "type": "object",
+                      "properties": {
+                        "outer": {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
                                 },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ],
-                              "additionalProperties": false
+                                "required": [
+                                  "x",
+                                  "y"
+                                ],
+                                "additionalProperties": false
+                              }
                             }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polygon"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "centroid": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "radius": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "circle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "centroid",
-                    "radius",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "nullable": true
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "point"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "line"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "triangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "rectangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
                           },
-                          "y": {
-                            "type": "number"
+                          "required": [
+                            "points"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ],
+                            "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "x",
-                          "y"
-                        ],
-                        "additionalProperties": false
-                      }
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polygon"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "outer",
+                        "inner",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polyline"
-                      ]
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "circle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "points",
-                    "type"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
+                "nullable": true
+              },
+              "second": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "point"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "triangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p4": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "rectangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
                       "type": "object",
                       "properties": {
                         "points": {
@@ -2194,362 +2182,362 @@
                             ],
                             "additionalProperties": false
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polyline"
+                          ]
                         }
                       },
                       "required": [
-                        "points"
+                        "points",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
+                    {
+                      "type": "object",
+                      "properties": {
+                        "outer": {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
                                 },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ],
-                              "additionalProperties": false
+                                "required": [
+                                  "x",
+                                  "y"
+                                ],
+                                "additionalProperties": false
+                              }
                             }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polygon"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "centroid": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "radius": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "circle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "centroid",
-                    "radius",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "nullable": true
-          },
-          "third": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "x": {
-                      "type": "number"
-                    },
-                    "y": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "point"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "x",
-                    "y",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "line"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "triangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "p1": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p2": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p3": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "p4": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "rectangle"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "p1",
-                    "p2",
-                    "p3",
-                    "p4",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "points": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
                           },
-                          "y": {
-                            "type": "number"
+                          "required": [
+                            "points"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ],
+                            "additionalProperties": false
                           }
                         },
-                        "required": [
-                          "x",
-                          "y"
-                        ],
-                        "additionalProperties": false
-                      }
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polygon"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "outer",
+                        "inner",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polyline"
-                      ]
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "circle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "points",
-                    "type"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "outer": {
+                "nullable": true
+              },
+              "third": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "point"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "line"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "triangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p2": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p3": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "p4": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "rectangle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
                       "type": "object",
                       "properties": {
                         "points": {
@@ -2570,102 +2558,146 @@
                             ],
                             "additionalProperties": false
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polyline"
+                          ]
                         }
                       },
                       "required": [
-                        "points"
+                        "points",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "inner": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "points": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ],
-                              "additionalProperties": false
-                            }
-                          }
-                        },
-                        "required": [
-                          "points"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "polygon"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "outer",
-                    "inner",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "centroid": {
+                    {
                       "type": "object",
                       "properties": {
-                        "x": {
-                          "type": "number"
+                        "outer": {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "points"
+                          ],
+                          "additionalProperties": false
                         },
-                        "y": {
-                          "type": "number"
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "polygon"
+                          ]
                         }
                       },
                       "required": [
-                        "x",
-                        "y"
+                        "outer",
+                        "inner",
+                        "type"
                       ],
                       "additionalProperties": false
                     },
-                    "radius": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "circle"
-                      ]
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "circle"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "centroid",
-                    "radius",
-                    "type"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
+                  ]
+                },
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false
       },
@@ -3047,10 +3079,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

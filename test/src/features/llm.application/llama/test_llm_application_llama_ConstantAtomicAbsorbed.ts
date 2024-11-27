@@ -10,14 +10,14 @@ export const test_llm_application_llama_ConstantAtomicAbsorbed =
   })(typia.llm.application<ConstantAtomicAbsorbedApplication, "llama">());
 
 interface ConstantAtomicAbsorbedApplication {
-  insert(first: ConstantAtomicAbsorbed): Promise<void>;
-  reduce(
-    first: ConstantAtomicAbsorbed,
-    second: ConstantAtomicAbsorbed | null,
-  ): Promise<ConstantAtomicAbsorbed>;
-  coalesce(
-    first: ConstantAtomicAbsorbed | null,
-    second: ConstantAtomicAbsorbed | null,
-    third?: ConstantAtomicAbsorbed | null,
-  ): Promise<ConstantAtomicAbsorbed | null>;
+  insert(p: { first: ConstantAtomicAbsorbed }): Promise<void>;
+  reduce(p: {
+    first: ConstantAtomicAbsorbed;
+    second: ConstantAtomicAbsorbed | null;
+  }): Promise<ConstantAtomicAbsorbed>;
+  coalesce(p: {
+    first: ConstantAtomicAbsorbed | null;
+    second: ConstantAtomicAbsorbed | null;
+    third?: ConstantAtomicAbsorbed | null;
+  }): Promise<ConstantAtomicAbsorbed | null>;
 }

@@ -55,9 +55,15 @@ export namespace LlmParametersProgrammer {
         else if (metadata.objects.length !== 1 || metadata.size() > 1)
           output.push("LLM parameters must be a single object type.");
         else {
+          if (
+            metadata.objects[0]!.type.properties.some(
+              (p) => p.key.isSoleLiteral() === false,
+            )
+          )
+            output.push("LLM parameters must not have dynamic keys.");
           if (metadata.nullable)
             output.push("LLM parameters must be a non-nullable object type.");
-          else if (metadata.isRequired() === false)
+          if (metadata.isRequired() === false)
             output.push("LLM parameters must be a non-undefined object type.");
         }
       }

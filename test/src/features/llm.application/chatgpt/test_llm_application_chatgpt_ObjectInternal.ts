@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ObjectInternal =
   })(typia.llm.application<ObjectInternalApplication, "chatgpt">());
 
 interface ObjectInternalApplication {
-  insert(first: ObjectInternal): Promise<void>;
-  reduce(
-    first: ObjectInternal,
-    second: ObjectInternal | null,
-  ): Promise<ObjectInternal>;
-  coalesce(
-    first: ObjectInternal | null,
-    second: ObjectInternal | null,
-    third?: ObjectInternal | null,
-  ): Promise<ObjectInternal | null>;
+  insert(p: { first: ObjectInternal }): Promise<void>;
+  reduce(p: {
+    first: ObjectInternal;
+    second: ObjectInternal | null;
+  }): Promise<ObjectInternal>;
+  coalesce(p: {
+    first: ObjectInternal | null;
+    second: ObjectInternal | null;
+    third?: ObjectInternal | null;
+  }): Promise<ObjectInternal | null>;
 }

@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ToJsonAtomicUnion =
   })(typia.llm.application<ToJsonAtomicUnionApplication, "chatgpt">());
 
 interface ToJsonAtomicUnionApplication {
-  insert(first: ToJsonAtomicUnion): Promise<void>;
-  reduce(
-    first: ToJsonAtomicUnion,
-    second: ToJsonAtomicUnion | null,
-  ): Promise<ToJsonAtomicUnion>;
-  coalesce(
-    first: ToJsonAtomicUnion | null,
-    second: ToJsonAtomicUnion | null,
-    third?: ToJsonAtomicUnion | null,
-  ): Promise<ToJsonAtomicUnion | null>;
+  insert(p: { first: ToJsonAtomicUnion }): Promise<void>;
+  reduce(p: {
+    first: ToJsonAtomicUnion;
+    second: ToJsonAtomicUnion | null;
+  }): Promise<ToJsonAtomicUnion>;
+  coalesce(p: {
+    first: ToJsonAtomicUnion | null;
+    second: ToJsonAtomicUnion | null;
+    third?: ToJsonAtomicUnion | null;
+  }): Promise<ToJsonAtomicUnion | null>;
 }

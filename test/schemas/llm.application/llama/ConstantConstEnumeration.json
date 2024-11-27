@@ -1,75 +1,19 @@
 {
   "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -91,12 +35,90 @@
                   ]
                 }
               }
-            ]
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": 0
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "Three"
+                    },
+                    {
+                      "const": "Four"
+                    }
+                  ]
+                }
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "const": 0
+                        },
+                        {
+                          "const": 1
+                        },
+                        {
+                          "const": 2
+                        },
+                        {
+                          "const": "Three"
+                        },
+                        {
+                          "const": "Four"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -130,98 +152,107 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "const": 0
+                        },
+                        {
+                          "const": 1
+                        },
+                        {
+                          "const": 2
+                        },
+                        {
+                          "const": "Three"
+                        },
+                        {
+                          "const": "Four"
+                        }
+                      ]
                     }
-                  ]
-                }
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+                  }
+                ]
               },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "const": 0
+                        },
+                        {
+                          "const": 1
+                        },
+                        {
+                          "const": 2
+                        },
+                        {
+                          "const": "Three"
+                        },
+                        {
+                          "const": "Four"
+                        }
+                      ]
                     }
-                  ]
-                }
-              }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
+                  }
+                ]
               },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "const": 0
+                        },
+                        {
+                          "const": 1
+                        },
+                        {
+                          "const": 2
+                        },
+                        {
+                          "const": "Three"
+                        },
+                        {
+                          "const": "Four"
+                        }
+                      ]
                     }
-                  ]
-                }
+                  }
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -257,9 +288,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

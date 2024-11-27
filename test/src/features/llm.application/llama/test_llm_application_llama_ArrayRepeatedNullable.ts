@@ -10,14 +10,14 @@ export const test_llm_application_llama_ArrayRepeatedNullable =
   })(typia.llm.application<ArrayRepeatedNullableApplication, "llama">());
 
 interface ArrayRepeatedNullableApplication {
-  insert(first: ArrayRepeatedNullable): Promise<void>;
-  reduce(
-    first: ArrayRepeatedNullable,
-    second: ArrayRepeatedNullable | null,
-  ): Promise<ArrayRepeatedNullable>;
-  coalesce(
-    first: ArrayRepeatedNullable | null,
-    second: ArrayRepeatedNullable | null,
-    third?: ArrayRepeatedNullable | null,
-  ): Promise<ArrayRepeatedNullable | null>;
+  insert(p: { first: ArrayRepeatedNullable }): Promise<void>;
+  reduce(p: {
+    first: ArrayRepeatedNullable;
+    second: ArrayRepeatedNullable | null;
+  }): Promise<ArrayRepeatedNullable>;
+  coalesce(p: {
+    first: ArrayRepeatedNullable | null;
+    second: ArrayRepeatedNullable | null;
+    third?: ArrayRepeatedNullable | null;
+  }): Promise<ArrayRepeatedNullable | null>;
 }

@@ -11,14 +11,14 @@ export const test_llm_application_3_1_ArrayHierarchical = _test_llm_application(
 )(typia.llm.application<ArrayHierarchicalApplication, "3.1">());
 
 interface ArrayHierarchicalApplication {
-  insert(first: ArrayHierarchical): Promise<void>;
-  reduce(
-    first: ArrayHierarchical,
-    second: ArrayHierarchical | null,
-  ): Promise<ArrayHierarchical>;
-  coalesce(
-    first: ArrayHierarchical | null,
-    second: ArrayHierarchical | null,
-    third?: ArrayHierarchical | null,
-  ): Promise<ArrayHierarchical | null>;
+  insert(p: { first: ArrayHierarchical }): Promise<void>;
+  reduce(p: {
+    first: ArrayHierarchical;
+    second: ArrayHierarchical | null;
+  }): Promise<ArrayHierarchical>;
+  coalesce(p: {
+    first: ArrayHierarchical | null;
+    second: ArrayHierarchical | null;
+    third?: ArrayHierarchical | null;
+  }): Promise<ArrayHierarchical | null>;
 }

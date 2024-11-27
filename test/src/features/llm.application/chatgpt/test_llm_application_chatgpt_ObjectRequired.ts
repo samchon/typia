@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ObjectRequired =
   })(typia.llm.application<ObjectRequiredApplication, "chatgpt">());
 
 interface ObjectRequiredApplication {
-  insert(first: ObjectRequired): Promise<void>;
-  reduce(
-    first: ObjectRequired,
-    second: ObjectRequired | null,
-  ): Promise<ObjectRequired>;
-  coalesce(
-    first: ObjectRequired | null,
-    second: ObjectRequired | null,
-    third?: ObjectRequired | null,
-  ): Promise<ObjectRequired | null>;
+  insert(p: { first: ObjectRequired }): Promise<void>;
+  reduce(p: {
+    first: ObjectRequired;
+    second: ObjectRequired | null;
+  }): Promise<ObjectRequired>;
+  coalesce(p: {
+    first: ObjectRequired | null;
+    second: ObjectRequired | null;
+    third?: ObjectRequired | null;
+  }): Promise<ObjectRequired | null>;
 }

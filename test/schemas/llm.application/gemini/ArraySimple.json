@@ -1,55 +1,67 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
                 }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
+              }
+            },
+            "required": [
+              "first"
+            ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -59,93 +71,101 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
                 }
               },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
+              "second": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -196,136 +216,144 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
                     },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            },
-            "nullable": true
-          },
-          "second": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
+                    "email": {
+                      "type": "string"
                     },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            },
-            "nullable": true
-          },
-          "third": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ]
                       }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "nullable": true
               },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
+              "second": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "nullable": true
+              },
+              "third": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "hobbies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "body",
+                          "rank"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email",
+                    "hobbies"
+                  ]
+                },
+                "nullable": true
+              }
             },
-            "nullable": true
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -372,9 +400,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }
